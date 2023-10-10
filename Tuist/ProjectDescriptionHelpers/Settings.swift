@@ -1,0 +1,5 @@
+import ProjectDescription
+
+extension SettingsDictionary {
+    
+}
