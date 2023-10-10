@@ -5,12 +5,8 @@ extension TargetDependency {
 }
 
 public extension TargetDependency.SPM {
-    static let Swinject = TargetDependency.package(product: "Swinject")
+    static let Swinject = TargetDependency.external(name: "Swinject")
 }
 
 public extension Package {
-    static let Swinject = Package.remote(
-        url: "https://github.com/Swinject/Swinject.git",
-        requirement: .upToNextMajor(from: "2.8.0")
-    )
 }
