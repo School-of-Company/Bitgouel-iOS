@@ -69,7 +69,7 @@ jobs:
       uses: sarisia/actions-status-discord@v1
       if: ${{ success() }}
       with:
-        title: ✅ Bitgouel-Server-CI 성공! ✅
+        title: ✅ Bitgouel-iOS-CI 성공! ✅
         webhook: ${{ secrets.BITGOUEL_DISCORD_WEBHOOK }}
         color: 00FF00
 
