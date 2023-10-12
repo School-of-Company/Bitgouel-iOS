@@ -64,3 +64,19 @@ jobs:
 
     - name: Test with tuist
       run: TUIST_CI=1 tuist test
+
+    - name: Bitgouel iOS CI Discord Notification
+      uses: sarisia/actions-status-discord@v1
+      if: ${{ success() }}
+      with:
+        title: ✅ Bitgouel-Server-CI 성공! ✅
+        webhook: ${{ secrets.BITGOUEL_DISCORD_WEBHOOK }}
+        color: 00FF00
+
+    - name: Bitgouel iOS CI Discord Notification
+      uses: sarisia/actions-status-discord@v1
+      if: ${{ failure() }}
+      with:
+        title: ❗️ Bitgouel-iOS-CI 실패! ❗️
+        webhook: ${{ secrets.BITGOUEL_DISCORD_WEBHOOK }}
+        color: FF0000
