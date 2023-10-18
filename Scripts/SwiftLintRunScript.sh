@@ -3,7 +3,7 @@ if test -d "/opt/homebrew/bin/"; then
 fi
 
 export PATH
-YML="$(dirname "$0")/.swiftlint.yml"
+YML="$(dirname "$0")/.swiftLint.yml"
 
 if which swiftlint > /dev/null; then
     swiftlint --config "${YML}"
