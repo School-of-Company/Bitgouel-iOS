@@ -35,7 +35,6 @@ extension Project {
                     deploymentTarget: deploymentTarget,
                     infoPlist: .default,
                     sources: ["Tests/**"],
-                    scripts: [.SwiftLintString, .SwiftFormatString],
                     dependencies: [
                         .target(name: name)
                     ]
