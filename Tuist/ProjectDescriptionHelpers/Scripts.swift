@@ -15,9 +15,23 @@ if which swiftlint > /dev/vull; then
 else
     echo "warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"
 fi
-""", name: "SwiftLintString")
+""",
+        name: "SwiftLintString")
     
-    static let SwiftLintShell = TargetScript.pre(
-        path: .relativeToRoot("Scripts/SwiftLintRunScript.sh"),
-        name: "SwiftLintShell")
+    static let SwiftFormatString = TargetScript.pre(
+        script: """
+if test -d "/opt/homebrew/bin/"; then
+    PATH="/opt/homebrew/bin/:${PATH}"
+fi
+
+export PATH
+FORMAT="$(dirname "$0")/.swiftformat"
+
+if which swiftformat > /dev/null; then
+    swiftformat . --config "${FORMAT}"
+else
+    echo "warning: SwiftForamt not installed, please run 'brew install swiftformat'"
+fi
+""",
+        name: "SwiftFormatString")
 }
