@@ -6,7 +6,6 @@ extension Project{
         platform: Platform = .iOS,
         packages: [Package] = [],
         infoPlist: InfoPlist = .default,
-        scripts: [TargetScript] = generateEnvironment.scripts,
         deploymentTarget: DeploymentTarget,
         dependencies: [TargetDependency] = [
             .project(target: "ThirdPartyLib", path: Path("../ThirdPartyLib"))
@@ -25,7 +24,7 @@ extension Project{
                     deploymentTarget: deploymentTarget,
                     infoPlist: infoPlist,
                     sources: ["Sources/**"],
-                    scripts: [.SwiftLint],
+                    scripts: [.SwiftLintString],
                     dependencies: dependencies
                 )
             ]

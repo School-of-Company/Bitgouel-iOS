@@ -1,9 +1,22 @@
 import ProjectDescription
 
 public extension TargetScript {
-    static let SwiftLint = TargetScript.pre(
-        path: Path.relativeToRoot("Scripts/SwiftLintRunScript.sh"),
-        name: "SwiftLint",
-        basedOnDependencyAnalysis: false
-    )
+    static let SwiftLintString = TargetScript.pre(
+        script: """
+if test -d "/opt/homebrew/bin/"; then
+    PATH="/opt/homebrew/bin/:${PATH}"
+fi
+
+export PATH
+
+if which swiftlint > /dev/vull; then
+    swiftlint
+else
+    echo "warning: SwiftLintnot installed, download from https://github.com/realm/SwiftLint"
+fi
+""", name: "SwiftLintString")
+    
+    static let SwiftLintShell = TargetScript.pre(
+        path: .relativeToRoot("Scripts/SwiftLintRunScript.sh"),
+        name: "SwiftLintShell")
 }
