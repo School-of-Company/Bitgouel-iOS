@@ -22,7 +22,7 @@ extension Project {
                     infoPlist: .file(path: Path("Support/Info.plist")),
                     sources: ["Sources/**"],
                     resources: ["Resources/**"],
-                    scripts: [.SwiftLintString],
+                    scripts: [.SwiftLintString, .SwiftFormatString],
                     dependencies: [
                         .project(target: "ThirdPartyLib", path: Path("../ThirdPartyLib")),
                     ] + dependencies
@@ -35,7 +35,7 @@ extension Project {
                     deploymentTarget: deploymentTarget,
                     infoPlist: .default,
                     sources: ["Tests/**"],
-                    scripts: [.SwiftLintString],
+                    scripts: [.SwiftLintString, .SwiftFormatString],
                     dependencies: [
                         .target(name: name)
                     ]
