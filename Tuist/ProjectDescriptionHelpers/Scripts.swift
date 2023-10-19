@@ -8,9 +8,10 @@ if test -d "/opt/homebrew/bin/"; then
 fi
 
 export PATH
+YML="${dirname "$0")/.swiftlint.yml"
 
 if which swiftlint > /dev/vull; then
-    swiftlint
+    swiftlint --config "${YML}"
 else
     echo "warning: SwiftLintnot installed, download from https://github.com/realm/SwiftLint"
 fi
