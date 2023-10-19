@@ -12,7 +12,7 @@ export PATH
 if which swiftlint > /dev/vull; then
     swiftlint
 else
-    echo "warning: SwiftLintnot installed, download from https://github.com/realm/SwiftLint"
+    echo "warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"
 fi
 """, name: "SwiftLintString")
     
