@@ -11,7 +11,6 @@ else
   brew install swiftlint
 fi
 
-
 if which swiftformat > /dev/null; then
   echo "✅ SwiftFormat was installed"
 else
