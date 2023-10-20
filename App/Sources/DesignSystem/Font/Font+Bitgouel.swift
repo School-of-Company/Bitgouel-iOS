@@ -2,6 +2,15 @@ import SwiftUI
 
 public extension View {
     func bitgouelFont(
+        _ style: Font.BitgouelFontSystem,
+        color: Color.BitgouelColorSystem
+    ) -> some View {
+        self
+            .font(.bitgouel(style))
+            .foregroundColor(.bitgouel(color))
+    }
+    
+    func bitgouelFont(
         _ style: Font.BitgouelFontSystem
     ) -> some View {
         self
