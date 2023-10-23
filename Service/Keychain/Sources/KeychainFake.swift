@@ -1,8 +1,17 @@
-//
-//  KeychainFake.swift
-//  Service
-//
-//  Created by 정윤서 on 2023/10/23.
-//
-
 import Foundation
+
+final class KeychainFake: Keychain {
+    var store: [String: String] = [:]
+
+    func save(type: KeychainType, value: String) {
+        store[type.rawValue] = value
+    }
+
+    func load(type: KeychainType) -> String {
+        store[type.rawValue] ?? ""
+    }
+
+    func delete(type: KeychainType) {
+        store[type.rawValue] = nil
+    }
+}
