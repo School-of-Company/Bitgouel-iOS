@@ -1,7 +1,7 @@
 import ProjectDescription
 
-extension Project{
-    public static func dynamicFramwork(
+public extension Project {
+    static func dynamicFramwork(
         name: String,
         platform: Platform = .iOS,
         packages: [Package] = [],
