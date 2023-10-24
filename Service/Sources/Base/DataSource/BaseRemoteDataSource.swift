@@ -10,8 +10,4 @@ open class BaseRemoteDataSource<API: BitgoeulAPI> {
     ) {
         self.provider = provider ?? MoyaProvider()
     }
-
-    public func request<T: Decodable>(_ api: API, dto: T.Type) -> Anypu<T, Error> {
-        requestPublisher
-    }
 }
