@@ -1,5 +1,3 @@
 import ProjectDescription
 
-extension SettingsDictionary {
-    
-}
+extension SettingsDictionary {}

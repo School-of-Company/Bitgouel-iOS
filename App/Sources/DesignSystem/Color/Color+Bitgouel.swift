@@ -7,7 +7,7 @@ public extension Color {
         case error(Error)
         case greyscale(Greyscale)
     }
-    
+
     static func bitgouel(_ style: BitgouelColorSystem) -> Color {
         switch style {
         case let .primary(colorable as BitgouelColorable),

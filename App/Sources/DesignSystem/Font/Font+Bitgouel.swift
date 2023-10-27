@@ -9,7 +9,7 @@ public extension View {
             .font(.bitgouel(style))
             .foregroundColor(.bitgouel(color))
     }
-    
+
     func bitgouelFont(
         _ style: Font.BitgouelFontSystem
     ) -> some View {
@@ -28,7 +28,7 @@ public extension Font {
         case text3
         case caption
     }
-    
+
     static func bitgouel(_ style: BitgouelFontSystem) -> Font {
         return style.font
     }
@@ -39,22 +39,22 @@ public extension Font.BitgouelFontSystem {
         switch self {
         case .title1:
             return Font(BitgouelFontFamily.Pretendard.semiBold.font(size: 30))
-            
+
         case .title2:
             return Font(BitgouelFontFamily.Pretendard.semiBold.font(size: 26))
-            
+
         case .title3:
             return Font(BitgouelFontFamily.Pretendard.semiBold.font(size: 20))
-            
+
         case .text1:
             return Font(BitgouelFontFamily.Pretendard.semiBold.font(size: 18))
-            
+
         case .text2:
             return Font(BitgouelFontFamily.Pretendard.regular.font(size: 18))
-            
+
         case .text3:
             return Font(BitgouelFontFamily.Pretendard.regular.font(size: 16))
-            
+
         case .caption:
             return Font(BitgouelFontFamily.Pretendard.regular.font(size: 14))
         }

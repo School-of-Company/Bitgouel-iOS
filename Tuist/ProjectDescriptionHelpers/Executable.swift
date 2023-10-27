@@ -1,7 +1,7 @@
 import ProjectDescription
 
-extension Project {
-    public static func executable(
+public extension Project {
+    static func executable(
         name: String,
         platform: Platform,
         product: Product = .app,
