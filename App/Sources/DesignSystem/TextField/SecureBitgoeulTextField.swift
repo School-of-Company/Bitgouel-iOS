@@ -1,10 +1,3 @@
-//
-//  SecureBitgoeulTextField.swift
-//  Bitgouel
-//
-//  Created by 이승화 on 10/25/23.
-//  Copyright © 2023 team.msg. All rights reserved.
-//
 
 import SwiftUI
 
@@ -67,7 +60,7 @@ public struct SecureBitgoeulTextField: View {
                 .background(isEnabled ? Color.white : Color.bitgouel(.greyscale(.g7)))
                 .disabled(isEnabled ? false : true)
                 
-                Button{
+                Button {
                     isSecure.toggle()
                 } label: {
                     isSecure ?
@@ -76,9 +69,9 @@ public struct SecureBitgoeulTextField: View {
                 }
             }
             .frame(height: 54)
-            .padding(.horizontal,20)
+            .padding(.horizontal, 20)
             .cornerRadius(8)
-            .overlay{
+            .overlay {
                 RoundedRectangle(cornerRadius: 8)
                     .strokeBorder(borderForegroundColor)
             }

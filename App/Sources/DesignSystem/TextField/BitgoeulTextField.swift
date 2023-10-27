@@ -1,10 +1,3 @@
-//
-//  BitgoeulTextField.swift
-//  Bitgouel
-//
-//  Created by 이승화 on 10/23/23.
-//  Copyright © 2023 team.msg. All rights reserved.
-//
 
 import SwiftUI
 
@@ -58,17 +51,17 @@ public struct BitgoeulTextField: View {
                     .bitgouelFont(.text3)
                     .foregroundColor(inputForegroundColor)
                     .background(isEnabled ? Color.white : Color.bitgouel(.greyscale(.g7)))
-                    .disabled(isEnabled ? false : true)
-                Button{
+                    .disabled(!isEnabled)
+                Button {
                     text = ""
                 } label: {
                     BitgouelAsset.Assets.cancel.swiftUIImage
                 }
             }
             .frame(height: 54)
-            .padding(.horizontal,20)
+            .padding(.horizontal, 20)
             .cornerRadius(8)
-            .overlay{
+            .overlay {
                 RoundedRectangle(cornerRadius: 8)
                     .strokeBorder(borderForegroundColor)
             }
