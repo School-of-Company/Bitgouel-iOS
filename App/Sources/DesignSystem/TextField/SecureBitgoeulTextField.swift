@@ -1,10 +1,3 @@
-//
-//  SecureBitgoeulTextField.swift
-//  Bitgouel
-//
-//  Created by 이승화 on 10/25/23.
-//  Copyright © 2023 team.msg. All rights reserved.
-//
 
 import SwiftUI
 
