@@ -61,7 +61,7 @@ public struct SecureBitgoeulTextField: View {
                 .background(isEnabled ? Color.white : Color.bitgouel(.greyscale(.g7)))
                 .disabled(isEnabled ? false : true)
                 
-                Button{
+                Button {
                     isSecure.toggle()
                 } label: {
                     isSecure ?
