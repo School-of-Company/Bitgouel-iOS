@@ -6,52 +6,52 @@ open class BaseRemoteDataSource<API: BitgoeulAPI> {
     private let provider: MoyaProvider<API>
     private let decoder = JSONDecoder()
     private let maxRetryCount = 2
-    
+
     public init(
         keychian: any Keychain,
         provider: MoyaProvider<API>? = nil
     ) {
         self.keychain = keychian
-        
-#if DEV || STAGE
+
+        #if DEV || STAGE
         self.provider = provider ?? MoyaProvider(plugins: [JwtPlugin(keychain: keychian), MoyaLoggingPlugin()])
-#else
+        #else
         self.provider = provider ?? MoyaProvider(plugins: [JwtPlugin(keychain: keychian)])
-#endif
+        #endif
     }
-    
+
     private func request<T: Decodable>(_ api: API, dto: T.Type) async throws -> T {
         let response = try await retryingRequest(api)
         return try decoder.decode(dto, from: response.data)
     }
-    
 }
 
 private extension BaseRemoteDataSource {
     @discardableResult
     func retryingRequest(_ api: API) async throws -> Response {
-        try await _Concurrency.Task.retrying(priority: _Concurrency.Task.currentPriority, maxRetryCount: maxRetryCount) {
-            do {
-                return try await self.provider.request(api: api)
-            } catch {
-                guard
-                    let moyaError = error as? MoyaError,
-                    let httpResponse = moyaError.response
-                else {
-                    throw error
+        try await _Concurrency.Task
+            .retrying(priority: _Concurrency.Task.currentPriority, maxRetryCount: maxRetryCount) {
+                do {
+                    return try await self.provider.request(api: api)
+                } catch {
+                    guard
+                        let moyaError = error as? MoyaError,
+                        let httpResponse = moyaError.response
+                    else {
+                        throw error
+                    }
+                    throw api.errorMap[httpResponse.statusCode] ?? error
                 }
-                throw api.errorMap[httpResponse.statusCode] ?? error
             }
-        }
-        .value
+            .value
     }
 }
 
 private extension MoyaProvider {
     func request(api: Target) async throws -> Response {
-        try await withCheckedThrowingContinuation({ continuation in
+        try await withCheckedThrowingContinuation { continuation in
             self.request(api, completion: continuation.resume(with:))
-        })
+        }
     }
 }
 
@@ -74,7 +74,7 @@ private extension _Concurrency.Task where Failure == Error {
                     continue
                 }
             }
-            
+
             try _Concurrency.Task<Never, Never>.checkCancellation()
             return try await operation()
         }
