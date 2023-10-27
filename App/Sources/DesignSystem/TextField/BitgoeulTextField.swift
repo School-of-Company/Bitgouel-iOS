@@ -52,7 +52,7 @@ public struct BitgoeulTextField: View {
                     .bitgouelFont(.text3)
                     .foregroundColor(inputForegroundColor)
                     .background(isEnabled ? Color.white : Color.bitgouel(.greyscale(.g7)))
-                    .disabled(isEnabled ? false : true)
+                    .disabled(!isEnabled)
                 Button{
                     text = ""
                 } label: {
