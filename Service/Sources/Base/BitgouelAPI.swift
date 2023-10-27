@@ -1,14 +1,14 @@
 import Foundation
 import Moya
 
-public protocol BitgoeulAPI: TargetType, JwtAuthorizable {
+public protocol BitgouelAPI: TargetType, JwtAuthorizable {
     associatedtype ErrorType: Error
-    var domain: BitgoeulDomain { get }
+    var domain: BitgouelDomain { get }
     var urlPath: String { get }
     var errorMap: [Int: ErrorType] { get }
 }
 
-public extension BitgoeulAPI {
+public extension BitgouelAPI {
     var baseURL: URL {
         URL(
             string: Bundle.main.object(forInfoDictionaryKey: "BASE_URL") as? String ?? ""
@@ -28,7 +28,7 @@ public extension BitgoeulAPI {
     }
 }
 
-public enum BitgoeulDomain: String {
+public enum BitgouelDomain: String {
     case auth
     case user
     case activity
@@ -40,7 +40,7 @@ public enum BitgoeulDomain: String {
     case admin
 }
 
-extension BitgoeulDomain {
+extension BitgouelDomain {
     var asURLString: String {
         "/\(self.rawValue)"
     }
