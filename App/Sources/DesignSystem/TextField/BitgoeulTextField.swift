@@ -12,7 +12,7 @@ public struct BitgoeulTextField: View {
     var placeholder: String
     var helpMessage: String
     var isError: Bool
-    var isEmpty: Bool
+    var isEmpty: Bool { text.isEmpty }
     var onSubmit: () -> Void
     @Binding var text: String
     @FocusState var isFocused: Bool
@@ -47,7 +47,6 @@ public struct BitgoeulTextField: View {
         self.helpMessage = helpMessage
         self.isError = isError
         self.onSubmit = onSubmit
-        self.isEmpty = isEmpty
     }
     
     public var body: some View {

@@ -12,7 +12,7 @@ public struct SecureBitgoeulTextField: View {
     var placeholder: String
     var helpMessage: String
     var isError: Bool
-    var isEmpty: Bool
+    var isEmpty: Bool { text.isEmpty }
     @State var isSecure = true
     var onSubmit: () -> Void
     @Binding var text: String
@@ -48,7 +48,6 @@ public struct SecureBitgoeulTextField: View {
         self.helpMessage = helpMessage
         self.isError = isError
         self.onSubmit = onSubmit
-        self.isEmpty = isEmpty
     }
     
     public var body: some View {
