@@ -33,19 +33,19 @@ private extension BaseRemoteDataSource {
             priority: _Concurrency.Task.currentPriority,
             maxRetryCount: maxRetryCount
         ) {
-                do {
-                    return try await self.provider.request(api: api)
-                } catch {
-                    guard
-                        let moyaError = error as? MoyaError,
-                        let httpResponse = moyaError.response
-                    else {
-                        throw error
-                    }
-                    throw api.errorMap[httpResponse.statusCode] ?? error
+            do {
+                return try await self.provider.request(api: api)
+            } catch {
+                guard
+                    let moyaError = error as? MoyaError,
+                    let httpResponse = moyaError.response
+                else {
+                    throw error
                 }
+                throw api.errorMap[httpResponse.statusCode] ?? error
             }
-            .value
+        }
+        .value
     }
 }
 
