@@ -29,8 +29,10 @@ open class BaseRemoteDataSource<API: BitgoeulAPI> {
 private extension BaseRemoteDataSource {
     @discardableResult
     func retryingRequest(_ api: API) async throws -> Response {
-        try await _Concurrency.Task
-            .retrying(priority: _Concurrency.Task.currentPriority, maxRetryCount: maxRetryCount) {
+        try await _Concurrency.Task.retrying(
+            priority: _Concurrency.Task.currentPriority,
+            maxRetryCount: maxRetryCount
+        ) {
                 do {
                     return try await self.provider.request(api: api)
                 } catch {
