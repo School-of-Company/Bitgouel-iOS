@@ -11,9 +11,9 @@ public extension Color {
     static func bitgouel(_ style: BitgouelColorSystem) -> Color {
         switch style {
         case let .primary(colorable as BitgouelColorable),
-             let .sub(colorable as BitgouelColorable),
-             let .error(colorable as BitgouelColorable),
-             let .greyscale(colorable as BitgouelColorable):
+            let .sub(colorable as BitgouelColorable),
+            let .error(colorable as BitgouelColorable),
+            let .greyscale(colorable as BitgouelColorable):
             return colorable.color
         }
     }
