@@ -60,7 +60,7 @@ public struct BitgoeulTextField: View {
                 }
             }
             .frame(height: 54)
-            .padding(.horizontal,20)
+            .padding(.horizontal, 20)
             .cornerRadius(8)
             .overlay{
                 RoundedRectangle(cornerRadius: 8)
