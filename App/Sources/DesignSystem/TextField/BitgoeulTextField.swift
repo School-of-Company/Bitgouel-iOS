@@ -53,7 +53,7 @@ public struct BitgoeulTextField: View {
                     .foregroundColor(inputForegroundColor)
                     .background(isEnabled ? Color.white : Color.bitgouel(.greyscale(.g7)))
                     .disabled(!isEnabled)
-                Button{
+                Button {
                     text = ""
                 } label: {
                     BitgouelAsset.Assets.cancel.swiftUIImage
