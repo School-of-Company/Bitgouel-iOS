@@ -14,22 +14,22 @@ public struct BitgoeulButton: View {
     }
     
     private var inputForegroundColor: Color {
-        return if isEnabled == false {
-            Color.bitgouel(.greyscale(.g4))
+        if isEnabled == false {
+            return Color.bitgouel(.greyscale(.g4))
         } else if buttonState == true {
-            Color.bitgouel(.greyscale(.g7))
+            return Color.bitgouel(.greyscale(.g7))
         } else {
-            Color.white
+            return Color.white
         }
     }
     
     private var inputBackgroundColor: Color {
-        return if isEnabled == false {
-            Color.bitgouel(.greyscale(.g6))
+        if isEnabled == false {
+            return Color.bitgouel(.greyscale(.g6))
         } else if buttonState == true {
-            Color.bitgouel(.primary(.p4))
+            return Color.bitgouel(.primary(.p4))
         } else {
-            Color.bitgouel(.primary(.p5))
+            return Color.bitgouel(.primary(.p5))
         }
     }
     
