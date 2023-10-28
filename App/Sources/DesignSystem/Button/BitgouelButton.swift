@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct BitgoeulButton: View {
+public struct BitgouelButton: View {
     @State public var buttonState: Bool
     @Environment(\.isEnabled) var isEnabled
     var text: String
