@@ -13,19 +13,23 @@ public struct SecureBitgoeulTextField: View {
     @Environment(\.isEnabled) var isEnabled
 
     private var borderForegroundColor: Color {
-        isFocused ?
-            Color.bitgouel(.primary(.p5)):
-        isError ?
-            Color.bitgouel(.error(.e5)):
+        return if isFocused {
+            Color.bitgouel(.primary(.p5))
+        } else if isError {
+            Color.bitgouel(.error(.e5))
+        } else {
             Color.bitgouel(.greyscale(.g7))
         }
+    }
     
     private var inputForegroundColor: Color {
-        isError ?
-            Color.bitgouel(.error(.e5)):
-        isFocused || isEmpty ?
-            Color.black:
+        return if isError {
+            Color.bitgouel(.error(.e5))
+        } else if isFocused || isEmpty {
+            Color.black
+        } else {
             Color.bitgouel(.greyscale(.g7))
+        }
     }
     
     public init(
