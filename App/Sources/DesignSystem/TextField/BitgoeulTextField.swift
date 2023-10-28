@@ -12,22 +12,22 @@ public struct BitgouelTextField: View {
     @Environment(\.isEnabled) var isEnabled
     
     private var borderForegroundColor: Color {
-        return if isFocused {
-            Color.bitgouel(.primary(.p5))
+        if isFocused {
+            return Color.bitgouel(.primary(.p5))
         } else if isError {
-            Color.bitgouel(.error(.e5))
+            return Color.bitgouel(.error(.e5))
         } else {
-            Color.bitgouel(.greyscale(.g7))
+            return Color.bitgouel(.greyscale(.g7))
         }
     }
     
     private var inputForegroundColor: Color {
-        return if isError {
-            Color.bitgouel(.error(.e5))
+        if isError {
+            return Color.bitgouel(.error(.e5))
         } else if isFocused || isEmpty {
-            Color.black
+            return Color.black
         } else {
-            Color.bitgouel(.greyscale(.g7))
+            return Color.bitgouel(.greyscale(.g7))
         }
     }
     
