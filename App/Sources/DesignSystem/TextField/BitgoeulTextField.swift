@@ -1,7 +1,7 @@
 
 import SwiftUI
 
-public struct BitgoeulTextField: View {
+public struct BitgouelTextField: View {
     var placeholder: String
     var helpMessage: String
     var isError: Bool
