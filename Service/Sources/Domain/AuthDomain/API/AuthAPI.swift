@@ -64,68 +64,23 @@ extension AuthAPI: BitgouelAPI {
     public var task: Moya.Task {
         switch self {
         case let .signin(req):
-            return .requestParameters(parameters: [
-                "email": req.email.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "",
-                "password": req.password
-            ], encoding: URLEncoding.httpBody)
+            return .requestJSONEncodable(req)
 
         case let .studentSignup(req):
-            return .requestParameters(parameters: [
-                "email": req.email,
-                "name": req.name,
-                "phoneNumber": req.phoneNumber,
-                "password": req.password,
-                "highSchool": req.highSchool,
-                "clubName": req.clubName,
-                "grade": req.grade,
-                "classRoom": req.classRoom,
-                "number": req.number,
-                "admissionNumber": req.admissionNumber
-            ], encoding: URLEncoding.httpBody)
+            return .requestJSONEncodable(req)
 
         case let .teacherSignup(req):
-            return .requestParameters(parameters: [
-                "email": req.email,
-                "name": req.name,
-                "phoneNumber": req.phoneNumber,
-                "password": req.password,
-                "highSchool": req.highSchool,
-                "clubName": req.clubName
-            ], encoding: URLEncoding.httpBody)
-
+            return .requestJSONEncodable(req)
+            
         case let .professorSignup(req):
-            return .requestParameters(parameters: [
-                "email": req.email,
-                "name": req.name,
-                "phoneNumber": req.phoneNumber,
-                "password": req.password,
-                "highSchool": req.highSchool,
-                "clubName": req.clubName,
-                "university": req.university
-            ], encoding: URLEncoding.httpBody)
+            return .requestJSONEncodable(req)
 
         case let .governmentSignup(req):
-            return .requestParameters(parameters: [
-                "email": req.email,
-                "name": req.name,
-                "phoneNumber": req.phoneNumber,
-                "password": req.password,
-                "highSchool": req.highSchool,
-                "clubName": req.clubName,
-                "governmentName": req.governmentName
-            ], encoding: URLEncoding.httpBody)
+            return .requestJSONEncodable(req)
 
         case let .companyInstructorSignup(req):
-            return .requestParameters(parameters: [
-                "email": req.email,
-                "name": req.name,
-                "phoneNumber": req.phoneNumber,
-                "password": req.password,
-                "highSchool": req.highSchool,
-                "clubName": req.clubName,
-                "company": req.company
-            ], encoding: URLEncoding.httpBody)
-
+            return .requestJSONEncodable(req)
+            
         default:
             return .requestPlain
         }

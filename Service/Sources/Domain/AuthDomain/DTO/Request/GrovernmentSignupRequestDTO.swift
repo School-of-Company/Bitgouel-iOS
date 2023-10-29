@@ -1,6 +1,6 @@
 import Foundation
 
-public struct GrovernmentSignupRequestDTO {
+public struct GrovernmentSignupRequestDTO: Encodable {
     public let email: String
     public let name: String
     public let phoneNumber: String

@@ -1,6 +1,6 @@
 import Foundation
 
-public enum HighSchoolType: String, Decodable {
+public enum HighSchoolType: String, Decodable, Encodable {
     case gwangjuTechnicalHighSchool = "GWANGJU_TECHNICAL_HIGH_SCHOOL"
     case kumpaTechnicalHighSchool = "KUMPA_TECHNICAL_HIGH_SCHOOL"
     case jeonnamTechnicalHighSchool = "JEONNAM_TECHNICAL_HIGH_SCHOOL"
