@@ -7,8 +7,15 @@ public struct TeacherSignupRequestDTO {
     public let password: String
     public let highSchool: HighSchoolType
     public let clubName: String
-    
-    public init(email: String, name: String, phoneNumber: String, password: String, highSchool: HighSchoolType, clubName: String) {
+
+    public init(
+        email: String,
+        name: String,
+        phoneNumber: String,
+        password: String,
+        highSchool: HighSchoolType,
+        clubName: String
+    ) {
         self.email = email
         self.name = name
         self.phoneNumber = phoneNumber

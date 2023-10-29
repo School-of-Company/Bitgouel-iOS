@@ -1,13 +1,16 @@
 import Foundation
 
-public struct CompanyInstructorSignupRequestDTO {
+public struct StudentSignupRequestDTO {
     public let email: String
     public let name: String
     public let phoneNumber: String
     public let password: String
     public let highSchool: HighSchoolType
     public let clubName: String
-    public let company: String
+    public let grade: Int
+    public let classRoom: Int
+    public let number: Int
+    public let admissionNumber: Int
 
     public init(
         email: String,
@@ -16,7 +19,10 @@ public struct CompanyInstructorSignupRequestDTO {
         password: String,
         highSchool: HighSchoolType,
         clubName: String,
-        company: String
+        grade: Int,
+        classRoom: Int,
+        number: Int,
+        admissionNumber: Int
     ) {
         self.email = email
         self.name = name
@@ -24,6 +30,9 @@ public struct CompanyInstructorSignupRequestDTO {
         self.password = password
         self.highSchool = highSchool
         self.clubName = clubName
-        self.company = company
+        self.grade = grade
+        self.classRoom = classRoom
+        self.number = number
+        self.admissionNumber = admissionNumber
     }
 }

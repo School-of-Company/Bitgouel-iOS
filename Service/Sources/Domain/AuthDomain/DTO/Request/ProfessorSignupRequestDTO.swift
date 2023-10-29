@@ -8,8 +8,16 @@ public struct ProfessorSignupRequestDTO {
     public let highSchool: HighSchoolType
     public let clubName: String
     public let university: String
-    
-    public init(email: String, name: String, phoneNumber: String, password: String, highSchool: HighSchoolType, clubName: String, university: String) {
+
+    public init(
+        email: String,
+        name: String,
+        phoneNumber: String,
+        password: String,
+        highSchool: HighSchoolType,
+        clubName: String,
+        university: String
+    ) {
         self.email = email
         self.name = name
         self.phoneNumber = phoneNumber

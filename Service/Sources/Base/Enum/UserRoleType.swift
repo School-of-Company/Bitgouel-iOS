@@ -7,5 +7,5 @@ public enum UserRoleType: String, Decodable {
     case bbozzack = "ROLE_BBOZZAK"
     case professor = "ROLE_PROFESSOR"
     case companyInstructor = "ROLE_COMPANY_INSTRUCTOR"
-    case groverment = "ROLE_GOVERNMENT"
+    case grovernment = "ROLE_GOVERNMENT"
 }
