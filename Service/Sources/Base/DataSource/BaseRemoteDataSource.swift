@@ -20,9 +20,13 @@ open class BaseRemoteDataSource<API: BitgouelAPI> {
         #endif
     }
 
-    private func request<T: Decodable>(_ api: API, dto: T.Type) async throws -> T {
+    public func request<T: Decodable>(_ api: API, dto: T.Type) async throws -> T {
         let response = try await retryingRequest(api)
         return try decoder.decode(dto, from: response.data)
+    }
+
+    public func request(_ api: API) async throws {
+        try await retryingRequest(api)
     }
 }
 
