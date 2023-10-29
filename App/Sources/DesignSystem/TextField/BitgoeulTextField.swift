@@ -10,7 +10,7 @@ public struct BitgouelTextField: View {
     @Binding var text: String
     @FocusState var isFocused: Bool
     @Environment(\.isEnabled) var isEnabled
-    
+
     private var borderForegroundColor: Color {
         if isFocused {
             return Color.bitgouel(.primary(.p5))
@@ -20,7 +20,7 @@ public struct BitgouelTextField: View {
             return Color.bitgouel(.greyscale(.g7))
         }
     }
-    
+
     private var inputForegroundColor: Color {
         if isError {
             return Color.bitgouel(.error(.e5))
@@ -30,7 +30,7 @@ public struct BitgouelTextField: View {
             return Color.bitgouel(.greyscale(.g7))
         }
     }
-    
+
     public init(
         _ placeholder: String = "",
         text: Binding<String>,
@@ -45,7 +45,7 @@ public struct BitgouelTextField: View {
         self.isError = isError
         self.onSubmit = onSubmit
     }
-    
+
     public var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
@@ -72,7 +72,7 @@ public struct BitgouelTextField: View {
             .onTapGesture {
                 isFocused = true
             }
-            
+
             Text(helpMessage)
                 .bitgouelFont(.text3, color: isError ? .error(.e5) : .greyscale(.g4))
         }

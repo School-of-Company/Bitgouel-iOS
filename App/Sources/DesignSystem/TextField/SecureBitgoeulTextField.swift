@@ -21,7 +21,7 @@ public struct SecureBitgouelTextField: View {
             return Color.bitgouel(.greyscale(.g7))
         }
     }
-    
+
     private var inputForegroundColor: Color {
         if isError {
             return Color.bitgouel(.error(.e5))
@@ -31,7 +31,7 @@ public struct SecureBitgouelTextField: View {
             return Color.bitgouel(.greyscale(.g7))
         }
     }
-    
+
     public init(
         _ placeholder: String = "",
         text: Binding<String>,
@@ -46,7 +46,7 @@ public struct SecureBitgouelTextField: View {
         self.isError = isError
         self.onSubmit = onSubmit
     }
-    
+
     public var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
@@ -63,7 +63,7 @@ public struct SecureBitgouelTextField: View {
                 .foregroundColor(inputForegroundColor)
                 .background(isEnabled ? Color.white : Color.bitgouel(.greyscale(.g7)))
                 .disabled(isEnabled ? false : true)
-                
+
                 Button {
                     isSecure.toggle()
                 } label: {
@@ -82,7 +82,7 @@ public struct SecureBitgouelTextField: View {
             .onTapGesture {
                 isFocused = true
             }
-            
+
             Text(helpMessage)
                 .bitgouelFont(.text3, color: isError ? .error(.e5) : .greyscale(.g4))
         }
