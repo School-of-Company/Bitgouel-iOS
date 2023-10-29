@@ -4,10 +4,10 @@ public enum RefreshAPI {
     case reissueToken
 }
 
-extension RefreshAPI: BitgoeulAPI {
+extension RefreshAPI: BitgouelAPI {
     public typealias ErrorType = RefreshError
 
-    public var domain: BitgoeulDomain {
+    public var domain: BitgouelDomain {
         .auth
     }
 

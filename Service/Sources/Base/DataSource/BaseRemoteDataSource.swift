@@ -1,7 +1,7 @@
 import Foundation
 import Moya
 
-open class BaseRemoteDataSource<API: BitgoeulAPI> {
+open class BaseRemoteDataSource<API: BitgouelAPI> {
     private let keychain: any Keychain
     private let provider: MoyaProvider<API>
     private let decoder = JSONDecoder()
