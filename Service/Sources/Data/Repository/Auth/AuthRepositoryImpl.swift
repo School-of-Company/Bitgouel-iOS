@@ -8,6 +8,10 @@ struct AuthRepositoryImpl: AuthRepository {
     ) {
         self.remoteAuthDataSource = remoteAuthDataSource
     }
+    
+    public func reissueToken() async throws {
+        try await remoteAuthDataSource.reissueToken()
+    }
 
     public func studentSignup(req: StudentSignupRequestDTO) async throws {
         try await remoteAuthDataSource.studentSignup(req: req)
