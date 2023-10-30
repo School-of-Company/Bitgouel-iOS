@@ -59,7 +59,7 @@ public struct BitgouelTextField: View {
                 Button {
                     text = ""
                 } label: {
-                    BitgouelAsset.Assets.cancel.swiftUIImage
+                    BitgouelAsset.Icons.cancel.swiftUIImage
                 }
             }
             .frame(height: 54)
