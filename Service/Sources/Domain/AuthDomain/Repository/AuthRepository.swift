@@ -1,5 +1,5 @@
 import Foundation
 
-protocol AuthRepository {
-    
+public protocol AuthRepository {
+    func studentSignup(req: StudentSignupRequestDTO) async throws
 }

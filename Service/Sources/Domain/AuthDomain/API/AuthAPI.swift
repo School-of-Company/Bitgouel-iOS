@@ -71,7 +71,7 @@ extension AuthAPI: BitgouelAPI {
 
         case let .teacherSignup(req):
             return .requestJSONEncodable(req)
-            
+
         case let .professorSignup(req):
             return .requestJSONEncodable(req)
 
@@ -80,7 +80,7 @@ extension AuthAPI: BitgouelAPI {
 
         case let .companyInstructorSignup(req):
             return .requestJSONEncodable(req)
-            
+
         default:
             return .requestPlain
         }
