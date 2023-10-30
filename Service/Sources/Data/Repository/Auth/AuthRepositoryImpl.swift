@@ -22,12 +22,12 @@ struct AuthRepositoryImpl: AuthRepository {
 
     public func logout() async throws {
         try await remoteAuthDataSource.logout()
-        try await localAuthDataSource.logout()
+        localAuthDataSource.logout()
     }
 
     public func withdraw() async throws {
         try await remoteAuthDataSource.withdraw()
-        try await localAuthDataSource.withdraw()
+        localAuthDataSource.withdraw()
     }
 
     public func studentSignup(req: StudentSignupRequestDTO) async throws {
