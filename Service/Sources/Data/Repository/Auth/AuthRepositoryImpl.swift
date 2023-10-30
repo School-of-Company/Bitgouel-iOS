@@ -20,7 +20,7 @@ struct AuthRepositoryImpl: AuthRepository {
     public func logout() async throws {
         try await remoteAuthDataSource.logout()
     }
-    
+
     public func withdraw() async throws {
         try await remoteAuthDataSource.withdraw()
     }
