@@ -4,7 +4,7 @@ final class RemoteAuthDataSource: BaseRemoteDataSource<AuthAPI> {
     func reissueToken() async throws {
         try await request(.reissueToken)
     }
-    
+
     func logout() async throws {
         try await request(.logout)
     }

@@ -12,7 +12,7 @@ struct AuthRepositoryImpl: AuthRepository {
     public func reissueToken() async throws {
         try await remoteAuthDataSource.reissueToken()
     }
-    
+
     public func logout() async throws {
         try await remoteAuthDataSource.logout()
     }
