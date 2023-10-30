@@ -7,7 +7,7 @@ struct ReissueTokenUseCaseImpl: ReissueTokenUseCase {
         self.authRepository = authRepository
     }
 
-    func execute() async throws {
+    func callAsFunction() async throws {
         try await authRepository.reissueToken()
     }
 }

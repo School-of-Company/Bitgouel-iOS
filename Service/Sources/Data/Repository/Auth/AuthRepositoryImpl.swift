@@ -2,11 +2,14 @@ import Foundation
 
 struct AuthRepositoryImpl: AuthRepository {
     private let remoteAuthDataSource: RemoteAuthDataSource
+    private let localAuthDataSource: LocalAuthDataSource
 
     init(
-        remoteAuthDataSource: RemoteAuthDataSource
+        remoteAuthDataSource: RemoteAuthDataSource,
+        localAuthDataSource: LocalAuthDataSource
     ) {
         self.remoteAuthDataSource = remoteAuthDataSource
+        self.localAuthDataSource = localAuthDataSource
     }
 
     public func login(req: LoginRequestDTO) async throws {
@@ -19,10 +22,12 @@ struct AuthRepositoryImpl: AuthRepository {
 
     public func logout() async throws {
         try await remoteAuthDataSource.logout()
+        try await localAuthDataSource.logout()
     }
 
     public func withdraw() async throws {
         try await remoteAuthDataSource.withdraw()
+        try await localAuthDataSource.withdraw()
     }
 
     public func studentSignup(req: StudentSignupRequestDTO) async throws {

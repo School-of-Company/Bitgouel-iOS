@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol LogoutUseCase {
-    func execute() async throws
+    func callAsFunction() async throws
 }

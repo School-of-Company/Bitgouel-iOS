@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol WithdrawalUseCase {
-    func execute() async throws
+    func callAsFunction() async throws
 }

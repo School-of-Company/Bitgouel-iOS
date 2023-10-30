@@ -7,7 +7,7 @@ public struct WithdrawalUseCaseImpl: WithdrawalUseCase {
         self.authRepository = authRepository
     }
 
-    public func execute() async throws {
+    public func callAsFunction() async throws {
         try await authRepository.withdraw()
     }
 }
