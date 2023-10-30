@@ -4,7 +4,7 @@ public struct BitgouelButton: View {
     @State public var buttonState: Bool
     @Environment(\.isEnabled) var isEnabled
     var text: String
-    
+
     public init (
         text: String = "",
         buttonState: Bool = false
@@ -12,7 +12,7 @@ public struct BitgouelButton: View {
         self.text = text
         self.buttonState = buttonState
     }
-    
+
     private var inputForegroundColor: Color {
         if isEnabled == false {
             return Color.bitgouel(.greyscale(.g4))
@@ -22,7 +22,7 @@ public struct BitgouelButton: View {
             return Color.white
         }
     }
-    
+
     private var inputBackgroundColor: Color {
         if isEnabled == false {
             return Color.bitgouel(.greyscale(.g6))
@@ -32,15 +32,15 @@ public struct BitgouelButton: View {
             return Color.bitgouel(.primary(.p5))
         }
     }
-    
+
     public var body: some View {
         Button {
             self.buttonState = true
         } label: {
             Spacer()
-            
+
             Text(text)
-            
+
             Spacer()
         }
         .bitgouelFont(.text1)
