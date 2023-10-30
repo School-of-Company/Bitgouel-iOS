@@ -8,7 +8,7 @@ struct AuthRepositoryImpl: AuthRepository {
     ) {
         self.remoteAuthDataSource = remoteAuthDataSource
     }
-    
+
     public func logout() async throws {
         try await remoteAuthDataSource.logout()
     }
