@@ -37,10 +37,13 @@ public struct BitgouelButton: View {
         Button {
             self.buttonState = true
         } label: {
+            Spacer()
+            
             Text(text)
+            
+            Spacer()
         }
         .bitgouelFont(.text1)
-        .padding(.horizontal, 32)
         .padding(.vertical, 13.5)
         .foregroundColor(inputForegroundColor)
         .background(inputBackgroundColor)
