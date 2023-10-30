@@ -5,4 +5,5 @@ public protocol AuthRepository {
     func reissueToken() async throws
     func logout() async throws
     func studentSignup(req: StudentSignupRequestDTO) async throws
+    func teacherSignup(req: TeacherSignupRequestDTO) async throws
 }
