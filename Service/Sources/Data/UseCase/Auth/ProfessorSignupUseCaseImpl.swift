@@ -1,8 +1,13 @@
-//
-//  ProfessorSignupUseCaseImpl.swift
-//  Service
-//
-//  Created by 정윤서 on 2023/10/31.
-//
-
 import Foundation
+
+struct ProfessorSignupUseCaseImpl: ProfessorSignupUseCase {
+    private let authRepository: any AuthRepository
+
+    init(authRepository: any AuthRepository) {
+        self.authRepository = authRepository
+    }
+
+    func callAsFunction(req: ProfessorSignupRequestDTO) async throws {
+        try await authRepository.professorSignup(req: req)
+    }
+}
