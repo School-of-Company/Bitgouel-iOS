@@ -68,8 +68,8 @@ public struct SecureBitgouelTextField: View {
                     isSecure.toggle()
                 } label: {
                     isSecure ?
-                    BitgouelAsset.Icons.eye.swiftUIImage :
-                    BitgouelAsset.Icons.eyeSlash.swiftUIImage
+                        BitgouelAsset.Icons.eye.swiftUIImage :
+                        BitgouelAsset.Icons.eyeSlash.swiftUIImage
                 }
             }
             .frame(height: 54)
