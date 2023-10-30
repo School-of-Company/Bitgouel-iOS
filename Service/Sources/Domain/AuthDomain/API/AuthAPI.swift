@@ -2,7 +2,7 @@ import Foundation
 import Moya
 
 public enum AuthAPI {
-    case signin(SigninRequestDTO)
+    case login(LoginRequestDTO)
     case reissueToken
     case logout
     case withdraw
@@ -22,7 +22,7 @@ extension AuthAPI: BitgouelAPI {
 
     public var urlPath: String {
         switch self {
-        case .signin:
+        case .login:
             return "/login"
 
         case .reissueToken, .logout:
@@ -50,7 +50,7 @@ extension AuthAPI: BitgouelAPI {
 
     public var method: Moya.Method {
         switch self {
-        case .signin, .studentSignup, .teacherSignup, .professorSignup, .governmentSignup, .companyInstructorSignup:
+        case .login, .studentSignup, .teacherSignup, .professorSignup, .governmentSignup, .companyInstructorSignup:
             return .post
 
         case .reissueToken:
@@ -63,7 +63,7 @@ extension AuthAPI: BitgouelAPI {
 
     public var task: Moya.Task {
         switch self {
-        case let .signin(req):
+        case let .login(req):
             return .requestJSONEncodable(req)
 
         case let .studentSignup(req):

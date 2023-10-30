@@ -1,6 +1,6 @@
 import Foundation
 
-public struct SigninRequestDTO: Encodable {
+public struct LoginRequestDTO: Encodable {
     public let email: String
     public let password: String
 
