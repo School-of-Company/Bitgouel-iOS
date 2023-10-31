@@ -28,4 +28,8 @@ final class RemoteAuthDataSource: BaseRemoteDataSource<AuthAPI> {
     func professorSignup(req: ProfessorSignupRequestDTO) async throws {
         try await request(.professorSignup(req))
     }
+    
+    func companyInstructorSignup(req: CompanyInstructorSignupRequestDTO) async throws {
+        try await request(.companyInstructorSignup(req))
+    }
 }
