@@ -9,7 +9,7 @@ public enum AuthAPI {
     case studentSignup(StudentSignupRequestDTO)
     case teacherSignup(TeacherSignupRequestDTO)
     case professorSignup(ProfessorSignupRequestDTO)
-    case governmentSignup(GrovernmentSignupRequestDTO)
+    case governmentSignup(GovernmentSignupRequestDTO)
     case companyInstructorSignup(CompanyInstructorSignupRequestDTO)
 }
 
