@@ -32,7 +32,7 @@ final class RemoteAuthDataSource: BaseRemoteDataSource<AuthAPI> {
     func companyInstructorSignup(req: CompanyInstructorSignupRequestDTO) async throws {
         try await request(.companyInstructorSignup(req))
     }
-    
+
     func governmentSignup(req: GovernmentSignupRequestDTO) async throws {
         try await request(.governmentSignup(req))
     }
