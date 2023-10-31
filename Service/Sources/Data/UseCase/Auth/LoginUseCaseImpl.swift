@@ -7,7 +7,7 @@ public struct LoginUseCaseImpl: LoginUseCase {
         self.authRepository = authRepository
     }
 
-    public func execute(req: LoginRequestDTO) async throws {
+    public func callAsFunction(req: LoginRequestDTO) async throws {
         try await authRepository.login(req: req)
     }
 }
