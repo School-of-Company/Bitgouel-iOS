@@ -75,6 +75,10 @@ extension BitgouelButtonStyle {
                 .bitgouelFont(.text1)
                 .foregroundColor(foregroundColor)
                 .background(backgroundColor)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(strokeColor, lineWidth: 1)
+                }
         }
     }
 }
