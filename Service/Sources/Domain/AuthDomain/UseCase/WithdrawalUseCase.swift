@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol LogoutUseCase {
+public protocol WithdrawalUseCase {
     func callAsFunction() async throws
 }
