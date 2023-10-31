@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol LoginUseCase {
-    func execute(req: LoginRequestDTO) async throws
+    func callAsFunction(req: LoginRequestDTO) async throws
 }
