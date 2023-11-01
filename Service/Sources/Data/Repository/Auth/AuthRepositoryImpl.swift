@@ -45,7 +45,7 @@ struct AuthRepositoryImpl: AuthRepository {
     public func companyInstructorSignup(req: CompanyInstructorSignupRequestDTO) async throws {
         try await remoteAuthDataSource.companyInstructorSignup(req: req)
     }
-    
+
     public func governmentSignup(req: GovernmentSignupRequestDTO) async throws {
         try await remoteAuthDataSource.governmentSignup(req: req)
     }
