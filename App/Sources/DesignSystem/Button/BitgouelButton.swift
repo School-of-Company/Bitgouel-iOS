@@ -10,12 +10,12 @@ public extension View {
 
 public struct BitgouelButton: View {
     var text: String
-    var style: BitgouelStyle
+    var style: ButtonStyleType
     var action: () -> Void
     
     public init(
         text: String,
-        style: BitgouelStyle = .primary,
+        style: ButtonStyleType = .primary,
         action: @escaping () -> Void = {}
         
     ) {
