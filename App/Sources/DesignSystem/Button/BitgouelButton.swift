@@ -21,6 +21,7 @@ public struct BitgouelButton: View {
             Spacer()
             
             Text(text)
+                .padding(.horizontal, 32)
                 .padding(.vertical, 13.5)
             
             Spacer()
