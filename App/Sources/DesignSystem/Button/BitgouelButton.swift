@@ -1,13 +1,5 @@
 import SwiftUI
 
-public extension View {
-    func buttonWrapper(_ action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            self
-        }
-    }
-}
-
 public struct BitgouelButton: View {
     var text: String
     var style: ButtonStyleType
