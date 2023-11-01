@@ -29,7 +29,7 @@ extension BitgouelButtonStyle {
             isEnabled ? enabledForegroundColor : .bitgouel(.greyscale(.g4))
         }
         var backgroundColor: Color {
-            isEnabled ? enabledBackgroundColor : .bitgouel(.greyscale(.g6))
+            isEnabled ? enabledBackgroundColor : .bitgouel(.greyscale(.g7))
         }
         var enabledForegroundColor: Color {
             configuration.isPressed ? .bitgouel(.greyscale(.g7)) : .white
@@ -37,7 +37,7 @@ extension BitgouelButtonStyle {
         var enabledBackgroundColor: Color {
             configuration.isPressed ? .bitgouel(.primary(.p4)) : .bitgouel(.primary(.p5))
         }
-
+        
         var body: some View {
             configuration.label
                 .bitgouelFont(.text1)
@@ -64,7 +64,7 @@ extension BitgouelButtonStyle {
             configuration.isPressed ? .bitgouel(.greyscale(.g7)) : .white
         }
         var strokeColor: Color {
-            isEnabled ? enableStrokeForegroundColor : .bitgouel(.greyscale(.g6))
+            isEnabled ? enableStrokeForegroundColor : .bitgouel(.greyscale(.g7))
         }
         var enableStrokeForegroundColor: Color {
             configuration.isPressed ? .bitgouel(.primary(.p4)) : .bitgouel(.primary(.p5))
