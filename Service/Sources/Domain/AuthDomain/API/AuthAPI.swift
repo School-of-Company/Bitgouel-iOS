@@ -88,7 +88,10 @@ extension AuthAPI: BitgouelAPI {
 
     public var jwtTokenType: JwtTokenType {
         switch self {
-        case .reissueToken, .logout:
+        case .logout, .withdraw:
+            return .accessToken
+
+        case .reissueToken:
             return .refreshToken
 
         default:
