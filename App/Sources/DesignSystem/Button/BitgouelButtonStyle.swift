@@ -21,7 +21,7 @@ public struct BitgouelButtonStyle: ButtonStyle {
     }
 }
 
-extension BitgouelButtonStyle {
+private extension BitgouelButtonStyle {
     struct PrimaryButton: View {
         let configuration: ButtonStyle.Configuration
         @Environment(\.isEnabled) var isEnabled
@@ -47,7 +47,7 @@ extension BitgouelButtonStyle {
     }
 }
 
-extension BitgouelButtonStyle {
+private extension BitgouelButtonStyle {
     struct SecondaryButton: View {
         let configuration: ButtonStyle.Configuration
         @Environment(\.isEnabled) var isEnabled
