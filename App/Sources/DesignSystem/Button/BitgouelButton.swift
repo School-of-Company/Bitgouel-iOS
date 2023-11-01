@@ -1,53 +1,33 @@
 import SwiftUI
 
 public struct BitgouelButton: View {
-    @State public var buttonState: Bool
-    @Environment(\.isEnabled) var isEnabled
     var text: String
-
-    public init (
-        text: String = "",
-        buttonState: Bool = false
+    var style: ButtonStyleType
+    var action: () -> Void
+    
+    public init(
+        text: String,
+        style: ButtonStyleType = .primary,
+        action: @escaping () -> Void = {}
+        
     ) {
         self.text = text
-        self.buttonState = buttonState
+        self.style = .primary
+        self.action = action
     }
-
-    private var inputForegroundColor: Color {
-        if isEnabled == false {
-            return Color.bitgouel(.greyscale(.g4))
-        } else if buttonState == true {
-            return Color.bitgouel(.greyscale(.g7))
-        } else {
-            return Color.white
-        }
-    }
-
-    private var inputBackgroundColor: Color {
-        if isEnabled == false {
-            return Color.bitgouel(.greyscale(.g6))
-        } else if buttonState == true {
-            return Color.bitgouel(.primary(.p4))
-        } else {
-            return Color.bitgouel(.primary(.p5))
-        }
-    }
-
+    
     public var body: some View {
-        Button {
-            self.buttonState = true
-        } label: {
+        HStack {
             Spacer()
-
+            
             Text(text)
-
+                .padding(.horizontal, 32)
+                .padding(.vertical, 13.5)
+            
             Spacer()
         }
-        .bitgouelFont(.text1)
-        .padding(.vertical, 13.5)
-        .foregroundColor(inputForegroundColor)
-        .background(inputBackgroundColor)
-        .cornerRadius(8)
-        .disabled(isEnabled ? false : true)
+        .buttonWrapper(action)
+        .buttonStyle(BitgouelButtonStyle(style: style))
     }
 }
+
