@@ -1,14 +1,14 @@
 import SwiftUI
 
 public extension BitgouelButton {
-    enum BitgouelStyle {
+    enum ButtonStyleType {
         case primary
         case secondary
     }
 }
 
 public struct BitgouelButtonStyle: ButtonStyle {
-    var style: BitgouelButton.BitgouelStyle
+    var style: BitgouelButton.ButtonStyleType
     
     public func makeBody(configuration: Configuration) -> some View {
         switch style {
