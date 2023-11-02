@@ -1,3 +1,5 @@
 import Foundation
 
-public protocol LectureOpenUseCase {}
+public protocol LectureOpenUseCase {
+    func callAsFunction(req: LectureOpenRequestDTO) async throws
+}

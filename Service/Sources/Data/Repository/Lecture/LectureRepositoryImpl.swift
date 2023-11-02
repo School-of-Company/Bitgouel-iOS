@@ -6,4 +6,8 @@ struct LectureRepositoryImpl: LectureRepository {
     init(remoteLectureDataSource: RemoteLectureDataSource) {
         self.remoteLectureDataSource = remoteLectureDataSource
     }
+
+    public func lectureOpen(req: LectureOpenRequestDTO) async throws {
+        try await remoteLectureDataSource.lectureOpen(req: req)
+    }
 }

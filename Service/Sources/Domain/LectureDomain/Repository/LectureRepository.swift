@@ -1,3 +1,5 @@
 import Foundation
 
-public protocol LectureRepository {}
+public protocol LectureRepository {
+    func lectureOpen(req: LectureOpenRequestDTO) async throws
+}
