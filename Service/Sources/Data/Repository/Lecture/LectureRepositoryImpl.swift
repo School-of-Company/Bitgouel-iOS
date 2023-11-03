@@ -18,7 +18,7 @@ struct LectureRepositoryImpl: LectureRepository {
     public func waitingLectureApprove(userID: String) async throws {
         try await remoteLectureDataSource.waitingLectureApprove(userID: userID)
     }
-    
+
     public func waitingLectureReject(userID: String) async throws {
         try await remoteLectureDataSource.waitingLectureReject(userID: userID)
     }
