@@ -5,6 +5,7 @@ public enum LectureAPI {
     case lectureOpen(LectureOpenRequestDTO)
     case lectureApply(userID: String)
     case waitingLectureApprove(userID: String)
+    case waitingLectureReject(userID: String)
 }
 
 extension LectureAPI: BitgouelAPI {
@@ -24,6 +25,9 @@ extension LectureAPI: BitgouelAPI {
 
         case let .waitingLectureApprove(userID):
             return "/\(userID)/approve"
+            
+        case let .waitingLectureReject(userID: userID):
+            return "/\(userID)/reject"
         }
     }
 
@@ -34,6 +38,9 @@ extension LectureAPI: BitgouelAPI {
 
         case .waitingLectureApprove:
             return .patch
+            
+        case .waitingLectureReject:
+            return .delete
         }
     }
 
@@ -49,7 +56,7 @@ extension LectureAPI: BitgouelAPI {
 
     public var jwtTokenType: JwtTokenType {
         switch self {
-        case .lectureOpen, .lectureApply, .waitingLectureApprove:
+        case .lectureOpen, .lectureApply, .waitingLectureApprove, .waitingLectureReject:
             return .accessToken
         }
     }
@@ -75,6 +82,16 @@ extension LectureAPI: BitgouelAPI {
             ]
 
         case .waitingLectureApprove:
+            return [
+                400: .badRequest,
+                401: .unauthorized,
+                403: .forbidden,
+                404: .notFound,
+                409: .conflict,
+                429: .tooManyRequest
+            ]
+            
+        case .waitingLectureReject:
             return [
                 400: .badRequest,
                 401: .unauthorized,
