@@ -4,6 +4,7 @@ import Moya
 public enum LectureAPI {
     case lectureOpen(LectureOpenRequestDTO)
     case lectureApply(userID: String)
+    case waitingLectureApprove(userID: String)
 }
 
 extension LectureAPI: BitgouelAPI {
@@ -20,6 +21,9 @@ extension LectureAPI: BitgouelAPI {
 
         case let .lectureApply(userID):
             return "/\(userID)"
+            
+        case let .waitingLectureApprove(userID):
+            return "/\(userID)/approve"
         }
     }
 
@@ -27,6 +31,9 @@ extension LectureAPI: BitgouelAPI {
         switch self {
         case .lectureOpen, .lectureApply:
             return .post
+            
+        case .waitingLectureApprove:
+            return .patch
         }
     }
 
@@ -42,7 +49,7 @@ extension LectureAPI: BitgouelAPI {
 
     public var jwtTokenType: JwtTokenType {
         switch self {
-        case .lectureOpen, .lectureApply:
+        case .lectureOpen, .lectureApply, .waitingLectureApprove:
             return .accessToken
         }
     }
@@ -58,6 +65,16 @@ extension LectureAPI: BitgouelAPI {
             ]
 
         case .lectureApply:
+            return [
+                400: .badRequest,
+                401: .unauthorized,
+                403: .forbidden,
+                404: .notFound,
+                409: .conflict,
+                429: .tooManyRequest
+            ]
+            
+        case .waitingLectureApprove:
             return [
                 400: .badRequest,
                 401: .unauthorized,
