@@ -4,6 +4,7 @@ import SwiftUI
 public struct BitgouelTextField: View {
     var placeholder: String
     var helpMessage: String
+    var link: String
     var isError: Bool
     var isEmpty: Bool { text.isEmpty }
     var onSubmit: () -> Void
@@ -35,6 +36,7 @@ public struct BitgouelTextField: View {
         _ placeholder: String = "",
         text: Binding<String>,
         helpMessage: String = "",
+        link: String = "",
         isError: Bool = false,
         isEmpty: Bool = false,
         onSubmit: @escaping () -> Void = {}
@@ -42,6 +44,7 @@ public struct BitgouelTextField: View {
         self.placeholder = placeholder
         self._text = text
         self.helpMessage = helpMessage
+        self.link = link
         self.isError = isError
         self.onSubmit = onSubmit
     }
@@ -73,8 +76,18 @@ public struct BitgouelTextField: View {
                 isFocused = true
             }
 
-            Text(helpMessage)
-                .bitgouelFont(.text3, color: isError ? .error(.e5) : .greyscale(.g4))
+            HStack {
+                Text(helpMessage)
+                    .bitgouelFont(.caption, color: isError ? .error(.e5) : .greyscale(.g4))
+                    .padding(.leading, 4)
+                
+                Spacer()
+                    
+                Text(link)
+                    .bitgouelFont(.caption, color: isEnabled ? .primary(.p5) : .greyscale(.g4))
+                    .padding(.trailing, 4)
+            }
+            .padding(.top, 4)
         }
     }
 }
