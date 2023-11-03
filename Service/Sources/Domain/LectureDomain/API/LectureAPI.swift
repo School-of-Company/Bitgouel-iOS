@@ -21,7 +21,7 @@ extension LectureAPI: BitgouelAPI {
 
         case let .lectureApply(userID):
             return "/\(userID)"
-            
+
         case let .waitingLectureApprove(userID):
             return "/\(userID)/approve"
         }
@@ -31,7 +31,7 @@ extension LectureAPI: BitgouelAPI {
         switch self {
         case .lectureOpen, .lectureApply:
             return .post
-            
+
         case .waitingLectureApprove:
             return .patch
         }
@@ -73,7 +73,7 @@ extension LectureAPI: BitgouelAPI {
                 409: .conflict,
                 429: .tooManyRequest
             ]
-            
+
         case .waitingLectureApprove:
             return [
                 400: .badRequest,
