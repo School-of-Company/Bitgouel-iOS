@@ -12,4 +12,8 @@ final class RemoteLectureDataSource: BaseRemoteDataSource<LectureAPI> {
     func waitingLectureApprove(userID: String) async throws {
         try await request(.waitingLectureApprove(userID: userID))
     }
+    
+    func waitingLectureReject(userID: String) async throws {
+        try await request(.waitingLectureReject(userID: userID))
+    }
 }
