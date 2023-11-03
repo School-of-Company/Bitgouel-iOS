@@ -10,11 +10,6 @@ class TargetTests: XCTestCase {
     }
 
     func testExample() throws {
-//        XCTAssertEqual("A", "A")
-        XCTAssertEqual(2 + 2, 4, "2 + 2 should equal 4")
-                
-        XCTAssertTrue(true, "This should always be true")
-                
-        XCTAssertFalse(false, "This should always be false")
+        XCTAssertEqual("A", "A")
     }
 }
