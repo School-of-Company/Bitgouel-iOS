@@ -14,6 +14,10 @@ final class LoginViewModel: ObservableObject {
     }
     
     var isEmailErrorOccured: Bool {
+        if email.isEmpty {
+            return false
+        }
+        
         isEmailValid = checkEmail(email)
         
         if isEmailValid {
@@ -25,6 +29,10 @@ final class LoginViewModel: ObservableObject {
     }
     
     var isPasswordErrorOcuured: Bool {
+        if password.isEmpty {
+            return false
+        }
+        
         isPasswordValid = checkPassword(password)
         
         if isPasswordValid {
