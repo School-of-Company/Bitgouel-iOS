@@ -3,9 +3,9 @@ import Foundation
 final class LoginViewModel: ObservableObject {
     @Published private var isEmailValid = false
     @Published private var isPasswordValid = false
-    @Published public var isLoading = false
-    @Published public var emailHelpMessage = ""
-    @Published public var passwordHelpMessage = "비밀번호를 잊었나요?"
+    @Published var isLoading = false
+    @Published var emailHelpMessage = ""
+    @Published var passwordHelpMessage = "비밀번호를 잊었나요?"
     @Published var email = ""
     @Published var password = ""
     
