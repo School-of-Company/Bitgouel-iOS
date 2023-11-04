@@ -53,6 +53,7 @@ struct LoginView: View {
             BitgouelButton(
                 text: "로그인"
             )
+            .cornerRadius(8)
             .disabled(viewModel.isFormEmpty)
             .padding(.top, 192)
             .padding(.horizontal, 28)
