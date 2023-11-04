@@ -21,10 +21,10 @@ final class LoginViewModel: ObservableObject {
         isEmailValid = checkEmail(email)
         
         if isEmailValid {
-            return true
+            return false
         } else {
             emailHelpMessage = "잘못된 이메일입니다."
-            return false
+            return true
         }
     }
     
@@ -36,10 +36,10 @@ final class LoginViewModel: ObservableObject {
         isPasswordValid = checkPassword(password)
         
         if isPasswordValid {
-            return true
+            return false
         } else {
             passwordHelpMessage = "잘못된 비밀번호입니다"
-            return false
+            return true
         }
     }
     
