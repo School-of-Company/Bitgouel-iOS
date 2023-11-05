@@ -1,8 +1,6 @@
 import Foundation
 
 final class LoginViewModel: ObservableObject {
-    @Published private var isEmailValid = false
-    @Published private var isPasswordValid = false
     @Published var isLoading = false
     @Published var emailHelpMessage = ""
     @Published var passwordHelpMessage = "비밀번호를 잊었나요?"
@@ -18,9 +16,7 @@ final class LoginViewModel: ObservableObject {
             return false
         }
         
-        isEmailValid = checkEmail(email)
-        
-        if isEmailValid {
+        if checkEmail(email) {
             return false
         } else {
             emailHelpMessage = "잘못된 이메일입니다."
@@ -33,9 +29,7 @@ final class LoginViewModel: ObservableObject {
             return false
         }
         
-        isPasswordValid = checkPassword(password)
-        
-        if isPasswordValid {
+        if checkPassword(password) {
             return false
         } else {
             passwordHelpMessage = "잘못된 비밀번호입니다"
