@@ -8,7 +8,7 @@ struct LoginView: View {
     @FocusState private var focusField: FocusField?
     @StateObject var viewModel: LoginViewModel
     
-    public init(
+    init(
         viewModel: LoginViewModel
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
