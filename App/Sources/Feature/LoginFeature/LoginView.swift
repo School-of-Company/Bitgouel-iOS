@@ -69,7 +69,6 @@ struct LoginView: View {
                     .bitgouelFont(.text3, color: .primary(.p5))
                     .padding(.top, 2)
             }
-            .frame(height: 104)
             .padding(.bottom, 46)
         }
     }
