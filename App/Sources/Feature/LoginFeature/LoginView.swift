@@ -19,11 +19,12 @@ struct LoginView: View {
             HStack {
                 Text("빛고을\n직업교육\n혁신지구")
                     .bitgouelFont(.title1)
-                    .padding(.top, 53)
-                    .padding(.leading, 28)
                 
                 Spacer()
             }
+            .frame(height: 108)
+            .padding(.top, 53)
+            .padding(.leading, 28)
             
             VStack {
                 BitgouelTextField(
@@ -50,23 +51,30 @@ struct LoginView: View {
             .padding(.top, 80)
             .padding(.horizontal, 28)
             
-            BitgouelButton(
-                text: "로그인"
-            )
-            .cornerRadius(8)
-            .disabled(viewModel.isFormEmpty)
-            .padding(.top, 192)
-            .padding(.horizontal, 28)
-            
-            Text("또는")
-                .bitgouelFont(.caption, color: .greyscale(.g7))
-                .padding(.top, 8)
-            
-            Text("회원가입")
-                .bitgouelFont(.text3, color: .primary(.p5))
-                .padding(.top, 2)
-            
             Spacer()
+            
+            VStack(spacing: 0) {
+                BitgouelButton(
+                    text: "로그인"
+                )
+                .cornerRadius(8)
+                .disabled(viewModel.isFormEmpty)
+                .padding(.horizontal, 28)
+                
+                Text("또는")
+                    .bitgouelFont(.caption, color: .greyscale(.g7))
+                    .padding(.top, 8)
+                
+                Text("회원가입")
+                    .bitgouelFont(.text3, color: .primary(.p5))
+                    .padding(.top, 2)
+            }
+            .frame(height: 104)
+            .padding(.bottom, 46)
         }
     }
+}
+
+#Preview {
+    LoginView(viewModel: LoginViewModel())
 }
