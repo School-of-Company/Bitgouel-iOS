@@ -4,10 +4,12 @@ import SwiftUI
 public struct SecureBitgouelTextField: View {
     var placeholder: String
     var helpMessage: String
+    var link: String
     var isError: Bool
     var isEmpty: Bool { text.isEmpty }
     @State var isSecure = true
     var onSubmit: () -> Void
+    var onLink: () -> Void
     @Binding var text: String
     @FocusState var isFocused: Bool
     @Environment(\.isEnabled) var isEnabled
@@ -36,15 +38,19 @@ public struct SecureBitgouelTextField: View {
         _ placeholder: String = "",
         text: Binding<String>,
         helpMessage: String = "",
+        link: String = "",
         isError: Bool = false,
         isEmpty: Bool = false,
-        onSubmit: @escaping () -> Void = {}
+        onSubmit: @escaping () -> Void = {},
+        onLink: @escaping () -> Void = {}
     ) {
         self.placeholder = placeholder
         self._text = text
         self.helpMessage = helpMessage
+        self.link = link
         self.isError = isError
         self.onSubmit = onSubmit
+        self.onLink = onLink
     }
 
     public var body: some View {
@@ -83,8 +89,19 @@ public struct SecureBitgouelTextField: View {
                 isFocused = true
             }
 
-            Text(helpMessage)
-                .bitgouelFont(.text3, color: isError ? .error(.e5) : .greyscale(.g4))
+            HStack {
+                Text(helpMessage)
+                    .bitgouelFont(.caption, color: isError ? .error(.e5) : .greyscale(.g4))
+                    .padding(.leading, 4)
+                
+                Spacer()
+                    
+                Text(link)
+                    .bitgouelFont(.caption, color: isEnabled ? .primary(.p5) : .greyscale(.g4))
+                    .padding(.trailing, 4)
+                    .onSubmit(onLink)
+            }
+            .padding(.top, 4)
         }
     }
 }
