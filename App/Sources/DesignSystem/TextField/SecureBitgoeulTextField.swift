@@ -99,6 +99,7 @@ public struct SecureBitgouelTextField: View {
                 Text(link)
                     .bitgouelFont(.caption, color: isEnabled ? .primary(.p5) : .greyscale(.g4))
                     .padding(.trailing, 4)
+                    .onSubmit(onLink)
             }
             .padding(.top, 4)
         }
