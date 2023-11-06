@@ -10,4 +10,16 @@ struct LectureRepositoryImpl: LectureRepository {
     public func lectureOpen(req: LectureOpenRequestDTO) async throws {
         try await remoteLectureDataSource.lectureOpen(req: req)
     }
+
+    public func lectureApply(userID: String) async throws {
+        try await remoteLectureDataSource.lectureApply(userID: userID)
+    }
+
+    public func waitingLectureApprove(userID: String) async throws {
+        try await remoteLectureDataSource.waitingLectureApprove(userID: userID)
+    }
+
+    public func waitingLectureReject(userID: String) async throws {
+        try await remoteLectureDataSource.waitingLectureReject(userID: userID)
+    }
 }
