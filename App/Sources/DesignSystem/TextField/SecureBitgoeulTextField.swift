@@ -9,6 +9,7 @@ public struct SecureBitgouelTextField: View {
     var isEmpty: Bool { text.isEmpty }
     @State var isSecure = true
     var onSubmit: () -> Void
+    var onLink: () -> Void
     @Binding var text: String
     @FocusState var isFocused: Bool
     @Environment(\.isEnabled) var isEnabled
@@ -40,7 +41,8 @@ public struct SecureBitgouelTextField: View {
         link: String = "",
         isError: Bool = false,
         isEmpty: Bool = false,
-        onSubmit: @escaping () -> Void = {}
+        onSubmit: @escaping () -> Void = {},
+        onLink: @escaping () -> Void = {}
     ) {
         self.placeholder = placeholder
         self._text = text
@@ -48,6 +50,7 @@ public struct SecureBitgouelTextField: View {
         self.link = link
         self.isError = isError
         self.onSubmit = onSubmit
+        self.onLink = onLink
     }
 
     public var body: some View {
