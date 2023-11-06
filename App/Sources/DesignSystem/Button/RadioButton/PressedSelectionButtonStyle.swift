@@ -10,6 +10,6 @@ public struct PressedSelectionButtonStyle: ButtonStyle {
             .overlay {
                 configuration.label
             }
-            .frame(width: 32, height: 32)
+            .frame(width: 24, height: 24)
     }
 }
