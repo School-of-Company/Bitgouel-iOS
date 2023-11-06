@@ -84,11 +84,11 @@ struct BitgouelBottomSheet<T: View>: ViewModifier {
 }
 
 public extension View {
-    func bitgouelBottomSheet<Content: View>(
+    func bitgouelBottomSheet(
         isShowing: Binding<Bool>,
         cornerRadius: CGFloat = 8,
         topPadding: CGFloat = .zero,
-        content: @escaping () -> Content
+        content: @escaping () -> some View
     ) -> some View {
         modifier(BitgouelBottomSheet(
             isShowing: isShowing,
