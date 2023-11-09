@@ -33,7 +33,7 @@ struct LoginView: View {
                     helpMessage: viewModel.emailHelpMessage,
                     isError: viewModel.isEmailErrorOccured
                 ) {
-                        focusField = .password
+                    focusField = .password
                 }
                 .textContentType(.emailAddress)
                 .focused($focusField, equals: .email)
