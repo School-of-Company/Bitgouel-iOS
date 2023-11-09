@@ -9,6 +9,6 @@ public protocol AuthRepository {
     func teacherSignup(req: TeacherSignupRequestDTO) async throws
     func bbozzakSignup(req: BbozzakSignupRequestDTO) async throws
     func professorSignup(req: ProfessorSignupRequestDTO) async throws
-    func companyInstructorSignup(req: CompanyInstructorSignupRequestDTO) async throws
     func governmentSignup(req: GovernmentSignupRequestDTO) async throws
+    func companyInstructorSignup(req: CompanyInstructorSignupRequestDTO) async throws
 }
