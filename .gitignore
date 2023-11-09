@@ -55,6 +55,11 @@ DerivedData/
 !*.xcworkspace/contents.xcworkspacedata
 /*.gcno
 
+### Tuist ###
+XCConfig/*
+XCConfig.zip
+!XCConfig/Shared.xcconfig
+
 ### Projects ###
 *.xcodeproj
 *.xcworkspace

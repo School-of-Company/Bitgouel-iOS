@@ -1,2 +1,0 @@
-#include "../Shared.xcconfig"
-BASE_URL = http://bitgouel-alb-349134598.ap-northeast-2.elb.amazonaws.com

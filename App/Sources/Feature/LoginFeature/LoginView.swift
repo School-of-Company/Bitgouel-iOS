@@ -31,10 +31,9 @@ struct LoginView: View {
                     "이메일",
                     text: $viewModel.email,
                     helpMessage: viewModel.emailHelpMessage,
-                    isError: viewModel.isEmailErrorOccured
-                ) {
-                    focusField = .password
-                }
+                    isError: viewModel.isEmailErrorOccured, onLink:  {
+                        focusField = .password
+                    })
                 .textContentType(.emailAddress)
                 .focused($focusField, equals: .email)
                 
@@ -73,3 +72,4 @@ struct LoginView: View {
         }
     }
 }
+
