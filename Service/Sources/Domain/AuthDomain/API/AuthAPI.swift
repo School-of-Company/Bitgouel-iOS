@@ -8,6 +8,7 @@ public enum AuthAPI {
     case withdraw
     case studentSignup(StudentSignupRequestDTO)
     case teacherSignup(TeacherSignupRequestDTO)
+    case bbozzakSignup(BbozzakSignupRequestDTO)
     case professorSignup(ProfessorSignupRequestDTO)
     case governmentSignup(GovernmentSignupRequestDTO)
     case companyInstructorSignup(CompanyInstructorSignupRequestDTO)
@@ -36,6 +37,9 @@ extension AuthAPI: BitgouelAPI {
 
         case .teacherSignup:
             return "/teacher"
+            
+        case .bbozzakSignup:
+            return "/bbozzak"
 
         case .professorSignup:
             return "/professor"
@@ -50,7 +54,7 @@ extension AuthAPI: BitgouelAPI {
 
     public var method: Moya.Method {
         switch self {
-        case .login, .studentSignup, .teacherSignup, .professorSignup, .governmentSignup, .companyInstructorSignup:
+        case .login, .studentSignup, .teacherSignup, .professorSignup, .governmentSignup, .companyInstructorSignup, .bbozzakSignup:
             return .post
 
         case .reissueToken:
@@ -70,6 +74,9 @@ extension AuthAPI: BitgouelAPI {
             return .requestJSONEncodable(req)
 
         case let .teacherSignup(req):
+            return .requestJSONEncodable(req)
+            
+        case let .bbozzakSignup(req):
             return .requestJSONEncodable(req)
 
         case let .professorSignup(req):
