@@ -1,59 +1,44 @@
 import Foundation
 
-public struct FetchLectureListResponseDTO: Decodable {
-    public var id = UUID()
+public struct LectureDetailEntity: Equatable {
     public let name: String
     public let content: String
+    public let createAt: String
     public let startDate: String
     public let endDate: String
-    public let completeDate: String
+    public let completedDate: String
     public let lectureType: LectureType
     public let lectureStatus: LectureStatusType
     public let headCount: Int
     public let maxRegisteredUser: Int
     public let lecturer: String
+    public let credit: Int
     
     public init(
-        id: UUID = UUID(),
         name: String,
         content: String,
+        createAt: String,
         startDate: String,
         endDate: String,
-        completeDate: String,
+        completedDate: String,
         lectureType: LectureType,
         lectureStatus: LectureStatusType,
         headCount: Int,
         maxRegisteredUser: Int,
-        lecturer: String
+        lecturer: String,
+        credit: Int
     ) {
-        self.id = id
         self.name = name
         self.content = content
+        self.createAt = createAt
         self.startDate = startDate
         self.endDate = endDate
-        self.completeDate = completeDate
+        self.completedDate = completedDate
         self.lectureType = lectureType
         self.lectureStatus = lectureStatus
         self.headCount = headCount
         self.maxRegisteredUser = maxRegisteredUser
         self.lecturer = lecturer
-    }
-}
-
-public extension FetchLectureListResponseDTO {
-    func toDomain() -> LectureListEntity {
-        LectureListEntity(
-            id: id,
-            name: name,
-            content: content,
-            startDate: startDate,
-            endDate: endDate,
-            completeDate: completeDate,
-            lectureType: lectureType,
-            lectureStatus: lectureStatus,
-            headCount: headCount,
-            maxRegisteredUser: maxRegisteredUser,
-            lecturer: lecturer
-        )
+        self.credit = credit
     }
 }
