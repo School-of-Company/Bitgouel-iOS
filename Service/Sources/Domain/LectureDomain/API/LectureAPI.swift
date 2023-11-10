@@ -4,6 +4,7 @@ import Moya
 public enum LectureAPI {
     case lectureOpen(LectureOpenRequestDTO)
     case lectureListInquiry
+    case lectureDetailInquiry(userID: String)
     case lectureApply(userID: String)
     case waitingLectureApprove(userID: String)
     case waitingLectureReject(userID: String)
@@ -20,6 +21,9 @@ extension LectureAPI: BitgouelAPI {
         switch self {
         case .lectureOpen, .lectureListInquiry:
             return ""
+            
+        case let .lectureDetailInquiry(userID):
+            return "/\(userID)"
 
         case let .lectureApply(userID):
             return "/\(userID)"
@@ -37,7 +41,7 @@ extension LectureAPI: BitgouelAPI {
         case .lectureOpen, .lectureApply:
             return .post
 
-        case .lectureListInquiry:
+        case .lectureListInquiry, .lectureDetailInquiry:
             return .get
 
         case .waitingLectureApprove:
@@ -68,7 +72,7 @@ extension LectureAPI: BitgouelAPI {
 
     public var jwtTokenType: JwtTokenType {
         switch self {
-        case .lectureOpen, .lectureListInquiry, .lectureApply, .waitingLectureApprove, .waitingLectureReject:
+        case .lectureOpen, .lectureListInquiry, .lectureDetailInquiry, .lectureApply, .waitingLectureApprove, .waitingLectureReject:
             return .accessToken
         }
     }
@@ -89,6 +93,14 @@ extension LectureAPI: BitgouelAPI {
                 401: .unauthorized,
                 403 : .forbidden,
                 404 : .notFound
+            ]
+            
+        case .lectureDetailInquiry:
+            return [
+                400: .badRequest,
+                401: .unauthorized,
+                403: .forbidden,
+                404: .notFound
             ]
 
         case .lectureApply:
