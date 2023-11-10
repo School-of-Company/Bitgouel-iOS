@@ -1,7 +1,7 @@
 import Foundation
 
-public struct LectureListInquiryResponseDTO: Decodable {
-    public var userID = UUID()
+public struct FetchLectureListResponseDTO: Decodable {
+    public var id = UUID()
     public let name: String
     public let content: String
     public let startDate: String
@@ -14,4 +14,6 @@ public struct LectureListInquiryResponseDTO: Decodable {
     public let lecturer: String
 }
 
-public extension LectureListInquiryResponseDTO
+public extension FetchLectureListResponseDTO {
+    func
+}
