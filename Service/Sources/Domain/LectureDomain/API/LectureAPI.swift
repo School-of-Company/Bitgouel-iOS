@@ -3,6 +3,7 @@ import Moya
 
 public enum LectureAPI {
     case lectureOpen(LectureOpenRequestDTO)
+    case lectureListInquiry
     case lectureApply(userID: String)
     case waitingLectureApprove(userID: String)
     case waitingLectureReject(userID: String)
@@ -17,7 +18,7 @@ extension LectureAPI: BitgouelAPI {
 
     public var urlPath: String {
         switch self {
-        case .lectureOpen:
+        case .lectureOpen, .lectureListInquiry:
             return ""
 
         case let .lectureApply(userID):
@@ -35,6 +36,9 @@ extension LectureAPI: BitgouelAPI {
         switch self {
         case .lectureOpen, .lectureApply:
             return .post
+            
+        case .lectureListInquiry:
+            return .get
 
         case .waitingLectureApprove:
             return .patch
@@ -48,6 +52,14 @@ extension LectureAPI: BitgouelAPI {
         switch self {
         case let .lectureOpen(req):
             return .requestJSONEncodable(req)
+            
+        case .lectureListInquiry:
+            return .requestParameters(parameters: [
+                "page" : Int(),
+                "size" : Int(),
+                "statuse" : ApproveStatusType.self,
+                "type" : LectureType.self
+            ], encoding: URLEncoding.queryString)
 
         default:
             return .requestPlain
@@ -56,7 +68,7 @@ extension LectureAPI: BitgouelAPI {
 
     public var jwtTokenType: JwtTokenType {
         switch self {
-        case .lectureOpen, .lectureApply, .waitingLectureApprove, .waitingLectureReject:
+        case .lectureOpen, .lectureListInquiry, .lectureApply, .waitingLectureApprove, .waitingLectureReject:
             return .accessToken
         }
     }
@@ -70,7 +82,15 @@ extension LectureAPI: BitgouelAPI {
                 403: .forbidden,
                 409: .conflict
             ]
-
+            
+        case .lectureListInquiry:
+            return [
+                400: .badRequest,
+                401: .unauthorized,
+                403 : .forbidden,
+                404 : .notFound
+            ]
+            
         case .lectureApply:
             return [
                 400: .badRequest,
