@@ -93,9 +93,9 @@ public struct SecureBitgouelTextField: View {
                 Text(helpMessage)
                     .bitgouelFont(.caption, color: isError ? .error(.e5) : .greyscale(.g4))
                     .padding(.leading, 4)
-                
+
                 Spacer()
-                    
+
                 Text(link)
                     .bitgouelFont(.caption, color: isEnabled ? .primary(.p5) : .greyscale(.g4))
                     .padding(.trailing, 4)

@@ -4,7 +4,7 @@ final class RemoteLectureDataSource: BaseRemoteDataSource<LectureAPI> {
     func lectureOpen(req: LectureOpenRequestDTO) async throws {
         try await request(.lectureOpen(req))
     }
-    
+
     func lectureListInquiry() async throws {
         try await request(.lectureListInquiry)
     }

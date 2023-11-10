@@ -37,7 +37,7 @@ extension AuthAPI: BitgouelAPI {
 
         case .teacherSignup:
             return "/teacher"
-            
+
         case .bbozzakSignup:
             return "/bbozzak"
 
@@ -54,7 +54,8 @@ extension AuthAPI: BitgouelAPI {
 
     public var method: Moya.Method {
         switch self {
-        case .login, .studentSignup, .teacherSignup, .professorSignup, .governmentSignup, .companyInstructorSignup, .bbozzakSignup:
+        case .login, .studentSignup, .teacherSignup, .professorSignup, .governmentSignup, .companyInstructorSignup,
+             .bbozzakSignup:
             return .post
 
         case .reissueToken:
@@ -75,7 +76,7 @@ extension AuthAPI: BitgouelAPI {
 
         case let .teacherSignup(req):
             return .requestJSONEncodable(req)
-            
+
         case let .bbozzakSignup(req):
             return .requestJSONEncodable(req)
 

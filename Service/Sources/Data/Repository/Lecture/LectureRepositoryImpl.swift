@@ -10,7 +10,7 @@ struct LectureRepositoryImpl: LectureRepository {
     public func lectureOpen(req: LectureOpenRequestDTO) async throws {
         try await remoteLectureDataSource.lectureOpen(req: req)
     }
-    
+
     public func lectureListInquiry() async throws {
         try await remoteLectureDataSource.lectureListInquiry()
     }

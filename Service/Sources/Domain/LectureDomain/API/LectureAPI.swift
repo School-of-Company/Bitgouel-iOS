@@ -36,7 +36,7 @@ extension LectureAPI: BitgouelAPI {
         switch self {
         case .lectureOpen, .lectureApply:
             return .post
-            
+
         case .lectureListInquiry:
             return .get
 
@@ -52,7 +52,7 @@ extension LectureAPI: BitgouelAPI {
         switch self {
         case let .lectureOpen(req):
             return .requestJSONEncodable(req)
-            
+
         case .lectureListInquiry:
             return .requestParameters(parameters: [
                 "page" : Int(),
@@ -82,7 +82,7 @@ extension LectureAPI: BitgouelAPI {
                 403: .forbidden,
                 409: .conflict
             ]
-            
+
         case .lectureListInquiry:
             return [
                 400: .badRequest,
@@ -90,7 +90,7 @@ extension LectureAPI: BitgouelAPI {
                 403 : .forbidden,
                 404 : .notFound
             ]
-            
+
         case .lectureApply:
             return [
                 400: .badRequest,
