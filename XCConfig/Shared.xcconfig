@@ -1,0 +1,4 @@
+OTHER_SWIFT_FLAGS[config=DEUBG][sdk=*] = $(inherited) -DDEUBG
+OTHER_SWIFT_FLAGS[config=RELEASE][sdk=*] = $(inherited) - DRELEASE
+
+ENABLE_BITCODE = NO
