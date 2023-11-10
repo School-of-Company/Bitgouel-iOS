@@ -15,5 +15,19 @@ public struct FetchLectureListResponseDTO: Decodable {
 }
 
 public extension FetchLectureListResponseDTO {
-    func
+    func toDomain() -> LectureListEntity {
+        LectureListEntity(
+            id: id,
+            name: name,
+            content: content,
+            startDate: startDate,
+            endDate: endDate,
+            completeDate: completeDate,
+            lectureType: lectureType,
+            lectureStatus: lectureStatus,
+            headCount: headCount,
+            maxRegisteredUser: maxRegisteredUser,
+            lecturer: lecturer
+        )
+    }
 }
