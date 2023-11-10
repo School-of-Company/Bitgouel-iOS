@@ -14,6 +14,10 @@ struct LectureRepositoryImpl: LectureRepository {
     public func lectureListInquiry() async throws {
         try await remoteLectureDataSource.lectureListInquiry()
     }
+    
+    public func lectureDetailInquiry(userID: String) async throws {
+        try await remoteLectureDataSource.lectureDetailInquiry(userID: userID)
+    }
 
     public func lectureApply(userID: String) async throws {
         try await remoteLectureDataSource.lectureApply(userID: userID)
