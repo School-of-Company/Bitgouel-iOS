@@ -6,12 +6,23 @@ public extension Project {
         platform: Platform,
         product: Product = .app,
         deploymentTarget: DeploymentTarget = .iOS(targetVersion: "15.0", devices: [.iphone]),
-        dependencies: [TargetDependency]
+        dependencies: [TargetDependency],
+        settings: Settings? = nil
     ) -> Project {
         return Project(
             name: name,
             organizationName: publicOrganizationName,
-            settings: nil,
+            settings: .settings(configurations: isCI ?
+                                [
+                                    .debug(name: .debug),
+                                    .release(name: .release)
+                                ] :
+                               [
+                                .debug(name: .debug, xcconfig:
+                                        .relativeToXCConfig(type: .debug, name: name)),
+                                .release(name: .release, xcconfig:
+                                        .relativeToXCConfig(type: .debug, name: name))
+                               ]),
             targets: [
                 Target(
                     name: name,
@@ -25,7 +36,8 @@ public extension Project {
                     scripts: [.SwiftLintString],
                     dependencies: [
                         .project(target: "ThirdPartyLib", path: Path("../ThirdPartyLib")),
-                    ] + dependencies
+                    ] + dependencies,
+                    settings: settings
                 ),
                 Target(
                     name: "\(name)Test",
