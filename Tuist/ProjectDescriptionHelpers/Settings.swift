@@ -1,3 +1,7 @@
 import ProjectDescription
 
-extension SettingsDictionary {}
+extension SettingsDictionary {
+    static let codeSign = SettingsDictionary()
+        .codeSignIdentityAppleDevelopment()
+        .automaticCodeSigning(devTeam: "")
+}

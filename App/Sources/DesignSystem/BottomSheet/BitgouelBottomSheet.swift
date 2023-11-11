@@ -4,7 +4,7 @@ struct BitgouelBottomSheet<T: View>: ViewModifier {
     @Binding var isShowing: Bool
     @State private var dragHeight: CGFloat = 0
     @Environment(\.safeAreaInsets) var safeAreaInsets
-    
+
     var content: () -> T
     var topPadding: CGFloat
     var cornerRadius: CGFloat
@@ -27,7 +27,7 @@ struct BitgouelBottomSheet<T: View>: ViewModifier {
                 }
             }
     }
-    
+
     init(
         isShowing: Binding<Bool>,
         cornerRadius: CGFloat = 8,
@@ -39,11 +39,11 @@ struct BitgouelBottomSheet<T: View>: ViewModifier {
         self.topPadding = topPadding
         self.content = content
     }
-    
+
     func body(content: Content) -> some View {
         ZStack {
             content
-            
+
             ZStack(alignment: .bottom) {
                 if isShowing {
                     Color.black
@@ -56,13 +56,13 @@ struct BitgouelBottomSheet<T: View>: ViewModifier {
                         }
                         .gesture(sheetDragGesture)
                         .transition(.opacity)
-                    
+
                     ZStack {
                         Color.white
                             .cornerRadius(cornerRadius, corners: [.topLeft, .topRight])
                             .padding(.top, -dragHeight)
                             .gesture(sheetDragGesture)
-                        
+
                         VStack {
                             self.content()
                                 .frame(maxWidth: .infinity)
@@ -84,11 +84,11 @@ struct BitgouelBottomSheet<T: View>: ViewModifier {
 }
 
 public extension View {
-    func bitgouelBottomSheet<Content: View>(
+    func bitgouelBottomSheet(
         isShowing: Binding<Bool>,
         cornerRadius: CGFloat = 8,
         topPadding: CGFloat = .zero,
-        content: @escaping () -> Content
+        content: @escaping () -> some View
     ) -> some View {
         modifier(BitgouelBottomSheet(
             isShowing: isShowing,

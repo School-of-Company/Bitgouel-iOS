@@ -38,15 +38,19 @@ struct AuthRepositoryImpl: AuthRepository {
         try await remoteAuthDataSource.teacherSignup(req: req)
     }
 
+    public func bbozzakSignup(req: BbozzakSignupRequestDTO) async throws {
+        try await remoteAuthDataSource.bbozzakSignup(req: req)
+    }
+
     public func professorSignup(req: ProfessorSignupRequestDTO) async throws {
         try await remoteAuthDataSource.professorSignup(req: req)
     }
 
-    public func companyInstructorSignup(req: CompanyInstructorSignupRequestDTO) async throws {
-        try await remoteAuthDataSource.companyInstructorSignup(req: req)
-    }
-
     public func governmentSignup(req: GovernmentSignupRequestDTO) async throws {
         try await remoteAuthDataSource.governmentSignup(req: req)
+    }
+
+    public func companyInstructorSignup(req: CompanyInstructorSignupRequestDTO) async throws {
+        try await remoteAuthDataSource.companyInstructorSignup(req: req)
     }
 }

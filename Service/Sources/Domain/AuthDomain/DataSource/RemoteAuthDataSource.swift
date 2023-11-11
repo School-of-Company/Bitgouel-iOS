@@ -25,15 +25,19 @@ final class RemoteAuthDataSource: BaseRemoteDataSource<AuthAPI> {
         try await request(.teacherSignup(req))
     }
 
+    func bbozzakSignup(req: BbozzakSignupRequestDTO) async throws {
+        try await request(.bbozzakSignup(req))
+    }
+
     func professorSignup(req: ProfessorSignupRequestDTO) async throws {
         try await request(.professorSignup(req))
     }
 
-    func companyInstructorSignup(req: CompanyInstructorSignupRequestDTO) async throws {
-        try await request(.companyInstructorSignup(req))
-    }
-
     func governmentSignup(req: GovernmentSignupRequestDTO) async throws {
         try await request(.governmentSignup(req))
+    }
+
+    func companyInstructorSignup(req: CompanyInstructorSignupRequestDTO) async throws {
+        try await request(.companyInstructorSignup(req))
     }
 }
