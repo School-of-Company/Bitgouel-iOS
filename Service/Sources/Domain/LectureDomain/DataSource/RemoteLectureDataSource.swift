@@ -5,6 +5,14 @@ final class RemoteLectureDataSource: BaseRemoteDataSource<LectureAPI> {
         try await request(.lectureOpen(req))
     }
 
+    func lectureListInquiry() async throws {
+        try await request(.lectureListInquiry)
+    }
+    
+    func lectureDetailInquiry(userID: String) async throws {
+        try await request(.lectureDetailInquiry(userID: userID))
+    }
+
     func lectureApply(userID: String) async throws {
         try await request(.lectureApply(userID: userID))
     }

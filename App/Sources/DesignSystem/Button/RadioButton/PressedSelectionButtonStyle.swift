@@ -2,7 +2,7 @@ import SwiftUI
 
 public struct PressedSelectionButtonStyle: ButtonStyle {
     var isSelected: Bool
-    
+
     @ViewBuilder
     public func makeBody(configuration: Configuration) -> some View {
         Circle()
