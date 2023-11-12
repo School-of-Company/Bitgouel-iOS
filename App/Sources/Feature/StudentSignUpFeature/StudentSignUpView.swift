@@ -38,7 +38,7 @@ struct StudentSignUpView: View {
                 VStack(spacing: 16) {
                     if !viewModel.password.isEmpty {
                         SecureBitgouelTextField(
-                            "비밀번로",
+                            "비밀번호",
                             text: $viewModel.checkPassword
                         )
                         .focused($focusField, equals: .checkPassword)
