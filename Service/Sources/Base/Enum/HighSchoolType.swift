@@ -35,3 +35,36 @@ public extension HighSchoolType {
         }
     }
 }
+
+public extension HighSchoolType {
+    func getClubsForSelectedHighSchool() -> [String] {
+        switch self {
+        case .gwangjuTechnicalHighSchool:
+            return CareerClubType.GwangjuTechnicalHighSchool.allCases.map { $0.rawValue }
+        case .kumpaTechnicalHighSchool:
+            return CareerClubType.KumpaTechnicalHighSchool.allCases.map { $0.rawValue }
+        case .jeonnamTechnicalHighSchool:
+            return CareerClubType.JeonnamTechnicalHighSchool.allCases.map { $0.rawValue }
+        case .gwangjeGirlsCommercialHighSchool:
+            return CareerClubType.GwangjeGirlsCommercialHighSchool.allCases.map { $0.rawValue }
+        case .jeonnamGirlsCommercialHighSchool:
+            return CareerClubType.JeonnamGirlsCommercialHighSchool.allCases.map { $0.rawValue }
+        case .gwangjuNaturalScienceHighSchool:
+            return CareerClubType.GwangjuNaturalScienceHighSchool.allCases.map { $0.rawValue }
+        case .gwangjuElectronicTechnicalHighSchool:
+            return CareerClubType.GwangjuElectronicTechnicalHighSchool.allCases.map { $0.rawValue }
+        case .dongilHighSchoolOfFutureScienceHighSchool:
+            return CareerClubType.DongilHighSchoolOfFutureScienceHighSchool.allCases.map { $0.rawValue }
+        case .seojinGirlsHighSchool:
+            return CareerClubType.SeojinGirlsHighSchool.allCases.map { $0.rawValue }
+        case .sunguiScienceTechnologyHighSchool:
+            return CareerClubType.SunguiScienceTechnologyHighSchool.allCases.map { $0.rawValue }
+        case .songwonGirlsCommercialHighSchool:
+            return CareerClubType.SongwonGirlsCommercialHighSchool.allCases.map { $0.rawValue }
+        case .gwangjuAutomaticEquipmentTechnicalHighSchool:
+            return CareerClubType.GwangjuAutomaticEquipmentTechnicalHighSchool.allCases.map { $0.rawValue }
+        case .gwangjuSoftwareMeisterHighSchool:
+            return CareerClubType.GwangjuSoftwareMeisterHighSchool.allCases.map { $0.rawValue }
+        }
+    }
+}

@@ -31,41 +31,9 @@ final class StudentSignUpViewModel: ObservableObject {
     
     var getClubsForSelectedHighSchool: HighSchoolType? {
         didSet {
-            updateClubsForSelectedHighSchool()
+            clubsForSelectedHighSchool = getClubsForSelectedHighSchool?.getClubsForSelectedHighSchool() ?? []
+                }
         }
-    }
-    
-    public func updateClubsForSelectedHighSchool() {
-        guard let selectedHighSchool = getClubsForSelectedHighSchool else { return }
-        switch selectedHighSchool {
-        case .gwangjuTechnicalHighSchool:
-            clubsForSelectedHighSchool = CareerClubType.GwangjuTechnicalHighSchool.allCases.map { $0.rawValue }
-        case .kumpaTechnicalHighSchool:
-            clubsForSelectedHighSchool = CareerClubType.KumpaTechnicalHighSchool.allCases.map { $0.rawValue }
-        case .jeonnamTechnicalHighSchool:
-            clubsForSelectedHighSchool = CareerClubType.JeonnamTechnicalHighSchool.allCases.map { $0.rawValue }
-        case .gwangjeGirlsCommercialHighSchool:
-            clubsForSelectedHighSchool = CareerClubType.GwangjeGirlsCommercialHighSchool.allCases.map { $0.rawValue }
-        case .jeonnamGirlsCommercialHighSchool:
-            clubsForSelectedHighSchool = CareerClubType.JeonnamGirlsCommercialHighSchool.allCases.map { $0.rawValue }
-        case .gwangjuNaturalScienceHighSchool:
-            clubsForSelectedHighSchool = CareerClubType.GwangjuNaturalScienceHighSchool.allCases.map { $0.rawValue }
-        case .gwangjuElectronicTechnicalHighSchool:
-            clubsForSelectedHighSchool = CareerClubType.GwangjuElectronicTechnicalHighSchool.allCases.map { $0.rawValue }
-        case .dongilHighSchoolOfFutureScienceHighSchool:
-            clubsForSelectedHighSchool = CareerClubType.DongilHighSchoolOfFutureScienceHighSchool.allCases.map {$0.rawValue }
-        case .seojinGirlsHighSchool:
-            clubsForSelectedHighSchool = CareerClubType.SeojinGirlsHighSchool.allCases.map { $0.rawValue }
-        case .sunguiScienceTechnologyHighSchool:
-            clubsForSelectedHighSchool = CareerClubType.SunguiScienceTechnologyHighSchool.allCases.map { $0.rawValue }
-        case .songwonGirlsCommercialHighSchool:
-            clubsForSelectedHighSchool = CareerClubType.SongwonGirlsCommercialHighSchool.allCases.map { $0.rawValue }
-        case .gwangjuAutomaticEquipmentTechnicalHighSchool:
-            clubsForSelectedHighSchool = CareerClubType.GwangjuAutomaticEquipmentTechnicalHighSchool.allCases.map { $0.rawValue }
-        case .gwangjuSoftwareMeisterHighSchool:
-            clubsForSelectedHighSchool = CareerClubType.GwangjuSoftwareMeisterHighSchool.allCases.map { $0.rawValue }
-        }
-    }
     
     public func parseStudentID() {
         guard studentID.count == 4, let grade = Int(String(studentID.prefix(1))), let classNumber = Int(String(studentID.dropFirst(1).prefix(1))), let studentNumber = Int(String(studentID.suffix(2))) else { return }
