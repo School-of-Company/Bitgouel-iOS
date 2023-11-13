@@ -234,13 +234,12 @@ struct StudentSignUpView: View {
             
             ScrollView {
                 LazyVStack {
-                    ForEach(viewModel.searchClub
-                            , id: \.self) { club in
+                    ForEach(viewModel.searchClub, id: \.self) { club in
                         HStack {
                             Text(club)
                                 .frame(height: 73)
                             
-                         Spacer()
+                            Spacer()
                             
                             BitgouelRadioButton(
                                 isSelected: Binding(
