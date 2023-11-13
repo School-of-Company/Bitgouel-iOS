@@ -18,7 +18,6 @@ final class StudentSignUpViewModel: ObservableObject {
     }
     @Published var certificationNumberPhoneNumber = ""
     @Published var email = ""
-    @Published var emailHelpMessage = ""
     @Published var certificationNumberEmail = ""
     @Published var password = ""
     @Published var checkPassword = ""
@@ -210,8 +209,15 @@ final class StudentSignUpViewModel: ObservableObject {
         if checkEmail(email) {
             return false
         } else {
-            emailHelpMessage = "이메일 형식이 유효하지 않습니다"
             return true
+        }
+    }
+    
+    var emailHelpMessage: String {
+        if isEmailErrorOccured {
+            return "이메일 형식이 유효하지 않습니다"
+        } else {
+            return ""
         }
     }
     

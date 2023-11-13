@@ -80,7 +80,7 @@ struct StudentSignUpView: View {
                         .onChange(of: viewModel.emailHelpMessage) { newValue in }
                         .focused($focusField, equals: .email)
                         .textContentType(.emailAddress)
-                        .padding(.bottom, -20)
+//                        .padding(.bottom, -20)
                     }
                     
                     if !viewModel.phoneNumber.isEmpty {
