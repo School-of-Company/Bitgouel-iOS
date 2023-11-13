@@ -48,7 +48,7 @@ jobs:
       with:
         xcode-version: latest
 
-    - name: Install tuist 
+    - name: Install tuist
       run: curl -Ls https://install.tuist.io | bash
 
     - name: Check dependency cache
