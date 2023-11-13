@@ -171,17 +171,17 @@ struct StudentSignUpView: View {
                 Spacer()
             }
         }
-            .bitgouelBottomSheet(
-                isShowing: $isSchool
-            ) {
-                schoolListView()
-                    .frame(height: 415)
-            }
-            .bitgouelBottomSheet(
-                isShowing: $isClub
-            ) {
-                clubListView()
-                    .frame(height: 415)
+        .bitgouelBottomSheet(
+            isShowing: $isSchool
+        ) {
+            schoolListView()
+                .frame(height: 415)
+        }
+        .bitgouelBottomSheet(
+            isShowing: $isClub
+        ) {
+            clubListView()
+                .frame(height: 415)
             }
         }
     
