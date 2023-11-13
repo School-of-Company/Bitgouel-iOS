@@ -258,3 +258,7 @@ struct StudentSignUpView: View {
         }
     }
 }
+
+#Preview {
+    StudentSignUpView(viewModel: StudentSignUpViewModel())
+}
