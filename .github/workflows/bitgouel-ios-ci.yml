@@ -48,7 +48,7 @@ jobs:
       with:
         xcode-version: latest
 
-    - name: Install tuist
+    - name: Install tuist 
       run: curl -Ls https://install.tuist.io | bash
 
     - name: Check dependency cache
@@ -63,7 +63,7 @@ jobs:
       run: tuist fetch
 
     - name: Test with tuist
-      run: TUIST_CI=1 tuist test
+      run: TUIST_CI=1 tuist test --verbose
 
     - name: Bitgouel iOS CI Discord Notification
       uses: sarisia/actions-status-discord@v1
