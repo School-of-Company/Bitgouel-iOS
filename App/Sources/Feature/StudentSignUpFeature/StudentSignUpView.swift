@@ -199,7 +199,6 @@ struct StudentSignUpView: View {
                     ForEach(viewModel.searchSchool, id: \.self) { school in
                         HStack {
                             Text(school.display())
-                                .frame(height: 73)
                             
                          Spacer()
                             
@@ -215,6 +214,7 @@ struct StudentSignUpView: View {
                                     }
                                 ))
                         }
+                        .frame(height: 73)
                         .padding(.horizontal, 28)
                     }
                 }
@@ -236,7 +236,6 @@ struct StudentSignUpView: View {
                     ForEach(viewModel.searchClub, id: \.self) { club in
                         HStack {
                             Text(club)
-                                .frame(height: 73)
                             
                             Spacer()
                             
@@ -250,6 +249,7 @@ struct StudentSignUpView: View {
                                     }
                                 ))
                         }
+                        .frame(height: 73)
                         .padding(.horizontal, 28)
                     }
                 }
