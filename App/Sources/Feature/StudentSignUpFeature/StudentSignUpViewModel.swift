@@ -3,7 +3,7 @@ import Service
 
 final class StudentSignUpViewModel: ObservableObject {
     @Published var school = ""
-    @Published var club = ""
+    @Published var clubSearch = ""
     @Published var name = ""
     @Published var yearOfAdmission = ""
     @Published var studentID = "" {
@@ -56,10 +56,10 @@ final class StudentSignUpViewModel: ObservableObject {
     }
     
     var searchedClubList: [String] {
-        if club.isEmpty {
+        if clubSearch.isEmpty {
             return clubsForSelectedHighSchool
         } else {
-            return clubsForSelectedHighSchool.filter { $0.lowercased().contains(club.lowercased()) }
+            return clubsForSelectedHighSchool.filter { $0.lowercased().contains(clubSearch.lowercased()) }
         }
     }
     

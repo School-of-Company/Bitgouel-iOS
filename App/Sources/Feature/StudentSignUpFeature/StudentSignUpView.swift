@@ -52,7 +52,7 @@ struct StudentSignUpView: View {
             isShowing: $isClub
         ) {
             ClubListView(
-                searchText: $viewModel.club,
+                searchText: $viewModel.clubSearch,
                 searchedClubList: viewModel.searchedClubList,
                 selectedClub: $viewModel.selectedClub
             )
