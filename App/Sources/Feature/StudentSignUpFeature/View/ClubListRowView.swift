@@ -2,8 +2,13 @@ import SwiftUI
 import Service
 
 struct ClubListRowView: View {
-    @ObservedObject var viewModel: StudentSignUpViewModel
     let club: String
+    @Binding var isSelected: Bool
+
+    init(club: String, isSelected: Binding<Bool>) {
+        self.club = club
+        self._isSelected = isSelected
+    }
     
     var body: some View {
         HStack {
@@ -11,15 +16,7 @@ struct ClubListRowView: View {
             
             Spacer()
             
-            BitgouelRadioButton(
-                isSelected: Binding(
-                    get: { viewModel.clubResult == club },
-                    set: { careerClub in
-                        if careerClub {
-                            viewModel.clubResult = club
-                        }
-                    }
-                ))
+            BitgouelRadioButton(isSelected: $isSelected)
         }
         .id(String(club))
         .frame(height: 73)

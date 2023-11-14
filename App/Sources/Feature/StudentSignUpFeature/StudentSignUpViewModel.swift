@@ -24,7 +24,7 @@ final class StudentSignUpViewModel: ObservableObject {
     @Published var phoneNumberTimeRemaining : Int = 180
     @Published var emailTimeRemaining : Int = 180
     @Published var schoolResult: String = "학교"
-    @Published var clubResult: String = "동아리"
+    @Published var selectedClub: String = "동아리"
     @Published var clubsForSelectedHighSchool: [String] = []
     let highSchool: [HighSchoolType] = HighSchoolType.allCases
     private var timer: Timer?
@@ -55,18 +55,18 @@ final class StudentSignUpViewModel: ObservableObject {
         }
     }
     
-    var searchClub: [String] {
+    var searchedClubList: [String] {
         if club.isEmpty {
             return clubsForSelectedHighSchool
         } else {
-            return clubsForSelectedHighSchool.filter { $0.lowercased().contains(club.lowercased())}
+            return clubsForSelectedHighSchool.filter { $0.lowercased().contains(club.lowercased()) }
         }
     }
     
     var titleMessage: String {
         if schoolResult == "학교" {
             return "학교 선택"
-        } else if clubResult == "동아리"{
+        } else if selectedClub == "동아리"{
             return "동아리 선택"
         } else if name.isEmpty {
             return "이름 입력"
@@ -92,7 +92,7 @@ final class StudentSignUpViewModel: ObservableObject {
     var subTitleMessage: String {
         if schoolResult == "학교" {
             return "재학 중이신 학교를 선택해 주세요!"
-        } else if clubResult == "동아리"{
+        } else if selectedClub == "동아리"{
             return "가입하신 동아리를 선택해 주세요!"
         } else if name.isEmpty {
             return "이름을 입력해 주세요!"
@@ -124,7 +124,7 @@ final class StudentSignUpViewModel: ObservableObject {
     }
     
     var isClubEmpty: Bool {
-        if clubResult == "동아리" {
+        if selectedClub == "동아리" {
             return false
         } else {
             return true

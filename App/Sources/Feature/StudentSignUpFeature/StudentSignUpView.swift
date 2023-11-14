@@ -51,10 +51,14 @@ struct StudentSignUpView: View {
         .bitgouelBottomSheet(
             isShowing: $isClub
         ) {
-            ClubListView(viewModel: viewModel)
-                .frame(height: 415)
-            }
+            ClubListView(
+                searchText: $viewModel.club,
+                searchedClubList: viewModel.searchedClubList,
+                selectedClub: $viewModel.selectedClub
+            )
+            .frame(height: 415)
         }
+    }
     
     @ViewBuilder
     func enterInformation() -> some View {
@@ -184,7 +188,7 @@ struct StudentSignUpView: View {
             
             if viewModel.isSchoolEmpty {
                 AssociationSelectButton(
-                    text: viewModel.clubResult
+                    text: viewModel.selectedClub
                 ) {
                     isClub.toggle()
                 }
