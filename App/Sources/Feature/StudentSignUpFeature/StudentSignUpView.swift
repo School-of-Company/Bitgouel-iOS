@@ -45,76 +45,16 @@ struct StudentSignUpView: View {
         .bitgouelBottomSheet(
             isShowing: $isSchool
         ) {
-            schoolListView()
+            SchoolListView(viewModel: viewModel)
                 .frame(height: 415)
         }
         .bitgouelBottomSheet(
             isShowing: $isClub
         ) {
-            clubListView()
+            ClubListView(viewModel: viewModel)
                 .frame(height: 415)
             }
         }
-    
-    @ViewBuilder
-    func schoolListView() -> some View {
-        VStack(spacing: 8) {
-            BitgouelTextField(
-                "학교 이름으로 검색",
-                text: $viewModel.school
-            )
-            .padding(.horizontal, 28)
-            
-            ScrollView {
-                LazyVStack {
-                    ForEach(viewModel.searchSchool, id: \.self) { school in
-                        listRowView(listItem: school.display())
-                    }
-                }
-            }
-        }
-    }
-    
-    @ViewBuilder
-    func clubListView() -> some View {
-        VStack(spacing: 8) {
-            BitgouelTextField(
-                "동아리 이름으로 검색",
-                text: $viewModel.club
-            )
-            .padding(.horizontal, 28)
-            
-            ScrollView {
-                LazyVStack {
-                    ForEach(viewModel.searchClub, id: \.self) { club in
-                        listRowView(listItem: club)
-                    }
-                }
-            }
-        }
-    }
-    
-    @ViewBuilder
-    func listRowView(listItem: String) -> some View {
-        HStack {
-            Text(listItem)
-            
-            Spacer()
-            
-            BitgouelRadioButton(
-                isSelected: Binding(
-                    get: { viewModel.clubResult == listItem },
-                    set: { careerClub in
-                        if careerClub {
-                            viewModel.clubResult = listItem
-                        }
-                    }
-                ))
-        }
-        .id(String(listItem))
-        .frame(height: 73)
-        .padding(.horizontal, 28)
-    }
     
     @ViewBuilder
     func enterInformation() -> some View {
