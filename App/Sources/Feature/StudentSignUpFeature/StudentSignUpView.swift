@@ -16,7 +16,7 @@ struct StudentSignUpView: View {
     @FocusState private var focusField: FocusField?
     @StateObject var viewModel: StudentSignUpViewModel
     @State var isSchool = false
-    @State var isClub = false
+    @State var isShowingClubSelectSheet = false
     
     var body: some View {
         ScrollView {
@@ -49,7 +49,7 @@ struct StudentSignUpView: View {
                 .frame(height: 415)
         }
         .bitgouelBottomSheet(
-            isShowing: $isClub
+            isShowing: $isShowingClubSelectSheet
         ) {
             ClubListView(
                 searchText: $viewModel.clubSearch,
@@ -193,7 +193,7 @@ struct StudentSignUpView: View {
                 AssociationSelectButton(
                     text: viewModel.selectedClub
                 ) {
-                    isClub.toggle()
+                    isShowingClubSelectSheet.toggle()
                 }
             }
             
