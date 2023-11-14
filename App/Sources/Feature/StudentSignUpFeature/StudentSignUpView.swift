@@ -197,26 +197,7 @@ struct StudentSignUpView: View {
             ScrollView {
                 LazyVStack {
                     ForEach(viewModel.searchSchool, id: \.self) { school in
-                        HStack {
-                            Text(school.display())
-                            
-                         Spacer()
-                            
-                            BitgouelRadioButton(
-                                isSelected: Binding(
-                                    get: { viewModel.schoolResult == school.display() },
-                                    set: { highSchool in
-                                        if highSchool {
-                                            viewModel.schoolResult = school.display()
-                                            viewModel.getClubsForSelectedHighSchool = school
-                                        }
-                                        
-                                    }
-                                ))
-                        }
-                        .id(String(school.rawValue))
-                        .frame(height: 73)
-                        .padding(.horizontal, 28)
+                        ListRowView(listItem: school.display())
                     }
                 }
             }
@@ -235,27 +216,36 @@ struct StudentSignUpView: View {
             ScrollView {
                 LazyVStack {
                     ForEach(viewModel.searchClub, id: \.self) { club in
-                        HStack {
-                            Text(club)
-                            
-                            Spacer()
-                            
-                            BitgouelRadioButton(
-                                isSelected: Binding(
-                                    get: { viewModel.clubResult == club },
-                                    set: { careerClub in
-                                        if careerClub {
-                                            viewModel.clubResult = club
-                                        }
-                                    }
-                                ))
-                        }
-                        .id(String(club))
-                        .frame(height: 73)
-                        .padding(.horizontal, 28)
+                        ListRowView(listItem: club)
                     }
                 }
             }
         }
     }
+    
+    @ViewBuilder
+    func ListRowView(listItem: String) -> some View {
+        HStack {
+            Text(listItem)
+            
+            Spacer()
+            
+            BitgouelRadioButton(
+                isSelected: Binding(
+                    get: { viewModel.clubResult == listItem },
+                    set: { careerClub in
+                        if careerClub {
+                            viewModel.clubResult = listItem
+                        }
+                    }
+                ))
+        }
+        .id(String(listItem))
+        .frame(height: 73)
+        .padding(.horizontal, 28)
+    }
+}
+
+#Preview {
+    StudentSignUpView(viewModel: StudentSignUpViewModel())
 }
