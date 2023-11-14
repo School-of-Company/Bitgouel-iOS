@@ -54,7 +54,10 @@ struct StudentSignUpView: View {
             ClubListView(
                 searchText: $viewModel.clubSearch,
                 searchedClubList: viewModel.searchedClubList,
-                selectedClub: $viewModel.selectedClub
+                selectedClub: viewModel.selectedClub,
+                clubDidSelect: { selectedClub in
+                    viewModel.selectedClub = selectedClub
+                }
             )
             .frame(height: 415)
         }

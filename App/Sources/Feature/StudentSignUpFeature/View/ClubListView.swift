@@ -3,16 +3,19 @@ import SwiftUI
 struct ClubListView: View {
     @Binding var searchText: String
     let searchedClubList: [String]
-    @Binding var selectedClub: String
+    let selectedClub: String
+    let clubDidSelect: (String) -> Void
 
     init(
         searchText: Binding<String>,
         searchedClubList: [String],
-        selectedClub: Binding<String>
+        selectedClub: String,
+        clubDidSelect: @escaping (String) -> Void
     ) {
         self._searchText = searchText
         self.searchedClubList = searchedClubList
-        self._selectedClub = selectedClub
+        self.selectedClub = selectedClub
+        self.clubDidSelect = clubDidSelect
     }
     
     var body: some View {
@@ -30,7 +33,7 @@ struct ClubListView: View {
                             club: club,
                             isSelected: Binding(
                                 get: { club == selectedClub },
-                                set: { _ in selectedClub = club }
+                                set: { _ in clubDidSelect(club) }
                             )
                         )
                     }
