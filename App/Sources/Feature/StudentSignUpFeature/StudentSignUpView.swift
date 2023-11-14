@@ -214,6 +214,7 @@ struct StudentSignUpView: View {
                                     }
                                 ))
                         }
+                        .id(String(school.rawValue))
                         .frame(height: 73)
                         .padding(.horizontal, 28)
                     }
@@ -249,6 +250,7 @@ struct StudentSignUpView: View {
                                     }
                                 ))
                         }
+                        .id(String(club))
                         .frame(height: 73)
                         .padding(.horizontal, 28)
                     }
