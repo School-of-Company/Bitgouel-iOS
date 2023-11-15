@@ -7,13 +7,13 @@ struct SchoolListView: View {
         VStack(spacing: 8) {
             BitgouelTextField(
                 "학교 이름으로 검색",
-                text: $viewModel.school
+                text: $viewModel.schoolSearch
             )
             .padding(.horizontal, 28)
             
             ScrollView {
                 LazyVStack {
-                    ForEach(viewModel.searchSchool, id: \.self) { school in
+                    ForEach(viewModel.searchedSchoolList, id: \.self) { school in
                         SchoolListRowView(viewModel: viewModel, school: school)
                     }
                 }

@@ -198,7 +198,7 @@ struct StudentSignUpView: View {
             }
             
             AssociationSelectButton(
-                text: viewModel.schoolResult
+                text: viewModel.selectedSchool
             ) {
                 isSchool.toggle()
             }
@@ -208,4 +208,8 @@ struct StudentSignUpView: View {
             AssociationSelectButton(text: "학교")
         }
     }
+}
+
+#Preview {
+    StudentSignUpView(viewModel: StudentSignUpViewModel())
 }

@@ -2,7 +2,7 @@ import Foundation
 import Service
 
 final class StudentSignUpViewModel: ObservableObject {
-    @Published var school = ""
+    @Published var schoolSearch = ""
     @Published var clubSearch = ""
     @Published var name = ""
     @Published var yearOfAdmission = ""
@@ -23,7 +23,7 @@ final class StudentSignUpViewModel: ObservableObject {
     @Published var checkPassword = ""
     @Published var phoneNumberTimeRemaining : Int = 180
     @Published var emailTimeRemaining : Int = 180
-    @Published var schoolResult: String = "학교"
+    @Published var selectedSchool: String = "학교"
     @Published var selectedClub: String = "동아리"
     @Published var clubsForSelectedHighSchool: [String] = []
     let highSchool: [HighSchoolType] = HighSchoolType.allCases
@@ -47,11 +47,11 @@ final class StudentSignUpViewModel: ObservableObject {
         phoneNumber = "\(firstPart)-\(secondPart)-\(thirdPart)"
     }
     
-    var searchSchool: [HighSchoolType] {
-        if school.isEmpty {
+    var searchedSchoolList: [HighSchoolType] {
+        if schoolSearch.isEmpty {
             return highSchool
         } else {
-            return highSchool.filter { $0.display().contains(school) }
+            return highSchool.filter { $0.display().contains(schoolSearch) }
         }
     }
     
@@ -64,7 +64,7 @@ final class StudentSignUpViewModel: ObservableObject {
     }
     
     var titleMessage: String {
-        if schoolResult == "학교" {
+        if selectedSchool == "학교" {
             return "학교 선택"
         } else if selectedClub == "동아리"{
             return "동아리 선택"
@@ -90,7 +90,7 @@ final class StudentSignUpViewModel: ObservableObject {
     }
     
     var subTitleMessage: String {
-        if schoolResult == "학교" {
+        if selectedSchool == "학교" {
             return "재학 중이신 학교를 선택해 주세요!"
         } else if selectedClub == "동아리"{
             return "가입하신 동아리를 선택해 주세요!"
@@ -116,7 +116,7 @@ final class StudentSignUpViewModel: ObservableObject {
     }
     
     var isSchoolEmpty: Bool {
-        if schoolResult == "학교" {
+        if selectedSchool == "학교" {
             return false
         } else {
             return true
