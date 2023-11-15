@@ -21,7 +21,7 @@ final class StudentSignUpViewModel: ObservableObject {
     @Published var certificationNumberEmail = ""
     @Published var password = ""
     @Published var checkPassword = ""
-    @Published var phoneNumberTimeRemaining : Int = 180
+    @Published var phoneNumberTimeRemaining: Int = 180
     @Published var emailTimeRemaining : Int = 180
     @Published var selectedSchool: String = "학교"
     @Published var selectedClub: String = "동아리"
