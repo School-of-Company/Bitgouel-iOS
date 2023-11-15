@@ -176,7 +176,7 @@ struct StudentSignUpView: View {
                     .padding(.bottom, -20)
                 }
                 
-                if viewModel.isClubEmpty {
+                if viewModel.selectedClubExists {
                     BitgouelTextField(
                         "이름",
                         text: $viewModel.name,
@@ -189,7 +189,7 @@ struct StudentSignUpView: View {
                 }
             }
             
-            if viewModel.isSchoolEmpty {
+            if viewModel.selectedSchoolExists {
                 AssociationSelectButton(
                     text: viewModel.selectedClub
                 ) {

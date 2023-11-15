@@ -103,7 +103,7 @@ final class StudentSignUpViewModel: ObservableObject {
         }
     }
     
-    var isSchoolEmpty: Bool {
+    var selectedSchoolExists: Bool {
         if selectedSchool == "학교" {
             return false
         } else {
@@ -111,7 +111,7 @@ final class StudentSignUpViewModel: ObservableObject {
         }
     }
     
-    var isClubEmpty: Bool {
+    var selectedClubExists: Bool {
         selectedClub != "동아리"
     }
     
