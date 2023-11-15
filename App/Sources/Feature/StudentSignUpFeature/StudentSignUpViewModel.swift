@@ -27,27 +27,12 @@ final class StudentSignUpViewModel: ObservableObject {
     @Published var selectedClub: String = "동아리"
     @Published var clubsForSelectedHighSchool: [String] = []
     private var timer: Timer?
+    let highSchool: [HighSchoolType] = HighSchoolType.allCases
     
     var getClubsForSelectedHighSchool: HighSchoolType? {
         didSet {
             clubsForSelectedHighSchool = getClubsForSelectedHighSchool?.getClubsForSelectedHighSchool() ?? []
         }
-    }
-    
-    public func parseStudentID() {
-        guard studentID.count == 4, 
-              let grade = Int(String(studentID.prefix(1))),
-              let classNumber = Int(String(studentID.dropFirst(1).prefix(1))),
-              let studentNumber = Int(String(studentID.suffix(2))) 
-        else { return }
-        
-        studentID = "\(grade)학년 \(classNumber)반 \(studentNumber)번"
-    }
-    
-    public func parsePhoneNumber() {
-        guard phoneNumber.count == 11, let firstPart = Int(String(phoneNumber.prefix(3))), let secondPart = Int(String(phoneNumber.dropFirst(3).prefix(4))), let thirdPart = Int(String(phoneNumber.dropFirst(7))) else { return }
-        
-        phoneNumber = "\(firstPart)-\(secondPart)-\(thirdPart)"
     }
     
     var searchedSchoolList: [HighSchoolType] {
@@ -127,7 +112,7 @@ final class StudentSignUpViewModel: ObservableObject {
     }
     
     var isClubEmpty: Bool {
-        selectedClub != "동아리" 
+        selectedClub != "동아리"
     }
     
     func convertSecondsToTime(timeInSeconds: Int) -> String {
@@ -169,6 +154,27 @@ final class StudentSignUpViewModel: ObservableObject {
         timer = nil
     }
     
+    public func parseStudentID() {
+        guard studentID.count == 4, 
+              let grade = Int(String(studentID.prefix(1))),
+              let classNumber = Int(String(studentID.dropFirst(1).prefix(1))),
+              let studentNumber = Int(String(studentID.suffix(2))) 
+        else { return }
+        
+        studentID = "\(grade)학년 \(classNumber)반 \(studentNumber)번"
+    }
+    
+    public func parsePhoneNumber() {
+        guard phoneNumber.count == 11, let firstPart = Int(String(phoneNumber.prefix(3))), let secondPart = Int(String(phoneNumber.dropFirst(3).prefix(4))), let thirdPart = Int(String(phoneNumber.dropFirst(7))) else { return }
+        
+        phoneNumber = "\(firstPart)-\(secondPart)-\(thirdPart)"
+    }
+    
+    func checkEmail(_ email: String) -> Bool {
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
+        return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: email)
+    }
+    
     var isEmailErrorOccured: Bool {
         if email.isEmpty {
             return false
@@ -186,10 +192,5 @@ final class StudentSignUpViewModel: ObservableObject {
         } else {
             return ""
         }
-    }
-    
-    func checkEmail(_ email: String) -> Bool {
-        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
-        return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: email)
     }
 }
