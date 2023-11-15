@@ -104,11 +104,7 @@ final class StudentSignUpViewModel: ObservableObject {
     }
     
     var selectedSchoolExists: Bool {
-        if selectedSchool == "학교" {
-            return false
-        } else {
-            return true
-        }
+        selectedSchool != "학교"
     }
     
     var selectedClubExists: Bool {
