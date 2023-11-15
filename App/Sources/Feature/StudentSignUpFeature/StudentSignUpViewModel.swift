@@ -127,11 +127,7 @@ final class StudentSignUpViewModel: ObservableObject {
     }
     
     var isClubEmpty: Bool {
-        if selectedClub == "동아리" {
-            return false
-        } else {
-            return true
-        }
+        selectedClub != "동아리" 
     }
     
     func convertSecondsToTime(timeInSeconds: Int) -> String {
