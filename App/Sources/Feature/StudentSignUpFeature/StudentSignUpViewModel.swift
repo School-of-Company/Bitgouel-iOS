@@ -69,7 +69,7 @@ final class StudentSignUpViewModel: ObservableObject {
     var titleMessage: String {
         if selectedSchool == "학교" {
             return "학교 선택"
-        } else if selectedClub == "동아리"{
+        } else if selectedClub == "동아리" {
             return "동아리 선택"
         } else if name.isEmpty {
             return "이름 입력"
