@@ -74,7 +74,7 @@ public struct CommonSignUpView: View {
     
     @ViewBuilder
     func schoolTypeView() -> some View {
-        VStack {
+        ScrollView {
             ForEach(viewModel.getSchoolType, id: \.self) { school in
                 HStack {
                     Text(school.rawValue)
@@ -100,7 +100,7 @@ public struct CommonSignUpView: View {
     
     @ViewBuilder
     func externalTypeView() -> some View {
-        VStack {
+        ScrollView {
             ForEach(viewModel.getExternalType, id: \.self) { external in
                 HStack {
                     Text(external.rawValue)
@@ -126,7 +126,7 @@ public struct CommonSignUpView: View {
     
     @ViewBuilder
     func associationTypeView() -> some View {
-        VStack {
+        ScrollView {
             ForEach(viewModel.associationValue, id: \.self) { association in
                 HStack {
                     Text(association.associationValue())
