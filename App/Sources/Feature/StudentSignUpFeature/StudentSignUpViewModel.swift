@@ -36,7 +36,11 @@ final class StudentSignUpViewModel: ObservableObject {
     }
     
     public func parseStudentID() {
-        guard studentID.count == 4, let grade = Int(String(studentID.prefix(1))), let classNumber = Int(String(studentID.dropFirst(1).prefix(1))), let studentNumber = Int(String(studentID.suffix(2))) else { return }
+        guard studentID.count == 4, 
+              let grade = Int(String(studentID.prefix(1))),
+              let classNumber = Int(String(studentID.dropFirst(1).prefix(1))),
+              let studentNumber = Int(String(studentID.suffix(2))) 
+        else { return }
         
         studentID = "\(grade)학년 \(classNumber)반 \(studentNumber)번"
     }
