@@ -26,7 +26,6 @@ final class StudentSignUpViewModel: ObservableObject {
     @Published var selectedSchool: String = "학교"
     @Published var selectedClub: String = "동아리"
     @Published var clubsForSelectedHighSchool: [String] = []
-    let highSchool: [HighSchoolType] = HighSchoolType.allCases
     private var timer: Timer?
     
     var getClubsForSelectedHighSchool: HighSchoolType? {
