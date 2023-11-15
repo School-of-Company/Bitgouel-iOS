@@ -13,10 +13,10 @@ struct SchoolListRowView: View {
             
             BitgouelRadioButton(
                 isSelected: Binding(
-                    get: { viewModel.schoolResult == school.display() },
+                    get: { viewModel.selectedSchool == school.display() },
                     set: { highSchool in
                         if highSchool {
-                            viewModel.schoolResult = school.display()
+                            viewModel.selectedSchool = school.display()
                             viewModel.getClubsForSelectedHighSchool = school
                         }
                     }

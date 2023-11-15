@@ -198,7 +198,7 @@ struct StudentSignUpView: View {
             }
             
             AssociationSelectButton(
-                text: viewModel.schoolResult
+                text: viewModel.selectedSchool
             ) {
                 isSchool.toggle()
             }
