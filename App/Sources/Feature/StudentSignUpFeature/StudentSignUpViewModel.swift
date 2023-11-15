@@ -138,7 +138,7 @@ final class StudentSignUpViewModel: ObservableObject {
     func convertSecondsToTime(timeInSeconds: Int) -> String {
         let minutes = timeInSeconds / 60
         let seconds = timeInSeconds % 60
-        return String(format: "%02i:%02i", minutes,seconds)
+        return String(format: "%02i:%02i", minutes, seconds)
     }
     
     func phoneNumberStartTimer() {
