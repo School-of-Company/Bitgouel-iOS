@@ -32,8 +32,8 @@ final class StudentSignUpViewModel: ObservableObject {
     var getClubsForSelectedHighSchool: HighSchoolType? {
         didSet {
             clubsForSelectedHighSchool = getClubsForSelectedHighSchool?.getClubsForSelectedHighSchool() ?? []
-                }
         }
+    }
     
     public func parseStudentID() {
         guard studentID.count == 4, let grade = Int(String(studentID.prefix(1))), let classNumber = Int(String(studentID.dropFirst(1).prefix(1))), let studentNumber = Int(String(studentID.suffix(2))) else { return }
