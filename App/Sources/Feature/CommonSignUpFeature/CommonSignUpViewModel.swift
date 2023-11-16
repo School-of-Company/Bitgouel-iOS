@@ -38,4 +38,8 @@ final class CommonSignUpViewModel: ObservableObject {
     var getExternalType: [UserRoleType.ExternalType] {
         return externalValue
     }
+    
+    func resetJobType() {
+        jobType = "직업"
+    }
 }
