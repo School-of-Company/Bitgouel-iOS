@@ -7,9 +7,9 @@ public enum UserRoleType {
     }
     
     public enum ExternalType: String, CaseIterable, Decodable, Encodable {
-        case bbozzack = "ROLE_BBOZZAK"
-        case professor = "ROLE_PROFESSOR"
         case companyInstructor = "ROLE_COMPANY_INSTRUCTOR"
+        case professor = "ROLE_PROFESSOR"
+        case bbozzack = "ROLE_BBOZZAK"
         case grovernment = "ROLE_GOVERNMENT"
     }
 }
