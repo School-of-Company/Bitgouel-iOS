@@ -28,26 +28,14 @@ final class CommonSignUpViewModel: ObservableObject {
     }
     
     var getAssociationType: [AssociationType] {
-        if association.isEmpty {
-            return associationValue
-        } else {
-            return associationValue
-        }
+        return associationValue
     }
     
     var getSchoolType: [UserRoleType.SchoolType] {
-        if school.isEmpty {
-            return schoolValue
-        } else {
-            return schoolValue
-        }
+        return schoolValue
     }
     
     var getExternalType: [UserRoleType.ExternalType] {
-        if external.isEmpty {
-            return externalValue
-        } else {
-            return externalValue
-        }
+        return externalValue
     }
 }
