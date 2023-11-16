@@ -30,7 +30,7 @@ public struct CommonSignUpView: View {
             
             if !viewModel.association.isEmpty {
                 VStack {
-                    AssociationSelectButton(
+                    AssociationsSelectButton(
                         text: viewModel.jobType
                     ) {
                         if viewModel.association == "학교" {
@@ -45,7 +45,7 @@ public struct CommonSignUpView: View {
             }
             
             VStack {
-                AssociationSelectButton(
+                AssociationsSelectButton(
                     text: viewModel.associationType
                 ) {
                     isAssociation.toggle()

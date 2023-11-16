@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct AssociationSelectButton: View {
+public struct AssociationsSelectButton: View {
     var text: String
     var style: SelectButtonStyleType
     var action: () -> Void
@@ -26,6 +26,6 @@ public struct AssociationSelectButton: View {
             Spacer()
         }
         .buttonWrapper(action)
-        .buttonStyle(AssociationSelectButtonStyle(style: style))
+        .buttonStyle(AssociationsSelectButtonStyle(style: style))
     }
 }

@@ -1,13 +1,13 @@
 import SwiftUI
 
-public extension AssociationSelectButton {
+public extension AssociationsSelectButton {
     enum SelectButtonStyleType {
         case select
     }
 }
 
-public struct AssociationSelectButtonStyle: ButtonStyle {
-    var style: AssociationSelectButton.SelectButtonStyleType
+public struct AssociationsSelectButtonStyle: ButtonStyle {
+    var style: AssociationsSelectButton.SelectButtonStyleType
     
     public func makeBody(configuration: Configuration) -> some View {
         switch style {
@@ -17,7 +17,7 @@ public struct AssociationSelectButtonStyle: ButtonStyle {
     }
 }
 
-private extension AssociationSelectButtonStyle {
+private extension AssociationsSelectButtonStyle {
     struct SelectButton: View {
         let configuration: ButtonStyle.Configuration
         var foregroundColor: Color {
