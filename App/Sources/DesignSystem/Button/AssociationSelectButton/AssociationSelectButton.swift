@@ -18,10 +18,11 @@ public struct AssociationSelectButton: View {
 
     public var body: some View {
         HStack {
+
             Text(text)
                 .padding(.horizontal, 20)
                 .padding(.vertical, 18)
-
+            
             Spacer()
         }
         .buttonWrapper(action)
