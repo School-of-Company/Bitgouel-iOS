@@ -33,7 +33,11 @@ public struct CommonSignUpView: View {
                     AssociationSelectButton(
                         text: viewModel.jobType
                     ) {
-                        isExternal.toggle()
+                        if viewModel.association == "학교" {
+                            isSchool.toggle()
+                        } else if viewModel.association == "외부" {
+                            isExternal.toggle()
+                        }
                     }
                     .padding(.horizontal, 28)
                     .padding(.bottom, 16)
