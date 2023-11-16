@@ -92,6 +92,7 @@ public struct CommonSignUpView: View {
                                 if isSelected {
                                     isSchool = false
                                     viewModel.school = school.schoolValue()
+                                    viewModel.jobType = school.schoolValue()
                                 }
                             }
                         )
@@ -119,6 +120,7 @@ public struct CommonSignUpView: View {
                                 if isSelected {
                                     isExternal = false
                                     viewModel.external = external.externalValue()
+                                    viewModel.jobType = external.externalValue()
                                 }
                             }
                         )
@@ -146,6 +148,7 @@ public struct CommonSignUpView: View {
                                 if isSelected {
                                     isAssociation = false
                                     viewModel.association = association.associationValue()
+                                    viewModel.associationType = association.associationValue()
                                 }
                             }
                         )
