@@ -81,16 +81,17 @@ public struct CommonSignUpView: View {
         ScrollView {
             ForEach(viewModel.getSchoolType, id: \.self) { school in
                 HStack {
-                    Text(school.rawValue)
+                    Text(school.schoolValue())
                     
                     Spacer()
                     
                     BitgouelRadioButton(
                         isSelected: Binding(
-                            get: { viewModel.school == school.rawValue },
+                            get: { viewModel.school == school.schoolValue() },
                             set: { isSelected in
                                 if isSelected {
                                     isSchool = false
+                                    viewModel.school = school.schoolValue()
                                 }
                             }
                         )
@@ -107,16 +108,17 @@ public struct CommonSignUpView: View {
         ScrollView {
             ForEach(viewModel.getExternalType, id: \.self) { external in
                 HStack {
-                    Text(external.rawValue)
+                    Text(external.externalValue())
                     
                     Spacer()
                     
                     BitgouelRadioButton(
                         isSelected: Binding(
-                            get: { viewModel.external == external.rawValue },
+                            get: { viewModel.external == external.externalValue() },
                             set: { isSelected in
                                 if isSelected {
                                     isExternal = false
+                                    viewModel.external = external.externalValue()
                                 }
                             }
                         )
@@ -143,6 +145,7 @@ public struct CommonSignUpView: View {
                             set: { isSelected in
                                 if isSelected {
                                     isAssociation = false
+                                    viewModel.association = association.associationValue()
                                 }
                             }
                         )
