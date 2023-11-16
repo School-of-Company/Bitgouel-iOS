@@ -163,7 +163,3 @@ public struct CommonSignUpView: View {
         }
     }
 }
-
-#Preview {
-    CommonSignUpView(viewModel: CommonSignUpViewModel())
-}
