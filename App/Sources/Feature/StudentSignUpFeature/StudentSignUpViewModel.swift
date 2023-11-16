@@ -163,9 +163,10 @@ final class StudentSignUpViewModel: ObservableObject {
     public func parsePhoneNumber() {
         guard 
         phoneNumber.count == 11, 
-        let firstPart = Int(String(phoneNumber.prefix(3))), 
-        let secondPart = Int(String(phoneNumber.dropFirst(3).prefix(4))), 
-        let thirdPart = Int(String(phoneNumber.dropFirst(7))) else { return }
+            let firstPart = Int(String(phoneNumber.prefix(3))), 
+            let secondPart = Int(String(phoneNumber.dropFirst(3).prefix(4))), 
+            let thirdPart = Int(String(phoneNumber.dropFirst(7)))
+        else { return }
         
         phoneNumber = "\(firstPart)-\(secondPart)-\(thirdPart)"
     }
