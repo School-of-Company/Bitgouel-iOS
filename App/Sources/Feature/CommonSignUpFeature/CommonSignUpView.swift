@@ -149,6 +149,9 @@ public struct CommonSignUpView: View {
                                     isAssociation = false
                                     viewModel.association = association.associationValue()
                                     viewModel.associationType = association.associationValue()
+                                    if !viewModel.association.isEmpty {
+                                        viewModel.resetJobType()
+                                    }
                                 }
                             }
                         )
