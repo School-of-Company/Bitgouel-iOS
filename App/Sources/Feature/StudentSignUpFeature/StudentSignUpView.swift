@@ -1,5 +1,4 @@
 import SwiftUI
-import Combine
 
 struct StudentSignUpView: View {
     private enum FocusField {
@@ -17,50 +16,61 @@ struct StudentSignUpView: View {
     @StateObject var viewModel: StudentSignUpViewModel
     @State var isSchool = false
     @State var isShowingClubSelectSheet = false
+    @State var isShowingSuccessView = false
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: 0) {
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text(viewModel.titleMessage)
-                            .bitgouelFont(.title2)
+        NavigationView {
+            ScrollView {
+                VStack(spacing: 0) {
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(viewModel.titleMessage)
+                                .bitgouelFont(.title2)
+                            
+                            Text(viewModel.subTitleMessage)
+                                .bitgouelFont(.text3, color: .greyscale(.g4))
+                        }
                         
-                        Text(viewModel.subTitleMessage)
-                            .bitgouelFont(.text3, color: .greyscale(.g4))
+                        Spacer()
                     }
+                    .padding(.leading, 28)
+                    .padding(.top, 24)
+                    
+                    enterInformation()
+                        .padding(.top, 32)
+                        .padding(.horizontal, 28)
                     
                     Spacer()
                 }
-                .padding(.leading, 28)
-                .padding(.top, 24)
-                
-                enterInformation()
-                    .padding(.top, 32)
-                    .padding(.horizontal, 28)
-                
-                Spacer()
             }
-        }
-        .bitgouelBottomSheet(
-            isShowing: $isSchool
-        ) {
-            SchoolListView(viewModel: viewModel)
+            .bitgouelBottomSheet(
+                isShowing: $isSchool
+            ) {
+                SchoolListView(viewModel: viewModel)
+                    .frame(height: 415)
+            }
+            .bitgouelBottomSheet(
+                isShowing: $isShowingClubSelectSheet
+            ) {
+                ClubListView(
+                    searchText: $viewModel.clubSearch,
+                    searchedClubList: viewModel.searchedClubList,
+                    selectedClub: viewModel.selectedClub,
+                    clubDidSelect: { selectedClub in
+                        viewModel.selectedClub = selectedClub
+                    }
+                )
                 .frame(height: 415)
-        }
-        .bitgouelBottomSheet(
-            isShowing: $isShowingClubSelectSheet
-        ) {
-            ClubListView(
-                searchText: $viewModel.clubSearch,
-                searchedClubList: viewModel.searchedClubList,
-                selectedClub: viewModel.selectedClub,
-                clubDidSelect: { selectedClub in
-                    viewModel.selectedClub = selectedClub
-                }
+            }
+            .background(
+                NavigationLink(
+                    destination: SuccessSignUpView(),
+                    isActive: $isShowingSuccessView,
+                    label: { EmptyView() }
+                )
             )
-            .frame(height: 415)
         }
+        .navigationBarHidden(true)
     }
     
     @ViewBuilder
@@ -74,6 +84,13 @@ struct StudentSignUpView: View {
                     )
                     .focused($focusField, equals: .checkPassword)
                     .padding(.bottom, -20)
+                    .onSubmit {
+                        if viewModel.isPasswordMatching {
+                            isShowingSuccessView = true
+                        } else {
+                            isShowingSuccessView = false
+                        }
+                    }
                 }
                 
                 if !viewModel.certificationNumberEmail.isEmpty {

@@ -111,6 +111,10 @@ final class StudentSignUpViewModel: ObservableObject {
         selectedClub != "동아리"
     }
     
+    var isPasswordMatching: Bool {
+        checkPassword(password, checkPassword)
+    }
+    
     func convertSecondsToTime(timeInSeconds: Int) -> String {
         let minutes = timeInSeconds / 60
         let seconds = timeInSeconds % 60
@@ -174,6 +178,10 @@ final class StudentSignUpViewModel: ObservableObject {
     func checkEmail(_ email: String) -> Bool {
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
         return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: email)
+    }
+    
+    func checkPassword(_ password: String, _ checkPassword: String) -> Bool {
+        return password == checkPassword
     }
     
     var isEmailErrorOccured: Bool {
