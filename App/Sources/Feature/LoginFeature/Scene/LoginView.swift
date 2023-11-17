@@ -1,5 +1,4 @@
 import SwiftUI
-import Service
 
 struct LoginView: View {
     private enum FocusField {
