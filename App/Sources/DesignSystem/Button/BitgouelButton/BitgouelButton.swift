@@ -12,7 +12,7 @@ public struct BitgouelButton: View {
 
     ) {
         self.text = text
-        self.style = .primary
+        self.style = style
         self.action = action
     }
 
