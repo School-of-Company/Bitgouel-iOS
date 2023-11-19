@@ -1,32 +1,31 @@
 import SwiftUI
 
-public struct BitgouelButton: View {
+public struct AssociationsSelectButton: View {
     var text: String
-    var style: ButtonStyleType
+    var style: SelectButtonStyleType
     var action: () -> Void
 
     public init(
         text: String,
-        style: ButtonStyleType = .primary,
+        style: SelectButtonStyleType = .select,
         action: @escaping () -> Void = {}
 
     ) {
         self.text = text
-        self.style = style
+        self.style = .select
         self.action = action
     }
 
     public var body: some View {
         HStack {
-            Spacer()
-
+            
             Text(text)
-                .padding(.horizontal, 32)
-                .padding(.vertical, 13.5)
-
+                .padding(.horizontal, 20)
+                .padding(.vertical, 16)
+            
             Spacer()
         }
         .buttonWrapper(action)
-        .buttonStyle(BitgouelButtonStyle(style: style))
+        .buttonStyle(AssociationsSelectButtonStyle(style: style))
     }
 }
