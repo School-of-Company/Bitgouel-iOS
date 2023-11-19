@@ -1,12 +1,12 @@
 import Foundation
-import SwiftUI
 import Service
+import SwiftUI
 
-public protocol LoginDependency {
-    var loginUseCase: LoginUseCase { get }
+struct LoginDependency {
+    let loginUseCase: any LoginUseCase
 }
 
-public final class LoginFactory {
+final class LoginFactory {
     let dependency: LoginDependency
     
     init(dependency: LoginDependency) {

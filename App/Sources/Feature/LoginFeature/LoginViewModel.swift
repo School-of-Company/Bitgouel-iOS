@@ -4,6 +4,11 @@ import Service
 final class LoginViewModel: ObservableObject {
     @Published var email = ""
     @Published var password = ""
+    private let loginUseCase: any LoginUseCase
+    
+    init(loginUseCase: any LoginUseCase) {
+        self.loginUseCase = loginUseCase
+    }
     
     var isFormEmpty: Bool {
         email.isEmpty || password.isEmpty
@@ -49,12 +54,6 @@ final class LoginViewModel: ObservableObject {
         }
     }
     
-    private let loginUseCase: LoginUseCase
-    
-    init(loginUseCase: LoginUseCase) {
-        self.loginUseCase = loginUseCase
-    }
-    
     func checkEmail(_ email: String) -> Bool {
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
         return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: email)
@@ -73,7 +72,6 @@ final class LoginViewModel: ObservableObject {
                 print("로그인 성공")
             } catch {
                 print("로그인 실패: \(error)")
-                
             }
         }
     }
