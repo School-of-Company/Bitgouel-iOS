@@ -1,6 +1,6 @@
 import Foundation
 
-final class LoginViewModel: ObservableObject {
+final class LoginViewModel: BaseViewModel {
     @Published var email = ""
     @Published var password = ""
 
