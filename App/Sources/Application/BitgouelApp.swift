@@ -1,5 +1,4 @@
 import SwiftUI
-import Service
 
 @main
 struct BitgouelApp: App {
