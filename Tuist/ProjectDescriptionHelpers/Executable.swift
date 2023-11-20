@@ -35,7 +35,8 @@ public extension Project {
                     resources: ["Resources/**"],
                     scripts: [.SwiftLintString],
                     dependencies: [
-                        .project(target: "ThirdPartyLib", path: Path("../ThirdPartyLib")),
+                        .project(target: "ThirdPartyLib",
+                                 path: Path("../ThirdPartyLib")),
                     ] + dependencies,
                     settings: settings
                 ),

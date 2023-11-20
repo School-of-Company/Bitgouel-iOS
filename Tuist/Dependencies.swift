@@ -5,7 +5,7 @@ let dependencies = Dependencies(
     swiftPackageManager: SwiftPackageManagerDependencies(
         [
             .remote(
-                url: "https://github.com/uber/needle.git",
+                url: "https://github.com/uber/needle",
                 requirement: .upToNextMajor(from: "0.24.0")
             ),
             .remote(
