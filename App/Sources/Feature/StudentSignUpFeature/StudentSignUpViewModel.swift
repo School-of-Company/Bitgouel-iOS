@@ -1,7 +1,7 @@
 import Foundation
 import Service
 
-final class StudentSignUpViewModel: ObservableObject {
+final class StudentSignUpViewModel: BaseViewModel {
     @Published var schoolSearch = ""
     @Published var clubSearch = ""
     @Published var name = ""
