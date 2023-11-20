@@ -5,5 +5,6 @@ public extension View {
         Button(action: action) {
             self
         }
+        .cornerRadius(8)
     }
 }
