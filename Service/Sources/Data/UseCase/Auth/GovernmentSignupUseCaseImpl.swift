@@ -1,6 +1,6 @@
 import Foundation
 
-struct GovernmentSignupUseCaseImpl: GovernmentSignup {
+struct GovernmentSignupUseCaseImpl: GovernmentSignupUseCase {
     private let authRepository: any AuthRepository
 
     init(authRepository: any AuthRepository) {

@@ -1,7 +1,7 @@
 import Foundation
 import Service
 
-final class CommonSignUpViewModel: ObservableObject {
+final class CommonSignUpViewModel: BaseViewModel {
     @Published var association: String = ""
     @Published var school: String = ""
     @Published var external: String = ""

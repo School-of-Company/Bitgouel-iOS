@@ -1,7 +1,7 @@
 import Foundation
 import Service
 
-final class LoginViewModel: ObservableObject {
+final class LoginViewModel: BaseViewModel {
     @Published var email = ""
     @Published var password = ""
     private let loginUseCase: any LoginUseCase
