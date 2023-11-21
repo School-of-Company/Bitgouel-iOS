@@ -4,6 +4,7 @@ import Service
 final class LoginViewModel: BaseViewModel {
     @Published var email = ""
     @Published var password = ""
+    @Published var LoginFailed = false
     private let loginUseCase: any LoginUseCase
     
     init(loginUseCase: any LoginUseCase) {
@@ -41,6 +42,8 @@ final class LoginViewModel: BaseViewModel {
     var emailHelpMessage: String {
         if isEmailErrorOccured {
             return "잘못된 이메일입니다."
+        } else if LoginFailed == true {
+            return "아직 승인되지 않은 계정입니다."
         } else {
             return ""
         }
@@ -65,12 +68,14 @@ final class LoginViewModel: BaseViewModel {
     }
     
     func login() {
+        guard checkEmail(email) && checkPassword(password) else { return }
+        
         Task {
             do {
                 try await loginUseCase(req: LoginRequestDTO(email: email, password: password))
-                
                 print("로그인 성공")
             } catch {
+                LoginFailed = true
                 print("로그인 실패: \(error)")
             }
         }
