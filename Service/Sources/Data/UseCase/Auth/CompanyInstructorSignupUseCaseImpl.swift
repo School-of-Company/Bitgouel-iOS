@@ -1,13 +1,13 @@
 import Foundation
 
-struct CompanyInstructorSignupUseCaseImpl: CompanyInstructorSignupUseCase {
+public struct CompanyInstructorSignupUseCaseImpl: CompanyInstructorSignupUseCase {
     private let authRepository: any AuthRepository
 
-    init(authRepository: any AuthRepository) {
+    public init(authRepository: any AuthRepository) {
         self.authRepository = authRepository
     }
 
-    func callAsFunction(req: CompanyInstructorSignupRequestDTO) async throws {
+    public func callAsFunction(req: CompanyInstructorSignupRequestDTO) async throws {
         try await authRepository.companyInstructorSignup(req: req)
     }
 }

@@ -1,10 +1,10 @@
 import Foundation
 
-struct AuthRepositoryImpl: AuthRepository {
+public struct AuthRepositoryImpl: AuthRepository {
     private let remoteAuthDataSource: RemoteAuthDataSource
     private let localAuthDataSource: LocalAuthDataSource
 
-    init(
+    public init(
         remoteAuthDataSource: RemoteAuthDataSource,
         localAuthDataSource: LocalAuthDataSource
     ) {

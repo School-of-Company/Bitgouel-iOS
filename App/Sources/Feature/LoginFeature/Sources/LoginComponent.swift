@@ -9,7 +9,9 @@ public protocol LoginDependency: Dependency {
 public final class LoginComponent: Component<LoginDependency>, LoginFactory {
     public func makeView() -> some View {
         LoginView(
-            viewModel: .init(loginUseCase: self.dependency.loginUseCase)
+            viewModel: .init(
+                loginUseCase: dependency.loginUseCase
+            )
         )
     }
 }
