@@ -14,7 +14,7 @@ public extension AppComponent {
         }
     }
     
-    var authRepository: AuthRepository {
+    var authRepository: any AuthRepository {
         shared {
             AuthRepositoryImpl(
                 remoteAuthDataSource: remoteAuthDataSource,
@@ -58,6 +58,4 @@ public extension AppComponent {
             TeacherSignupUseCaseImpl(authRepository: authRepository)
         }
     }
-    
-    
 }
