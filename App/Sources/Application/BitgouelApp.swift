@@ -11,7 +11,6 @@ struct BitgouelApp: App {
     var body: some Scene {
         WindowGroup {
             AppComponent().makeRootView()
-//                .environmentObject(appState)
         }
     }
 }
