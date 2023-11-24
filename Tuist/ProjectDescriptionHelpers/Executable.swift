@@ -33,7 +33,7 @@ public extension Project {
                     infoPlist: .file(path: Path("Support/Info.plist")),
                     sources: ["Sources/**"],
                     resources: ["Resources/**"],
-                    scripts: [.SwiftLintString],
+                    scripts: [.SwiftLintString, .NeedleShell],
                     dependencies: [
                         .project(target: "ThirdPartyLib",
                                  path: Path("../ThirdPartyLib")),
