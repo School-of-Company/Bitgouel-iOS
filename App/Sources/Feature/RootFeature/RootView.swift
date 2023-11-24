@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct RootView: View {
-    @EnvironmentObject var appState: AppState
+    @EnvironmentObject var sceneState: SceneState
     
     private let loginFactory: any LoginFactory
     
@@ -13,13 +13,13 @@ struct RootView: View {
     
     var body: some View {
         Group {
-            switch appState.sceneFlow {
+            switch sceneState.sceneFlow {
             case .login:
                 loginFactory.makeView()
                     .eraseToAnyView()
-                    .environmentObject(appState)
+                    .environmentObject(sceneState)
             }
         }
-        .animation(.default, value: appState.sceneFlow)
+        .animation(.default, value: sceneState.sceneFlow)
     }
 }
