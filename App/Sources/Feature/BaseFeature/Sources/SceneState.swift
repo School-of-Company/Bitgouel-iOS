@@ -1,9 +1,9 @@
 import Foundation
 
-public final class AppState: ObservableObject {
+public final class SceneState: ObservableObject {
     @Published public var sceneFlow: SceneFlow
     
-    public init(sceneFlow: SceneFlow) {
+    init(sceneFlow: SceneFlow) {
         self.sceneFlow = sceneFlow
     }
 }
