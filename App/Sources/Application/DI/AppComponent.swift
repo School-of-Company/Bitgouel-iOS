@@ -7,23 +7,22 @@ public final class AppComponent: BootstrapComponent {
         rootComponent.makeView()
     }
     
+    var rootComponent: RootComponent {
+        shared{
+            RootComponent(parent: self)
+        }
+    }
+    
     public var keychain: Keychain {
         shared {
             KeychainImpl()
         }
     }
     
-    var rootComponent: RootComponent {
-        shared{
-            RootComponent(parent: self)
-        }
-    }
 }
 
 public extension AppComponent {
     var loginFactory: any LoginFactory {
-        shared {
-            LoginComponent(parent: self)
-        }
+        LoginComponent(parent: self)
     }
 }
