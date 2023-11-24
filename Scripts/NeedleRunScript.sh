@@ -9,5 +9,3 @@ if which needle > /dev/null; then
 else
 	echo "warning: Needle not installed, plz run 'brew install needle'"
 fi
-
-
