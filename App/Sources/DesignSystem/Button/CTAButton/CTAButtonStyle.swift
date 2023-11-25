@@ -34,7 +34,7 @@ extension CTAButtonStyle {
                 .bitgouelFont(.text3, color: .greyscale(.g10))
                 .background(Color.bitgouel(.primary(.p5)))
                 .cornerRadius(8, corners: .bottomRight)
-            }
+        }
     }
 }
 
