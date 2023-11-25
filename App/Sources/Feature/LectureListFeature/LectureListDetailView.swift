@@ -152,7 +152,3 @@ struct LectureListDetailView: View {
         }
     }
 }
-
-#Preview {
-    LectureListDetailView(viewModel: LectureListViewModel())
-}
