@@ -121,7 +121,6 @@ struct LectureListDetailView: View {
                         )
                     }
                     
-                    
                     if !viewModel.isAdmin {
                         BitgouelButton(
                             text: viewModel.enrolmentButtonText,

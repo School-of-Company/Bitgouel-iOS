@@ -133,7 +133,6 @@ struct LectureListView: View {
                     }
                 }
                 
-                
                 BitgouelButton(
                     text: "적용하기"
                 )
