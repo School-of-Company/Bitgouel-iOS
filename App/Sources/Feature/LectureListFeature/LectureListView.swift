@@ -1,5 +1,4 @@
 import SwiftUI
-import Service
 
 struct LectureListView: View {
     @StateObject var viewModel = LectureListViewModel()
