@@ -10,7 +10,7 @@ struct LectureListView: View {
                 ScrollView {
                     LazyVStack {
                         ForEach(0..<4, id: \.self) { _ in
-                            LectureListRow()
+                            LectureRow()
                                 .onTapGesture {
                                     viewModel.isNavigateLectureDetailDidTap.toggle()
                                 }
@@ -50,7 +50,7 @@ struct LectureListView: View {
     }
     
     @ViewBuilder
-    func LectureListRow() -> some View {
+    func LectureRow() -> some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 8) {
                 Text("모시깽이 교수")
