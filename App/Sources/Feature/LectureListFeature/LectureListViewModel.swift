@@ -55,7 +55,7 @@ final class LectureListViewModel: ObservableObject {
         approveApplication = true
     }
     
-    func enrolmentButtonDidTap() {
+    func enrollmentButtonDidTap() {
         isEnrolment = true
     }
     
