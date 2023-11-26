@@ -123,7 +123,7 @@ struct LectureListDetailView: View {
                         text: viewModel.enrolmentButtonText,
                         style: viewModel.isSuccessEnrolment ? .secondary : .primary
                     ) {
-                        viewModel.enrolmentButtonDidTap()
+                        viewModel.enrollmentButtonDidTap()
                     }
                     .disabled(viewModel.isEnabledEnrolment)
                     .cornerRadius(8)
