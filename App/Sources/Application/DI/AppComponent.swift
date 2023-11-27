@@ -8,9 +8,7 @@ public final class AppComponent: BootstrapComponent {
     }
     
     var rootComponent: RootComponent {
-        shared{
-            RootComponent(parent: self)
-        }
+        RootComponent(parent: self)
     }
     
     public var keychain: Keychain {
