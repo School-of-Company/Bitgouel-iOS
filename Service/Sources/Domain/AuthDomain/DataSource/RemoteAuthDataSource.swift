@@ -1,43 +1,14 @@
 import Foundation
 
-public final class RemoteAuthDataSource: BaseRemoteDataSource<AuthAPI> {
-    func login(req: LoginRequestDTO) async throws {
-        try await request(.login(req))
-    }
-
-    func reissueToken() async throws {
-        try await request(.reissueToken)
-    }
-
-    func logout() async throws {
-        try await request(.logout)
-    }
-
-    func withdraw() async throws {
-        try await request(.withdraw)
-    }
-
-    func studentSignup(req: StudentSignupRequestDTO) async throws {
-        try await request(.studentSignup(req))
-    }
-
-    func teacherSignup(req: TeacherSignupRequestDTO) async throws {
-        try await request(.teacherSignup(req))
-    }
-
-    func bbozzakSignup(req: BbozzakSignupRequestDTO) async throws {
-        try await request(.bbozzakSignup(req))
-    }
-
-    func professorSignup(req: ProfessorSignupRequestDTO) async throws {
-        try await request(.professorSignup(req))
-    }
-
-    func governmentSignup(req: GovernmentSignupRequestDTO) async throws {
-        try await request(.governmentSignup(req))
-    }
-
-    func companyInstructorSignup(req: CompanyInstructorSignupRequestDTO) async throws {
-        try await request(.companyInstructorSignup(req))
-    }
+public protocol RemoteAuthDataSource {
+    func login(req: LoginRequestDTO) async throws
+    func reissueToken() async throws
+    func logout() async throws
+    func withdraw() async throws
+    func studentSignup(req: StudentSignupRequestDTO) async throws
+    func teacherSignup(req: TeacherSignupRequestDTO) async throws
+    func bbozzakSignup(req: BbozzakSignupRequestDTO) async throws
+    func professorSignup(req: ProfessorSignupRequestDTO) async throws
+    func governmentSignup(req: GovernmentSignupRequestDTO) async throws
+    func companyInstructorSignup(req: CompanyInstructorSignupRequestDTO) async throws
 }
