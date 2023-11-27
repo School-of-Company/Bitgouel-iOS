@@ -21,7 +21,7 @@ struct LectureListView: View {
                             NavigationLink {
                                 lectureListDetailFactory.makeView().eraseToAnyView()
                             } label: {
-                                LectureRow()
+                                lectureListRowView()
                             }
                             
                             Divider()
@@ -50,7 +50,7 @@ struct LectureListView: View {
             }
         }
         .bitgouelBottomSheet(isShowing: $isShowingFilter) {
-            FilterView()
+            filterView()
         }
         .bitgouelToast(
             text: "강의 신청을 승인했습니다.",
@@ -59,7 +59,7 @@ struct LectureListView: View {
     }
     
     @ViewBuilder
-    func LectureRow() -> some View {
+    func lectureListRowView() -> some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 8) {
                 Text("모시깽이 교수")
@@ -111,7 +111,7 @@ struct LectureListView: View {
     }
     
     @ViewBuilder
-    func FilterView() -> some View {
+    func filterView() -> some View {
         HStack {
             VStack(alignment: .leading, spacing: 16) {
                 Text("필터")
@@ -122,7 +122,7 @@ struct LectureListView: View {
                     Text("강의 유형")
                         .bitgouelFont(.text1)
                     
-                    LectureTypeList()
+                    lectureTypeList()
                         .padding(.top, 3)
                 }
                 
@@ -132,7 +132,7 @@ struct LectureListView: View {
                             .bitgouelFont(.text1)
                             .padding(.top, 11)
                         
-                        ApproveStatusTypeList()
+                        approveStatusTypeList()
                             .padding(.top, 3)
                     }
                 }
@@ -150,7 +150,7 @@ struct LectureListView: View {
     }
     
     @ViewBuilder
-    func LectureTypeList() -> some View {
+    func lectureTypeList() -> some View {
         ForEach(viewModel.lectureType, id: \.self) { lectureType in
             HStack {
                 CheckButton(
@@ -170,7 +170,7 @@ struct LectureListView: View {
     }
     
     @ViewBuilder
-    func ApproveStatusTypeList() -> some View {
+    func approveStatusTypeList() -> some View {
         ForEach(viewModel.approveStatusType, id: \.self) { approveStatusType in
             HStack {
                 CheckButton(
