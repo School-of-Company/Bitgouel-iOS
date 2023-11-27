@@ -4,16 +4,25 @@ struct LectureListView: View {
     @StateObject var viewModel = LectureListViewModel()
     @State var isShowingFilter = false
     
+    private let lectureListDetailFactory: any LectureListDetailFactory
+    
+    init(
+        lectureListDetailFactory: any LectureListDetailFactory
+    ) {
+        self.lectureListDetailFactory = lectureListDetailFactory
+    }
+    
     var body: some View {
         ZStack {
             NavigationView {
                 ScrollView {
                     LazyVStack {
                         ForEach(0..<4, id: \.self) { _ in
-                            LectureRow()
-                                .onTapGesture {
-                                    viewModel.isNavigateLectureDetailDidTap.toggle()
-                                }
+                            NavigationLink {
+                                lectureListDetailFactory.makeView().eraseToAnyView()
+                            } label: {
+                                LectureRow()
+                            }
                             
                             Divider()
                         }
@@ -98,10 +107,6 @@ struct LectureListView: View {
                 }
             }
         }
-        .navigate(
-            to: LectureListDetailView(),
-            when: $viewModel.isNavigateLectureDetailDidTap
-        )
         .padding(.vertical, 20)
     }
     

@@ -4,7 +4,7 @@ import SwiftUI
 struct BitgouelApp: App {
     var body: some Scene {
         WindowGroup {
-            LectureListView()
+            LoginView(viewModel: LoginViewModel())
         }
     }
 }
