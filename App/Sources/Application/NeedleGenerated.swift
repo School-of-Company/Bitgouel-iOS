@@ -59,8 +59,8 @@ extension AppComponent: Registration {
     public func registerItems() {
 
         localTable["keychain-Keychain"] = { [unowned self] in self.keychain as Any }
-        localTable["localAuthDataSource-LocalAuthDataSource"] = { [unowned self] in self.localAuthDataSource as Any }
-        localTable["remoteAuthDataSource-RemoteAuthDataSource"] = { [unowned self] in self.remoteAuthDataSource as Any }
+        localTable["localAuthDataSource-any LocalAuthDataSource"] = { [unowned self] in self.localAuthDataSource as Any }
+        localTable["remoteAuthDataSource-any RemoteAuthDataSource"] = { [unowned self] in self.remoteAuthDataSource as Any }
         localTable["authRepository-any AuthRepository"] = { [unowned self] in self.authRepository as Any }
         localTable["loginUseCase-any LoginUseCase"] = { [unowned self] in self.loginUseCase as Any }
         localTable["reissueTokenUseCase-any ReissueTokenUseCase"] = { [unowned self] in self.reissueTokenUseCase as Any }
