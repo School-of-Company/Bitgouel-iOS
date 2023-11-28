@@ -2,15 +2,15 @@ import NeedleFoundation
 import Service
 
 public extension AppComponent {
-    var localAuthDataSource: LocalAuthDataSource {
+    var localAuthDataSource: any LocalAuthDataSource {
         shared {
-            LocalAuthDataSource(keychain: keychain)
+            LocalAuthDataSourceImpl(keychain: keychain)
         }
     }
     
-    var remoteAuthDataSource: RemoteAuthDataSource {
+    var remoteAuthDataSource: any RemoteAuthDataSource {
         shared {
-            RemoteAuthDataSource(keychian: keychain)
+            RemoteAuthDataSourceImpl(keychian: keychain)
         }
     }
     

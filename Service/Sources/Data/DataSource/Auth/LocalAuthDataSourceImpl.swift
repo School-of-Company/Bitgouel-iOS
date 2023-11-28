@@ -1,6 +1,6 @@
 import Foundation
 
-struct LocalAuthDataSourceImpl: LocalAuthDataSource {
+public struct LocalAuthDataSourceImpl: LocalAuthDataSource {
     private let keychain: any Keychain
 
     public init(keychain: any Keychain) {

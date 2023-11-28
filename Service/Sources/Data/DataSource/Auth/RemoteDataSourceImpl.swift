@@ -1,43 +1,43 @@
 import Foundation
 
-final class RemoteAuthDataSourceImpl: BaseRemoteDataSource<AuthAPI>, RemoteAuthDataSource {
-    func login(req: LoginRequestDTO) async throws {
+public final class RemoteAuthDataSourceImpl: BaseRemoteDataSource<AuthAPI>, RemoteAuthDataSource {
+    public func login(req: LoginRequestDTO) async throws {
         try await request(.login(req))
     }
 
-    func reissueToken() async throws {
+    public func reissueToken() async throws {
         try await request(.reissueToken)
     }
 
-    func logout() async throws {
+    public func logout() async throws {
         try await request(.logout)
     }
 
-    func withdraw() async throws {
+    public func withdraw() async throws {
         try await request(.withdraw)
     }
 
-    func studentSignup(req: StudentSignupRequestDTO) async throws {
+    public func studentSignup(req: StudentSignupRequestDTO) async throws {
         try await request(.studentSignup(req))
     }
 
-    func teacherSignup(req: TeacherSignupRequestDTO) async throws {
+    public func teacherSignup(req: TeacherSignupRequestDTO) async throws {
         try await request(.teacherSignup(req))
     }
 
-    func bbozzakSignup(req: BbozzakSignupRequestDTO) async throws {
+    public func bbozzakSignup(req: BbozzakSignupRequestDTO) async throws {
         try await request(.bbozzakSignup(req))
     }
 
-    func professorSignup(req: ProfessorSignupRequestDTO) async throws {
+    public func professorSignup(req: ProfessorSignupRequestDTO) async throws {
         try await request(.professorSignup(req))
     }
 
-    func governmentSignup(req: GovernmentSignupRequestDTO) async throws {
+    public func governmentSignup(req: GovernmentSignupRequestDTO) async throws {
         try await request(.governmentSignup(req))
     }
 
-    func companyInstructorSignup(req: CompanyInstructorSignupRequestDTO) async throws {
+    public func companyInstructorSignup(req: CompanyInstructorSignupRequestDTO) async throws {
         try await request(.companyInstructorSignup(req))
     }
 }
