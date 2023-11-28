@@ -58,9 +58,7 @@ struct LoginView: View {
                 BitgouelButton(
                     text: "로그인",
                     action: {
-                        Task {
-                            viewModel.login()
-                        }
+                        viewModel.login()
                     }
                 )
                 .cornerRadius(8)
