@@ -2,7 +2,6 @@ import SwiftUI
 
 struct RootView: View {
     @EnvironmentObject var sceneState: SceneState
-    
     private let loginFactory: any LoginFactory
     
     public init(
