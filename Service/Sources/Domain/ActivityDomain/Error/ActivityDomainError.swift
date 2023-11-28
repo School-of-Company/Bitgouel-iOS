@@ -1,6 +1,6 @@
 import Foundation
 
-public enum ActivityDomainError {
+public enum ActivityDomainError: Error {
     case badRequest
     case unauthorized
     case forbidden
