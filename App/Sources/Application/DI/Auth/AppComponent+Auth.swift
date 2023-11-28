@@ -41,7 +41,7 @@ public extension AppComponent {
         }
     }
 
-    var withdrawUseCase: any WithdrawalUseCase {
+    var withdrawalUseCase: any WithdrawalUseCase {
         shared {
             WithdrawalUseCaseImpl(authRepository: authRepository)
         }
