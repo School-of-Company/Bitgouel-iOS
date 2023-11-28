@@ -1,7 +1,7 @@
 import Foundation
 import Moya
 
-public enum ActivityDomain {
+public enum ActivityAPI{
 }
 
 extension ActivityAPI: BitgouelAPI {
