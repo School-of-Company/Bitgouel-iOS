@@ -18,7 +18,7 @@ open class BaseViewModel: ObservableObject {
                 let value = try await task()
                 onReceiveValue(value)
             } catch {
-                if let onReceiveError = onReceiveError {
+                if let onReceiveError {
                     onReceiveError(error)
                 }
 

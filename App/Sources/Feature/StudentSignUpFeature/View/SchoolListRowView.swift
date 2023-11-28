@@ -1,16 +1,16 @@
-import SwiftUI
 import Service
+import SwiftUI
 
 struct SchoolListRowView: View {
     @ObservedObject var viewModel: StudentSignUpViewModel
     let school: HighSchoolType
-    
+
     var body: some View {
         HStack {
             Text(school.display())
-            
+
             Spacer()
-            
+
             BitgouelRadioButton(
                 isSelected: Binding(
                     get: { viewModel.selectedSchool == school.display() },

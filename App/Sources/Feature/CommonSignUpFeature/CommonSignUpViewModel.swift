@@ -10,15 +10,15 @@ final class CommonSignUpViewModel: BaseViewModel {
     let associationValue: [AssociationType] = AssociationType.allCases
     let schoolValue: [UserRoleType.SchoolType] = UserRoleType.SchoolType.allCases
     let externalValue: [UserRoleType.ExternalType] = UserRoleType.ExternalType.allCases
-    
-    var titleMessage: String  {
+
+    var titleMessage: String {
         if associationType == "소속" {
             return "만나서 반가워요!"
         } else {
             return "무슨 일을 하시나요?"
         }
     }
-    
+
     var subtitleMessage: String {
         if associationType == "소속" {
             return "어디서 오셨나요?"
@@ -26,19 +26,19 @@ final class CommonSignUpViewModel: BaseViewModel {
             return "직업을 선택해 주세요!"
         }
     }
-    
+
     var getAssociationType: [AssociationType] {
         return associationValue
     }
-    
+
     var getSchoolType: [UserRoleType.SchoolType] {
         return schoolValue
     }
-    
+
     var getExternalType: [UserRoleType.ExternalType] {
         return externalValue
     }
-    
+
     func resetJobType() {
         jobType = "직업"
     }

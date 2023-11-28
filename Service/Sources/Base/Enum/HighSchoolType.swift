@@ -40,31 +40,31 @@ public extension HighSchoolType {
     func getClubsForSelectedHighSchool() -> [String] {
         switch self {
         case .gwangjuTechnicalHighSchool:
-            return CareerClubType.GwangjuTechnicalHighSchool.allCases.map { $0.rawValue }
+            return CareerClubType.GwangjuTechnicalHighSchool.allCases.map(\.rawValue)
         case .kumpaTechnicalHighSchool:
-            return CareerClubType.KumpaTechnicalHighSchool.allCases.map { $0.rawValue }
+            return CareerClubType.KumpaTechnicalHighSchool.allCases.map(\.rawValue)
         case .jeonnamTechnicalHighSchool:
-            return CareerClubType.JeonnamTechnicalHighSchool.allCases.map { $0.rawValue }
+            return CareerClubType.JeonnamTechnicalHighSchool.allCases.map(\.rawValue)
         case .gwangjeGirlsCommercialHighSchool:
-            return CareerClubType.GwangjeGirlsCommercialHighSchool.allCases.map { $0.rawValue }
+            return CareerClubType.GwangjeGirlsCommercialHighSchool.allCases.map(\.rawValue)
         case .jeonnamGirlsCommercialHighSchool:
-            return CareerClubType.JeonnamGirlsCommercialHighSchool.allCases.map { $0.rawValue }
+            return CareerClubType.JeonnamGirlsCommercialHighSchool.allCases.map(\.rawValue)
         case .gwangjuNaturalScienceHighSchool:
-            return CareerClubType.GwangjuNaturalScienceHighSchool.allCases.map { $0.rawValue }
+            return CareerClubType.GwangjuNaturalScienceHighSchool.allCases.map(\.rawValue)
         case .gwangjuElectronicTechnicalHighSchool:
-            return CareerClubType.GwangjuElectronicTechnicalHighSchool.allCases.map { $0.rawValue }
+            return CareerClubType.GwangjuElectronicTechnicalHighSchool.allCases.map(\.rawValue)
         case .dongilHighSchoolOfFutureScienceHighSchool:
-            return CareerClubType.DongilHighSchoolOfFutureScienceHighSchool.allCases.map { $0.rawValue }
+            return CareerClubType.DongilHighSchoolOfFutureScienceHighSchool.allCases.map(\.rawValue)
         case .seojinGirlsHighSchool:
-            return CareerClubType.SeojinGirlsHighSchool.allCases.map { $0.rawValue }
+            return CareerClubType.SeojinGirlsHighSchool.allCases.map(\.rawValue)
         case .sunguiScienceTechnologyHighSchool:
-            return CareerClubType.SunguiScienceTechnologyHighSchool.allCases.map { $0.rawValue }
+            return CareerClubType.SunguiScienceTechnologyHighSchool.allCases.map(\.rawValue)
         case .songwonGirlsCommercialHighSchool:
-            return CareerClubType.SongwonGirlsCommercialHighSchool.allCases.map { $0.rawValue }
+            return CareerClubType.SongwonGirlsCommercialHighSchool.allCases.map(\.rawValue)
         case .gwangjuAutomaticEquipmentTechnicalHighSchool:
-            return CareerClubType.GwangjuAutomaticEquipmentTechnicalHighSchool.allCases.map { $0.rawValue }
+            return CareerClubType.GwangjuAutomaticEquipmentTechnicalHighSchool.allCases.map(\.rawValue)
         case .gwangjuSoftwareMeisterHighSchool:
-            return CareerClubType.GwangjuSoftwareMeisterHighSchool.allCases.map { $0.rawValue }
+            return CareerClubType.GwangjuSoftwareMeisterHighSchool.allCases.map(\.rawValue)
         }
     }
 }
