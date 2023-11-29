@@ -1,3 +1,5 @@
 import Foundation
 
-final class RemoteActivityDataSource: BaseRemoteDataSource<ActivityAPI> {}
+public protocol RemoteActivityDataSource: BaseRemoteDataSource<ActivityAPI> {
+    func addStudentActivity(req: AddStudentActivityRequestDTO) async throws
+}

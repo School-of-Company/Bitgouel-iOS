@@ -2,12 +2,12 @@ import Foundation
 import Moya
 
 public enum ActivityAPI {
-    case addStudentActivity
+    case addStudentActivity(AddStudentActivityRequestDTO)
 }
 
 extension ActivityAPI: BitgouelAPI {
     public typealias ErrorType = ActivityDomainError
-    
+
     public var domain: BitgouelDomain {
         .activity
     }

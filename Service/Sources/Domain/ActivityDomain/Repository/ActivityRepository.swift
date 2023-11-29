@@ -1,3 +1,5 @@
 import Foundation
 
-public protocol ActivityRepository {}
+public protocol ActivityRepository {
+    func addStudentActivity(req: AddStudentActivityRequestDTO) async throws
+}
