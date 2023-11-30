@@ -1,6 +1,6 @@
 import Foundation
 
-struct RejectStudentActivityUseCaseImpl: RejectStudentActivityUseCase {
+struct DeleteStudentActivityUseCaseImpl: DeleteStudentActivityUseCase {
     private let activityRepository: ActivityRepository
 
     init(activityRepository: ActivityRepository) {
@@ -8,6 +8,6 @@ struct RejectStudentActivityUseCaseImpl: RejectStudentActivityUseCase {
     }
 
     func callAsFunction(userID: String) async throws {
-        try await activityRepository.rejectStudentActivity(userID: userID)
+        try await activityRepository.deleteStudentActivity(userID: userID)
     }
 }
