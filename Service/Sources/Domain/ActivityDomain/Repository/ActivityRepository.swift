@@ -8,4 +8,5 @@ public protocol ActivityRepository {
     func deleteStudentActivity(userID: String) async throws
     func queryMyStudentActivity() async throws
     func queryStudentActivityById(studentID: String) async throws
+    func queryStudentActivityList() async throws
 }

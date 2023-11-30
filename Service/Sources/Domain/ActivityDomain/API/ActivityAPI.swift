@@ -9,6 +9,7 @@ public enum ActivityAPI {
     case deleteStudentActivity(userID: String)
     case queryMyStudentActivity
     case queryStudentActivityById(studentID: String)
+    case queryStudentActivityList
 }
 
 extension ActivityAPI: BitgouelAPI {
@@ -20,7 +21,7 @@ extension ActivityAPI: BitgouelAPI {
 
     public var urlPath: String {
         switch self {
-        case .addStudentActivity:
+        case .addStudentActivity, .queryStudentActivityList:
             return ""
         case let .updateStudentActibity(userID):
             return "/\(userID)"
@@ -45,7 +46,7 @@ extension ActivityAPI: BitgouelAPI {
             return .patch
         case .rejectStudentActivity, .deleteStudentActivity:
             return .delete
-        case .queryMyStudentActivity, .queryStudentActivityById:
+        case .queryMyStudentActivity, .queryStudentActivityById, .queryStudentActivityList:
             return .get
         }
     }
@@ -61,7 +62,9 @@ extension ActivityAPI: BitgouelAPI {
                 "credit": Int(),
                 "activity": String()
             ], encoding: URLEncoding.httpBody)
-        case .queryMyStudentActivity, .queryStudentActivityById:
+        case .queryMyStudentActivity, 
+                .queryStudentActivityById,
+                .queryStudentActivityList:
             return .requestParameters(parameters: [
                 "page": Int(),
                 "size": Int(),
@@ -74,15 +77,24 @@ extension ActivityAPI: BitgouelAPI {
 
     public var jwtTokenType: JwtTokenType {
         switch self {
-        case .addStudentActivity, .updateStudentActibity, .approveStudentActivity, .rejectStudentActivity,
-                .deleteStudentActivity, .queryMyStudentActivity, .queryStudentActivityById:
+        case .addStudentActivity, 
+                .updateStudentActibity,
+                .approveStudentActivity,
+                .rejectStudentActivity,
+                .deleteStudentActivity, 
+                .queryMyStudentActivity,
+                .queryStudentActivityById,
+                .queryStudentActivityList:
             return .accessToken
         }
     }
 
     public var errorMap: [Int: ErrorType] {
         switch self {
-        case .addStudentActivity, .updateStudentActibity, .rejectStudentActivity, .deleteStudentActivity:
+        case .addStudentActivity, 
+                .updateStudentActibity, 
+                .rejectStudentActivity,
+                .deleteStudentActivity:
             return [
                 400: .badRequest,
                 401: .unauthorized,
@@ -91,7 +103,10 @@ extension ActivityAPI: BitgouelAPI {
                 409: .conflict,
                 429: .tooManyRequest
             ]
-        case .approveStudentActivity, .queryMyStudentActivity, .queryStudentActivityById:
+        case .approveStudentActivity,
+                .queryMyStudentActivity,
+                .queryStudentActivityById,
+                .queryStudentActivityList:
             return [
                 400: .badRequest,
                 401: .unauthorized,
