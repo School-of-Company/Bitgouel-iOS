@@ -14,8 +14,12 @@ public struct ActivityRepositoryImpl: ActivityRepository {
     public func updateStudentActibity(userID: String) async throws {
         try await remoteActivityDataSource.updateStudentActibity(userID: userID)
     }
-    
+
     public func approveStudentActivity(userID: String) async throws {
         try await remoteActivityDataSource.approveStudentActivity(userID: userID)
+    }
+    
+    public func rejectStudentActivity(userID: String) async throws {
+        try await remoteActivityDataSource.rejectStudentActivity(userID: userID)
     }
 }

@@ -5,6 +5,7 @@ public enum ActivityAPI {
     case addStudentActivity(AddStudentActivityRequestDTO)
     case updateStudentActibity(userID: String)
     case approveStudentActivity(userID: String)
+    case rejectStudentActivity(userID: String)
 }
 
 extension ActivityAPI: BitgouelAPI {
@@ -22,6 +23,8 @@ extension ActivityAPI: BitgouelAPI {
             return "/\(userID)"
         case let .approveStudentActivity(userID):
             return "/\(userID)/approve"
+        case let .rejectStudentActivity(userID):
+            return "/\(userID)/reject"
         }
     }
 
@@ -31,6 +34,8 @@ extension ActivityAPI: BitgouelAPI {
             return .post
         case .updateStudentActibity, .approveStudentActivity:
             return .patch
+        case .rejectStudentActivity:
+            return .delete
         }
     }
 
@@ -52,14 +57,14 @@ extension ActivityAPI: BitgouelAPI {
 
     public var jwtTokenType: JwtTokenType {
         switch self {
-        case .addStudentActivity, .updateStudentActibity, .approveStudentActivity:
+        case .addStudentActivity, .updateStudentActibity, .approveStudentActivity, .rejectStudentActivity:
             return .accessToken
         }
     }
 
     public var errorMap: [Int: ErrorType] {
         switch self {
-        case .addStudentActivity, .updateStudentActibity:
+        case .addStudentActivity, .updateStudentActibity, .rejectStudentActivity:
             return [
                 400: .badRequest,
                 401: .unauthorized,
