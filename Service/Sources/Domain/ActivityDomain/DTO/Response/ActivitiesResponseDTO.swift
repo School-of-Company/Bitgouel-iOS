@@ -12,14 +12,14 @@ public struct ActivitiesResponseDTO: Decodable {
     public let first: Bool
     public let size: Int
     public let empty: Bool
-    
+
     init(
         content: [ActivityInfo],
-        pageable: Pageable, 
+        pageable: Pageable,
         totalPages: Int,
         totalElements: Int,
         last: Bool,
-        numberOfElements: Int, 
+        numberOfElements: Int,
         number: Int,
         sort: Sort,
         first: Bool,
@@ -49,7 +49,7 @@ public extension ActivitiesResponseDTO {
         public let username: String
         public let approveStatus: ApproveStatusType
     }
-    
+
     struct Pageable: Decodable {
         public let sort: Sort
         public let pageSize: Int
@@ -58,11 +58,10 @@ public extension ActivitiesResponseDTO {
         public let paged: Bool
         public let unpaged: Bool
     }
-    
+
     struct Sort: Decodable {
         public let unsorted: Bool
         public let sorted: Bool
         public let empty: Bool
     }
 }
-

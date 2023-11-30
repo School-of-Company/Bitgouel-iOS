@@ -7,4 +7,5 @@ public protocol ActivityRepository {
     func rejectStudentActivity(userID: String) async throws
     func deleteStudentActivity(userID: String) async throws
     func queryMyStudentActivity() async throws
+    func queryStudentActivityById(studentID: String) async throws
 }
