@@ -4,6 +4,7 @@ import Moya
 public enum ActivityAPI {
     case addStudentActivity(AddStudentActivityRequestDTO)
     case updateStudentActibity(userID: String)
+    case approveStudentActivity(userID: String)
 }
 
 extension ActivityAPI: BitgouelAPI {
@@ -19,6 +20,8 @@ extension ActivityAPI: BitgouelAPI {
             return ""
         case let .updateStudentActibity(userID):
             return "/\(userID)"
+        case let .approveStudentActivity(userID):
+            return "/\(userID)/approve"
         }
     }
 
@@ -26,7 +29,7 @@ extension ActivityAPI: BitgouelAPI {
         switch self {
         case .addStudentActivity:
             return .post
-        case .updateStudentActibity:
+        case .updateStudentActibity, .approveStudentActivity:
             return .patch
         }
     }
@@ -42,12 +45,14 @@ extension ActivityAPI: BitgouelAPI {
                 "credit": Int(),
                 "activity": String()
             ], encoding: URLEncoding.httpBody)
+        default:
+            return .requestPlain
         }
     }
 
     public var jwtTokenType: JwtTokenType {
         switch self {
-        case .addStudentActivity, .updateStudentActibity:
+        case .addStudentActivity, .updateStudentActibity, .approveStudentActivity:
             return .accessToken
         }
     }
@@ -62,6 +67,18 @@ extension ActivityAPI: BitgouelAPI {
                 404: .notFound,
                 409: .conflict,
                 423: .tooManyRequest
+            ]
+        case .approveStudentActivity:
+            return [
+                400: .badRequest,
+                401: .unauthorized,
+                403: .forbidden,
+                404: .notFound,
+                407: .proxyAuthenticationRequired,
+                408: .requestTimeout,
+                409: .conflict,
+                429: .tooManyRequest,
+                500: .internalServerError
             ]
         }
     }

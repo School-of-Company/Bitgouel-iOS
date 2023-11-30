@@ -5,10 +5,10 @@ public struct AddStudentActivityRequestDTO: Encodable {
     public let content: String
     public let credit: Int
     public let activityDate: String
-    
+
     public init(
         title: String,
-        content: String, 
+        content: String,
         credit: Int,
         activityDate: String
     ) {
