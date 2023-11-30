@@ -7,6 +7,7 @@ public enum ActivityAPI {
     case approveStudentActivity(userID: String)
     case rejectStudentActivity(userID: String)
     case deleteStudentActivity(userID: String)
+    case queryMyStudentActivity
 }
 
 extension ActivityAPI: BitgouelAPI {
@@ -28,6 +29,8 @@ extension ActivityAPI: BitgouelAPI {
             return "/\(userID)/reject"
         case let .deleteStudentActivity(userID):
             return "/\(userID)"
+        case .queryMyStudentActivity:
+            return "/my"
         }
     }
 
@@ -39,6 +42,8 @@ extension ActivityAPI: BitgouelAPI {
             return .patch
         case .rejectStudentActivity, .deleteStudentActivity:
             return .delete
+        case .queryMyStudentActivity:
+            return .get
         }
     }
 
@@ -53,6 +58,12 @@ extension ActivityAPI: BitgouelAPI {
                 "credit": Int(),
                 "activity": String()
             ], encoding: URLEncoding.httpBody)
+        case .queryMyStudentActivity:
+            return .requestParameters(parameters: [
+                "page": Int(),
+                "size": Int(),
+                "sort": String()
+            ], encoding: URLEncoding.queryString)
         default:
             return .requestPlain
         }
@@ -60,7 +71,8 @@ extension ActivityAPI: BitgouelAPI {
 
     public var jwtTokenType: JwtTokenType {
         switch self {
-        case .addStudentActivity, .updateStudentActibity, .approveStudentActivity, .rejectStudentActivity, .deleteStudentActivity:
+        case .addStudentActivity, .updateStudentActibity, .approveStudentActivity, .rejectStudentActivity,
+                .deleteStudentActivity, .queryMyStudentActivity:
             return .accessToken
         }
     }
@@ -76,7 +88,7 @@ extension ActivityAPI: BitgouelAPI {
                 409: .conflict,
                 429: .tooManyRequest
             ]
-        case .approveStudentActivity:
+        case .approveStudentActivity, .queryMyStudentActivity:
             return [
                 400: .badRequest,
                 401: .unauthorized,
