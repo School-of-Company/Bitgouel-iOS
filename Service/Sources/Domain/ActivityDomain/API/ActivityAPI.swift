@@ -17,7 +17,6 @@ extension ActivityAPI: BitgouelAPI {
         switch self {
         case .addStudentActivity:
             return ""
-            
         case let .updateStudentActibity(userID):
             return "/\(userID)"
         }
@@ -37,7 +36,12 @@ extension ActivityAPI: BitgouelAPI {
         case let .addStudentActivity(req):
             return .requestJSONEncodable(req)
         case .updateStudentActibity:
-            return .requestPlain
+            return .requestParameters(parameters: [
+                "title": String(),
+                "content": String(),
+                "credit": Int(),
+                "activity": String()
+            ], encoding: URLEncoding.httpBody)
         }
     }
 
