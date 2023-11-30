@@ -5,6 +5,9 @@ public enum ActivityDomainError: Error {
     case unauthorized
     case forbidden
     case notFound
+    case proxyAuthenticationRequired
+    case requestTimeout
     case conflict
     case tooManyRequest
+    case internalServerError
 }
