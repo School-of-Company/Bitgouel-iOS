@@ -1,8 +1,13 @@
-//
-//  QueryStudentActivityDetailsUseCaseImpl.swift
-//  Service
-//
-//  Created by 정윤서 on 12/1/23.
-//
-
 import Foundation
+
+struct QueryStudentActivityDetailsUseCaseImpl: QueryStudentActivityDetailsUseCase {
+    public let activityRepository: any ActivityRepository
+
+    init(activityRepository: any ActivityRepository) {
+        self.activityRepository = activityRepository
+    }
+
+    func callAsFunction(userID: String) async throws {
+        try await activityRepository.queryStudentActivityDetails(userID: userID)
+    }
+}

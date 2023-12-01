@@ -1,8 +1,5 @@
-//
-//  QueryStudentActivityDetailsUseCase.swift
-//  Service
-//
-//  Created by 정윤서 on 12/1/23.
-//
-
 import Foundation
+
+public protocol QueryStudentActivityDetailsUseCase {
+    func callAsFunction(userID: String) async throws
+}

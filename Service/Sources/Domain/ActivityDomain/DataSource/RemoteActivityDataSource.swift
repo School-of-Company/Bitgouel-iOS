@@ -9,4 +9,5 @@ public protocol RemoteActivityDataSource: BaseRemoteDataSource<ActivityAPI> {
     func queryMyStudentActivity() async throws
     func queryStudentActivityById(studentID: String) async throws
     func queryStudentActivityList() async throws
+    func queryStudentActivityDetails(userID: String) async throws
 }
