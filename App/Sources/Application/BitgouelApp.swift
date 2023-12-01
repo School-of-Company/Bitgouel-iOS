@@ -3,6 +3,8 @@ import Service
 
 @main
 struct BitgouelApp: App {
+    @StateObject private var sceneState = SceneState(sceneFlow: .login)
+    
     init() {
         registerProviderFactories()
     }
@@ -10,6 +12,7 @@ struct BitgouelApp: App {
     var body: some Scene {
         WindowGroup {
             AppComponent().makeRootView()
+                .environmentObject(sceneState)
         }
     }
 }
