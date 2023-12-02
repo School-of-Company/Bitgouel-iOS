@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct LectureListDetailView: View {
-    @StateObject var viewModel = LectureListViewModel()
+    @StateObject var viewModel = LectureListDetailViewModel()
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {

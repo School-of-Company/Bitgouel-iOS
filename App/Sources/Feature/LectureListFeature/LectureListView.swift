@@ -5,7 +5,7 @@ struct LectureListView: View {
     @State var isShowingFilter = false
     
     private let lectureListDetailFactory: any LectureListDetailFactory
-    
+
     init(
         lectureListDetailFactory: any LectureListDetailFactory
     ) {
@@ -52,10 +52,6 @@ struct LectureListView: View {
         .bitgouelBottomSheet(isShowing: $isShowingFilter) {
             filterView()
         }
-        .bitgouelToast(
-            text: "강의 신청을 승인했습니다.",
-            isShowing: $viewModel.isApprove
-        )
     }
     
     @ViewBuilder
