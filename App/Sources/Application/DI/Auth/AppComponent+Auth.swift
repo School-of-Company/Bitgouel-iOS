@@ -10,7 +10,7 @@ public extension AppComponent {
 
     var remoteAuthDataSource: any RemoteAuthDataSource {
         shared {
-            RemoteAuthDataSourceImpl(keychian: keychain)
+            RemoteAuthDataSourceImpl(keychain: keychain)
         }
     }
 
