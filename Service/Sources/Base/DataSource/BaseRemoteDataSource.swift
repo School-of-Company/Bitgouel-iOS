@@ -8,15 +8,15 @@ open class BaseRemoteDataSource<API: BitgouelAPI> {
     private let maxRetryCount = 2
 
     public init(
-        keychian: any Keychain,
+        keychain: any Keychain,
         provider: MoyaProvider<API>? = nil
     ) {
-        self.keychain = keychian
+        self.keychain = keychain
 
         #if DEV || STAGE
-        self.provider = provider ?? MoyaProvider(plugins: [JwtPlugin(keychain: keychian), MoyaLoggingPlugin()])
+        self.provider = provider ?? MoyaProvider(plugins: [JwtPlugin(keychain: keychain), MoyaLoggingPlugin()])
         #else
-        self.provider = provider ?? MoyaProvider(plugins: [JwtPlugin(keychain: keychian)])
+        self.provider = provider ?? MoyaProvider(plugins: [JwtPlugin(keychain: keychain), MoyaLoggingPlugin()])
         #endif
     }
 

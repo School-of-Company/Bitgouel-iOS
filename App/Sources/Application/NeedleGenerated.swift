@@ -65,7 +65,7 @@ extension AppComponent: Registration {
         localTable["loginUseCase-any LoginUseCase"] = { [unowned self] in self.loginUseCase as Any }
         localTable["reissueTokenUseCase-any ReissueTokenUseCase"] = { [unowned self] in self.reissueTokenUseCase as Any }
         localTable["logoutUseCase-any LogoutUseCase"] = { [unowned self] in self.logoutUseCase as Any }
-        localTable["withdrawUseCase-any WithdrawalUseCase"] = { [unowned self] in self.withdrawUseCase as Any }
+        localTable["withdrawalUseCase-any WithdrawalUseCase"] = { [unowned self] in self.withdrawalUseCase as Any }
         localTable["studentSignupUseCase-any StudentSignupUseCase"] = { [unowned self] in self.studentSignupUseCase as Any }
         localTable["teacherSignupUseCase-any TeacherSignupUseCase"] = { [unowned self] in self.teacherSignupUseCase as Any }
         localTable["loginFactory-any LoginFactory"] = { [unowned self] in self.loginFactory as Any }

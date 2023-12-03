@@ -12,17 +12,25 @@ public extension Project {
         return Project(
             name: name,
             organizationName: publicOrganizationName,
-            settings: .settings(configurations: isCI ?
-                                [
-                                    .debug(name: .debug),
-                                    .release(name: .release)
-                                ] :
-                               [
-                                .debug(name: .debug, xcconfig:
-                                        .relativeToXCConfig(type: .debug, name: name)),
-                                .release(name: .release, xcconfig:
-                                        .relativeToXCConfig(type: .debug, name: name))
-                               ]),
+            settings: .settings(
+                configurations: isCI ?
+                    [
+                        .debug(name: .debug),
+                        .release(name: .release)
+                    ] :
+                    [
+                        .debug(
+                            name: .debug,
+                            xcconfig:
+                            .relativeToXCConfig(type: .debug, name: name)
+                        ),
+                        .release(
+                            name: .release,
+                            xcconfig:
+                            .relativeToXCConfig(type: .release, name: name)
+                        )
+                    ]
+            ),
             targets: [
                 Target(
                     name: name,
@@ -35,8 +43,10 @@ public extension Project {
                     resources: ["Resources/**"],
                     scripts: [.SwiftLintString, .NeedleShell],
                     dependencies: [
-                        .project(target: "ThirdPartyLib",
-                                 path: Path("../ThirdPartyLib")),
+                        .project(
+                            target: "ThirdPartyLib",
+                            path: Path("../ThirdPartyLib")
+                        ),
                     ] + dependencies,
                     settings: settings
                 ),
