@@ -11,7 +11,7 @@ public protocol BitgouelAPI: TargetType, JwtAuthorizable {
 public extension BitgouelAPI {
     var baseURL: URL {
         URL(
-            string: Bundle.main.object(forInfoDictionaryKey: "BASE_URL") as? String ?? ""
+            string: Bundle.module.object(forInfoDictionaryKey: "BASE_URL") as? String ?? ""
         ) ?? URL(string: "https://www.google.com")!
     }
 
@@ -44,4 +44,10 @@ extension BitgouelDomain {
     var asURLString: String {
         "/\(self.rawValue)"
     }
+}
+
+private class BundleFinder {}
+
+extension Foundation.Bundle {
+    static let module = Bundle(for: BundleFinder.self)
 }

@@ -1,10 +1,10 @@
 import Foundation
 
-struct AuthRepositoryImpl: AuthRepository {
+public struct AuthRepositoryImpl: AuthRepository {
     private let remoteAuthDataSource: RemoteAuthDataSource
     private let localAuthDataSource: LocalAuthDataSource
 
-    init(
+    public init(
         remoteAuthDataSource: RemoteAuthDataSource,
         localAuthDataSource: LocalAuthDataSource
     ) {
@@ -22,12 +22,12 @@ struct AuthRepositoryImpl: AuthRepository {
 
     public func logout() async throws {
         try await remoteAuthDataSource.logout()
-        localAuthDataSource.logout()
+        try await localAuthDataSource.logout()
     }
 
     public func withdraw() async throws {
         try await remoteAuthDataSource.withdraw()
-        localAuthDataSource.withdraw()
+        try await localAuthDataSource.withdraw()
     }
 
     public func studentSignup(req: StudentSignupRequestDTO) async throws {
