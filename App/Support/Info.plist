@@ -3,9 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>NSAppTransportSecurity</key>
-	<dict/>
-	<key>Allow Arbitrary Loads</key>
-	<true/>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
