@@ -4,6 +4,7 @@ public extension BitgouelButton {
     enum ButtonStyleType {
         case primary
         case secondary
+        case error
     }
 }
 
@@ -17,6 +18,9 @@ public struct BitgouelButtonStyle: ButtonStyle {
 
         case .secondary:
             SecondaryButton(configuration: configuration)
+            
+        case .error:
+            ErrorButton(configuration: configuration)
         }
     }
 }
@@ -87,6 +91,35 @@ private extension BitgouelButtonStyle {
                     RoundedRectangle(cornerRadius: 8)
                         .stroke(strokeColor, lineWidth: 1)
                 }
+        }
+    }
+}
+
+private extension BitgouelButtonStyle {
+    struct ErrorButton: View {
+        let configuration: ButtonStyle.Configuration
+        @Environment(\.isEnabled) var isEnabled
+        var foregroundColor: Color {
+            isEnabled ? enabledForegroundColor : .bitgouel(.greyscale(.g4))
+        }
+        
+        var backgroundColor: Color {
+            isEnabled ? enabledBackgroundColor : .bitgouel(.greyscale(.g7))
+        }
+        
+        var enabledForegroundColor: Color {
+            configuration.isPressed ? .bitgouel(.greyscale(.g7)) : .white
+        }
+        
+        var enabledBackgroundColor: Color {
+            configuration.isPressed ? .bitgouel(.greyscale(.g7)) : .bitgouel(.error(.e5))
+        }
+        
+        var body: some View {
+            configuration.label
+                .bitgouelFont(.text1)
+                .foregroundColor(foregroundColor)
+                .background(backgroundColor)
         }
     }
 }
