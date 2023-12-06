@@ -29,6 +29,7 @@ final class StudentSignUpViewModel: BaseViewModel {
     @Published var selectedClub: String = "동아리"
     @Published var clubsForSelectedHighSchool: [String] = []
     @Published var selectedUniversity: String = "소속 대학명"
+    @Published var selectedGovernment: String = "소속 기관명"
     private var timer: Timer?
     let highSchool: [HighSchoolType] = HighSchoolType.allCases
 
@@ -65,6 +66,10 @@ final class StudentSignUpViewModel: BaseViewModel {
             return "입학년도 입력"
         } else if studentID.isEmpty {
             return "학번 입력"
+        } else if selectedUniversity.isEmpty {
+            return "대학 입력"
+        } else if selectedGovernment.isEmpty {
+            return "기관 입력"
         } else if phoneNumber.isEmpty {
             return "전화번호 입력"
         } else if certificationNumberPhoneNumber.isEmpty {
@@ -91,6 +96,10 @@ final class StudentSignUpViewModel: BaseViewModel {
             return "입학하신 연도를 입력해 주세요!"
         } else if studentID.isEmpty {
             return "학년, 반, 번호를 입력해 주세요! (ex: 1101)"
+        } else if selectedUniversity.isEmpty {
+            return "소속하신 대학을 입력해주세요!"
+        } else if selectedGovernment.isEmpty {
+            return "소속하신 기관을 입력해주세요!"
         } else if phoneNumber.isEmpty {
             return "인증을 위해 전화번호를 입력해 주세요!"
         } else if certificationNumberPhoneNumber.isEmpty {
