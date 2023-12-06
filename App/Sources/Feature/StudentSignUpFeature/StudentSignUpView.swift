@@ -13,6 +13,7 @@ struct StudentSignUpView: View {
         case checkPassword
         case university
         case government
+        case company
     }
 
     @FocusState private var focusField: FocusField?
@@ -267,7 +268,7 @@ struct StudentSignUpView: View {
             }
         }
     }
-    
+
     // MARK: Government
     @ViewBuilder
     func inputGovernmentInfoView() -> some View {
@@ -281,6 +282,24 @@ struct StudentSignUpView: View {
                     }
                 )
                 .focused($focusField, equals: .government)
+                .padding(.bottom, -20)
+            }
+        }
+    }
+    
+    // MARK: CompanyInstructor
+    @ViewBuilder
+    func inputCompanyInstructorInfoView() -> some View {
+        VStack(spacing: 16) {
+            if !viewModel.name.isEmpty {
+                BitgouelTextField(
+                    "소속 기업명",
+                    text: $viewModel.selectedCompany,
+                    onSubmit: {
+                        focusField = .phoneNumber
+                    }
+                )
+                .focused($focusField, equals: .company)
                 .padding(.bottom, -20)
             }
         }
