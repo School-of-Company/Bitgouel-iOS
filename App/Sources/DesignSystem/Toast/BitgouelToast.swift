@@ -12,7 +12,7 @@ public extension View {
 public struct BitgouelToast: ViewModifier {
     var text: String
     @Binding var isShowing: Bool
-    
+
     public init(
         text: String,
         isShowing: Binding<Bool>
@@ -20,11 +20,11 @@ public struct BitgouelToast: ViewModifier {
         self.text = text
         _isShowing = isShowing
     }
-    
+
     public func body(content: Content) -> some View {
         ZStack {
             content
-            
+
             toastView()
         }
         .onChange(of: isShowing) { _ in
@@ -37,12 +37,12 @@ public struct BitgouelToast: ViewModifier {
             }
         }
     }
-    
+
     @ViewBuilder
     func toastView() -> some View {
         VStack {
             Spacer()
-            
+
             if isShowing {
                 Text(text)
                     .bitgouelFont(.text3, color: .greyscale(.g10))

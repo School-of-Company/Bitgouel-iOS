@@ -17,7 +17,7 @@ struct ClubListView: View {
         self.selectedClub = selectedClub
         self.clubDidSelect = clubDidSelect
     }
-    
+
     var body: some View {
         VStack(spacing: 8) {
             BitgouelTextField(
@@ -25,7 +25,7 @@ struct ClubListView: View {
                 text: $searchText
             )
             .padding(.horizontal, 28)
-            
+
             ScrollView {
                 LazyVStack {
                     ForEach(searchedClubList, id: \.self) { club in

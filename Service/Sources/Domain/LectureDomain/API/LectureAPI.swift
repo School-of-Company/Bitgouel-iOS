@@ -21,7 +21,7 @@ extension LectureAPI: BitgouelAPI {
         switch self {
         case .lectureOpen, .lectureListInquiry:
             return ""
-            
+
         case let .lectureDetailInquiry(userID):
             return "/\(userID)"
 
@@ -72,7 +72,8 @@ extension LectureAPI: BitgouelAPI {
 
     public var jwtTokenType: JwtTokenType {
         switch self {
-        case .lectureOpen, .lectureListInquiry, .lectureDetailInquiry, .lectureApply, .waitingLectureApprove, .waitingLectureReject:
+        case .lectureOpen, .lectureListInquiry, .lectureDetailInquiry, .lectureApply, .waitingLectureApprove,
+             .waitingLectureReject:
             return .accessToken
         }
     }
@@ -94,7 +95,7 @@ extension LectureAPI: BitgouelAPI {
                 403 : .forbidden,
                 404 : .notFound
             ]
-            
+
         case .lectureDetailInquiry:
             return [
                 400: .badRequest,

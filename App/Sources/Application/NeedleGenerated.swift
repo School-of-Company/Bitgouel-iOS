@@ -21,24 +21,29 @@ private class RootDependency3944cc797a4a88956fb5Provider: RootDependency {
     var loginFactory: any LoginFactory {
         return appComponent.loginFactory
     }
+
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
     }
 }
+
 /// ^->AppComponent->RootComponent
 private func factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return RootDependency3944cc797a4a88956fb5Provider(appComponent: parent1(component) as! AppComponent)
 }
+
 private class LoginDependencyf4e78d0ad57be469bfd9Provider: LoginDependency {
     var loginUseCase: any LoginUseCase {
         return appComponent.loginUseCase
     }
+
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
     }
 }
+
 /// ^->AppComponent->LoginComponent
 private func factoryd6018e98563de75a2ba4f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return LoginDependencyf4e78d0ad57be469bfd9Provider(appComponent: parent1(component) as! AppComponent)
@@ -50,28 +55,38 @@ extension RootComponent: Registration {
         keyPathToName[\RootDependency.loginFactory] = "loginFactory-any LoginFactory"
     }
 }
+
 extension LoginComponent: Registration {
     public func registerItems() {
         keyPathToName[\LoginDependency.loginUseCase] = "loginUseCase-any LoginUseCase"
     }
 }
+
 extension AppComponent: Registration {
     public func registerItems() {
-
         localTable["keychain-Keychain"] = { [unowned self] in self.keychain as Any }
-        localTable["localAuthDataSource-any LocalAuthDataSource"] = { [unowned self] in self.localAuthDataSource as Any }
-        localTable["remoteAuthDataSource-any RemoteAuthDataSource"] = { [unowned self] in self.remoteAuthDataSource as Any }
+        localTable["localAuthDataSource-any LocalAuthDataSource"] = { [unowned self] in
+            self.localAuthDataSource as Any
+        }
+        localTable["remoteAuthDataSource-any RemoteAuthDataSource"] = { [unowned self] in
+            self.remoteAuthDataSource as Any
+        }
         localTable["authRepository-any AuthRepository"] = { [unowned self] in self.authRepository as Any }
         localTable["loginUseCase-any LoginUseCase"] = { [unowned self] in self.loginUseCase as Any }
-        localTable["reissueTokenUseCase-any ReissueTokenUseCase"] = { [unowned self] in self.reissueTokenUseCase as Any }
+        localTable["reissueTokenUseCase-any ReissueTokenUseCase"] = { [unowned self] in
+            self.reissueTokenUseCase as Any
+        }
         localTable["logoutUseCase-any LogoutUseCase"] = { [unowned self] in self.logoutUseCase as Any }
         localTable["withdrawalUseCase-any WithdrawalUseCase"] = { [unowned self] in self.withdrawalUseCase as Any }
-        localTable["studentSignupUseCase-any StudentSignupUseCase"] = { [unowned self] in self.studentSignupUseCase as Any }
-        localTable["teacherSignupUseCase-any TeacherSignupUseCase"] = { [unowned self] in self.teacherSignupUseCase as Any }
+        localTable["studentSignupUseCase-any StudentSignupUseCase"] = { [unowned self] in
+            self.studentSignupUseCase as Any
+        }
+        localTable["teacherSignupUseCase-any TeacherSignupUseCase"] = { [unowned self] in
+            self.teacherSignupUseCase as Any
+        }
         localTable["loginFactory-any LoginFactory"] = { [unowned self] in self.loginFactory as Any }
     }
 }
-
 
 #endif
 
@@ -80,7 +95,10 @@ private func factoryEmptyDependencyProvider(_ component: NeedleFoundation.Scope)
 }
 
 // MARK: - Registration
-private func registerProviderFactory(_ componentPath: String, _ factory: @escaping (NeedleFoundation.Scope) -> AnyObject) {
+private func registerProviderFactory(
+    _ componentPath: String,
+    _ factory: @escaping (NeedleFoundation.Scope) -> AnyObject
+) {
     __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: componentPath, factory)
 }
 
@@ -94,7 +112,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
 #endif
 
 public func registerProviderFactories() {
-#if !NEEDLE_DYNAMIC
+    #if !NEEDLE_DYNAMIC
     register1()
-#endif
+    #endif
 }

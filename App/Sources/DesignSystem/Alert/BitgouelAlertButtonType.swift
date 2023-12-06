@@ -5,7 +5,7 @@ public struct bitgouelAlertButtonType: Identifiable {
     let text: String
     let style: CTAButton.CTAStyle
     let action: () -> Void
-    
+
     public init(
         text: String = "",
         style: CTAButton.CTAStyle = .default,
