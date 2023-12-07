@@ -1,22 +1,6 @@
 import SwiftUI
 
 struct StudentSignUpView: View {
-    private enum FocusField {
-        case name
-        case yearOfAdmission
-        case studentID
-        case phoneNumber
-        case certificationNumberPhoneNumber
-        case email
-        case certificationEmail
-        case password
-        case checkPassword
-        case university
-        case government
-        case company
-    }
-
-    @FocusState private var focusField: FocusField?
     @StateObject var viewModel: StudentSignUpViewModel
     @StateObject var commonViewModel: CommonSignUpViewModel
     @State var isSchool = false
@@ -109,6 +93,7 @@ struct StudentSignUpView: View {
                     Spacer()
                 }
                 .padding(.horizontal, 28)
+                .padding(.top, 32)
             }
         }
         .bitgouelBottomSheet(
@@ -170,7 +155,6 @@ struct StudentSignUpView: View {
                         "비밀번호",
                         text: $viewModel.checkPassword
                     )
-                    .focused($focusField, equals: .checkPassword)
                     .padding(.bottom, -20)
                     .onSubmit {
                         if viewModel.isPasswordMatching {
@@ -184,12 +168,8 @@ struct StudentSignUpView: View {
                 if !viewModel.certificationNumberEmail.isEmpty {
                     SecureBitgouelTextField(
                         "비밀번호",
-                        text: $viewModel.password,
-                        onSubmit: {
-                            focusField = .checkPassword
-                        }
+                        text: $viewModel.password
                     )
-                    .focused($focusField, equals: .password)
                     .padding(.bottom, -20)
                 }
             }
@@ -200,12 +180,8 @@ struct StudentSignUpView: View {
                         "인증번호",
                         text: $viewModel.certificationNumberEmail,
                         helpMessage: viewModel.convertSecondsToTime(timeInSeconds: viewModel.emailTimeRemaining),
-                        link: "재발송",
-                        onSubmit: {
-                            focusField = .password
-                        }
+                        link: "재발송"
                     )
-                    .focused($focusField, equals: .certificationEmail)
                 }
 
                 if !viewModel.certificationNumberPhoneNumber.isEmpty {
@@ -213,13 +189,9 @@ struct StudentSignUpView: View {
                         "이메일",
                         text: $viewModel.email,
                         helpMessage: viewModel.emailHelpMessage,
-                        isError: viewModel.isEmailErrorOccured,
-                        onSubmit: {
-                            focusField = .certificationEmail
-                        }
+                        isError: viewModel.isEmailErrorOccured
                     )
                     .onChange(of: viewModel.emailHelpMessage) { newValue in }
-                    .focused($focusField, equals: .email)
                     .textContentType(.emailAddress)
                 }
             }
@@ -229,27 +201,19 @@ struct StudentSignUpView: View {
                         "인증번호",
                         text: $viewModel.certificationNumberPhoneNumber,
                         helpMessage: viewModel.convertSecondsToTime(timeInSeconds: viewModel.phoneNumberTimeRemaining),
-                        link: "재발송",
-                        onSubmit: {
-                            focusField = .email
-                        }
+                        link: "재발송"
                     )
-                    .focused($focusField, equals: .certificationNumberPhoneNumber)
                 }
 
                 BitgouelTextField(
                     "전화번호",
-                    text: $viewModel.phoneNumber,
-                    onSubmit: {
-                        focusField = .certificationNumberPhoneNumber
-                    }
+                    text: $viewModel.phoneNumber
                 )
                 .onChange(of: viewModel.phoneNumber) { newValue in
                     if !viewModel.phoneNumber.isEmpty {
                         viewModel.phoneNumberStartTimer()
                     }
                 }
-                .focused($focusField, equals: .phoneNumber)
                 .padding(.bottom, -20)
             }
         }
@@ -288,7 +252,6 @@ struct StudentSignUpView: View {
                 "이름",
                 text: $viewModel.name
             )
-            .focused($focusField, equals: .name)
             .padding(.bottom, -20)
         }
     }
@@ -300,23 +263,15 @@ struct StudentSignUpView: View {
             if !viewModel.yearOfAdmission.isEmpty {
                 BitgouelTextField(
                     "학번",
-                    text: $viewModel.studentID,
-                    onSubmit: {
-                        focusField = .phoneNumber
-                    }
+                    text: $viewModel.studentID
                 )
-                .focused($focusField, equals: .studentID)
                 .padding(.bottom, -20)
             }
 
             BitgouelTextField(
                 "입학년도",
-                text: $viewModel.yearOfAdmission,
-                onSubmit: {
-                    focusField = .studentID
-                }
+                text: $viewModel.yearOfAdmission
             )
-            .focused($focusField, equals: .yearOfAdmission)
             .padding(.bottom, -20)
         }
     }
@@ -327,12 +282,8 @@ struct StudentSignUpView: View {
         VStack(spacing: 0) {
             BitgouelTextField(
                 "소속 대학명",
-                text: $viewModel.selectedUniversity,
-                onSubmit: {
-                    focusField = .phoneNumber
-                }
+                text: $viewModel.selectedUniversity
             )
-            .focused($focusField, equals: .university)
             .padding(.bottom, -20)
         }
     }
@@ -343,12 +294,8 @@ struct StudentSignUpView: View {
         VStack(spacing: 0) {
             BitgouelTextField(
                 "소속 기관명",
-                text: $viewModel.selectedGovernment,
-                onSubmit: {
-                    focusField = .phoneNumber
-                }
+                text: $viewModel.selectedGovernment
             )
-            .focused($focusField, equals: .government)
             .padding(.bottom, -20)
         }
     }
@@ -359,12 +306,8 @@ struct StudentSignUpView: View {
         VStack(spacing: 0) {
             BitgouelTextField(
                 "소속 기업명",
-                text: $viewModel.selectedCompany,
-                onSubmit: {
-                    focusField = .phoneNumber
-                }
+                text: $viewModel.selectedCompany
             )
-            .focused($focusField, equals: .company)
             .padding(.bottom, -20)
         }
     }
