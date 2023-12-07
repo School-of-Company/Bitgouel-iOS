@@ -26,47 +26,143 @@ struct StudentSignUpView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack(spacing: 0) {
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(viewModel.titleMessage)
-                                .bitgouelFont(.title2)
+                signupTitleSection()
 
-                            Text(viewModel.subTitleMessage)
-                                .bitgouelFont(.text3, color: .greyscale(.g4))
+                VStack(spacing: 16) {
+                    switch viewModel.userRole {
+                    case .student:
+                        ConditionView(!viewModel.studentID.isEmpty) {
+                            inputAuthorizationInfoSection()
                         }
 
-                        Spacer()
-                    }
-                    .padding(.leading, 28)
-                    .padding(.top, 24)
+                        ConditionView(!viewModel.name.isEmpty) {
+                            inputStudentInfoSection()
+                        }
 
-                    enterInformation()
-                        .padding(.top, 32)
-                        .padding(.horizontal, 28)
+                        ConditionView(viewModel.selectedClub != "동아리") {
+                            inputNameSection()
+                        }
+
+                        ConditionView(viewModel.selectedSchool != "학교") {
+                            inputClubSection()
+                        }
+                    case .teacher, .bbozzack:
+                        ConditionView(!viewModel.name.isEmpty) {
+                            inputAuthorizationInfoSection()
+                        }
+
+                        ConditionView(viewModel.selectedClub != "동아리") {
+                            inputNameSection()
+                        }
+
+                        ConditionView(viewModel.selectedSchool != "학교") {
+                            inputClubSection()
+                        }
+                    case .companyInstructor:
+                        ConditionView(!viewModel.selectedCompany.isEmpty) {
+                            inputAuthorizationInfoSection()
+                        }
+
+                        ConditionView(!viewModel.name.isEmpty) {
+                            inputCompanyInstructorInfoSection()
+                        }
+
+                        ConditionView(viewModel.selectedClub != "동아리") {
+                            inputNameSection()
+                        }
+
+                        ConditionView(viewModel.selectedSchool != "학교") {
+                            inputClubSection()
+                        }
+                    case .professor:
+                        ConditionView(!viewModel.selectedUniversity.isEmpty) {
+                            inputAuthorizationInfoSection()
+                        }
+
+                        ConditionView(!viewModel.name.isEmpty) {
+                            inputProfessorInfoSection()
+                        }
+
+                        ConditionView(viewModel.selectedClub != "동아리") {
+                            inputNameSection()
+                        }
+
+                        ConditionView(viewModel.selectedSchool != "학교") {
+                            inputClubSection()
+                        }
+                    case .government:
+                        ConditionView(!viewModel.selectedGovernment.isEmpty) {
+                            inputAuthorizationInfoSection()
+                        }
+
+                        ConditionView(!viewModel.name.isEmpty) {
+                            inputGovernmentInfoSection()
+                        }
+
+                        ConditionView(viewModel.selectedSchool != "학교") {
+                            inputNameSection()
+                        }
+                    }
+
+                    inputSchoolInfoSection()
 
                     Spacer()
                 }
+                .padding(.horizontal, 28)
             }
-            .bitgouelBottomSheet(
-                isShowing: $isSchool
-            ) {
-                SchoolListView(viewModel: viewModel)
-                    .frame(height: 415)
-            }
-            .background(
-                NavigationLink(
-                    destination: SuccessSignUpView(),
-                    isActive: $isShowingSuccessView,
-                    label: { EmptyView() }
-                )
-            )
         }
+        .bitgouelBottomSheet(
+            isShowing: $isSchool
+        ) {
+            SchoolListView(viewModel: viewModel)
+                .frame(height: 415)
+        }
+
+        .bitgouelBottomSheet(
+            isShowing: $isShowingClubSelectSheet
+        ) {
+            ClubListView(
+                searchText: $viewModel.clubSearch,
+                searchedClubList: viewModel.searchedClubList,
+                selectedClub: viewModel.selectedClub,
+                clubDidSelect: { selectedClub in
+                    viewModel.selectedClub = selectedClub
+                }
+            )
+            .frame(height: 415)
+        }
+        .background(
+            NavigationLink(
+                destination: SuccessSignUpView(),
+                isActive: $isShowingSuccessView,
+                label: { EmptyView() }
+            )
+        )
+
         .navigationBarHidden(true)
     }
 
     @ViewBuilder
-    func inputAuthorizationInformationView() -> some View {
+    func signupTitleSection() -> some View {
+        VStack {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(viewModel.titleMessage)
+                        .bitgouelFont(.title2)
+
+                    Text(viewModel.subTitleMessage)
+                        .bitgouelFont(.text3, color: .greyscale(.g4))
+                }
+
+                Spacer()
+            }
+            .padding(.leading, 28)
+            .padding(.top, 24)
+        }
+    }
+
+    @ViewBuilder
+    func inputAuthorizationInfoSection() -> some View {
         VStack(spacing: 16) {
             Group {
                 if !viewModel.password.isEmpty {
@@ -141,37 +237,27 @@ struct StudentSignUpView: View {
                     .focused($focusField, equals: .certificationNumberPhoneNumber)
                 }
 
-                if !viewModel.studentID.isEmpty {
-                    BitgouelTextField(
-                        "전화번호",
-                        text: $viewModel.phoneNumber,
-                        onSubmit: {
-                            focusField = .certificationNumberPhoneNumber
-                        }
-                    )
-                    .onChange(of: viewModel.phoneNumber) { newValue in
-                        if !viewModel.phoneNumber.isEmpty {
-                            viewModel.phoneNumberStartTimer()
-                        }
+                BitgouelTextField(
+                    "전화번호",
+                    text: $viewModel.phoneNumber,
+                    onSubmit: {
+                        focusField = .certificationNumberPhoneNumber
                     }
-                    .focused($focusField, equals: .phoneNumber)
-                    .padding(.bottom, -20)
+                )
+                .onChange(of: viewModel.phoneNumber) { newValue in
+                    if !viewModel.phoneNumber.isEmpty {
+                        viewModel.phoneNumberStartTimer()
+                    }
                 }
+                .focused($focusField, equals: .phoneNumber)
+                .padding(.bottom, -20)
             }
         }
     }
 
     @ViewBuilder
-    func enterInformation() -> some View {
+    func inputSchoolInfoSection() -> some View {
         VStack(spacing: 16) {
-            if viewModel.selectedSchoolExists {
-                AssociationSelectButton(
-                    text: viewModel.selectedClub
-                ) {
-                    isShowingClubSelectSheet.toggle()
-                }
-            }
-
             AssociationSelectButton(
                 text: viewModel.selectedSchool
             ) {
@@ -185,45 +271,31 @@ struct StudentSignUpView: View {
     }
 
     @ViewBuilder
-    func inputName() -> some View {
-        VStack(spacing: 16) {
-            if viewModel.selectedClubExists {
-                BitgouelTextField(
-                    "이름",
-                    text: $viewModel.name,
-                    onSubmit: {
-                        focusField = .yearOfAdmission
-                    }
-                )
-                .focused($focusField, equals: .name)
-                .padding(.bottom, -20)
+    func inputClubSection() -> some View {
+        VStack(spacing: 0) {
+            AssociationSelectButton(
+                text: viewModel.selectedClub
+            ) {
+                isShowingClubSelectSheet.toggle()
             }
         }
     }
 
     @ViewBuilder
-    func inputClubInfoView() -> some View {
-        VStack(spacing: 16) {
-            ScrollView {}
-                .bitgouelBottomSheet(
-                    isShowing: $isShowingClubSelectSheet
-                ) {
-                    ClubListView(
-                        searchText: $viewModel.clubSearch,
-                        searchedClubList: viewModel.searchedClubList,
-                        selectedClub: viewModel.selectedClub,
-                        clubDidSelect: { selectedClub in
-                            viewModel.selectedClub = selectedClub
-                        }
-                    )
-                    .frame(height: 415)
-                }
+    func inputNameSection() -> some View {
+        VStack(spacing: 0) {
+            BitgouelTextField(
+                "이름",
+                text: $viewModel.name
+            )
+            .focused($focusField, equals: .name)
+            .padding(.bottom, -20)
         }
     }
 
     // MARK: Student
     @ViewBuilder
-    func inputStudentInfoView() -> some View {
+    func inputStudentInfoSection() -> some View {
         VStack(spacing: 16) {
             if !viewModel.yearOfAdmission.isEmpty {
                 BitgouelTextField(
@@ -237,71 +309,63 @@ struct StudentSignUpView: View {
                 .padding(.bottom, -20)
             }
 
-            if !viewModel.name.isEmpty {
-                BitgouelTextField(
-                    "입학년도",
-                    text: $viewModel.yearOfAdmission,
-                    onSubmit: {
-                        focusField = .studentID
-                    }
-                )
-                .focused($focusField, equals: .yearOfAdmission)
-                .padding(.bottom, -20)
-            }
+            BitgouelTextField(
+                "입학년도",
+                text: $viewModel.yearOfAdmission,
+                onSubmit: {
+                    focusField = .studentID
+                }
+            )
+            .focused($focusField, equals: .yearOfAdmission)
+            .padding(.bottom, -20)
         }
     }
 
     // MARK: Professor
     @ViewBuilder
-    func inputProfessorInfoView() -> some View {
-        VStack(spacing: 16) {
-            if !viewModel.name.isEmpty {
-                BitgouelTextField(
-                    "소속 대학명",
-                    text: $viewModel.selectedUniversity,
-                    onSubmit: {
-                        focusField = .phoneNumber
-                    }
-                )
-                .focused($focusField, equals: .university)
-                .padding(.bottom, -20)
-            }
+    func inputProfessorInfoSection() -> some View {
+        VStack(spacing: 0) {
+            BitgouelTextField(
+                "소속 대학명",
+                text: $viewModel.selectedUniversity,
+                onSubmit: {
+                    focusField = .phoneNumber
+                }
+            )
+            .focused($focusField, equals: .university)
+            .padding(.bottom, -20)
         }
     }
 
     // MARK: Government
     @ViewBuilder
-    func inputGovernmentInfoView() -> some View {
-        VStack(spacing: 16) {
-            if !viewModel.name.isEmpty {
-                BitgouelTextField(
-                    "소속 기관명",
-                    text: $viewModel.selectedGovernment,
-                    onSubmit: {
-                        focusField = .phoneNumber
-                    }
-                )
-                .focused($focusField, equals: .government)
-                .padding(.bottom, -20)
-            }
+    func inputGovernmentInfoSection() -> some View {
+        VStack(spacing: 0) {
+            BitgouelTextField(
+                "소속 기관명",
+                text: $viewModel.selectedGovernment,
+                onSubmit: {
+                    focusField = .phoneNumber
+                }
+            )
+            .focused($focusField, equals: .government)
+            .padding(.bottom, -20)
         }
     }
-    
+
     // MARK: CompanyInstructor
     @ViewBuilder
-    func inputCompanyInstructorInfoView() -> some View {
-        VStack(spacing: 16) {
-            if !viewModel.name.isEmpty {
-                BitgouelTextField(
-                    "소속 기업명",
-                    text: $viewModel.selectedCompany,
-                    onSubmit: {
-                        focusField = .phoneNumber
-                    }
-                )
-                .focused($focusField, equals: .company)
-                .padding(.bottom, -20)
-            }
+    func inputCompanyInstructorInfoSection() -> some View {
+        VStack(spacing: 0) {
+            BitgouelTextField(
+                "소속 기업명",
+                text: $viewModel.selectedCompany,
+                onSubmit: {
+                    focusField = .phoneNumber
+                }
+            )
+            .focused($focusField, equals: .company)
+            .padding(.bottom, -20)
         }
     }
 }

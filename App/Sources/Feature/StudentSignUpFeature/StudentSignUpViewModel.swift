@@ -27,10 +27,11 @@ final class StudentSignUpViewModel: BaseViewModel {
     @Published var emailTimeRemaining: Int = 180
     @Published var selectedSchool: String = "학교"
     @Published var selectedClub: String = "동아리"
-    @Published var selectedUniversity: String = "소속 대학명"
-    @Published var selectedGovernment: String = "소속 기관명"
-    @Published var selectedCompany: String = "소속 기업명"
+    @Published var selectedUniversity: String = ""
+    @Published var selectedGovernment: String = ""
+    @Published var selectedCompany: String = ""
     @Published var clubsForSelectedHighSchool: [String] = []
+    @Published var userRole: UserRoleType = .professor
     private var timer: Timer?
     let highSchool: [HighSchoolType] = HighSchoolType.allCases
 
