@@ -28,7 +28,6 @@ final class StudentSignUpViewModel: BaseViewModel {
     @Published var clubsForSelectedHighSchool: [String] = []
     private var timer: Timer?
     let highSchool: [HighSchoolType] = HighSchoolType.allCases
-    
     var getClubsForSelectedHighSchool: HighSchoolType? {
         didSet {
             clubsForSelectedHighSchool = getClubsForSelectedHighSchool?.getClubsForSelectedHighSchool() ?? []
