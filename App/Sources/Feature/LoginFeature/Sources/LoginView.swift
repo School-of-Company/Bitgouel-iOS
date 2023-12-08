@@ -5,28 +5,28 @@ struct LoginView: View {
         case email
         case password
     }
-
+    
     @FocusState private var focusField: FocusField?
     @StateObject var viewModel: LoginViewModel
-
+    
     init(
         viewModel: LoginViewModel
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
-
+    
     var body: some View {
         VStack(spacing: 0) {
             HStack {
                 Text("빛고을\n직업교육\n혁신지구")
                     .bitgouelFont(.title1)
-
+                
                 Spacer()
             }
             .frame(height: 108)
             .padding(.top, 53)
             .padding(.leading, 28)
-
+            
             VStack {
                 BitgouelTextField(
                     "이메일",
@@ -38,7 +38,7 @@ struct LoginView: View {
                 }
                 .textContentType(.emailAddress)
                 .focused($focusField, equals: .email)
-
+                
                 SecureBitgouelTextField(
                     "비밀번호",
                     text: $viewModel.password,
@@ -51,21 +51,24 @@ struct LoginView: View {
             }
             .padding(.top, 80)
             .padding(.horizontal, 28)
-
+            
             Spacer()
-
+            
             VStack(spacing: 0) {
                 BitgouelButton(
-                    text: "로그인"
+                    text: "로그인",
+                    action: {
+                        viewModel.login()
+                    }
                 )
                 .cornerRadius(8)
                 .disabled(viewModel.isFormEmpty)
                 .padding(.horizontal, 28)
-
+                
                 Text("또는")
                     .bitgouelFont(.caption, color: .greyscale(.g7))
                     .padding(.top, 8)
-
+                
                 Text("회원가입")
                     .bitgouelFont(.text3, color: .primary(.p5))
                     .padding(.top, 2)

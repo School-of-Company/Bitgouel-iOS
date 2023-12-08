@@ -27,7 +27,7 @@ public extension Project {
                         .release(
                             name: .release,
                             xcconfig:
-                            .relativeToXCConfig(type: .debug, name: name)
+                            .relativeToXCConfig(type: .release, name: name)
                         )
                     ]
             ),
@@ -41,9 +41,12 @@ public extension Project {
                     infoPlist: .file(path: Path("Support/Info.plist")),
                     sources: ["Sources/**"],
                     resources: ["Resources/**"],
-                    scripts: [.SwiftLintString],
+                    scripts: [.SwiftLintString, .NeedleShell],
                     dependencies: [
-                        .project(target: "ThirdPartyLib", path: Path("../ThirdPartyLib")),
+                        .project(
+                            target: "ThirdPartyLib",
+                            path: Path("../ThirdPartyLib")
+                        ),
                     ] + dependencies,
                     settings: settings
                 ),

@@ -8,5 +8,6 @@ let project = Project.dynamicFramwork(
     dependencies: [
         .SPM.Moya,
         .SPM.NeedleFoundation
-    ]
+    ],
+    scripts: [.SwiftLintString]
 )

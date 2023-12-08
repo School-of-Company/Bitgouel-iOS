@@ -12,7 +12,8 @@ public extension Project {
         deploymentTarget: DeploymentTarget,
         dependencies: [TargetDependency] = [
             .project(target: "ThirdPartyLib", path: Path("../ThirdPartyLib"))
-        ]
+        ],
+        scripts: [TargetScript] = []
     ) -> Project {
         return Project(
             name: name,

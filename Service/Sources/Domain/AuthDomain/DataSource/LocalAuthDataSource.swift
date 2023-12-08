@@ -1,23 +1,6 @@
 import Foundation
 
-public struct LocalAuthDataSource {
-    private let keychain: any Keychain
-
-    public init(keychain: any Keychain) {
-        self.keychain = keychain
-    }
-
-    public func logout() {
-        keychain.delete(type: .accessToken)
-        keychain.delete(type: .accessExpiredAt)
-        keychain.delete(type: .refreshToken)
-        keychain.delete(type: .refreshExpiredAt)
-    }
-
-    public func withdraw() {
-        keychain.delete(type: .accessToken)
-        keychain.delete(type: .accessExpiredAt)
-        keychain.delete(type: .refreshToken)
-        keychain.delete(type: .refreshExpiredAt)
-    }
+public protocol LocalAuthDataSource {
+    func logout() async throws
+    func withdraw() async throws
 }
