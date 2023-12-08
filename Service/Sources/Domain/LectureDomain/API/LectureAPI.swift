@@ -72,7 +72,11 @@ extension LectureAPI: BitgouelAPI {
 
     public var jwtTokenType: JwtTokenType {
         switch self {
-        case .lectureOpen, .lectureListInquiry, .lectureDetailInquiry, .lectureApply, .waitingLectureApprove,
+        case .lectureOpen,
+             .lectureListInquiry,
+             .lectureDetailInquiry,
+             .lectureApply,
+             .waitingLectureApprove,
              .waitingLectureReject:
             return .accessToken
         }
