@@ -36,7 +36,7 @@ final class StudentSignUpViewModel: BaseViewModel {
     private let governmentSignupUseCase: GovernmentSignupUseCase
     private let companyInstructorSignupUseCase: CompanyInstructorSignupUseCase
     let highSchool: [HighSchoolType] = HighSchoolType.allCases
-    
+
     init(
         studentSignupUseCase: StudentSignupUseCase,
         teacherSignupUseCase: TeacherSignupUseCase,
@@ -52,7 +52,7 @@ final class StudentSignUpViewModel: BaseViewModel {
         self.governmentSignupUseCase = governmentSignupUseCase
         self.companyInstructorSignupUseCase = companyInstructorSignupUseCase
     }
-    
+
     var getClubsForSelectedHighSchool: HighSchoolType? {
         didSet {
             clubsForSelectedHighSchool = getClubsForSelectedHighSchool?.getClubsForSelectedHighSchool() ?? []
