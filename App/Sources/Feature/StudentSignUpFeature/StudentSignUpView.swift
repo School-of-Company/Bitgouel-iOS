@@ -13,7 +13,7 @@ struct StudentSignUpView: View {
                 signupTitleSection()
                 
                 VStack(spacing: 16) {
-                    switch $viewModel.userRole {
+                    switch viewModel.userRole {
                     case .student:
                         ConditionView(!viewModel.studentID.isEmpty) {
                             inputAuthorizationInfoSection()
