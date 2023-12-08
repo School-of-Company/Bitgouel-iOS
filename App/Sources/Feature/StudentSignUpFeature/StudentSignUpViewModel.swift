@@ -29,7 +29,30 @@ final class StudentSignUpViewModel: BaseViewModel {
     @Published var selectedClub: String = "동아리"
     @Published var clubsForSelectedHighSchool: [String] = []
     private var timer: Timer?
+    private let studentSignupUseCase: StudentSignupUseCase
+    private let teacherSignupUseCase: TeacherSignupUseCase
+    private let bbozzakSignupUseCase: BbozzakSignupUseCase
+    private let professorSignupUseCase: ProfessorSignupUseCase
+    private let governmentSignupUseCase: GovernmentSignupUseCase
+    private let companyInstructorSignupUseCase: CompanyInstructorSignupUseCase
     let highSchool: [HighSchoolType] = HighSchoolType.allCases
+    
+    init(
+        studentSignupUseCase: StudentSignupUseCase,
+        teacherSignupUseCase: TeacherSignupUseCase,
+        bbozzakSignupUseCase: BbozzakSignupUseCase,
+        professorSignupUseCase: ProfessorSignupUseCase,
+        governmentSignupUseCase: GovernmentSignupUseCase,
+        companyInstructorSignupUseCase: CompanyInstructorSignupUseCase
+    ) {
+        self.studentSignupUseCase = studentSignupUseCase
+        self.teacherSignupUseCase = teacherSignupUseCase
+        self.bbozzakSignupUseCase = bbozzakSignupUseCase
+        self.professorSignupUseCase = professorSignupUseCase
+        self.governmentSignupUseCase = governmentSignupUseCase
+        self.companyInstructorSignupUseCase = companyInstructorSignupUseCase
+    }
+    
     var getClubsForSelectedHighSchool: HighSchoolType? {
         didSet {
             clubsForSelectedHighSchool = getClubsForSelectedHighSchool?.getClubsForSelectedHighSchool() ?? []

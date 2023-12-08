@@ -1,6 +1,6 @@
-import SwiftUI
-import Service
 import NeedleFoundation
+import Service
+import SwiftUI
 
 public protocol StudentSignUpDependency: Dependency {
     var studentSignupUseCase: any StudentSignupUseCase { get }
@@ -14,7 +14,6 @@ public protocol StudentSignUpDependency: Dependency {
 public final class StudentSignUpComponent: Component<StudentSignUpDependency>, StudentSignUpFactory {
     public func makeView() -> some View {
         StudentSignUpView(viewModel: .init(
-        
         ))
     }
 }

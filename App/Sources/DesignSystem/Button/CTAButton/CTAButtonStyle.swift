@@ -10,15 +10,15 @@ public extension CTAButton {
 
 public struct CTAButtonStyle: ButtonStyle {
     var style: CTAButton.CTAStyle
-    
+
     public func makeBody(configuration: Configuration) -> some View {
         switch style {
         case .`default`:
             DefaultButton(configuration: configuration)
-            
+
         case .error:
             ErrorButton(configuration: configuration)
-            
+
         case .cancel:
             CancelButton(configuration: configuration)
         }
@@ -28,7 +28,7 @@ public struct CTAButtonStyle: ButtonStyle {
 extension CTAButtonStyle {
     struct DefaultButton: View {
         let configuration: ButtonStyle.Configuration
-        
+
         var body: some View {
             configuration.label
                 .bitgouelFont(.text3, color: .greyscale(.g10))
@@ -41,7 +41,7 @@ extension CTAButtonStyle {
 extension CTAButtonStyle {
     struct ErrorButton: View {
         let configuration: ButtonStyle.Configuration
-        
+
         var body: some View {
             configuration.label
                 .bitgouelFont(.text3, color: .greyscale(.g10))
@@ -54,7 +54,7 @@ extension CTAButtonStyle {
 extension CTAButtonStyle {
     struct CancelButton: View {
         let configuration: ButtonStyle.Configuration
-        
+
         var body: some View {
             configuration.label
                 .bitgouelFont(.text3, color: .greyscale(.g10))
