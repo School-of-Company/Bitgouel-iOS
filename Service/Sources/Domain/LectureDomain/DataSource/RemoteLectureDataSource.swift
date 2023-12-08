@@ -8,7 +8,7 @@ final class RemoteLectureDataSource: BaseRemoteDataSource<LectureAPI> {
     func lectureListInquiry() async throws {
         try await request(.lectureListInquiry)
     }
-    
+
     func lectureDetailInquiry(userID: String) async throws {
         try await request(.lectureDetailInquiry(userID: userID))
     }

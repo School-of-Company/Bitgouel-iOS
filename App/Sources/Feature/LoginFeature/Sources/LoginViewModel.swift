@@ -37,7 +37,7 @@ final class LoginViewModel: BaseViewModel {
             return true
         }
     }
-    
+
     var emailHelpMessage: String {
         if isEmailErrorOccured {
             return "잘못된 이메일입니다."
@@ -47,7 +47,7 @@ final class LoginViewModel: BaseViewModel {
             return ""
         }
     }
-    
+
     var passwordHelpMessage: String {
         if isPasswordErrorOcuured {
             return "잘못된 비밀번호입니다"

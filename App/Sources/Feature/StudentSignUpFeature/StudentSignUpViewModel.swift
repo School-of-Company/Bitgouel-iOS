@@ -11,11 +11,13 @@ final class StudentSignUpViewModel: BaseViewModel {
             parseStudentID()
         }
     }
+
     @Published var phoneNumber = "" {
         didSet {
             parsePhoneNumber()
         }
     }
+
     @Published var certificationNumberPhoneNumber = ""
     @Published var email = ""
     @Published var certificationNumberEmail = ""
@@ -33,7 +35,7 @@ final class StudentSignUpViewModel: BaseViewModel {
             clubsForSelectedHighSchool = getClubsForSelectedHighSchool?.getClubsForSelectedHighSchool() ?? []
         }
     }
-    
+
     var searchedSchoolList: [HighSchoolType] {
         if schoolSearch.isEmpty {
             return highSchool
@@ -41,7 +43,7 @@ final class StudentSignUpViewModel: BaseViewModel {
             return highSchool.filter { $0.display().contains(schoolSearch) }
         }
     }
-    
+
     var searchedClubList: [String] {
         if clubSearch.isEmpty {
             return clubsForSelectedHighSchool
@@ -49,7 +51,7 @@ final class StudentSignUpViewModel: BaseViewModel {
             return clubsForSelectedHighSchool.filter { $0.lowercased().contains(clubSearch.lowercased()) }
         }
     }
-    
+
     var titleMessage: String {
         if selectedSchool == "학교" {
             return "학교 선택"
@@ -75,7 +77,7 @@ final class StudentSignUpViewModel: BaseViewModel {
             return "비밀번호 재입력"
         }
     }
-    
+
     var subTitleMessage: String {
         if selectedSchool == "학교" {
             return "재학 중이신 학교를 선택해 주세요!"
@@ -101,28 +103,28 @@ final class StudentSignUpViewModel: BaseViewModel {
             return "비밀번호를 다시 입력해 주세요!"
         }
     }
-    
+
     var selectedSchoolExists: Bool {
         selectedSchool != "학교"
     }
-    
+
     var selectedClubExists: Bool {
         selectedClub != "동아리"
     }
-    
+
     var isPasswordMatching: Bool {
         checkPassword(password, checkPassword)
     }
-    
+
     func convertSecondsToTime(timeInSeconds: Int) -> String {
         let minutes = timeInSeconds / 60
         let seconds = timeInSeconds % 60
         return String(format: "%02i:%02i", minutes, seconds)
     }
-    
+
     func phoneNumberStartTimer() {
         guard timer == nil else { return }
-        
+
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
             DispatchQueue.main.async {
                 if self.phoneNumberTimeRemaining > 0 {
@@ -133,10 +135,10 @@ final class StudentSignUpViewModel: BaseViewModel {
             }
         }
     }
-    
+
     func emailStartTimer() {
         guard timer == nil else { return }
-        
+
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
             DispatchQueue.main.async {
                 if self.emailTimeRemaining > 0 {
@@ -147,42 +149,42 @@ final class StudentSignUpViewModel: BaseViewModel {
             }
         }
     }
-    
+
     func stopTimer() {
         timer?.invalidate()
         timer = nil
     }
-    
+
     public func parseStudentID() {
-        guard studentID.count == 4, 
+        guard studentID.count == 4,
               let grade = Int(String(studentID.prefix(1))),
               let classNumber = Int(String(studentID.dropFirst(1).prefix(1))),
-              let studentNumber = Int(String(studentID.suffix(2))) 
+              let studentNumber = Int(String(studentID.suffix(2)))
         else { return }
-        
+
         studentID = "\(grade)학년 \(classNumber)반 \(studentNumber)번"
     }
-    
+
     public func parsePhoneNumber() {
-        guard 
-        phoneNumber.count == 11, 
-            let firstPart = Int(String(phoneNumber.prefix(3))), 
-            let secondPart = Int(String(phoneNumber.dropFirst(3).prefix(4))), 
+        guard
+            phoneNumber.count == 11,
+            let firstPart = Int(String(phoneNumber.prefix(3))),
+            let secondPart = Int(String(phoneNumber.dropFirst(3).prefix(4))),
             let thirdPart = Int(String(phoneNumber.dropFirst(7)))
         else { return }
-        
+
         phoneNumber = "\(firstPart)-\(secondPart)-\(thirdPart)"
     }
-    
+
     func checkEmail(_ email: String) -> Bool {
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
         return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: email)
     }
-    
+
     func checkPassword(_ password: String, _ checkPassword: String) -> Bool {
         return password == checkPassword
     }
-    
+
     var isEmailErrorOccured: Bool {
         if email.isEmpty {
             return false
@@ -193,7 +195,7 @@ final class StudentSignUpViewModel: BaseViewModel {
             return true
         }
     }
-    
+
     var emailHelpMessage: String {
         if isEmailErrorOccured {
             return "이메일 형식이 유효하지 않습니다"

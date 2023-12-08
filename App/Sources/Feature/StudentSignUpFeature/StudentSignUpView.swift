@@ -12,12 +12,13 @@ struct StudentSignUpView: View {
         case password
         case checkPassword
     }
+
     @FocusState private var focusField: FocusField?
     @StateObject var viewModel: StudentSignUpViewModel
     @State var isSchool = false
     @State var isShowingClubSelectSheet = false
     @State var isShowingSuccessView = false
-    
+
     var body: some View {
         NavigationView {
             ScrollView {
@@ -26,20 +27,20 @@ struct StudentSignUpView: View {
                         VStack(alignment: .leading) {
                             Text(viewModel.titleMessage)
                                 .bitgouelFont(.title2)
-                            
+
                             Text(viewModel.subTitleMessage)
                                 .bitgouelFont(.text3, color: .greyscale(.g4))
                         }
-                        
+
                         Spacer()
                     }
                     .padding(.leading, 28)
                     .padding(.top, 24)
-                    
+
                     enterInformation()
                         .padding(.top, 32)
                         .padding(.horizontal, 28)
-                    
+
                     Spacer()
                 }
             }
@@ -72,7 +73,7 @@ struct StudentSignUpView: View {
         }
         .navigationBarHidden(true)
     }
-    
+
     @ViewBuilder
     func enterInformation() -> some View {
         VStack(spacing: 16) {
@@ -92,7 +93,7 @@ struct StudentSignUpView: View {
                         }
                     }
                 }
-                
+
                 if !viewModel.certificationNumberEmail.isEmpty {
                     SecureBitgouelTextField(
                         "비밀번호",
@@ -105,7 +106,7 @@ struct StudentSignUpView: View {
                     .padding(.bottom, -20)
                 }
             }
-            
+
             Group {
                 if !viewModel.email.isEmpty {
                     BitgouelTextField(
@@ -119,7 +120,7 @@ struct StudentSignUpView: View {
                     )
                     .focused($focusField, equals: .certificationEmail)
                 }
-                
+
                 if !viewModel.certificationNumberPhoneNumber.isEmpty {
                     BitgouelTextField(
                         "이메일",
@@ -135,7 +136,7 @@ struct StudentSignUpView: View {
                     .textContentType(.emailAddress)
                 }
             }
-            
+
             Group {
                 if !viewModel.phoneNumber.isEmpty {
                     BitgouelTextField(
@@ -149,7 +150,7 @@ struct StudentSignUpView: View {
                     )
                     .focused($focusField, equals: .certificationNumberPhoneNumber)
                 }
-                
+
                 if !viewModel.studentID.isEmpty {
                     BitgouelTextField(
                         "전화번호",
@@ -167,7 +168,7 @@ struct StudentSignUpView: View {
                     .padding(.bottom, -20)
                 }
             }
-            
+
             Group {
                 if !viewModel.yearOfAdmission.isEmpty {
                     BitgouelTextField(
@@ -180,7 +181,7 @@ struct StudentSignUpView: View {
                     .focused($focusField, equals: .studentID)
                     .padding(.bottom, -20)
                 }
-                
+
                 if !viewModel.name.isEmpty {
                     BitgouelTextField(
                         "입학년도",
@@ -192,7 +193,7 @@ struct StudentSignUpView: View {
                     .focused($focusField, equals: .yearOfAdmission)
                     .padding(.bottom, -20)
                 }
-                
+
                 if viewModel.selectedClubExists {
                     BitgouelTextField(
                         "이름",
@@ -205,7 +206,7 @@ struct StudentSignUpView: View {
                     .padding(.bottom, -20)
                 }
             }
-            
+
             if viewModel.selectedSchoolExists {
                 AssociationSelectButton(
                     text: viewModel.selectedClub
@@ -213,15 +214,15 @@ struct StudentSignUpView: View {
                     isShowingClubSelectSheet.toggle()
                 }
             }
-            
+
             AssociationSelectButton(
                 text: viewModel.selectedSchool
             ) {
                 isSchool.toggle()
             }
-            
+
             AssociationSelectButton(text: "학생")
-            
+
             AssociationSelectButton(text: "학교")
         }
     }

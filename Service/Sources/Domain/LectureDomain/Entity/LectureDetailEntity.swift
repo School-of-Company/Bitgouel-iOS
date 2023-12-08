@@ -14,7 +14,7 @@ public struct LectureDetailEntity: Equatable {
     public let isRegistered: Bool
     public let lecturer: String
     public let credit: Int
-    
+
     public init(
         name: String,
         content: String,
