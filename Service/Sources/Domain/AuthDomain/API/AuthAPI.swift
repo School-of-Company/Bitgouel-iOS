@@ -54,7 +54,12 @@ extension AuthAPI: BitgouelAPI {
 
     public var method: Moya.Method {
         switch self {
-        case .login, .studentSignup, .teacherSignup, .professorSignup, .governmentSignup, .companyInstructorSignup,
+        case .login,
+             .studentSignup,
+             .teacherSignup,
+             .professorSignup,
+             .governmentSignup,
+             .companyInstructorSignup,
              .bbozzakSignup:
             return .post
 

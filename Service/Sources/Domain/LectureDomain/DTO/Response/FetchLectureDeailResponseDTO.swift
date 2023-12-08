@@ -14,7 +14,7 @@ public struct FetchLectureDetailResponseDTO: Decodable {
     public let isRegistered: Bool
     public let lecturer: String
     public let credit: Int
-    
+
     public init(
         name: String,
         content: String,

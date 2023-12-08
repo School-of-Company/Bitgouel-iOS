@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SchoolListView: View {
     @ObservedObject var viewModel: StudentSignUpViewModel
-    
+
     var body: some View {
         VStack(spacing: 8) {
             BitgouelTextField(
@@ -10,7 +10,7 @@ struct SchoolListView: View {
                 text: $viewModel.schoolSearch
             )
             .padding(.horizontal, 28)
-            
+
             ScrollView {
                 LazyVStack {
                     ForEach(viewModel.searchedSchoolList, id: \.self) { school in

@@ -12,7 +12,7 @@ public enum CareerClubType {
         case Civil마스터 = "Civil 마스터"
         case 건축연구소 = "건축연구소"
     }
-    
+
     public enum KumpaTechnicalHighSchool: String, CaseIterable, Decodable, Encodable {
         case 레프리 = "레프리"
         case 블라썸 = "블라썸(blossom)"
@@ -22,7 +22,7 @@ public enum CareerClubType {
         case 다이나믹 = "다이나믹(Dynamic)"
         case 금호로80베이커리 = "금호로80 베이커리"
     }
-    
+
     public enum JeonnamTechnicalHighSchool: String, CaseIterable, Decodable, Encodable {
         case 진짜기계 = "진짜기계"
         case 핫앤쿨 = "핫앤쿨"
@@ -31,24 +31,24 @@ public enum CareerClubType {
         case 스카이드론 = "스카이드론"
         case 그린라이트 = "그린라이트"
     }
-    
+
     public enum GwangjeGirlsCommercialHighSchool: String, CaseIterable, Decodable, Encodable {
         case 금융실무 = "금융실무"
         case 소개팅 = "소개팅"
         case 취사모 = "취사모"
     }
-    
+
     public enum JeonnamGirlsCommercialHighSchool: String, CaseIterable, Decodable, Encodable {
         case 없음 = "없음"
     }
-    
+
     public enum GwangjuNaturalScienceHighSchool: String, CaseIterable, Decodable, Encodable {
         case DCT = "DCT"
         case 뉴쿡 = "뉴쿡"
         case 베이커리카페CEO = "베이커리 카페 CEO"
         case 우아행 = "우(리들의) 아(름다운) 행(복)"
     }
-    
+
     public enum GwangjuElectronicTechnicalHighSchool: String, CaseIterable, Decodable, Encodable {
         case 감성기계 = "감성기계"
         case 열정그자체 = "열정 그 자체"
@@ -58,7 +58,7 @@ public enum CareerClubType {
         case 발자국 = "발자국"
         case 메이커연구소 = "\"M lab\"= 메이커(maker) 연구소"
     }
-    
+
     public enum DongilHighSchoolOfFutureScienceHighSchool: String, CaseIterable, Decodable, Encodable {
         case 놀고잡고 = "놀고잡고(놀GO잡GO)"
         case 믿고잡고 = "믿고잡고"
@@ -66,11 +66,11 @@ public enum CareerClubType {
         case 쓰고잡고 = "쓰고잡고"
         case 하고잡고 = "하고잡고"
     }
-    
+
     public enum SeojinGirlsHighSchool: String, CaseIterable, Decodable, Encodable {
         case 없음 = "없음"
     }
-    
+
     public enum SunguiScienceTechnologyHighSchool: String, CaseIterable, Decodable, Encodable {
         case 서전트스나이퍼 = "서전트스나이퍼"
         case 카페인팅 = "카-페인팅"
@@ -83,21 +83,21 @@ public enum CareerClubType {
         case 카페바리 = "카페바리"
         case 쿠킹마스터즈 = "쿠킹마스터즈"
     }
-    
+
     public enum SongwonGirlsCommercialHighSchool: String, CaseIterable, Decodable, Encodable {
         case 건강지킴이 = "건강지킴이"
         case 미용서비스 = "미용서비스"
         case 뷰티아트 = "뷰티아트"
         case 클로즈업 = "클로즈업"
     }
-    
+
     public enum GwangjuAutomaticEquipmentTechnicalHighSchool: String, CaseIterable, Decodable, Encodable {
         case HMI동아리 = "HMI동아리"
         case 마취제 = "마취제"
         case 빛go = "빛go job go"
         case 취업진로동아리 = "취업진로 동아리"
     }
-    
+
     public enum GwangjuSoftwareMeisterHighSchool: String, CaseIterable, Decodable, Encodable {
         case devGSM = "dev GSM"
     }

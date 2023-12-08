@@ -12,7 +12,7 @@ public struct LectureListEntity: Equatable {
     public let headCount: Int
     public let maxRegisteredUser: Int
     public let lecturer: String
-    
+
     public init(
         id: UUID,
         name: String,

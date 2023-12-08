@@ -1,5 +1,5 @@
-import SwiftUI
 import Service
+import SwiftUI
 
 struct ClubListRowView: View {
     let club: String
@@ -9,13 +9,13 @@ struct ClubListRowView: View {
         self.club = club
         self._isSelected = isSelected
     }
-    
+
     var body: some View {
         HStack {
             Text(club)
-            
+
             Spacer()
-            
+
             BitgouelRadioButton(isSelected: $isSelected)
         }
         .id(String(club))
