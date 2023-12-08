@@ -11,6 +11,7 @@ public struct FetchLectureDetailResponseDTO: Decodable {
     public let lectureStatus: LectureStatusType
     public let headCount: Int
     public let maxRegisteredUser: Int
+    public let isRegistered: Bool
     public let lecturer: String
     public let credit: Int
     
@@ -25,6 +26,7 @@ public struct FetchLectureDetailResponseDTO: Decodable {
         lectureStatus: LectureStatusType,
         headCount: Int,
         maxRegisteredUser: Int,
+        isRegistered: Bool,
         lecturer: String,
         credit: Int
     ) {
@@ -38,6 +40,7 @@ public struct FetchLectureDetailResponseDTO: Decodable {
         self.lectureStatus = lectureStatus
         self.headCount = headCount
         self.maxRegisteredUser = maxRegisteredUser
+        self.isRegistered = isRegistered
         self.lecturer = lecturer
         self.credit = credit
     }
