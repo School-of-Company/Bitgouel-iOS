@@ -18,7 +18,7 @@ public struct BitgouelButtonStyle: ButtonStyle {
 
         case .secondary:
             SecondaryButton(configuration: configuration)
-            
+
         case .error:
             ErrorButton(configuration: configuration)
         }
@@ -102,19 +102,19 @@ private extension BitgouelButtonStyle {
         var foregroundColor: Color {
             isEnabled ? enabledForegroundColor : .bitgouel(.greyscale(.g4))
         }
-        
+
         var backgroundColor: Color {
             isEnabled ? enabledBackgroundColor : .bitgouel(.greyscale(.g7))
         }
-        
+
         var enabledForegroundColor: Color {
             configuration.isPressed ? .bitgouel(.greyscale(.g7)) : .white
         }
-        
+
         var enabledBackgroundColor: Color {
             configuration.isPressed ? .bitgouel(.greyscale(.g7)) : .bitgouel(.error(.e5))
         }
-        
+
         var body: some View {
             configuration.label
                 .bitgouelFont(.text1)

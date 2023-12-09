@@ -23,7 +23,7 @@ struct BitgouelAlertModifier: ViewModifier {
     var description: String
     @Binding var isShowing: Bool
     var alertActions: [bitgouelAlertButtonType]
-    
+
     public init(
         title: String,
         description: String,
@@ -35,16 +35,16 @@ struct BitgouelAlertModifier: ViewModifier {
         _isShowing = isShowing
         self.alertActions = alertActions
     }
-    
+
     func body(content: Content) -> some View {
         ZStack {
             content
-            
+
             if isShowing {
                 Color.bitgouel(.greyscale(.g0))
                     .opacity(0.25)
                     .ignoresSafeArea()
-                
+
                 bitgouelAlert()
                     .padding(29)
                     .transition(
@@ -57,14 +57,14 @@ struct BitgouelAlertModifier: ViewModifier {
         }
         .animation(.spring(response: 0.3, dampingFraction: isShowing ? 0.7 : 0.6, blendDuration: 40), value: isShowing)
     }
-    
+
     @ViewBuilder
     func bitgouelAlert() -> some View {
         VStack(alignment: .center, spacing: 0) {
             VStack(alignment: .center, spacing: 16) {
                 Text(title)
                     .bitgouelFont(.text1)
-                
+
                 Text(description)
                     .bitgouelFont(.caption, color: .greyscale(.g4))
                     .lineSpacing(3)
@@ -72,7 +72,7 @@ struct BitgouelAlertModifier: ViewModifier {
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 16)
-            
+
             HStack {
                 ForEach(alertActions, id: \.id) { button in
                     CTAButton(text: button.text, style: button.style, action: button.action)

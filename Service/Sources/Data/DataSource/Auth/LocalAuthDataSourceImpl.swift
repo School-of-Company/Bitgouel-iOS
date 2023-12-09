@@ -21,4 +21,3 @@ public struct LocalAuthDataSourceImpl: LocalAuthDataSource {
         keychain.delete(type: .refreshExpiredAt)
     }
 }
-
