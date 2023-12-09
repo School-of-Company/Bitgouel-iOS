@@ -7,7 +7,7 @@ final class LectureListDetailViewModel: ObservableObject {
     @Published var isSuccessEnrolment = false
     @Published var isEnrolment = false
     @AppStorage("admin") var isAdmin = false
-    
+
     var isEnabledApplicationButton: Bool {
         if approveApplication || rejectedApplication {
             return true
@@ -15,7 +15,7 @@ final class LectureListDetailViewModel: ObservableObject {
             return false
         }
     }
-    
+
     var enrolmentButtonText: String {
         if isSuccessEnrolment {
             return "수강 신청 완료"
@@ -23,7 +23,7 @@ final class LectureListDetailViewModel: ObservableObject {
             return "수강 신청하기"
         }
     }
-    
+
     var isEnabledEnrolment: Bool {
         if isEnrolment {
             return true
@@ -31,15 +31,15 @@ final class LectureListDetailViewModel: ObservableObject {
             return false
         }
     }
-    
+
     func rejectedApplicationDidTap() {
         rejectedApplication = true
     }
-    
+
     func approveApplicationDidTap() {
         approveApplication = true
     }
-    
+
     func enrollmentButtonDidTap() {
         isEnrolment = true
     }

@@ -1,6 +1,6 @@
 import NeedleFoundation
-import SwiftUI
 import Service
+import SwiftUI
 
 public final class AppComponent: BootstrapComponent {
     public func makeRootView() -> some View {

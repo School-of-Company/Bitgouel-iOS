@@ -1,6 +1,6 @@
-import SwiftUI
 import NeedleFoundation
 import Service
+import SwiftUI
 
 public protocol LoginDependency: Dependency {
     var loginUseCase: any LoginUseCase { get }

@@ -41,4 +41,3 @@ public final class RemoteAuthDataSourceImpl: BaseRemoteDataSource<AuthAPI>, Remo
         try await request(.companyInstructorSignup(req))
     }
 }
-

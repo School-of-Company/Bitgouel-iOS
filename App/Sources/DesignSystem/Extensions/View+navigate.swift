@@ -1,8 +1,8 @@
 import SwiftUI
 
 public extension View {
-    func navigate<NewView: View>(
-        to view: NewView,
+    func navigate(
+        to view: some View,
         when binding: Binding<Bool>,
         isDetailLink: Bool = false
     ) -> some View {

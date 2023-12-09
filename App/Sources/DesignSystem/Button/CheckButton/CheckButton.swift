@@ -12,7 +12,7 @@ struct CheckButton: View {
             RoundedRectangle(cornerRadius: 8)
                 .fill(isSelected ? Color.bitgouel(.primary(.p5)) : Color.bitgouel(.greyscale(.g9)))
                 .frame(width: 24, height: 24)
-            
+
             if isSelected {
                 BitgouelAsset.Icons.checkStroke.swiftUIImage
                     .resizable()
