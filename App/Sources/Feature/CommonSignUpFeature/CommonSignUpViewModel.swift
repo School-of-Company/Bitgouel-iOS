@@ -8,8 +8,8 @@ final class CommonSignUpViewModel: BaseViewModel {
     @Published var associationType: String = "소속"
     @Published var jobType: String = "직업"
     let associationValue: [AssociationType] = AssociationType.allCases
-    let schoolValue: [UserRoleType.SchoolType] = UserRoleType.SchoolType.allCases
-    let externalValue: [UserRoleType.ExternalType] = UserRoleType.ExternalType.allCases
+    let schoolValue: [SchoolUserRoleType] = SchoolUserRoleType.allCases
+    let externalValue: [ExternalUserRoleType] = ExternalUserRoleType.allCases
 
     var titleMessage: String {
         if associationType == "소속" {
@@ -31,11 +31,11 @@ final class CommonSignUpViewModel: BaseViewModel {
         return associationValue
     }
 
-    var getSchoolType: [UserRoleType.SchoolType] {
+    var getSchoolType: [SchoolUserRoleType] {
         return schoolValue
     }
 
-    var getExternalType: [UserRoleType.ExternalType] {
+    var getExternalType: [ExternalUserRoleType] {
         return externalValue
     }
 
