@@ -6,27 +6,27 @@ struct StudentSignUpView: View {
     @State var isSchool = false
     @State var isShowingClubSelectSheet = false
     @State var isShowingSuccessView = false
-    
+
     var body: some View {
         NavigationView {
             ScrollView {
                 signupTitleSection()
-                
+
                 VStack(spacing: 16) {
                     switch viewModel.userRole {
                     case .student:
                         ConditionView(!viewModel.studentID.isEmpty) {
                             inputAuthorizationInfoSection()
                         }
-                        
+
                         ConditionView(!viewModel.name.isEmpty) {
                             inputStudentInfoSection()
                         }
-                        
+
                         ConditionView(viewModel.selectedClub != "동아리") {
                             inputNameSection()
                         }
-                        
+
                         ConditionView(viewModel.selectedSchool != "학교") {
                             inputClubSection()
                         }
@@ -34,11 +34,11 @@ struct StudentSignUpView: View {
                         ConditionView(!viewModel.name.isEmpty) {
                             inputAuthorizationInfoSection()
                         }
-                        
+
                         ConditionView(viewModel.selectedClub != "동아리") {
                             inputNameSection()
                         }
-                        
+
                         ConditionView(viewModel.selectedSchool != "학교") {
                             inputClubSection()
                         }
@@ -46,15 +46,15 @@ struct StudentSignUpView: View {
                         ConditionView(!viewModel.selectedCompany.isEmpty) {
                             inputAuthorizationInfoSection()
                         }
-                        
+
                         ConditionView(!viewModel.name.isEmpty) {
                             inputCompanyInstructorInfoSection()
                         }
-                        
+
                         ConditionView(viewModel.selectedClub != "동아리") {
                             inputNameSection()
                         }
-                        
+
                         ConditionView(viewModel.selectedSchool != "학교") {
                             inputClubSection()
                         }
@@ -62,15 +62,15 @@ struct StudentSignUpView: View {
                         ConditionView(!viewModel.selectedUniversity.isEmpty) {
                             inputAuthorizationInfoSection()
                         }
-                        
+
                         ConditionView(!viewModel.name.isEmpty) {
                             inputProfessorInfoSection()
                         }
-                        
+
                         ConditionView(viewModel.selectedClub != "동아리") {
                             inputNameSection()
                         }
-                        
+
                         ConditionView(viewModel.selectedSchool != "학교") {
                             inputClubSection()
                         }
@@ -78,17 +78,19 @@ struct StudentSignUpView: View {
                         ConditionView(!viewModel.selectedGovernment.isEmpty) {
                             inputAuthorizationInfoSection()
                         }
-                        
+
                         ConditionView(!viewModel.name.isEmpty) {
                             inputGovernmentInfoSection()
                         }
-                        
+
                         ConditionView(viewModel.selectedSchool != "학교") {
                             inputNameSection()
                         }
                     }
                     inputSchoolInfoSection()
                 }
+                .padding(.horizontal, 28)
+                .padding(.top, 32)
             }
         }
         .bitgouelBottomSheet(
@@ -97,7 +99,7 @@ struct StudentSignUpView: View {
             SchoolListView(viewModel: viewModel)
                 .frame(height: 415)
         }
-        
+
         .bitgouelBottomSheet(
             isShowing: $isShowingClubSelectSheet
         ) {
@@ -118,10 +120,10 @@ struct StudentSignUpView: View {
                 label: { EmptyView() }
             )
         )
-        
+
         .navigationBarHidden(true)
     }
-    
+
     @ViewBuilder
     func signupTitleSection() -> some View {
         VStack {
@@ -129,18 +131,18 @@ struct StudentSignUpView: View {
                 VStack(alignment: .leading) {
                     Text(viewModel.titleMessage)
                         .bitgouelFont(.title2)
-                    
+
                     Text(viewModel.subTitleMessage)
                         .bitgouelFont(.text3, color: .greyscale(.g4))
                 }
-                
+
                 Spacer()
             }
             .padding(.leading, 28)
             .padding(.top, 24)
         }
     }
-    
+
     @ViewBuilder
     func inputAuthorizationInfoSection() -> some View {
         VStack(spacing: 16) {
@@ -152,14 +154,10 @@ struct StudentSignUpView: View {
                     )
                     .padding(.bottom, -20)
                     .onSubmit {
-                        if viewModel.isPasswordMatching {
-                            isShowingSuccessView = true
-                        } else {
-                            isShowingSuccessView = false
-                        }
+                        viewModel.signup()
                     }
                 }
-                
+
                 if !viewModel.certificationNumberEmail.isEmpty {
                     SecureBitgouelTextField(
                         "비밀번호",
@@ -168,17 +166,19 @@ struct StudentSignUpView: View {
                     .padding(.bottom, -20)
                 }
             }
-            
+
             Group {
                 if !viewModel.email.isEmpty {
-                    BitgouelTextField(
-                        "인증번호",
-                        text: $viewModel.certificationNumberEmail,
-                        helpMessage: viewModel.convertSecondsToTime(timeInSeconds: viewModel.emailTimeRemaining),
-                        link: "재발송"
-                    )
+                    if viewModel.checkEmail(viewModel.email) == true {
+                        BitgouelTextField(
+                            "인증번호",
+                            text: $viewModel.certificationNumberEmail,
+                            helpMessage: viewModel.convertSecondsToTime(timeInSeconds: viewModel.emailTimeRemaining),
+                            link: "재발송"
+                        )
+                    }
                 }
-                
+
                 if !viewModel.certificationNumberPhoneNumber.isEmpty {
                     BitgouelTextField(
                         "이메일",
@@ -212,56 +212,22 @@ struct StudentSignUpView: View {
             }
         }
     }
-    
+
     @ViewBuilder
     func inputSchoolInfoSection() -> some View {
         VStack(spacing: 16) {
-            Group {
-                if !viewModel.yearOfAdmission.isEmpty {
-                    BitgouelTextField(
-                        "학번",
-                        text: $viewModel.studentID
-                    )
-                    .padding(.bottom, -20)
-                }
-                
-                if !viewModel.name.isEmpty {
-                    BitgouelTextField(
-                        "입학년도",
-                        text: $viewModel.yearOfAdmission
-                    )
-                    .padding(.bottom, -20)
-                }
-                
-                if viewModel.selectedClubExists {
-                    BitgouelTextField(
-                        "이름",
-                        text: $viewModel.name
-                    )
-                    .padding(.bottom, -20)
-                }
-            }
-            
-            if viewModel.selectedSchoolExists {
-                AssociationSelectButton(
-                    text: viewModel.selectedClub
-                ) {
-                    isShowingClubSelectSheet.toggle()
-                }
-            }
-            
             AssociationSelectButton(
                 text: viewModel.selectedSchool
             ) {
                 isSchool.toggle()
             }
-            
+
             AssociationSelectButton(text: "학교")
-            
+
             AssociationSelectButton(text: "학생")
         }
     }
-    
+
     @ViewBuilder
     func inputClubSection() -> some View {
         VStack(spacing: 0) {
@@ -272,7 +238,7 @@ struct StudentSignUpView: View {
             }
         }
     }
-    
+
     @ViewBuilder
     func inputNameSection() -> some View {
         VStack(spacing: 0) {
@@ -283,7 +249,7 @@ struct StudentSignUpView: View {
             .padding(.bottom, -20)
         }
     }
-    
+
     // MARK: Student
     @ViewBuilder
     func inputStudentInfoSection() -> some View {
@@ -295,7 +261,7 @@ struct StudentSignUpView: View {
                 )
                 .padding(.bottom, -20)
             }
-            
+
             BitgouelTextField(
                 "입학년도",
                 text: $viewModel.yearOfAdmission
@@ -303,8 +269,7 @@ struct StudentSignUpView: View {
             .padding(.bottom, -20)
         }
     }
-    
-    
+
     // MARK: Professor
     @ViewBuilder
     func inputProfessorInfoSection() -> some View {
@@ -316,7 +281,7 @@ struct StudentSignUpView: View {
             .padding(.bottom, -20)
         }
     }
-    
+
     // MARK: Government
     @ViewBuilder
     func inputGovernmentInfoSection() -> some View {
@@ -328,7 +293,7 @@ struct StudentSignUpView: View {
             .padding(.bottom, -20)
         }
     }
-    
+
     // MARK: CompanyInstructor
     @ViewBuilder
     func inputCompanyInstructorInfoSection() -> some View {

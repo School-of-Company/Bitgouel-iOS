@@ -13,14 +13,16 @@ public protocol StudentSignUpDependency: Dependency {
 
 public final class StudentSignUpComponent: Component<StudentSignUpDependency>, StudentSignUpFactory {
     public func makeView() -> some View {
-        StudentSignUpView(viewModel: .init(
-            studentSignupUseCase: self.dependency.studentSignupUseCase,
-            teacherSignupUseCase: self.dependency.teacherSignupUseCase,
-            bbozzakSignupUseCase: self.dependency.bbozzakSignupUseCase,
-            professorSignupUseCase: self.dependency.professorSignupUseCase,
-            governmentSignupUseCase: self.dependency.governmentSignupUseCase,
-            companyInstructorSignupUseCase: self.dependency.companyInstructorSignupUseCase
-        ),
-        commonViewModel: CommonSignUpViewModel())
+        StudentSignUpView(
+            viewModel: .init(
+                studentSignupUseCase: self.dependency.studentSignupUseCase,
+                teacherSignupUseCase: self.dependency.teacherSignupUseCase,
+                bbozzakSignupUseCase: self.dependency.bbozzakSignupUseCase,
+                professorSignupUseCase: self.dependency.professorSignupUseCase,
+                governmentSignupUseCase: self.dependency.governmentSignupUseCase,
+                companyInstructorSignupUseCase: self.dependency.companyInstructorSignupUseCase
+            ),
+            commonViewModel: CommonSignUpViewModel()
+        )
     }
 }
