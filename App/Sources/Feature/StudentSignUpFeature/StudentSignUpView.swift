@@ -27,7 +27,7 @@ struct StudentSignUpView: View {
                             inputNameSection()
                         }
 
-                        ConditionView(viewModel.selectedSchool != "학교") {
+                        ConditionView(viewModel.selectedSchool != nil) {
                             inputClubSection()
                         }
                     case .teacher, .bbozzack:
@@ -39,7 +39,7 @@ struct StudentSignUpView: View {
                             inputNameSection()
                         }
 
-                        ConditionView(viewModel.selectedSchool != "학교") {
+                        ConditionView(viewModel.selectedSchool != nil) {
                             inputClubSection()
                         }
                     case .companyInstructor:
@@ -55,7 +55,7 @@ struct StudentSignUpView: View {
                             inputNameSection()
                         }
 
-                        ConditionView(viewModel.selectedSchool != "학교") {
+                        ConditionView(viewModel.selectedSchool != nil) {
                             inputClubSection()
                         }
                     case .professor:
@@ -71,7 +71,7 @@ struct StudentSignUpView: View {
                             inputNameSection()
                         }
 
-                        ConditionView(viewModel.selectedSchool != "학교") {
+                        ConditionView(viewModel.selectedSchool != nil) {
                             inputClubSection()
                         }
                     case .government:
@@ -83,7 +83,7 @@ struct StudentSignUpView: View {
                             inputGovernmentInfoSection()
                         }
 
-                        ConditionView(viewModel.selectedSchool != "학교") {
+                        ConditionView(viewModel.selectedSchool != nil) {
                             inputNameSection()
                         }
                     }
@@ -217,12 +217,12 @@ struct StudentSignUpView: View {
     func inputSchoolInfoSection() -> some View {
         VStack(spacing: 16) {
             AssociationSelectButton(
-                text: viewModel.selectedSchool
+                text: viewModel.selectedSchool?.display() ?? "학교"
             ) {
                 isSchool.toggle()
             }
 
-            AssociationSelectButton(text: "학교")
+            AssociationSelectButton(text: viewModel.userRole.display())
 
             AssociationSelectButton(text: "학생")
         }
