@@ -25,7 +25,7 @@ class StudentSignUpViewModel: BaseViewModel {
     @Published var checkPassword = ""
     @Published var phoneNumberTimeRemaining: Int = 180
     @Published var emailTimeRemaining: Int = 180
-    @Published var selectedSchool: String = "학교"
+    @Published var selectedSchool: HighSchoolType?
     @Published var selectedClub: String = "동아리"
     @Published var selectedUniversity: String = ""
     @Published var selectedGovernment: String = ""
@@ -80,7 +80,7 @@ class StudentSignUpViewModel: BaseViewModel {
     }
 
     var titleMessage: String {
-        if selectedSchool == "학교" {
+        if selectedSchool == nil {
             return "학교 선택"
         }
         switch userRole {
@@ -145,7 +145,7 @@ class StudentSignUpViewModel: BaseViewModel {
     var subTitleMessage: String {
         switch userRole {
         case .student:
-            if selectedSchool == "학교" {
+            if selectedSchool == nil {
                 return "재학 중이신 학교를 선택해 주세요!"
             } else if selectedClub == "동아리" {
                 return "가입하신 동아리를 선택해 주세요!"
@@ -157,7 +157,7 @@ class StudentSignUpViewModel: BaseViewModel {
                 return "학년, 반, 번호를 입력해 주세요! (ex: 1101)"
             }
         case .teacher, .bbozzack:
-            if selectedSchool == "학교" {
+            if selectedSchool == nil {
                 return "담당 중이신 학교를 선택해 주세요!"
             } else if selectedClub == "동아리" {
                 return "가입하신 동아리를 선택해 주세요!"
@@ -165,7 +165,7 @@ class StudentSignUpViewModel: BaseViewModel {
                 return "이름을 입력해 주세요!"
             }
         case .companyInstructor:
-            if selectedSchool == "학교" {
+            if selectedSchool == nil {
                 return "담당 중이신 학교를 선택해 주세요!"
             } else if selectedClub == "동아리" {
                 return "가입하신 동아리를 선택해 주세요!"
@@ -175,7 +175,7 @@ class StudentSignUpViewModel: BaseViewModel {
                 return "소속하신 기업을 입력해주세요!"
             }
         case .professor:
-            if selectedSchool == "학교" {
+            if selectedSchool == nil {
                 return "담당 중이신 학교를 선택해 주세요!"
             } else if selectedClub == "동아리" {
                 return "가입하신 동아리를 선택해 주세요!"
@@ -185,7 +185,7 @@ class StudentSignUpViewModel: BaseViewModel {
                 return "소속하신 대학을 입력해주세요!"
             }
         case .government:
-            if selectedSchool == "학교" {
+            if selectedSchool == nil {
                 return "담당 중이신 학교를 선택해 주세요!"
             } else if name.isEmpty {
                 return "이름을 입력해 주세요!"
@@ -210,7 +210,7 @@ class StudentSignUpViewModel: BaseViewModel {
     }
 
     var selectedSchoolExists: Bool {
-        selectedSchool != "학교"
+        selectedSchool != nil
     }
 
     var selectedClubExists: Bool {
@@ -288,6 +288,170 @@ class StudentSignUpViewModel: BaseViewModel {
 
     func checkPassword(_ password: String, _ checkPassword: String) -> Bool {
         return password == checkPassword
+    }
+
+    func signup() {
+        guard let grade = Int(studentID.prefix(3)) else { return }
+        guard let classRoom = Int(studentID.dropFirst(1).prefix(1)) else { return }
+        guard let number = Int(studentID.suffix(2)) else { return }
+        guard let yearOfAdmission = Int(yearOfAdmission) else { return }
+        guard let selectedSchool else { return }
+
+        switch userRole {
+        case .student:
+            studentSignup(
+                grade: grade,
+                classRoom: classRoom,
+                number: number,
+                yearOfAdmission: yearOfAdmission,
+                selectedSchool: selectedSchool
+            )
+        case .teacher:
+            teacherSignup(selectedSchool: selectedSchool)
+        case .bbozzack:
+            bbozzakSignup(selectedSchool: selectedSchool)
+        case .professor:
+            professorSignup(selectedSchool: selectedSchool)
+        case .government:
+            governmentSignup(selectedSchool: selectedSchool)
+        case .companyInstructor:
+            companyInstructorSignup(selectedSchool: selectedSchool)
+        }
+    }
+
+    func studentSignup(
+        grade: Int,
+        classRoom: Int,
+        number: Int,
+        yearOfAdmission: Int,
+        selectedSchool: HighSchoolType
+    ) {
+        Task {
+            do {
+                try await studentSignupUseCase(
+                    req: StudentSignupRequestDTO(
+                        email: email,
+                        name: name,
+                        phoneNumber: phoneNumber,
+                        password: password,
+                        highSchool: selectedSchool,
+                        clubName: selectedClub,
+                        grade: grade,
+                        classRoom: classRoom,
+                        number: number,
+                        admissionNumber: yearOfAdmission
+                    )
+                )
+                print("학생 회원가입 성공")
+            } catch {
+                print("학생 회원가입 실패")
+            }
+        }
+    }
+
+    func teacherSignup(
+        selectedSchool: HighSchoolType
+    ) {
+        Task {
+            do {
+                try await teacherSignupUseCase(
+                    req: TeacherSignupRequestDTO(
+                        email: email,
+                        name: name,
+                        phoneNumber: phoneNumber,
+                        password: password,
+                        highSchool: selectedSchool,
+                        clubName: selectedClub
+                    )
+                )
+                print("취동쌤 회원가입 성공")
+            } catch {
+                print("취동쌤 회원가입 실패")
+            }
+        }
+    }
+
+    func bbozzakSignup(selectedSchool: HighSchoolType) {
+        Task {
+            do {
+                try await bbozzakSignupUseCase(
+                    req: BbozzakSignupRequestDTO(
+                        email: email,
+                        name: name,
+                        phoneNumber: phoneNumber,
+                        password: password,
+                        highSchool: selectedSchool,
+                        clubName: selectedClub
+                    )
+                )
+                print("뽀짝쌤 회원가입 성공")
+            } catch {
+                print("뽀짝쌤 회원가입 실패")
+            }
+        }
+    }
+
+    func professorSignup(selectedSchool: HighSchoolType) {
+        Task {
+            do {
+                try await professorSignupUseCase(
+                    req: ProfessorSignupRequestDTO(
+                        email: email,
+                        name: name,
+                        phoneNumber: phoneNumber,
+                        password: password,
+                        highSchool: selectedSchool,
+                        clubName: selectedClub,
+                        university: selectedUniversity
+                    )
+                )
+                print("대학교수 회원가입 성공")
+            } catch {
+                print("대학교수 회원가입 실패")
+            }
+        }
+    }
+
+    func governmentSignup(selectedSchool: HighSchoolType) {
+        Task {
+            do {
+                try await governmentSignupUseCase(
+                    req: GovernmentSignupRequestDTO(
+                        email: email,
+                        name: name,
+                        phoneNumber: phoneNumber,
+                        password: password,
+                        highSchool: selectedSchool,
+                        clubName: selectedClub,
+                        governmentName: selectedGovernment
+                    )
+                )
+                print("유관기관 회원가입 성공")
+            } catch {
+                print("유관기관 회원가입 실패")
+            }
+        }
+    }
+
+    func companyInstructorSignup(selectedSchool: HighSchoolType) {
+        Task {
+            do {
+                try await companyInstructorSignupUseCase(
+                    req: CompanyInstructorSignupRequestDTO(
+                        email: email,
+                        name: name,
+                        phoneNumber: phoneNumber,
+                        password: password,
+                        highSchool: selectedSchool,
+                        clubName: selectedClub,
+                        company: selectedCompany
+                    )
+                )
+                print("기업강사 회원가입 성공")
+            } catch {
+                print("기업강사 회원가입 실패")
+            }
+        }
     }
 
     var isEmailErrorOccured: Bool {
