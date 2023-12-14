@@ -5,13 +5,7 @@ class StudentSignUpViewModel: BaseViewModel {
     @Published var schoolSearch = ""
     @Published var clubSearch = ""
     @Published var name = ""
-    @Published var yearOfAdmission = ""
-    @Published var studentID = "" {
-        didSet {
-            parseStudentID()
-        }
-    }
-
+    @Published var yearOfAdmission: Int?
     @Published var phoneNumber = "" {
         didSet {
             parsePhoneNumber()
@@ -31,7 +25,11 @@ class StudentSignUpViewModel: BaseViewModel {
     @Published var selectedGovernment: String = ""
     @Published var selectedCompany: String = ""
     @Published var clubsForSelectedHighSchool: [String] = []
-    @Published var userRole: UserRoleType = .professor
+    @Published var userRole: UserRoleType = .student
+    @Published var grade: Int?
+    @Published var classRoom: Int?
+    @Published var number: Int?
+    @Published var studentID: String = ""
     private var timer: Timer?
     private let studentSignupUseCase: StudentSignupUseCase
     private let teacherSignupUseCase: TeacherSignupUseCase
@@ -89,7 +87,7 @@ class StudentSignUpViewModel: BaseViewModel {
                 return "동아리 선택"
             } else if name.isEmpty {
                 return "이름 입력"
-            } else if yearOfAdmission.isEmpty {
+            } else if yearOfAdmission == nil {
                 return "입학년도 입력"
             } else if studentID.isEmpty {
                 return "학번 입력"
@@ -151,7 +149,7 @@ class StudentSignUpViewModel: BaseViewModel {
                 return "가입하신 동아리를 선택해 주세요!"
             } else if name.isEmpty {
                 return "이름을 입력해 주세요!"
-            } else if yearOfAdmission.isEmpty {
+            } else if yearOfAdmission == nil {
                 return "입학하신 연도를 입력해 주세요!"
             } else if studentID.isEmpty {
                 return "학년, 반, 번호를 입력해 주세요! (ex: 1101)"
@@ -227,6 +225,23 @@ class StudentSignUpViewModel: BaseViewModel {
         return String(format: "%02i:%02i", minutes, seconds)
     }
 
+    func parseStudentID() {
+        guard studentID.count == 4,
+              let parsedGrade = Int(String(studentID[studentID.startIndex])),
+              let parsedClassRoom = Int(String(studentID[studentID.index(studentID.startIndex, offsetBy: 1)])),
+              let parsedNumber = Int(String(studentID[studentID.index(studentID.startIndex, offsetBy: 2)...]))
+        else {
+            grade = nil
+            classRoom = nil
+            number = nil
+            return
+        }
+
+        grade = parsedGrade
+        classRoom = parsedClassRoom
+        number = parsedNumber
+    }
+
     func phoneNumberStartTimer() {
         guard timer == nil else { return }
 
@@ -260,16 +275,6 @@ class StudentSignUpViewModel: BaseViewModel {
         timer = nil
     }
 
-    public func parseStudentID() {
-        guard studentID.count == 4,
-              let grade = Int(String(studentID.prefix(1))),
-              let classNumber = Int(String(studentID.dropFirst(1).prefix(1))),
-              let studentNumber = Int(String(studentID.suffix(2)))
-        else { return }
-
-        studentID = "\(grade)학년 \(classNumber)반 \(studentNumber)번"
-    }
-
     public func parsePhoneNumber() {
         guard
             phoneNumber.count == 11,
@@ -291,12 +296,11 @@ class StudentSignUpViewModel: BaseViewModel {
     }
 
     func signup() {
-        guard let grade = Int(studentID.prefix(3)) else { return }
-        guard let classRoom = Int(studentID.dropFirst(1).prefix(1)) else { return }
-        guard let number = Int(studentID.suffix(2)) else { return }
-        guard let yearOfAdmission = Int(yearOfAdmission) else { return }
+        guard let yearOfAdmission else { return }
         guard let selectedSchool else { return }
-
+        guard let grade else { return }
+        guard let classRoom else { return }
+        guard let number else { return }
         switch userRole {
         case .student:
             studentSignup(

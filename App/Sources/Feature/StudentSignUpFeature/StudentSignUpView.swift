@@ -254,7 +254,7 @@ struct StudentSignUpView: View {
     @ViewBuilder
     func inputStudentInfoSection() -> some View {
         VStack(spacing: 16) {
-            if !viewModel.yearOfAdmission.isEmpty {
+            if viewModel.yearOfAdmission != nil {
                 BitgouelTextField(
                     "학번",
                     text: $viewModel.studentID
@@ -264,7 +264,10 @@ struct StudentSignUpView: View {
 
             BitgouelTextField(
                 "입학년도",
-                text: $viewModel.yearOfAdmission
+                text: Binding(
+                    get: { return String (viewModel.yearOfAdmission ?? 2023) },
+                    set: { newValue in viewModel.yearOfAdmission = Int(newValue) }
+                )
             )
             .padding(.bottom, -20)
         }
