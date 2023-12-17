@@ -1,6 +1,6 @@
 import Foundation
 
-public struct ActivityEntity: Equatable {
+public struct ActivityListEntity: Equatable {
     public let content: [SingleActivityEntity]
     public let pageable: PagedActivityListEntity
     public let totalPages: Int
@@ -12,7 +12,7 @@ public struct ActivityEntity: Equatable {
     public let first: Bool
     public let size: Int
     public let empty: Bool
-
+    
     public init(
         content: [SingleActivityEntity],
         pageable: PagedActivityListEntity,

@@ -8,7 +8,7 @@ public struct PagedActivityListEntity: Equatable {
     public let paged: Bool
     public let unpaged: Bool
 
-    init(
+    public init(
         sort: SortEntity,
         pageSize: Int,
         pageNumber: Int,
