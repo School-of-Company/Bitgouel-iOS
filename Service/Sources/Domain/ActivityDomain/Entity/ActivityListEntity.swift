@@ -12,4 +12,30 @@ public struct ActivityListEntity: Equatable {
     public let first: Bool
     public let size: Int
     public let empty: Bool
+    
+    public init(
+        content: [SingleActivityEntity],
+        pageable: PagedActivityListEntity,
+        totalPages: Int,
+        totalElements: Int,
+        last: Bool,
+        numberOfElements: Int,
+        number: Int,
+        sort: SortEntity,
+        first: Bool,
+        size: Int,
+        empty: Bool
+    ) {
+        self.content = content
+        self.pageable = pageable
+        self.totalPages = totalPages
+        self.totalElements = totalElements
+        self.last = last
+        self.numberOfElements = numberOfElements
+        self.number = number
+        self.sort = sort
+        self.first = first
+        self.size = size
+        self.empty = empty
+    }
 }

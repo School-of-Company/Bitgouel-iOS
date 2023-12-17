@@ -8,7 +8,7 @@ public struct SingleActivityEntity: Equatable {
     public let name: String
     public let state: ApproveStatusType
 
-    init(
+    public init(
         activityId: UUID,
         title: String,
         date: String,
