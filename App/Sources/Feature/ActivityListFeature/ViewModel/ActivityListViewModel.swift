@@ -6,7 +6,7 @@ final class ActivityListViewModel: BaseViewModel {
     private let queryMyStudentActivityUseCase: any QueryMyStudentActivityUseCase
     private let queryStudentActivityListUseCase: any QueryStudentActivityListUseCase
     private let queryStudentActivityByIdUseCase: any QueryStudentActivityByIdUseCase
-    
+
     init(
         model: ActivityListModel,
         queryMyStudentActivityUseCase: any QueryMyStudentActivityUseCase,
