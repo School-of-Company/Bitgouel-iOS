@@ -12,7 +12,7 @@ public struct ActivityListEntity: Equatable {
     public let first: Bool
     public let size: Int
     public let empty: Bool
-    
+
     public init(
         content: [SingleActivityEntity],
         pageable: PagedActivityListEntity,

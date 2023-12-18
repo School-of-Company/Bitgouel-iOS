@@ -7,7 +7,7 @@ public struct StudentActivityDetailEntity: Equatable {
     public let credit: Int
     public let activityDate: String
     public let modifiedAt: String
-    
+
     public init(id: UUID, title: String, content: String, credit: Int, activityDate: String, modifiedAt: String) {
         self.id = id
         self.title = title

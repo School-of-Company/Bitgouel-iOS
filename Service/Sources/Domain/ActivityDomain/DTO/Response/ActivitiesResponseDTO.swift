@@ -13,7 +13,7 @@ public struct ActivitiesResponseDTO: Decodable {
     public let size: Int
     public let empty: Bool
 
-    init(
+    public init(
         content: [ActivityInfo],
         pageable: Pageable,
         totalPages: Int,
