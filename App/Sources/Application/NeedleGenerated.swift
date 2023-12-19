@@ -33,10 +33,45 @@ private func factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5(_ component: Needle
     return RootDependency3944cc797a4a88956fb5Provider(appComponent: parent1(component) as! AppComponent)
 }
 
+<<<<<<< HEAD
+=======
+private class ActivityListDependencyb8e659960978b8384f80Provider: ActivityListDependency {
+    var queryMyStudentActivityUseCase: any QueryMyStudentActivityUseCase {
+        return appComponent.queryMyStudentActivityUseCase
+    }
+
+    var queryStudentActivityListUseCase: any QueryStudentActivityListUseCase {
+        return appComponent.queryStudentActivityListUseCase
+    }
+
+    var queryStudentActivityByIdUseCase: any QueryStudentActivityByIdUseCase {
+        return appComponent.queryStudentActivityByIdUseCase
+    }
+
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+
+/// ^->AppComponent->ActivityListComponent
+private func factory7177e6769ee69064a61bf47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return ActivityListDependencyb8e659960978b8384f80Provider(appComponent: parent1(component) as! AppComponent)
+}
+
+>>>>>>> 47283d2 (:recycle: :: [#101] UserRoleType / default -> user로 변경)
 private class LoginDependencyf4e78d0ad57be469bfd9Provider: LoginDependency {
     var loginUseCase: any LoginUseCase {
         return appComponent.loginUseCase
     }
+<<<<<<< HEAD
+=======
+
+    var activityListFactory: any ActivityListFactory {
+        return appComponent.activityListFactory
+    }
+
+>>>>>>> 47283d2 (:recycle: :: [#101] UserRoleType / default -> user로 변경)
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -55,6 +90,20 @@ extension RootComponent: Registration {
     }
 }
 
+<<<<<<< HEAD
+=======
+extension ActivityListComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\ActivityListDependency.queryMyStudentActivityUseCase] =
+            "queryMyStudentActivityUseCase-any QueryMyStudentActivityUseCase"
+        keyPathToName[\ActivityListDependency.queryStudentActivityListUseCase] =
+            "queryStudentActivityListUseCase-any QueryStudentActivityListUseCase"
+        keyPathToName[\ActivityListDependency.queryStudentActivityByIdUseCase] =
+            "queryStudentActivityByIdUseCase-any QueryStudentActivityByIdUseCase"
+    }
+}
+
+>>>>>>> 47283d2 (:recycle: :: [#101] UserRoleType / default -> user로 변경)
 extension LoginComponent: Registration {
     public func registerItems() {
         keyPathToName[\LoginDependency.loginUseCase] = "loginUseCase-any LoginUseCase"
@@ -84,7 +133,37 @@ extension AppComponent: Registration {
         localTable["teacherSignupUseCase-any TeacherSignupUseCase"] = { [unowned self] in
             self.teacherSignupUseCase as Any
         }
+<<<<<<< HEAD
         localTable["loginFactory-any LoginFactory"] = { [unowned self] in self.loginFactory as Any }
+=======
+        localTable["remoteDataSource-any RemoteActivityDataSource"] = { [unowned self] in self.remoteDataSource as Any }
+        localTable["activityRepository-any ActivityRepository"] = { [unowned self] in self.activityRepository as Any }
+        localTable["addStudentActivityUseCase-any AddStudentActivityUseCase"] = { [unowned self] in
+            self.addStudentActivityUseCase as Any
+        }
+        localTable["approveStudentActivityUseCase-any ApproveStudentActivityUseCase"] = { [unowned self] in
+            self.approveStudentActivityUseCase as Any
+        }
+        localTable["deleteStudentActivityUseCase-any DeleteStudentActivityUseCase"] = { [unowned self] in
+            self.deleteStudentActivityUseCase as Any
+        }
+        localTable["queryMyStudentActivityUseCase-any QueryMyStudentActivityUseCase"] = { [unowned self] in
+            self.queryMyStudentActivityUseCase as Any
+        }
+        localTable["queryStudentActivityByIdUseCase-any QueryStudentActivityByIdUseCase"] = { [unowned self] in
+            self.queryStudentActivityByIdUseCase as Any
+        }
+        localTable["queryStudentActivityListUseCase-any QueryStudentActivityListUseCase"] = { [unowned self] in
+            self.queryStudentActivityListUseCase as Any
+        }
+        localTable["queryStudentActivityDetailsUseCase-any QueryStudentActivityDetailsUseCase"] = { [unowned self] in
+            self.queryStudentActivityDetailsUseCase as Any
+        }
+        localTable["loginFactory-any LoginFactory"] = { [unowned self] in self.loginFactory as Any }
+        localTable["activityListFactory-any ActivityListFactory"] = { [unowned self] in
+            self.activityListFactory as Any
+        }
+>>>>>>> 47283d2 (:recycle: :: [#101] UserRoleType / default -> user로 변경)
     }
 }
 
