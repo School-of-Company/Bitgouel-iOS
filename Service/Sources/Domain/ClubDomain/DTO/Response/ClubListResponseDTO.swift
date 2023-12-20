@@ -23,7 +23,7 @@ extension ClubListResponseDTO.Club {
 extension ClubListResponseDTO {
     func toDomain() -> ClubsEntity {
         ClubsEntity(
-            clubs: clubs.map{ $0.toDomain() }
+            clubs: clubs.map { $0.toDomain() }
         )
     }
 }
