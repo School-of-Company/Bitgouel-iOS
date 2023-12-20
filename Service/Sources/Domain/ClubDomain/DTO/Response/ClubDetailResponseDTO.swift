@@ -5,3 +5,13 @@ public struct ClubDetailResponseDTO: Decodable {
     public let highSchoolName: String
     public let studentHeadcount: Int
 }
+
+extension ClubDetailResponseDTO {
+    func toDomain() -> ClubDetailEntity {
+        ClubDetailEntity(
+            clubName: clubName,
+            highSchoolName: highSchoolName,
+            studentHeadcount: studentHeadcount
+        )
+    }
+}

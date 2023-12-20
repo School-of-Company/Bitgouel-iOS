@@ -9,11 +9,11 @@ public enum ClubAPI {
 
 extension ClubAPI: BitgouelAPI {
     public typealias ErrorType = ClubDomainError
-    
+
     public var domain: BitgouelDomain {
         .club
     }
-    
+
     public var urlPath: String {
         switch self {
         case .queryClubList:
@@ -24,7 +24,7 @@ extension ClubAPI: BitgouelAPI {
             return "/\(id)/member"
         }
     }
-    
+
     public var method: Moya.Method {
         switch self {
         case .queryClubList,
@@ -33,7 +33,7 @@ extension ClubAPI: BitgouelAPI {
             return .get
         }
     }
-    
+
     public var task: Moya.Task {
         switch self {
         case .queryClubList:
@@ -44,7 +44,7 @@ extension ClubAPI: BitgouelAPI {
             return .requestPlain
         }
     }
-    
+
     public var jwtTokenType: JwtTokenType {
         switch self {
         case .queryClubList,
@@ -53,7 +53,7 @@ extension ClubAPI: BitgouelAPI {
             return .accessToken
         }
     }
-    
+
     public var errorMap: [Int : ClubDomainError] {
         switch self {
         case .queryClubList,

@@ -11,3 +11,21 @@ public extension StudentListByClubResponseDTO {
         public let authority: UserRoleType
     }
 }
+
+extension StudentListByClubResponseDTO.Student {
+    func toDomain() -> SingleStudentEntity {
+        SingleStudentEntity(
+            id: id,
+            name: name,
+            authority: authority
+        )
+    }
+}
+
+extension StudentListByClubResponseDTO {
+    func toDomain() -> StudentsEntity {
+        StudentsEntity(
+            students: students.map { $0.toDomain() }
+        )
+    }
+}
