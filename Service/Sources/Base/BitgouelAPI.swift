@@ -38,6 +38,8 @@ public enum BitgouelDomain: String {
     case lecture
     case withdraw
     case admin
+    case certification
+    case club
 }
 
 extension BitgouelDomain {
