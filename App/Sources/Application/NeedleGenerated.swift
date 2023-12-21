@@ -34,6 +34,9 @@ private class LoginDependencyf4e78d0ad57be469bfd9Provider: LoginDependency {
     var loginUseCase: any LoginUseCase {
         return appComponent.loginUseCase
     }
+    var saveUserAuthorityUseCase: any SaveUserAuthorityUseCase {
+        return appComponent.saveUserAuthorityUseCase
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -53,6 +56,7 @@ extension RootComponent: Registration {
 extension LoginComponent: Registration {
     public func registerItems() {
         keyPathToName[\LoginDependency.loginUseCase] = "loginUseCase-any LoginUseCase"
+        keyPathToName[\LoginDependency.saveUserAuthorityUseCase] = "saveUserAuthorityUseCase-any SaveUserAuthorityUseCase"
     }
 }
 extension AppComponent: Registration {
@@ -63,6 +67,8 @@ extension AppComponent: Registration {
         localTable["remoteAuthDataSource-any RemoteAuthDataSource"] = { [unowned self] in self.remoteAuthDataSource as Any }
         localTable["authRepository-any AuthRepository"] = { [unowned self] in self.authRepository as Any }
         localTable["loginUseCase-any LoginUseCase"] = { [unowned self] in self.loginUseCase as Any }
+        localTable["saveUserAuthorityUseCase-any SaveUserAuthorityUseCase"] = { [unowned self] in self.saveUserAuthorityUseCase as Any }
+        localTable["loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"] = { [unowned self] in self.loadUserAuthorityUseCase as Any }
         localTable["reissueTokenUseCase-any ReissueTokenUseCase"] = { [unowned self] in self.reissueTokenUseCase as Any }
         localTable["logoutUseCase-any LogoutUseCase"] = { [unowned self] in self.logoutUseCase as Any }
         localTable["withdrawalUseCase-any WithdrawalUseCase"] = { [unowned self] in self.withdrawalUseCase as Any }

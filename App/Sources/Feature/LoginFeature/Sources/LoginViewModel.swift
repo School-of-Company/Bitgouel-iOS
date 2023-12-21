@@ -5,9 +5,11 @@ final class LoginViewModel: BaseViewModel {
     @Published var email = ""
     @Published var password = ""
     private let loginUseCase: any LoginUseCase
+    private let saveUserAuthority: any SaveUserAuthorityUseCase
 
-    init(loginUseCase: any LoginUseCase) {
+    init(loginUseCase: any LoginUseCase, saveUserAuthority: any SaveUserAuthorityUseCase) {
         self.loginUseCase = loginUseCase
+        self.saveUserAuthority = saveUserAuthority
     }
 
     var isFormEmpty: Bool {
@@ -71,8 +73,9 @@ final class LoginViewModel: BaseViewModel {
 
         Task {
             do {
-                try await loginUseCase(req: LoginRequestDTO(email: email, password: password))
-                print("로그인 성공")
+                let userLoginInfo = try await self.loginUseCase(req: LoginRequestDTO(email: email, password: password))
+                saveUserAuthority(authority: userLoginInfo.authority)
+                print("로그인 성공 \(userLoginInfo.authority)")
             } catch {
                 isErrorOccurred = true
                 print("로그인 실패: \(error)")
