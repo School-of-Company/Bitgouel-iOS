@@ -31,7 +31,7 @@ class StudentSignUpViewModel: BaseViewModel {
     @Published var selectedGovernment: String = ""
     @Published var selectedCompany: String = ""
     @Published var clubsForSelectedHighSchool: [String] = []
-    @Published var userRole: UserRoleType = .professor
+    @Published var userRole: UserAuthorityType = .professor
     private var timer: Timer?
     let highSchool: [HighSchoolType] = HighSchoolType.allCases
 
@@ -103,6 +103,8 @@ class StudentSignUpViewModel: BaseViewModel {
             } else if selectedGovernment.isEmpty {
                 return "기관 입력"
             }
+        default:
+            return ""
         }
 
         if phoneNumber.isEmpty {
@@ -170,8 +172,10 @@ class StudentSignUpViewModel: BaseViewModel {
             } else if selectedGovernment.isEmpty {
                 return "소속하신 기관을 입력해주세요!"
             }
+        default:
+            return ""
         }
-
+        
         if phoneNumber.isEmpty {
             return "인증을 위해 전화번호를 입력해 주세요!"
         } else if certificationNumberPhoneNumber.isEmpty {
