@@ -1,8 +1,8 @@
 import Foundation
 
 public final class RemoteAuthDataSourceImpl: BaseRemoteDataSource<AuthAPI>, RemoteAuthDataSource {
-    public func login(req: LoginRequestDTO) async throws {
-        try await request(.login(req))
+    public func login(req: LoginRequestDTO) async throws -> UserLoginEntity {
+        try await request(.login(req), dto: LoginResponseDTO.self).toDomain()
     }
 
     public func reissueToken() async throws {

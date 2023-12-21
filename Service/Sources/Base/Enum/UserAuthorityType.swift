@@ -1,6 +1,8 @@
 import Foundation
 
-public enum UserRoleType: String, CaseIterable, Decodable, Encodable {
+public enum UserAuthorityType: String, CaseIterable, Decodable, Encodable {
+    case user = "ROLE_USER"
+    case admin = "ROLE_ADMIN"
     case student = "ROLE_STUDENT"
     case teacher = "ROLE_TEACHER"
     case companyInstructor = "ROLE_COMPANY_INSTRUCTOR"
@@ -9,19 +11,19 @@ public enum UserRoleType: String, CaseIterable, Decodable, Encodable {
     case government = "ROLE_GOVERNMENT"
 }
 
-public enum SchoolUserRoleType: String, CaseIterable, Decodable, Encodable {
+public enum SchoolUserAuthorityType: String, CaseIterable, Decodable, Encodable {
     case student = "ROLE_STUDENT"
     case teacher = "ROLE_TEACHER"
 }
 
-public enum ExternalUserRoleType: String, CaseIterable, Decodable, Encodable {
+public enum ExternalUserAuthorityType: String, CaseIterable, Decodable, Encodable {
     case companyInstructor = "ROLE_COMPANY_INSTRUCTOR"
     case professor = "ROLE_PROFESSOR"
     case bbozzack = "ROLE_BBOZZAK"
     case government = "ROLE_GOVERNMENT"
 }
 
-public extension SchoolUserRoleType {
+public extension SchoolUserAuthorityType {
     func schoolValue() -> String {
         switch self {
         case .student: return "학생"
@@ -30,7 +32,7 @@ public extension SchoolUserRoleType {
     }
 }
 
-public extension ExternalUserRoleType {
+public extension ExternalUserAuthorityType {
     func externalValue() -> String {
         switch self {
         case .companyInstructor: return "기업 강사"
