@@ -12,8 +12,16 @@ public struct AuthRepositoryImpl: AuthRepository {
         self.localAuthDataSource = localAuthDataSource
     }
 
-    public func login(req: LoginRequestDTO) async throws {
+    public func login(req: LoginRequestDTO) async throws -> UserLoginEntity {
         try await remoteAuthDataSource.login(req: req)
+    }
+
+    public func saveUserAuthority(authority: UserAuthorityType) {
+        localAuthDataSource.saveUserAuthority(authority: authority)
+    }
+
+    public func loadUserAuthority() -> UserAuthorityType {
+        localAuthDataSource.loadUserAuthority()
     }
 
     public func reissueToken() async throws {

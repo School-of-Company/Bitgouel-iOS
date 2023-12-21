@@ -1,7 +1,7 @@
 import Foundation
 
 public protocol RemoteAuthDataSource {
-    func login(req: LoginRequestDTO) async throws
+    func login(req: LoginRequestDTO) async throws -> UserLoginEntity
     func reissueToken() async throws
     func logout() async throws
     func withdraw() async throws

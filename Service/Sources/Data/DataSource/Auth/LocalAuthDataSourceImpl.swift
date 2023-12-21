@@ -4,7 +4,7 @@ public struct LocalAuthDataSourceImpl: LocalAuthDataSource {
     private enum UserDefaultsKey {
         static let userAuthority = "USER_ROLE"
     }
-    
+
     private let userDefaults: UserDefaults
     private let keychain: any Keychain
 
@@ -12,11 +12,11 @@ public struct LocalAuthDataSourceImpl: LocalAuthDataSource {
         self.keychain = keychain
         self.userDefaults = userDefaults
     }
-    
+
     public func saveUserAuthority(authority: UserAuthorityType) {
         userDefaults.setValue(authority.rawValue, forKey: UserDefaultsKey.userAuthority)
     }
-    
+
     public func loadUserAuthority() -> UserAuthorityType {
         let userAuthority = userDefaults.string(forKey: UserDefaultsKey.userAuthority)
         if let userAuthority {
