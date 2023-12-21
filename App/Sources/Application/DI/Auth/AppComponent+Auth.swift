@@ -4,7 +4,7 @@ import Service
 public extension AppComponent {
     var localAuthDataSource: any LocalAuthDataSource {
         shared {
-            LocalAuthDataSourceImpl(keychain: keychain)
+            LocalAuthDataSourceImpl(keychain: keychain, userDefaults: .standard)
         }
     }
 
@@ -26,6 +26,18 @@ public extension AppComponent {
     var loginUseCase: any LoginUseCase {
         shared {
             LoginUseCaseImpl(authRepository: authRepository)
+        }
+    }
+    
+    var saveUserAuthorityUseCase: any SaveUserAuthorityUseCase {
+        shared {
+            SaveUserAuthorityUseCaseImpl(authRepository: authRepository)
+        }
+    }
+    
+    var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
+        shared {
+            LoadUserAuthorityUseCaseImpl(authRepository: authRepository)
         }
     }
 

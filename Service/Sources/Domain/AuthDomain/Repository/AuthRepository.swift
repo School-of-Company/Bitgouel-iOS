@@ -1,7 +1,9 @@
 import Foundation
 
 public protocol AuthRepository {
-    func login(req: LoginRequestDTO) async throws
+    func login(req: LoginRequestDTO) async throws -> UserLoginEntity
+    func saveUserAuthority(authority: UserAuthorityType)
+    func loadUserAuthority() -> UserAuthorityType
     func reissueToken() async throws
     func logout() async throws
     func withdraw() async throws

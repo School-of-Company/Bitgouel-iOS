@@ -5,6 +5,7 @@ import SwiftUI
 public protocol LoginDependency: Dependency {
     var loginUseCase: any LoginUseCase { get }
     var signupFactory: any StudentSignUpFactory { get }
+    var saveUserAuthorityUseCase: any SaveUserAuthorityUseCase { get }
 }
 
 public final class LoginComponent: Component<LoginDependency>, LoginFactory {
@@ -12,6 +13,7 @@ public final class LoginComponent: Component<LoginDependency>, LoginFactory {
         LoginView(
             viewModel: .init(
                 loginUseCase: dependency.loginUseCase
+                saveUserAuthorityUseCase: dependency.saveUserAuthorityUseCase
             ), signupFactory: dependency.signupFactory
         )
     }

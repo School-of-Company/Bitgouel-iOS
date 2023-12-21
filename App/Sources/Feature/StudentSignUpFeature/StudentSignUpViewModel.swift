@@ -25,11 +25,11 @@ class StudentSignUpViewModel: BaseViewModel {
     @Published var selectedGovernment: String = ""
     @Published var selectedCompany: String = ""
     @Published var clubsForSelectedHighSchool: [String] = []
-    @Published var userRole: UserRoleType = .student
     @Published var grade: Int?
     @Published var classRoom: Int?
     @Published var number: Int?
     @Published var studentID: String = ""
+    @Published var userRole: UserAuthorityType = .professor
     private var timer: Timer?
     private let studentSignupUseCase: StudentSignupUseCase
     private let teacherSignupUseCase: TeacherSignupUseCase
@@ -123,6 +123,8 @@ class StudentSignUpViewModel: BaseViewModel {
             } else if selectedGovernment.isEmpty {
                 return "기관 입력"
             }
+        default:
+            return ""
         }
 
         if phoneNumber.isEmpty {
@@ -190,6 +192,8 @@ class StudentSignUpViewModel: BaseViewModel {
             } else if selectedGovernment.isEmpty {
                 return "소속하신 기관을 입력해주세요!"
             }
+        default:
+            return ""
         }
 
         if phoneNumber.isEmpty {
