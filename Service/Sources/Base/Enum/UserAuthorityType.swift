@@ -1,6 +1,8 @@
 import Foundation
 
 public enum UserAuthorityType: String, CaseIterable, Decodable, Encodable {
+    case user = "ROLE_USER"
+    case admin = "ROLE_ADMIN"
     case student = "ROLE_STUDENT"
     case teacher = "ROLE_TEACHER"
     case companyInstructor = "ROLE_COMPANY_INSTRUCTOR"

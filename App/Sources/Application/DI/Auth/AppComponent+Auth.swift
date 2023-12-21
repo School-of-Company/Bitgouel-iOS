@@ -4,7 +4,7 @@ import Service
 public extension AppComponent {
     var localAuthDataSource: any LocalAuthDataSource {
         shared {
-            LocalAuthDataSourceImpl(keychain: keychain)
+            LocalAuthDataSourceImpl(keychain: keychain, userDefaults: .standard)
         }
     }
 
