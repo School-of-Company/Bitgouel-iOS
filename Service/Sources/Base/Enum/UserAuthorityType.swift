@@ -1,10 +1,6 @@
 import Foundation
 
-<<<<<<< HEAD:Service/Sources/Base/Enum/UserAuthorityType.swift
 public enum UserAuthorityType: String, CaseIterable, Decodable, Encodable {
-=======
-public enum UserRoleType: String, CaseIterable, Decodable, Encodable {
->>>>>>> 47283d2 (:recycle: :: [#101] UserRoleType / default -> user로 변경):Service/Sources/Base/Enum/UserRoleType.swift
     case user = "ROLE_USER"
     case admin = "ROLE_ADMIN"
     case student = "ROLE_STUDENT"
