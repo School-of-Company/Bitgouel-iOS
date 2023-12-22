@@ -21,7 +21,7 @@ private class RootDependency3944cc797a4a88956fb5Provider: RootDependency {
     var loginFactory: any LoginFactory {
         return appComponent.loginFactory
     }
-
+ß
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -33,8 +33,6 @@ private func factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5(_ component: Needle
     return RootDependency3944cc797a4a88956fb5Provider(appComponent: parent1(component) as! AppComponent)
 }
 
-<<<<<<< HEAD
-=======
 private class ActivityListDependencyb8e659960978b8384f80Provider: ActivityListDependency {
     var queryMyStudentActivityUseCase: any QueryMyStudentActivityUseCase {
         return appComponent.queryMyStudentActivityUseCase
@@ -59,19 +57,15 @@ private func factory7177e6769ee69064a61bf47b58f8f304c97af4d5(_ component: Needle
     return ActivityListDependencyb8e659960978b8384f80Provider(appComponent: parent1(component) as! AppComponent)
 }
 
->>>>>>> 47283d2 (:recycle: :: [#101] UserRoleType / default -> user로 변경)
 private class LoginDependencyf4e78d0ad57be469bfd9Provider: LoginDependency {
     var loginUseCase: any LoginUseCase {
         return appComponent.loginUseCase
     }
-<<<<<<< HEAD
-=======
 
     var activityListFactory: any ActivityListFactory {
         return appComponent.activityListFactory
     }
 
->>>>>>> 47283d2 (:recycle: :: [#101] UserRoleType / default -> user로 변경)
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -90,8 +84,6 @@ extension RootComponent: Registration {
     }
 }
 
-<<<<<<< HEAD
-=======
 extension ActivityListComponent: Registration {
     public func registerItems() {
         keyPathToName[\ActivityListDependency.queryMyStudentActivityUseCase] =
@@ -103,7 +95,6 @@ extension ActivityListComponent: Registration {
     }
 }
 
->>>>>>> 47283d2 (:recycle: :: [#101] UserRoleType / default -> user로 변경)
 extension LoginComponent: Registration {
     public func registerItems() {
         keyPathToName[\LoginDependency.loginUseCase] = "loginUseCase-any LoginUseCase"
@@ -133,9 +124,7 @@ extension AppComponent: Registration {
         localTable["teacherSignupUseCase-any TeacherSignupUseCase"] = { [unowned self] in
             self.teacherSignupUseCase as Any
         }
-<<<<<<< HEAD
         localTable["loginFactory-any LoginFactory"] = { [unowned self] in self.loginFactory as Any }
-=======
         localTable["remoteDataSource-any RemoteActivityDataSource"] = { [unowned self] in self.remoteDataSource as Any }
         localTable["activityRepository-any ActivityRepository"] = { [unowned self] in self.activityRepository as Any }
         localTable["addStudentActivityUseCase-any AddStudentActivityUseCase"] = { [unowned self] in
@@ -163,7 +152,6 @@ extension AppComponent: Registration {
         localTable["activityListFactory-any ActivityListFactory"] = { [unowned self] in
             self.activityListFactory as Any
         }
->>>>>>> 47283d2 (:recycle: :: [#101] UserRoleType / default -> user로 변경)
     }
 }
 
