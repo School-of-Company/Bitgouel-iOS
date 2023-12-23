@@ -2,5 +2,5 @@ import Foundation
 
 public enum SceneFlow: String, RawRepresentable {
     case login
-    case Activity
+    case activity
 }
