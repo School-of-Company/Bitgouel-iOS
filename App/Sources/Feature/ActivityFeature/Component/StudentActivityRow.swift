@@ -30,6 +30,7 @@ struct StudentActivityRow: View {
                         font: .text3
                     )
                     .foregroundColor(.bitgouel(.greyscale(.g7)))
+
                     Spacer()
                 }
                 .padding(.top, 16)
