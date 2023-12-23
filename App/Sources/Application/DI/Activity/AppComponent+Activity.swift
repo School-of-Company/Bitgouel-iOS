@@ -34,8 +34,7 @@ public extension AppComponent {
 
     var queryMyStudentActivityUseCase: any QueryMyStudentActivityUseCase {
         shared {
-            QueryMyStudentActivityUseCaseStub()
-//            QueryMyStudentActivityUseCaseImpl(activityRepository: activityRepository)
+            QueryMyStudentActivityUseCaseImpl(activityRepository: activityRepository)
         }
     }
 

@@ -30,10 +30,12 @@ struct StudentActivityRow: View {
                         font: .text3
                     )
                     .foregroundColor(.bitgouel(.greyscale(.g7)))
+
                     Spacer()
                 }
                 .padding(.top, 16)
                 .padding(.leading, 16)
+
                 Spacer()
             }
             .overlay(alignment: .bottomTrailing) {
