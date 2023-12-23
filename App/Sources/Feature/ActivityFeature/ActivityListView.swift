@@ -13,9 +13,9 @@ struct ActivityListView: View {
                             text: "학생활동",
                             font: .title2
                         )
-                        
+
                         Spacer()
-                        
+
                         if model.authority == .student {
                             Button(action: {}, label: {
                                 Image(systemName: "plus")
@@ -28,7 +28,7 @@ struct ActivityListView: View {
                     }
                     .padding(.top, 32)
                     .padding(.horizontal, 8)
-                    
+
                     LazyVStack(spacing: 12) {
                         ForEach(model.content, id: \.activityId) { item in
                             StudentActivityRow(

@@ -9,7 +9,7 @@ struct StudentActivityRow: View {
     let name: String
     let state: ApproveStatusType
     let authority: UserAuthorityType
-    
+
     var body: some View {
         VStack(spacing: 24) {
             HStack {

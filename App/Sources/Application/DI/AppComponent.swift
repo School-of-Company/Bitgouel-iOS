@@ -22,7 +22,7 @@ public extension AppComponent {
     var loginFactory: any LoginFactory {
         LoginComponent(parent: self)
     }
-    
+
     var activityListFactory: any ActivityListFactory {
         ActivityListComponent(parent: self)
     }

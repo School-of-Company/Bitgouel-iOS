@@ -16,4 +16,3 @@ extension ActivityListModel {
         self.content = entity
     }
 }
-
