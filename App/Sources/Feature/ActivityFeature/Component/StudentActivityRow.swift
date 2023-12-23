@@ -9,7 +9,7 @@ struct StudentActivityRow: View {
     let name: String
     let state: ApproveStatusType
     let authority: UserAuthorityType
-
+    
     var body: some View {
         VStack(spacing: 24) {
             HStack {
@@ -18,13 +18,13 @@ struct StudentActivityRow: View {
                         text: title,
                         font: .title3
                     )
-
+                    
                     BitgouelText(
                         text: date,
                         font: .text3
                     )
                     .foregroundColor(.bitgouel(.greyscale(.g7)))
-
+                    
                     BitgouelText(
                         text: name,
                         font: .text3
@@ -36,11 +36,8 @@ struct StudentActivityRow: View {
                 .padding(.leading, 16)
                 Spacer()
             }
-
-            if authority != .student {
-                HStack {
-                    Spacer()
-
+            .overlay(alignment: .bottomTrailing) {
+                if authority != .student {
                     Text(state.display())
                         .bitgouelFont(.caption, color: .greyscale(.g10))
                         .padding(.horizontal, 8)
@@ -53,12 +50,12 @@ struct StudentActivityRow: View {
                             }
                         }
                         .cornerRadius(18)
+                        .padding(.trailing, 16)
+                        .padding(.bottom, 16)
                 }
-                .padding(.trailing, 16)
-                .padding(.bottom, 16)
             }
         }
-        .frame(width: 320, height: 156)
+        .frame(height: 156)
         .overlay {
             RoundedRectangle(cornerRadius: 8)
                 .stroke(Color.bitgouel(.greyscale(.g9)), lineWidth: 1)
