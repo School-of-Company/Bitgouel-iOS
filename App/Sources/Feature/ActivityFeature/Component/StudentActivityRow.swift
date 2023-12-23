@@ -34,6 +34,7 @@ struct StudentActivityRow: View {
                 }
                 .padding(.top, 16)
                 .padding(.leading, 16)
+
                 Spacer()
             }
 
