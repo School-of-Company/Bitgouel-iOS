@@ -3,7 +3,7 @@ import SwiftUI
 
 @main
 struct BitgouelApp: App {
-    @StateObject private var sceneState = SceneState(sceneFlow: .Activity)
+    @StateObject private var sceneState = SceneState(sceneFlow: .activity)
 
     init() {
         registerProviderFactories()
