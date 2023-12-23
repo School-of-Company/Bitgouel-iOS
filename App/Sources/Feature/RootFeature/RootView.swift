@@ -20,7 +20,7 @@ struct RootView: View {
                 loginFactory.makeView()
                     .eraseToAnyView()
                     .environmentObject(sceneState)
-            case .Activity:
+            case .activity:
                 activityListFactory.makeView(studentID: .init())
                     .eraseToAnyView()
                     .environmentObject(sceneState)
