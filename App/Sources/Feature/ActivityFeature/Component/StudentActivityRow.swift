@@ -9,7 +9,7 @@ struct StudentActivityRow: View {
     let name: String
     let state: ApproveStatusType
     let authority: UserAuthorityType
-    
+
     var body: some View {
         VStack(spacing: 24) {
             HStack {
@@ -18,13 +18,13 @@ struct StudentActivityRow: View {
                         text: title,
                         font: .title3
                     )
-                    
+
                     BitgouelText(
                         text: date,
                         font: .text3
                     )
                     .foregroundColor(.bitgouel(.greyscale(.g7)))
-                    
+
                     BitgouelText(
                         text: name,
                         font: .text3
