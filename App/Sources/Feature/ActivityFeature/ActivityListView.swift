@@ -29,7 +29,7 @@ struct ActivityListView: View {
             .bitgouelBackButton(dismiss: dismiss)
             .navigationTitle("학생활동").navigationBarTitleDisplayMode(.large)
             .toolbar {
-                ToolbarItemGroup(placement: .topBarTrailing) {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
                     if model.authority == .student {
                         Button(action: {}, label: {
                             Image(systemName: "plus")
