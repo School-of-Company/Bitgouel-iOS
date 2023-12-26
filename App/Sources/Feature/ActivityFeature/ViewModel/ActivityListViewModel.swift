@@ -2,7 +2,7 @@ import Foundation
 import Service
 
 final class ActivityListViewModel: BaseViewModel {
-    @Published var model: ActivityListModel
+    var model: ActivityListModel
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
     private let queryMyStudentActivityUseCase: any QueryMyStudentActivityUseCase
     private let queryStudentActivityListUseCase: any QueryStudentActivityListUseCase
