@@ -8,7 +8,7 @@ final class ActivityListViewModel: BaseViewModel {
     private let queryStudentActivityListUseCase: any QueryStudentActivityListUseCase
     private let queryStudentActivityByIdUseCase: any QueryStudentActivityByIdUseCase
     private let studentID: UUID
-
+    
     init(
         studentID: UUID,
         model: ActivityListModel,
@@ -24,52 +24,40 @@ final class ActivityListViewModel: BaseViewModel {
         self.queryStudentActivityListUseCase = queryStudentActivityListUseCase
         self.queryStudentActivityByIdUseCase = queryStudentActivityByIdUseCase
     }
-
+    
     @MainActor
     func onAppear() {
         let authority = loadUserAuthorityUseCase()
         model.updateUserRole(authority: authority)
-
-        switch model.authority {
-        case .admin:
-            return onAppearStudentListByAdmin()
-        case .student:
-            return onAppearStudentListByStudent()
-        case .teacher:
-            return onAppearStudentListByTeacher()
-        default:
-            return
-        }
-    }
-
-    func onAppearStudentListByAdmin() {
+        
         Task {
             do {
-                let activityListByAdmin = try await queryStudentActivityListUseCase()
-                await model.updateContent(entity: activityListByAdmin)
+                let studentActivityList: [ActivityEntity] = try await { () async throws -> [ActivityEntity] in
+                    switch model.authority {
+                    case .admin: return try await onAppearStudentListByAdmin()
+                    case .student: return try await onAppearStudentListByStudent()
+                    case .teacher: return try await onAppearStudentListByTeacher()
+                    default:
+                        print("권한이 없습니다.")
+                        return []
+                    }
+                }()
+                model.updateContent(entity: studentActivityList)
             } catch {
                 print(error.localizedDescription)
             }
         }
     }
-
-    func onAppearStudentListByStudent() {
-        Task {
-            do {
-                let activityListByStudent = try await queryMyStudentActivityUseCase()
-                await model.updateContent(entity: activityListByStudent)
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
+    
+    func onAppearStudentListByAdmin() async throws -> [ActivityEntity] {
+        return try await queryStudentActivityListUseCase()
     }
-
-    func onAppearStudentListByTeacher() {
-        Task {
-            do {
-                let activityListByTeacher = try await queryStudentActivityByIdUseCase(studentID: studentID.uuidString)
-                await model.updateContent(entity: activityListByTeacher)
-            }
-        }
+    
+    func onAppearStudentListByStudent() async throws -> [ActivityEntity] {
+        return try await queryMyStudentActivityUseCase()
+    }
+    
+    func onAppearStudentListByTeacher() async throws -> [ActivityEntity] {
+        return try await queryStudentActivityByIdUseCase(studentID: studentID.uuidString)
     }
 }
