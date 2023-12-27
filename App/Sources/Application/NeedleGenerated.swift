@@ -21,9 +21,6 @@ private class RootDependency3944cc797a4a88956fb5Provider: RootDependency {
     var loginFactory: any LoginFactory {
         return appComponent.loginFactory
     }
-    var activityListFactory: any ActivityListFactory {
-        return appComponent.activityListFactory
-    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -76,7 +73,6 @@ private func factoryd6018e98563de75a2ba4f47b58f8f304c97af4d5(_ component: Needle
 extension RootComponent: Registration {
     public func registerItems() {
         keyPathToName[\RootDependency.loginFactory] = "loginFactory-any LoginFactory"
-        keyPathToName[\RootDependency.activityListFactory] = "activityListFactory-any ActivityListFactory"
     }
 }
 extension ActivityListComponent: Registration {

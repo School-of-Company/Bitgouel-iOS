@@ -5,8 +5,7 @@ struct RootView: View {
     private let loginFactory: any LoginFactory
 
     public init(
-        loginFactory: any LoginFactory,
-        activityListFactory: any ActivityListFactory
+        loginFactory: any LoginFactory
     ) {
         self.loginFactory = loginFactory
     }
