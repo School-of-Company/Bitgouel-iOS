@@ -6,11 +6,7 @@ class StudentSignUpViewModel: BaseViewModel {
     @Published var clubSearch = ""
     @Published var name = ""
     @Published var yearOfAdmission: Int?
-    @Published var phoneNumber = "" {
-        didSet {
-            parsePhoneNumber()
-        }
-    }
+    @Published var phoneNumber = ""
 
     @Published var certificationNumberPhoneNumber = ""
     @Published var email = ""
@@ -29,7 +25,7 @@ class StudentSignUpViewModel: BaseViewModel {
     @Published var classRoom: Int?
     @Published var number: Int?
     @Published var studentID: String = ""
-    @Published var userRole: UserAuthorityType = .professor
+    @Published var userRole: UserAuthorityType = .student
     private var timer: Timer?
     private let studentSignupUseCase: StudentSignupUseCase
     private let teacherSignupUseCase: TeacherSignupUseCase
@@ -230,20 +226,19 @@ class StudentSignUpViewModel: BaseViewModel {
     }
 
     func parseStudentID() {
+        var studentID = studentID
         guard studentID.count == 4,
-              let parsedGrade = Int(String(studentID[studentID.startIndex])),
-              let parsedClassRoom = Int(String(studentID[studentID.index(studentID.startIndex, offsetBy: 1)])),
-              let parsedNumber = Int(String(studentID[studentID.index(studentID.startIndex, offsetBy: 2)...]))
+              let parsedGrade = Int(studentID.prefix(1)),
+              let parsedClassRoom = Int(studentID.dropFirst(1).prefix(1)),
+              let parsedNumber = Int(studentID.suffix(2))
         else {
-            grade = nil
-            classRoom = nil
-            number = nil
             return
         }
 
         grade = parsedGrade
         classRoom = parsedClassRoom
         number = parsedNumber
+        self.studentID = "\(parsedGrade)학년 \(parsedClassRoom)반 \(parsedNumber)번"
     }
 
     func phoneNumberStartTimer() {
@@ -277,17 +272,6 @@ class StudentSignUpViewModel: BaseViewModel {
     func stopTimer() {
         timer?.invalidate()
         timer = nil
-    }
-
-    public func parsePhoneNumber() {
-        guard
-            phoneNumber.count == 11,
-            let firstPart = Int(String(phoneNumber.prefix(3))),
-            let secondPart = Int(String(phoneNumber.dropFirst(3).prefix(4))),
-            let thirdPart = Int(String(phoneNumber.dropFirst(7)))
-        else { return }
-
-        phoneNumber = "\(firstPart)-\(secondPart)-\(thirdPart)"
     }
 
     func checkEmail(_ email: String) -> Bool {

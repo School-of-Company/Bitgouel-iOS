@@ -15,7 +15,7 @@ struct StudentSignUpView: View {
                 VStack(spacing: 16) {
                     switch viewModel.userRole {
                     case .student:
-                        ConditionView(!viewModel.studentID.isEmpty) {
+                        ConditionView(viewModel.grade != nil && viewModel.classRoom != nil && viewModel.number != nil) {
                             inputAuthorizationInfoSection()
                         }
 
@@ -259,7 +259,10 @@ struct StudentSignUpView: View {
             if viewModel.yearOfAdmission != nil {
                 BitgouelTextField(
                     "학번",
-                    text: $viewModel.studentID
+                    text: $viewModel.studentID,
+                    onSubmit: {
+                        viewModel.parseStudentID()
+                    }
                 )
                 .padding(.bottom, -20)
             }
