@@ -15,7 +15,7 @@ public enum CareerClubType {
 
     public enum KumpaTechnicalHighSchool: String, CaseIterable, Decodable, Encodable {
         case 레프리 = "레프리"
-        case 블라썸 = "블라썸"
+        case 블라썸 = "블라썸(blossom)"
         case 유선통신 = "유선통신"
         case 전기꿈나무 = "전기꿈나무"
         case 어썸 = "어썸(awesome)"
