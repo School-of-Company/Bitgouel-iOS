@@ -324,6 +324,8 @@ class StudentSignUpViewModel: BaseViewModel {
             governmentSignup(selectedSchool: selectedSchool)
         case .companyInstructor:
             companyInstructorSignup(selectedSchool: selectedSchool)
+        default:
+            return
         }
     }
 

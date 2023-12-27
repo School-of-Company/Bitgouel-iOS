@@ -12,8 +12,8 @@ public final class LoginComponent: Component<LoginDependency>, LoginFactory {
     public func makeView() -> some View {
         LoginView(
             viewModel: .init(
-                loginUseCase: dependency.loginUseCase
-                saveUserAuthorityUseCase: dependency.saveUserAuthorityUseCase
+                loginUseCase: dependency.loginUseCase,
+                saveUserAuthority: dependency.saveUserAuthorityUseCase
             ), signupFactory: dependency.signupFactory
         )
     }

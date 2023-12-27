@@ -43,9 +43,11 @@ public extension ExternalUserAuthorityType {
     }
 }
 
-public extension UserRoleType {
+public extension UserAuthorityType {
     func display() -> String {
         switch self {
+        case .user: return "default"
+        case .admin: return "어드민"
         case .student: return "학생"
         case .teacher: return "취동쌤"
         case .companyInstructor: return "기업 강사"

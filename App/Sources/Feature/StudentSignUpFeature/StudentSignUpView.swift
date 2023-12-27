@@ -86,6 +86,8 @@ struct StudentSignUpView: View {
                         ConditionView(viewModel.selectedSchool != nil) {
                             inputNameSection()
                         }
+                    default:
+                        EmptyView()
                     }
                     inputSchoolInfoSection()
                 }
