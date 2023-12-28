@@ -7,7 +7,7 @@ public struct TeacherSignupUseCaseImpl: TeacherSignupUseCase {
         self.authRepository = authRepository
     }
 
-    public func callAsFuntion(req: TeacherSignupRequestDTO) async throws {
+    public func callAsFunction(req: TeacherSignupRequestDTO) async throws {
         try await authRepository.teacherSignup(req: req)
     }
 }

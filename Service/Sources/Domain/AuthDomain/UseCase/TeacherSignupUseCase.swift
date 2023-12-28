@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol TeacherSignupUseCase {
-    func callAsFuntion(req: TeacherSignupRequestDTO) async throws
+    func callAsFunction(req: TeacherSignupRequestDTO) async throws
 }
