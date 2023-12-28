@@ -14,7 +14,8 @@ public final class LoginComponent: Component<LoginDependency>, LoginFactory {
             viewModel: .init(
                 loginUseCase: dependency.loginUseCase,
                 saveUserAuthority: dependency.saveUserAuthorityUseCase
-            ), signupFactory: dependency.signupFactory
+            ),
+            signupFactory: dependency.signupFactory
         )
     }
 }
