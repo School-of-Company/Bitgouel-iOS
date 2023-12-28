@@ -74,16 +74,13 @@ struct LoginView: View {
                         .bitgouelFont(.caption, color: .greyscale(.g7))
                         .padding(.top, 8)
 
-                    Button(
-                        action: {
-                            viewModel.signupPageIsRequired()
-                        },
-                        label: {
-                            Text("회원가입")
-                                .bitgouelFont(.text3, color: .primary(.p5))
-                                .padding(.top, 2)
-                        }
-                    )
+                    Button {
+                        viewModel.signupPageIsRequired()
+                    } label: {
+                        Text("회원가입")
+                            .bitgouelFont(.text3, color: .primary(.p5))
+                            .padding(.top, 2)
+                    }
                 }
                 .padding(.bottom, 46)
                 .navigate(
