@@ -101,7 +101,6 @@ struct StudentSignUpView: View {
             SchoolListView(viewModel: viewModel)
                 .frame(height: 415)
         }
-
         .bitgouelBottomSheet(
             isShowing: $isShowingClubSelectSheet
         ) {
