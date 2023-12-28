@@ -21,8 +21,7 @@ public final class StudentSignUpComponent: Component<StudentSignUpDependency>, S
                 professorSignupUseCase: self.dependency.professorSignupUseCase,
                 governmentSignupUseCase: self.dependency.governmentSignupUseCase,
                 companyInstructorSignupUseCase: self.dependency.companyInstructorSignupUseCase
-            ),
-            commonViewModel: CommonSignUpViewModel()
+            )
         )
     }
 }

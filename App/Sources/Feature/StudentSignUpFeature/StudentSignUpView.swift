@@ -2,7 +2,6 @@ import SwiftUI
 
 struct StudentSignUpView: View {
     @StateObject var viewModel: StudentSignUpViewModel
-    @StateObject var commonViewModel: CommonSignUpViewModel
     @State var isSchool = false
     @State var isShowingClubSelectSheet = false
     @State var isShowingSuccessView = false
