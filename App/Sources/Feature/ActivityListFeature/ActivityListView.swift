@@ -10,7 +10,7 @@ struct ActivityListView: View {
             ScrollView {
                 VStack {
                     LazyVStack(spacing: 12) {
-                        ForEach(model.content, id: \.activityId) { item in
+                        ForEach(model.activityList, id: \.activityId) { item in
                             StudentActivityRow(
                                 activityId: item.activityId,
                                 title: item.title,

@@ -4,7 +4,7 @@ import Service
 @MainActor
 final class ActivityListModel: ObservableObject {
     @Published var authority: UserAuthorityType = .user
-    @Published var content: [ActivityEntity] = []
+    @Published var activityList: [ActivityEntity] = []
     var errorMessage: String = ""
 }
 
@@ -14,6 +14,6 @@ extension ActivityListModel {
     }
 
     func updateContent(entity: [ActivityEntity]) {
-        self.content = entity
+        self.activityList = entity
     }
 }
