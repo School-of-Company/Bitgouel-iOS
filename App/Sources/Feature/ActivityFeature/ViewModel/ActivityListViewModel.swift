@@ -8,7 +8,7 @@ final class ActivityListViewModel: BaseViewModel {
     private let queryStudentActivityListUseCase: any QueryStudentActivityListUseCase
     private let queryStudentActivityByIdUseCase: any QueryStudentActivityByIdUseCase
     private let studentID: UUID
-    
+
     init(
         studentID: UUID,
         model: ActivityListModel,
@@ -24,12 +24,12 @@ final class ActivityListViewModel: BaseViewModel {
         self.queryStudentActivityListUseCase = queryStudentActivityListUseCase
         self.queryStudentActivityByIdUseCase = queryStudentActivityByIdUseCase
     }
-    
+
     @MainActor
     func onAppear() {
         let authority = loadUserAuthorityUseCase()
         model.updateUserRole(authority: authority)
-        
+
         Task {
             do {
                 let studentActivityList: [ActivityEntity] = try await { () async throws -> [ActivityEntity] in
@@ -41,7 +41,7 @@ final class ActivityListViewModel: BaseViewModel {
                         throw ActivityDomainError.forbidden
                     }
                 }()
-                
+
                 model.updateContent(entity: studentActivityList)
             } catch {
                 if let activityDomainError = error as? ActivityDomainError {
@@ -50,24 +50,24 @@ final class ActivityListViewModel: BaseViewModel {
                     model.errorMessage = "알 수 없는 오류가 발생했습니다."
                 }
                 self.isErrorOccurred = true
-                
+
                 print(error.localizedDescription)
             }
         }
     }
-    
+
     func onAppearStudentListByAdmin() async throws -> [ActivityEntity] {
         return try await queryStudentActivityListUseCase()
     }
-    
+
     func onAppearStudentListByStudent() async throws -> [ActivityEntity] {
         return try await queryMyStudentActivityUseCase()
     }
-    
+
     func onAppearStudentListByTeacher() async throws -> [ActivityEntity] {
         return try await queryStudentActivityByIdUseCase(studentID: studentID.uuidString)
     }
-    
+
     func toastDismissed() {
         self.isErrorOccurred = false
     }
