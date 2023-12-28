@@ -25,6 +25,13 @@ struct ActivityListView: View {
                     .padding(.top, 8)
                 }
             }
+            .bitgouelToast(
+                text: model.errorMessage,
+                isShowing: Binding(
+                    get: { viewModel.isErrorOccurred },
+                    set: { _ in viewModel.toastDismissed() }
+                )
+            )
             .padding(.horizontal, 28)
             .bitgouelBackButton(dismiss: dismiss)
             .navigationTitle("학생활동").navigationBarTitleDisplayMode(.large)

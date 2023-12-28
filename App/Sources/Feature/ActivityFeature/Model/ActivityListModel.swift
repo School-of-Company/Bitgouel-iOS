@@ -5,6 +5,7 @@ import Service
 final class ActivityListModel: ObservableObject {
     @Published var authority: UserAuthorityType = .user
     @Published var content: [ActivityEntity] = []
+    var errorMessage: String = ""
 }
 
 extension ActivityListModel {

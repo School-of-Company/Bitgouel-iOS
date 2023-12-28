@@ -38,12 +38,19 @@ final class ActivityListViewModel: BaseViewModel {
                     case .student: return try await onAppearStudentListByStudent()
                     case .teacher: return try await onAppearStudentListByTeacher()
                     default:
-                        print("권한이 없습니다.")
-                        return []
+                        throw ActivityDomainError.forbidden
                     }
                 }()
+                
                 model.updateContent(entity: studentActivityList)
             } catch {
+                if let activityDomainError = error as? ActivityDomainError {
+                    model.errorMessage = activityDomainError.errorDescription ?? "알 수 없는 오류가 발생했습니다."
+                } else {
+                    model.errorMessage = "알 수 없는 오류가 발생했습니다."
+                }
+                self.isErrorOccurred = true
+                
                 print(error.localizedDescription)
             }
         }
@@ -59,5 +66,9 @@ final class ActivityListViewModel: BaseViewModel {
     
     func onAppearStudentListByTeacher() async throws -> [ActivityEntity] {
         return try await queryStudentActivityByIdUseCase(studentID: studentID.uuidString)
+    }
+    
+    func toastDismissed() {
+        self.isErrorOccurred = false
     }
 }
