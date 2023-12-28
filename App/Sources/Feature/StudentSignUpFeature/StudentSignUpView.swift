@@ -121,7 +121,6 @@ struct StudentSignUpView: View {
                 label: { EmptyView() }
             )
         )
-
         .navigationBarHidden(true)
     }
 
