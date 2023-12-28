@@ -100,7 +100,6 @@ struct StudentSignUpView: View {
             SchoolListView(viewModel: viewModel)
                 .frame(height: 415)
         }
-
         .bitgouelBottomSheet(
             isShowing: $isShowingClubSelectSheet
         ) {
@@ -121,7 +120,6 @@ struct StudentSignUpView: View {
                 label: { EmptyView() }
             )
         )
-
         .navigationBarHidden(true)
     }
 
