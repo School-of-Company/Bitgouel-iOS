@@ -85,7 +85,7 @@ struct LoginView: View {
                 .padding(.bottom, 46)
                 .navigate(
                     to: signupFactory.makeView().eraseToAnyView(),
-                    when: Binding (
+                    when: Binding(
                         get: { viewModel.isPresentedSignupPage },
                         set: { _ in viewModel.signupPageDismissed() }
                     )
