@@ -17,6 +17,34 @@ private func parent1(_ component: NeedleFoundation.Scope) -> NeedleFoundation.Sc
 
 #if !NEEDLE_DYNAMIC
 
+private class StudentSignUpDependency32f0961d5bf3e2a5f205Provider: StudentSignUpDependency {
+    var studentSignupUseCase: any StudentSignupUseCase {
+        return appComponent.studentSignupUseCase
+    }
+    var teacherSignupUseCase: any TeacherSignupUseCase {
+        return appComponent.teacherSignupUseCase
+    }
+    var bbozzakSignupUseCase: any BbozzakSignupUseCase {
+        return appComponent.bbozzakSignupUseCase
+    }
+    var professorSignupUseCase: any ProfessorSignupUseCase {
+        return appComponent.professorSignupUseCase
+    }
+    var governmentSignupUseCase: any GovernmentSignupUseCase {
+        return appComponent.governmentSignupUseCase
+    }
+    var companyInstructorSignupUseCase: any CompanyInstructorSignupUseCase {
+        return appComponent.companyInstructorSignupUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->StudentSignUpComponent
+private func factoryc57b1cf1651b3051e040f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return StudentSignUpDependency32f0961d5bf3e2a5f205Provider(appComponent: parent1(component) as! AppComponent)
+}
 private class RootDependency3944cc797a4a88956fb5Provider: RootDependency {
     var loginFactory: any LoginFactory {
         return appComponent.loginFactory
@@ -56,6 +84,9 @@ private class LoginDependencyf4e78d0ad57be469bfd9Provider: LoginDependency {
     var loginUseCase: any LoginUseCase {
         return appComponent.loginUseCase
     }
+    var signupFactory: any StudentSignUpFactory {
+        return appComponent.signupFactory
+    }
     var saveUserAuthorityUseCase: any SaveUserAuthorityUseCase {
         return appComponent.saveUserAuthorityUseCase
     }
@@ -70,6 +101,16 @@ private func factoryd6018e98563de75a2ba4f47b58f8f304c97af4d5(_ component: Needle
 }
 
 #else
+extension StudentSignUpComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\StudentSignUpDependency.studentSignupUseCase] = "studentSignupUseCase-any StudentSignupUseCase"
+        keyPathToName[\StudentSignUpDependency.teacherSignupUseCase] = "teacherSignupUseCase-any TeacherSignupUseCase"
+        keyPathToName[\StudentSignUpDependency.bbozzakSignupUseCase] = "bbozzakSignupUseCase-any BbozzakSignupUseCase"
+        keyPathToName[\StudentSignUpDependency.professorSignupUseCase] = "professorSignupUseCase-any ProfessorSignupUseCase"
+        keyPathToName[\StudentSignUpDependency.governmentSignupUseCase] = "governmentSignupUseCase-any GovernmentSignupUseCase"
+        keyPathToName[\StudentSignUpDependency.companyInstructorSignupUseCase] = "companyInstructorSignupUseCase-any CompanyInstructorSignupUseCase"
+    }
+}
 extension RootComponent: Registration {
     public func registerItems() {
         keyPathToName[\RootDependency.loginFactory] = "loginFactory-any LoginFactory"
@@ -86,6 +127,7 @@ extension ActivityListComponent: Registration {
 extension LoginComponent: Registration {
     public func registerItems() {
         keyPathToName[\LoginDependency.loginUseCase] = "loginUseCase-any LoginUseCase"
+        keyPathToName[\LoginDependency.signupFactory] = "signupFactory-any StudentSignUpFactory"
         keyPathToName[\LoginDependency.saveUserAuthorityUseCase] = "saveUserAuthorityUseCase-any SaveUserAuthorityUseCase"
     }
 }
@@ -104,6 +146,10 @@ extension AppComponent: Registration {
         localTable["withdrawalUseCase-any WithdrawalUseCase"] = { [unowned self] in self.withdrawalUseCase as Any }
         localTable["studentSignupUseCase-any StudentSignupUseCase"] = { [unowned self] in self.studentSignupUseCase as Any }
         localTable["teacherSignupUseCase-any TeacherSignupUseCase"] = { [unowned self] in self.teacherSignupUseCase as Any }
+        localTable["bbozzakSignupUseCase-any BbozzakSignupUseCase"] = { [unowned self] in self.bbozzakSignupUseCase as Any }
+        localTable["professorSignupUseCase-any ProfessorSignupUseCase"] = { [unowned self] in self.professorSignupUseCase as Any }
+        localTable["governmentSignupUseCase-any GovernmentSignupUseCase"] = { [unowned self] in self.governmentSignupUseCase as Any }
+        localTable["companyInstructorSignupUseCase-any CompanyInstructorSignupUseCase"] = { [unowned self] in self.companyInstructorSignupUseCase as Any }
         localTable["remoteDataSource-any RemoteActivityDataSource"] = { [unowned self] in self.remoteDataSource as Any }
         localTable["activityRepository-any ActivityRepository"] = { [unowned self] in self.activityRepository as Any }
         localTable["addStudentActivityUseCase-any AddStudentActivityUseCase"] = { [unowned self] in self.addStudentActivityUseCase as Any }
@@ -115,6 +161,7 @@ extension AppComponent: Registration {
         localTable["queryStudentActivityDetailsUseCase-any QueryStudentActivityDetailsUseCase"] = { [unowned self] in self.queryStudentActivityDetailsUseCase as Any }
         localTable["loginFactory-any LoginFactory"] = { [unowned self] in self.loginFactory as Any }
         localTable["activityListFactory-any ActivityListFactory"] = { [unowned self] in self.activityListFactory as Any }
+        localTable["signupFactory-any StudentSignUpFactory"] = { [unowned self] in self.signupFactory as Any }
     }
 }
 
@@ -133,6 +180,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
 #if !NEEDLE_DYNAMIC
 
 @inline(never) private func register1() {
+    registerProviderFactory("^->AppComponent->StudentSignUpComponent", factoryc57b1cf1651b3051e040f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->RootComponent", factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ActivityListComponent", factory7177e6769ee69064a61bf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->LoginComponent", factoryd6018e98563de75a2ba4f47b58f8f304c97af4d5)

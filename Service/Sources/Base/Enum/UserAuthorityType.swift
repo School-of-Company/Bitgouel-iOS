@@ -42,3 +42,18 @@ public extension ExternalUserAuthorityType {
         }
     }
 }
+
+public extension UserAuthorityType {
+    func display() -> String {
+        switch self {
+        case .user: return "default"
+        case .admin: return "어드민"
+        case .student: return "학생"
+        case .teacher: return "취동쌤"
+        case .companyInstructor: return "기업 강사"
+        case .professor: return "대학 교수"
+        case .bbozzack: return "뽀짝쌤"
+        case .government: return "유관 기관"
+        }
+    }
+}

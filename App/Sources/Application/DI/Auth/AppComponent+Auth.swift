@@ -70,4 +70,28 @@ public extension AppComponent {
             TeacherSignupUseCaseImpl(authRepository: authRepository)
         }
     }
+
+    var bbozzakSignupUseCase: any BbozzakSignupUseCase {
+        shared {
+            BbozzakSingupUseCaseImpl(authRepository: authRepository)
+        }
+    }
+
+    var professorSignupUseCase: any ProfessorSignupUseCase {
+        shared {
+            ProfessorSignupUseCaseImpl(authRepository: authRepository)
+        }
+    }
+
+    var governmentSignupUseCase: any GovernmentSignupUseCase {
+        shared {
+            GovernmentSignupUseCaseImpl(authRepository: authRepository)
+        }
+    }
+
+    var companyInstructorSignupUseCase : any CompanyInstructorSignupUseCase {
+        shared {
+            CompanyInstructorSignupUseCaseImpl(authRepository: authRepository)
+        }
+    }
 }

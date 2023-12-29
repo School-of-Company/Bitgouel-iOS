@@ -4,6 +4,7 @@ import Service
 final class LoginViewModel: BaseViewModel {
     @Published var email = ""
     @Published var password = ""
+    @Published var isPresentedSignupPage: Bool = false
     private let loginUseCase: any LoginUseCase
     private let saveUserAuthority: any SaveUserAuthorityUseCase
 
@@ -69,6 +70,18 @@ final class LoginViewModel: BaseViewModel {
     func checkPassword(_ password: String) -> Bool {
         let passwordRegex = "^(?=.*[a-zA-Z0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,24}$"
         return NSPredicate(format: "SELF MATCHES %@", passwordRegex).evaluate(with: password)
+    }
+
+    func updateIsPresentedSignupPage(isPresented: Bool) {
+        self.isPresentedSignupPage = isPresented
+    }
+
+    func signupPageIsRequired() {
+        self.isPresentedSignupPage = true
+    }
+
+    func signupPageDismissed() {
+        self.isPresentedSignupPage = false
     }
 
     func login() {
