@@ -7,7 +7,7 @@ public struct LoadUserAuthorityUseCaseImpl: LoadUserAuthorityUseCase {
         self.authRepository = authRepository
     }
 
-    public func callAsFuntion() -> UserAuthorityType {
+    public func callAsFunction() -> UserAuthorityType {
         authRepository.loadUserAuthority()
     }
 }

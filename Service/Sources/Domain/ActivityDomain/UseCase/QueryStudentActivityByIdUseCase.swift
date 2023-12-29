@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol QueryStudentActivityByIdUseCase {
-    func callAsFunction(studentID: String) async throws
+    func callAsFunction(studentID: String) async throws -> [ActivityEntity]
 }
