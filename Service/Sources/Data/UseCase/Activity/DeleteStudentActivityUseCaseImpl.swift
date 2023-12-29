@@ -1,13 +1,13 @@
 import Foundation
 
-struct DeleteStudentActivityUseCaseImpl: DeleteStudentActivityUseCase {
+public struct DeleteStudentActivityUseCaseImpl: DeleteStudentActivityUseCase {
     private let activityRepository: ActivityRepository
 
-    init(activityRepository: ActivityRepository) {
+    public init(activityRepository: ActivityRepository) {
         self.activityRepository = activityRepository
     }
 
-    func callAsFunction(userID: String) async throws {
+    public func callAsFunction(userID: String) async throws {
         try await activityRepository.deleteStudentActivity(userID: userID)
     }
 }

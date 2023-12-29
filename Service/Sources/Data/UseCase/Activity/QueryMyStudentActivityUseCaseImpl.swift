@@ -1,13 +1,13 @@
 import Foundation
 
-struct QueryMyStudentActivityUseCaseImpl: QueryMyStudentActivityUseCase {
+public struct QueryMyStudentActivityUseCaseImpl: QueryMyStudentActivityUseCase {
     private let activityRepository: any ActivityRepository
 
-    init(activityRepository: any ActivityRepository) {
+    public init(activityRepository: any ActivityRepository) {
         self.activityRepository = activityRepository
     }
 
-    func callAsFunction() async throws {
+    public func callAsFunction() async throws -> [ActivityEntity] {
         try await activityRepository.queryMyStudentActivity()
     }
 }

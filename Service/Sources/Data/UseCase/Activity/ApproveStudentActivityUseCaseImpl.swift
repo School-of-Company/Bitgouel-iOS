@@ -1,13 +1,13 @@
 import Foundation
 
-struct ApproveStudentActivityUseCaseImpl: ApproveStudentActivityUseCase {
+public struct ApproveStudentActivityUseCaseImpl: ApproveStudentActivityUseCase {
     private let activityRepository: any ActivityRepository
 
-    init(activityRepository: any ActivityRepository) {
+    public init(activityRepository: any ActivityRepository) {
         self.activityRepository = activityRepository
     }
 
-    func callAsFunction(userID: String) async throws {
+    public func callAsFunction(userID: String) async throws {
         try await activityRepository.approveStudentActivity(userID: userID)
     }
 }
