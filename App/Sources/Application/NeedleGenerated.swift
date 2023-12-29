@@ -121,6 +121,7 @@ extension AppComponent: Registration {
         localTable["governmentSignupUseCase-any GovernmentSignupUseCase"] = { [unowned self] in self.governmentSignupUseCase as Any }
         localTable["companyInstructorSignupUseCase-any CompanyInstructorSignupUseCase"] = { [unowned self] in self.companyInstructorSignupUseCase as Any }
         localTable["loginFactory-any LoginFactory"] = { [unowned self] in self.loginFactory as Any }
+        localTable["activityListFactory-any ActivityListFactory"] = { [unowned self] in self.activityListFactory as Any }
         localTable["signupFactory-any StudentSignUpFactory"] = { [unowned self] in self.signupFactory as Any }
     }
 }
