@@ -7,7 +7,10 @@ final class LoginViewModel: BaseViewModel {
     private let loginUseCase: any LoginUseCase
     private let saveUserAuthority: any SaveUserAuthorityUseCase
 
-    init(loginUseCase: any LoginUseCase, saveUserAuthority: any SaveUserAuthorityUseCase) {
+    init(
+        loginUseCase: any LoginUseCase,
+        saveUserAuthority: any SaveUserAuthorityUseCase
+    ) {
         self.loginUseCase = loginUseCase
         self.saveUserAuthority = saveUserAuthority
     }

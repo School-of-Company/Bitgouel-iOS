@@ -28,13 +28,13 @@ public extension AppComponent {
             LoginUseCaseImpl(authRepository: authRepository)
         }
     }
-    
+
     var saveUserAuthorityUseCase: any SaveUserAuthorityUseCase {
         shared {
             SaveUserAuthorityUseCaseImpl(authRepository: authRepository)
         }
     }
-    
+
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
         shared {
             LoadUserAuthorityUseCaseImpl(authRepository: authRepository)

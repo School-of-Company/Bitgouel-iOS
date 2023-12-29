@@ -30,6 +30,28 @@ private class RootDependency3944cc797a4a88956fb5Provider: RootDependency {
 private func factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return RootDependency3944cc797a4a88956fb5Provider(appComponent: parent1(component) as! AppComponent)
 }
+private class ActivityListDependencyb8e659960978b8384f80Provider: ActivityListDependency {
+    var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
+        return appComponent.loadUserAuthorityUseCase
+    }
+    var queryMyStudentActivityUseCase: any QueryMyStudentActivityUseCase {
+        return appComponent.queryMyStudentActivityUseCase
+    }
+    var queryStudentActivityListUseCase: any QueryStudentActivityListUseCase {
+        return appComponent.queryStudentActivityListUseCase
+    }
+    var queryStudentActivityByIdUseCase: any QueryStudentActivityByIdUseCase {
+        return appComponent.queryStudentActivityByIdUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->ActivityListComponent
+private func factory7177e6769ee69064a61bf47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return ActivityListDependencyb8e659960978b8384f80Provider(appComponent: parent1(component) as! AppComponent)
+}
 private class LoginDependencyf4e78d0ad57be469bfd9Provider: LoginDependency {
     var loginUseCase: any LoginUseCase {
         return appComponent.loginUseCase
@@ -51,6 +73,14 @@ private func factoryd6018e98563de75a2ba4f47b58f8f304c97af4d5(_ component: Needle
 extension RootComponent: Registration {
     public func registerItems() {
         keyPathToName[\RootDependency.loginFactory] = "loginFactory-any LoginFactory"
+    }
+}
+extension ActivityListComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\ActivityListDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
+        keyPathToName[\ActivityListDependency.queryMyStudentActivityUseCase] = "queryMyStudentActivityUseCase-any QueryMyStudentActivityUseCase"
+        keyPathToName[\ActivityListDependency.queryStudentActivityListUseCase] = "queryStudentActivityListUseCase-any QueryStudentActivityListUseCase"
+        keyPathToName[\ActivityListDependency.queryStudentActivityByIdUseCase] = "queryStudentActivityByIdUseCase-any QueryStudentActivityByIdUseCase"
     }
 }
 extension LoginComponent: Registration {
@@ -84,6 +114,7 @@ extension AppComponent: Registration {
         localTable["queryStudentActivityListUseCase-any QueryStudentActivityListUseCase"] = { [unowned self] in self.queryStudentActivityListUseCase as Any }
         localTable["queryStudentActivityDetailsUseCase-any QueryStudentActivityDetailsUseCase"] = { [unowned self] in self.queryStudentActivityDetailsUseCase as Any }
         localTable["loginFactory-any LoginFactory"] = { [unowned self] in self.loginFactory as Any }
+        localTable["activityListFactory-any ActivityListFactory"] = { [unowned self] in self.activityListFactory as Any }
     }
 }
 
@@ -103,6 +134,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
 
 @inline(never) private func register1() {
     registerProviderFactory("^->AppComponent->RootComponent", factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->ActivityListComponent", factory7177e6769ee69064a61bf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->LoginComponent", factoryd6018e98563de75a2ba4f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)
 }
