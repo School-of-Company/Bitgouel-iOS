@@ -5,6 +5,19 @@ struct ActivityListView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var model: ActivityListModel
     @StateObject var viewModel: ActivityListViewModel
+    
+    private let inputActivityFactory: any InputActivityFactory
+    
+    init(
+        inputActivityFactory: any InputActivityFactory,
+        model: ActivityListModel,
+        viewModel: ActivityListViewModel
+    ) {
+        self.inputActivityFactory = inputActivityFactory
+        _model = StateObject(wrappedValue: model)
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
+    
     var body: some View {
         NavigationView {
             ScrollView {
@@ -38,7 +51,9 @@ struct ActivityListView: View {
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     if model.authority == .student {
-                        Button(action: {}, label: {
+                        Button(action: {
+                            viewModel.inputActivityViewIsRequired()
+                        }, label: {
                             Image(systemName: "plus")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
@@ -48,6 +63,13 @@ struct ActivityListView: View {
                     }
                 }
             }
+            .navigate(
+                to: inputActivityFactory.makeView().eraseToAnyView(),
+                when: Binding(
+                    get: { viewModel.isPresentedInputActivityView },
+                    set: { _ in viewModel.inputActivityViewIsDismissed() }
+                )
+            )
         }
         .onAppear {
             viewModel.onAppear()
