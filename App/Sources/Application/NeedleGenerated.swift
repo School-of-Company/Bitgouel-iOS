@@ -1,5 +1,6 @@
 
 
+import Foundation
 import NeedleFoundation
 import Service
 import SwiftUI
@@ -59,6 +60,9 @@ private func factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5(_ component: Needle
     return RootDependency3944cc797a4a88956fb5Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class ActivityListDependencyb8e659960978b8384f80Provider: ActivityListDependency {
+    var inputActivityFactory: any InputActivityFactory {
+        return appComponent.inputActivityFactory
+    }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
         return appComponent.loadUserAuthorityUseCase
     }
@@ -99,6 +103,17 @@ private class LoginDependencyf4e78d0ad57be469bfd9Provider: LoginDependency {
 private func factoryd6018e98563de75a2ba4f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return LoginDependencyf4e78d0ad57be469bfd9Provider(appComponent: parent1(component) as! AppComponent)
 }
+private class InputActivityDependency4e692e68e51cea5b706dProvider: InputActivityDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->InputActivityComponent
+private func factory3fc1a279eeb8c906e603e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return InputActivityDependency4e692e68e51cea5b706dProvider()
+}
 
 #else
 extension StudentSignUpComponent: Registration {
@@ -118,6 +133,7 @@ extension RootComponent: Registration {
 }
 extension ActivityListComponent: Registration {
     public func registerItems() {
+        keyPathToName[\ActivityListDependency.inputActivityFactory] = "inputActivityFactory-any InputActivityFactory"
         keyPathToName[\ActivityListDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
         keyPathToName[\ActivityListDependency.queryMyStudentActivityUseCase] = "queryMyStudentActivityUseCase-any QueryMyStudentActivityUseCase"
         keyPathToName[\ActivityListDependency.queryStudentActivityListUseCase] = "queryStudentActivityListUseCase-any QueryStudentActivityListUseCase"
@@ -129,6 +145,11 @@ extension LoginComponent: Registration {
         keyPathToName[\LoginDependency.loginUseCase] = "loginUseCase-any LoginUseCase"
         keyPathToName[\LoginDependency.signupFactory] = "signupFactory-any StudentSignUpFactory"
         keyPathToName[\LoginDependency.saveUserAuthorityUseCase] = "saveUserAuthorityUseCase-any SaveUserAuthorityUseCase"
+    }
+}
+extension InputActivityComponent: Registration {
+    public func registerItems() {
+
     }
 }
 extension AppComponent: Registration {
@@ -162,6 +183,7 @@ extension AppComponent: Registration {
         localTable["loginFactory-any LoginFactory"] = { [unowned self] in self.loginFactory as Any }
         localTable["activityListFactory-any ActivityListFactory"] = { [unowned self] in self.activityListFactory as Any }
         localTable["signupFactory-any StudentSignUpFactory"] = { [unowned self] in self.signupFactory as Any }
+        localTable["inputActivityFactory-any InputActivityFactory"] = { [unowned self] in self.inputActivityFactory as Any }
     }
 }
 
@@ -184,6 +206,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->RootComponent", factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ActivityListComponent", factory7177e6769ee69064a61bf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->LoginComponent", factoryd6018e98563de75a2ba4f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->InputActivityComponent", factory3fc1a279eeb8c906e603e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)
 }
 #endif
