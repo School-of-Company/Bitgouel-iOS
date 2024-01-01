@@ -1,4 +1,5 @@
 import NeedleFoundation
+import SwiftUI
 import Service
 
 public protocol InputActivityDependency: Dependency {
