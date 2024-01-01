@@ -1,9 +1,8 @@
 import NeedleFoundation
-import SwiftUI
 import Service
+import SwiftUI
 
-public protocol InputActivityDependency: Dependency {
-}
+public protocol InputActivityDependency: Dependency {}
 
 public final class InputActivityComponent: Component<InputActivityDependency>, InputActivityFactory {
     public func makeView() -> some View {

@@ -5,9 +5,9 @@ struct ActivityListView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var model: ActivityListModel
     @StateObject var viewModel: ActivityListViewModel
-    
+
     private let inputActivityFactory: any InputActivityFactory
-    
+
     init(
         inputActivityFactory: any InputActivityFactory,
         model: ActivityListModel,
@@ -17,7 +17,7 @@ struct ActivityListView: View {
         _model = StateObject(wrappedValue: model)
         _viewModel = StateObject(wrappedValue: viewModel)
     }
-    
+
     var body: some View {
         NavigationView {
             ScrollView {

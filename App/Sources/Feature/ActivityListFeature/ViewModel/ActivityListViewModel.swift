@@ -72,11 +72,11 @@ final class ActivityListViewModel: BaseViewModel {
     func toastDismissed() {
         self.isErrorOccurred = false
     }
-    
+
     func inputActivityViewIsRequired() {
         self.isPresentedInputActivityView = true
     }
-    
+
     func inputActivityViewIsDismissed() {
         self.isPresentedInputActivityView = false
     }

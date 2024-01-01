@@ -2,11 +2,11 @@ import SwiftUI
 
 struct InputActivityView: View {
     @StateObject var viewModel: InputActivityViewModel
-    
+
     init(viewModel: InputActivityViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
-    
+
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
@@ -31,11 +31,10 @@ struct InputActivityView: View {
                         })
                 }
                 .padding(.top, -40)
-                .frame(minHeight: 40)
-                .frame(maxHeight: 120)
-                
+                .frame(minHeight: 40, maxHeight: 120)
+
                 Divider()
-                
+
                 VStack {
                     TextEditor(text: $viewModel.activityText)
                         .bitgouelFont(.text3)
@@ -50,7 +49,7 @@ struct InputActivityView: View {
                                 .foregroundColor(.bitgouel(.greyscale(.g7)))
                             }
                         }
-                        .onChange(of: viewModel.activityText, perform: { value  in
+                        .onChange(of: viewModel.activityText, perform: { value in
                             if viewModel.activityText.count > 1000 {
                                 viewModel.activityText.removeLast()
                             }
@@ -58,15 +57,13 @@ struct InputActivityView: View {
                 }
                 .padding(.top, 16)
                 .frame(height: 460)
-                
+
                 Divider()
-                
+
                 VStack(spacing: 8) {
-                    Button {
-                        
-                    } label: {
+                    Button {} label: {
                         Image("setting")
-                        
+
                         Text("활동 세부 설정")
                             .bitgouelFont(.text3, color: .primary(.p5))
                     }
@@ -76,7 +73,7 @@ struct InputActivityView: View {
                         RoundedRectangle(cornerRadius: 8)
                             .strokeBorder(Color.bitgouel(.primary(.p5)))
                     }
-                    
+
                     CTAButton(
                         text: "활동 추가",
                         style: .default

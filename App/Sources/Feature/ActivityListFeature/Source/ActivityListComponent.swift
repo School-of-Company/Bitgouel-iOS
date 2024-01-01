@@ -10,7 +10,6 @@ public protocol ActivityListDependency: Dependency {
     var queryStudentActivityByIdUseCase: any QueryStudentActivityByIdUseCase { get }
 }
 
-
 public final class ActivityListComponent: Component<ActivityListDependency>, ActivityListFactory {
     @MainActor
     public func makeView(studentID: UUID) -> some View {
