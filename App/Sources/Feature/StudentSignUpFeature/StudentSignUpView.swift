@@ -1,4 +1,5 @@
 import SwiftUI
+import Service
 
 struct StudentSignUpView: View {
     @StateObject var viewModel: StudentSignUpViewModel
@@ -12,7 +13,7 @@ struct StudentSignUpView: View {
                 signupTitleSection()
 
                 VStack(spacing: 16) {
-                    switch viewModel.userRole {
+                    switch viewModel.selectedUserRole {
                     case .student:
                         ConditionView(viewModel.grade != nil && viewModel.classRoom != nil && viewModel.number != nil) {
                             inputAuthorizationInfoSection()
@@ -113,6 +114,17 @@ struct StudentSignUpView: View {
             )
             .frame(height: 415)
         }
+        .bitgouelBottomSheet(
+            isShowing: $viewModel.isPresentedAssociationSheet
+        ) {
+            associationTypeView()
+        }
+        .bitgouelBottomSheet(
+            isShowing: $viewModel.isPresentedUserRoleSheet
+        ) {
+            userRoleTypeView()
+        }
+        .animation(.default, value: viewModel.selectedAssociation)
         .background(
             NavigationLink(
                 destination: SuccessSignUpView(),
@@ -215,15 +227,24 @@ struct StudentSignUpView: View {
     @ViewBuilder
     func inputSchoolInfoSection() -> some View {
         VStack(spacing: 16) {
-            AssociationSelectButton(
-                text: viewModel.selectedSchool?.display() ?? "학교"
-            ) {
-                isSchool.toggle()
+            ConditionView(viewModel.selectedUserRole != nil) {
+                AssociationSelectButton(
+                    text: viewModel.selectedSchool?.display() ?? "학교"
+                ) {
+                    isSchool.toggle()
+                }
             }
 
-            AssociationSelectButton(text: viewModel.userRole.display())
+            ConditionView(viewModel.selectedAssociation != nil) {
+                AssociationSelectButton(text: viewModel.selectedUserRole?.display() ?? "직업") {
+                    viewModel.isPresentedUserRoleSheet = true
+                }
+            }
 
-            AssociationSelectButton(text: "학생")
+            AssociationSelectButton(text: viewModel.selectedAssociation?.associationValue() ?? "소속") {
+                viewModel.isPresentedAssociationSheet = true
+            }
+
         }
     }
 
@@ -308,6 +329,64 @@ struct StudentSignUpView: View {
                 text: $viewModel.selectedCompany
             )
             .padding(.bottom, -20)
+        }
+    }
+    
+    @ViewBuilder
+    func userRoleTypeView() -> some View {
+        ScrollView {
+            let data: [UserAuthorityType] = viewModel.selectedAssociation == .school
+            ? [.student, .teacher]
+            : [.companyInstructor, .professor, .bbozzack, .government]
+            ForEach(data, id: \.self) { userRole in
+                HStack {
+                    Text(userRole.display())
+
+                    Spacer()
+
+                    BitgouelRadioButton(
+                        isSelected: Binding(
+                            get: { viewModel.selectedUserRole == userRole },
+                            set: { isSelected in
+                                if isSelected {
+                                    viewModel.isPresentedUserRoleSheet = false
+                                    viewModel.selectedUserRole = userRole
+                                    
+                                }
+                            }
+                        )
+                    )
+                }
+                .padding(.horizontal, 28)
+                .padding(.vertical, 24)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func associationTypeView() -> some View {
+        ScrollView {
+            ForEach(AssociationType.allCases, id: \.self) { association in
+                HStack {
+                    Text(association.associationValue())
+
+                    Spacer()
+
+                    BitgouelRadioButton(
+                        isSelected: Binding(
+                            get: { viewModel.selectedAssociation == association },
+                            set: { isSelected in
+                                if isSelected {
+                                    viewModel.isPresentedAssociationSheet = false
+                                    viewModel.selectedAssociation = association
+                                }
+                            }
+                        )
+                    )
+                }
+                .padding(.horizontal, 28)
+                .padding(.vertical, 24)
+            }
         }
     }
 }

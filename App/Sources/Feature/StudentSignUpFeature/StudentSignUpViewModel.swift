@@ -25,7 +25,10 @@ class StudentSignUpViewModel: BaseViewModel {
     @Published var classRoom: Int?
     @Published var number: Int?
     @Published var studentID: String = ""
-    @Published var userRole: UserAuthorityType = .student
+    @Published var isPresentedAssociationSheet = false
+    @Published var isPresentedUserRoleSheet = false
+    @Published var selectedAssociation: AssociationType?
+    @Published var selectedUserRole: UserAuthorityType?
     private var timer: Timer?
     private let studentSignupUseCase: StudentSignupUseCase
     private let teacherSignupUseCase: TeacherSignupUseCase
@@ -74,10 +77,16 @@ class StudentSignUpViewModel: BaseViewModel {
     }
 
     var titleMessage: String {
+        if selectedAssociation == nil {
+            return "만나서 반가워요!"
+        }
+        if selectedUserRole == nil {
+            return "무슨 일을 하시나요?"
+        }
         if selectedSchool == nil {
             return "학교 선택"
         }
-        switch userRole {
+        switch selectedUserRole {
         case .student:
             if selectedClub == "동아리" {
                 return "동아리 선택"
@@ -139,7 +148,7 @@ class StudentSignUpViewModel: BaseViewModel {
     }
 
     var subTitleMessage: String {
-        switch userRole {
+        switch selectedUserRole {
         case .student:
             if selectedSchool == nil {
                 return "재학 중이신 학교를 선택해 주세요!"
@@ -289,7 +298,7 @@ class StudentSignUpViewModel: BaseViewModel {
         guard let grade else { return }
         guard let classRoom else { return }
         guard let number else { return }
-        switch userRole {
+        switch selectedUserRole {
         case .student:
             studentSignup(
                 grade: grade,
