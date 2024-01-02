@@ -1,9 +1,9 @@
 import SwiftUI
 
-struct ActivityDetailView: View {
-    @StateObject var viewModel: ActivityDetailViewModel
+struct ActivityDetailSettingView: View {
+    @StateObject var viewModel: ActivityDetailSettingViewModel
 
-    init(viewModel: ActivityDetailViewModel) {
+    init(viewModel: ActivityDetailSettingViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
 
