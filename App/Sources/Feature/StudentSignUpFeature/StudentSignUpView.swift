@@ -3,7 +3,6 @@ import Service
 
 struct StudentSignUpView: View {
     @StateObject var viewModel: StudentSignUpViewModel
-    @State var isSchool = false
     @State var isShowingClubSelectSheet = false
     @State var isShowingSuccessView = false
 
@@ -96,7 +95,7 @@ struct StudentSignUpView: View {
             }
         }
         .bitgouelBottomSheet(
-            isShowing: $isSchool
+            isShowing: $viewModel.isPresentedSchoolSHeet
         ) {
             SchoolListView(viewModel: viewModel)
                 .frame(height: 415)
@@ -231,7 +230,7 @@ struct StudentSignUpView: View {
                 AssociationSelectButton(
                     text: viewModel.selectedSchool?.display() ?? "학교"
                 ) {
-                    isSchool.toggle()
+                    viewModel.isPresentedSchoolSHeet.toggle()
                 }
             }
 

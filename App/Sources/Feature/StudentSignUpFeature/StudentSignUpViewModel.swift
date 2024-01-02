@@ -27,6 +27,7 @@ class StudentSignUpViewModel: BaseViewModel {
     @Published var studentID: String = ""
     @Published var isPresentedAssociationSheet = false
     @Published var isPresentedUserRoleSheet = false
+    @Published var isPresentedSchoolSHeet = false
     @Published var selectedAssociation: AssociationType?
     @Published var selectedUserRole: UserAuthorityType?
     private var timer: Timer?
@@ -242,7 +243,7 @@ class StudentSignUpViewModel: BaseViewModel {
               let parsedNumber = Int(studentID.suffix(2))
         else {
             return
-        }
+        }	
 
         grade = parsedGrade
         classRoom = parsedClassRoom
