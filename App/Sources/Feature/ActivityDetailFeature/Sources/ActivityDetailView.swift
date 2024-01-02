@@ -1,8 +1,11 @@
 import SwiftUI
 
 struct ActivityDetailView: View {
-    @State var activityDate = Date()
-    @State var credit: Int
+    @StateObject var viewModel: ActivityDetailViewModel
+    
+    init(viewModel: ActivityDetailViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
     
     var body: some View {
         NavigationView {
@@ -18,7 +21,7 @@ struct ActivityDetailView: View {
                     
                     DatePicker(
                         "활동 날짜 선택",
-                        selection: $activityDate,
+                        selection: $viewModel.activityDate,
                         in: Date()...,
                         displayedComponents: [.date]
                     )
@@ -43,7 +46,7 @@ struct ActivityDetailView: View {
                     }
                     
                     Button {
-                        
+                        viewModel.isPresentedCreditSheet = true
                     } label: {
                         HStack {
                             BitgouelText(
@@ -55,20 +58,32 @@ struct ActivityDetailView: View {
                             .padding(.leading, 20)
                             
                             Spacer()
-                            
+
                             Image("chevron_down")
                                 .padding(.trailing, 20)
                         }
                         .background(Color.bitgouel(.greyscale(.g9)))
                         .cornerRadius(8, corners: .allCorners)
                     }
-                    
+
                     Spacer()
                 }
-                .padding(.top, -160)
+                .padding(.top, -60)
                 
                 Spacer()
+                
+                CTAButton(
+                    text: "적용하기",
+                    style: .default
+                )
+                .padding(.bottom, 14)
+                
+                .bitgouelBottomSheet(
+                    isShowing: $viewModel.isPresentedCreditSheet) {
+                    setCreditBottomSheet()
+                }
             }
+            .padding(.horizontal, 28)
             .navigationTitle("활동 세부 설정")
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -82,6 +97,34 @@ struct ActivityDetailView: View {
                 }
             }
         }
-        .padding(.horizontal, 28)
+    }
+
+    @ViewBuilder
+    func setCreditBottomSheet() -> some View {
+        ForEach(viewModel.creditValue, id: \.self) { credit in
+            HStack {
+                BitgouelText(
+                    text: "\(credit)점",
+                    font: .text2
+                )
+                
+                Spacer()
+                
+                BitgouelRadioButton(
+                    isSelected: Binding(
+                        get: { viewModel.credit == credit },
+                        set: { isSelected in
+                            if isSelected {
+                                viewModel.isPresentedCreditSheet = false
+                                viewModel.credit = credit
+                            }
+                        }
+                    )
+                )
+                .background(.clear)
+            }
+            .padding(.horizontal, 28)
+            .padding(.vertical, 24)
+        }
     }
 }
