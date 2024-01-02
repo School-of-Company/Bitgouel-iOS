@@ -78,7 +78,6 @@ struct ActivityDetailView: View {
                     text: "적용하기",
                     style: .default
                 )
-                .padding(.bottom, 14)
 
                 .bitgouelBottomSheet(
                     isShowing: $viewModel.isPresentedCreditSheet
@@ -124,9 +123,7 @@ struct ActivityDetailView: View {
                         }
                     )
                 )
-                .background(.clear)
             }
-            .padding(.horizontal, 28)
             .padding(.vertical, 24)
         }
     }
