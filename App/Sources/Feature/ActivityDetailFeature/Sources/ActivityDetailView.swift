@@ -2,11 +2,11 @@ import SwiftUI
 
 struct ActivityDetailView: View {
     @StateObject var viewModel: ActivityDetailViewModel
-    
+
     init(viewModel: ActivityDetailViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
-    
+
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
@@ -14,11 +14,12 @@ struct ActivityDetailView: View {
                     HStack {
                         BitgouelText(
                             text: "활동 날짜",
-                            font: .text1)
-                        
+                            font: .text1
+                        )
+
                         Spacer()
                     }
-                    
+
                     DatePicker(
                         "활동 날짜 선택",
                         selection: $viewModel.activityDate,
@@ -30,21 +31,22 @@ struct ActivityDetailView: View {
                     .padding(.horizontal, 20)
                     .background(Color.bitgouel(.greyscale(.g9)))
                     .cornerRadius(8, corners: .allCorners)
-                    
+
                     Spacer()
                 }
                 .padding(.top, 28)
-                
+
                 Spacer()
-                
+
                 VStack {
                     HStack {
                         BitgouelText(
                             text: "수여 학점",
-                            font: .text1)
+                            font: .text1
+                        )
                         Spacer()
                     }
-                    
+
                     Button {
                         viewModel.isPresentedCreditSheet = true
                     } label: {
@@ -56,7 +58,7 @@ struct ActivityDetailView: View {
                             .foregroundColor(.bitgouel(.greyscale(.g2)))
                             .padding(.vertical, 16)
                             .padding(.leading, 20)
-                            
+
                             Spacer()
 
                             Image("chevron_down")
@@ -69,17 +71,18 @@ struct ActivityDetailView: View {
                     Spacer()
                 }
                 .padding(.top, -60)
-                
+
                 Spacer()
-                
+
                 CTAButton(
                     text: "적용하기",
                     style: .default
                 )
                 .padding(.bottom, 14)
-                
+
                 .bitgouelBottomSheet(
-                    isShowing: $viewModel.isPresentedCreditSheet) {
+                    isShowing: $viewModel.isPresentedCreditSheet
+                ) {
                     setCreditBottomSheet()
                 }
             }
@@ -107,9 +110,9 @@ struct ActivityDetailView: View {
                     text: "\(credit)점",
                     font: .text2
                 )
-                
+
                 Spacer()
-                
+
                 BitgouelRadioButton(
                     isSelected: Binding(
                         get: { viewModel.credit == credit },

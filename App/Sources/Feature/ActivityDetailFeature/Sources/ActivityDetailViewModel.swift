@@ -1,5 +1,5 @@
-import SwiftUI
 import Service
+import SwiftUI
 
 final class ActivityDetailViewModel: BaseViewModel {
     @State var activityDate = Date()
