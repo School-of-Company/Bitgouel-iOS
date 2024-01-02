@@ -350,7 +350,6 @@ struct StudentSignUpView: View {
                                 if isSelected {
                                     viewModel.isPresentedUserRoleSheet = false
                                     viewModel.selectedUserRole = userRole
-                                    
                                 }
                             }
                         )
