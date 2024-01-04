@@ -3,7 +3,6 @@ import Service
 
 struct StudentSignUpView: View {
     @StateObject var viewModel: StudentSignUpViewModel
-    @State var isShowingClubSelectSheet = false
     @State var isShowingSuccessView = false
 
     var body: some View {
@@ -14,11 +13,11 @@ struct StudentSignUpView: View {
                 VStack(spacing: 16) {
                     switch viewModel.selectedUserRole {
                     case .student:
-                        ConditionView(viewModel.grade != nil && viewModel.classRoom != nil && viewModel.number != nil) {
+                        ConditionView(viewModel.studentIDIsValid) {
                             inputAuthorizationInfoSection()
                         }
 
-                        ConditionView(!viewModel.name.isEmpty) {
+                        ConditionView(viewModel.nameIsValid) {
                             inputStudentInfoSection()
                         }
 
@@ -30,7 +29,7 @@ struct StudentSignUpView: View {
                             inputClubSection()
                         }
                     case .teacher, .bbozzack:
-                        ConditionView(!viewModel.name.isEmpty) {
+                        ConditionView(viewModel.nameIsValid) {
                             inputAuthorizationInfoSection()
                         }
 
@@ -46,7 +45,7 @@ struct StudentSignUpView: View {
                             inputAuthorizationInfoSection()
                         }
 
-                        ConditionView(!viewModel.name.isEmpty) {
+                        ConditionView(viewModel.nameIsValid) {
                             inputCompanyInstructorInfoSection()
                         }
 
@@ -62,7 +61,7 @@ struct StudentSignUpView: View {
                             inputAuthorizationInfoSection()
                         }
 
-                        ConditionView(!viewModel.name.isEmpty) {
+                        ConditionView(viewModel.nameIsValid) {
                             inputProfessorInfoSection()
                         }
 
@@ -78,7 +77,7 @@ struct StudentSignUpView: View {
                             inputAuthorizationInfoSection()
                         }
 
-                        ConditionView(!viewModel.name.isEmpty) {
+                        ConditionView(viewModel.nameIsValid) {
                             inputGovernmentInfoSection()
                         }
 
@@ -95,13 +94,20 @@ struct StudentSignUpView: View {
             }
         }
         .bitgouelBottomSheet(
-            isShowing: $viewModel.isPresentedSchoolSHeet
+            isShowing: $viewModel.isPresentedSchoolSheet
         ) {
-            SchoolListView(viewModel: viewModel)
-                .frame(height: 415)
+            SchoolListView(
+                searchKeyword: $viewModel.schoolSearch,
+                schoolList: viewModel.searchedSchoolList,
+                selectedSchool: viewModel.selectedSchool
+            ) { highschool in
+                viewModel.selectedSchool = highschool
+                viewModel.isPresentedSchoolSheet = false
+            }
+            .frame(height: 415)
         }
         .bitgouelBottomSheet(
-            isShowing: $isShowingClubSelectSheet
+            isShowing: $viewModel.isPresentedClubSheet
         ) {
             ClubListView(
                 searchText: $viewModel.clubSearch,
@@ -109,6 +115,7 @@ struct StudentSignUpView: View {
                 selectedClub: viewModel.selectedClub,
                 clubDidSelect: { selectedClub in
                     viewModel.selectedClub = selectedClub
+                    viewModel.isPresentedClubSheet = false
                 }
             )
             .frame(height: 415)
@@ -157,7 +164,7 @@ struct StudentSignUpView: View {
     func inputAuthorizationInfoSection() -> some View {
         VStack(spacing: 16) {
             Group {
-                if !viewModel.password.isEmpty {
+                if viewModel.passwordIsValid {
                     SecureBitgouelTextField(
                         "비밀번호",
                         text: $viewModel.checkPassword
@@ -168,7 +175,7 @@ struct StudentSignUpView: View {
                     }
                 }
 
-                if !viewModel.certificationNumberEmail.isEmpty {
+                if viewModel.emailIsValid {
                     SecureBitgouelTextField(
                         "비밀번호",
                         text: $viewModel.password
@@ -178,46 +185,22 @@ struct StudentSignUpView: View {
             }
 
             Group {
-                if !viewModel.email.isEmpty {
-                    if viewModel.checkEmail(viewModel.email) == true {
-                        BitgouelTextField(
-                            "인증번호",
-                            text: $viewModel.certificationNumberEmail,
-                            helpMessage: viewModel.convertSecondsToTime(timeInSeconds: viewModel.emailTimeRemaining),
-                            link: "재발송"
-                        )
-                    }
-                }
-
-                if !viewModel.certificationNumberPhoneNumber.isEmpty {
+                if viewModel.phoneNumberIsValid {
                     BitgouelTextField(
                         "이메일",
                         text: $viewModel.email,
                         helpMessage: viewModel.emailHelpMessage,
-                        isError: viewModel.isEmailErrorOccured
+                        isError: !viewModel.emailIsValid
                     )
                     .onChange(of: viewModel.emailHelpMessage) { newValue in }
                     .textContentType(.emailAddress)
                 }
             }
             Group {
-                if !viewModel.phoneNumber.isEmpty {
-                    BitgouelTextField(
-                        "인증번호",
-                        text: $viewModel.certificationNumberPhoneNumber,
-                        helpMessage: viewModel.convertSecondsToTime(timeInSeconds: viewModel.phoneNumberTimeRemaining),
-                        link: "재발송"
-                    )
-                }
                 BitgouelTextField(
                     "전화번호",
                     text: $viewModel.phoneNumber
                 )
-                .onChange(of: viewModel.phoneNumber) { newValue in
-                    if !viewModel.phoneNumber.isEmpty {
-                        viewModel.phoneNumberStartTimer()
-                    }
-                }
                 .padding(.bottom, -20)
             }
         }
@@ -230,7 +213,7 @@ struct StudentSignUpView: View {
                 AssociationSelectButton(
                     text: viewModel.selectedSchool?.display() ?? "학교"
                 ) {
-                    viewModel.isPresentedSchoolSHeet.toggle()
+                    viewModel.isPresentedSchoolSheet.toggle()
                 }
             }
 
@@ -253,7 +236,7 @@ struct StudentSignUpView: View {
             AssociationSelectButton(
                 text: viewModel.selectedClub
             ) {
-                isShowingClubSelectSheet.toggle()
+                viewModel.isPresentedClubSheet.toggle()
             }
         }
     }
@@ -273,7 +256,7 @@ struct StudentSignUpView: View {
     @ViewBuilder
     func inputStudentInfoSection() -> some View {
         VStack(spacing: 16) {
-            if viewModel.yearOfAdmission != nil {
+            if viewModel.yearOfAdmissionIsValid {
                 BitgouelTextField(
                     "학번",
                     text: $viewModel.studentID,
@@ -287,8 +270,14 @@ struct StudentSignUpView: View {
             BitgouelTextField(
                 "입학년도",
                 text: Binding(
-                    get: { return String (viewModel.yearOfAdmission ?? 2023) },
-                    set: { newValue in viewModel.yearOfAdmission = Int(newValue) }
+                    get: {
+                        guard let yearOfAdmission = viewModel.yearOfAdmission else { return "" }
+                        return String(yearOfAdmission)
+                    },
+                    set: { newValue in
+                        guard let yearOfAdmission = Int(newValue) else { return }
+                        viewModel.yearOfAdmission = yearOfAdmission
+                    }
                 )
             )
             .padding(.bottom, -20)
