@@ -242,12 +242,6 @@ class StudentSignUpViewModel: BaseViewModel {
         checkPassword(password, checkPassword)
     }
 
-    func convertSecondsToTime(timeInSeconds: Int) -> String {
-        let minutes = timeInSeconds / 60
-        let seconds = timeInSeconds % 60
-        return String(format: "%02i:%02i", minutes, seconds)
-    }
-
     func checkPassword(_ password: String, _ checkPassword: String) -> Bool {
         return password == checkPassword
     }
