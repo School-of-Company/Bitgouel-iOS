@@ -1,6 +1,12 @@
 import SwiftUI
 
 struct ActivityDetailView: View {
+    @StateObject private var viewModel: ActivityDetailViewModel
+    
+    init(viewModel: ActivityDetailViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             VStack(alignment: .leading) {
