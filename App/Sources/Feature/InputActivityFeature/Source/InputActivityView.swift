@@ -62,13 +62,17 @@ struct InputActivityView: View {
 
                 VStack(spacing: 8) {
                     Button {} label: {
+                        Spacer()
+                        
                         Image("setting")
 
                         Text("활동 세부 설정")
                             .bitgouelFont(.text3, color: .primary(.p5))
+                        
+                        Spacer()
                     }
                     .padding(.vertical, 12)
-                    .padding(.horizontal, 96)
+                    .padding(.horizontal, 32)
                     .overlay {
                         RoundedRectangle(cornerRadius: 8)
                             .strokeBorder(Color.bitgouel(.primary(.p5)))
