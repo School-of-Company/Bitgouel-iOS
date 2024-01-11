@@ -64,7 +64,7 @@ struct InputActivityView: View {
                     Button {} label: {
                         Spacer()
                         
-                        Image("setting")
+                        BitgouelAsset.Icons.add.swiftUIImage
 
                         Text("활동 세부 설정")
                             .bitgouelFont(.text3, color: .primary(.p5))
