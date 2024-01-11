@@ -6,7 +6,7 @@ public struct StudentListByClubResponseDTO: Decodable {
 
 public extension StudentListByClubResponseDTO {
     struct Student: Decodable {
-        public let id: UUID
+        public let id: String
         public let name: String
         public let authority: UserAuthorityType
     }

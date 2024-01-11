@@ -8,7 +8,10 @@ public struct LocalAuthDataSourceImpl: LocalAuthDataSource {
     private let userDefaults: UserDefaults
     private let keychain: any Keychain
 
-    public init(keychain: any Keychain, userDefaults: UserDefaults) {
+    public init(
+        keychain: any Keychain,
+        userDefaults: UserDefaults
+    ) {
         self.keychain = keychain
         self.userDefaults = userDefaults
     }

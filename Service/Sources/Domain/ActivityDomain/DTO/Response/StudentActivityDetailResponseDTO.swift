@@ -1,7 +1,7 @@
 import Foundation
 
 public struct StudentActivityDetailResponseDTO: Decodable {
-    public let id: UUID
+    public let id: String
     public let title: String
     public let content: String
     public let credit: Int
@@ -10,7 +10,7 @@ public struct StudentActivityDetailResponseDTO: Decodable {
     public let approveState: ApproveStatusType
 
     public init(
-        id: UUID,
+        id: String,
         title: String,
         content: String,
         credit: Int,
