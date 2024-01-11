@@ -70,14 +70,6 @@ extension ActivityAPI: BitgouelAPI {
                 "credit": Int(),
                 "activity": String()
             ], encoding: URLEncoding.httpBody)
-        case .queryMyStudentActivity,
-             .queryStudentActivityById,
-             .queryStudentActivityList:
-            return .requestParameters(parameters: [
-                "page": Int(),
-                "size": Int(),
-                "sort": String()
-            ], encoding: URLEncoding.queryString)
         default:
             return .requestPlain
         }
