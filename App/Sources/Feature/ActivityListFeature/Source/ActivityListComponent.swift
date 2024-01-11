@@ -11,7 +11,7 @@ public protocol ActivityListDependency: Dependency {
 
 @MainActor
 public final class ActivityListComponent: Component<ActivityListDependency>, ActivityListFactory {
-    public func makeView(studentID: UUID) -> some View {
+    public func makeView(studentID: String) -> some View {
         let model = ActivityListModel()
         return ActivityListView(
             model: model,

@@ -7,10 +7,10 @@ final class ActivityListViewModel: BaseViewModel {
     private let queryMyStudentActivityUseCase: any QueryMyStudentActivityUseCase
     private let queryStudentActivityListUseCase: any QueryStudentActivityListUseCase
     private let queryStudentActivityByIdUseCase: any QueryStudentActivityByIdUseCase
-    private let studentID: UUID
+    private let studentID: String
 
     init(
-        studentID: UUID,
+        studentID: String,
         model: ActivityListModel,
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
         queryMyStudentActivityUseCase: any QueryMyStudentActivityUseCase,
@@ -65,7 +65,7 @@ final class ActivityListViewModel: BaseViewModel {
     }
 
     func onAppearStudentListByTeacher() async throws -> [ActivityEntity] {
-        return try await queryStudentActivityByIdUseCase(studentID: studentID.uuidString)
+        return try await queryStudentActivityByIdUseCase(studentID: studentID)
     }
 
     func toastDismissed() {
