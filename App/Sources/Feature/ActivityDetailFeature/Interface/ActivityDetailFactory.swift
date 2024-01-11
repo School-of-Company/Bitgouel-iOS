@@ -2,5 +2,5 @@ import SwiftUI
 
 public protocol ActivityDetailFactory {
     associatedtype SomeView: View
-    func makeView(userId: String) -> SomeView
+    func makeView(activityId: String) -> SomeView
 }

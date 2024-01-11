@@ -45,7 +45,11 @@ struct ActivityDetailView: View {
             }
             .padding(.top, 24)
 
+            if viewModel.authority == .admin {
+                popupButtonByTeacher()
+            } else if viewModel.authority == .student || viewModel.authority == .teacher {
                 popupButtonByWriter()
+            }
         }
         .padding(.horizontal, 28)
         .onAppear {

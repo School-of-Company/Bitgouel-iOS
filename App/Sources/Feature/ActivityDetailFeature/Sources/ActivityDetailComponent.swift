@@ -10,10 +10,10 @@ public protocol ActivityDetailDependency: Dependency {
 }
 
 public final class ActivityDetailComponent: Component<ActivityDetailDependency>, ActivityDetailFactory {
-    public func makeView(userId: String) -> some View {
+    public func makeView(activityId: String) -> some View {
         ActivityDetailView(
             viewModel: .init(
-                userId: userId,
+                activityId: activityId,
                 queryStudentActivityDetailsUseCase: self.dependency.queryStudentActivityDetailsUseCase,
                 approveStudentActivityUseCase: self.dependency.approveStudentActivityUseCase,
                 rejectStudentActivityUseCase: self.dependency.rejectStudentActivityUseCase,
