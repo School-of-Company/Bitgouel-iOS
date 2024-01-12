@@ -19,7 +19,7 @@ class StudentSignUpViewModel: BaseViewModel {
     @Published var password = ""
     @Published var checkPassword = ""
     @Published var selectedSchool: HighSchoolType?
-    @Published var selectedClub: String = "동아리"
+    @Published var selectedClub: String?
     @Published var selectedUniversity: String = ""
     @Published var selectedGovernment: String = ""
     @Published var selectedCompany: String = ""
@@ -110,7 +110,7 @@ class StudentSignUpViewModel: BaseViewModel {
         }
         switch selectedUserRole {
         case .student:
-            if selectedClub == "동아리" {
+            if selectedClub == nil {
                 return "동아리 선택"
             } else if !nameIsValid {
                 return "이름 입력"
@@ -120,14 +120,14 @@ class StudentSignUpViewModel: BaseViewModel {
                 return "학번 입력"
             }
         case .teacher, .bbozzack:
-            if selectedClub == "동아리" {
+            if selectedClub == nil {
                 return "동아리 선택"
             } else if !nameIsValid {
                 return "이름 입력"
             }
 
         case .companyInstructor:
-            if selectedClub == "동아리" {
+            if selectedClub == nil {
                 return "동아리 선택"
             } else if !nameIsValid {
                 return "이름 입력"
@@ -136,7 +136,7 @@ class StudentSignUpViewModel: BaseViewModel {
             }
 
         case .professor:
-            if selectedClub == "동아리" {
+            if selectedClub == nil {
                 return "동아리 선택"
             } else if !nameIsValid {
                 return "이름 입력"
@@ -229,13 +229,31 @@ class StudentSignUpViewModel: BaseViewModel {
             return "비밀번호를 다시 입력해 주세요!"
         }
     }
+    
+    func parseStudentID() {
+        guard studentID.count == 4,
+              let parsedGrade = Int(studentID.prefix(1)),
+              let parsedClassRoom = Int(studentID.dropFirst(1).prefix(1)),
+              let parsedNumber = Int(studentID.suffix(2))
+        else {
+            grade = nil
+            classRoom = nil
+            number = nil
+            return
+        }
+        
+        grade = parsedGrade
+        classRoom = parsedClassRoom
+        number = parsedNumber
+    }
+
 
     var selectedSchoolExists: Bool {
         selectedSchool != nil
     }
 
     var selectedClubExists: Bool {
-        selectedClub != "동아리"
+        selectedClub != nil
     }
 
     var isPasswordMatching: Bool {
@@ -252,6 +270,7 @@ class StudentSignUpViewModel: BaseViewModel {
         guard let grade else { return }
         guard let classRoom else { return }
         guard let number else { return }
+        guard let selectedClub else { return }
         switch selectedUserRole {
         case .student:
             studentSignup(
@@ -259,18 +278,19 @@ class StudentSignUpViewModel: BaseViewModel {
                 classRoom: classRoom,
                 number: number,
                 yearOfAdmission: yearOfAdmission,
-                selectedSchool: selectedSchool
+                selectedSchool: selectedSchool,
+                selectedClub: selectedClub
             )
         case .teacher:
-            teacherSignup(selectedSchool: selectedSchool)
+            teacherSignup(selectedSchool: selectedSchool, selectedClub: selectedClub)
         case .bbozzack:
-            bbozzakSignup(selectedSchool: selectedSchool)
+            bbozzakSignup(selectedSchool: selectedSchool, selectedClub: selectedClub)
         case .professor:
-            professorSignup(selectedSchool: selectedSchool)
+            professorSignup(selectedSchool: selectedSchool, selectedClub: selectedClub)
         case .government:
-            governmentSignup(selectedSchool: selectedSchool)
+            governmentSignup(selectedSchool: selectedSchool, selectedClub: selectedClub)
         case .companyInstructor:
-            companyInstructorSignup(selectedSchool: selectedSchool)
+            companyInstructorSignup(selectedSchool: selectedSchool, selectedClub: selectedClub)
         default:
             return
         }
@@ -281,7 +301,8 @@ class StudentSignUpViewModel: BaseViewModel {
         classRoom: Int,
         number: Int,
         yearOfAdmission: Int,
-        selectedSchool: HighSchoolType
+        selectedSchool: HighSchoolType,
+        selectedClub: String
     ) {
         Task {
             do {
@@ -307,7 +328,8 @@ class StudentSignUpViewModel: BaseViewModel {
     }
 
     func teacherSignup(
-        selectedSchool: HighSchoolType
+        selectedSchool: HighSchoolType,
+        selectedClub: String
     ) {
         Task {
             do {
@@ -328,7 +350,10 @@ class StudentSignUpViewModel: BaseViewModel {
         }
     }
 
-    func bbozzakSignup(selectedSchool: HighSchoolType) {
+    func bbozzakSignup(
+        selectedSchool: HighSchoolType,
+        selectedClub: String
+    ) {
         Task {
             do {
                 try await bbozzakSignupUseCase(
@@ -348,7 +373,10 @@ class StudentSignUpViewModel: BaseViewModel {
         }
     }
 
-    func professorSignup(selectedSchool: HighSchoolType) {
+    func professorSignup(
+        selectedSchool: HighSchoolType,
+        selectedClub: String
+    ) {
         Task {
             do {
                 try await professorSignupUseCase(
@@ -369,7 +397,10 @@ class StudentSignUpViewModel: BaseViewModel {
         }
     }
 
-    func governmentSignup(selectedSchool: HighSchoolType) {
+    func governmentSignup(
+        selectedSchool: HighSchoolType,
+        selectedClub: String
+    ) {
         Task {
             do {
                 try await governmentSignupUseCase(
@@ -390,7 +421,10 @@ class StudentSignUpViewModel: BaseViewModel {
         }
     }
 
-    func companyInstructorSignup(selectedSchool: HighSchoolType) {
+    func companyInstructorSignup(
+        selectedSchool: HighSchoolType,
+        selectedClub: String
+    ) {
         Task {
             do {
                 try await companyInstructorSignupUseCase(

@@ -21,7 +21,7 @@ struct StudentSignUpView: View {
                             inputStudentInfoSection()
                         }
 
-                        ConditionView(viewModel.selectedClub != "동아리") {
+                        ConditionView(viewModel.selectedClub != nil) {
                             inputNameSection()
                         }
 
@@ -33,7 +33,7 @@ struct StudentSignUpView: View {
                             inputAuthorizationInfoSection()
                         }
 
-                        ConditionView(viewModel.selectedClub != "동아리") {
+                        ConditionView(viewModel.selectedClub != nil) {
                             inputNameSection()
                         }
 
@@ -49,7 +49,7 @@ struct StudentSignUpView: View {
                             inputCompanyInstructorInfoSection()
                         }
 
-                        ConditionView(viewModel.selectedClub != "동아리") {
+                        ConditionView(viewModel.selectedClub != nil) {
                             inputNameSection()
                         }
 
@@ -65,7 +65,7 @@ struct StudentSignUpView: View {
                             inputProfessorInfoSection()
                         }
 
-                        ConditionView(viewModel.selectedClub != "동아리") {
+                        ConditionView(viewModel.selectedClub != nil) {
                             inputNameSection()
                         }
 
@@ -112,7 +112,7 @@ struct StudentSignUpView: View {
             ClubListView(
                 searchText: $viewModel.clubSearch,
                 searchedClubList: viewModel.searchedClubList,
-                selectedClub: viewModel.selectedClub,
+                selectedClub: viewModel.selectedClub ?? "동아리",
                 clubDidSelect: { selectedClub in
                     viewModel.selectedClub = selectedClub
                     viewModel.isPresentedClubSheet = false
@@ -234,7 +234,7 @@ struct StudentSignUpView: View {
     func inputClubSection() -> some View {
         VStack(spacing: 0) {
             AssociationSelectButton(
-                text: viewModel.selectedClub
+                text: viewModel.selectedClub ?? "동아리"
             ) {
                 viewModel.isPresentedClubSheet.toggle()
             }
@@ -259,7 +259,10 @@ struct StudentSignUpView: View {
             if viewModel.yearOfAdmissionIsValid {
                 BitgouelTextField(
                     "학번",
-                    text: $viewModel.studentID
+                    text: $viewModel.studentID,
+                    onSubmit: {
+                        viewModel.parseStudentID()
+                    }
                 )
                 .padding(.bottom, -20)
             }
