@@ -259,7 +259,12 @@ struct StudentSignUpView: View {
             if viewModel.yearOfAdmissionIsValid {
                 BitgouelTextField(
                     "학번",
-                    text: $viewModel.studentID,
+                    text: Binding(
+                        get: { viewModel.studentID },
+                        set: { newValue in
+                            viewModel.studentID = newValue
+                        }
+                    ),
                     onSubmit: {
                         viewModel.parseStudentID()
                     }

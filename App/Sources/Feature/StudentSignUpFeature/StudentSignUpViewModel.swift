@@ -231,22 +231,16 @@ class StudentSignUpViewModel: BaseViewModel {
     }
     
     func parseStudentID() {
-        guard studentID.count == 4,
-              let parsedGrade = Int(studentID.prefix(1)),
-              let parsedClassRoom = Int(studentID.dropFirst(1).prefix(1)),
-              let parsedNumber = Int(studentID.suffix(2))
-        else {
+        if studentID.count == 4 {
+            grade = Int(studentID.prefix(1))
+            classRoom = Int(studentID.dropFirst(1).prefix(1))
+            number = Int(studentID.suffix(2))
+        } else {
             grade = nil
             classRoom = nil
             number = nil
-            return
         }
-        
-        grade = parsedGrade
-        classRoom = parsedClassRoom
-        number = parsedNumber
     }
-
 
     var selectedSchoolExists: Bool {
         selectedSchool != nil
