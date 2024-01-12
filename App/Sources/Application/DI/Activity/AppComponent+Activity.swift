@@ -19,7 +19,7 @@ public extension AppComponent {
             AddStudentActivityUseCaseImpl(activityRepository: activityRepository)
         }
     }
-    
+
     var rejectStudentActivityUseCase: any RejectStudentActivityUseCase {
         shared {
             RejectStudentActivityUseCaseImpl(activityRepository: activityRepository)

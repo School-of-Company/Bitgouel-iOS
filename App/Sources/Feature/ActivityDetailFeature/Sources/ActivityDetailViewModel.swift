@@ -1,6 +1,6 @@
 import Foundation
-import SwiftUI
 import Service
+import SwiftUI
 
 @MainActor
 final class ActivityDetailViewModel: BaseViewModel {
@@ -18,7 +18,7 @@ final class ActivityDetailViewModel: BaseViewModel {
     private let approveStudentActivityUseCase: any ApproveStudentActivityUseCase
     private let rejectStudentActivityUseCase: any RejectStudentActivityUseCase
     private let deleteStudentActivityUseCase: any DeleteStudentActivityUseCase
-    
+
     init(
         activityId: String,
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
@@ -34,11 +34,11 @@ final class ActivityDetailViewModel: BaseViewModel {
         self.rejectStudentActivityUseCase = rejectStudentActivityUseCase
         self.deleteStudentActivityUseCase = deleteStudentActivityUseCase
     }
-    
+
     func onAppear() {
         authority = loadUserAuthorityUseCase()
         print(authority)
-        
+
         Task {
             do {
                 activityDetail = try await queryStudentActivityDetailsUseCase(activityId: activityId)
@@ -47,7 +47,7 @@ final class ActivityDetailViewModel: BaseViewModel {
             }
         }
     }
-    
+
     func deleteActivity() {
         Task {
             do {
@@ -57,7 +57,7 @@ final class ActivityDetailViewModel: BaseViewModel {
             }
         }
     }
-    
+
     func rejectActivity() {
         Task {
             do {
@@ -67,7 +67,7 @@ final class ActivityDetailViewModel: BaseViewModel {
             }
         }
     }
-    
+
     func approveActivity() {
         Task {
             do {
@@ -77,10 +77,10 @@ final class ActivityDetailViewModel: BaseViewModel {
             }
         }
     }
-    
+
     var statusColor: Color {
         guard let status = activityDetail?.approveStatus else { return .bitgouel(.greyscale(.g0)) }
-        
+
         switch status {
         case .approve:
             return .bitgouel(.primary(.p5))

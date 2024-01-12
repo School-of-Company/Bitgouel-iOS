@@ -36,7 +36,7 @@ extension StudentActivityDetailResponseDTO {
             content: content,
             credit: credit,
             activityDate: activityDate,
-            modifiedAt: modifiedAt, 
+            modifiedAt: modifiedAt,
             approveState: approveState
         )
     }

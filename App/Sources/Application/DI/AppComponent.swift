@@ -30,7 +30,7 @@ public extension AppComponent {
     var signupFactory: any StudentSignUpFactory {
         StudentSignUpComponent(parent: self)
     }
-    
+
     var activityDetailFactory: any ActivityDetailFactory {
         ActivityDetailComponent(parent: self)
     }

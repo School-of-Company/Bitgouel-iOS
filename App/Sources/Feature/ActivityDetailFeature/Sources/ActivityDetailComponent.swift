@@ -1,6 +1,6 @@
+import NeedleFoundation
 import Service
 import SwiftUI
-import NeedleFoundation
 
 public protocol ActivityDetailDependency: Dependency {
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase { get }
@@ -11,7 +11,7 @@ public protocol ActivityDetailDependency: Dependency {
 }
 
 public final class ActivityDetailComponent: Component<ActivityDetailDependency>, ActivityDetailFactory {
-    @MainActor 
+    @MainActor
     public func makeView(activityId: String) -> some View {
         ActivityDetailView(
             viewModel: .init(

@@ -37,7 +37,10 @@ public final class RemoteActivityDataSourceImpl: BaseRemoteDataSource<ActivityAP
     }
 
     public func queryStudentActivityDetails(activityId: String) async throws -> StudentActivityDetailEntity {
-        try await request(.queryStudentActivityDetails(activityId: activityId), dto: StudentActivityDetailResponseDTO.self)
-            .toDomain()
+        try await request(
+            .queryStudentActivityDetails(activityId: activityId),
+            dto: StudentActivityDetailResponseDTO.self
+        )
+        .toDomain()
     }
 }

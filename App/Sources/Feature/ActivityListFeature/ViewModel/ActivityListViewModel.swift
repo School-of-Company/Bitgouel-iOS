@@ -71,13 +71,13 @@ final class ActivityListViewModel: BaseViewModel {
     func toastDismissed() {
         self.isErrorOccurred = false
     }
-    
-    @MainActor 
+
+    @MainActor
     func activityDidSelect(activityId: String) {
         model.updateSelectedActivityId(activityId: activityId)
     }
-    
-    @MainActor 
+
+    @MainActor
     func activityDetailPageDismissed() {
         model.isPresentedActivityDetailPage = false
     }
