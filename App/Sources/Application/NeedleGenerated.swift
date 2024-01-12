@@ -100,6 +100,9 @@ private func factoryd6018e98563de75a2ba4f47b58f8f304c97af4d5(_ component: Needle
     return LoginDependencyf4e78d0ad57be469bfd9Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class ActivityDetailDependencyc459286ea5f8c1b2ecdbProvider: ActivityDetailDependency {
+    var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
+        return appComponent.loadUserAuthorityUseCase
+    }
     var queryStudentActivityDetailsUseCase: any QueryStudentActivityDetailsUseCase {
         return appComponent.queryStudentActivityDetailsUseCase
     }
@@ -155,6 +158,7 @@ extension LoginComponent: Registration {
 }
 extension ActivityDetailComponent: Registration {
     public func registerItems() {
+        keyPathToName[\ActivityDetailDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
         keyPathToName[\ActivityDetailDependency.queryStudentActivityDetailsUseCase] = "queryStudentActivityDetailsUseCase-any QueryStudentActivityDetailsUseCase"
         keyPathToName[\ActivityDetailDependency.approveStudentActivityUseCase] = "approveStudentActivityUseCase-any ApproveStudentActivityUseCase"
         keyPathToName[\ActivityDetailDependency.rejectStudentActivityUseCase] = "rejectStudentActivityUseCase-any RejectStudentActivityUseCase"
