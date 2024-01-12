@@ -3,14 +3,14 @@ import Moya
 
 public enum ActivityAPI {
     case addStudentActivity(AddStudentActivityRequestDTO)
-    case updateStudentActibity(userID: String)
-    case approveStudentActivity(userID: String)
-    case rejectStudentActivity(userID: String)
-    case deleteStudentActivity(userID: String)
+    case updateStudentActibity(activityId: String)
+    case approveStudentActivity(activityId: String)
+    case rejectStudentActivity(activityId: String)
+    case deleteStudentActivity(activityId: String)
     case queryMyStudentActivity
     case queryStudentActivityById(studentID: String)
     case queryStudentActivityList
-    case queryStudentActivityDetails(userID: String)
+    case queryStudentActivityDetails(activityId: String)
 }
 
 extension ActivityAPI: BitgouelAPI {
@@ -24,20 +24,20 @@ extension ActivityAPI: BitgouelAPI {
         switch self {
         case .addStudentActivity, .queryStudentActivityList:
             return ""
-        case let .updateStudentActibity(userID):
-            return "/\(userID)"
-        case let .approveStudentActivity(userID):
-            return "/\(userID)/approve"
-        case let .rejectStudentActivity(userID):
-            return "/\(userID)/reject"
-        case let .deleteStudentActivity(userID):
-            return "/\(userID)"
+        case let .updateStudentActibity(activityId):
+            return "/\(activityId)"
+        case let .approveStudentActivity(activityId):
+            return "/\(activityId)/approve"
+        case let .rejectStudentActivity(activityId):
+            return "/\(activityId)/reject"
+        case let .deleteStudentActivity(activityId):
+            return "/\(activityId)"
         case .queryMyStudentActivity:
             return "/my"
         case let .queryStudentActivityById(studentID):
             return "/\(studentID)"
-        case let .queryStudentActivityDetails(userID):
-            return "/\(userID)/detail"
+        case let .queryStudentActivityDetails(activityId):
+            return "/\(activityId)/detail"
         }
     }
 
