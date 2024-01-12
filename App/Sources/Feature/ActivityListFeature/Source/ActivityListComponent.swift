@@ -3,6 +3,7 @@ import Service
 import SwiftUI
 
 public protocol ActivityListDependency: Dependency {
+    var activityDetailFactory: any ActivityDetailFactory { get }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase { get }
     var queryMyStudentActivityUseCase: any QueryMyStudentActivityUseCase { get }
     var queryStudentActivityListUseCase: any QueryStudentActivityListUseCase { get }
@@ -22,7 +23,7 @@ public final class ActivityListComponent: Component<ActivityListDependency>, Act
                 queryMyStudentActivityUseCase: self.dependency.queryMyStudentActivityUseCase,
                 queryStudentActivityListUseCase: self.dependency.queryStudentActivityListUseCase,
                 queryStudentActivityByIdUseCase: self.dependency.queryStudentActivityByIdUseCase
-            )
+            ), activityDetailFactory: dependency.activityDetailFactory
         )
     }
 }

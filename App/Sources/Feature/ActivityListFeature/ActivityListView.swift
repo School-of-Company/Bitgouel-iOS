@@ -5,6 +5,19 @@ struct ActivityListView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var model: ActivityListModel
     @StateObject var viewModel: ActivityListViewModel
+    
+    private let activityDetailFactory: any ActivityDetailFactory
+    
+    init(
+        model: ActivityListModel,
+        viewModel: ActivityListViewModel,
+        activityDetailFactory: any ActivityDetailFactory
+    ) {
+        _model = StateObject(wrappedValue: model)
+        _viewModel = StateObject(wrappedValue: viewModel)
+        self.activityDetailFactory = activityDetailFactory
+    }
+    
     var body: some View {
         NavigationView {
             ScrollView {
@@ -20,6 +33,12 @@ struct ActivityListView: View {
                                 state: item.approveStatus,
                                 authority: model.authority
                             )
+                            .buttonWrapper {
+                                withAnimation {
+                                    viewModel.activityDidSelect(activityId: item.activityId)
+                                    model.isPresentedActivityDetailPage = true
+                                }
+                            }
                         }
                     }
                     .padding(.top, 8)
@@ -32,13 +51,15 @@ struct ActivityListView: View {
                     set: { _ in viewModel.toastDismissed() }
                 )
             )
-            .padding(.horizontal, 28)
             .bitgouelBackButton(dismiss: dismiss)
+            .padding(.horizontal, 28)
             .navigationTitle("학생활동").navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     if model.authority == .student {
-                        Button(action: {}, label: {
+                        Button(action: {
+                            
+                        }, label: {
                             Image(systemName: "plus")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
@@ -48,6 +69,13 @@ struct ActivityListView: View {
                     }
                 }
             }
+            .navigate(
+                to: activityDetailFactory.makeView(activityId: model.selectedActivityId ?? "").eraseToAnyView(),
+                when: Binding(
+                    get: { model.isPresentedActivityDetailPage },
+                    set: { _ in viewModel.activityDetailPageDismissed() }
+                )
+            )
         }
         .onAppear {
             viewModel.onAppear()
