@@ -39,31 +39,27 @@ struct ActivityDetailView: View {
             }
             .padding(.top, 24)
 
-            ZStack {
-                popupButtonByWriter()
-            }
+            popupButtonByWriter()
         }
         .padding(.horizontal, 28)
     }
 
     @ViewBuilder
     func popupButtonByTeacher() -> some View {
-        ZStack {
-            HStack {
-                CTAButton(
-                    text: "활동 거부",
-                    style: .error,
-                    action: {}
-                )
+        HStack {
+            CTAButton(
+                text: "활동 거부",
+                style: .error,
+                action: {}
+            )
 
-                Spacer()
+            Spacer()
 
-                CTAButton(
-                    text: "활동 승인",
-                    style: .default,
-                    action: {}
-                )
-            }
+            CTAButton(
+                text: "활동 승인",
+                style: .default,
+                action: {}
+            )
         }
     }
 
