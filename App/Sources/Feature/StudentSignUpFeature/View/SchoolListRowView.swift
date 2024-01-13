@@ -2,8 +2,9 @@ import Service
 import SwiftUI
 
 struct SchoolListRowView: View {
-    @ObservedObject var viewModel: StudentSignUpViewModel
     let school: HighSchoolType
+    let selectedSchool: HighSchoolType?
+    let onHighSchoolSelect: (HighSchoolType) -> Void
 
     var body: some View {
         HStack {
@@ -13,11 +14,10 @@ struct SchoolListRowView: View {
 
             BitgouelRadioButton(
                 isSelected: Binding(
-                    get: { viewModel.selectedSchool?.rawValue ?? nil == school.display() },
-                    set: { highSchool in
-                        if highSchool {
-                            viewModel.selectedSchool = school
-                            viewModel.getClubsForSelectedHighSchool = school
+                    get: { selectedSchool == school },
+                    set: { isSelected in
+                        if isSelected {
+                            onHighSchoolSelect(school)
                         }
                     }
                 )
