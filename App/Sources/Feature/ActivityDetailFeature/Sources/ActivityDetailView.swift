@@ -78,7 +78,6 @@ struct ActivityDetailView: View {
                     text: "적용하기",
                     style: .default
                 )
-                .padding(.bottom, 14)
 
                 .bitgouelBottomSheet(
                     isShowing: $viewModel.isPresentedCreditSheet
@@ -115,18 +114,16 @@ struct ActivityDetailView: View {
 
                 BitgouelRadioButton(
                     isSelected: Binding(
-                        get: { viewModel.selectedCredit == credit },
+                        get: { viewModel.credit == credit },
                         set: { isSelected in
                             if isSelected {
                                 viewModel.isPresentedCreditSheet = false
-                                viewModel.selectedCredit = credit
+                                viewModel.credit = credit
                             }
                         }
                     )
                 )
-                .background(.clear)
             }
-            .padding(.horizontal, 28)
             .padding(.vertical, 24)
         }
     }
