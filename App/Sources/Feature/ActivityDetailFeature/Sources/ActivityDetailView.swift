@@ -48,7 +48,7 @@ struct ActivityDetailView: View {
                         BitgouelText(text: "학점", font: .text3)
 
                         BitgouelText(
-                            text: String(viewModel.activityDetail?.credit ?? 0),
+                            text: "viewModel.activityDetail?.credit ?? 0",
                             font: .text3
                         )
                         .padding(.leading, 4)
