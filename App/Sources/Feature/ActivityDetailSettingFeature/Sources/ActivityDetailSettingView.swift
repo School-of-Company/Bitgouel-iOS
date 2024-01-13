@@ -51,10 +51,14 @@ struct ActivityDetailSettingView: View {
                         viewModel.isPresentedCreditSheet = true
                     } label: {
                         HStack {
-                            BitgouelText(
-                                text: "수여 학점 선택",
-                                font: .text3
-                            )
+                            HStack(spacing: 0) {
+                                BitgouelText(
+                                    text: String(viewModel.credit ?? 1) ,
+                                    font: .text3
+                                )
+
+                                BitgouelText(text: "점", font: .text3)
+                            }
                             .foregroundColor(.bitgouel(.greyscale(.g2)))
                             .padding(.vertical, 16)
                             .padding(.leading, 20)
@@ -123,6 +127,10 @@ struct ActivityDetailSettingView: View {
                         }
                     )
                 )
+            }
+            .onTapGesture {
+                viewModel.isPresentedCreditSheet = false
+                viewModel.credit = credit
             }
             .padding(.vertical, 24)
         }
