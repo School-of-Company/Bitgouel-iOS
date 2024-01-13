@@ -53,7 +53,7 @@ struct ActivityDetailSettingView: View {
                         HStack {
                             HStack(spacing: 0) {
                                 BitgouelText(
-                                    text: String(viewModel.credit ?? 1) ,
+                                    text: String(viewModel.selectedCredit ?? 1) ,
                                     font: .text3
                                 )
 
@@ -118,11 +118,11 @@ struct ActivityDetailSettingView: View {
 
                 BitgouelRadioButton(
                     isSelected: Binding(
-                        get: { viewModel.credit == credit },
+                        get: { viewModel.selectedCredit == credit },
                         set: { isSelected in
                             if isSelected {
                                 viewModel.isPresentedCreditSheet = false
-                                viewModel.credit = credit
+                                viewModel.selectedCredit = credit
                             }
                         }
                     )
@@ -130,7 +130,7 @@ struct ActivityDetailSettingView: View {
             }
             .onTapGesture {
                 viewModel.isPresentedCreditSheet = false
-                viewModel.credit = credit
+                viewModel.selectedCredit = credit
             }
             .padding(.vertical, 24)
         }
