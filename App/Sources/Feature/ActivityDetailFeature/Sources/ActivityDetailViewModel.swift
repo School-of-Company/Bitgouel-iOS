@@ -19,6 +19,17 @@ final class ActivityDetailViewModel: BaseViewModel {
     private let rejectStudentActivityUseCase: any RejectStudentActivityUseCase
     private let deleteStudentActivityUseCase: any DeleteStudentActivityUseCase
 
+    var statusColor: Color {
+        guard let status = activityDetail?.approveStatus else { return .bitgouel(.greyscale(.g0)) }
+
+        switch status {
+        case .approve:
+            return .bitgouel(.primary(.p5))
+        case .pending:
+            return .bitgouel(.error(.e5))
+        }
+    }
+
     init(
         activityId: String,
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
@@ -75,17 +86,6 @@ final class ActivityDetailViewModel: BaseViewModel {
             } catch {
                 print(error.localizedDescription)
             }
-        }
-    }
-
-    var statusColor: Color {
-        guard let status = activityDetail?.approveStatus else { return .bitgouel(.greyscale(.g0)) }
-
-        switch status {
-        case .approve:
-            return .bitgouel(.primary(.p5))
-        case .pending:
-            return .bitgouel(.error(.e5))
         }
     }
 }
