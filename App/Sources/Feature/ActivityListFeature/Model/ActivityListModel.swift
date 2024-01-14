@@ -22,6 +22,5 @@ extension ActivityListModel {
 
     func updateSelectedActivityId(activityId: String) {
         self.selectedActivityId = activityId
-        print(activityId)
     }
 }
