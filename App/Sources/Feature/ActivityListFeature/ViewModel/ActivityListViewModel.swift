@@ -2,6 +2,7 @@ import Foundation
 import Service
 
 final class ActivityListViewModel: BaseViewModel {
+    @Published var isPresentedInputActivityView: Bool = false
     var model: ActivityListModel
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
     private let queryMyStudentActivityUseCase: any QueryMyStudentActivityUseCase
@@ -70,5 +71,13 @@ final class ActivityListViewModel: BaseViewModel {
 
     func toastDismissed() {
         self.isErrorOccurred = false
+    }
+
+    func inputActivityViewIsRequired() {
+        self.isPresentedInputActivityView = true
+    }
+
+    func inputActivityViewIsDismissed() {
+        self.isPresentedInputActivityView = false
     }
 }
