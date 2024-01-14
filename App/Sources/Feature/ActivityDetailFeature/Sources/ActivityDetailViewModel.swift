@@ -5,7 +5,6 @@ import SwiftUI
 @MainActor
 final class ActivityDetailViewModel: BaseViewModel {
     @Published var authority: UserAuthorityType = .user
-    @Published var alertTitle: String = ""
     @Published var isDelete: Bool = false
     @Published var isEdit: Bool = false
     @Published var isReject: Bool = false
