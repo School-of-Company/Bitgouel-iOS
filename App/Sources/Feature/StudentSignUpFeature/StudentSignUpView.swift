@@ -1,5 +1,5 @@
-import SwiftUI
 import Service
+import SwiftUI
 
 struct StudentSignUpView: View {
     @StateObject var viewModel: StudentSignUpViewModel
@@ -226,7 +226,6 @@ struct StudentSignUpView: View {
             AssociationSelectButton(text: viewModel.selectedAssociation?.associationValue() ?? "소속") {
                 viewModel.isPresentedAssociationSheet = true
             }
-
         }
     }
 
@@ -324,13 +323,13 @@ struct StudentSignUpView: View {
             .padding(.bottom, -20)
         }
     }
-    
+
     @ViewBuilder
     func userRoleTypeView() -> some View {
         ScrollView {
             let data: [UserAuthorityType] = viewModel.selectedAssociation == .school
-            ? [.student, .teacher]
-            : [.companyInstructor, .professor, .bbozzack, .government]
+                ? [.student, .teacher]
+                : [.companyInstructor, .professor, .bbozzack, .government]
             ForEach(data, id: \.self) { userRole in
                 HStack {
                     Text(userRole.display())
@@ -354,7 +353,7 @@ struct StudentSignUpView: View {
             }
         }
     }
-    
+
     @ViewBuilder
     func associationTypeView() -> some View {
         ScrollView {

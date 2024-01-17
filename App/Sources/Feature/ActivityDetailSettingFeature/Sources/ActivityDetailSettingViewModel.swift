@@ -6,6 +6,6 @@ final class ActivityDetailSettingViewModel: BaseViewModel {
     @State private var isCredit: Bool = false
     @Published var isPresentedCreditSheet: Bool = false
     @Published var selectedCredit: Int?
-    
+
     let creditValue: [Int] = [1, 2]
 }
