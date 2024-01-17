@@ -1,6 +1,6 @@
 import Foundation
 
-public struct InquiryMyInfoResponseDTO: Decodable {
+public struct QueryMyInfoResponseDTO: Decodable {
     public let name: String
     public let email: String
     public let phoneNumber: String
@@ -22,7 +22,7 @@ public struct InquiryMyInfoResponseDTO: Decodable {
     }
 }
 
-extension InquiryMyInfoResponseDTO {
+extension QueryMyInfoResponseDTO {
     func toDomain() -> MyInfoEntity {
         MyInfoEntity(
             name: name,
