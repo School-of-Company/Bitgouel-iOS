@@ -7,7 +7,7 @@ class StudentSignUpViewModel: BaseViewModel {
     @Published var isPresentedUserRoleSheet = false
     @Published var isPresentedSchoolSheet = false
     @Published var isPresentedClubSheet = false
-    
+
     // MARK: variable
     @Published var schoolSearch = ""
     @Published var clubSearch = ""
@@ -29,34 +29,39 @@ class StudentSignUpViewModel: BaseViewModel {
     @Published var studentID: String = ""
     @Published var selectedAssociation: AssociationType?
     @Published var selectedUserRole: UserAuthorityType?
-    
+
     // MARK: computed property
     var clubsForSelectedHighSchool: [String] {
         selectedSchool?.getClubsForSelectedHighSchool() ?? []
     }
-    
+
     // MARK: validation
     var nameIsValid: Bool {
         name.count >= 2
     }
+
     var yearOfAdmissionIsValid: Bool {
         (yearOfAdmission ?? 0) >= 1000
     }
+
     var studentIDIsValid: Bool {
         studentID.count == 4 && grade != nil && classRoom != nil && number != nil
     }
+
     var phoneNumberIsValid: Bool {
         phoneNumber.count == 11
     }
+
     var emailIsValid: Bool {
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
         return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: email)
     }
+
     var passwordIsValid: Bool {
         let passwordRegex = "[A-Z0-9a-z@!#$%%^~&*()_+-=.]{8,24}"
         return NSPredicate(format: "SELF MATCHES %@", passwordRegex).evaluate(with: password)
     }
-    
+
     // MARK: usecase
     private let studentSignupUseCase: StudentSignupUseCase
     private let teacherSignupUseCase: TeacherSignupUseCase
@@ -229,7 +234,7 @@ class StudentSignUpViewModel: BaseViewModel {
             return "비밀번호를 다시 입력해 주세요!"
         }
     }
-    
+
     func parseStudentID() {
         if studentID.count == 4 {
             grade = Int(studentID.prefix(1))
