@@ -2,31 +2,62 @@ import Foundation
 import Service
 
 class StudentSignUpViewModel: BaseViewModel {
+    // MARK: presentation
+    @Published var isPresentedAssociationSheet = false
+    @Published var isPresentedUserRoleSheet = false
+    @Published var isPresentedSchoolSheet = false
+    @Published var isPresentedClubSheet = false
+    
+    // MARK: variable
     @Published var schoolSearch = ""
     @Published var clubSearch = ""
     @Published var name = ""
     @Published var yearOfAdmission: Int?
     @Published var phoneNumber = ""
 
-    @Published var certificationNumberPhoneNumber = ""
     @Published var email = ""
-    @Published var certificationNumberEmail = ""
     @Published var password = ""
     @Published var checkPassword = ""
-    @Published var phoneNumberTimeRemaining: Int = 180
-    @Published var emailTimeRemaining: Int = 180
     @Published var selectedSchool: HighSchoolType?
-    @Published var selectedClub: String = "동아리"
+    @Published var selectedClub: String?
     @Published var selectedUniversity: String = ""
     @Published var selectedGovernment: String = ""
     @Published var selectedCompany: String = ""
-    @Published var clubsForSelectedHighSchool: [String] = []
     @Published var grade: Int?
     @Published var classRoom: Int?
     @Published var number: Int?
     @Published var studentID: String = ""
-    @Published var userRole: UserAuthorityType = .student
-    private var timer: Timer?
+    @Published var selectedAssociation: AssociationType?
+    @Published var selectedUserRole: UserAuthorityType?
+    
+    // MARK: computed property
+    var clubsForSelectedHighSchool: [String] {
+        selectedSchool?.getClubsForSelectedHighSchool() ?? []
+    }
+    
+    // MARK: validation
+    var nameIsValid: Bool {
+        name.count >= 2
+    }
+    var yearOfAdmissionIsValid: Bool {
+        (yearOfAdmission ?? 0) >= 1000
+    }
+    var studentIDIsValid: Bool {
+        studentID.count == 4 && grade != nil && classRoom != nil && number != nil
+    }
+    var phoneNumberIsValid: Bool {
+        phoneNumber.count == 11
+    }
+    var emailIsValid: Bool {
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
+        return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: email)
+    }
+    var passwordIsValid: Bool {
+        let passwordRegex = "[A-Z0-9a-z@!#$%%^~&*()_+-=.]{8,24}"
+        return NSPredicate(format: "SELF MATCHES %@", passwordRegex).evaluate(with: password)
+    }
+    
+    // MARK: usecase
     private let studentSignupUseCase: StudentSignupUseCase
     private let teacherSignupUseCase: TeacherSignupUseCase
     private let bbozzakSignupUseCase: BbozzakSignupUseCase
@@ -51,12 +82,6 @@ class StudentSignUpViewModel: BaseViewModel {
         self.companyInstructorSignupUseCase = companyInstructorSignupUseCase
     }
 
-    var getClubsForSelectedHighSchool: HighSchoolType? {
-        didSet {
-            clubsForSelectedHighSchool = getClubsForSelectedHighSchool?.getClubsForSelectedHighSchool() ?? []
-        }
-    }
-
     var searchedSchoolList: [HighSchoolType] {
         if schoolSearch.isEmpty {
             return highSchool
@@ -74,47 +99,53 @@ class StudentSignUpViewModel: BaseViewModel {
     }
 
     var titleMessage: String {
+        if selectedAssociation == nil {
+            return "만나서 반가워요!"
+        }
+        if selectedUserRole == nil {
+            return "무슨 일을 하시나요?"
+        }
         if selectedSchool == nil {
             return "학교 선택"
         }
-        switch userRole {
+        switch selectedUserRole {
         case .student:
-            if selectedClub == "동아리" {
+            if selectedClub == nil {
                 return "동아리 선택"
-            } else if name.isEmpty {
+            } else if !nameIsValid {
                 return "이름 입력"
-            } else if yearOfAdmission == nil {
+            } else if !yearOfAdmissionIsValid {
                 return "입학년도 입력"
-            } else if studentID.isEmpty {
+            } else if !studentIDIsValid {
                 return "학번 입력"
             }
         case .teacher, .bbozzack:
-            if selectedClub == "동아리" {
+            if selectedClub == nil {
                 return "동아리 선택"
-            } else if name.isEmpty {
+            } else if !nameIsValid {
                 return "이름 입력"
             }
 
         case .companyInstructor:
-            if selectedClub == "동아리" {
+            if selectedClub == nil {
                 return "동아리 선택"
-            } else if name.isEmpty {
+            } else if !nameIsValid {
                 return "이름 입력"
             } else if selectedCompany.isEmpty {
                 return "기업 입력"
             }
 
         case .professor:
-            if selectedClub == "동아리" {
+            if selectedClub == nil {
                 return "동아리 선택"
-            } else if name.isEmpty {
+            } else if !nameIsValid {
                 return "이름 입력"
             } else if selectedUniversity.isEmpty {
                 return "대학 입력"
             }
 
         case .government:
-            if name.isEmpty {
+            if !nameIsValid {
                 return "이름 입력"
             } else if selectedGovernment.isEmpty {
                 return "기관 입력"
@@ -123,15 +154,11 @@ class StudentSignUpViewModel: BaseViewModel {
             return ""
         }
 
-        if phoneNumber.isEmpty {
+        if !phoneNumberIsValid {
             return "전화번호 입력"
-        } else if certificationNumberPhoneNumber.isEmpty {
-            return "인증번호 입력"
-        } else if email.isEmpty {
+        } else if !emailIsValid {
             return "이메일 입력"
-        } else if certificationNumberEmail.isEmpty {
-            return "인증번호 입력"
-        } else if password.isEmpty {
+        } else if !passwordIsValid {
             return "비밀번호 입력"
         } else {
             return "비밀번호 재입력"
@@ -139,17 +166,17 @@ class StudentSignUpViewModel: BaseViewModel {
     }
 
     var subTitleMessage: String {
-        switch userRole {
+        switch selectedUserRole {
         case .student:
             if selectedSchool == nil {
                 return "재학 중이신 학교를 선택해 주세요!"
             } else if selectedClub == "동아리" {
                 return "가입하신 동아리를 선택해 주세요!"
-            } else if name.isEmpty {
+            } else if !nameIsValid {
                 return "이름을 입력해 주세요!"
-            } else if yearOfAdmission == nil {
+            } else if !yearOfAdmissionIsValid {
                 return "입학하신 연도를 입력해 주세요!"
-            } else if studentID.isEmpty {
+            } else if !studentIDIsValid {
                 return "학년, 반, 번호를 입력해 주세요! (ex: 1101)"
             }
         case .teacher, .bbozzack:
@@ -157,7 +184,7 @@ class StudentSignUpViewModel: BaseViewModel {
                 return "담당 중이신 학교를 선택해 주세요!"
             } else if selectedClub == "동아리" {
                 return "가입하신 동아리를 선택해 주세요!"
-            } else if name.isEmpty {
+            } else if !nameIsValid {
                 return "이름을 입력해 주세요!"
             }
         case .companyInstructor:
@@ -165,7 +192,7 @@ class StudentSignUpViewModel: BaseViewModel {
                 return "담당 중이신 학교를 선택해 주세요!"
             } else if selectedClub == "동아리" {
                 return "가입하신 동아리를 선택해 주세요!"
-            } else if name.isEmpty {
+            } else if !nameIsValid {
                 return "이름을 입력해 주세요!"
             } else if selectedCompany.isEmpty {
                 return "소속하신 기업을 입력해주세요!"
@@ -175,7 +202,7 @@ class StudentSignUpViewModel: BaseViewModel {
                 return "담당 중이신 학교를 선택해 주세요!"
             } else if selectedClub == "동아리" {
                 return "가입하신 동아리를 선택해 주세요!"
-            } else if name.isEmpty {
+            } else if !nameIsValid {
                 return "이름을 입력해 주세요!"
             } else if selectedUniversity.isEmpty {
                 return "소속하신 대학을 입력해주세요!"
@@ -183,7 +210,7 @@ class StudentSignUpViewModel: BaseViewModel {
         case .government:
             if selectedSchool == nil {
                 return "담당 중이신 학교를 선택해 주세요!"
-            } else if name.isEmpty {
+            } else if !nameIsValid {
                 return "이름을 입력해 주세요!"
             } else if selectedGovernment.isEmpty {
                 return "소속하신 기관을 입력해주세요!"
@@ -192,18 +219,26 @@ class StudentSignUpViewModel: BaseViewModel {
             return ""
         }
 
-        if phoneNumber.isEmpty {
+        if !phoneNumberIsValid {
             return "인증을 위해 전화번호를 입력해 주세요!"
-        } else if certificationNumberPhoneNumber.isEmpty {
-            return "받으신 인증번호 N자리를 입력해 주세요!"
-        } else if email.isEmpty {
+        } else if !emailIsValid {
             return "이메일을 입력해 주세요!"
-        } else if certificationNumberEmail.isEmpty {
-            return "받으신 인증번호 N자리를 입력해 주세요!"
-        } else if password.isEmpty {
+        } else if !passwordIsValid {
             return "8~24자 이내의 영문 / 숫자, 특수문자 1개 이상"
         } else {
             return "비밀번호를 다시 입력해 주세요!"
+        }
+    }
+    
+    func parseStudentID() {
+        if studentID.count == 4 {
+            grade = Int(studentID.prefix(1))
+            classRoom = Int(studentID.dropFirst(1).prefix(1))
+            number = Int(studentID.suffix(2))
+        } else {
+            grade = nil
+            classRoom = nil
+            number = nil
         }
     }
 
@@ -212,71 +247,11 @@ class StudentSignUpViewModel: BaseViewModel {
     }
 
     var selectedClubExists: Bool {
-        selectedClub != "동아리"
+        selectedClub != nil
     }
 
     var isPasswordMatching: Bool {
         checkPassword(password, checkPassword)
-    }
-
-    func convertSecondsToTime(timeInSeconds: Int) -> String {
-        let minutes = timeInSeconds / 60
-        let seconds = timeInSeconds % 60
-        return String(format: "%02i:%02i", minutes, seconds)
-    }
-
-    func parseStudentID() {
-        var studentID = studentID
-        guard studentID.count == 4,
-              let parsedGrade = Int(studentID.prefix(1)),
-              let parsedClassRoom = Int(studentID.dropFirst(1).prefix(1)),
-              let parsedNumber = Int(studentID.suffix(2))
-        else {
-            return
-        }
-
-        grade = parsedGrade
-        classRoom = parsedClassRoom
-        number = parsedNumber
-        self.studentID = "\(parsedGrade)학년 \(parsedClassRoom)반 \(parsedNumber)번"
-    }
-
-    func phoneNumberStartTimer() {
-        guard timer == nil else { return }
-
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            DispatchQueue.main.async {
-                if self.phoneNumberTimeRemaining > 0 {
-                    self.phoneNumberTimeRemaining -= 1
-                } else {
-                    self.stopTimer()
-                }
-            }
-        }
-    }
-
-    func emailStartTimer() {
-        guard timer == nil else { return }
-
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            DispatchQueue.main.async {
-                if self.emailTimeRemaining > 0 {
-                    self.emailTimeRemaining -= 1
-                } else {
-                    self.stopTimer()
-                }
-            }
-        }
-    }
-
-    func stopTimer() {
-        timer?.invalidate()
-        timer = nil
-    }
-
-    func checkEmail(_ email: String) -> Bool {
-        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
-        return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: email)
     }
 
     func checkPassword(_ password: String, _ checkPassword: String) -> Bool {
@@ -289,25 +264,27 @@ class StudentSignUpViewModel: BaseViewModel {
         guard let grade else { return }
         guard let classRoom else { return }
         guard let number else { return }
-        switch userRole {
+        guard let selectedClub else { return }
+        switch selectedUserRole {
         case .student:
             studentSignup(
                 grade: grade,
                 classRoom: classRoom,
                 number: number,
                 yearOfAdmission: yearOfAdmission,
-                selectedSchool: selectedSchool
+                selectedSchool: selectedSchool,
+                selectedClub: selectedClub
             )
         case .teacher:
-            teacherSignup(selectedSchool: selectedSchool)
+            teacherSignup(selectedSchool: selectedSchool, selectedClub: selectedClub)
         case .bbozzack:
-            bbozzakSignup(selectedSchool: selectedSchool)
+            bbozzakSignup(selectedSchool: selectedSchool, selectedClub: selectedClub)
         case .professor:
-            professorSignup(selectedSchool: selectedSchool)
+            professorSignup(selectedSchool: selectedSchool, selectedClub: selectedClub)
         case .government:
-            governmentSignup(selectedSchool: selectedSchool)
+            governmentSignup(selectedSchool: selectedSchool, selectedClub: selectedClub)
         case .companyInstructor:
-            companyInstructorSignup(selectedSchool: selectedSchool)
+            companyInstructorSignup(selectedSchool: selectedSchool, selectedClub: selectedClub)
         default:
             return
         }
@@ -318,7 +295,8 @@ class StudentSignUpViewModel: BaseViewModel {
         classRoom: Int,
         number: Int,
         yearOfAdmission: Int,
-        selectedSchool: HighSchoolType
+        selectedSchool: HighSchoolType,
+        selectedClub: String
     ) {
         Task {
             do {
@@ -344,7 +322,8 @@ class StudentSignUpViewModel: BaseViewModel {
     }
 
     func teacherSignup(
-        selectedSchool: HighSchoolType
+        selectedSchool: HighSchoolType,
+        selectedClub: String
     ) {
         Task {
             do {
@@ -365,7 +344,10 @@ class StudentSignUpViewModel: BaseViewModel {
         }
     }
 
-    func bbozzakSignup(selectedSchool: HighSchoolType) {
+    func bbozzakSignup(
+        selectedSchool: HighSchoolType,
+        selectedClub: String
+    ) {
         Task {
             do {
                 try await bbozzakSignupUseCase(
@@ -385,7 +367,10 @@ class StudentSignUpViewModel: BaseViewModel {
         }
     }
 
-    func professorSignup(selectedSchool: HighSchoolType) {
+    func professorSignup(
+        selectedSchool: HighSchoolType,
+        selectedClub: String
+    ) {
         Task {
             do {
                 try await professorSignupUseCase(
@@ -406,7 +391,10 @@ class StudentSignUpViewModel: BaseViewModel {
         }
     }
 
-    func governmentSignup(selectedSchool: HighSchoolType) {
+    func governmentSignup(
+        selectedSchool: HighSchoolType,
+        selectedClub: String
+    ) {
         Task {
             do {
                 try await governmentSignupUseCase(
@@ -427,7 +415,10 @@ class StudentSignUpViewModel: BaseViewModel {
         }
     }
 
-    func companyInstructorSignup(selectedSchool: HighSchoolType) {
+    func companyInstructorSignup(
+        selectedSchool: HighSchoolType,
+        selectedClub: String
+    ) {
         Task {
             do {
                 try await companyInstructorSignupUseCase(
@@ -448,19 +439,8 @@ class StudentSignUpViewModel: BaseViewModel {
         }
     }
 
-    var isEmailErrorOccured: Bool {
-        if email.isEmpty {
-            return false
-        }
-        if checkEmail(email) {
-            return false
-        } else {
-            return true
-        }
-    }
-
     var emailHelpMessage: String {
-        if isEmailErrorOccured {
+        if !emailIsValid {
             return "이메일 형식이 유효하지 않습니다"
         } else {
             return ""
