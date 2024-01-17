@@ -5,19 +5,22 @@ struct ActivityListView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var model: ActivityListModel
     @StateObject var viewModel: ActivityListViewModel
-
+    
+    private let inputActivityFactory: any InputActivityFactory
     private let activityDetailFactory: any ActivityDetailFactory
-
+    
     init(
         model: ActivityListModel,
         viewModel: ActivityListViewModel,
+        inputActivityFactory: any InputActivityFactory,
         activityDetailFactory: any ActivityDetailFactory
     ) {
         _model = StateObject(wrappedValue: model)
         _viewModel = StateObject(wrappedValue: viewModel)
+        self.inputActivityFactory = inputActivityFactory
         self.activityDetailFactory = activityDetailFactory
     }
-
+    
     var body: some View {
         NavigationView {
             ScrollView {
@@ -57,13 +60,15 @@ struct ActivityListView: View {
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     if model.authority == .student {
-                        Button(action: {}, label: {
+                        Button {
+                            viewModel.inputActivityViewIsRequired()
+                        } label: {
                             Image(systemName: "plus")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 24, height: 24)
                                 .foregroundColor(.bitgouel(.greyscale(.g8)))
-                        })
+                        }
                     }
                 }
             }
@@ -72,6 +77,13 @@ struct ActivityListView: View {
                 when: Binding(
                     get: { model.isPresentedActivityDetailPage },
                     set: { _ in viewModel.activityDetailPageDismissed() }
+                )
+            )
+            .navigate(
+                to: inputActivityFactory.makeView().eraseToAnyView(),
+                when: Binding(
+                    get: { viewModel.isPresentedInputActivityView },
+                    set: { _ in viewModel.inputActivityViewIsDismissed() }
                 )
             )
         }

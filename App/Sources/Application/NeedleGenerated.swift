@@ -59,9 +59,6 @@ private func factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5(_ component: Needle
     return RootDependency3944cc797a4a88956fb5Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class ActivityListDependencyb8e659960978b8384f80Provider: ActivityListDependency {
-    var activityDetailFactory: any ActivityDetailFactory {
-        return appComponent.activityDetailFactory
-    }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
         return appComponent.loadUserAuthorityUseCase
     }
@@ -127,6 +124,17 @@ private class ActivityDetailDependencyc459286ea5f8c1b2ecdbProvider: ActivityDeta
 private func factory7c395808ac9dfb8fb229f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return ActivityDetailDependencyc459286ea5f8c1b2ecdbProvider(appComponent: parent1(component) as! AppComponent)
 }
+private class InputActivityDependency4e692e68e51cea5b706dProvider: InputActivityDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->InputActivityComponent
+private func factory3fc1a279eeb8c906e603e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return InputActivityDependency4e692e68e51cea5b706dProvider()
+}
 
 #else
 extension StudentSignUpComponent: Registration {
@@ -146,7 +154,6 @@ extension RootComponent: Registration {
 }
 extension ActivityListComponent: Registration {
     public func registerItems() {
-        keyPathToName[\ActivityListDependency.activityDetailFactory] = "activityDetailFactory-any ActivityDetailFactory"
         keyPathToName[\ActivityListDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
         keyPathToName[\ActivityListDependency.queryMyStudentActivityUseCase] = "queryMyStudentActivityUseCase-any QueryMyStudentActivityUseCase"
         keyPathToName[\ActivityListDependency.queryStudentActivityListUseCase] = "queryStudentActivityListUseCase-any QueryStudentActivityListUseCase"
@@ -167,6 +174,11 @@ extension ActivityDetailComponent: Registration {
         keyPathToName[\ActivityDetailDependency.approveStudentActivityUseCase] = "approveStudentActivityUseCase-any ApproveStudentActivityUseCase"
         keyPathToName[\ActivityDetailDependency.rejectStudentActivityUseCase] = "rejectStudentActivityUseCase-any RejectStudentActivityUseCase"
         keyPathToName[\ActivityDetailDependency.deleteStudentActivityUseCase] = "deleteStudentActivityUseCase-any DeleteStudentActivityUseCase"
+    }
+}
+extension InputActivityComponent: Registration {
+    public func registerItems() {
+
     }
 }
 extension AppComponent: Registration {
@@ -198,9 +210,14 @@ extension AppComponent: Registration {
         localTable["queryStudentActivityByIdUseCase-any QueryStudentActivityByIdUseCase"] = { [unowned self] in self.queryStudentActivityByIdUseCase as Any }
         localTable["queryStudentActivityListUseCase-any QueryStudentActivityListUseCase"] = { [unowned self] in self.queryStudentActivityListUseCase as Any }
         localTable["queryStudentActivityDetailsUseCase-any QueryStudentActivityDetailsUseCase"] = { [unowned self] in self.queryStudentActivityDetailsUseCase as Any }
+        localTable["remoteUserDataSource-any RemoteUserDataSource"] = { [unowned self] in self.remoteUserDataSource as Any }
+        localTable["userRepository-any UserRepository"] = { [unowned self] in self.userRepository as Any }
+        localTable["changePasswordUseCase-any ChangePasswordUseCase"] = { [unowned self] in self.changePasswordUseCase as Any }
+        localTable["queryMyInfoUseCase-any QueryMyInfoUseCase"] = { [unowned self] in self.queryMyInfoUseCase as Any }
         localTable["loginFactory-any LoginFactory"] = { [unowned self] in self.loginFactory as Any }
         localTable["activityListFactory-any ActivityListFactory"] = { [unowned self] in self.activityListFactory as Any }
         localTable["signupFactory-any StudentSignUpFactory"] = { [unowned self] in self.signupFactory as Any }
+        localTable["inputActivityFactory-any InputActivityFactory"] = { [unowned self] in self.inputActivityFactory as Any }
         localTable["activityDetailFactory-any ActivityDetailFactory"] = { [unowned self] in self.activityDetailFactory as Any }
     }
 }
@@ -225,6 +242,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->ActivityListComponent", factory7177e6769ee69064a61bf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->LoginComponent", factoryd6018e98563de75a2ba4f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ActivityDetailComponent", factory7c395808ac9dfb8fb229f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->InputActivityComponent", factory3fc1a279eeb8c906e603e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)
 }
 #endif

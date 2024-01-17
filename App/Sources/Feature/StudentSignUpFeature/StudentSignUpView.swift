@@ -1,9 +1,8 @@
+import Service
 import SwiftUI
 
 struct StudentSignUpView: View {
     @StateObject var viewModel: StudentSignUpViewModel
-    @State var isSchool = false
-    @State var isShowingClubSelectSheet = false
     @State var isShowingSuccessView = false
 
     var body: some View {
@@ -12,17 +11,17 @@ struct StudentSignUpView: View {
                 signupTitleSection()
 
                 VStack(spacing: 16) {
-                    switch viewModel.userRole {
+                    switch viewModel.selectedUserRole {
                     case .student:
-                        ConditionView(viewModel.grade != nil && viewModel.classRoom != nil && viewModel.number != nil) {
+                        ConditionView(viewModel.studentIDIsValid) {
                             inputAuthorizationInfoSection()
                         }
 
-                        ConditionView(!viewModel.name.isEmpty) {
+                        ConditionView(viewModel.nameIsValid) {
                             inputStudentInfoSection()
                         }
 
-                        ConditionView(viewModel.selectedClub != "동아리") {
+                        ConditionView(viewModel.selectedClub != nil) {
                             inputNameSection()
                         }
 
@@ -30,11 +29,11 @@ struct StudentSignUpView: View {
                             inputClubSection()
                         }
                     case .teacher, .bbozzack:
-                        ConditionView(!viewModel.name.isEmpty) {
+                        ConditionView(viewModel.nameIsValid) {
                             inputAuthorizationInfoSection()
                         }
 
-                        ConditionView(viewModel.selectedClub != "동아리") {
+                        ConditionView(viewModel.selectedClub != nil) {
                             inputNameSection()
                         }
 
@@ -46,11 +45,11 @@ struct StudentSignUpView: View {
                             inputAuthorizationInfoSection()
                         }
 
-                        ConditionView(!viewModel.name.isEmpty) {
+                        ConditionView(viewModel.nameIsValid) {
                             inputCompanyInstructorInfoSection()
                         }
 
-                        ConditionView(viewModel.selectedClub != "동아리") {
+                        ConditionView(viewModel.selectedClub != nil) {
                             inputNameSection()
                         }
 
@@ -62,11 +61,11 @@ struct StudentSignUpView: View {
                             inputAuthorizationInfoSection()
                         }
 
-                        ConditionView(!viewModel.name.isEmpty) {
+                        ConditionView(viewModel.nameIsValid) {
                             inputProfessorInfoSection()
                         }
 
-                        ConditionView(viewModel.selectedClub != "동아리") {
+                        ConditionView(viewModel.selectedClub != nil) {
                             inputNameSection()
                         }
 
@@ -78,7 +77,7 @@ struct StudentSignUpView: View {
                             inputAuthorizationInfoSection()
                         }
 
-                        ConditionView(!viewModel.name.isEmpty) {
+                        ConditionView(viewModel.nameIsValid) {
                             inputGovernmentInfoSection()
                         }
 
@@ -95,24 +94,43 @@ struct StudentSignUpView: View {
             }
         }
         .bitgouelBottomSheet(
-            isShowing: $isSchool
+            isShowing: $viewModel.isPresentedSchoolSheet
         ) {
-            SchoolListView(viewModel: viewModel)
-                .frame(height: 415)
+            SchoolListView(
+                searchKeyword: $viewModel.schoolSearch,
+                schoolList: viewModel.searchedSchoolList,
+                selectedSchool: viewModel.selectedSchool
+            ) { highschool in
+                viewModel.selectedSchool = highschool
+                viewModel.isPresentedSchoolSheet = false
+            }
+            .frame(height: 415)
         }
         .bitgouelBottomSheet(
-            isShowing: $isShowingClubSelectSheet
+            isShowing: $viewModel.isPresentedClubSheet
         ) {
             ClubListView(
                 searchText: $viewModel.clubSearch,
                 searchedClubList: viewModel.searchedClubList,
-                selectedClub: viewModel.selectedClub,
+                selectedClub: viewModel.selectedClub ?? "동아리",
                 clubDidSelect: { selectedClub in
                     viewModel.selectedClub = selectedClub
+                    viewModel.isPresentedClubSheet = false
                 }
             )
             .frame(height: 415)
         }
+        .bitgouelBottomSheet(
+            isShowing: $viewModel.isPresentedAssociationSheet
+        ) {
+            associationTypeView()
+        }
+        .bitgouelBottomSheet(
+            isShowing: $viewModel.isPresentedUserRoleSheet
+        ) {
+            userRoleTypeView()
+        }
+        .animation(.default, value: viewModel.selectedAssociation)
         .background(
             NavigationLink(
                 destination: SuccessSignUpView(),
@@ -146,7 +164,7 @@ struct StudentSignUpView: View {
     func inputAuthorizationInfoSection() -> some View {
         VStack(spacing: 16) {
             Group {
-                if !viewModel.password.isEmpty {
+                if viewModel.passwordIsValid {
                     SecureBitgouelTextField(
                         "비밀번호",
                         text: $viewModel.checkPassword
@@ -157,7 +175,7 @@ struct StudentSignUpView: View {
                     }
                 }
 
-                if !viewModel.certificationNumberEmail.isEmpty {
+                if viewModel.emailIsValid {
                     SecureBitgouelTextField(
                         "비밀번호",
                         text: $viewModel.password
@@ -167,46 +185,22 @@ struct StudentSignUpView: View {
             }
 
             Group {
-                if !viewModel.email.isEmpty {
-                    if viewModel.checkEmail(viewModel.email) == true {
-                        BitgouelTextField(
-                            "인증번호",
-                            text: $viewModel.certificationNumberEmail,
-                            helpMessage: viewModel.convertSecondsToTime(timeInSeconds: viewModel.emailTimeRemaining),
-                            link: "재발송"
-                        )
-                    }
-                }
-
-                if !viewModel.certificationNumberPhoneNumber.isEmpty {
+                if viewModel.phoneNumberIsValid {
                     BitgouelTextField(
                         "이메일",
                         text: $viewModel.email,
                         helpMessage: viewModel.emailHelpMessage,
-                        isError: viewModel.isEmailErrorOccured
+                        isError: !viewModel.emailIsValid
                     )
                     .onChange(of: viewModel.emailHelpMessage) { newValue in }
                     .textContentType(.emailAddress)
                 }
             }
             Group {
-                if !viewModel.phoneNumber.isEmpty {
-                    BitgouelTextField(
-                        "인증번호",
-                        text: $viewModel.certificationNumberPhoneNumber,
-                        helpMessage: viewModel.convertSecondsToTime(timeInSeconds: viewModel.phoneNumberTimeRemaining),
-                        link: "재발송"
-                    )
-                }
                 BitgouelTextField(
                     "전화번호",
                     text: $viewModel.phoneNumber
                 )
-                .onChange(of: viewModel.phoneNumber) { newValue in
-                    if !viewModel.phoneNumber.isEmpty {
-                        viewModel.phoneNumberStartTimer()
-                    }
-                }
                 .padding(.bottom, -20)
             }
         }
@@ -215,15 +209,23 @@ struct StudentSignUpView: View {
     @ViewBuilder
     func inputSchoolInfoSection() -> some View {
         VStack(spacing: 16) {
-            AssociationSelectButton(
-                text: viewModel.selectedSchool?.display() ?? "학교"
-            ) {
-                isSchool.toggle()
+            ConditionView(viewModel.selectedUserRole != nil) {
+                AssociationSelectButton(
+                    text: viewModel.selectedSchool?.display() ?? "학교"
+                ) {
+                    viewModel.isPresentedSchoolSheet.toggle()
+                }
             }
 
-            AssociationSelectButton(text: viewModel.userRole.display())
+            ConditionView(viewModel.selectedAssociation != nil) {
+                AssociationSelectButton(text: viewModel.selectedUserRole?.display() ?? "직업") {
+                    viewModel.isPresentedUserRoleSheet = true
+                }
+            }
 
-            AssociationSelectButton(text: "학생")
+            AssociationSelectButton(text: viewModel.selectedAssociation?.associationValue() ?? "소속") {
+                viewModel.isPresentedAssociationSheet = true
+            }
         }
     }
 
@@ -231,9 +233,9 @@ struct StudentSignUpView: View {
     func inputClubSection() -> some View {
         VStack(spacing: 0) {
             AssociationSelectButton(
-                text: viewModel.selectedClub
+                text: viewModel.selectedClub ?? "동아리"
             ) {
-                isShowingClubSelectSheet.toggle()
+                viewModel.isPresentedClubSheet.toggle()
             }
         }
     }
@@ -253,10 +255,15 @@ struct StudentSignUpView: View {
     @ViewBuilder
     func inputStudentInfoSection() -> some View {
         VStack(spacing: 16) {
-            if viewModel.yearOfAdmission != nil {
+            if viewModel.yearOfAdmissionIsValid {
                 BitgouelTextField(
                     "학번",
-                    text: $viewModel.studentID,
+                    text: Binding(
+                        get: { viewModel.studentID },
+                        set: { newValue in
+                            viewModel.studentID = newValue
+                        }
+                    ),
                     onSubmit: {
                         viewModel.parseStudentID()
                     }
@@ -267,8 +274,14 @@ struct StudentSignUpView: View {
             BitgouelTextField(
                 "입학년도",
                 text: Binding(
-                    get: { return String (viewModel.yearOfAdmission ?? 2023) },
-                    set: { newValue in viewModel.yearOfAdmission = Int(newValue) }
+                    get: {
+                        guard let yearOfAdmission = viewModel.yearOfAdmission else { return "" }
+                        return String(yearOfAdmission)
+                    },
+                    set: { newValue in
+                        guard let yearOfAdmission = Int(newValue) else { return }
+                        viewModel.yearOfAdmission = yearOfAdmission
+                    }
                 )
             )
             .padding(.bottom, -20)
@@ -308,6 +321,63 @@ struct StudentSignUpView: View {
                 text: $viewModel.selectedCompany
             )
             .padding(.bottom, -20)
+        }
+    }
+
+    @ViewBuilder
+    func userRoleTypeView() -> some View {
+        ScrollView {
+            let data: [UserAuthorityType] = viewModel.selectedAssociation == .school
+                ? [.student, .teacher]
+                : [.companyInstructor, .professor, .bbozzack, .government]
+            ForEach(data, id: \.self) { userRole in
+                HStack {
+                    Text(userRole.display())
+
+                    Spacer()
+
+                    BitgouelRadioButton(
+                        isSelected: Binding(
+                            get: { viewModel.selectedUserRole == userRole },
+                            set: { isSelected in
+                                if isSelected {
+                                    viewModel.isPresentedUserRoleSheet = false
+                                    viewModel.selectedUserRole = userRole
+                                }
+                            }
+                        )
+                    )
+                }
+                .padding(.horizontal, 28)
+                .padding(.vertical, 24)
+            }
+        }
+    }
+
+    @ViewBuilder
+    func associationTypeView() -> some View {
+        ScrollView {
+            ForEach(AssociationType.allCases, id: \.self) { association in
+                HStack {
+                    Text(association.associationValue())
+
+                    Spacer()
+
+                    BitgouelRadioButton(
+                        isSelected: Binding(
+                            get: { viewModel.selectedAssociation == association },
+                            set: { isSelected in
+                                if isSelected {
+                                    viewModel.isPresentedAssociationSheet = false
+                                    viewModel.selectedAssociation = association
+                                }
+                            }
+                        )
+                    )
+                }
+                .padding(.horizontal, 28)
+                .padding(.vertical, 24)
+            }
         }
     }
 }
