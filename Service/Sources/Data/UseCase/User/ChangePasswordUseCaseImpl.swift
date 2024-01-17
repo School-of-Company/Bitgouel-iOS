@@ -8,6 +8,6 @@ public struct ChangePasswordUseCaseImpl: ChangePasswordUseCase {
     }
     
     public func callAsFunction(req: ChangePasswordRequestDTO) async throws {
-        userRepository.changePassword(req: req)
+        try await userRepository.changePassword(req: req)
     }
 }

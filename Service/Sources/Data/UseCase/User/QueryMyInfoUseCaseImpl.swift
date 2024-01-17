@@ -8,6 +8,6 @@ public struct QueryMyInfoUseCaseImpl: QueryMyInfoUseCase {
     }
     
     public func callAsFunction() async throws -> MyInfoEntity {
-        userRepository.queryMyInfo()
+        try await userRepository.queryMyInfo()
     }
 }
