@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct ActivityDetailSettingView: View {
+    @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: ActivityDetailSettingViewModel
 
     init(viewModel: ActivityDetailSettingViewModel) {
@@ -22,8 +23,11 @@ struct ActivityDetailSettingView: View {
 
                     DatePicker(
                         "활동 날짜 선택",
-                        selection: $viewModel.activityDate,
-                        in: Date()...,
+                        selection: Binding(get: {
+                            viewModel.date
+                        }, set: { newValue in
+                            viewModel.updateDate(date: newValue)
+                        }),
                         displayedComponents: [.date]
                     )
                     .datePickerStyle(.compact)
@@ -61,13 +65,12 @@ struct ActivityDetailSettingView: View {
                             }
                             .foregroundColor(.bitgouel(.greyscale(.g2)))
                             .padding(.vertical, 16)
-                            .padding(.leading, 20)
 
                             Spacer()
 
-                            Image("chevron_down")
-                                .padding(.trailing, 20)
+                            BitgouelAsset.Icons.chevronDown.swiftUIImage
                         }
+                        .padding(.horizontal, 20)
                         .background(Color.bitgouel(.greyscale(.g9)))
                         .cornerRadius(8, corners: .allCorners)
                     }
@@ -81,7 +84,10 @@ struct ActivityDetailSettingView: View {
                 CTAButton(
                     text: "적용하기",
                     style: .default
-                )
+                ) {
+                    viewModel.applyButtonDidTap()
+                    dismiss()
+                }
 
                 .bitgouelBottomSheet(
                     isShowing: $viewModel.isPresentedCreditSheet
@@ -93,13 +99,15 @@ struct ActivityDetailSettingView: View {
             .navigationTitle("활동 세부 설정")
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button(action: {}, label: {
-                        Image("cancel")
+                    Button {
+                        dismiss()
+                    } label: {
+                        BitgouelAsset.Icons.cancel.swiftUIImage
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 24, height: 24)
                             .foregroundColor(.bitgouel(.greyscale(.g8)))
-                    })
+                    }
                 }
             }
         }
