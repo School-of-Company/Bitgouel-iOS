@@ -7,7 +7,7 @@ final class ActivityDetailSettingViewModel: BaseViewModel {
     @Published var isPresentedCreditSheet: Bool = false
     @Published var selectedCredit: Int?
     @Published var selectedDate: String = ""
-    
+
     let creditValue: [Int] = [1, 2]
     private let completion: (String, Int) -> Void
     
