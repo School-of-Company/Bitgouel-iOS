@@ -17,9 +17,19 @@ public struct PostListsResponseDTO: Decodable {
 }
 
 extension PostListsResponseDTO {
-    func toDomain() {}
+    func toDomain() -> PostListsEntity {
+        PostListsEntity(
+            posts: posts.map{  $0.toDomain() }
+        )
+    }
 }
 
 extension PostListsResponseDTO.PostInfo {
-    func toDomain() {}
+    func toDomain() -> SinglePostEntity {
+        SinglePostEntity(
+            postId: postId,
+            title: title,
+            modifedAt: modifedAt
+        )
+    }
 }

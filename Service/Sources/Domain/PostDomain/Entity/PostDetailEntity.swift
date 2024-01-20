@@ -1,6 +1,6 @@
 import Foundation
 
-public struct PostDetailResponseDTO: Decodable {
+public struct PostDetailEntity: Equatable {
     public let title: String
     public let writer: String
     public let content: String
@@ -22,18 +22,5 @@ public struct PostDetailResponseDTO: Decodable {
         self.feedType = feedType
         self.modifiedAt = modifiedAt
         self.links = links
-    }
-}
-
-extension PostDetailResponseDTO {
-    func toDomain() -> PostDetailEntity {
-        PostDetailEntity(
-            title: title,
-            writer: writer,
-            content: content,
-            feedType: feedType,
-            modifiedAt: modifiedAt,
-            links: links
-        )
     }
 }
