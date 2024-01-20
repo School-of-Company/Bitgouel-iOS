@@ -1,6 +1,6 @@
 import Foundation
 
-public struct SinglePostEntity: Equatable {
+public struct PostEntity: Equatable {
     public let postId: String
     public let title: String
     public let modifedAt: String
