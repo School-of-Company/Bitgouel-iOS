@@ -2,11 +2,11 @@ import SwiftUI
 
 struct InputActivityView: View {
     @StateObject var viewModel: InputActivityViewModel
-    
+
     init(viewModel: InputActivityViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
-    
+
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
@@ -33,9 +33,9 @@ struct InputActivityView: View {
                 }
                 .padding(.top, -40)
                 .frame(minHeight: 40, maxHeight: 120)
-                
+
                 Divider()
-                
+
                 VStack {
                     TextEditor(text: Binding(
                         get: { viewModel.activityText },
@@ -59,18 +59,18 @@ struct InputActivityView: View {
                 }
                 .padding(.top, 16)
                 .frame(height: 460)
-                
+
                 Divider()
-                
+
                 VStack(spacing: 8) {
                     Button {} label: {
                         Spacer()
-                        
+
                         BitgouelAsset.Icons.setting.swiftUIImage
-                        
+
                         Text("활동 세부 설정")
                             .bitgouelFont(.text3, color: .primary(.p5))
-                        
+
                         Spacer()
                     }
                     .padding(.vertical, 12)
@@ -79,7 +79,7 @@ struct InputActivityView: View {
                         RoundedRectangle(cornerRadius: 8)
                             .strokeBorder(Color.bitgouel(.primary(.p5)))
                     }
-                    
+
                     CTAButton(
                         text: "활동 추가",
                         style: .default
