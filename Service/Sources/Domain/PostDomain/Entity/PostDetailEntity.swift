@@ -7,7 +7,7 @@ public struct PostDetailEntity: Equatable {
     public let feedType: FeedType
     public let modifiedAt: String
     public let links: [String]
-    
+
     public init(
         title: String,
         writer: String,

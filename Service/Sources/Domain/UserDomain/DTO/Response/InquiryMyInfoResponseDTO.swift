@@ -6,7 +6,7 @@ public struct QueryMyInfoResponseDTO: Decodable {
     public let phoneNumber: String
     public let authority: UserAuthorityType
     public let organization: String
-    
+
     public init(
         name: String,
         email: String,

@@ -1,5 +1,5 @@
-import SwiftUI
 import Service
+import SwiftUI
 
 struct SchoolListView: View {
     let searchKeyword: Binding<String>
@@ -18,7 +18,11 @@ struct SchoolListView: View {
             ScrollView {
                 LazyVStack {
                     ForEach(schoolList, id: \.self) { school in
-                        SchoolListRowView(school: school, selectedSchool: selectedSchool, onHighSchoolSelect: onHighSchoolSelect)
+                        SchoolListRowView(
+                            school: school,
+                            selectedSchool: selectedSchool,
+                            onHighSchoolSelect: onHighSchoolSelect
+                        )
                     }
                 }
             }

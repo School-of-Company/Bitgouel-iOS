@@ -11,14 +11,14 @@ public enum PostAPI {
 
 extension PostAPI: BitgouelAPI {
     public typealias ErrorType = PostDomainError
-    
+
     public var domain: BitgouelDomain {
         .post
     }
-    
+
     public var urlPath: String {
         switch self {
-        case .writePost, 
+        case .writePost,
              .queryPostList:
             return ""
         case let .queryPostDetail(postID),
@@ -27,7 +27,7 @@ extension PostAPI: BitgouelAPI {
             return "\(postID)"
         }
     }
-    
+
     public var method: Moya.Method {
         switch self {
         case .writePost:
@@ -41,24 +41,24 @@ extension PostAPI: BitgouelAPI {
             return .delete
         }
     }
-    
+
     public var task: Moya.Task {
         switch self {
         case let .writePost(req),
-                 .updatePost(_, let req):
+             let .updatePost(_, req):
             return .requestJSONEncodable(req)
         default:
             return .requestPlain
         }
     }
-    
+
     public var jwtTokenType: JwtTokenType {
         switch self {
         default:
             return .accessToken
         }
     }
-    
+
     public var errorMap: [Int : PostDomainError] {
         switch self {
         case .writePost,
