@@ -2,7 +2,7 @@ import NeedleFoundation
 import Service
 
 public extension AppComponent {
-    var remoteDataSource: any RemoteActivityDataSource {
+    var remoteActivityDataSource: any RemoteActivityDataSource {
         shared {
             RemoteActivityDataSourceImpl(keychain: keychain)
         }
@@ -10,7 +10,7 @@ public extension AppComponent {
 
     var activityRepository: any ActivityRepository {
         shared {
-            ActivityRepositoryImpl(remoteActivityDataSource: remoteDataSource)
+            ActivityRepositoryImpl(remoteActivityDataSource: remoteActivityDataSource)
         }
     }
 
