@@ -1,11 +1,11 @@
 import NeedleFoundation
-import SwiftUI
 import Service
+import SwiftUI
 
-public protocol ActivityDetailSettingDependency: Dependency {
-}
+public protocol ActivityDetailSettingDependency: Dependency {}
 
-public final class ActivityDetailSettingComponent: Component<ActivityDetailSettingDependency>, ActivityDetailSettingFactory {
+public final class ActivityDetailSettingComponent: Component<ActivityDetailSettingDependency>,
+    ActivityDetailSettingFactory {
     public func makeView(
         activityDate: String,
         activityCredit: Int,

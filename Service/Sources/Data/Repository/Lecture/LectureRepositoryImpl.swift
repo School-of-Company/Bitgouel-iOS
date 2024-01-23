@@ -1,9 +1,9 @@
 import Foundation
 
-struct LectureRepositoryImpl: LectureRepository {
+public struct LectureRepositoryImpl: LectureRepository {
     private let remoteLectureDataSource: RemoteLectureDataSource
 
-    init(remoteLectureDataSource: RemoteLectureDataSource) {
+    public init(remoteLectureDataSource: RemoteLectureDataSource) {
         self.remoteLectureDataSource = remoteLectureDataSource
     }
 

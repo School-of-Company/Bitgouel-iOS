@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol WaitingLectureUseCase {
+public protocol WaitingLectureApproveUseCase {
     func callAsFunction(userID: String) async throws
 }
