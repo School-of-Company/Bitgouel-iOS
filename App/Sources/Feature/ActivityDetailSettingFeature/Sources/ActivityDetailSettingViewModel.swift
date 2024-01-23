@@ -10,7 +10,7 @@ final class ActivityDetailSettingViewModel: BaseViewModel {
 
     let creditValue: [Int] = [1, 2]
     private let completion: (String, Int) -> Void
-    
+
     init(
         activityDate: String,
         activityCredit: Int,
@@ -20,12 +20,12 @@ final class ActivityDetailSettingViewModel: BaseViewModel {
         self.selectedCredit = activityCredit
         self.completion = completion
     }
-    
+
     func updateDate(date: Date) {
         self.date = date
         self.selectedDate = date.description
     }
-    
+
     func applyButtonDidTap() {
         completion(selectedDate, selectedCredit ?? 0)
     }

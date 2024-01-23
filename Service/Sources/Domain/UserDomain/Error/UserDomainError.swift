@@ -7,4 +7,3 @@ public enum UserDomainError: Error {
     case conflict
     case tooManyRequest
 }
-

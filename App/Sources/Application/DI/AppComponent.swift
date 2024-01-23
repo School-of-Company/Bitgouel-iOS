@@ -34,7 +34,7 @@ public extension AppComponent {
     var inputActivityFactory: any InputActivityFactory {
         InputActivityComponent(parent: self)
     }
-    
+
     var activityDetailSettingFactory: any ActivityDetailSettingFactory {
         ActivityDetailSettingComponent(parent: self)
     }

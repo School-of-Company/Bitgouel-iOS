@@ -1,13 +1,13 @@
 import Foundation
 
-struct WaitingLectureRejectUseCaseImpl: WaitingLectureRejectUseCase {
+public struct WaitingLectureRejectUseCaseImpl: WaitingLectureRejectUseCase {
     private let lectureRepository: any LectureRepository
 
-    init(lectureRepository: any LectureRepository) {
+    public init(lectureRepository: any LectureRepository) {
         self.lectureRepository = lectureRepository
     }
 
-    func callAsFunction(userID: String) async throws {
+    public func callAsFunction(userID: String) async throws {
         try await lectureRepository.waitingLectureReject(userID: userID)
     }
 }
