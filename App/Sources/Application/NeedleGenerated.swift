@@ -193,6 +193,14 @@ extension AppComponent: Registration {
     public func registerItems() {
 
         localTable["keychain-Keychain"] = { [unowned self] in self.keychain as Any }
+        localTable["remoteLectureDataSource-any RemoteLectureDataSource"] = { [unowned self] in self.remoteLectureDataSource as Any }
+        localTable["lectureRepository-any LectureRepository"] = { [unowned self] in self.lectureRepository as Any }
+        localTable["lectureOpenUseCase-any LectureOpenUseCase"] = { [unowned self] in self.lectureOpenUseCase as Any }
+        localTable["lectureListInquiryUseCase-any LectureListInquirtyUseCase"] = { [unowned self] in self.lectureListInquiryUseCase as Any }
+        localTable["lectureDetailInquiryUseCase-any LectureDetailInquiryUseCase"] = { [unowned self] in self.lectureDetailInquiryUseCase as Any }
+        localTable["lectureApplyUseCase-any LectureApplyUseCase"] = { [unowned self] in self.lectureApplyUseCase as Any }
+        localTable["waitingLectureApproveUseCase-any WaitingLectureApproveUseCase"] = { [unowned self] in self.waitingLectureApproveUseCase as Any }
+        localTable["waitingLectureRejectUseCase-any WaitingLectureRejectUseCase"] = { [unowned self] in self.waitingLectureRejectUseCase as Any }
         localTable["localAuthDataSource-any LocalAuthDataSource"] = { [unowned self] in self.localAuthDataSource as Any }
         localTable["remoteAuthDataSource-any RemoteAuthDataSource"] = { [unowned self] in self.remoteAuthDataSource as Any }
         localTable["authRepository-any AuthRepository"] = { [unowned self] in self.authRepository as Any }

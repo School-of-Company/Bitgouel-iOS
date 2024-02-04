@@ -8,18 +8,18 @@ public enum UserAPI {
 
 extension UserAPI: BitgouelAPI {
     public typealias ErrorType = UserDomainError
-    
+
     public var domain: BitgouelDomain {
         .user
     }
-    
+
     public var urlPath: String {
         switch self {
         case .changePassword, .queryMyInfo:
             return ""
         }
     }
-    
+
     public var method: Moya.Method {
         switch self {
         case .changePassword:
@@ -28,7 +28,7 @@ extension UserAPI: BitgouelAPI {
             return .get
         }
     }
-    
+
     public var task: Moya.Task {
         switch self {
         case let .changePassword(req):
@@ -37,14 +37,14 @@ extension UserAPI: BitgouelAPI {
             return .requestPlain
         }
     }
-    
+
     public var jwtTokenType: JwtTokenType {
         switch self {
         case .changePassword, .queryMyInfo:
             return .accessToken
         }
     }
-    
+
     public var errorMap: [Int : UserDomainError] {
         switch self {
         case .changePassword:
