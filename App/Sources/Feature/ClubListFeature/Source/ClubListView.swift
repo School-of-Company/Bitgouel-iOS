@@ -11,27 +11,34 @@ struct ClubListView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                ScrollView {
-                    VStack(spacing: 0) {
-                        HStack {
-                            BitgouelText(
-                                text: viewModel.selectedSchool?.display() ?? "",
-                                font: .title3
-                            )
-
+                
+                if viewModel.selectedSchool == nil {
+                    ClubListEmptyContentView()
+                }
+                
+                if viewModel.selectedSchool != nil {
+                    ScrollView {
+                        VStack(spacing: 0) {
+                            HStack {
+                                BitgouelText(
+                                    text: viewModel.selectedSchool?.display() ?? "",
+                                    font: .title3
+                                )
+                                
+                                Spacer()
+                            }
+                            .padding(.top, 40)
+                            
+                            Divider()
+                                .padding(.top, 12)
+                            
+                            ClubListRow(clubName: "동아리 이름")
+                                .padding(.top, 12)
+                            
                             Spacer()
                         }
-                        .padding(.top, 40)
-
-                        Divider()
-                            .padding(.top, 12)
-
-                        ClubListRow(clubName: "동아리 이름")
-                            .padding(.top, 12)
-
-                        Spacer()
+                        .padding(.horizontal, 28)
                     }
-                    .padding(.horizontal, 28)
                 }
 
                 ZStack(alignment: .center) {
