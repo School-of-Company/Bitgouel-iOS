@@ -3,11 +3,11 @@ import SwiftUI
 struct ClubListView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: ClubListViewModel
-    
+
     init(viewModel: ClubListViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
-    
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -40,7 +40,7 @@ struct ClubListView: View {
                         .padding(.horizontal, 28)
                     }
                 }
-                
+
                 ZStack(alignment: .center) {
                     if viewModel.isPresentedSelectedSchoolPopup {
                         Color.black.opacity(0.4)
@@ -48,7 +48,7 @@ struct ClubListView: View {
                             .onTapGesture {
                                 viewModel.isPresentedSelectedSchoolPopup = false
                             }
-                        
+
                         SchoolListPopup(
                             schoolList: viewModel.schoolList,
                             selectedSchool: viewModel.selectedSchool
