@@ -17,6 +17,17 @@ private func parent1(_ component: NeedleFoundation.Scope) -> NeedleFoundation.Sc
 
 #if !NEEDLE_DYNAMIC
 
+private class ClubListDependency90c6e61626f7c53ad50fProvider: ClubListDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->ClubListComponent
+private func factory050817f1b6d356b83467e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return ClubListDependency90c6e61626f7c53ad50fProvider()
+}
 private class ActivityDetailSettingDependency0b98c5f90168b920a8b8Provider: ActivityDetailSettingDependency {
 
 
@@ -131,6 +142,11 @@ private func factory3fc1a279eeb8c906e603f47b58f8f304c97af4d5(_ component: Needle
 }
 
 #else
+extension ClubListComponent: Registration {
+    public func registerItems() {
+
+    }
+}
 extension ActivityDetailSettingComponent: Registration {
     public func registerItems() {
 
@@ -210,6 +226,7 @@ extension AppComponent: Registration {
         localTable["signupFactory-any StudentSignUpFactory"] = { [unowned self] in self.signupFactory as Any }
         localTable["inputActivityFactory-any InputActivityFactory"] = { [unowned self] in self.inputActivityFactory as Any }
         localTable["activityDetailSettingFactory-any ActivityDetailSettingFactory"] = { [unowned self] in self.activityDetailSettingFactory as Any }
+        localTable["clubListFactory-any ClubListFactory"] = { [unowned self] in self.clubListFactory as Any }
     }
 }
 
@@ -228,6 +245,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
 #if !NEEDLE_DYNAMIC
 
 @inline(never) private func register1() {
+    registerProviderFactory("^->AppComponent->ClubListComponent", factory050817f1b6d356b83467e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->ActivityDetailSettingComponent", factoryfd595280dea209e217b9e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->StudentSignUpComponent", factoryc57b1cf1651b3051e040f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->RootComponent", factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5)
