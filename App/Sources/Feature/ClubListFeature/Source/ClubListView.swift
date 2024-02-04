@@ -57,7 +57,7 @@ struct ClubListView: View {
             }
             .navigationTitle("동아리 목록")
             .toolbar {
-                ToolbarItemGroup(placement: .topBarTrailing) {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button {
                         viewModel.isPresentedSelectedSchoolPopup = true
                     } label: {
