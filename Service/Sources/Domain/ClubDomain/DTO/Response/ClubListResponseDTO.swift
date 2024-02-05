@@ -2,6 +2,10 @@ import Foundation
 
 public struct ClubListResponseDTO: Decodable {
     public let clubs: [Club]
+    
+    init(clubs: [Club]) {
+        self.clubs = clubs
+    }
 }
 
 public extension ClubListResponseDTO {
@@ -12,8 +16,8 @@ public extension ClubListResponseDTO {
 }
 
 extension ClubListResponseDTO.Club {
-    func toDomain() -> SingleClubEntity {
-        SingleClubEntity(
+    func toDomain() -> ClubEntity {
+        ClubEntity(
             id: id,
             name: name
         )
@@ -21,9 +25,7 @@ extension ClubListResponseDTO.Club {
 }
 
 extension ClubListResponseDTO {
-    func toDomain() -> ClubsEntity {
-        ClubsEntity(
-            clubs: clubs.map { $0.toDomain() }
-        )
+    func toDomain() -> [ClubEntity] {
+        clubs.map { $0.toDomain() }
     }
 }
