@@ -31,7 +31,7 @@ struct SchoolListPopup: View {
 
                     Spacer()
 
-                    ScrollView {
+                    ScrollView(showsIndicators: false) {
                         LazyVStack(spacing: 16) {
                             ForEach(schoolList, id: \.self) { school in
                                 schoolListRow(
