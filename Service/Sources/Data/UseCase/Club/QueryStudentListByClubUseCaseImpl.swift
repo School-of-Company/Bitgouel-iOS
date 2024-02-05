@@ -1,13 +1,13 @@
 import Foundation
 
-struct QueryStudentListByClubUseCaseImpl: QueryStudentListByClubUseCase {
+public struct QueryStudentListByClubUseCaseImpl: QueryStudentListByClubUseCase {
     private let clubRepository: any ClubRepository
 
-    init(clubRepository: any ClubRepository) {
+    public init(clubRepository: any ClubRepository) {
         self.clubRepository = clubRepository
     }
 
-    func callAsFunction() async throws -> [StudentEntity] {
+    public func callAsFunction() async throws -> [StudentEntity] {
         try await clubRepository.queryStudentListByClub()
     }
 }

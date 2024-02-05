@@ -5,7 +5,7 @@ public struct StudentDetailByClubEntity: Equatable {
     public let phoneNumber: String
     public let email: String
     public let credit: Int
-    
+
     init(
         name: String,
         phoneNumber: String,

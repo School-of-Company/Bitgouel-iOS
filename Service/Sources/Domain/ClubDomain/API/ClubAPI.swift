@@ -23,7 +23,7 @@ extension ClubAPI: BitgouelAPI {
             return "/\(id)"
         case .queryStudentListByClub:
             return "/my"
-        case .queryStudentDetailByClub(let id, let studentId):
+        case let .queryStudentDetailByClub(id, studentId):
             return "/\(id)/\(studentId)"
         }
     }
