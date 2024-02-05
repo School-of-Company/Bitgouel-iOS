@@ -4,7 +4,8 @@ import Moya
 public enum ClubAPI {
     case queryClubList
     case queryClubDetail(id: String)
-    case queryStudentListByClub(id: String)
+    case queryStudentListByClub
+    case queryStudentDetailByClub(id: String, studentId: String)
 }
 
 extension ClubAPI: BitgouelAPI {
@@ -20,8 +21,10 @@ extension ClubAPI: BitgouelAPI {
             return ""
         case let .queryClubDetail(id):
             return "/\(id)"
-        case let .queryStudentListByClub(id):
-            return "/\(id)/member"
+        case .queryStudentListByClub:
+            return "/my"
+        case .queryStudentDetailByClub(let id, let studentId):
+            return "/\(id)/\(studentId)"
         }
     }
 
@@ -29,7 +32,8 @@ extension ClubAPI: BitgouelAPI {
         switch self {
         case .queryClubList,
              .queryClubDetail,
-             .queryStudentListByClub:
+             .queryStudentListByClub,
+             .queryStudentDetailByClub:
             return .get
         }
     }
@@ -40,7 +44,9 @@ extension ClubAPI: BitgouelAPI {
             return .requestParameters(parameters: [
                 "highschool": HighSchoolType.self
             ], encoding: URLEncoding.queryString)
-        case .queryClubDetail, .queryStudentListByClub:
+        case .queryClubDetail,
+             .queryStudentListByClub,
+             .queryStudentDetailByClub:
             return .requestPlain
         }
     }
@@ -49,7 +55,8 @@ extension ClubAPI: BitgouelAPI {
         switch self {
         case .queryClubList,
              .queryClubDetail,
-             .queryStudentListByClub:
+             .queryStudentListByClub,
+             .queryStudentDetailByClub:
             return .accessToken
         }
     }
@@ -58,7 +65,8 @@ extension ClubAPI: BitgouelAPI {
         switch self {
         case .queryClubList,
              .queryClubDetail,
-             .queryStudentListByClub:
+             .queryStudentListByClub,
+             .queryStudentDetailByClub:
             return [
                 400: .badRequest,
                 401: .unauthorized,
