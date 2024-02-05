@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol QueryStudentListByClubUseCase {
-    func callAsFunction() async throws -> [StudentEntity]
+    func callAsFunction() async throws -> ClubDetailEntity
 }

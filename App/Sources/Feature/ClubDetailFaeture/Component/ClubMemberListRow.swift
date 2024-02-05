@@ -1,5 +1,5 @@
-import SwiftUI
 import Service
+import SwiftUI
 
 struct ClubMemberListRow: View {
     let id: String

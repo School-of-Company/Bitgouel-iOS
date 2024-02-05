@@ -6,19 +6,19 @@ public final class RemoteClubDataSourceImpl: BaseRemoteDataSource<ClubAPI>, Remo
             .toDomain()
     }
 
-    public func queryClubDetail(id: String) async throws -> ClubDetailEntity {
-        try await request(.queryClubDetail(id: id), dto: ClubDetailResponseDTO.self)
+    public func queryClubDetail(clubId: String) async throws -> ClubDetailEntity {
+        try await request(.queryClubDetail(clubId: clubId), dto: ClubDetailResponseDTO.self)
             .toDomain()
     }
 
-    public func queryStudentListByClub() async throws -> [StudentEntity] {
-        try await request(.queryStudentListByClub, dto: StudentListByClubResponseDTO.self)
+    public func queryStudentListByClub() async throws -> ClubDetailEntity {
+        try await request(.queryStudentListByClub, dto: ClubDetailResponseDTO.self)
             .toDomain()
     }
 
-    public func queryStudentDetailByClub(id: String, studentId: String) async throws -> StudentDetailByClubEntity {
+    public func queryStudentDetailByClub(clubId: String, studentId: String) async throws -> StudentDetailByClubEntity {
         try await request(
-            .queryStudentDetailByClub(id: id, studentId: studentId),
+            .queryStudentDetailByClub(clubId: clubId, studentId: studentId),
             dto: StudentDetailByClubResponseDTO.self
         ).toDomain()
     }
