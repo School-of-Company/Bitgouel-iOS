@@ -15,4 +15,8 @@ public final class RemoteClubDataSourceImpl: BaseRemoteDataSource<ClubAPI>, Remo
         try await request(.queryStudentListByClub, dto: StudentListByClubResponseDTO.self)
             .toDomain()
     }
+    
+    public func queryStudentDetailByClub(id: String, studentId: String) async throws -> StudentDetailByClubEntity {
+        try await request(.queryStudentDetailByClub(id: id, studentId: studentId), dto: StudentDetailByClubResponseDTO.self).toDomain()
+    }
 }

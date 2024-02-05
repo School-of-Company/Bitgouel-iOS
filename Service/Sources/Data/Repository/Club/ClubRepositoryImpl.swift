@@ -14,4 +14,8 @@ public struct ClubRepositoryImpl: ClubRepository {
     public func queryStudentListByClub() async throws -> [StudentEntity] {
         try await remoteClubDataSource.queryStudentListByClub()
     }
+    
+    public func queryStudentDetailByClub(id: String, studentId: String) async throws -> StudentDetailByClubEntity {
+        try await remoteClubDataSource.queryStudentDetailByClub(id: id, studentId: studentId)
+    }
 }
