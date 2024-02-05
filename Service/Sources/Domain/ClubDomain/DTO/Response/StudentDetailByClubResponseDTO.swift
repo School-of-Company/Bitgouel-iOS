@@ -18,3 +18,14 @@ public struct StudentDetailByClubResponseDTO: Decodable {
         self.credit = credit
     }
 }
+
+extension StudentDetailByClubResponseDTO {
+    func toDomain() -> StudentDetailByClubEntity {
+        StudentDetailByClubEntity(
+            name: name,
+            phoneNumber: phoneNumber,
+            email: email,
+            credit: credit
+        )
+    }
+}
