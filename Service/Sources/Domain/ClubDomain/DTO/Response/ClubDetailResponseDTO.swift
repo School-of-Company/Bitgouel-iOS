@@ -20,11 +20,11 @@ public struct ClubDetailResponseDTO: Decodable {
         self.students = students
         self.teacher = teacher
     }
-    
+
     public struct memberInfoResponseDTO: Decodable {
         public let id: String
         public let name: String
-        
+
         init(id: String, name: String) {
             self.id = id
             self.name = name
