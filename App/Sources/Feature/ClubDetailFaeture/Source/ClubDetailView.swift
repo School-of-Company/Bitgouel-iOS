@@ -2,6 +2,11 @@ import SwiftUI
 
 struct ClubDetailView: View {
     @Environment(\.dismiss) var dismiss
+    @StateObject var viewModel: ClubDetailViewModel
+    
+    init(viewModel: ClubDetailViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
 
     var body: some View {
         NavigationView {
