@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol UpdateStudentActibityUseCase {
-    func callAsFunction(userID: String) async throws
+    func callAsFunction(activityId: String) async throws
 }
