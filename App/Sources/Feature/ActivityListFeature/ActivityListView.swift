@@ -5,10 +5,10 @@ struct ActivityListView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var model: ActivityListModel
     @StateObject var viewModel: ActivityListViewModel
-    
+
     private let inputActivityFactory: any InputActivityFactory
     private let activityDetailFactory: any ActivityDetailFactory
-    
+
     init(
         model: ActivityListModel,
         viewModel: ActivityListViewModel,
@@ -20,7 +20,7 @@ struct ActivityListView: View {
         self.inputActivityFactory = inputActivityFactory
         self.activityDetailFactory = activityDetailFactory
     }
-    
+
     var body: some View {
         NavigationView {
             ScrollView {
