@@ -11,20 +11,20 @@ public struct ActivityRepositoryImpl: ActivityRepository {
         try await remoteActivityDataSource.addStudentActivity(req: req)
     }
 
-    public func updateStudentActibity(userID: String) async throws {
-        try await remoteActivityDataSource.updateStudentActibity(userID: userID)
+    public func updateStudentActibity(activityId: String) async throws {
+        try await remoteActivityDataSource.updateStudentActibity(activityId: activityId)
     }
 
-    public func approveStudentActivity(userID: String) async throws {
-        try await remoteActivityDataSource.approveStudentActivity(userID: userID)
+    public func approveStudentActivity(activityId: String) async throws {
+        try await remoteActivityDataSource.approveStudentActivity(activityId: activityId)
     }
 
-    public func rejectStudentActivity(userID: String) async throws {
-        try await remoteActivityDataSource.rejectStudentActivity(userID: userID)
+    public func rejectStudentActivity(activityId: String) async throws {
+        try await remoteActivityDataSource.rejectStudentActivity(activityId: activityId)
     }
 
-    public func deleteStudentActivity(userID: String) async throws {
-        try await remoteActivityDataSource.deleteStudentActivity(userID: userID)
+    public func deleteStudentActivity(activityId: String) async throws {
+        try await remoteActivityDataSource.deleteStudentActivity(activityId: activityId)
     }
 
     public func queryMyStudentActivity() async throws -> [ActivityEntity] {
@@ -39,7 +39,7 @@ public struct ActivityRepositoryImpl: ActivityRepository {
         try await remoteActivityDataSource.queryStudentActivityList()
     }
 
-    public func queryStudentActivityDetails(userID: String) async throws -> StudentActivityDetailEntity {
-        try await remoteActivityDataSource.queryStudentActivityDetails(userID: userID)
+    public func queryStudentActivityDetails(activityId: String) async throws -> StudentActivityDetailEntity {
+        try await remoteActivityDataSource.queryStudentActivityDetails(activityId: activityId)
     }
 }

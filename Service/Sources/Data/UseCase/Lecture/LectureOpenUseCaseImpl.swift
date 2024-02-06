@@ -1,9 +1,9 @@
 import Foundation
 
-struct LectureOpenUseCaseImpl: LectureOpenUseCase {
+public struct LectureOpenUseCaseImpl: LectureOpenUseCase {
     private let lectureRepository: any LectureRepository
 
-    init(lectureRepository: any LectureRepository) {
+    public init(lectureRepository: any LectureRepository) {
         self.lectureRepository = lectureRepository
     }
 

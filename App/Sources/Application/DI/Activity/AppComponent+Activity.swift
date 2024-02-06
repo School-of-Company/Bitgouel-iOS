@@ -20,6 +20,12 @@ public extension AppComponent {
         }
     }
 
+    var rejectStudentActivityUseCase: any RejectStudentActivityUseCase {
+        shared {
+            RejectStudentActivityUseCaseImpl(activityRepository: activityRepository)
+        }
+    }
+
     var approveStudentActivityUseCase: any ApproveStudentActivityUseCase {
         shared {
             ApproveStudentActivityUseCaseImpl(activityRepository: activityRepository)

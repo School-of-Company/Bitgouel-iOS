@@ -2,10 +2,10 @@ import Service
 import SwiftUI
 
 struct StudentActivityRow: View {
-    let activityId: UUID
+    let activityId: String
     let title: String
     let date: String
-    let userId: UUID
+    let userId: String
     let name: String
     let state: ApproveStatusType
     let authority: UserAuthorityType
