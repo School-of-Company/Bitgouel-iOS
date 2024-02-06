@@ -20,7 +20,7 @@ public extension AppComponent {
         }
     }
 
-    var lectureListInquiryUseCase: any LectureListInquirtyUseCase {
+    var lectureListInquirtyUseCase: any LectureListInquirtyUseCase {
         shared {
             LectureListInquirtyUseCaseImpl(lectureRepository: lectureRepository)
         }

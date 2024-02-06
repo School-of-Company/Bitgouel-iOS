@@ -1,7 +1,7 @@
 import Foundation
 
 public struct LectureListEntity: Equatable {
-    public var id = UUID()
+    public var id: String
     public let name: String
     public let content: String
     public let startDate: String
@@ -9,12 +9,13 @@ public struct LectureListEntity: Equatable {
     public let completeDate: String
     public let lectureType: LectureType
     public let lectureStatus: LectureStatusType
+    public let approveStatus: ApproveStatusType
     public let headCount: Int
     public let maxRegisteredUser: Int
     public let lecturer: String
 
     public init(
-        id: UUID,
+        id: String,
         name: String,
         content: String,
         startDate: String,
@@ -22,6 +23,7 @@ public struct LectureListEntity: Equatable {
         completeDate: String,
         lectureType: LectureType,
         lectureStatus: LectureStatusType,
+        approveStatus: ApproveStatusType,
         headCount: Int,
         maxRegisteredUser: Int,
         lecturer: String
@@ -34,6 +36,7 @@ public struct LectureListEntity: Equatable {
         self.completeDate = completeDate
         self.lectureType = lectureType
         self.lectureStatus = lectureStatus
+        self.approveStatus = approveStatus
         self.headCount = headCount
         self.maxRegisteredUser = maxRegisteredUser
         self.lecturer = lecturer

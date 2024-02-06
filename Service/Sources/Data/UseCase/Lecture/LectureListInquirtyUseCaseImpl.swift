@@ -7,7 +7,7 @@ public struct LectureListInquirtyUseCaseImpl: LectureListInquirtyUseCase {
         self.lectureRepository = lectureRepository
     }
 
-    public func callAsFunction() async throws {
+    public func callAsFunction() async throws -> [LectureListEntity] {
         try await lectureRepository.lectureListInquiry()
     }
 }
