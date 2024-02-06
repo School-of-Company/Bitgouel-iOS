@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol RejectStudentActivityUseCase {
-    func callAsFunction(userID: String) async throws
+    func callAsFunction(activityId: String) async throws
 }
