@@ -38,4 +38,8 @@ public extension AppComponent {
     var activityDetailFactory: any ActivityDetailFactory {
         ActivityDetailComponent(parent: self)
     }
+
+    var activityDetailSettingFactory: any ActivityDetailSettingFactory {
+        ActivityDetailSettingComponent(parent: self)
+    }
 }

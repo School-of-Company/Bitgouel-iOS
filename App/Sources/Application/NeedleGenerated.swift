@@ -17,6 +17,17 @@ private func parent1(_ component: NeedleFoundation.Scope) -> NeedleFoundation.Sc
 
 #if !NEEDLE_DYNAMIC
 
+private class ActivityDetailSettingDependency0b98c5f90168b920a8b8Provider: ActivityDetailSettingDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->ActivityDetailSettingComponent
+private func factoryfd595280dea209e217b9e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return ActivityDetailSettingDependency0b98c5f90168b920a8b8Provider()
+}
 private class StudentSignUpDependency32f0961d5bf3e2a5f205Provider: StudentSignUpDependency {
     var studentSignupUseCase: any StudentSignupUseCase {
         return appComponent.studentSignupUseCase
@@ -131,18 +142,28 @@ private func factory7c395808ac9dfb8fb229f47b58f8f304c97af4d5(_ component: Needle
     return ActivityDetailDependencyc459286ea5f8c1b2ecdbProvider(appComponent: parent1(component) as! AppComponent)
 }
 private class InputActivityDependency4e692e68e51cea5b706dProvider: InputActivityDependency {
-
-
-    init() {
-
+    var activityDetailSettingFactory: any ActivityDetailSettingFactory {
+        return appComponent.activityDetailSettingFactory
+    }
+    var addStudentActivityUseCase: any AddStudentActivityUseCase {
+        return appComponent.addStudentActivityUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->InputActivityComponent
-private func factory3fc1a279eeb8c906e603e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return InputActivityDependency4e692e68e51cea5b706dProvider()
+private func factory3fc1a279eeb8c906e603f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return InputActivityDependency4e692e68e51cea5b706dProvider(appComponent: parent1(component) as! AppComponent)
 }
 
 #else
+extension ActivityDetailSettingComponent: Registration {
+    public func registerItems() {
+
+    }
+}
 extension StudentSignUpComponent: Registration {
     public func registerItems() {
         keyPathToName[\StudentSignUpDependency.studentSignupUseCase] = "studentSignupUseCase-any StudentSignupUseCase"
@@ -186,13 +207,22 @@ extension ActivityDetailComponent: Registration {
 }
 extension InputActivityComponent: Registration {
     public func registerItems() {
-
+        keyPathToName[\InputActivityDependency.activityDetailSettingFactory] = "activityDetailSettingFactory-any ActivityDetailSettingFactory"
+        keyPathToName[\InputActivityDependency.addStudentActivityUseCase] = "addStudentActivityUseCase-any AddStudentActivityUseCase"
     }
 }
 extension AppComponent: Registration {
     public func registerItems() {
 
         localTable["keychain-Keychain"] = { [unowned self] in self.keychain as Any }
+        localTable["remoteLectureDataSource-any RemoteLectureDataSource"] = { [unowned self] in self.remoteLectureDataSource as Any }
+        localTable["lectureRepository-any LectureRepository"] = { [unowned self] in self.lectureRepository as Any }
+        localTable["lectureOpenUseCase-any LectureOpenUseCase"] = { [unowned self] in self.lectureOpenUseCase as Any }
+        localTable["lectureListInquiryUseCase-any LectureListInquirtyUseCase"] = { [unowned self] in self.lectureListInquiryUseCase as Any }
+        localTable["lectureDetailInquiryUseCase-any LectureDetailInquiryUseCase"] = { [unowned self] in self.lectureDetailInquiryUseCase as Any }
+        localTable["lectureApplyUseCase-any LectureApplyUseCase"] = { [unowned self] in self.lectureApplyUseCase as Any }
+        localTable["waitingLectureApproveUseCase-any WaitingLectureApproveUseCase"] = { [unowned self] in self.waitingLectureApproveUseCase as Any }
+        localTable["waitingLectureRejectUseCase-any WaitingLectureRejectUseCase"] = { [unowned self] in self.waitingLectureRejectUseCase as Any }
         localTable["localAuthDataSource-any LocalAuthDataSource"] = { [unowned self] in self.localAuthDataSource as Any }
         localTable["remoteAuthDataSource-any RemoteAuthDataSource"] = { [unowned self] in self.remoteAuthDataSource as Any }
         localTable["authRepository-any AuthRepository"] = { [unowned self] in self.authRepository as Any }
@@ -227,6 +257,7 @@ extension AppComponent: Registration {
         localTable["signupFactory-any StudentSignUpFactory"] = { [unowned self] in self.signupFactory as Any }
         localTable["inputActivityFactory-any InputActivityFactory"] = { [unowned self] in self.inputActivityFactory as Any }
         localTable["activityDetailFactory-any ActivityDetailFactory"] = { [unowned self] in self.activityDetailFactory as Any }
+        localTable["activityDetailSettingFactory-any ActivityDetailSettingFactory"] = { [unowned self] in self.activityDetailSettingFactory as Any }
     }
 }
 
@@ -245,12 +276,13 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
 #if !NEEDLE_DYNAMIC
 
 @inline(never) private func register1() {
+    registerProviderFactory("^->AppComponent->ActivityDetailSettingComponent", factoryfd595280dea209e217b9e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->StudentSignUpComponent", factoryc57b1cf1651b3051e040f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->RootComponent", factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ActivityListComponent", factory7177e6769ee69064a61bf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->LoginComponent", factoryd6018e98563de75a2ba4f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ActivityDetailComponent", factory7c395808ac9dfb8fb229f47b58f8f304c97af4d5)
-    registerProviderFactory("^->AppComponent->InputActivityComponent", factory3fc1a279eeb8c906e603e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->InputActivityComponent", factory3fc1a279eeb8c906e603f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)
 }
 #endif
