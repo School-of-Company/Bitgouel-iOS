@@ -3,15 +3,17 @@ import Service
 
 final class ActivityListViewModel: BaseViewModel {
     @Published var isPresentedInputActivityView: Bool = false
+    
     var model: ActivityListModel
+    
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
     private let queryMyStudentActivityUseCase: any QueryMyStudentActivityUseCase
     private let queryStudentActivityListUseCase: any QueryStudentActivityListUseCase
     private let queryStudentActivityByIdUseCase: any QueryStudentActivityByIdUseCase
-    private let studentID: UUID
-
+    private let studentID: String
+    
     init(
-        studentID: UUID,
+        studentID: String,
         model: ActivityListModel,
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
         queryMyStudentActivityUseCase: any QueryMyStudentActivityUseCase,
@@ -25,12 +27,12 @@ final class ActivityListViewModel: BaseViewModel {
         self.queryStudentActivityListUseCase = queryStudentActivityListUseCase
         self.queryStudentActivityByIdUseCase = queryStudentActivityByIdUseCase
     }
-
+    
     @MainActor
     func onAppear() {
         let authority = loadUserAuthorityUseCase()
         model.updateUserRole(authority: authority)
-
+        
         Task {
             do {
                 let studentActivityList: [ActivityEntity] = try await { () async throws -> [ActivityEntity] in
@@ -42,7 +44,7 @@ final class ActivityListViewModel: BaseViewModel {
                         throw ActivityDomainError.forbidden
                     }
                 }()
-
+                
                 model.updateContent(entity: studentActivityList)
             } catch {
                 if let activityDomainError = error as? ActivityDomainError {
@@ -51,32 +53,42 @@ final class ActivityListViewModel: BaseViewModel {
                     model.errorMessage = "알 수 없는 오류가 발생했습니다."
                 }
                 self.isErrorOccurred = true
-
+                
                 print(error.localizedDescription)
             }
         }
     }
-
+    
     func onAppearStudentListByAdmin() async throws -> [ActivityEntity] {
         return try await queryStudentActivityListUseCase()
     }
-
+    
     func onAppearStudentListByStudent() async throws -> [ActivityEntity] {
         return try await queryMyStudentActivityUseCase()
     }
-
+    
     func onAppearStudentListByTeacher() async throws -> [ActivityEntity] {
-        return try await queryStudentActivityByIdUseCase(studentID: studentID.uuidString)
+        return try await queryStudentActivityByIdUseCase(studentID: studentID)
     }
-
+    
     func toastDismissed() {
         self.isErrorOccurred = false
     }
-
+    
+    @MainActor
+    func activityDidSelect(activityId: String) {
+        model.updateSelectedActivityId(activityId: activityId)
+    }
+    
+    @MainActor
+    func activityDetailPageDismissed() {
+        model.isPresentedActivityDetailPage = false
+    }
+    
     func inputActivityViewIsRequired() {
         self.isPresentedInputActivityView = true
     }
-
+    
     func inputActivityViewIsDismissed() {
         self.isPresentedInputActivityView = false
     }

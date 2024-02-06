@@ -7,15 +7,18 @@ struct ActivityListView: View {
     @StateObject var viewModel: ActivityListViewModel
     
     private let inputActivityFactory: any InputActivityFactory
+    private let activityDetailFactory: any ActivityDetailFactory
     
     init(
-        inputActivityFactory: any InputActivityFactory,
         model: ActivityListModel,
-        viewModel: ActivityListViewModel
+        viewModel: ActivityListViewModel,
+        inputActivityFactory: any InputActivityFactory,
+        activityDetailFactory: any ActivityDetailFactory
     ) {
-        self.inputActivityFactory = inputActivityFactory
         _model = StateObject(wrappedValue: model)
         _viewModel = StateObject(wrappedValue: viewModel)
+        self.inputActivityFactory = inputActivityFactory
+        self.activityDetailFactory = activityDetailFactory
     }
     
     var body: some View {
@@ -33,6 +36,12 @@ struct ActivityListView: View {
                                 state: item.approveStatus,
                                 authority: model.authority
                             )
+                            .buttonWrapper {
+                                withAnimation {
+                                    viewModel.activityDidSelect(activityId: item.activityId)
+                                    model.isPresentedActivityDetailPage = true
+                                }
+                            }
                         }
                     }
                     .padding(.top, 8)
@@ -45,8 +54,8 @@ struct ActivityListView: View {
                     set: { _ in viewModel.toastDismissed() }
                 )
             )
-            .padding(.horizontal, 28)
             .bitgouelBackButton(dismiss: dismiss)
+            .padding(.horizontal, 28)
             .navigationTitle("학생활동").navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -63,6 +72,13 @@ struct ActivityListView: View {
                     }
                 }
             }
+            .navigate(
+                to: activityDetailFactory.makeView(activityId: model.selectedActivityId ?? "").eraseToAnyView(),
+                when: Binding(
+                    get: { model.isPresentedActivityDetailPage },
+                    set: { _ in viewModel.activityDetailPageDismissed() }
+                )
+            )
             .navigate(
                 to: inputActivityFactory.makeView().eraseToAnyView(),
                 when: Binding(
