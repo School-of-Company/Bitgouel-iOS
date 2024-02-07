@@ -134,8 +134,8 @@ private class LectureListDependencyf05b805b4d41a7643bcdProvider: LectureListDepe
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
         return appComponent.loadUserAuthorityUseCase
     }
-    var lectureListInquirtyUseCase: any LectureListInquirtyUseCase {
-        return appComponent.lectureListInquirtyUseCase
+    var queryLectureListUseCase: any QueryLectureListUseCase {
+        return appComponent.queryLectureListUseCase
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -235,7 +235,7 @@ extension LectureListComponent: Registration {
     public func registerItems() {
         keyPathToName[\LectureListDependency.lectureListDetailFactory] = "lectureListDetailFactory-any LectureListDetailFactory"
         keyPathToName[\LectureListDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
-        keyPathToName[\LectureListDependency.lectureListInquirtyUseCase] = "lectureListInquirtyUseCase-any LectureListInquirtyUseCase"
+        keyPathToName[\LectureListDependency.queryLectureListUseCase] = "queryLectureListUseCase-any QueryLectureListUseCase"
     }
 }
 extension ActivityDetailComponent: Registration {
@@ -260,8 +260,8 @@ extension AppComponent: Registration {
         localTable["remoteLectureDataSource-any RemoteLectureDataSource"] = { [unowned self] in self.remoteLectureDataSource as Any }
         localTable["lectureRepository-any LectureRepository"] = { [unowned self] in self.lectureRepository as Any }
         localTable["lectureOpenUseCase-any LectureOpenUseCase"] = { [unowned self] in self.lectureOpenUseCase as Any }
-        localTable["lectureListInquirtyUseCase-any LectureListInquirtyUseCase"] = { [unowned self] in self.lectureListInquirtyUseCase as Any }
-        localTable["lectureDetailInquiryUseCase-any LectureDetailInquiryUseCase"] = { [unowned self] in self.lectureDetailInquiryUseCase as Any }
+        localTable["queryLectureListUseCase-any QueryLectureListUseCase"] = { [unowned self] in self.queryLectureListUseCase as Any }
+        localTable["queryLectureDetailUseCase-any QueryLectureDetailUseCase"] = { [unowned self] in self.queryLectureDetailUseCase as Any }
         localTable["lectureApplyUseCase-any LectureApplyUseCase"] = { [unowned self] in self.lectureApplyUseCase as Any }
         localTable["waitingLectureApproveUseCase-any WaitingLectureApproveUseCase"] = { [unowned self] in self.waitingLectureApproveUseCase as Any }
         localTable["waitingLectureRejectUseCase-any WaitingLectureRejectUseCase"] = { [unowned self] in self.waitingLectureRejectUseCase as Any }

@@ -20,15 +20,15 @@ public extension AppComponent {
         }
     }
 
-    var lectureListInquirtyUseCase: any LectureListInquirtyUseCase {
+    var queryLectureListUseCase: any QueryLectureListUseCase {
         shared {
-            LectureListInquirtyUseCaseImpl(lectureRepository: lectureRepository)
+            QueryLectureListUseCaseImpl(lectureRepository: lectureRepository)
         }
     }
 
-    var lectureDetailInquiryUseCase: any LectureDetailInquiryUseCase {
+    var queryLectureDetailUseCase: any QueryLectureDetailUseCase {
         shared {
-            LectureDetailInquiryUseCaseImpl(lectureRepository: lectureRepository)
+            QueryLectureDetailUseCaseImpl(lectureRepository: lectureRepository)
         }
     }
 

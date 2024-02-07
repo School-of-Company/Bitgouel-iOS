@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol LectureListInquirtyUseCase {
+public protocol QueryLectureListUseCase {
     func callAsFunction() async throws -> [LectureListEntity]
 }

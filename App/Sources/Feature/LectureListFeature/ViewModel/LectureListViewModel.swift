@@ -11,7 +11,7 @@ final class LectureListViewModel: BaseViewModel {
     var model: LectureListModel
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
     private let lectureListDetailFactory: any LectureListDetailFactory
-    private let lectureListInquirtyUseCase: any LectureListInquirtyUseCase
+    private let queryLectureListUseCase: any QueryLectureListUseCase
     let lectureType: [LectureType] = LectureType.allCases
     let approveStatusType: [ApproveStatusType] = ApproveStatusType.allCases
     
@@ -19,12 +19,12 @@ final class LectureListViewModel: BaseViewModel {
         model: LectureListModel,
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
         lectureListDetailFactory: any LectureListDetailFactory,
-        lectureListInquirtyUseCase: any LectureListInquirtyUseCase
+        queryLectureListUseCase: any QueryLectureListUseCase
     ) {
         self.model = model
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
         self.lectureListDetailFactory = lectureListDetailFactory
-        self.lectureListInquirtyUseCase = lectureListInquirtyUseCase
+        self.queryLectureListUseCase = queryLectureListUseCase
     }
     
     @MainActor
@@ -34,7 +34,7 @@ final class LectureListViewModel: BaseViewModel {
         
         Task {
             do {
-                lectureList = try await lectureListInquirtyUseCase()
+                lectureList = try await queryLectureListUseCase()
                 model.updateContent(entity: lectureList ?? [])
             } catch {
                 print(error.localizedDescription)
