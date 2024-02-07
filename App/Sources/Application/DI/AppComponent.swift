@@ -42,4 +42,12 @@ public extension AppComponent {
     var activityDetailSettingFactory: any ActivityDetailSettingFactory {
         ActivityDetailSettingComponent(parent: self)
     }
+    
+    var lectureListFactory: any LectureListFactory {
+        LectureListComponent(parent: self)
+    }
+    
+    var lectureListDetailFactory: any LectureListDetailFactory {
+        LectureListDetailComponent(parent: self)
+    }
 }

@@ -5,12 +5,13 @@ public final class RemoteLectureDataSourceImpl: BaseRemoteDataSource<LectureAPI>
         try await request(.lectureOpen(req))
     }
 
-    public func lectureListInquiry() async throws {
-        try await request(.lectureListInquiry)
+    public func queryLectureList() async throws -> [LectureListEntity] {
+        try await request(.queryLectureList, dto: FetchLectureListResponseDTO.self)
+            .toDomain()
     }
 
-    public func lectureDetailInquiry(userID: String) async throws {
-        try await request(.lectureDetailInquiry(userID: userID))
+    public func queryLectureDetail(userID: String) async throws {
+        try await request(.queryLectureDetail(userID: userID))
     }
 
     public func lectureApply(userID: String) async throws {
