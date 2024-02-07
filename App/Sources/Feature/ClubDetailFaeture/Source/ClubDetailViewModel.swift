@@ -3,35 +3,36 @@ import SwiftUI
 
 final class ClubDetailViewModel: BaseViewModel {
     @Published var authority: UserAuthorityType = .user
-    
+
     //MARK: ClubInfo
     private let clubId: String
     @Published var clubName: String = ""
     @Published var highSchoolName: String = ""
-    @Published var headcount: Int?
     @Published var students: [ClubDetailEntity.memberInfoEntity] = []
     @Published var teacher: ClubDetailEntity.memberInfoEntity?
-    
+
     //MARK: UseCase
-    private let loadAuthorityUseCase: any LoadUserAuthorityUseCase
+    private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
     private let queryClubDetailUseCase: any QueryClubDetailUseCase
     private let queryStudentListByClubUseCase: any QueryStudentListByClubUseCase
-    
+
     init(
         clubId: String,
-        loadAuthorityUseCase: any LoadUserAuthorityUseCase,
+        loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
         queryClubDetailUseCase: any QueryClubDetailUseCase,
         queryStudentListByClubUseCase: any QueryStudentListByClubUseCase
     ) {
         self.clubId = clubId
-        self.loadAuthorityUseCase = loadAuthorityUseCase
+        self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
         self.queryClubDetailUseCase = queryClubDetailUseCase
         self.queryStudentListByClubUseCase = queryStudentListByClubUseCase
     }
-    
+
+    @MainActor
     func onAppear() {
-        self.authority = loadAuthorityUseCase()
-        
+        self.authority = loadUserAuthorityUseCase()
+        print("authority: \(authority)")
+
         Task {
             do {
                 let clubDetail: ClubDetailEntity = try await { () async throws -> ClubDetailEntity in
@@ -40,26 +41,26 @@ final class ClubDetailViewModel: BaseViewModel {
                     default: return try await onAppearClubDetail()
                     }
                 }()
+                print("정보 \(clubDetail)")
+
+                updateClubDetail(clubInfo: clubDetail)
             } catch {
-                
+                print(error.localizedDescription)
             }
         }
-        
-        @Sendable 
-        func onAppearClubDetailByAdmin(clubId: String) async throws -> ClubDetailEntity {
-            return try await queryClubDetailUseCase(clubId: clubId)
-        }
-        
-        @Sendable 
-        func onAppearClubDetail() async throws -> ClubDetailEntity {
-            return try await queryStudentListByClubUseCase()
-        }
     }
-    
+
+    func onAppearClubDetailByAdmin(clubId: String) async throws -> ClubDetailEntity {
+        return try await queryClubDetailUseCase(clubId: clubId)
+    }
+
+    func onAppearClubDetail() async throws -> ClubDetailEntity {
+        return try await queryStudentListByClubUseCase()
+    }
+
     func updateClubDetail(clubInfo: ClubDetailEntity) {
         self.clubName = clubInfo.clubName
         self.highSchoolName = clubInfo.highSchoolName
-        self.headcount = clubInfo.headcount
         self.students = clubInfo.students
         self.teacher = clubInfo.teacher
     }
