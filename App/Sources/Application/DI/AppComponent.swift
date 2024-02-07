@@ -35,6 +35,10 @@ public extension AppComponent {
         InputActivityComponent(parent: self)
     }
 
+    var activityDetailFactory: any ActivityDetailFactory {
+        ActivityDetailComponent(parent: self)
+    }
+
     var activityDetailSettingFactory: any ActivityDetailSettingFactory {
         ActivityDetailSettingComponent(parent: self)
     }
