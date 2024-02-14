@@ -42,6 +42,10 @@ public extension AppComponent {
     var activityDetailSettingFactory: any ActivityDetailSettingFactory {
         ActivityDetailSettingComponent(parent: self)
     }
+
+    var clubListFactory: any ClubListFactory {
+        ClubListComponent(parent: self)
+    }
     
     var lectureListFactory: any LectureListFactory {
         LectureListComponent(parent: self)

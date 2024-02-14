@@ -17,6 +17,17 @@ private func parent1(_ component: NeedleFoundation.Scope) -> NeedleFoundation.Sc
 
 #if !NEEDLE_DYNAMIC
 
+private class ClubListDependency90c6e61626f7c53ad50fProvider: ClubListDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->ClubListComponent
+private func factory050817f1b6d356b83467e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return ClubListDependency90c6e61626f7c53ad50fProvider()
+}
 private class LectureListDetailDependency2a815f1240973966e6a6Provider: LectureListDetailDependency {
 
 
@@ -189,6 +200,11 @@ private func factory3fc1a279eeb8c906e603f47b58f8f304c97af4d5(_ component: Needle
 }
 
 #else
+extension ClubListComponent: Registration {
+    public func registerItems() {
+
+    }
+}
 extension LectureListDetailComponent: Registration {
     public func registerItems() {
 
@@ -307,6 +323,7 @@ extension AppComponent: Registration {
         localTable["inputActivityFactory-any InputActivityFactory"] = { [unowned self] in self.inputActivityFactory as Any }
         localTable["activityDetailFactory-any ActivityDetailFactory"] = { [unowned self] in self.activityDetailFactory as Any }
         localTable["activityDetailSettingFactory-any ActivityDetailSettingFactory"] = { [unowned self] in self.activityDetailSettingFactory as Any }
+        localTable["clubListFactory-any ClubListFactory"] = { [unowned self] in self.clubListFactory as Any }
         localTable["lectureListFactory-any LectureListFactory"] = { [unowned self] in self.lectureListFactory as Any }
         localTable["lectureListDetailFactory-any LectureListDetailFactory"] = { [unowned self] in self.lectureListDetailFactory as Any }
     }
@@ -327,6 +344,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
 #if !NEEDLE_DYNAMIC
 
 @inline(never) private func register1() {
+    registerProviderFactory("^->AppComponent->ClubListComponent", factory050817f1b6d356b83467e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->LectureListDetailComponent", factory22af859a70aa8ba0b346e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->ActivityDetailSettingComponent", factoryfd595280dea209e217b9e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->StudentSignUpComponent", factoryc57b1cf1651b3051e040f47b58f8f304c97af4d5)

@@ -1,7 +1,7 @@
 import Service
 import SwiftUI
 
-struct ClubListRowView: View {
+struct SearchClubListRowView: View {
     let club: String
     @Binding var isSelected: Bool
 
