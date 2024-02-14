@@ -2,7 +2,7 @@ import Moya
 
 public enum JwtTokenType: String {
     case accessToken = "Authorization"
-    case refreshToken = "Refresh-Token"
+    case refreshToken = "RefreshToken"
     case none
 }
 

@@ -14,14 +14,14 @@ extension RefreshAPI: BitgouelAPI {
     public var urlPath: String {
         switch self {
         case .reissueToken:
-            return "/reissue"
+            return ""
         }
     }
 
     public var method: Moya.Method {
         switch self {
         case .reissueToken:
-            return .put
+            return .patch
         }
     }
 
