@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol LectureDetailInquiryUseCase {
+public protocol QueryLectureDetailUseCase {
     func callAsFunction(userID: String) async throws
 }

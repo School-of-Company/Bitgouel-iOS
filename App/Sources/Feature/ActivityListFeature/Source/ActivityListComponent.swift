@@ -3,6 +3,7 @@ import Service
 import SwiftUI
 
 public protocol ActivityListDependency: Dependency {
+    var activityDetailFactory: any ActivityDetailFactory { get }
     var inputActivityFactory: any InputActivityFactory { get }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase { get }
     var queryMyStudentActivityUseCase: any QueryMyStudentActivityUseCase { get }
@@ -12,10 +13,9 @@ public protocol ActivityListDependency: Dependency {
 
 public final class ActivityListComponent: Component<ActivityListDependency>, ActivityListFactory {
     @MainActor
-    public func makeView(studentID: UUID) -> some View {
+    public func makeView(studentID: String) -> some View {
         let model = ActivityListModel()
         return ActivityListView(
-            inputActivityFactory: dependency.inputActivityFactory,
             model: model,
             viewModel: .init(
                 studentID: studentID,
@@ -24,7 +24,9 @@ public final class ActivityListComponent: Component<ActivityListDependency>, Act
                 queryMyStudentActivityUseCase: self.dependency.queryMyStudentActivityUseCase,
                 queryStudentActivityListUseCase: self.dependency.queryStudentActivityListUseCase,
                 queryStudentActivityByIdUseCase: self.dependency.queryStudentActivityByIdUseCase
-            )
+            ),
+            inputActivityFactory: dependency.inputActivityFactory, 
+            activityDetailFactory: dependency.activityDetailFactory
         )
     }
 }

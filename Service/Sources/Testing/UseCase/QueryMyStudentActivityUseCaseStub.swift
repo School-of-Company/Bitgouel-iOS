@@ -5,7 +5,7 @@ public final class QueryMyStudentActivityUseCaseStub: QueryMyStudentActivityUseC
     public func callAsFunction() async throws -> [ActivityEntity] {
         [
             ActivityEntity(
-                activityId: .init(),
+                activityId: "asd",
                 title: "asdf",
                 activityDate: "asdf",
                 userId: .init(),

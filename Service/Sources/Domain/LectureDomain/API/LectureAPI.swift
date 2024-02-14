@@ -3,8 +3,8 @@ import Moya
 
 public enum LectureAPI {
     case lectureOpen(LectureOpenRequestDTO)
-    case lectureListInquiry
-    case lectureDetailInquiry(userID: String)
+    case queryLectureList
+    case queryLectureDetail(userID: String)
     case lectureApply(userID: String)
     case waitingLectureApprove(userID: String)
     case waitingLectureReject(userID: String)
@@ -19,10 +19,10 @@ extension LectureAPI: BitgouelAPI {
 
     public var urlPath: String {
         switch self {
-        case .lectureOpen, .lectureListInquiry:
+        case .lectureOpen, .queryLectureList:
             return ""
 
-        case let .lectureDetailInquiry(userID):
+        case let .queryLectureDetail(userID):
             return "/\(userID)"
 
         case let .lectureApply(userID):
@@ -41,7 +41,7 @@ extension LectureAPI: BitgouelAPI {
         case .lectureOpen, .lectureApply:
             return .post
 
-        case .lectureListInquiry, .lectureDetailInquiry:
+        case .queryLectureList, .queryLectureDetail:
             return .get
 
         case .waitingLectureApprove:
@@ -57,7 +57,7 @@ extension LectureAPI: BitgouelAPI {
         case let .lectureOpen(req):
             return .requestJSONEncodable(req)
 
-        case .lectureListInquiry:
+        case .queryLectureList:
             return .requestParameters(parameters: [
                 "page" : Int(),
                 "size" : Int(),
@@ -73,8 +73,8 @@ extension LectureAPI: BitgouelAPI {
     public var jwtTokenType: JwtTokenType {
         switch self {
         case .lectureOpen,
-             .lectureListInquiry,
-             .lectureDetailInquiry,
+             .queryLectureList,
+             .queryLectureDetail,
              .lectureApply,
              .waitingLectureApprove,
              .waitingLectureReject:
@@ -92,7 +92,7 @@ extension LectureAPI: BitgouelAPI {
                 409: .conflict
             ]
 
-        case .lectureListInquiry:
+        case .queryLectureList:
             return [
                 400: .badRequest,
                 401: .unauthorized,
@@ -100,7 +100,7 @@ extension LectureAPI: BitgouelAPI {
                 404 : .notFound
             ]
 
-        case .lectureDetailInquiry:
+        case .queryLectureDetail:
             return [
                 400: .badRequest,
                 401: .unauthorized,

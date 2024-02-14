@@ -109,7 +109,7 @@ struct StudentSignUpView: View {
         .bitgouelBottomSheet(
             isShowing: $viewModel.isPresentedClubSheet
         ) {
-            ClubListView(
+            SearchClubListView(
                 searchText: $viewModel.clubSearch,
                 searchedClubList: viewModel.searchedClubList,
                 selectedClub: viewModel.selectedClub ?? "동아리",

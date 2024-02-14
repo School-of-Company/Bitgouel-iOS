@@ -44,7 +44,7 @@ private extension JwtPlugin {
             return "Bearer \(keychain.load(type: .accessToken))"
 
         case .refreshToken:
-            return keychain.load(type: .refreshToken)
+            return "Bearer \(keychain.load(type: .refreshToken))"
 
         case .accessExpiredAt:
             return keychain.load(type: .accessExpiredAt)
