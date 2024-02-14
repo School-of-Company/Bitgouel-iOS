@@ -10,10 +10,10 @@ public struct ActivitiesResponseDTO: Decodable {
     }
 
     public struct ActivityInfo: Decodable {
-        public let activityId: UUID
+        public let activityId: String
         public let title: String
         public let activityDate: String
-        public let userId: UUID
+        public let userId: String
         public let username: String
         public let approveStatus: ApproveStatusType
     }

@@ -1,9 +1,9 @@
 import Foundation
 
 public struct LoginUseCaseImpl: LoginUseCase {
-    private let authRepository: AuthRepository
+    private let authRepository: any AuthRepository
 
-    public init(authRepository: AuthRepository) {
+    public init(authRepository: any AuthRepository) {
         self.authRepository = authRepository
     }
 
