@@ -307,14 +307,12 @@ extension AppComponent: Registration {
         localTable["lectureApplyUseCase-any LectureApplyUseCase"] = { [unowned self] in self.lectureApplyUseCase as Any }
         localTable["waitingLectureApproveUseCase-any WaitingLectureApproveUseCase"] = { [unowned self] in self.waitingLectureApproveUseCase as Any }
         localTable["waitingLectureRejectUseCase-any WaitingLectureRejectUseCase"] = { [unowned self] in self.waitingLectureRejectUseCase as Any }
-<<<<<<< HEAD
         localTable["remoteClubDataSource-any RemoteClubDataSource"] = { [unowned self] in self.remoteClubDataSource as Any }
         localTable["clubRepository-any ClubRepository"] = { [unowned self] in self.clubRepository as Any }
         localTable["queryClubListUseCase-any QueryClubListUseCase"] = { [unowned self] in self.queryClubListUseCase as Any }
         localTable["queryClubDetailUseCase-any QueryClubDetailUseCase"] = { [unowned self] in self.queryClubDetailUseCase as Any }
         localTable["queryStudentListByClubUseCase-any QueryStudentListByClubUseCase"] = { [unowned self] in self.queryStudentListByClubUseCase as Any }
         localTable["queryStudentDetailByClubUseCase-any QueryStudentDetailByClubUseCase"] = { [unowned self] in self.queryStudentDetailByClubUseCase as Any }
-=======
         localTable["remotePostDataSource-any RemotePostDataSource"] = { [unowned self] in self.remotePostDataSource as Any }
         localTable["postRepository-any PostRepository"] = { [unowned self] in self.postRepository as Any }
         localTable["writePostUseCase-any WritePostUseCase"] = { [unowned self] in self.writePostUseCase as Any }
@@ -322,7 +320,6 @@ extension AppComponent: Registration {
         localTable["queryPostDetailUseCase-any QueryPostDetailUseCase"] = { [unowned self] in self.queryPostDetailUseCase as Any }
         localTable["updatePostUseCase-UpdatePostUseCase"] = { [unowned self] in self.updatePostUseCase as Any }
         localTable["deletePostUseCase-DeletePostUseCase"] = { [unowned self] in self.deletePostUseCase as Any }
->>>>>>> 054c8070797f481e0dbc60d4edd7fe7a600caa68
         localTable["localAuthDataSource-any LocalAuthDataSource"] = { [unowned self] in self.localAuthDataSource as Any }
         localTable["remoteAuthDataSource-any RemoteAuthDataSource"] = { [unowned self] in self.remoteAuthDataSource as Any }
         localTable["authRepository-any AuthRepository"] = { [unowned self] in self.authRepository as Any }
@@ -358,13 +355,10 @@ extension AppComponent: Registration {
         localTable["inputActivityFactory-any InputActivityFactory"] = { [unowned self] in self.inputActivityFactory as Any }
         localTable["activityDetailFactory-any ActivityDetailFactory"] = { [unowned self] in self.activityDetailFactory as Any }
         localTable["activityDetailSettingFactory-any ActivityDetailSettingFactory"] = { [unowned self] in self.activityDetailSettingFactory as Any }
-<<<<<<< HEAD
         localTable["clubDetailFactory-any ClubDetailFactory"] = { [unowned self] in self.clubDetailFactory as Any }
-=======
         localTable["clubListFactory-any ClubListFactory"] = { [unowned self] in self.clubListFactory as Any }
         localTable["lectureListFactory-any LectureListFactory"] = { [unowned self] in self.lectureListFactory as Any }
         localTable["lectureListDetailFactory-any LectureListDetailFactory"] = { [unowned self] in self.lectureListDetailFactory as Any }
->>>>>>> 054c8070797f481e0dbc60d4edd7fe7a600caa68
     }
 }
 
