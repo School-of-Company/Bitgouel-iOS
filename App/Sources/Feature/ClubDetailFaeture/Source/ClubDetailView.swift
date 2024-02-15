@@ -2,13 +2,18 @@ import SwiftUI
 
 struct ClubDetailView: View {
     @Environment(\.dismiss) var dismiss
+    @StateObject var viewModel: ClubDetailViewModel
+
+    init(viewModel: ClubDetailViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
 
     var body: some View {
         NavigationView {
             VStack(spacing: 24) {
                 VStack(alignment: .leading, spacing: 4) {
                     BitgouelText(
-                        text: "동아리 이름",
+                        text: viewModel.clubName,
                         font: .title2
                     )
 
@@ -21,7 +26,7 @@ struct ClubDetailView: View {
                         Spacer()
 
                         BitgouelText(
-                            text: "학교 이름",
+                            text: viewModel.highSchoolName,
                             font: .text3
                         )
                     }
@@ -36,7 +41,7 @@ struct ClubDetailView: View {
                         Spacer()
 
                         BitgouelText(
-                            text: "선생님 성함",
+                            text: viewModel.teacher?.name ?? "",
                             font: .text3
                         )
                     }
@@ -44,24 +49,40 @@ struct ClubDetailView: View {
                 }
                 .padding(.top, 24)
 
-                VStack(spacing: 20) {
-                    ClubMemberListRow(
-                        id: "1",
-                        name: "김선생",
-                        autority: .teacher
+                VStack(alignment: .leading, spacing: 0) {
+                    BitgouelText(
+                        text: "동아리 인원",
+                        font: .text1
                     )
 
-                    ClubMemberListRow(
-                        id: "2",
-                        name: "김학생",
-                        autority: .student
-                    )
+                    Divider()
+                        .padding(.top, 12)
+
+                    LazyVStack(spacing: 20) {
+                        ClubMemberListRow(
+                            id: viewModel.teacher?.id ?? "",
+                            name: viewModel.teacher?.name ?? "",
+                            autority: .teacher
+                        )
+
+                        ForEach(viewModel.students, id: \.id) { student in
+                            ClubMemberListRow(
+                                id: student.id,
+                                name: student.name,
+                                autority: .student
+                            )
+                        }
+                    }
+                    .padding(.top, 20)
                 }
 
                 Spacer()
             }
             .padding(.horizontal, 28)
             .bitgouelBackButton(dismiss: dismiss)
+        }
+        .onAppear {
+            viewModel.onAppear()
         }
     }
 }

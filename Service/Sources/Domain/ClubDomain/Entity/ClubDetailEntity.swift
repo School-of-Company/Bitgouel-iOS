@@ -1,13 +1,38 @@
 import Foundation
 
 public struct ClubDetailEntity: Equatable {
+    public let clubId: String
     public let clubName: String
     public let highSchoolName: String
-    public let studentHeadcount: Int
+    public let headcount: Int
+    public let students: [memberInfoEntity]
+    public let teacher: memberInfoEntity
 
-    public init(clubName: String, highSchoolName: String, studentHeadcount: Int) {
+    public init(
+        clubId: String,
+        clubName: String,
+        highSchoolName: String,
+        headcount: Int,
+        students: [memberInfoEntity],
+        teacher: memberInfoEntity
+    ) {
+        self.clubId = clubId
         self.clubName = clubName
         self.highSchoolName = highSchoolName
-        self.studentHeadcount = studentHeadcount
+        self.headcount = headcount
+        self.students = students
+        self.teacher = teacher
+    }
+}
+
+public extension ClubDetailEntity {
+    struct memberInfoEntity: Equatable {
+        public let id: String
+        public let name: String
+
+        public init(id: String, name: String) {
+            self.id = id
+            self.name = name
+        }
     }
 }
