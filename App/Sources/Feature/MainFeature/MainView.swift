@@ -41,106 +41,108 @@ struct MainView: View {
                 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
-                        VStack {
-                            Image("gwangjuNaturalScienceHighSchool")
-                                .padding(.top, 5)
-                                .padding(.bottom, 13)
+                        Group {
+                            VStack {
+                                Image("gwangjuNaturalScienceHighSchool")
+                                    .padding(.top, 5)
+                                    .padding(.bottom, 13)
+                                
+                                Text("광주자연과학고등학교")
+                                    .bitgouelFont(.caption, color: .greyscale(.g4))
+                                    .padding(.bottom)
+                            }
+                            .padding(.trailing, 24)
                             
-                            Text("광주자연과학고등학교")
-                                .bitgouelFont(.caption, color: .greyscale(.g4))
-                                .padding(.bottom)
-                        }
-                        .padding(.trailing, 24)
-                        
-                        VStack {
-                            Image("jeonnamTechnicalHighSchool")
-                                .padding(.bottom, 8)
+                            VStack {
+                                Image("jeonnamTechnicalHighSchool")
+                                    .padding(.bottom, 8)
+                                
+                                Text("전남공업고등학교")
+                                    .bitgouelFont(.caption, color: .greyscale(.g4))
+                                    .padding(.bottom)
+                            }
+                            .padding(.trailing, 24)
                             
-                            Text("전남공업고등학교")
-                                .bitgouelFont(.caption, color: .greyscale(.g4))
-                                .padding(.bottom)
-                        }
-                        .padding(.trailing, 24)
-                        
-                        VStack {
-                            Image("sunguiScienceTechnologyHighSchool")
-                                .padding(.bottom, 8)
+                            VStack {
+                                Image("sunguiScienceTechnologyHighSchool")
+                                    .padding(.bottom, 8)
+                                
+                                Text("숭의과학기술고등학교")
+                                    .bitgouelFont(.caption, color: .greyscale(.g4))
+                                    .padding(.bottom)
+                            }
+                            .padding(.trailing, 24)
                             
-                            Text("숭의과학기술고등학교")
-                                .bitgouelFont(.caption, color: .greyscale(.g4))
-                                .padding(.bottom)
-                        }
-                        .padding(.trailing, 24)
-                        
-                        VStack {
-                            Image("dongilHighSchoolOfFutureScienceHighSchool")
-                                .padding(.bottom, 8)
+                            VStack {
+                                Image("dongilHighSchoolOfFutureScienceHighSchool")
+                                    .padding(.bottom, 8)
+                                
+                                Text("동일미래과학고등학교")
+                                    .bitgouelFont(.caption, color: .greyscale(.g4))
+                                    .padding(.bottom)
+                            }
+                            .padding(.trailing, 24)
                             
-                            Text("동일미래과학고등학교")
-                                .bitgouelFont(.caption, color: .greyscale(.g4))
-                                .padding(.bottom)
-                        }
-                        .padding(.trailing, 24)
-                        
-                        VStack {
-                            Image("jeonnamGirlsCommercialHighSchool")
-                                .padding(.bottom, 8)
+                            VStack {
+                                Image("jeonnamGirlsCommercialHighSchool")
+                                    .padding(.bottom, 8)
+                                
+                                Text("전남여자상업고등학교")
+                                    .bitgouelFont(.caption, color: .greyscale(.g4))
+                                    .padding(.bottom)
+                            }
+                            .padding(.trailing, 24)
                             
-                            Text("전남여자상업고등학교")
-                                .bitgouelFont(.caption, color: .greyscale(.g4))
-                                .padding(.bottom)
-                        }
-                        .padding(.trailing, 24)
-                        
-                        VStack {
-                            Image("seojinGirlsHighSchool")
-                                .padding(.bottom, 8)
+                            VStack {
+                                Image("seojinGirlsHighSchool")
+                                    .padding(.bottom, 8)
+                                
+                                Text("서진여자고등학교")
+                                    .bitgouelFont(.caption, color: .greyscale(.g4))
+                                    .padding(.bottom)
+                            }
+                            .padding(.trailing, 24)
                             
-                            Text("서진여자고등학교")
-                                .bitgouelFont(.caption, color: .greyscale(.g4))
-                                .padding(.bottom)
-                        }
-                        .padding(.trailing, 24)
-                        
-                        VStack {
-                            Image("gwangjuTechnicalHighSchool")
-                                .padding(.bottom, 8)
+                            VStack {
+                                Image("gwangjuTechnicalHighSchool")
+                                    .padding(.bottom, 8)
+                                
+                                Text("광주공업고등학교")
+                                    .bitgouelFont(.caption, color: .greyscale(.g4))
+                                    .padding(.bottom)
+                            }
+                            .padding(.trailing, 24)
                             
-                            Text("광주공업고등학교")
-                                .bitgouelFont(.caption, color: .greyscale(.g4))
-                                .padding(.bottom)
-                        }
-                        .padding(.trailing, 24)
-                        
-                        VStack {
-                            Image("kumpaTechnicalHighSchool")
-                                .padding(.bottom, 8)
+                            VStack {
+                                Image("kumpaTechnicalHighSchool")
+                                    .padding(.bottom, 8)
+                                
+                                Text("금파공업고등학교")
+                                    .bitgouelFont(.caption, color: .greyscale(.g4))
+                                    .padding(.bottom)
+                            }
+                            .padding(.trailing, 24)
                             
-                            Text("금파공업고등학교")
-                                .bitgouelFont(.caption, color: .greyscale(.g4))
-                                .padding(.bottom)
-                        }
-                        .padding(.trailing, 24)
-                        
-                        VStack {
-                            Image("songwonGirlsCommercialHighSchool")
-                                .padding(.bottom, 8)
+                            VStack {
+                                Image("songwonGirlsCommercialHighSchool")
+                                    .padding(.bottom, 8)
+                                
+                                Text("송원여자상업고등학교")
+                                    .bitgouelFont(.caption, color: .greyscale(.g4))
+                                    .padding(.bottom)
+                            }
+                            .padding(.trailing, 24)
                             
-                            Text("송원여자상업고등학교")
-                                .bitgouelFont(.caption, color: .greyscale(.g4))
-                                .padding(.bottom)
+                            VStack {
+                                Image("gwangjuAutomaticEquipmentTechnicalHighSchool")
+                                    .padding(.bottom, 8)
+                                
+                                Text("광주자동화설비\n 공업고등학교")
+                                    .bitgouelFont(.caption, color: .greyscale(.g4))
+                            }
+                            .padding(.trailing, 24)
                         }
-                        .padding(.trailing, 24)
-                        
-                        VStack {
-                            Image("gwangjuAutomaticEquipmentTechnicalHighSchool")
-                                .padding(.bottom, 8)
                             
-                            Text("광주자동화설비\n 공업고등학교")
-                                .bitgouelFont(.caption, color: .greyscale(.g4))
-                        }
-                        .padding(.trailing, 24)
-                        
                         VStack {
                             Spacer()
                             
@@ -333,4 +335,8 @@ struct MainView: View {
             .background(Color.bitgouel(.primary(.p2)))
         }
     }
+}
+
+#Preview {
+    MainView()
 }

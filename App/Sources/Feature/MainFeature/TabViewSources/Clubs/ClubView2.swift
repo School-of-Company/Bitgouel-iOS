@@ -9,69 +9,71 @@ struct ClubView2: View {
             
             HStack {
                 VStack(alignment: .leading) {
-                    Text("광주공업고등학교")
-                        .bitgouelFont(.text1, color: .primary(.p9))
-                        .padding(.top, 24)
-                    
-                    HStack {
-                        ClubCompanyName(
-                            name: "전기가 미래다"
-                        )
-                        .padding(.trailing, 16)
+                    Group {
+                        Text("광주공업고등학교")
+                            .bitgouelFont(.text1, color: .primary(.p9))
+                            .padding(.top, 24)
+                        
+                        HStack {
+                            ClubCompanyName(
+                                name: "전기가 미래다"
+                            )
+                            .padding(.trailing, 16)
+                            
+                            ClubCompanyName(
+                                name: "전자 어벤져스"
+                            )
+                        }
                         
                         ClubCompanyName(
-                            name: "전자 어벤져스"
+                            name: "전자 히어로스"
                         )
-                    }
-                    
-                    ClubCompanyName(
-                        name: "전자 히어로스"
-                    )
-
-                    Text("광주자동화설비공업고등학교")
-                        .bitgouelFont(.text1, color: .primary(.p9))
-                        .padding(.top, 24)
-                    
-                    HStack {
-                        ClubCompanyName(
-                            name: "HMI 동아리"
-                        )
-                        .padding(.trailing, 16)
                         
-                        ClubCompanyName(
-                            name: "마취제"
-                        )
-                    }
-                    
-                    HStack {
-                        ClubCompanyName(
-                            name: "빛go job go"
-                        )
-                        .padding(.trailing, 16)
+                        Text("광주자동화설비공업고등학교")
+                            .bitgouelFont(.text1, color: .primary(.p9))
+                            .padding(.top, 24)
                         
-                        ClubCompanyName(
-                            name: "취업진로 동아리"
-                        )
-                    }
-                    
-                    Text("광주전자공업고등학교")
-                        .bitgouelFont(.text1, color: .primary(.p9))
-                        .padding(.top, 24)
-                    
-                    HStack {
-                        ClubCompanyName(
-                            name: "ACT"
-                        )
-                        .padding(.trailing, 16)
+                        HStack {
+                            ClubCompanyName(
+                                name: "HMI 동아리"
+                            )
+                            .padding(.trailing, 16)
+                            
+                            ClubCompanyName(
+                                name: "마취제"
+                            )
+                        }
                         
-                        ClubCompanyName(
-                            name: "ECT"
-                        )
-                        .padding(.trailing, 16)
+                        HStack {
+                            ClubCompanyName(
+                                name: "빛go job go"
+                            )
+                            .padding(.trailing, 16)
+                            
+                            ClubCompanyName(
+                                name: "취업진로 동아리"
+                            )
+                        }
                         
-                        ClubCompanyName(
-                            name: "Tesla"
-                        )
+                        Text("광주전자공업고등학교")
+                            .bitgouelFont(.text1, color: .primary(.p9))
+                            .padding(.top, 24)
+                        
+                        HStack {
+                            ClubCompanyName(
+                                name: "ACT"
+                            )
+                            .padding(.trailing, 16)
+                            
+                            ClubCompanyName(
+                                name: "ECT"
+                            )
+                            .padding(.trailing, 16)
+                            
+                            ClubCompanyName(
+                                name: "Tesla"
+                            )
+                        }
                     }
                     
                     Text("금파공업고등학교")

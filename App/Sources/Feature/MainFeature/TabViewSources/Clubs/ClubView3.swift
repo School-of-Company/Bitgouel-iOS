@@ -9,60 +9,62 @@ struct ClubView3: View {
             
             HStack {
                 VStack(alignment: .leading) {
-                    Text("광주전자공업고등학교")
-                        .bitgouelFont(.text1, color: .primary(.p9))
-                        .padding(.top, 24)
-                    
-                    ClubCompanyName(
-                        name: "발자국"
-                    )
-                    
-                    Text("금파공업고등학교")
-                        .bitgouelFont(.text1, color: .primary(.p9))
-                        .padding(.top, 24)
-                    
-                    ClubCompanyName(
-                        name: "어썸(awesome"
-                    )
-                    
-                    Text("동일미래과학고등학교")
-                        .bitgouelFont(.text1, color: .primary(.p9))
-                        .padding(.top, 24)
-                    
-                    HStack {
-                        ClubCompanyName(
-                            name: "따고잡고"
-                        )
-                        .padding(.trailing, 16)
+                    Group {
+                        Text("광주전자공업고등학교")
+                            .bitgouelFont(.text1, color: .primary(.p9))
+                            .padding(.top, 24)
                         
                         ClubCompanyName(
-                            name: "쓰고잡고"
+                            name: "발자국"
                         )
-                        .padding(.trailing, 16)
+                        
+                        Text("금파공업고등학교")
+                            .bitgouelFont(.text1, color: .primary(.p9))
+                            .padding(.top, 24)
                         
                         ClubCompanyName(
-                            name: "하고잡고"
+                            name: "어썸(awesome"
+                        )
+                        
+                        Text("동일미래과학고등학교")
+                            .bitgouelFont(.text1, color: .primary(.p9))
+                            .padding(.top, 24)
+                        
+                        HStack {
+                            ClubCompanyName(
+                                name: "따고잡고"
+                            )
+                            .padding(.trailing, 16)
+                            
+                            ClubCompanyName(
+                                name: "쓰고잡고"
+                            )
+                            .padding(.trailing, 16)
+                            
+                            ClubCompanyName(
+                                name: "하고잡고"
+                            )
+                        }
+                        
+                        Text("송원여자상업고등학교")
+                            .bitgouelFont(.text1, color: .primary(.p9))
+                            .padding(.top, 24)
+                        
+                        HStack {
+                            ClubCompanyName(
+                                name: "건강지킴이"
+                            )
+                            .padding(.trailing, 16)
+                            
+                            ClubCompanyName(
+                                name: "미용서비스"
+                            )
+                        }
+                        
+                        ClubCompanyName(
+                            name: "뷰티아트"
                         )
                     }
-                    
-                    Text("송원여자상업고등학교")
-                        .bitgouelFont(.text1, color: .primary(.p9))
-                        .padding(.top, 24)
-                    
-                    HStack {
-                        ClubCompanyName(
-                            name: "건강지킴이"
-                        )
-                        .padding(.trailing, 16)
-                        
-                        ClubCompanyName(
-                            name: "미용서비스"
-                        )
-                    }
-                    
-                    ClubCompanyName(
-                        name: "뷰티아트"
-                    )
                     
                     Text("숭의과학기술고등학교")
                         .bitgouelFont(.text1, color: .primary(.p9))

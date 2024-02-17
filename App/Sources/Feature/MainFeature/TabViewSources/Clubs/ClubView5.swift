@@ -9,65 +9,67 @@ struct ClubView5: View {
             
             HStack {
                 VStack(alignment: .leading) {
-                    Text("광주공업고등학교")
-                        .bitgouelFont(.text1, color: .primary(.p9))
-                        .padding(.top, 24)
-                    
-                    ClubCompanyName(
-                        name: "건축연구소"
-                    )
-                    
-                    Text("광주여자상업고등학교")
-                        .bitgouelFont(.text1, color: .primary(.p9))
-                        .padding(.top, 24)
-                    
-                    HStack {
-                        ClubCompanyName(
-                            name: "DCT"
-                        )
-                        .padding(.trailing, 16)
+                    Group {
+                        Text("광주공업고등학교")
+                            .bitgouelFont(.text1, color: .primary(.p9))
+                            .padding(.top, 24)
                         
                         ClubCompanyName(
-                            name: "뉴 쿡"
+                            name: "건축연구소"
                         )
-                        .padding(.trailing, 16)
+                        
+                        Text("광주여자상업고등학교")
+                            .bitgouelFont(.text1, color: .primary(.p9))
+                            .padding(.top, 24)
+                        
+                        HStack {
+                            ClubCompanyName(
+                                name: "DCT"
+                            )
+                            .padding(.trailing, 16)
+                            
+                            ClubCompanyName(
+                                name: "뉴 쿡"
+                            )
+                            .padding(.trailing, 16)
+                            
+                            ClubCompanyName(
+                                name: "우아행"
+                            )
+                        }
+                        
+                        Text("광주자연과학고등학교")
+                            .bitgouelFont(.text1, color: .primary(.p9))
+                            .padding(.top, 24)
+                        
+                        HStack {
+                            ClubCompanyName(
+                                name: "금융실무"
+                            )
+                            .padding(.trailing, 16)
+                            
+                            ClubCompanyName(
+                                name: "소개팅"
+                            )
+                            .padding(.trailing, 16)
+                            
+                            ClubCompanyName(
+                                name: "취사모"
+                            )
+                        }
                         
                         ClubCompanyName(
-                            name: "우아행"
+                            name: "베이커리 카페 CEO"
+                        )
+                        
+                        Text("광주전자공업고등학교")
+                            .bitgouelFont(.text1, color: .primary(.p9))
+                            .padding(.top, 24)
+                        
+                        ClubCompanyName(
+                            name: "“M lab” = 메이커 연구소"
                         )
                     }
-                    
-                    Text("광주자연과학고등학교")
-                        .bitgouelFont(.text1, color: .primary(.p9))
-                        .padding(.top, 24)
-                    
-                    HStack {
-                        ClubCompanyName(
-                            name: "금융실무"
-                        )
-                        .padding(.trailing, 16)
-                        
-                        ClubCompanyName(
-                            name: "소개팅"
-                        )
-                        .padding(.trailing, 16)
-                        
-                        ClubCompanyName(
-                            name: "취사모"
-                        )
-                    }
-                    
-                    ClubCompanyName(
-                        name: "베이커리 카페 CEO"
-                    )
-                    
-                    Text("광주전자공업고등학교")
-                        .bitgouelFont(.text1, color: .primary(.p9))
-                        .padding(.top, 24)
-                    
-                    ClubCompanyName(
-                        name: "“M lab” = 메이커 연구소"
-                    )
                     
                     Text("금파공업고등학교")
                         .bitgouelFont(.text1, color: .primary(.p9))
@@ -123,4 +125,8 @@ struct ClubView5: View {
                 .blur(radius: 6, opaque: true)
         )
     }
+}
+
+#Preview {
+    ClubView5()
 }
