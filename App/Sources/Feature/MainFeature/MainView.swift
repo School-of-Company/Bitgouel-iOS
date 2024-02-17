@@ -8,36 +8,38 @@ struct MainView: View {
                 .padding(.bottom, 16)
             
             VStack {
-                IntroduceView(
-                    introduceTitle: "빛고을 직업교육 혁신지구",
-                    introduceText: "지역발전 사업을 위해 당신이 필요해요"
-                )
-                
-                JobDetailView(
-                    jobDetailTitle: "🏫 직업계고",
-                    jobDetailText: "  •  교육과정 운영\n  •  진로 지도\n  •  학생 관리"
-                )
-                
-                JobDetailView(
-                    jobDetailTitle: "🎓 지역대학",
-                    jobDetailText: "  •  기업 연계 교육\n  •  심화 교육\n  •  후학습지원"
-                )
-                
-                JobDetailView(
-                    jobDetailTitle: "🏢 지역기업",
-                    jobDetailText: "  •  현장 맞춤형 교육\n  •  현장실습\n  •  고졸 채용"
-                )
-                
-                JobDetailView(
-                    jobDetailTitle: "💼 유관기관",
-                    jobDetailText: "  •  산업 인력 분석\n  •  특화프로그램 운영\n  •  고졸채용네트워크 구축"
-                )
-                .padding(.bottom, 64)
-                
-                IntroduceView(
-                    introduceTitle: "직업계고 소개",
-                    introduceText: "직업계고 계열별 학교현황 및 진로"
-                )
+                Group {
+                    IntroduceView(
+                        introduceTitle: "빛고을 직업교육 혁신지구",
+                        introduceText: "지역발전 사업을 위해 당신이 필요해요"
+                    )
+                    
+                    JobDetailView(
+                        jobDetailTitle: "🏫 직업계고",
+                        jobDetailText: "  •  교육과정 운영\n  •  진로 지도\n  •  학생 관리"
+                    )
+                    
+                    JobDetailView(
+                        jobDetailTitle: "🎓 지역대학",
+                        jobDetailText: "  •  기업 연계 교육\n  •  심화 교육\n  •  후학습지원"
+                    )
+                    
+                    JobDetailView(
+                        jobDetailTitle: "🏢 지역기업",
+                        jobDetailText: "  •  현장 맞춤형 교육\n  •  현장실습\n  •  고졸 채용"
+                    )
+                    
+                    JobDetailView(
+                        jobDetailTitle: "💼 유관기관",
+                        jobDetailText: "  •  산업 인력 분석\n  •  특화프로그램 운영\n  •  고졸채용네트워크 구축"
+                    )
+                    .padding(.bottom, 64)
+                    
+                    IntroduceView(
+                        introduceTitle: "직업계고 소개",
+                        introduceText: "직업계고 계열별 학교현황 및 진로"
+                    )
+                }
                 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
