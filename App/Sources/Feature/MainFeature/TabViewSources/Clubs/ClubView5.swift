@@ -126,7 +126,3 @@ struct ClubView5: View {
         )
     }
 }
-
-#Preview {
-    ClubView5()
-}

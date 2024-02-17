@@ -68,7 +68,3 @@ struct ClubView4: View {
         )
     }
 }
-
-#Preview {
-    ClubView4()
-}
