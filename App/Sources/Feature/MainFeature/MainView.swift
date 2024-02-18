@@ -218,15 +218,15 @@ struct MainView: View {
             .padding(.horizontal, 28)
             
             TabView{
-                ClubView1()
+                FutureTransportClubView()
                 
-                ClubView2()
+                EnergyIndustryClubView()
                 
-                ClubView3()
+                MedicalHealthClubView()
                 
-                ClubView4()
+                AiFusionAndCompositeClubView()
                 
-                ClubView5()
+                CultureIndustryClubView()
             }
             .tabViewStyle(PageTabViewStyle())
             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .never))
@@ -279,15 +279,15 @@ struct MainView: View {
             .padding(.horizontal, 28)
             
             TabView{
-                CompanyView1()
+                FutureTransportCompanyView()
                 
-                CompanyView2()
+                EnergyIndustryCompanyView()
                 
-                CompanyView3()
+                MedicalHealthCompanyView()
                 
-                CompanyView4()
+                AiFusionAndCompositeCompanyView()
                 
-                CompanyView5()
+                CultureIndustryCompanyView()
             }
             .tabViewStyle(PageTabViewStyle())
             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .never))

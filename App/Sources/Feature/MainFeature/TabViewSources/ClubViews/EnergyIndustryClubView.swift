@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ClubView2: View {
+struct EnergyIndustryClubView: View {
     var body: some View {
         VStack {
             Text("의료•헬스케어")

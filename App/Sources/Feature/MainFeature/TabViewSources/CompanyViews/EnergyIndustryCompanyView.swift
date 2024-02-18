@@ -1,9 +1,9 @@
 import SwiftUI
 
-struct CompanyView1: View {
+struct EnergyIndustryCompanyView: View {
     var body: some View {
         VStack {
-            Text("미래형 운송기기")
+            Text("에너지산업")
                 .bitgouelFont(.title2, color: .primary(.p9))
                 .padding(.top, 72)
             
@@ -11,48 +11,64 @@ struct CompanyView1: View {
                 VStack(alignment: .leading, spacing: 24) {
                     HStack {
                         ClubCompanyName(
-                            name: "보람엔지니어링"
+                            name: "(유)삼환"
                         )
                         .padding(.trailing, 16)
                         
                         ClubCompanyName(
-                            name: "(주)인탑스테크닉"
+                            name: "(주)휘라포토닉스"
                         )
                     }
                     
                     HStack {
                         ClubCompanyName(
-                            name: "(주)삼도환경"
+                            name: "(주)스위코진광"
                         )
                         .padding(.trailing, 16)
                         
                         ClubCompanyName(
-                            name: "에이테크솔루션(주)"
+                            name: "LG이노텍(주)"
                         )
                     }
                     
                     HStack {
                         ClubCompanyName(
-                            name: "창원종합사격장"
+                            name: "(주)유진테크노"
                         )
                         .padding(.trailing, 16)
                         
                         ClubCompanyName(
-                            name: "제3함대(해군)"
+                            name: "(주)LCM에너지솔루션"
                         )
                     }
                     
                     HStack {
                         ClubCompanyName(
-                            name: "동양통상"
+                            name: "주식회사 금철"
                         )
                         .padding(.trailing, 16)
                         
                         ClubCompanyName(
-                            name: "다이나믹 디자인"
+                            name: "주식회사 칼선"
                         )
                     }
+                    
+                    HStack {
+                        ClubCompanyName(
+                            name: "(주)남양에스티엔"
+                        )
+                        .padding(.trailing, 16)
+                        
+                        ClubCompanyName(
+                            name: "주식회사 유니컴퍼니"
+                        )
+                    }
+
+                    ClubCompanyName(
+                        name: "제이제이파트너스(주)"
+                    )
                 }
+                
                 Spacer()
             }
             .padding(.horizontal, 28)
@@ -60,7 +76,7 @@ struct CompanyView1: View {
             Spacer()
         }
         .background(
-            Image("mainpage_image_7")
+            Image("mainpage_image_8")
                 .blur(radius: 6, opaque: true)
         )
     }

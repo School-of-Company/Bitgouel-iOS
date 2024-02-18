@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ClubView5: View {
+struct MedicalHealthClubView: View {
     var body: some View {
         VStack {
             Text("에너지산업")
@@ -10,100 +10,68 @@ struct ClubView5: View {
             HStack {
                 VStack(alignment: .leading) {
                     Group {
-                        Text("광주공업고등학교")
-                            .bitgouelFont(.text1, color: .primary(.p9))
-                            .padding(.top, 24)
-                        
-                        ClubCompanyName(
-                            name: "건축연구소"
-                        )
-                        
-                        Text("광주여자상업고등학교")
-                            .bitgouelFont(.text1, color: .primary(.p9))
-                            .padding(.top, 24)
-                        
-                        HStack {
-                            ClubCompanyName(
-                                name: "DCT"
-                            )
-                            .padding(.trailing, 16)
-                            
-                            ClubCompanyName(
-                                name: "뉴 쿡"
-                            )
-                            .padding(.trailing, 16)
-                            
-                            ClubCompanyName(
-                                name: "우아행"
-                            )
-                        }
-                        
-                        Text("광주자연과학고등학교")
-                            .bitgouelFont(.text1, color: .primary(.p9))
-                            .padding(.top, 24)
-                        
-                        HStack {
-                            ClubCompanyName(
-                                name: "금융실무"
-                            )
-                            .padding(.trailing, 16)
-                            
-                            ClubCompanyName(
-                                name: "소개팅"
-                            )
-                            .padding(.trailing, 16)
-                            
-                            ClubCompanyName(
-                                name: "취사모"
-                            )
-                        }
-                        
-                        ClubCompanyName(
-                            name: "베이커리 카페 CEO"
-                        )
-                        
                         Text("광주전자공업고등학교")
                             .bitgouelFont(.text1, color: .primary(.p9))
                             .padding(.top, 24)
                         
                         ClubCompanyName(
-                            name: "“M lab” = 메이커 연구소"
+                            name: "발자국"
+                        )
+                        
+                        Text("금파공업고등학교")
+                            .bitgouelFont(.text1, color: .primary(.p9))
+                            .padding(.top, 24)
+                        
+                        ClubCompanyName(
+                            name: "어썸(awesome"
+                        )
+                        
+                        Text("동일미래과학고등학교")
+                            .bitgouelFont(.text1, color: .primary(.p9))
+                            .padding(.top, 24)
+                        
+                        HStack {
+                            ClubCompanyName(
+                                name: "따고잡고"
+                            )
+                            .padding(.trailing, 16)
+                            
+                            ClubCompanyName(
+                                name: "쓰고잡고"
+                            )
+                            .padding(.trailing, 16)
+                            
+                            ClubCompanyName(
+                                name: "하고잡고"
+                            )
+                        }
+                        
+                        Text("송원여자상업고등학교")
+                            .bitgouelFont(.text1, color: .primary(.p9))
+                            .padding(.top, 24)
+                        
+                        HStack {
+                            ClubCompanyName(
+                                name: "건강지킴이"
+                            )
+                            .padding(.trailing, 16)
+                            
+                            ClubCompanyName(
+                                name: "미용서비스"
+                            )
+                        }
+                        
+                        ClubCompanyName(
+                            name: "뷰티아트"
                         )
                     }
-                    
-                    Text("금파공업고등학교")
-                        .bitgouelFont(.text1, color: .primary(.p9))
-                        .padding(.top, 24)
-                    
-                    ClubCompanyName(
-                        name: "금호로80 베이커리"
-                    )
-                    
-                    Text("송원여자상업고등학교")
-                        .bitgouelFont(.text1, color: .primary(.p9))
-                        .padding(.top, 24)
-                    
-                    ClubCompanyName(
-                        name: "클로즈업"
-                    )
                     
                     Text("숭의과학기술고등학교")
                         .bitgouelFont(.text1, color: .primary(.p9))
                         .padding(.top, 24)
                     
-                    HStack {
-                        ClubCompanyName(
-                            name: "내빵네빵"
-                        )
-                        .padding(.trailing, 16)
-                        
-                        ClubCompanyName(
-                            name: "카페바리"
-                        )
-                    }
-                    
                     ClubCompanyName(
-                        name: "쿠킹마스터즈"
+                        name: "크로스핏마스터"
                     )
                     
                     Text("전남공업고등학교")
@@ -111,7 +79,7 @@ struct ClubView5: View {
                         .padding(.top, 24)
                     
                     ClubCompanyName(
-                        name: "그린라이트"
+                        name: "라온하제"
                     )
                 }
                 Spacer()
@@ -121,7 +89,7 @@ struct ClubView5: View {
             Spacer()
         }
         .background(
-            Image("mainpage_image_6")
+            Image("mainpage_image_5")
                 .blur(radius: 6, opaque: true)
         )
     }

@@ -1,51 +1,50 @@
 import SwiftUI
 
-struct CompanyView4: View {
+struct MedicalHealthCompanyView: View {
     var body: some View {
         VStack {
-            Text("AI 융•복합")
+            Text("의료•헬스케어")
                 .bitgouelFont(.title2, color: .primary(.p9))
                 .padding(.top, 72)
             
             HStack {
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 24) {
                     HStack {
                         ClubCompanyName(
-                            name: "(주)서치"
+                            name: "엠코테크놀로지코리아(주)"
                         )
                         .padding(.trailing, 16)
                         
                         ClubCompanyName(
-                            name: "동아간호학원"
-                        )
-                        .padding(.trailing, 16)
-                        
-                        ClubCompanyName(
-                            name: "네일온"
+                            name: "(주)여보야"
                         )
                     }
                     
                     HStack {
                         ClubCompanyName(
-                            name: "더이인나라"
+                            name: "인디제이"
                         )
                         .padding(.trailing, 16)
                         
                         ClubCompanyName(
-                            name: "뉴디헤어"
+                            name: "지니소프트"
+                        )
+                    }
+                    
+                    HStack {
+                        ClubCompanyName(
+                            name: "건주이앤씨"
+                        )
+                        .padding(.trailing, 16)
+                        
+                        ClubCompanyName(
+                            name: "연제측량기술원"
                         )
                     }
 
-                    HStack {
-                        ClubCompanyName(
-                            name: "특수전사령부"
-                        )
-                        .padding(.trailing, 16)
-                        
-                        ClubCompanyName(
-                            name: "해병대"
-                        )
-                    }
+                    ClubCompanyName(
+                        name: "드론캐스트"
+                    )
                 }
                 Spacer()
             }
@@ -54,7 +53,7 @@ struct CompanyView4: View {
             Spacer()
         }
         .background(
-            Image("mainpage_image_10")
+            Image("mainpage_image_9")
                 .blur(radius: 6, opaque: true)
         )
     }

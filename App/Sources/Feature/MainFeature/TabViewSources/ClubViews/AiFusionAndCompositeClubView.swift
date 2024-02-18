@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ClubView4: View {
+struct AiFusionAndCompositeClubView: View {
     var body: some View {
         VStack {
             Text("AI 융•복합")

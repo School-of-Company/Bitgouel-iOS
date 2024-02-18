@@ -1,74 +1,52 @@
 import SwiftUI
 
-struct CompanyView2: View {
+struct AiFusionAndCompositeCompanyView: View {
     var body: some View {
         VStack {
-            Text("에너지산업")
+            Text("AI 융•복합")
                 .bitgouelFont(.title2, color: .primary(.p9))
                 .padding(.top, 72)
             
             HStack {
-                VStack(alignment: .leading, spacing: 24) {
+                VStack(alignment: .leading) {
                     HStack {
                         ClubCompanyName(
-                            name: "(유)삼환"
+                            name: "(주)서치"
                         )
                         .padding(.trailing, 16)
                         
                         ClubCompanyName(
-                            name: "(주)휘라포토닉스"
+                            name: "동아간호학원"
+                        )
+                        .padding(.trailing, 16)
+                        
+                        ClubCompanyName(
+                            name: "네일온"
                         )
                     }
                     
                     HStack {
                         ClubCompanyName(
-                            name: "(주)스위코진광"
+                            name: "더이인나라"
                         )
                         .padding(.trailing, 16)
                         
                         ClubCompanyName(
-                            name: "LG이노텍(주)"
-                        )
-                    }
-                    
-                    HStack {
-                        ClubCompanyName(
-                            name: "(주)유진테크노"
-                        )
-                        .padding(.trailing, 16)
-                        
-                        ClubCompanyName(
-                            name: "(주)LCM에너지솔루션"
-                        )
-                    }
-                    
-                    HStack {
-                        ClubCompanyName(
-                            name: "주식회사 금철"
-                        )
-                        .padding(.trailing, 16)
-                        
-                        ClubCompanyName(
-                            name: "주식회사 칼선"
-                        )
-                    }
-                    
-                    HStack {
-                        ClubCompanyName(
-                            name: "(주)남양에스티엔"
-                        )
-                        .padding(.trailing, 16)
-                        
-                        ClubCompanyName(
-                            name: "주식회사 유니컴퍼니"
+                            name: "뉴디헤어"
                         )
                     }
 
-                    ClubCompanyName(
-                        name: "제이제이파트너스(주)"
-                    )
+                    HStack {
+                        ClubCompanyName(
+                            name: "특수전사령부"
+                        )
+                        .padding(.trailing, 16)
+                        
+                        ClubCompanyName(
+                            name: "해병대"
+                        )
+                    }
                 }
-                
                 Spacer()
             }
             .padding(.horizontal, 28)
@@ -76,7 +54,7 @@ struct CompanyView2: View {
             Spacer()
         }
         .background(
-            Image("mainpage_image_8")
+            Image("mainpage_image_10")
                 .blur(radius: 6, opaque: true)
         )
     }
