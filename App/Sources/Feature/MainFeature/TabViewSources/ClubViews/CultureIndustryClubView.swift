@@ -3,7 +3,7 @@ import SwiftUI
 struct CultureIndustryClubView: View {
     var body: some View {
         VStack {
-            Text("에너지산업")
+            Text("문화산업")
                 .bitgouelFont(.title2, color: .primary(.p9))
                 .padding(.top, 72)
             

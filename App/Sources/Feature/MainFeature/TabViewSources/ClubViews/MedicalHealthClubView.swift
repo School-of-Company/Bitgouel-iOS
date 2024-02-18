@@ -3,7 +3,7 @@ import SwiftUI
 struct MedicalHealthClubView: View {
     var body: some View {
         VStack {
-            Text("에너지산업")
+            Text("의료•헬스케어")
                 .bitgouelFont(.title2, color: .primary(.p9))
                 .padding(.top, 72)
             
