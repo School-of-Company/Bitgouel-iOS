@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ListRow: View {
-    public let postId: String
+    public let id: String
     public let title: String
     public let modifedAt: String
 
