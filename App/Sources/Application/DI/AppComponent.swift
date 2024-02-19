@@ -58,4 +58,8 @@ public extension AppComponent {
     var lectureListDetailFactory: any LectureListDetailFactory {
         LectureListDetailComponent(parent: self)
     }
+    
+    var postListFactory: any PostListFactory {
+        PostListComponent(parent: self)
+    }
 }
