@@ -8,7 +8,7 @@ struct PostListView: View {
                     LazyVStack(spacing: 0) {
                         ForEach(0...3, id: \.self) { index in
                             ListRow(
-                                postId: "index",
+                                id: "index",
                                 title: "타이틀",
                                 modifedAt: "날짜"
                             )
