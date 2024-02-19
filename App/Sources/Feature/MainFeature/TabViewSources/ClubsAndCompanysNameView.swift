@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ClubCompanyName: View {
+struct ClubsAndCompanysNameView: View {
     var name: String
     
     var body: some View {

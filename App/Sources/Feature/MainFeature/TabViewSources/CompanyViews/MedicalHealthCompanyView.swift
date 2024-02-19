@@ -9,40 +9,37 @@ struct MedicalHealthCompanyView: View {
             
             HStack {
                 VStack(alignment: .leading, spacing: 24) {
-                    HStack {
-                        ClubCompanyName(
+                    HStack(spacing: 16) {
+                        ClubsAndCompanysNameView(
                             name: "엠코테크놀로지코리아(주)"
                         )
-                        .padding(.trailing, 16)
                         
-                        ClubCompanyName(
+                        ClubsAndCompanysNameView(
                             name: "(주)여보야"
                         )
                     }
                     
-                    HStack {
-                        ClubCompanyName(
+                    HStack(spacing: 16) {
+                        ClubsAndCompanysNameView(
                             name: "인디제이"
                         )
-                        .padding(.trailing, 16)
                         
-                        ClubCompanyName(
+                        ClubsAndCompanysNameView(
                             name: "지니소프트"
                         )
                     }
                     
-                    HStack {
-                        ClubCompanyName(
+                    HStack(spacing: 16) {
+                        ClubsAndCompanysNameView(
                             name: "건주이앤씨"
                         )
-                        .padding(.trailing, 16)
                         
-                        ClubCompanyName(
+                        ClubsAndCompanysNameView(
                             name: "연제측량기술원"
                         )
                     }
 
-                    ClubCompanyName(
+                    ClubsAndCompanysNameView(
                         name: "드론캐스트"
                     )
                 }

@@ -14,18 +14,17 @@ struct EnergyIndustryClubView: View {
                             .bitgouelFont(.text1, color: .primary(.p9))
                             .padding(.top, 24)
                         
-                        HStack {
-                            ClubCompanyName(
+                        HStack(spacing: 16) {
+                            ClubsAndCompanysNameView(
                                 name: "전기가 미래다"
                             )
-                            .padding(.trailing, 16)
                             
-                            ClubCompanyName(
+                            ClubsAndCompanysNameView(
                                 name: "전자 어벤져스"
                             )
                         }
                         
-                        ClubCompanyName(
+                        ClubsAndCompanysNameView(
                             name: "전자 히어로스"
                         )
                         
@@ -33,24 +32,22 @@ struct EnergyIndustryClubView: View {
                             .bitgouelFont(.text1, color: .primary(.p9))
                             .padding(.top, 24)
                         
-                        HStack {
-                            ClubCompanyName(
+                        HStack(spacing: 16) {
+                            ClubsAndCompanysNameView(
                                 name: "HMI 동아리"
                             )
-                            .padding(.trailing, 16)
                             
-                            ClubCompanyName(
+                            ClubsAndCompanysNameView(
                                 name: "마취제"
                             )
                         }
                         
-                        HStack {
-                            ClubCompanyName(
+                        HStack(spacing: 16) {
+                            ClubsAndCompanysNameView(
                                 name: "빛go job go"
                             )
-                            .padding(.trailing, 16)
                             
-                            ClubCompanyName(
+                            ClubsAndCompanysNameView(
                                 name: "취업진로 동아리"
                             )
                         }
@@ -59,18 +56,16 @@ struct EnergyIndustryClubView: View {
                             .bitgouelFont(.text1, color: .primary(.p9))
                             .padding(.top, 24)
                         
-                        HStack {
-                            ClubCompanyName(
+                        HStack(spacing: 16) {
+                            ClubsAndCompanysNameView(
                                 name: "ACT"
                             )
-                            .padding(.trailing, 16)
                             
-                            ClubCompanyName(
+                            ClubsAndCompanysNameView(
                                 name: "ECT"
                             )
-                            .padding(.trailing, 16)
                             
-                            ClubCompanyName(
+                            ClubsAndCompanysNameView(
                                 name: "Tesla"
                             )
                         }
@@ -80,18 +75,17 @@ struct EnergyIndustryClubView: View {
                         .bitgouelFont(.text1, color: .primary(.p9))
                         .padding(.top, 24)
                     
-                    HStack {
-                        ClubCompanyName(
+                    HStack(spacing: 16) {
+                        ClubsAndCompanysNameView(
                             name: "블라썸(blossom)"
                         )
-                        .padding(.trailing, 16)
                         
-                        ClubCompanyName(
+                        ClubsAndCompanysNameView(
                             name: "유선통신"
                         )
                     }
                     
-                    ClubCompanyName(
+                    ClubsAndCompanysNameView(
                         name: "전기꿈나무"
                     )
                     
@@ -99,7 +93,7 @@ struct EnergyIndustryClubView: View {
                         .bitgouelFont(.text1, color: .primary(.p9))
                         .padding(.top, 24)
 
-                    ClubCompanyName(
+                    ClubsAndCompanysNameView(
                         name: "믿고잡고"
                     )
                     
@@ -107,18 +101,17 @@ struct EnergyIndustryClubView: View {
                         .bitgouelFont(.text1, color: .primary(.p9))
                         .padding(.top, 24)
                     
-                    HStack {
-                        ClubCompanyName(
+                    HStack(spacing: 16) {
+                        ClubsAndCompanysNameView(
                             name: "드림온"
                         )
-                        .padding(.trailing, 16)
                         
-                        ClubCompanyName(
+                        ClubsAndCompanysNameView(
                             name: "볼트와암페어"
                         )
                     }
                     
-                    ClubCompanyName(
+                    ClubsAndCompanysNameView(
                         name: "에너지지킴이"
                     )
                 }

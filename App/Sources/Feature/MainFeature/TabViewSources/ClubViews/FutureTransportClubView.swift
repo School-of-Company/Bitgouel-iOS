@@ -14,21 +14,20 @@ struct FutureTransportClubView: View {
                             .bitgouelFont(.text1, color: .primary(.p9))
                             .padding(.top, 24)
                         
-                        ClubCompanyName(
+                        ClubsAndCompanysNameView(
                             name: "SMART JOB PROJECT"
                         )
                         
-                        ClubCompanyName(
+                        ClubsAndCompanysNameView(
                             name: "나의 미래는 내가 주인공이다!"
                         )
                         
-                        HStack {
-                            ClubCompanyName(
+                        HStack(spacing: 16) {
+                            ClubsAndCompanysNameView(
                                 name: "설비의 달인"
                             )
-                            .padding(.trailing, 16)
                             
-                            ClubCompanyName(
+                            ClubsAndCompanysNameView(
                                 name: "특수용접 화이팅"
                             )
                         }
@@ -37,13 +36,12 @@ struct FutureTransportClubView: View {
                             .bitgouelFont(.text1, color: .primary(.p9))
                             .padding(.top, 24)
                         
-                        HStack {
-                            ClubCompanyName(
+                        HStack(spacing: 16) {
+                            ClubsAndCompanysNameView(
                                 name: "감성기계"
                             )
-                            .padding(.trailing, 16)
                             
-                            ClubCompanyName(
+                            ClubsAndCompanysNameView(
                                 name: "열정 그 자체"
                             )
                         }
@@ -52,7 +50,7 @@ struct FutureTransportClubView: View {
                             .bitgouelFont(.text1, color: .primary(.p9))
                             .padding(.top, 24)
                         
-                        ClubCompanyName(
+                        ClubsAndCompanysNameView(
                             name: "레프리"
                         )
                         
@@ -60,7 +58,7 @@ struct FutureTransportClubView: View {
                             .bitgouelFont(.text1, color: .primary(.p9))
                             .padding(.top, 24)
                         
-                        ClubCompanyName(
+                        ClubsAndCompanysNameView(
                             name: "놀GO잡GO"
                         )
                     }
@@ -69,13 +67,12 @@ struct FutureTransportClubView: View {
                         .bitgouelFont(.text1, color: .primary(.p9))
                         .padding(.top, 24)
                     
-                    HStack {
-                        ClubCompanyName(
+                    HStack(spacing: 16) {
+                        ClubsAndCompanysNameView(
                             name: "서전트스나이퍼"
                         )
-                        .padding(.trailing, 16)
                         
-                        ClubCompanyName(
+                        ClubsAndCompanysNameView(
                             name: "카-페인팅"
                         )
                     }
@@ -84,13 +81,12 @@ struct FutureTransportClubView: View {
                         .bitgouelFont(.text1, color: .primary(.p9))
                         .padding(.top, 24)
                     
-                    HStack {
-                        ClubCompanyName(
+                    HStack(spacing: 16) {
+                        ClubsAndCompanysNameView(
                             name: "진짜기계"
                         )
-                        .padding(.trailing, 16)
                         
-                        ClubCompanyName(
+                        ClubsAndCompanysNameView(
                             name: "핫앤쿨"
                         )
                     }

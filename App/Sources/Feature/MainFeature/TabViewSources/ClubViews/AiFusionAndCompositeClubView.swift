@@ -13,7 +13,7 @@ struct AiFusionAndCompositeClubView: View {
                         .bitgouelFont(.text1, color: .primary(.p9))
                         .padding(.top, 24)
                     
-                    ClubCompanyName(
+                    ClubsAndCompanysNameView(
                         name: "Civil 마스터"
                     )
                     
@@ -21,7 +21,7 @@ struct AiFusionAndCompositeClubView: View {
                         .bitgouelFont(.text1, color: .primary(.p9))
                         .padding(.top, 24)
 
-                    ClubCompanyName(
+                    ClubsAndCompanysNameView(
                         name: "dev_GSM"
                     )
                     
@@ -29,7 +29,7 @@ struct AiFusionAndCompositeClubView: View {
                         .bitgouelFont(.text1, color: .primary(.p9))
                         .padding(.top, 24)
                     
-                    ClubCompanyName(
+                    ClubsAndCompanysNameView(
                         name: "다이나믹(Dynamic)"
                     )
                     
@@ -37,13 +37,12 @@ struct AiFusionAndCompositeClubView: View {
                         .bitgouelFont(.text1, color: .primary(.p9))
                         .padding(.top, 24)
                     
-                    HStack {
-                        ClubCompanyName(
+                    HStack(spacing: 16) {
+                        ClubsAndCompanysNameView(
                             name: "비상"
                         )
-                        .padding(.trailing, 16)
                         
-                        ClubCompanyName(
+                        ClubsAndCompanysNameView(
                             name: "캐치어드론"
                         )
                     }
@@ -52,7 +51,7 @@ struct AiFusionAndCompositeClubView: View {
                         .bitgouelFont(.text1, color: .primary(.p9))
                         .padding(.top, 24)
                     
-                    ClubCompanyName(
+                    ClubsAndCompanysNameView(
                         name: "스카이드론"
                     )
                 }

@@ -14,7 +14,7 @@ struct CultureIndustryClubView: View {
                             .bitgouelFont(.text1, color: .primary(.p9))
                             .padding(.top, 24)
                         
-                        ClubCompanyName(
+                        ClubsAndCompanysNameView(
                             name: "건축연구소"
                         )
                         
@@ -22,18 +22,16 @@ struct CultureIndustryClubView: View {
                             .bitgouelFont(.text1, color: .primary(.p9))
                             .padding(.top, 24)
                         
-                        HStack {
-                            ClubCompanyName(
+                        HStack(spacing: 16) {
+                            ClubsAndCompanysNameView(
                                 name: "DCT"
                             )
-                            .padding(.trailing, 16)
                             
-                            ClubCompanyName(
+                            ClubsAndCompanysNameView(
                                 name: "뉴 쿡"
                             )
-                            .padding(.trailing, 16)
                             
-                            ClubCompanyName(
+                            ClubsAndCompanysNameView(
                                 name: "우아행"
                             )
                         }
@@ -42,23 +40,21 @@ struct CultureIndustryClubView: View {
                             .bitgouelFont(.text1, color: .primary(.p9))
                             .padding(.top, 24)
                         
-                        HStack {
-                            ClubCompanyName(
+                        HStack(spacing: 16) {
+                            ClubsAndCompanysNameView(
                                 name: "금융실무"
                             )
-                            .padding(.trailing, 16)
                             
-                            ClubCompanyName(
+                            ClubsAndCompanysNameView(
                                 name: "소개팅"
                             )
-                            .padding(.trailing, 16)
                             
-                            ClubCompanyName(
+                            ClubsAndCompanysNameView(
                                 name: "취사모"
                             )
                         }
                         
-                        ClubCompanyName(
+                        ClubsAndCompanysNameView(
                             name: "베이커리 카페 CEO"
                         )
                         
@@ -66,7 +62,7 @@ struct CultureIndustryClubView: View {
                             .bitgouelFont(.text1, color: .primary(.p9))
                             .padding(.top, 24)
                         
-                        ClubCompanyName(
+                        ClubsAndCompanysNameView(
                             name: "“M lab” = 메이커 연구소"
                         )
                     }
@@ -75,7 +71,7 @@ struct CultureIndustryClubView: View {
                         .bitgouelFont(.text1, color: .primary(.p9))
                         .padding(.top, 24)
                     
-                    ClubCompanyName(
+                    ClubsAndCompanysNameView(
                         name: "금호로80 베이커리"
                     )
                     
@@ -83,7 +79,7 @@ struct CultureIndustryClubView: View {
                         .bitgouelFont(.text1, color: .primary(.p9))
                         .padding(.top, 24)
                     
-                    ClubCompanyName(
+                    ClubsAndCompanysNameView(
                         name: "클로즈업"
                     )
                     
@@ -91,18 +87,17 @@ struct CultureIndustryClubView: View {
                         .bitgouelFont(.text1, color: .primary(.p9))
                         .padding(.top, 24)
                     
-                    HStack {
-                        ClubCompanyName(
+                    HStack(spacing: 16) {
+                        ClubsAndCompanysNameView(
                             name: "내빵네빵"
                         )
-                        .padding(.trailing, 16)
                         
-                        ClubCompanyName(
+                        ClubsAndCompanysNameView(
                             name: "카페바리"
                         )
                     }
                     
-                    ClubCompanyName(
+                    ClubsAndCompanysNameView(
                         name: "쿠킹마스터즈"
                     )
                     
@@ -110,7 +105,7 @@ struct CultureIndustryClubView: View {
                         .bitgouelFont(.text1, color: .primary(.p9))
                         .padding(.top, 24)
                     
-                    ClubCompanyName(
+                    ClubsAndCompanysNameView(
                         name: "그린라이트"
                     )
                 }

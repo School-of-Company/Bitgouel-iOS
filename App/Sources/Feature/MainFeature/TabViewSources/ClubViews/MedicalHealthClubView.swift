@@ -14,7 +14,7 @@ struct MedicalHealthClubView: View {
                             .bitgouelFont(.text1, color: .primary(.p9))
                             .padding(.top, 24)
                         
-                        ClubCompanyName(
+                        ClubsAndCompanysNameView(
                             name: "발자국"
                         )
                         
@@ -22,7 +22,7 @@ struct MedicalHealthClubView: View {
                             .bitgouelFont(.text1, color: .primary(.p9))
                             .padding(.top, 24)
                         
-                        ClubCompanyName(
+                        ClubsAndCompanysNameView(
                             name: "어썸(awesome"
                         )
                         
@@ -30,18 +30,16 @@ struct MedicalHealthClubView: View {
                             .bitgouelFont(.text1, color: .primary(.p9))
                             .padding(.top, 24)
                         
-                        HStack {
-                            ClubCompanyName(
+                        HStack(spacing: 16) {
+                            ClubsAndCompanysNameView(
                                 name: "따고잡고"
                             )
-                            .padding(.trailing, 16)
                             
-                            ClubCompanyName(
+                            ClubsAndCompanysNameView(
                                 name: "쓰고잡고"
                             )
-                            .padding(.trailing, 16)
                             
-                            ClubCompanyName(
+                            ClubsAndCompanysNameView(
                                 name: "하고잡고"
                             )
                         }
@@ -50,18 +48,17 @@ struct MedicalHealthClubView: View {
                             .bitgouelFont(.text1, color: .primary(.p9))
                             .padding(.top, 24)
                         
-                        HStack {
-                            ClubCompanyName(
+                        HStack(spacing: 16) {
+                            ClubsAndCompanysNameView(
                                 name: "건강지킴이"
                             )
-                            .padding(.trailing, 16)
                             
-                            ClubCompanyName(
+                            ClubsAndCompanysNameView(
                                 name: "미용서비스"
                             )
                         }
                         
-                        ClubCompanyName(
+                        ClubsAndCompanysNameView(
                             name: "뷰티아트"
                         )
                     }
@@ -70,7 +67,7 @@ struct MedicalHealthClubView: View {
                         .bitgouelFont(.text1, color: .primary(.p9))
                         .padding(.top, 24)
                     
-                    ClubCompanyName(
+                    ClubsAndCompanysNameView(
                         name: "크로스핏마스터"
                     )
                     
@@ -78,7 +75,7 @@ struct MedicalHealthClubView: View {
                         .bitgouelFont(.text1, color: .primary(.p9))
                         .padding(.top, 24)
                     
-                    ClubCompanyName(
+                    ClubsAndCompanysNameView(
                         name: "라온하제"
                     )
                 }
