@@ -1,13 +1,13 @@
 import Foundation
 
-struct QueryClubDatailUseCaseImpl: QueryClubDetailUseCase {
+public struct QueryClubDatailUseCaseImpl: QueryClubDetailUseCase {
     private let clubRepository: any ClubRepository
 
-    init(clubRepository: any ClubRepository) {
+    public init(clubRepository: any ClubRepository) {
         self.clubRepository = clubRepository
     }
 
-    func callAsFunction(id: String) async throws -> ClubDetailEntity {
-        try await clubRepository.queryClubDetail(id: id)
+    public func callAsFunction(clubId: String) async throws -> ClubDetailEntity {
+        try await clubRepository.queryClubDetail(clubId: clubId)
     }
 }

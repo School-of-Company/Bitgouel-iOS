@@ -1,6 +1,6 @@
 import Foundation
 
-public struct SingleClubEntity: Equatable {
+public struct ClubEntity: Equatable {
     public let id: String
     public let name: String
 

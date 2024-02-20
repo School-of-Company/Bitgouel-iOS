@@ -21,12 +21,20 @@ open class BaseRemoteDataSource<API: BitgouelAPI> {
     }
 
     public func request<T: Decodable>(_ api: API, dto: T.Type) async throws -> T {
-        let response = try await retryingRequest(api)
+        let response = try await defaultRequest(api)
         return try decoder.decode(dto, from: response.data)
     }
 
     public func request(_ api: API) async throws {
-        try await retryingRequest(api)
+        _ = try await defaultRequest(api)
+    }
+    
+    private func defaultRequest(_ api: API) async throws -> Response {
+        if checkIsApiNeedsAuthorization(api) {
+            return try await authorizedRequest(api)
+        } else {
+            return try await retryingRequest(api)
+        }
     }
 }
 
@@ -50,6 +58,44 @@ private extension BaseRemoteDataSource {
             }
         }
         .value
+    }
+
+    func authorizedRequest(_ api: API) async throws -> Response {
+        if checkTokenIsExpired() {
+            do {
+                try await tokenReissue()
+                let response = try await self.retryingRequest(api)
+                return response
+            } catch {
+                throw error
+            }
+        } else {
+            do {
+                let response = try await self.retryingRequest(api)
+                return response
+            } catch {
+                throw error
+            }
+        }
+    }
+    
+    func checkIsApiNeedsAuthorization(_ api: API) -> Bool {
+        let result = api.jwtTokenType == .accessToken
+        return result
+    }
+    
+    func checkTokenIsExpired() -> Bool {
+        let expired = keychain.load(type: .accessExpiredAt).toBitgouelDate()
+        return Date() > expired
+    }
+    
+    func tokenReissue() async throws {
+        let provider = MoyaProvider<RefreshAPI>(plugins: [JwtPlugin(keychain: keychain)])
+        do {
+            let response  = try await provider.request(api: .reissueToken)
+        } catch {
+            throw error
+        }
     }
 }
 

@@ -4,7 +4,7 @@ struct InputActivityView: View {
     @StateObject var viewModel: InputActivityViewModel
 
     private let activityDetailSettingFactory: any ActivityDetailSettingFactory
-    
+
     init(
         viewModel: InputActivityViewModel,
         activityDetailSettingFactory: any ActivityDetailSettingFactory

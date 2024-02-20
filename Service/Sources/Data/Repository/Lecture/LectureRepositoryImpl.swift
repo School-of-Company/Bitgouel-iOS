@@ -1,9 +1,9 @@
 import Foundation
 
-struct LectureRepositoryImpl: LectureRepository {
+public struct LectureRepositoryImpl: LectureRepository {
     private let remoteLectureDataSource: RemoteLectureDataSource
 
-    init(remoteLectureDataSource: RemoteLectureDataSource) {
+    public init(remoteLectureDataSource: RemoteLectureDataSource) {
         self.remoteLectureDataSource = remoteLectureDataSource
     }
 
@@ -11,12 +11,12 @@ struct LectureRepositoryImpl: LectureRepository {
         try await remoteLectureDataSource.lectureOpen(req: req)
     }
 
-    public func lectureListInquiry() async throws {
-        try await remoteLectureDataSource.lectureListInquiry()
+    public func queryLectureList() async throws -> [LectureListEntity] {
+        try await remoteLectureDataSource.queryLectureList()
     }
 
-    public func lectureDetailInquiry(userID: String) async throws {
-        try await remoteLectureDataSource.lectureDetailInquiry(userID: userID)
+    public func queryLectureDetail(userID: String) async throws {
+        try await remoteLectureDataSource.queryLectureDetail(userID: userID)
     }
 
     public func lectureApply(userID: String) async throws {

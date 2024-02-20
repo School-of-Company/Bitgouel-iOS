@@ -7,7 +7,7 @@ public struct DeleteStudentActivityUseCaseImpl: DeleteStudentActivityUseCase {
         self.activityRepository = activityRepository
     }
 
-    public func callAsFunction(userID: String) async throws {
-        try await activityRepository.deleteStudentActivity(userID: userID)
+    public func callAsFunction(activityId: String) async throws {
+        try await activityRepository.deleteStudentActivity(activityId: activityId)
     }
 }

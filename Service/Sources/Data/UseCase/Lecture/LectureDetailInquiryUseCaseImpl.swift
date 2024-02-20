@@ -1,13 +1,13 @@
 import Foundation
 
-struct LectureDetailInquiryUseCaseImpl: LectureDetailInquiryUseCase {
+public struct QueryLectureDetailUseCaseImpl: QueryLectureDetailUseCase {
     private let lectureRepository: any LectureRepository
 
-    init(lectureRepository: any LectureRepository) {
+    public init(lectureRepository: any LectureRepository) {
         self.lectureRepository = lectureRepository
     }
 
-    func callAsFunction(userID: String) async throws {
-        try await lectureRepository.lectureDetailInquiry(userID: userID)
+    public func callAsFunction(userID: String) async throws {
+        try await lectureRepository.queryLectureDetail(userID: userID)
     }
 }

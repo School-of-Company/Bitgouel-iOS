@@ -3,8 +3,9 @@ import Moya
 
 public enum ClubAPI {
     case queryClubList
-    case queryClubDetail(id: String)
-    case queryStudentListByClub(id: String)
+    case queryClubDetail(clubId: String)
+    case queryStudentListByClub
+    case queryStudentDetailByClub(clubId: String, studentId: String)
 }
 
 extension ClubAPI: BitgouelAPI {
@@ -18,10 +19,12 @@ extension ClubAPI: BitgouelAPI {
         switch self {
         case .queryClubList:
             return ""
-        case let .queryClubDetail(id):
-            return "/\(id)"
-        case let .queryStudentListByClub(id):
-            return "/\(id)/member"
+        case let .queryClubDetail(clubId):
+            return "/\(clubId)"
+        case .queryStudentListByClub:
+            return "/my"
+        case let .queryStudentDetailByClub(clubId, studentId):
+            return "/\(clubId)/\(studentId)"
         }
     }
 
@@ -29,7 +32,8 @@ extension ClubAPI: BitgouelAPI {
         switch self {
         case .queryClubList,
              .queryClubDetail,
-             .queryStudentListByClub:
+             .queryStudentListByClub,
+             .queryStudentDetailByClub:
             return .get
         }
     }
@@ -40,7 +44,9 @@ extension ClubAPI: BitgouelAPI {
             return .requestParameters(parameters: [
                 "highschool": HighSchoolType.self
             ], encoding: URLEncoding.queryString)
-        case .queryClubDetail, .queryStudentListByClub:
+        case .queryClubDetail,
+             .queryStudentListByClub,
+             .queryStudentDetailByClub:
             return .requestPlain
         }
     }
@@ -49,7 +55,8 @@ extension ClubAPI: BitgouelAPI {
         switch self {
         case .queryClubList,
              .queryClubDetail,
-             .queryStudentListByClub:
+             .queryStudentListByClub,
+             .queryStudentDetailByClub:
             return .accessToken
         }
     }
@@ -58,7 +65,8 @@ extension ClubAPI: BitgouelAPI {
         switch self {
         case .queryClubList,
              .queryClubDetail,
-             .queryStudentListByClub:
+             .queryStudentListByClub,
+             .queryStudentDetailByClub:
             return [
                 400: .badRequest,
                 401: .unauthorized,
