@@ -62,4 +62,8 @@ public extension AppComponent {
     var postListFactory: any PostListFactory {
         PostListComponent(parent: self)
     }
+
+    var postDetailSettingFactory: any PostDetailSettingFactory {
+        PostDetailSettingComponent(parent: self)
+    }
 }
