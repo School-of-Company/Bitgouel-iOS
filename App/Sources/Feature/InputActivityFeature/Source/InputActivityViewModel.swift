@@ -2,10 +2,10 @@ import Foundation
 import Service
 
 final class InputActivityViewModel: BaseViewModel {
-    @Published var title: String = ""
+    @Published var activityTitle: String = ""
     @Published var activityText: String = ""
     @Published var isPresentedDetailSettingAppend: Bool = false
-    @Published var activityDate: String = ""
+    @Published var activityDate = Date()
     @Published var activityCredit: Int = 0
 
     private let addStudentActivityUseCase: any AddStudentActivityUseCase
@@ -18,8 +18,9 @@ final class InputActivityViewModel: BaseViewModel {
         self.isPresentedDetailSettingAppend = false
     }
 
-    func updateActivityDetail(date: String, credit: Int) {
+    func updateActivityDetail(date: Date, credit: Int) {
         self.activityDate = date
+        print("\(activityDate)")
         self.activityCredit = credit
     }
 
@@ -28,10 +29,10 @@ final class InputActivityViewModel: BaseViewModel {
             do {
                 try await addStudentActivityUseCase(
                     req: AddStudentActivityRequestDTO(
-                        title: title,
+                        title: activityTitle,
                         content: activityText,
                         credit: activityCredit,
-                        activityDate: activityDate
+                        activityDate: activityDate.toStringCustomFormat(format: "yyyy-MM-dd")
                     )
                 )
             } catch {

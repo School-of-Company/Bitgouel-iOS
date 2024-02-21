@@ -2,19 +2,18 @@ import Service
 import SwiftUI
 
 final class ActivityDetailSettingViewModel: BaseViewModel {
-    @Published var date = Date()
+    @Published var selectedDate: Date
     @State private var isCredit: Bool = false
     @Published var isPresentedCreditSheet: Bool = false
     @Published var selectedCredit: Int?
-    @Published var selectedDate: String = ""
 
     let creditValue: [Int] = [1, 2]
-    private let completion: (String, Int) -> Void
+    private let completion: (Date, Int) -> Void
 
     init(
-        activityDate: String,
+        activityDate: Date,
         activityCredit: Int,
-        completion: @escaping (String, Int) -> Void
+        completion: @escaping (Date, Int) -> Void
     ) {
         self.selectedDate = activityDate
         self.selectedCredit = activityCredit
@@ -22,8 +21,7 @@ final class ActivityDetailSettingViewModel: BaseViewModel {
     }
 
     func updateDate(date: Date) {
-        self.date = date
-        self.selectedDate = date.description
+        self.selectedDate = date
     }
 
     func applyButtonDidTap() {

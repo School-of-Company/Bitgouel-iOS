@@ -1,8 +1,8 @@
 import Service
 import SwiftUI
 
-struct StudentActivityRow: View {
-    let activityId: String
+struct RoundListRow: View {
+    let id: String
     let title: String
     let date: String
     let userId: String
@@ -64,3 +64,4 @@ struct StudentActivityRow: View {
         }
     }
 }
+

@@ -24,7 +24,7 @@ struct ActivityDetailSettingView: View {
                     DatePicker(
                         "활동 날짜 선택",
                         selection: Binding(get: {
-                            viewModel.date
+                            viewModel.selectedDate
                         }, set: { newValue in
                             viewModel.updateDate(date: newValue)
                         }),

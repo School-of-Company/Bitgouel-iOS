@@ -3,8 +3,8 @@ import SwiftUI
 public protocol ActivityDetailSettingFactory {
     associatedtype SomeView: View
     func makeView(
-        activityDate: String,
+        activityDate: Date,
         activityCredit: Int,
-        completion: @escaping (String, Int) -> Void
+        completion: @escaping (Date, Int) -> Void
     ) -> SomeView
 }

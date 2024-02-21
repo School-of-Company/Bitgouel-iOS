@@ -7,9 +7,9 @@ public protocol ActivityDetailSettingDependency: Dependency {}
 public final class ActivityDetailSettingComponent: Component<ActivityDetailSettingDependency>,
     ActivityDetailSettingFactory {
     public func makeView(
-        activityDate: String,
+        activityDate: Date,
         activityCredit: Int,
-        completion: @escaping (String, Int) -> Void
+        completion: @escaping (Date, Int) -> Void
     ) -> some View {
         ActivityDetailSettingView(
             viewModel: .init(
