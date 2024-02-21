@@ -8,8 +8,7 @@ struct InputFormView: View {
 
     @Binding var title: String
     @Binding var text: String
-    
-    
+
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
@@ -35,9 +34,9 @@ struct InputFormView: View {
                     }
                 }
                 .frame(minHeight: 40, maxHeight: 120)
-                
+
                 Divider()
-                
+
                 VStack {
                     TextEditor(text: Binding(
                         get: { text },
@@ -61,20 +60,20 @@ struct InputFormView: View {
                 }
                 .padding(.top, 16)
                 .frame(height: 460)
-                
+
                 Divider()
-                
+
                 VStack(spacing: 8) {
                     Button {
                         settingButtonAction()
                     } label: {
                         Spacer()
-                        
+
                         BitgouelAsset.Icons.setting.swiftUIImage
-                        
+
                         Text("\(epic) 세부 설정")
                             .bitgouelFont(.text3, color: .primary(.p5))
-                        
+
                         Spacer()
                     }
                     .padding(.vertical, 12)
@@ -83,7 +82,7 @@ struct InputFormView: View {
                         RoundedRectangle(cornerRadius: 8)
                             .strokeBorder(Color.bitgouel(.primary(.p5)))
                     }
-                    
+
                     CTAButton(
                         text: "\(epic) \(state)",
                         style: .default

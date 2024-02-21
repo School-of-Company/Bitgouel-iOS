@@ -4,7 +4,7 @@ struct LinkDetailSettingView: View {
     @State var links: [String]
     let link: String
     let dismiss: DismissAction
-    
+
     var body: some View {
         VStack(spacing: 0) {
             ScrollView {
@@ -13,24 +13,24 @@ struct LinkDetailSettingView: View {
                         text: "링크 입력",
                         font: .text1
                     )
-                    
+
                     Spacer()
                 }
                 .padding(.top, 28)
-                
+
                 VStack {
                     linkRow()
                 }
                 .padding(.top, 8)
-                
+
                 Button {
                     links.append("")
                 } label: {
                     HStack {
                         Text("링크 추가")
-                        
+
                         Spacer()
-                        
+
                         BitgouelAsset.Icons.add.swiftUIImage
                             .renderingMode(.template)
                     }
@@ -41,17 +41,17 @@ struct LinkDetailSettingView: View {
                     .cornerRadius(8, corners: .allCorners)
                 }
                 .padding(.top, 8)
-                
+
             }
             Spacer()
-            
+
             CTAButton(text: "적용하기") {
                 dismiss()
             }
             .padding(.bottom, 12)
         }
     }
-    
+
     @ViewBuilder
     func linkRow() -> some View {
         ForEach(links.indices, id: \.self) { index in
