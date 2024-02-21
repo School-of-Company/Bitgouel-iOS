@@ -1,9 +1,32 @@
-//
-//  PostListViewModel.swift
-//  Bitgouel
-//
-//  Created by 정윤서 on 2/21/24.
-//  Copyright © 2024 team.msg. All rights reserved.
-//
-
 import Foundation
+import Service
+
+final class PostListViewModel: BaseViewModel {
+    @Published var postList: [PostEntity] = []
+    @Published var authority: UserAuthorityType = .user
+    @Published var isPresentedAleterBottomSheet: Bool = false
+    
+    private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
+    private let queryPostListUseCase: any QueryPostListUseCase
+    
+    init(
+        loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
+        queryPostListUseCase: any QueryPostListUseCase
+    ) {
+        self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
+        self.queryPostListUseCase = queryPostListUseCase
+    }
+    
+    func onAppear() {
+        authority = loadUserAuthorityUseCase()
+        
+        Task {
+            do {
+                postList = try await queryPostListUseCase(postType: .employment)
+                print(postList)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+}

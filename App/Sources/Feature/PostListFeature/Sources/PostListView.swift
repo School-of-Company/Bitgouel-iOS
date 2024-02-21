@@ -1,22 +1,26 @@
 import SwiftUI
 
 struct PostListView: View {
-    @State var isPresentedAleterBottomSheet: Bool = false
-
+    @StateObject var viewModel: PostListViewModel
+    
+    init(viewModel: PostListViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
+    
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 0) {
                     LazyVStack(spacing: 0) {
-                        ForEach(0...3, id: \.self) { index in
+                        ForEach(viewModel.postList, id: \.postId) { item in
                             ListRow(
-                                id: "index",
-                                title: "타이틀",
-                                modifedAt: "날짜",
+                                id: item.postId,
+                                title: item.title,
+                                modifedAt: item.modifedAt,
                                 isPresented: Binding(get: {
-                                    isPresentedAleterBottomSheet
+                                    viewModel.isPresentedAleterBottomSheet
                                 }, set: { isPresented in
-                                    isPresentedAleterBottomSheet = isPresented
+                                    viewModel.isPresentedAleterBottomSheet = isPresented
                                 })
                             )
                             
@@ -27,8 +31,11 @@ struct PostListView: View {
                     Spacer()
                 }
             }
+            .onAppear {
+                viewModel.onAppear()
+            }
             .padding(.horizontal, 28)
-            .alterBottomSheet(isShowing: $isPresentedAleterBottomSheet)
+            .alterBottomSheet(isShowing: $viewModel.isPresentedAleterBottomSheet)
             .navigationTitle("게시글 목록")
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
