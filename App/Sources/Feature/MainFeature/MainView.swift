@@ -320,8 +320,8 @@ struct MainView: View {
                         
                         VStack {
                             GovernmentView(
-                                governmentFirstText: "미래형",
-                                governmentSecondText: "운송기기"
+                                governmentFirstText: "에너지",
+                                governmentSecondText: "산업"
                             )
                             .padding(.bottom, 18)
                             
@@ -333,8 +333,8 @@ struct MainView: View {
                         
                         VStack {
                             GovernmentView(
-                                governmentFirstText: "미래형",
-                                governmentSecondText: "운송기기"
+                                governmentFirstText: "의료",
+                                governmentSecondText: "헬스케어"
                             )
                             .padding(.bottom, 16)
                             
@@ -346,8 +346,8 @@ struct MainView: View {
                         
                         VStack {
                             GovernmentView(
-                                governmentFirstText: "미래형",
-                                governmentSecondText: "운송기기"
+                                governmentFirstText: "AI",
+                                governmentSecondText: "융복합"
                             )
                             .padding(.bottom, 18)
                             
@@ -359,8 +359,8 @@ struct MainView: View {
                         
                         VStack {
                             GovernmentView(
-                                governmentFirstText: "미래형",
-                                governmentSecondText: "운송기기"
+                                governmentFirstText: "문화",
+                                governmentSecondText: "산업"
                             )
                             .padding(.bottom, 4)
 
