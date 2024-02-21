@@ -3,7 +3,6 @@ import SwiftUI
 
 final class LectureListViewModel: BaseViewModel {
     @Published var selectedLectureType: String = ""
-    @Published var selectedapproveStatusType: String = ""
     @Published var filteredLectureList: [LectureType] = []
     @Published var isNavigateLectureDetailDidTap = false
     @Published var lectureList: [LectureListEntity]?

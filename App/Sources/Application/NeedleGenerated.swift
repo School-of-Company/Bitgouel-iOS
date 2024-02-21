@@ -337,8 +337,6 @@ extension AppComponent: Registration {
         localTable["queryLectureListUseCase-any QueryLectureListUseCase"] = { [unowned self] in self.queryLectureListUseCase as Any }
         localTable["queryLectureDetailUseCase-any QueryLectureDetailUseCase"] = { [unowned self] in self.queryLectureDetailUseCase as Any }
         localTable["lectureApplyUseCase-any LectureApplyUseCase"] = { [unowned self] in self.lectureApplyUseCase as Any }
-        localTable["waitingLectureApproveUseCase-any WaitingLectureApproveUseCase"] = { [unowned self] in self.waitingLectureApproveUseCase as Any }
-        localTable["waitingLectureRejectUseCase-any WaitingLectureRejectUseCase"] = { [unowned self] in self.waitingLectureRejectUseCase as Any }
         localTable["remoteClubDataSource-any RemoteClubDataSource"] = { [unowned self] in self.remoteClubDataSource as Any }
         localTable["clubRepository-any ClubRepository"] = { [unowned self] in self.clubRepository as Any }
         localTable["queryClubListUseCase-any QueryClubListUseCase"] = { [unowned self] in self.queryClubListUseCase as Any }

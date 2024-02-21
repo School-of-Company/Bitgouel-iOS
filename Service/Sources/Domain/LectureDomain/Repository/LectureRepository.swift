@@ -5,6 +5,4 @@ public protocol LectureRepository {
     func queryLectureList() async throws -> [LectureListEntity]
     func queryLectureDetail(userID: String) async throws
     func lectureApply(userID: String) async throws
-    func waitingLectureApprove(userID: String) async throws
-    func waitingLectureReject(userID: String) async throws
 }
