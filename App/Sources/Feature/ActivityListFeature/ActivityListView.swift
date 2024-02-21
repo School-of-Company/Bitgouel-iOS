@@ -27,8 +27,8 @@ struct ActivityListView: View {
                 VStack {
                     LazyVStack(spacing: 12) {
                         ForEach(model.activityList, id: \.activityId) { item in
-                            StudentActivityRow(
-                                activityId: item.activityId,
+                            RoundListRow(
+                                id: item.activityId,
                                 title: item.title,
                                 date: item.activityDate,
                                 userId: item.userId,
