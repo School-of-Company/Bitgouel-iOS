@@ -1,9 +1,10 @@
 import SwiftUI
 
 struct ListRow: View {
-    public let id: String
-    public let title: String
-    public let modifedAt: String
+    let id: String
+    let title: String
+    let modifedAt: String
+    @Binding var isPresented: Bool
 
     var body: some View {
         VStack(spacing: 12) {
@@ -14,8 +15,14 @@ struct ListRow: View {
                     text: title,
                     font: .text1
                 )
-
+                
                 Spacer()
+                
+                Button {
+                    isPresented = true
+                } label: {
+                    BitgouelAsset.Icons.verticalEllipsisFill.swiftUIImage
+                }
             }
 
             HStack(spacing: 0) {
