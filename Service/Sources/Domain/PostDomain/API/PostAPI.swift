@@ -3,7 +3,7 @@ import Moya
 
 public enum PostAPI {
     case writePost(req: InputPostRequestDTO)
-    case queryPostList
+    case queryPostList(postType: FeedType)
     case queryPostDetail(postID: String)
     case updatePost(postID: String, req: InputPostRequestDTO)
     case deletePost(postID: String)
@@ -47,6 +47,12 @@ extension PostAPI: BitgouelAPI {
         case let .writePost(req),
              let .updatePost(_, req):
             return .requestJSONEncodable(req)
+            
+        case let .queryPostList(postType):
+            return .requestParameters(parameters: [
+                "type": postType.rawValue
+            ], encoding: URLEncoding.queryString)
+            
         default:
             return .requestPlain
         }
