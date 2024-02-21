@@ -37,4 +37,10 @@ public extension AppComponent {
             LectureApplyUseCaseImpl(lectureRepository: lectureRepository)
         }
     }
+    
+    var lectureCancleUseCase: any LectureCancleUseCase {
+        shared {
+            LectureCancleUseCaseImpl(lectureRepository: lectureRepository)
+        }
+    }
 }
