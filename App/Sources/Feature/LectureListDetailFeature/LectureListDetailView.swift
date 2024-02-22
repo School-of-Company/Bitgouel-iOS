@@ -72,9 +72,9 @@ struct LectureListDetailView: View {
             }
             .overlay(alignment: .bottom) {
                 if viewModel.lectureDetail?.isRegistered ?? true {
-                    applyPopupButton()
-                } else {
                     cancelPopupButton()
+                } else {
+                    applyPopupButton()
                 }
             }
             .bitgouelAlert(

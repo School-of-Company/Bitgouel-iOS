@@ -1,33 +1,49 @@
 import Foundation
 
 public struct PostListsResponseDTO: Decodable {
-    public let posts: [PostInfo]
+    public let posts: PostContent
 
     public init(
-        posts: [PostInfo]
+        posts: PostContent
     ) {
         self.posts = posts
     }
 
+    public struct PostContent: Decodable {
+        public let content: [PostInfo]
+    }
+
     public struct PostInfo: Decodable {
-        public let postId: String
+        public let postID: String
         public let title: String
-        public let modifedAt: String
+        public let modifiedAt: String
+
+        enum CodingKeys: String, CodingKey {
+            case postID = "id"
+            case title
+            case modifiedAt
+        }
     }
 }
 
 extension PostListsResponseDTO {
+    func toDomain() -> PostContentEntity {
+        PostContentEntity(content: posts.toDomain())
+    }
+}
+
+extension PostListsResponseDTO.PostContent {
     func toDomain() -> [PostEntity] {
-        posts.map { $0.toDomain() }
+        content.map { $0.toDomain() }
     }
 }
 
 extension PostListsResponseDTO.PostInfo {
     func toDomain() -> PostEntity {
         PostEntity(
-            postId: postId,
+            postID: postID,
             title: title,
-            modifedAt: modifedAt
+            modifiedAt: modifiedAt
         )
     }
 }

@@ -1,57 +1,120 @@
 import SwiftUI
 
 struct PostListView: View {
-    @State var isPresentedAleterBottomSheet: Bool = false
+    @StateObject var viewModel: PostListViewModel
+
+    private let noticeListFactory: any NoticeListFactory
+    private let inquiryListFactory: any InquiryListFactory
+    private let inputPostFactory: any InputPostFactory
+    private let postDetailFactory: any PostDetailFactory
+
+    init(
+        viewModel: PostListViewModel,
+        noticeListFactory: any NoticeListFactory,
+        inquiryListFactory: any InquiryListFactory,
+        inputPostFactory: any InputPostFactory,
+        postDetailFactory: any PostDetailFactory
+    ) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+        self.noticeListFactory = noticeListFactory
+        self.inquiryListFactory = inquiryListFactory
+        self.inputPostFactory = inputPostFactory
+        self.postDetailFactory = postDetailFactory
+    }
 
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 0) {
-                    LazyVStack(spacing: 0) {
-                        ForEach(0...3, id: \.self) { index in
-                            ListRow(
-                                id: "index",
-                                title: "타이틀",
-                                modifedAt: "날짜",
-                                isPresented: Binding(get: {
-                                    isPresentedAleterBottomSheet
-                                }, set: { isPresented in
-                                    isPresentedAleterBottomSheet = isPresented
-                                })
-                            )
-                            
-                            Divider()
+                    if let postInfo = viewModel.postContent {
+                        LazyVStack(spacing: 0) {
+                            ForEach(postInfo.content, id: \.postID) { item in
+                                ListRow(
+                                    id: item.postID,
+                                    title: item.title,
+                                    modifiedAt: item.modifiedAt.toDateCustomFormat(format: "yyyy-MM-dd'T'HH:mm:ss.SSS"),
+                                    isPresented: Binding(get: {
+                                        viewModel.isPresentedAleterBottomSheet
+                                    }, set: { isPresented in
+                                        viewModel.isPresentedAleterBottomSheet = isPresented
+                                    })
+                                )
+                                .onTapGesture {
+                                    viewModel.isPresentedPostDetailView = true
+                                }
+
+                                Divider()
+                            }
                         }
                     }
-                    
+
                     Spacer()
                 }
-            }
-            .padding(.horizontal, 28)
-            .alterBottomSheet(isShowing: $isPresentedAleterBottomSheet)
-            .navigationTitle("게시글 목록")
-            .toolbar {
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button {} label: {
-                        BitgouelAsset.Icons.megaphone.swiftUIImage
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 24, height: 24)
-                    }
-                    
-                    Button {} label: {
-                        BitgouelAsset.Icons.questionmark.swiftUIImage
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 24, height: 24)
-                    }
-                    
-                    Button {} label: {
-                        Image(systemName: "plus")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 24, height: 24)
-                            .foregroundColor(.bitgouel(.greyscale(.g8)))
+                .onAppear {
+                    viewModel.onAppear()
+                }
+                .navigate(
+                    to: postDetailFactory.makeView().eraseToAnyView(),
+                    when: Binding(
+                        get: { viewModel.isPresentedPostDetailView },
+                        set: { _ in viewModel.isPresentedPostDetailView = false}
+                    )
+                )
+                .navigate(
+                    to: noticeListFactory.makeview().eraseToAnyView(),
+                    when: Binding(
+                        get: { viewModel.isPresentedNoticeListView },
+                        set: { _ in viewModel.isPresentedNoticeListView = false }
+                    )
+                )
+                .navigate(
+                    to: inquiryListFactory.makeView().eraseToAnyView(),
+                    when: Binding(
+                        get: { viewModel.isPresentedInquiryView },
+                        set: { _ in viewModel.isPresentedInquiryView = false }
+                    )
+                )
+                .navigate(
+                    to: inputPostFactory.makeView().eraseToAnyView(),
+                    when: Binding(
+                        get: { viewModel.isPresentedInputPostView },
+                        set: { _ in viewModel.isPresentedInputPostView = false }
+                    )
+                )
+                .padding(.horizontal, 28)
+                .alterBottomSheet(isShowing: $viewModel.isPresentedAleterBottomSheet)
+                .navigationTitle("게시글 목록")
+                .toolbar {
+                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+                        Button {
+                            viewModel.isPresentedNoticeListView = true
+                        } label: {
+                            BitgouelAsset.Icons.megaphone.swiftUIImage
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 24, height: 24)
+                        }
+
+                        Button {
+                            viewModel.isPresentedInquiryView = true
+                        } label: {
+                            BitgouelAsset.Icons.questionmark.swiftUIImage
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 24, height: 24)
+                        }
+
+                        if viewModel.authority == .admin {
+                            Button {
+                                viewModel.isPresentedInputPostView = true
+                            } label: {
+                                Image(systemName: "plus")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 24, height: 24)
+                                    .foregroundColor(.bitgouel(.greyscale(.g8)))
+                            }
+                        }
                     }
                 }
             }
