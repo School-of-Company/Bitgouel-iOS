@@ -8,13 +8,16 @@ final class LectureListDetailViewModel: BaseViewModel {
     
     private let userID: String
     private let queryLectureDetailUseCase: any QueryLectureDetailUseCase
+    private let lectureApplyUseCase: any LectureApplyUseCase
     
     init(
         userID: String,
-        queryLectureDetailUseCase: any QueryLectureDetailUseCase
+        queryLectureDetailUseCase: any QueryLectureDetailUseCase,
+        lectureApplyUseCase: any LectureApplyUseCase
     ) {
         self.userID = userID
         self.queryLectureDetailUseCase = queryLectureDetailUseCase
+        self.lectureApplyUseCase = lectureApplyUseCase
     }
 
     var enrolmentButtonText: String {
@@ -41,6 +44,16 @@ final class LectureListDetailViewModel: BaseViewModel {
         Task {
             do {
                 lectureDetail = try await queryLectureDetailUseCase(userID: userID)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func applyLecture() {
+        Task {
+            do {
+                try await lectureApplyUseCase(userID: userID)
             } catch {
                 print(error.localizedDescription)
             }
