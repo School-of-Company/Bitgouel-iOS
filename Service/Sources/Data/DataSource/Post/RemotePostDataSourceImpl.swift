@@ -5,8 +5,8 @@ public final class RemotePostDataSourceImpl: BaseRemoteDataSource<PostAPI>, Remo
         try await request(.writePost(req: req))
     }
 
-    public func queryPostList() async throws -> [PostEntity] {
-        try await request(.queryPostList, dto: PostListsResponseDTO.self).toDomain()
+    public func queryPostList(postType: FeedType) async throws -> PostContentEntity {
+        try await request(.queryPostList(postType: postType), dto: PostListsResponseDTO.self).toDomain()
     }
 
     public func queryPostDetail(postID: String) async throws -> PostDetailEntity {
