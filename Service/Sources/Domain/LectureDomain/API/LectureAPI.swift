@@ -6,8 +6,7 @@ public enum LectureAPI {
     case queryLectureList
     case queryLectureDetail(userID: String)
     case lectureApply(userID: String)
-    case waitingLectureApprove(userID: String)
-    case waitingLectureReject(userID: String)
+    case lectureCancle(userID: String)
 }
 
 extension LectureAPI: BitgouelAPI {
@@ -27,12 +26,9 @@ extension LectureAPI: BitgouelAPI {
 
         case let .lectureApply(userID):
             return "/\(userID)"
-
-        case let .waitingLectureApprove(userID):
-            return "/\(userID)/approve"
-
-        case let .waitingLectureReject(userID: userID):
-            return "/\(userID)/reject"
+            
+        case let .lectureCancle(userID):
+            return "/\(userID)"
         }
     }
 
@@ -43,11 +39,8 @@ extension LectureAPI: BitgouelAPI {
 
         case .queryLectureList, .queryLectureDetail:
             return .get
-
-        case .waitingLectureApprove:
-            return .patch
-
-        case .waitingLectureReject:
+            
+        case .lectureCancle:
             return .delete
         }
     }
@@ -76,8 +69,7 @@ extension LectureAPI: BitgouelAPI {
              .queryLectureList,
              .queryLectureDetail,
              .lectureApply,
-             .waitingLectureApprove,
-             .waitingLectureReject:
+             .lectureCancle:
             return .accessToken
         }
     }
@@ -117,18 +109,8 @@ extension LectureAPI: BitgouelAPI {
                 409: .conflict,
                 429: .tooManyRequest
             ]
-
-        case .waitingLectureApprove:
-            return [
-                400: .badRequest,
-                401: .unauthorized,
-                403: .forbidden,
-                404: .notFound,
-                409: .conflict,
-                429: .tooManyRequest
-            ]
-
-        case .waitingLectureReject:
+            
+        case .lectureCancle:
             return [
                 400: .badRequest,
                 401: .unauthorized,

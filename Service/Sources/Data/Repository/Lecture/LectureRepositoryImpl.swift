@@ -22,12 +22,8 @@ public struct LectureRepositoryImpl: LectureRepository {
     public func lectureApply(userID: String) async throws {
         try await remoteLectureDataSource.lectureApply(userID: userID)
     }
-
-    public func waitingLectureApprove(userID: String) async throws {
-        try await remoteLectureDataSource.waitingLectureApprove(userID: userID)
-    }
-
-    public func waitingLectureReject(userID: String) async throws {
-        try await remoteLectureDataSource.waitingLectureReject(userID: userID)
+    
+    public func lectureCancle(userID: String) async throws {
+        try await remoteLectureDataSource.lectureCancle(userID: userID)
     }
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-public struct WaitingLectureApproveUseCaseImpl: WaitingLectureApproveUseCase {
+public struct LectureCancleUseCaseImpl: LectureCancleUseCase {
     private let lectureRepository: any LectureRepository
 
     public init(lectureRepository: any LectureRepository) {
@@ -8,6 +8,6 @@ public struct WaitingLectureApproveUseCaseImpl: WaitingLectureApproveUseCase {
     }
 
     public func callAsFunction(userID: String) async throws {
-        try await lectureRepository.waitingLectureApprove(userID: userID)
+        try await lectureRepository.lectureCancle(userID: userID)
     }
 }

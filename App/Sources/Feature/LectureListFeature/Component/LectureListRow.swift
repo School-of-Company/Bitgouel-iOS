@@ -9,11 +9,9 @@ struct LectureListRow: View {
     let completeDate: String
     let lectureType: LectureType
     let lectureStatus: LectureStatusType
-    let approveStatus: ApproveStatusType
     let headCount: Int
     let maxRegisteredUser: Int
     let lecturer: String
-    let authority: UserAuthorityType
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -50,22 +48,6 @@ struct LectureListRow: View {
                         Color.bitgouel(.greyscale(.g9))
                     )
                     .cornerRadius(18)
-
-                if authority == .admin {
-                    Text(approveStatus.display())
-                        .bitgouelFont(.caption, color: .greyscale(.g10))
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 4)
-                        .background {
-                            if approveStatus == .approve {
-                                Color.bitgouel(.primary(.p5))
-                            } else {
-                                Color.bitgouel(.error(.e5))
-                            }
-                            
-                        }
-                        .cornerRadius(18)
-                }
             }
         }
         .padding(.vertical, 20)

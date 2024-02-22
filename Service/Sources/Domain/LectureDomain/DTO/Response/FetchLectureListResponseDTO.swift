@@ -18,7 +18,6 @@ public struct FetchLectureListResponseDTO: Decodable {
         public let completeDate: String
         public let lectureType: LectureType
         public let lectureStatus: LectureStatusType
-        public let approveStatus: ApproveStatusType
         public let headCount: Int
         public let maxRegisteredUser: Int
         public let lecturer: String
@@ -42,7 +41,6 @@ extension FetchLectureListResponseDTO.LectureInfo {
             completeDate: completeDate,
             lectureType: lectureType,
             lectureStatus: lectureStatus,
-            approveStatus: approveStatus,
             headCount: headCount,
             maxRegisteredUser: maxRegisteredUser,
             lecturer: lecturer

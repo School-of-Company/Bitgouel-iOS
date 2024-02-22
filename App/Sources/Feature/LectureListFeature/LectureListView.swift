@@ -32,11 +32,9 @@ struct LectureListView: View {
                                 completeDate: item.completeDate,
                                 lectureType: item.lectureType,
                                 lectureStatus: item.lectureStatus,
-                                approveStatus: item.approveStatus,
                                 headCount: item.headCount,
                                 maxRegisteredUser: item.maxRegisteredUser,
-                                lecturer: item.lecturer,
-                                authority: model.authority
+                                lecturer: item.lecturer
                             )
                             .buttonWrapper {
                                 withAnimation {
@@ -101,17 +99,6 @@ struct LectureListView: View {
                         .padding(.top, 3)
                 }
 
-                if model.authority == .admin {
-                    Group {
-                        Text("강의 상태")
-                            .bitgouelFont(.text1, color: .greyscale(.g0))
-                            .padding(.top, 11)
-
-                        approveStatusTypeList()
-                            .padding(.top, 3)
-                    }
-                }
-
                 BitgouelButton(
                     text: "적용하기"
                 )
@@ -140,26 +127,6 @@ struct LectureListView: View {
                 )
 
                 Text(lectureType.display())
-            }
-        }
-    }
-
-    @ViewBuilder
-    func approveStatusTypeList() -> some View {
-        ForEach(viewModel.approveStatusType, id: \.self) { approveStatusType in
-            HStack {
-                CheckButton(
-                    isSelected: Binding(
-                        get: { viewModel.selectedapproveStatusType == approveStatusType.display() },
-                        set: { status in
-                            if status {
-                                viewModel.selectedapproveStatusType = approveStatusType.display()
-                            }
-                        }
-                    )
-                )
-
-                Text(approveStatusType.display())
             }
         }
     }
