@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol LectureCancleUseCase {
+public protocol LectureCancelUseCase {
     func callAsFunction(userID: String) async throws
 }

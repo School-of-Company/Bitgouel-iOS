@@ -2,7 +2,6 @@ import SwiftUI
 
 struct LectureListDetailView: View {
     @StateObject var viewModel: LectureListDetailViewModel
-    @Environment(\.dismiss) private var dismiss
     
     init(viewModel: LectureListDetailViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)

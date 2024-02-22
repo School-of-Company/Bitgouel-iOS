@@ -5,7 +5,7 @@ import Service
 public protocol LectureListDetailDependency: Dependency {
     var queryLectureDetailUseCase: any QueryLectureDetailUseCase { get }
     var lectureApplyUseCase: any LectureApplyUseCase { get }
-    var lectureCancelUseCase: any LectureCancleUseCase { get }
+    var lectureCancelUseCase: any LectureCancelUseCase { get }
 }
 
 public final class LectureListDetailComponent: Component<LectureListDetailDependency>, LectureListDetailFactory {
@@ -16,7 +16,7 @@ public final class LectureListDetailComponent: Component<LectureListDetailDepend
                 userID: userID,
                 queryLectureDetailUseCase: self.dependency.queryLectureDetailUseCase,
                 lectureApplyUseCase: self.dependency.lectureApplyUseCase,
-                lectureCancleUseCase: self.dependency.lectureCancelUseCase
+                lectureCancelUseCase: self.dependency.lectureCancelUseCase
             )
         )
     }

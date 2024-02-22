@@ -10,34 +10,18 @@ final class LectureListDetailViewModel: BaseViewModel {
     private let userID: String
     private let queryLectureDetailUseCase: any QueryLectureDetailUseCase
     private let lectureApplyUseCase: any LectureApplyUseCase
-    private let lectureCancleUseCase: any LectureCancleUseCase
+    private let lectureCancelUseCase: any LectureCancelUseCase
     
     init(
         userID: String,
         queryLectureDetailUseCase: any QueryLectureDetailUseCase,
         lectureApplyUseCase: any LectureApplyUseCase,
-        lectureCancleUseCase: any LectureCancleUseCase
+        lectureCancelUseCase: any LectureCancelUseCase
     ) {
         self.userID = userID
         self.queryLectureDetailUseCase = queryLectureDetailUseCase
         self.lectureApplyUseCase = lectureApplyUseCase
-        self.lectureCancleUseCase = lectureCancleUseCase
-    }
-    
-    var statusText: String {
-        if lectureDetail?.isRegistered ?? true {
-            return "수강 신청하기"
-        } else {
-            return "수강 신청 완료"
-        }
-    }
-
-    var isEnabledEnrolment: Bool {
-        if isApply {
-            return true
-        } else {
-            return false
-        }
+        self.lectureCancelUseCase = lectureCancelUseCase
     }
     
     func onAppear() {
@@ -63,7 +47,7 @@ final class LectureListDetailViewModel: BaseViewModel {
     func cancelLecture() {
         Task {
             do {
-                try await lectureCancleUseCase(userID: userID)
+                try await lectureCancelUseCase(userID: userID)
             } catch {
                 print(error.localizedDescription)
             }

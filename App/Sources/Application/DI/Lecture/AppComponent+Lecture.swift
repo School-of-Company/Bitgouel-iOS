@@ -38,9 +38,9 @@ public extension AppComponent {
         }
     }
     
-    var lectureCancleUseCase: any LectureCancleUseCase {
+    var lectureCancelUseCase: any LectureCancelUseCase {
         shared {
-            LectureCancleUseCaseImpl(lectureRepository: lectureRepository)
+            LectureCancelUseCaseImpl(lectureRepository: lectureRepository)
         }
     }
 }

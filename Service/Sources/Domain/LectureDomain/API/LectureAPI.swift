@@ -6,7 +6,7 @@ public enum LectureAPI {
     case queryLectureList
     case queryLectureDetail(userID: String)
     case lectureApply(userID: String)
-    case lectureCancle(userID: String)
+    case lectureCancel(userID: String)
 }
 
 extension LectureAPI: BitgouelAPI {
@@ -27,7 +27,7 @@ extension LectureAPI: BitgouelAPI {
         case let .lectureApply(userID):
             return "/\(userID)"
             
-        case let .lectureCancle(userID):
+        case let .lectureCancel(userID):
             return "/\(userID)"
         }
     }
@@ -40,7 +40,7 @@ extension LectureAPI: BitgouelAPI {
         case .queryLectureList, .queryLectureDetail:
             return .get
             
-        case .lectureCancle:
+        case .lectureCancel:
             return .delete
         }
     }
@@ -69,7 +69,7 @@ extension LectureAPI: BitgouelAPI {
              .queryLectureList,
              .queryLectureDetail,
              .lectureApply,
-             .lectureCancle:
+             .lectureCancel:
             return .accessToken
         }
     }
@@ -110,7 +110,7 @@ extension LectureAPI: BitgouelAPI {
                 429: .tooManyRequest
             ]
             
-        case .lectureCancle:
+        case .lectureCancel:
             return [
                 400: .badRequest,
                 401: .unauthorized,
