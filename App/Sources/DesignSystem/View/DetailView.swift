@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct DetailView: View {
-    let epic: String
     let title: String
     let content: String
     let links: [String]
