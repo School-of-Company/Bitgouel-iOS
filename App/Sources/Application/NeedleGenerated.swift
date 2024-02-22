@@ -17,6 +17,17 @@ private func parent1(_ component: NeedleFoundation.Scope) -> NeedleFoundation.Sc
 
 #if !NEEDLE_DYNAMIC
 
+private class InputPostDependency2bb888f6c56a6060d23fProvider: InputPostDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->InputPostComponent
+private func factoryfd208488fdd5cb4acc65e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return InputPostDependency2bb888f6c56a6060d23fProvider()
+}
 private class ClubListDependency90c6e61626f7c53ad50fProvider: ClubListDependency {
 
 
@@ -38,6 +49,17 @@ private class LectureListDetailDependency2a815f1240973966e6a6Provider: LectureLi
 /// ^->AppComponent->LectureListDetailComponent
 private func factory22af859a70aa8ba0b346e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
     return LectureListDetailDependency2a815f1240973966e6a6Provider()
+}
+private class NoticeListDependency0e93eb53be8626c408e4Provider: NoticeListDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->NoticeListComponent
+private func factorye14e687c08985bdffcd0e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return NoticeListDependency0e93eb53be8626c408e4Provider()
 }
 private class ActivityDetailSettingDependency0b98c5f90168b920a8b8Provider: ActivityDetailSettingDependency {
 
@@ -82,6 +104,9 @@ private class RootDependency3944cc797a4a88956fb5Provider: RootDependency {
     var loginFactory: any LoginFactory {
         return appComponent.loginFactory
     }
+    var postListFactory: any PostListFactory {
+        return appComponent.postListFactory
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -92,6 +117,15 @@ private func factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5(_ component: Needle
     return RootDependency3944cc797a4a88956fb5Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class PostListDependencye041dce90a2be61e7af5Provider: PostListDependency {
+    var noticeListFactory: any NoticeListFactory {
+        return appComponent.noticeListFactory
+    }
+    var inquiryListFactory: any InquiryListFactory {
+        return appComponent.inquiryListFactory
+    }
+    var inputPostFactory: any InputPostFactory {
+        return appComponent.inputPostFactory
+    }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
         return appComponent.loadUserAuthorityUseCase
     }
@@ -125,6 +159,17 @@ private class ClubdetailDependency09c03e1ee67d1fbecba1Provider: ClubdetailDepend
 /// ^->AppComponent->ClubDetailComponent
 private func factory1559652f8e80cfa88d06f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return ClubdetailDependency09c03e1ee67d1fbecba1Provider(appComponent: parent1(component) as! AppComponent)
+}
+private class InquiryListDependencyec75a7335a50ded93b28Provider: InquiryListDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->InquiryListComponent
+private func factorydd7e28250a180554c7a0e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return InquiryListDependencyec75a7335a50ded93b28Provider()
 }
 private class ActivityListDependencyb8e659960978b8384f80Provider: ActivityListDependency {
     var activityDetailFactory: any ActivityDetailFactory {
@@ -246,12 +291,22 @@ private func factory3fc1a279eeb8c906e603f47b58f8f304c97af4d5(_ component: Needle
 }
 
 #else
+extension InputPostComponent: Registration {
+    public func registerItems() {
+
+    }
+}
 extension ClubListComponent: Registration {
     public func registerItems() {
 
     }
 }
 extension LectureListDetailComponent: Registration {
+    public func registerItems() {
+
+    }
+}
+extension NoticeListComponent: Registration {
     public func registerItems() {
 
     }
@@ -274,10 +329,14 @@ extension StudentSignUpComponent: Registration {
 extension RootComponent: Registration {
     public func registerItems() {
         keyPathToName[\RootDependency.loginFactory] = "loginFactory-any LoginFactory"
+        keyPathToName[\RootDependency.postListFactory] = "postListFactory-any PostListFactory"
     }
 }
 extension PostListComponent: Registration {
     public func registerItems() {
+        keyPathToName[\PostListDependency.noticeListFactory] = "noticeListFactory-any NoticeListFactory"
+        keyPathToName[\PostListDependency.inquiryListFactory] = "inquiryListFactory-any InquiryListFactory"
+        keyPathToName[\PostListDependency.inputPostFactory] = "inputPostFactory-any InputPostFactory"
         keyPathToName[\PostListDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
         keyPathToName[\PostListDependency.queryPostListUseCase] = "queryPostListUseCase-any QueryPostListUseCase"
     }
@@ -287,6 +346,11 @@ extension ClubDetailComponent: Registration {
         keyPathToName[\ClubdetailDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
         keyPathToName[\ClubdetailDependency.queryClubDetailUseCase] = "queryClubDetailUseCase-any QueryClubDetailUseCase"
         keyPathToName[\ClubdetailDependency.queryStudentListByClubUseCase] = "queryStudentListByClubUseCase-any QueryStudentListByClubUseCase"
+    }
+}
+extension InquiryListComponent: Registration {
+    public func registerItems() {
+
     }
 }
 extension ActivityListComponent: Registration {
@@ -399,6 +463,9 @@ extension AppComponent: Registration {
         localTable["lectureListDetailFactory-any LectureListDetailFactory"] = { [unowned self] in self.lectureListDetailFactory as Any }
         localTable["postListFactory-any PostListFactory"] = { [unowned self] in self.postListFactory as Any }
         localTable["postDetailSettingFactory-any PostDetailSettingFactory"] = { [unowned self] in self.postDetailSettingFactory as Any }
+        localTable["inputPostFactory-any InputPostFactory"] = { [unowned self] in self.inputPostFactory as Any }
+        localTable["noticeListFactory-any NoticeListFactory"] = { [unowned self] in self.noticeListFactory as Any }
+        localTable["inquiryListFactory-any InquiryListFactory"] = { [unowned self] in self.inquiryListFactory as Any }
     }
 }
 
@@ -417,13 +484,16 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
 #if !NEEDLE_DYNAMIC
 
 @inline(never) private func register1() {
+    registerProviderFactory("^->AppComponent->InputPostComponent", factoryfd208488fdd5cb4acc65e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->ClubListComponent", factory050817f1b6d356b83467e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->LectureListDetailComponent", factory22af859a70aa8ba0b346e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->NoticeListComponent", factorye14e687c08985bdffcd0e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->ActivityDetailSettingComponent", factoryfd595280dea209e217b9e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->StudentSignUpComponent", factoryc57b1cf1651b3051e040f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->RootComponent", factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->PostListComponent", factory0c89e2bbcc02dbcac018f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ClubDetailComponent", factory1559652f8e80cfa88d06f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->InquiryListComponent", factorydd7e28250a180554c7a0e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->ActivityListComponent", factory7177e6769ee69064a61bf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->LoginComponent", factoryd6018e98563de75a2ba4f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->LectureListComponent", factorya2eac906a839dcacda45f47b58f8f304c97af4d5)

@@ -66,4 +66,16 @@ public extension AppComponent {
     var postDetailSettingFactory: any PostDetailSettingFactory {
         PostDetailSettingComponent(parent: self)
     }
+    
+    var inputPostFactory: any InputPostFactory {
+        InputPostComponent(parent: self)
+    }
+    
+    var noticeListFactory: any NoticeListFactory {
+        NoticeListComponent(parent: self)
+    }
+    
+    var inquiryListFactory: any InquiryListFactory {
+        InquiryListComponent(parent: self)
+    }
 }
