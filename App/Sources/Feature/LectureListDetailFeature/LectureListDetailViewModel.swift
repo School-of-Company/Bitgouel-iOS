@@ -4,7 +4,7 @@ import Service
 final class LectureListDetailViewModel: BaseViewModel {
     @Published var lectureDetail: LectureDetailEntity?
     @Published var isSuccessEnrolment = false
-    @Published var isEnrolment = false
+    @Published var isApply = false
     
     private let userID: String
     private let queryLectureDetailUseCase: any QueryLectureDetailUseCase
@@ -29,7 +29,7 @@ final class LectureListDetailViewModel: BaseViewModel {
     }
 
     var isEnabledEnrolment: Bool {
-        if isEnrolment {
+        if isApply {
             return true
         } else {
             return false
@@ -37,7 +37,7 @@ final class LectureListDetailViewModel: BaseViewModel {
     }
 
     func enrollmentButtonDidTap() {
-        isEnrolment = true
+        isApply = true
     }
     
     func onAppear() {

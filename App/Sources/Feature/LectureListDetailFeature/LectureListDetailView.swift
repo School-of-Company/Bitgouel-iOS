@@ -84,10 +84,10 @@ struct LectureListDetailView: View {
                 .bitgouelAlert(
                     title: "수강 신청하시겠습니까?",
                     description: viewModel.lectureDetail?.name ?? "",
-                    isShowing: $viewModel.isEnrolment,
+                    isShowing: $viewModel.isApply,
                     alertActions: [
                         .init(text: "취소", style: .cancel) {
-                            viewModel.isEnrolment = false
+                            viewModel.isApply = false
                         },
                         .init(text: "신청", style: .default) {
                             viewModel.applyLecture()
