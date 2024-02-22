@@ -160,6 +160,17 @@ private class ClubdetailDependency09c03e1ee67d1fbecba1Provider: ClubdetailDepend
 private func factory1559652f8e80cfa88d06f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return ClubdetailDependency09c03e1ee67d1fbecba1Provider(appComponent: parent1(component) as! AppComponent)
 }
+private class PostDetailDependencycf431278832ae8226535Provider: PostDetailDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->PostDetailComponent
+private func factorybc555a73df3767a26999e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return PostDetailDependencycf431278832ae8226535Provider()
+}
 private class InquiryListDependencyec75a7335a50ded93b28Provider: InquiryListDependency {
 
 
@@ -273,17 +284,6 @@ private class ActivityDetailDependencyc459286ea5f8c1b2ecdbProvider: ActivityDeta
 private func factory7c395808ac9dfb8fb229f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return ActivityDetailDependencyc459286ea5f8c1b2ecdbProvider(appComponent: parent1(component) as! AppComponent)
 }
-private class PostDetailDependencycf431278832ae8226535Provider: PostDetailDependency {
-
-
-    init() {
-
-    }
-}
-/// ^->AppComponent->PostDetailComponent
-private func factorybc555a73df3767a26999e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return PostDetailDependencycf431278832ae8226535Provider()
-}
 private class InputActivityDependency4e692e68e51cea5b706dProvider: InputActivityDependency {
     var activityDetailSettingFactory: any ActivityDetailSettingFactory {
         return appComponent.activityDetailSettingFactory
@@ -359,6 +359,11 @@ extension ClubDetailComponent: Registration {
         keyPathToName[\ClubdetailDependency.queryStudentListByClubUseCase] = "queryStudentListByClubUseCase-any QueryStudentListByClubUseCase"
     }
 }
+extension PostDetailComponent: Registration {
+    public func registerItems() {
+
+    }
+}
 extension InquiryListComponent: Registration {
     public func registerItems() {
 
@@ -400,11 +405,6 @@ extension ActivityDetailComponent: Registration {
         keyPathToName[\ActivityDetailDependency.approveStudentActivityUseCase] = "approveStudentActivityUseCase-any ApproveStudentActivityUseCase"
         keyPathToName[\ActivityDetailDependency.rejectStudentActivityUseCase] = "rejectStudentActivityUseCase-any RejectStudentActivityUseCase"
         keyPathToName[\ActivityDetailDependency.deleteStudentActivityUseCase] = "deleteStudentActivityUseCase-any DeleteStudentActivityUseCase"
-    }
-}
-extension PostDetailComponent: Registration {
-    public func registerItems() {
-
     }
 }
 extension InputActivityComponent: Registration {
@@ -509,13 +509,13 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->RootComponent", factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->PostListComponent", factory0c89e2bbcc02dbcac018f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ClubDetailComponent", factory1559652f8e80cfa88d06f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->PostDetailComponent", factorybc555a73df3767a26999e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->InquiryListComponent", factorydd7e28250a180554c7a0e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->ActivityListComponent", factory7177e6769ee69064a61bf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->LoginComponent", factoryd6018e98563de75a2ba4f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->LectureListComponent", factorya2eac906a839dcacda45f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->PostDetailSettingComponent", factoryaacb19523586bb790cade3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->ActivityDetailComponent", factory7c395808ac9dfb8fb229f47b58f8f304c97af4d5)
-    registerProviderFactory("^->AppComponent->PostDetailComponent", factorybc555a73df3767a26999e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->InputActivityComponent", factory3fc1a279eeb8c906e603f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)
 }
