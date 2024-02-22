@@ -2,7 +2,15 @@ import Foundation
 import Service
 
 final class PostListViewModel: BaseViewModel {
-    @Published var postList: [PostEntity] = []
+    @MainActor
+    var postContent: PostContentEntity? {
+        get {
+            _postContent.map {
+                PostContentEntity(content: $0.content)
+            }
+        } set { _postContent = newValue }
+    }
+    @Published var _postContent: PostContentEntity?
     @Published var authority: UserAuthorityType = .user
     @Published var isPresentedAleterBottomSheet: Bool = false
     @Published var isPresentedNoticeListView: Bool = false
@@ -20,15 +28,15 @@ final class PostListViewModel: BaseViewModel {
         self.queryPostListUseCase = queryPostListUseCase
     }
     
+    @MainActor
     func onAppear() {
         authority = loadUserAuthorityUseCase()
         
         Task {
             do {
-                postList = try await queryPostListUseCase(postType: .employment)
-                print(postList)
+                postContent = try await queryPostListUseCase(postType: .employment)
             } catch {
-                print(error.localizedDescription)
+                print(String(describing: error))
             }
         }
     }

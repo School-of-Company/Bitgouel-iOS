@@ -1,17 +1,25 @@
 import Foundation
 
 public struct PostEntity: Equatable {
-    public let postId: String
+    public let postID: String
     public let title: String
-    public let modifedAt: String
-
+    public let modifiedAt: String
+    
     public init(
-        postId: String,
+        postID: String,
         title: String,
-        modifedAt: String
+        modifiedAt: String
     ) {
-        self.postId = postId
+        self.postID = postID
         self.title = title
-        self.modifedAt = modifedAt
+        self.modifiedAt = modifiedAt
+    }
+}
+
+public struct PostContentEntity: Equatable {
+    public let content: [PostEntity]
+    
+    public init(content: [PostEntity]) {
+        self.content = content
     }
 }

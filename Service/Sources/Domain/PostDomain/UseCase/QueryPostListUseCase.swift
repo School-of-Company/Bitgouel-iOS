@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol QueryPostListUseCase {
-    func callAsFunction(postType: FeedType) async throws -> [PostEntity]
+    func callAsFunction(postType: FeedType) async throws -> PostContentEntity
 }

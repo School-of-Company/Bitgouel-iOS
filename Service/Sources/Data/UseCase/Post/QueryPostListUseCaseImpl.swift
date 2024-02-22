@@ -7,7 +7,7 @@ public struct QueryPostListUseCaseImpl: QueryPostListUseCase {
         self.postRepository = postRepository
     }
 
-    public func callAsFunction(postType: FeedType) async throws -> [PostEntity] {
+    public func callAsFunction(postType: FeedType) async throws -> PostContentEntity {
         try await postRepository.queryPostList(postType: postType)
     }
 }

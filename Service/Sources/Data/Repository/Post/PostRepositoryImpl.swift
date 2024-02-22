@@ -11,7 +11,7 @@ public struct PostRepositoryImpl: PostRepository {
         try await remotePostDataSource.writePost(req: req)
     }
 
-    public func queryPostList(postType: FeedType) async throws -> [PostEntity] {
+    public func queryPostList(postType: FeedType) async throws -> PostContentEntity {
         try await remotePostDataSource.queryPostList(postType: postType)
     }
 

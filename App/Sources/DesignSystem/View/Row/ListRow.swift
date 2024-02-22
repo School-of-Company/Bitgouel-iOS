@@ -3,7 +3,7 @@ import SwiftUI
 struct ListRow: View {
     let id: String
     let title: String
-    let modifedAt: String
+    let modifiedAt: Date
     @Binding var isPresented: Bool
 
     var body: some View {
@@ -27,7 +27,7 @@ struct ListRow: View {
 
             HStack(spacing: 0) {
                 BitgouelText(
-                    text: modifedAt,
+                    text: modifiedAt.toStringCustomFormat(format: "yyyy.M.dd"),
                     font: .caption
                 )
 

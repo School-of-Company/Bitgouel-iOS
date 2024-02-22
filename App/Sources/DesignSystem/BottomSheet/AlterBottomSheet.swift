@@ -72,7 +72,6 @@ struct AlterBottomSheet: ViewModifier {
                         .padding(.top, 24)
                         .padding(.horizontal, 32)
                         .padding(.bottom, 80)
-                        
                     }
                     .fixedSize(horizontal: false, vertical: true)
                     .transition(.move(edge: .bottom))
