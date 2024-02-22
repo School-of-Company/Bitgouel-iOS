@@ -72,29 +72,62 @@ struct LectureListDetailView: View {
                 viewModel.onAppear()
             }
             .overlay(alignment: .bottom) {
-                BitgouelButton(
-                    text: viewModel.enrolmentButtonText,
-                    style: viewModel.isSuccessEnrolment ? .secondary : .primary
-                ) {
-                    viewModel.enrollmentButtonDidTap()
+                if viewModel.lectureDetail?.isRegistered ?? true {
+                    applyPopupButton()
+                } else {
+                    cancelPopupButton()
                 }
-                .disabled(viewModel.isEnabledEnrolment)
-                .cornerRadius(8)
-                .padding(.horizontal, 28)
-                .bitgouelAlert(
-                    title: "수강 신청하시겠습니까?",
-                    description: viewModel.lectureDetail?.name ?? "",
-                    isShowing: $viewModel.isApply,
-                    alertActions: [
-                        .init(text: "취소", style: .cancel) {
-                            viewModel.isApply = false
-                        },
-                        .init(text: "신청", style: .default) {
-                            viewModel.applyLecture()
-                        }
-                    ]
-                )
             }
+            .bitgouelAlert(
+                title: "수강 신청하시겠습니까?",
+                description: viewModel.lectureDetail?.name ?? "",
+                isShowing: $viewModel.isApply,
+                alertActions: [
+                    .init(text: "취소", style: .cancel) {
+                        viewModel.isApply = false
+                    },
+                    .init(text: "신청", style: .default) {
+                        viewModel.applyLecture()
+                    }
+                ]
+            )
+            .bitgouelAlert(
+                title: "수강 취소하시겠습니까?",
+                description: viewModel.lectureDetail?.name ?? "",
+                isShowing: $viewModel.isCancel,
+                alertActions: [
+                    .init(text: "취소", style: .cancel) {
+                        viewModel.isCancel = false
+                    },
+                    .init(text: "확인", style: .error) {
+                        viewModel.cancelLecture()
+                    }
+                ]
+            )
         }
+    }
+    
+    @ViewBuilder
+    func applyPopupButton() -> some View {
+        BitgouelButton(
+            text: "수강 신청하기",
+            style: .primary
+        ) {
+            viewModel.isApply = true
+        }
+        .cornerRadius(8)
+        .padding(.horizontal, 28)
+    }
+    
+    @ViewBuilder
+    func cancelPopupButton() -> some View {
+        BitgouelButton(
+            text: "수강 신청 취소",
+            style: .cancel
+        ) {
+            viewModel.isCancel = true
+        }
+        .cornerRadius(8)
+        .padding(.horizontal, 28)
     }
 }
