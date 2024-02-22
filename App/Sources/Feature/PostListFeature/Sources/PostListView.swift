@@ -40,6 +40,7 @@ struct PostListView: View {
                                     })
                                 )
                                 .onTapGesture {
+                                    viewModel.seletePost(postID: item.postID)
                                     viewModel.isPresentedPostDetailView = true
                                 }
 
@@ -54,7 +55,7 @@ struct PostListView: View {
                     viewModel.onAppear()
                 }
                 .navigate(
-                    to: postDetailFactory.makeView().eraseToAnyView(),
+                    to: postDetailFactory.makeView(postID: viewModel.seletedPostID).eraseToAnyView(),
                     when: Binding(
                         get: { viewModel.isPresentedPostDetailView },
                         set: { _ in viewModel.isPresentedPostDetailView = false}
