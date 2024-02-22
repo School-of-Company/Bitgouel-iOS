@@ -3,10 +3,8 @@ import Service
 
 final class LectureListDetailViewModel: BaseViewModel {
     @Published var lectureDetail: LectureDetailEntity?
-    @Published var isApprove = false
     @Published var isSuccessEnrolment = false
     @Published var isEnrolment = false
-    @AppStorage("admin") var isAdmin = false
     
     private let userID: String
     private let queryLectureDetailUseCase: any QueryLectureDetailUseCase
