@@ -21,6 +21,9 @@ private class InputPostDependency2bb888f6c56a6060d23fProvider: InputPostDependen
     var postDetailSettingFactory: any PostDetailSettingFactory {
         return appComponent.postDetailSettingFactory
     }
+    var writePostUseCase: any WritePostUseCase {
+        return appComponent.writePostUseCase
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -307,6 +310,7 @@ private func factory3fc1a279eeb8c906e603f47b58f8f304c97af4d5(_ component: Needle
 extension InputPostComponent: Registration {
     public func registerItems() {
         keyPathToName[\InputPostDependency.postDetailSettingFactory] = "postDetailSettingFactory-any PostDetailSettingFactory"
+        keyPathToName[\InputPostDependency.writePostUseCase] = "writePostUseCase-any WritePostUseCase"
     }
 }
 extension ClubListComponent: Registration {
