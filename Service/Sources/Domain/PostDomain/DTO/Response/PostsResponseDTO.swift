@@ -8,7 +8,7 @@ public struct PostListsResponseDTO: Decodable {
     ) {
         self.posts = posts
     }
-    
+
     public struct PostContent: Decodable {
         public let content: [PostInfo]
     }
@@ -17,7 +17,7 @@ public struct PostListsResponseDTO: Decodable {
         public let postID: String
         public let title: String
         public let modifiedAt: String
-        
+
         enum CodingKeys: String, CodingKey {
             case postID = "id"
             case title

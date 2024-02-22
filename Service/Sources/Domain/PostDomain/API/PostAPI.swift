@@ -47,12 +47,12 @@ extension PostAPI: BitgouelAPI {
         case let .writePost(req),
              let .updatePost(_, req):
             return .requestJSONEncodable(req)
-            
+
         case let .queryPostList(postType):
             return .requestParameters(parameters: [
                 "type": postType.rawValue
             ], encoding: URLEncoding.queryString)
-            
+
         default:
             return .requestPlain
         }

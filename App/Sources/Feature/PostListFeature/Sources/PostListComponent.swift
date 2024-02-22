@@ -6,6 +6,7 @@ public protocol PostListDependency: Dependency {
     var noticeListFactory: any NoticeListFactory { get }
     var inquiryListFactory: any InquiryListFactory { get }
     var inputPostFactory: any InputPostFactory { get }
+    var postDetailFactory: any PostDetailFactory { get }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase { get }
     var queryPostListUseCase: any QueryPostListUseCase { get }
 }
@@ -19,7 +20,8 @@ public final class PostListComponent: Component<PostListDependency>, PostListFac
             ),
             noticeListFactory: dependency.noticeListFactory,
             inquiryListFactory: dependency.inquiryListFactory,
-            inputPostFactory: dependency.inputPostFactory
+            inputPostFactory: dependency.inputPostFactory,
+            postDetailFactory: dependency.postDetailFactory
         )
     }
 }

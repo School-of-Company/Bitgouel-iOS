@@ -10,16 +10,18 @@ final class PostListViewModel: BaseViewModel {
             }
         } set { _postContent = newValue }
     }
+
     @Published var _postContent: PostContentEntity?
     @Published var authority: UserAuthorityType = .user
     @Published var isPresentedAleterBottomSheet: Bool = false
     @Published var isPresentedNoticeListView: Bool = false
     @Published var isPresentedInquiryView: Bool = false
     @Published var isPresentedInputPostView: Bool = false
-    
+    @Published var isPresentedPostDetailView: Bool = false
+
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
     private let queryPostListUseCase: any QueryPostListUseCase
-    
+
     init(
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
         queryPostListUseCase: any QueryPostListUseCase
@@ -27,11 +29,11 @@ final class PostListViewModel: BaseViewModel {
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
         self.queryPostListUseCase = queryPostListUseCase
     }
-    
+
     @MainActor
     func onAppear() {
         authority = loadUserAuthorityUseCase()
-        
+
         Task {
             do {
                 postContent = try await queryPostListUseCase(postType: .employment)

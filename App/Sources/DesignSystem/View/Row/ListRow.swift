@@ -15,9 +15,9 @@ struct ListRow: View {
                     text: title,
                     font: .text1
                 )
-                
+
                 Spacer()
-                
+
                 Button {
                     isPresented = true
                 } label: {

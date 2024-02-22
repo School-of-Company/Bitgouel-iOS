@@ -2,23 +2,26 @@ import SwiftUI
 
 struct PostListView: View {
     @StateObject var viewModel: PostListViewModel
-    
+
     private let noticeListFactory: any NoticeListFactory
     private let inquiryListFactory: any InquiryListFactory
     private let inputPostFactory: any InputPostFactory
-    
+    private let postDetailFactory: any PostDetailFactory
+
     init(
         viewModel: PostListViewModel,
         noticeListFactory: any NoticeListFactory,
         inquiryListFactory: any InquiryListFactory,
-        inputPostFactory: any InputPostFactory
+        inputPostFactory: any InputPostFactory,
+        postDetailFactory: any PostDetailFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.noticeListFactory = noticeListFactory
         self.inquiryListFactory = inquiryListFactory
         self.inputPostFactory = inputPostFactory
+        self.postDetailFactory = postDetailFactory
     }
-    
+
     var body: some View {
         NavigationView {
             ScrollView {
@@ -26,7 +29,7 @@ struct PostListView: View {
                     if let postInfo = viewModel.postContent {
                         LazyVStack(spacing: 0) {
                             ForEach(postInfo.content, id: \.postID) { item in
-                             ListRow(
+                                ListRow(
                                     id: item.postID,
                                     title: item.title,
                                     modifiedAt: item.modifiedAt.toDateCustomFormat(format: "yyyy-MM-dd'T'HH:mm:ss.SSS"),
@@ -35,18 +38,28 @@ struct PostListView: View {
                                     }, set: { isPresented in
                                         viewModel.isPresentedAleterBottomSheet = isPresented
                                     })
-                             )
-  
+                                )
+                                .onTapGesture {
+                                    viewModel.isPresentedPostDetailView = true
+                                }
+
                                 Divider()
                             }
                         }
                     }
-                    
+
                     Spacer()
                 }
                 .onAppear {
                     viewModel.onAppear()
                 }
+                .navigate(
+                    to: postDetailFactory.makeView().eraseToAnyView(),
+                    when: Binding(
+                        get: { viewModel.isPresentedPostDetailView },
+                        set: { _ in viewModel.isPresentedPostDetailView = false}
+                    )
+                )
                 .navigate(
                     to: noticeListFactory.makeview().eraseToAnyView(),
                     when: Binding(
@@ -64,7 +77,7 @@ struct PostListView: View {
                 .navigate(
                     to: inputPostFactory.makeView().eraseToAnyView(),
                     when: Binding(
-                        get: { viewModel.isPresentedInputPostView},
+                        get: { viewModel.isPresentedInputPostView },
                         set: { _ in viewModel.isPresentedInputPostView = false }
                     )
                 )
@@ -81,7 +94,7 @@ struct PostListView: View {
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 24, height: 24)
                         }
-                        
+
                         Button {
                             viewModel.isPresentedInquiryView = true
                         } label: {
@@ -90,7 +103,7 @@ struct PostListView: View {
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 24, height: 24)
                         }
-                        
+
                         if viewModel.authority == .admin {
                             Button {
                                 viewModel.isPresentedInputPostView = true

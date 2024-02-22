@@ -104,9 +104,6 @@ private class RootDependency3944cc797a4a88956fb5Provider: RootDependency {
     var loginFactory: any LoginFactory {
         return appComponent.loginFactory
     }
-    var postListFactory: any PostListFactory {
-        return appComponent.postListFactory
-    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -125,6 +122,9 @@ private class PostListDependencye041dce90a2be61e7af5Provider: PostListDependency
     }
     var inputPostFactory: any InputPostFactory {
         return appComponent.inputPostFactory
+    }
+    var postDetailFactory: any PostDetailFactory {
+        return appComponent.postDetailFactory
     }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
         return appComponent.loadUserAuthorityUseCase
@@ -273,6 +273,17 @@ private class ActivityDetailDependencyc459286ea5f8c1b2ecdbProvider: ActivityDeta
 private func factory7c395808ac9dfb8fb229f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return ActivityDetailDependencyc459286ea5f8c1b2ecdbProvider(appComponent: parent1(component) as! AppComponent)
 }
+private class PostDetailDependencycf431278832ae8226535Provider: PostDetailDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->PostDetailComponent
+private func factorybc555a73df3767a26999e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return PostDetailDependencycf431278832ae8226535Provider()
+}
 private class InputActivityDependency4e692e68e51cea5b706dProvider: InputActivityDependency {
     var activityDetailSettingFactory: any ActivityDetailSettingFactory {
         return appComponent.activityDetailSettingFactory
@@ -329,7 +340,6 @@ extension StudentSignUpComponent: Registration {
 extension RootComponent: Registration {
     public func registerItems() {
         keyPathToName[\RootDependency.loginFactory] = "loginFactory-any LoginFactory"
-        keyPathToName[\RootDependency.postListFactory] = "postListFactory-any PostListFactory"
     }
 }
 extension PostListComponent: Registration {
@@ -337,6 +347,7 @@ extension PostListComponent: Registration {
         keyPathToName[\PostListDependency.noticeListFactory] = "noticeListFactory-any NoticeListFactory"
         keyPathToName[\PostListDependency.inquiryListFactory] = "inquiryListFactory-any InquiryListFactory"
         keyPathToName[\PostListDependency.inputPostFactory] = "inputPostFactory-any InputPostFactory"
+        keyPathToName[\PostListDependency.postDetailFactory] = "postDetailFactory-any PostDetailFactory"
         keyPathToName[\PostListDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
         keyPathToName[\PostListDependency.queryPostListUseCase] = "queryPostListUseCase-any QueryPostListUseCase"
     }
@@ -389,6 +400,11 @@ extension ActivityDetailComponent: Registration {
         keyPathToName[\ActivityDetailDependency.approveStudentActivityUseCase] = "approveStudentActivityUseCase-any ApproveStudentActivityUseCase"
         keyPathToName[\ActivityDetailDependency.rejectStudentActivityUseCase] = "rejectStudentActivityUseCase-any RejectStudentActivityUseCase"
         keyPathToName[\ActivityDetailDependency.deleteStudentActivityUseCase] = "deleteStudentActivityUseCase-any DeleteStudentActivityUseCase"
+    }
+}
+extension PostDetailComponent: Registration {
+    public func registerItems() {
+
     }
 }
 extension InputActivityComponent: Registration {
@@ -464,6 +480,7 @@ extension AppComponent: Registration {
         localTable["postListFactory-any PostListFactory"] = { [unowned self] in self.postListFactory as Any }
         localTable["postDetailSettingFactory-any PostDetailSettingFactory"] = { [unowned self] in self.postDetailSettingFactory as Any }
         localTable["inputPostFactory-any InputPostFactory"] = { [unowned self] in self.inputPostFactory as Any }
+        localTable["postDetailFactory-any PostDetailFactory"] = { [unowned self] in self.postDetailFactory as Any }
         localTable["noticeListFactory-any NoticeListFactory"] = { [unowned self] in self.noticeListFactory as Any }
         localTable["inquiryListFactory-any InquiryListFactory"] = { [unowned self] in self.inquiryListFactory as Any }
     }
@@ -499,6 +516,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->LectureListComponent", factorya2eac906a839dcacda45f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->PostDetailSettingComponent", factoryaacb19523586bb790cade3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->ActivityDetailComponent", factory7c395808ac9dfb8fb229f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->PostDetailComponent", factorybc555a73df3767a26999e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->InputActivityComponent", factory3fc1a279eeb8c906e603f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)
 }
