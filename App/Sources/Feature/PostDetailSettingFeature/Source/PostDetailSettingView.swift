@@ -8,10 +8,11 @@ struct PostDetailSettingView: View {
         NavigationView {
             VStack(spacing: 0) {
                 LinkDetailSettingView(
-                    links: viewModel.links,
+                    links: viewModel.inputLinks,
                     link: viewModel.link,
-                    dismiss: dismiss
-                )
+                    dismiss: dismiss) { links in
+                        viewModel.applyButtonDidTap(link: links)
+                    }
             }
             .padding(.horizontal, 28)
             .navigationTitle("게시글 세부 설정")
