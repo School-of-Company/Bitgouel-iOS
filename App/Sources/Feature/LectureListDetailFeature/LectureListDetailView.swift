@@ -74,83 +74,29 @@ struct LectureListDetailView: View {
                 .padding(.horizontal, 28)
             }
             .overlay(alignment: .bottom) {
-                if viewModel.isAdmin {
-                    HStack(spacing: 11) {
-                        BitgouelButton(
-                            text: "신청 거부",
-                            style: .error
-                        ) {
-                            viewModel.rejectedApplicationDidTap()
+                BitgouelButton(
+                    text: viewModel.enrolmentButtonText,
+                    style: viewModel.isSuccessEnrolment ? .secondary : .primary
+                ) {
+                    viewModel.enrollmentButtonDidTap()
+                }
+                .disabled(viewModel.isEnabledEnrolment)
+                .cornerRadius(8)
+                .padding(.horizontal, 28)
+                .bitgouelAlert(
+                    title: "수강 신청하시겠습니까?",
+                    description: "국가는 국민 모두의 생산 및 생활의 기반이 되는 국토의 효율적이고 균형있는 이용·개발과 보전을 위하여 법률이 정하는 바에 의하여 그에 관한 필요한 제한과 의무를 과할 수 있다.",
+                    isShowing: $viewModel.isEnrolment,
+                    alertActions: [
+                        .init(text: "취소", style: .cancel) {
+                            viewModel.isEnrolment = false
+                        },
+                        .init(text: "신청", style: .default) {
+                            viewModel.isSuccessEnrolment = true
+                            viewModel.isEnrolment = false
                         }
-                        .disabled(viewModel.isEnabledApplicationButton)
-
-                        BitgouelButton(
-                            text: "신청 승인",
-                            style: .primary
-                        ) {
-                            viewModel.approveApplicationDidTap()
-                        }
-                        .disabled(viewModel.isEnabledApplicationButton)
-                    }
-                    .padding(.horizontal, 30)
-                    .bitgouelAlert(
-                        title: "신청 거부하시겠습니까?",
-                        description: "국가는 국민 모두의 생산 및 생활의 기반이 되는 국토의 효율적이고 균형있는 이용·개발과 보전을 위하여 법률이 정하는 바에 의하여 그에 관한 필요한 제한과 의무를 과할 수 있다.",
-                        isShowing: $viewModel.rejectedApplication,
-                        alertActions: [
-                            .init(text: "취소", style: .cancel) {
-                                viewModel.rejectedApplication = false
-                            },
-                            .init(text: "거부", style: .error) {
-                                viewModel.rejectedApplication = false
-                            }
-                        ]
-                    )
-                    .bitgouelAlert(
-                        title: "신청 승인하시겠습니까?",
-                        description: "국가는 국민 모두의 생산 및 생활의 기반이 되는 국토의 효율적이고 균형있는 이용·개발과 보전을 위하여 법률이 정하는 바에 의하여 그에 관한 필요한 제한과 의무를 과할 수 있다.",
-                        isShowing: $viewModel.approveApplication,
-                        alertActions: [
-                            .init(text: "취소", style: .cancel) {
-                                viewModel.approveApplication = false
-                            },
-                            .init(text: "승인", style: .default) {
-                                viewModel.isApprove = true
-                            }
-                        ]
-                    )
-                }
-
-                if !viewModel.isAdmin {
-                    BitgouelButton(
-                        text: viewModel.enrolmentButtonText,
-                        style: viewModel.isSuccessEnrolment ? .secondary : .primary
-                    ) {
-                        viewModel.enrollmentButtonDidTap()
-                    }
-                    .disabled(viewModel.isEnabledEnrolment)
-                    .cornerRadius(8)
-                    .padding(.horizontal, 28)
-                    .bitgouelAlert(
-                        title: "수강 신청하시겠습니까?",
-                        description: "국가는 국민 모두의 생산 및 생활의 기반이 되는 국토의 효율적이고 균형있는 이용·개발과 보전을 위하여 법률이 정하는 바에 의하여 그에 관한 필요한 제한과 의무를 과할 수 있다.",
-                        isShowing: $viewModel.isEnrolment,
-                        alertActions: [
-                            .init(text: "취소", style: .cancel) {
-                                viewModel.isEnrolment = false
-                            },
-                            .init(text: "신청", style: .default) {
-                                viewModel.isSuccessEnrolment = true
-                                viewModel.isEnrolment = false
-                            }
-                        ]
-                    )
-                }
-            }
-            .onChange(of: viewModel.isApprove) { isNavigateBack in
-                if isNavigateBack {
-                    dismiss()
-                }
+                    ]
+                )
             }
         }
     }
