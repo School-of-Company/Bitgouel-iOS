@@ -27,24 +27,10 @@ struct DetailView: View {
                         font: .caption
                     )
 
-                    Divider()
-
-                    BitgouelText(
-                        text: "관련 링크 보기",
-                        font: .text1
-                    )
-
-                    VStack(
-                        alignment: .leading,
-                        spacing: 4
-                    ) {
-                        ForEach(links, id: \.self) { link in
-                            Link(destination: URL(string: link)!) {
-                                Text("\(link)")
-                            }
-                        }
+                    if !links.isEmpty  {
+                        relatedLinkRow()
+                            .padding(.top, -24)
                     }
-                    .padding(.top, -24)
                 }
             }
 
@@ -64,6 +50,30 @@ struct DetailView: View {
                 }
             ]
         )
+    }
+    
+    @ViewBuilder
+    func relatedLinkRow() -> some View {
+        VStack {
+            BitgouelText(
+                text: "관련 링크 보기",
+                font: .text1
+            )
+            
+            VStack(
+                alignment: .leading,
+                spacing: 4
+            ) {
+                ForEach(links, id: \.self) { link in
+                    Link(destination: URL(string: link)!) {
+                        BitgouelText(
+                            text: "\(link)",
+                            font: .caption
+                        )
+                    }
+                }
+            }
+        }
     }
     
     @ViewBuilder
