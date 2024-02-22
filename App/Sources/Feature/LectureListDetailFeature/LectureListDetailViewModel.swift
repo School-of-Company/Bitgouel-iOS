@@ -1,10 +1,23 @@
 import SwiftUI
+import Service
 
-final class LectureListDetailViewModel: ObservableObject {
+final class LectureListDetailViewModel: BaseViewModel {
+    @Published var lectureDetail: LectureDetailEntity?
     @Published var isApprove = false
     @Published var isSuccessEnrolment = false
     @Published var isEnrolment = false
     @AppStorage("admin") var isAdmin = false
+    
+    private let userID: String
+    private let queryLectureDetailUseCase: any QueryLectureDetailUseCase
+    
+    init(
+        userID: String,
+        queryLectureDetailUseCase: any QueryLectureDetailUseCase
+    ) {
+        self.userID = userID
+        self.queryLectureDetailUseCase = queryLectureDetailUseCase
+    }
 
     var enrolmentButtonText: String {
         if isSuccessEnrolment {
@@ -24,5 +37,15 @@ final class LectureListDetailViewModel: ObservableObject {
 
     func enrollmentButtonDidTap() {
         isEnrolment = true
+    }
+    
+    func onAppear() {
+        Task {
+            do {
+                lectureDetail = try await queryLectureDetailUseCase(userID: userID)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
 }

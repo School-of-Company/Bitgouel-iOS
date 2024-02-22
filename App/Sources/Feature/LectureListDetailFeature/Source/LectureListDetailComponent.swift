@@ -3,6 +3,7 @@ import NeedleFoundation
 import Service
 
 public protocol LectureListDetailDependency: Dependency {
+    var queryLectureDetailUseCase: any QueryLectureDetailUseCase { get }
 }
 
 public final class LectureListDetailComponent: Component<LectureListDetailDependency>, LectureListDetailFactory {
