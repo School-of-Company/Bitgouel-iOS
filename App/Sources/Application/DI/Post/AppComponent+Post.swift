@@ -32,13 +32,13 @@ public extension AppComponent {
         }
     }
 
-    var updatePostUseCase: UpdatePostUseCase {
+    var updatePostUseCase: any UpdatePostUseCase {
         shared {
             UpdatePostUseCaseImpl(postRepository: postRepository)
         }
     }
 
-    var deletePostUseCase: DeletePostUseCase {
+    var deletePostUseCase: any DeletePostUseCase {
         shared {
             DeletePostUseCaseImpl(postRepository: postRepository)
         }

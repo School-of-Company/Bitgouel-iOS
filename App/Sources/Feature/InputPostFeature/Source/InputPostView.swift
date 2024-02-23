@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct InputPostView: View {
+    @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: InputPostViewModel
     
     private let postDetailSettingFactory: any PostDetailSettingFactory
@@ -24,6 +25,7 @@ struct InputPostView: View {
                     },
                     finalButtonAction: {
                         viewModel.addPost()
+                        dismiss()
                     },
                     title: Binding(
                         get: { viewModel.postTitle },

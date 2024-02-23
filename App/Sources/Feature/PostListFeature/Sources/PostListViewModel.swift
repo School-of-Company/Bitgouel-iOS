@@ -13,11 +13,11 @@ final class PostListViewModel: BaseViewModel {
 
     @Published var _postContent: PostContentEntity?
     @Published var authority: UserAuthorityType = .user
-    @Published var isPresentedAleterBottomSheet: Bool = false
     @Published var isPresentedNoticeListView: Bool = false
     @Published var isPresentedInquiryView: Bool = false
     @Published var isPresentedInputPostView: Bool = false
     @Published var isPresentedPostDetailView: Bool = false
+    @Published var seletedPostID: String = ""
 
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
     private let queryPostListUseCase: any QueryPostListUseCase
@@ -41,5 +41,9 @@ final class PostListViewModel: BaseViewModel {
                 print(String(describing: error))
             }
         }
+    }
+    
+    func seletePost(postID: String) {
+        seletedPostID = postID
     }
 }

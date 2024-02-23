@@ -3,11 +3,22 @@ import SwiftUI
 import Service
 
 public protocol PostDetailDependency: Dependency {
-    
+    var editPostFactory: any EditPostFactory { get }
+    var queryPostDetailUseCase: any QueryPostDetailUseCase { get }
+    var deletePostUseCase: any DeletePostUseCase { get }
 }
 
 public final class PostDetailComponent: Component<PostDetailDependency>, PostDetailFactory {
-    public func makeView() -> some View {
-        PostDetailView()
+    public func makeView(
+        postID: String
+    ) -> some View {
+        PostDetailView(
+            viewModel: .init(
+                postID: postID,
+                queryPostDetailUseCase: dependency.queryPostDetailUseCase,
+                deletePostUseCase: dependency.deletePostUseCase
+            ),
+            editPostFactory: dependency.editPostFactory
+        )
     }
 }

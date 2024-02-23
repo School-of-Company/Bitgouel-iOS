@@ -34,12 +34,13 @@ struct PostListView: View {
                                     title: item.title,
                                     modifiedAt: item.modifiedAt.toDateCustomFormat(format: "yyyy-MM-dd'T'HH:mm:ss.SSS"),
                                     isPresented: Binding(get: {
-                                        viewModel.isPresentedAleterBottomSheet
+                                        viewModel.isPresentedPostDetailView
                                     }, set: { isPresented in
-                                        viewModel.isPresentedAleterBottomSheet = isPresented
+                                        viewModel.isPresentedPostDetailView = isPresented
                                     })
                                 )
                                 .onTapGesture {
+                                    viewModel.seletePost(postID: item.postID)
                                     viewModel.isPresentedPostDetailView = true
                                 }
 
@@ -54,7 +55,7 @@ struct PostListView: View {
                     viewModel.onAppear()
                 }
                 .navigate(
-                    to: postDetailFactory.makeView().eraseToAnyView(),
+                    to: postDetailFactory.makeView(postID: viewModel.seletedPostID).eraseToAnyView(),
                     when: Binding(
                         get: { viewModel.isPresentedPostDetailView },
                         set: { _ in viewModel.isPresentedPostDetailView = false}
@@ -82,7 +83,6 @@ struct PostListView: View {
                     )
                 )
                 .padding(.horizontal, 28)
-                .alterBottomSheet(isShowing: $viewModel.isPresentedAleterBottomSheet)
                 .navigationTitle("게시글 목록")
                 .toolbar {
                     ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -117,6 +117,9 @@ struct PostListView: View {
                         }
                     }
                 }
+            }
+            .refreshable {
+                viewModel.onAppear()
             }
         }
     }
