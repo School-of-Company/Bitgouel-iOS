@@ -8,6 +8,10 @@ public protocol EditPostDependency: Dependency {
 
 public final class EditPostComponent: Component<EditPostDependency>, EditPostFactory {
     public func makeView(postID: String) -> some View {
-        EditPostView()
+        EditPostView(
+            vieWModel: .init(
+                postID: postID
+            )
+        )
     }
 }
