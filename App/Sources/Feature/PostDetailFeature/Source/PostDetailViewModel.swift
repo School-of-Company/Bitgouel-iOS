@@ -39,6 +39,7 @@ final class PostDetailViewModel: BaseViewModel {
         Task {
             do {
                 try await deletePostUseCase(postID: postID)
+                print("게시글 삭제 완료")
             } catch {
                 print(error.localizedDescription)
             }
