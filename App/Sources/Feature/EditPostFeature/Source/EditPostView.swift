@@ -1,10 +1,17 @@
 import SwiftUI
 
 struct EditPostView: View {
-    @StateObject var vieWModel: EditPostViewModel
+    @Environment(\.dismiss) var dismiss
+    @StateObject var viewModel: EditPostViewModel
     
-    init(vieWModel: EditPostViewModel) {
-        _vieWModel = StateObject(wrappedValue: vieWModel)
+    private let postDetailSettingFactory: any PostDetailSettingFactory
+    
+    init(
+        viewModel: EditPostViewModel,
+        postDetailSettingFactory: any PostDetailSettingFactory
+    ) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+        self.postDetailSettingFactory = postDetailSettingFactory
     }
     
     var body: some View {
@@ -14,20 +21,33 @@ struct EditPostView: View {
                     epic: "게시글",
                     state: "수정",
                     settingButtonAction: {
-                        
+                        viewModel.isPresentedDetailSetting(state: true)
                     },
                     finalButtonAction: {
-                        
+                        dismiss()
                     },
                     title: Binding(
-                        get: { vieWModel.modifiedTitle },
-                        set: { title in vieWModel.updateTitle(title: title) }
+                        get: { viewModel.modifiedTitle },
+                        set: { title in viewModel.updateTitle(title: title) }
                     ),
                     text: Binding(
-                        get: { vieWModel.modifiedContent },
-                        set: { text in vieWModel.updateContent(content: text) }
+                        get: { viewModel.modifiedContent },
+                        set: { text in viewModel.updateContent(content: text) }
                     )
                 )
+            }
+        }
+        .fullScreenCover(
+            isPresented: Binding(
+                get: { viewModel.isPresentedPostDetailSettingAppend },
+                set: { _ in viewModel.isPresentedDetailSetting(state: false) }
+            )
+        ) {
+            DeferView {
+                postDetailSettingFactory.makeView(links: viewModel.modifiedLinks) {
+                    links in
+                    viewModel.updateLinks(links: links)
+                }.eraseToAnyView()
             }
         }
     }

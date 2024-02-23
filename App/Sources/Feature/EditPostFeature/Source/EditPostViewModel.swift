@@ -7,6 +7,7 @@ final class EditPostViewModel: BaseViewModel {
     @Published var modifiedContent: String = ""
     @Published var modifiedLinks: [String] = [""]
     @Published var postID: String = ""
+    @Published var isPresentedPostDetailSettingAppend = false
     
     init(postID: String) {
         self.postID = postID
@@ -24,5 +25,9 @@ final class EditPostViewModel: BaseViewModel {
     
     func updateLinks(links: [String]) {
         modifiedLinks = links
+    }
+    
+    func isPresentedDetailSetting(state: Bool) {
+        isPresentedPostDetailSettingAppend = state
     }
 }
