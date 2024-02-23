@@ -8,13 +8,16 @@ final class PostDetailViewModel: BaseViewModel {
     @Published var isPresentedEditView: Bool = false
 
     private let queryPostDetailUseCase: any QueryPostDetailUseCase
+    private let deletePostUseCase: any DeletePostUseCase
 
     init(
         postID: String,
-        queryPostDetailUseCase: any QueryPostDetailUseCase
+        queryPostDetailUseCase: any QueryPostDetailUseCase,
+        deletePostUseCase: any DeletePostUseCase
     ) {
         self.postID = postID
         self.queryPostDetailUseCase = queryPostDetailUseCase
+        self.deletePostUseCase = deletePostUseCase
     }
     
     func editAction() {
@@ -26,6 +29,16 @@ final class PostDetailViewModel: BaseViewModel {
         Task {
             do {
                 postDetail = try await queryPostDetailUseCase(postID: postID)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func postDelete() {
+        Task {
+            do {
+                try await deletePostUseCase(postID: postID)
             } catch {
                 print(error.localizedDescription)
             }
