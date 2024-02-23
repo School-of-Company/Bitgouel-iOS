@@ -83,7 +83,6 @@ struct PostListView: View {
                     )
                 )
                 .padding(.horizontal, 28)
-                .alterBottomSheet(isShowing: $viewModel.isPresentedAleterBottomSheet)
                 .navigationTitle("게시글 목록")
                 .toolbar {
                     ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -118,6 +117,9 @@ struct PostListView: View {
                         }
                     }
                 }
+            }
+            .refreshable {
+                viewModel.onAppear()
             }
         }
     }
