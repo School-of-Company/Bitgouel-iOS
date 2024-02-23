@@ -169,6 +169,12 @@ private class PostDetailDependencycf431278832ae8226535Provider: PostDetailDepend
     var editPostFactory: any EditPostFactory {
         return appComponent.editPostFactory
     }
+    var queryPostDetailUseCase: any QueryPostDetailUseCase {
+        return appComponent.queryPostDetailUseCase
+    }
+    var deletePostUseCase: any DeletePostUseCase {
+        return appComponent.deletePostUseCase
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -381,6 +387,8 @@ extension ClubDetailComponent: Registration {
 extension PostDetailComponent: Registration {
     public func registerItems() {
         keyPathToName[\PostDetailDependency.editPostFactory] = "editPostFactory-any EditPostFactory"
+        keyPathToName[\PostDetailDependency.queryPostDetailUseCase] = "queryPostDetailUseCase-any QueryPostDetailUseCase"
+        keyPathToName[\PostDetailDependency.deletePostUseCase] = "deletePostUseCase-any DeletePostUseCase"
     }
 }
 extension InquiryListComponent: Registration {
@@ -459,8 +467,8 @@ extension AppComponent: Registration {
         localTable["writePostUseCase-any WritePostUseCase"] = { [unowned self] in self.writePostUseCase as Any }
         localTable["queryPostListUseCase-any QueryPostListUseCase"] = { [unowned self] in self.queryPostListUseCase as Any }
         localTable["queryPostDetailUseCase-any QueryPostDetailUseCase"] = { [unowned self] in self.queryPostDetailUseCase as Any }
-        localTable["updatePostUseCase-UpdatePostUseCase"] = { [unowned self] in self.updatePostUseCase as Any }
-        localTable["deletePostUseCase-DeletePostUseCase"] = { [unowned self] in self.deletePostUseCase as Any }
+        localTable["updatePostUseCase-any UpdatePostUseCase"] = { [unowned self] in self.updatePostUseCase as Any }
+        localTable["deletePostUseCase-any DeletePostUseCase"] = { [unowned self] in self.deletePostUseCase as Any }
         localTable["localAuthDataSource-any LocalAuthDataSource"] = { [unowned self] in self.localAuthDataSource as Any }
         localTable["remoteAuthDataSource-any RemoteAuthDataSource"] = { [unowned self] in self.remoteAuthDataSource as Any }
         localTable["authRepository-any AuthRepository"] = { [unowned self] in self.authRepository as Any }

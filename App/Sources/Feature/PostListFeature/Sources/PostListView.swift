@@ -34,9 +34,9 @@ struct PostListView: View {
                                     title: item.title,
                                     modifiedAt: item.modifiedAt.toDateCustomFormat(format: "yyyy-MM-dd'T'HH:mm:ss.SSS"),
                                     isPresented: Binding(get: {
-                                        viewModel.isPresentedAleterBottomSheet
+                                        viewModel.isPresentedPostDetailView
                                     }, set: { isPresented in
-                                        viewModel.isPresentedAleterBottomSheet = isPresented
+                                        viewModel.isPresentedPostDetailView = isPresented
                                     })
                                 )
                                 .onTapGesture {
