@@ -6,7 +6,7 @@ public struct InputPostRequestDTO: Encodable {
     public let links: [String]
     public let feedType: FeedType
 
-    init(
+    public init(
         title: String,
         content: String,
         links: [String],
