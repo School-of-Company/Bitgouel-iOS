@@ -65,11 +65,15 @@ struct DetailView: View {
                 spacing: 4
             ) {
                 ForEach(links, id: \.self) { link in
-                    Link(destination: URL(string: link)!) {
-                        BitgouelText(
-                            text: "\(link)",
-                            font: .caption
-                        )
+                    if let url = URL(string: link) {
+                        Link(destination: url, label: {
+                            BitgouelText(
+                                text: "\(url)",
+                                font: .caption
+                            )
+                        })
+                    } else {
+                        EmptyView()
                     }
                 }
             }

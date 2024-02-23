@@ -24,7 +24,7 @@ extension PostAPI: BitgouelAPI {
         case let .queryPostDetail(postID),
              let .updatePost(postID, _),
              let .deletePost(postID):
-            return "\(postID)"
+            return "/\(postID)"
         }
     }
 

@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct PostDetailView: View {
+    @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: PostDetailViewModel
     
     private let editPostFactory: any EditPostFactory
@@ -14,28 +15,33 @@ struct PostDetailView: View {
     }
     
     var body: some View {
-        DetailView(
-            title: viewModel.postTitle,
-            content: viewModel.postContent,
-            links: viewModel.postRelatedLink,
-            deleteAction: {
-            },
-            editAction: {
-                viewModel.editAction()
-            },
-            isDelete: Binding(
-                get: { viewModel.isPostDelete },
-                set: { value in viewModel.isPostDelete = value }
+            DetailView(
+                title: viewModel.postDetail?.title ?? "",
+                content: viewModel.postDetail?.content ?? "",
+                links: viewModel.postDetail?.links ?? [""],
+                deleteAction: {
+                    viewModel.postDelete()
+                    dismiss()
+                },
+                editAction: {
+                    viewModel.editAction()
+                },
+                isDelete: Binding(
+                    get: { viewModel.isPostDelete },
+                    set: { value in viewModel.isPostDelete = value }
+                )
             )
-        )
-        .navigate(
-            to: editPostFactory.makeView(postID: viewModel.postID).eraseToAnyView(),
-            when: Binding(
-                get: { viewModel.isPresentedEditView },
-                set: { _ in
-                    viewModel.isPresentedEditView = false
-                }
+            .onAppear {
+                viewModel.onAppear()
+            }
+            .navigate(
+                to: editPostFactory.makeView(postID: viewModel.postID).eraseToAnyView(),
+                when: Binding(
+                    get: { viewModel.isPresentedEditView },
+                    set: { _ in
+                        viewModel.isPresentedEditView = false
+                    }
+                )
             )
-        )
     }
 }
