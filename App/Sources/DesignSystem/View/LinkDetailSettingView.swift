@@ -4,6 +4,7 @@ struct LinkDetailSettingView: View {
     @State var links: [String]
     let link: String
     let dismiss: DismissAction
+    var applyButtonTapAction: ([String]) -> Void
 
     var body: some View {
         VStack(spacing: 0) {
@@ -46,6 +47,7 @@ struct LinkDetailSettingView: View {
             Spacer()
 
             CTAButton(text: "적용하기") {
+                applyButtonTapAction(links)
                 dismiss()
             }
             .padding(.bottom, 12)
