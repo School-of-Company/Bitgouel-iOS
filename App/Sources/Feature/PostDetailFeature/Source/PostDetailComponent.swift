@@ -4,6 +4,7 @@ import Service
 
 public protocol PostDetailDependency: Dependency {
     var editPostFactory: any EditPostFactory { get }
+    var queryPostDetailUseCase: any QueryPostDetailUseCase { get }
 }
 
 public final class PostDetailComponent: Component<PostDetailDependency>, PostDetailFactory {
@@ -12,7 +13,8 @@ public final class PostDetailComponent: Component<PostDetailDependency>, PostDet
     ) -> some View {
         PostDetailView(
             viewModel: .init(
-                postID: postID
+                postID: postID,
+                queryPostDetailUseCase: dependency.queryPostDetailUseCase
             ),
             editPostFactory: dependency.editPostFactory
         )
