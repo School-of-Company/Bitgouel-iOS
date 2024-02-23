@@ -1,14 +1,15 @@
 import SwiftUI
 
 struct InputPostView: View {
-    @State var postTitle: String = ""
-    @State var postText: String = ""
-    @State var isPresentedPostDetailSettingAppend: Bool = false
-    @State var postRelatedLink: [String] = []
+    @StateObject var viewModel: InputPostViewModel
     
     private let postDetailSettingFactory: any PostDetailSettingFactory
     
-    init(postDetailSettingFactory: any PostDetailSettingFactory) {
+    init(
+        viewModel: InputPostViewModel,
+        postDetailSettingFactory: any PostDetailSettingFactory
+    ) {
+        _viewModel = StateObject(wrappedValue: viewModel)
         self.postDetailSettingFactory = postDetailSettingFactory
     }
     
@@ -19,34 +20,32 @@ struct InputPostView: View {
                     epic: "게시글",
                     state: "추가",
                     settingButtonAction: {
-                        isPresentedPostDetailSettingAppend = true
+                        viewModel.isPresentedDetailSetting(state: true)
                     },
                     finalButtonAction: {
-                        
+                        viewModel.addPost()
                     },
-                    title: Binding(get: {
-                        postTitle
-                    }, set: { title in
-                        postTitle = title
-                    }),
-                    text: Binding(get: {
-                        postText
-                    }, set: { text in
-                        postText = text
-                    })
+                    title: Binding(
+                        get: { viewModel.postTitle },
+                        set: { title in viewModel.postTitle = title }
+                    ),
+                    text: Binding(
+                        get: { viewModel.postText },
+                        set: { text in viewModel.postText = text }
+                    )
                 )
             }
         }
         .fullScreenCover(
             isPresented: Binding(
-                get: { isPresentedPostDetailSettingAppend },
-                set: { _ in isPresentedPostDetailSettingAppend = false }
+                get: { viewModel.isPresentedPostDetailSettingAppend },
+                set: { _ in viewModel.isPresentedDetailSetting(state: false) }
             )
         ) {
             DeferView {
-                postDetailSettingFactory.makeView(links: postRelatedLink) {
+                postDetailSettingFactory.makeView(links: viewModel.postRelatedLink) {
                     links in
-                    postRelatedLink = links
+                    viewModel.postRelatedLink = links
                 }.eraseToAnyView()
             }
         }
