@@ -15,7 +15,7 @@ public struct LectureRepositoryImpl: LectureRepository {
         try await remoteLectureDataSource.queryLectureList()
     }
 
-    public func queryLectureDetail(userID: String) async throws {
+    public func queryLectureDetail(userID: String) async throws -> LectureDetailEntity {
         try await remoteLectureDataSource.queryLectureDetail(userID: userID)
     }
 
@@ -23,7 +23,7 @@ public struct LectureRepositoryImpl: LectureRepository {
         try await remoteLectureDataSource.lectureApply(userID: userID)
     }
     
-    public func lectureCancle(userID: String) async throws {
-        try await remoteLectureDataSource.lectureCancle(userID: userID)
+    public func lectureCancel(userID: String) async throws {
+        try await remoteLectureDataSource.lectureCancel(userID: userID)
     }
 }

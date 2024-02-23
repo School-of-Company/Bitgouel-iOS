@@ -7,7 +7,7 @@ public struct QueryLectureDetailUseCaseImpl: QueryLectureDetailUseCase {
         self.lectureRepository = lectureRepository
     }
 
-    public func callAsFunction(userID: String) async throws {
+    public func callAsFunction(userID: String) async throws -> LectureDetailEntity {
         try await lectureRepository.queryLectureDetail(userID: userID)
     }
 }

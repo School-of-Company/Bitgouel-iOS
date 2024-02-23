@@ -45,3 +45,23 @@ public struct FetchLectureDetailResponseDTO: Decodable {
         self.credit = credit
     }
 }
+
+extension FetchLectureDetailResponseDTO {
+    func toDomain() -> LectureDetailEntity {
+        LectureDetailEntity(
+            name: name,
+            content: content,
+            createAt: createAt,
+            startDate: startDate,
+            endDate: endDate,
+            completedDate: completedDate,
+            lectureType: lectureType,
+            lectureStatus: lectureStatus,
+            headCount: headCount,
+            maxRegisteredUser: maxRegisteredUser,
+            isRegistered: isRegistered,
+            lecturer: lecturer,
+            credit: credit
+        )
+    }
+}

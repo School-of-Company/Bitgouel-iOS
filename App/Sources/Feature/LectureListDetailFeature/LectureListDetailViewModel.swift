@@ -1,46 +1,56 @@
 import SwiftUI
+import Service
 
-final class LectureListDetailViewModel: ObservableObject {
-    @Published var isApprove = false
-    @Published var approveApplication = false
-    @Published var rejectedApplication = false
+final class LectureListDetailViewModel: BaseViewModel {
+    @Published var lectureDetail: LectureDetailEntity?
     @Published var isSuccessEnrolment = false
-    @Published var isEnrolment = false
-    @AppStorage("admin") var isAdmin = false
-
-    var isEnabledApplicationButton: Bool {
-        if approveApplication || rejectedApplication {
-            return true
-        } else {
-            return false
+    @Published var isApply = false
+    @Published var isCancel = false
+    
+    private let userID: String
+    private let queryLectureDetailUseCase: any QueryLectureDetailUseCase
+    private let lectureApplyUseCase: any LectureApplyUseCase
+    private let lectureCancelUseCase: any LectureCancelUseCase
+    
+    init(
+        userID: String,
+        queryLectureDetailUseCase: any QueryLectureDetailUseCase,
+        lectureApplyUseCase: any LectureApplyUseCase,
+        lectureCancelUseCase: any LectureCancelUseCase
+    ) {
+        self.userID = userID
+        self.queryLectureDetailUseCase = queryLectureDetailUseCase
+        self.lectureApplyUseCase = lectureApplyUseCase
+        self.lectureCancelUseCase = lectureCancelUseCase
+    }
+    
+    func onAppear() {
+        Task {
+            do {
+                lectureDetail = try await queryLectureDetailUseCase(userID: userID)
+            } catch {
+                print(error.localizedDescription)
+            }
         }
     }
-
-    var enrolmentButtonText: String {
-        if isSuccessEnrolment {
-            return "수강 신청 완료"
-        } else {
-            return "수강 신청하기"
+    
+    func applyLecture() {
+        Task {
+            do {
+                try await lectureApplyUseCase(userID: userID)
+            } catch {
+                print(error.localizedDescription)
+            }
         }
     }
-
-    var isEnabledEnrolment: Bool {
-        if isEnrolment {
-            return true
-        } else {
-            return false
+    
+    func cancelLecture() {
+        Task {
+            do {
+                try await lectureCancelUseCase(userID: userID)
+            } catch {
+                print(error.localizedDescription)
+            }
         }
-    }
-
-    func rejectedApplicationDidTap() {
-        rejectedApplication = true
-    }
-
-    func approveApplicationDidTap() {
-        approveApplication = true
-    }
-
-    func enrollmentButtonDidTap() {
-        isEnrolment = true
     }
 }

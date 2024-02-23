@@ -45,15 +45,23 @@ private func factory050817f1b6d356b83467e3b0c44298fc1c149afb(_ component: Needle
     return ClubListDependency90c6e61626f7c53ad50fProvider()
 }
 private class LectureListDetailDependency2a815f1240973966e6a6Provider: LectureListDetailDependency {
-
-
-    init() {
-
+    var queryLectureDetailUseCase: any QueryLectureDetailUseCase {
+        return appComponent.queryLectureDetailUseCase
+    }
+    var lectureApplyUseCase: any LectureApplyUseCase {
+        return appComponent.lectureApplyUseCase
+    }
+    var lectureCancelUseCase: any LectureCancelUseCase {
+        return appComponent.lectureCancelUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->LectureListDetailComponent
-private func factory22af859a70aa8ba0b346e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return LectureListDetailDependency2a815f1240973966e6a6Provider()
+private func factory22af859a70aa8ba0b346f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return LectureListDetailDependency2a815f1240973966e6a6Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class NoticeListDependency0e93eb53be8626c408e4Provider: NoticeListDependency {
 
@@ -320,7 +328,9 @@ extension ClubListComponent: Registration {
 }
 extension LectureListDetailComponent: Registration {
     public func registerItems() {
-
+        keyPathToName[\LectureListDetailDependency.queryLectureDetailUseCase] = "queryLectureDetailUseCase-any QueryLectureDetailUseCase"
+        keyPathToName[\LectureListDetailDependency.lectureApplyUseCase] = "lectureApplyUseCase-any LectureApplyUseCase"
+        keyPathToName[\LectureListDetailDependency.lectureCancelUseCase] = "lectureCancelUseCase-any LectureCancelUseCase"
     }
 }
 extension NoticeListComponent: Registration {
@@ -429,7 +439,7 @@ extension AppComponent: Registration {
         localTable["queryLectureListUseCase-any QueryLectureListUseCase"] = { [unowned self] in self.queryLectureListUseCase as Any }
         localTable["queryLectureDetailUseCase-any QueryLectureDetailUseCase"] = { [unowned self] in self.queryLectureDetailUseCase as Any }
         localTable["lectureApplyUseCase-any LectureApplyUseCase"] = { [unowned self] in self.lectureApplyUseCase as Any }
-        localTable["lectureCancleUseCase-any LectureCancleUseCase"] = { [unowned self] in self.lectureCancleUseCase as Any }
+        localTable["lectureCancelUseCase-any LectureCancelUseCase"] = { [unowned self] in self.lectureCancelUseCase as Any }
         localTable["remoteClubDataSource-any RemoteClubDataSource"] = { [unowned self] in self.remoteClubDataSource as Any }
         localTable["clubRepository-any ClubRepository"] = { [unowned self] in self.clubRepository as Any }
         localTable["queryClubListUseCase-any QueryClubListUseCase"] = { [unowned self] in self.queryClubListUseCase as Any }
@@ -508,7 +518,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
 @inline(never) private func register1() {
     registerProviderFactory("^->AppComponent->InputPostComponent", factoryfd208488fdd5cb4acc65f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ClubListComponent", factory050817f1b6d356b83467e3b0c44298fc1c149afb)
-    registerProviderFactory("^->AppComponent->LectureListDetailComponent", factory22af859a70aa8ba0b346e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->LectureListDetailComponent", factory22af859a70aa8ba0b346f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->NoticeListComponent", factorye14e687c08985bdffcd0e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->ActivityDetailSettingComponent", factoryfd595280dea209e217b9e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->StudentSignUpComponent", factoryc57b1cf1651b3051e040f47b58f8f304c97af4d5)
