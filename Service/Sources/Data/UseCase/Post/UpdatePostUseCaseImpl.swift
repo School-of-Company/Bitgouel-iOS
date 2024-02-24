@@ -7,7 +7,7 @@ public struct UpdatePostUseCaseImpl: UpdatePostUseCase {
         self.postRepository = postRepository
     }
 
-    public func callAsFunction(postID: String, req: InputPostRequestDTO) async throws {
+    public func callAsFunction(postID: String, req: UpdatePostRequestDTO) async throws {
         try await postRepository.updatePost(postID: postID, req: req)
     }
 }
