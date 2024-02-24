@@ -36,6 +36,9 @@ struct EditPostView: View {
                     )
                 )
             }
+            .onAppear {
+                viewModel.onAppear()
+            }
         }
         .fullScreenCover(
             isPresented: Binding(
