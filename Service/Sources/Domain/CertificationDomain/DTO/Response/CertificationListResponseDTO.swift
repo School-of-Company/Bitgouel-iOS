@@ -2,7 +2,7 @@ import Foundation
 
 public struct CertificationListResponseDTO: Decodable {
     public let certifications: [CertificationInfo]
-    
+
     public init(certifications: [CertificationInfo]) {
         self.certifications = certifications
     }
@@ -23,4 +23,3 @@ public struct CertificationListResponseDTO: Decodable {
         }
     }
 }
-
