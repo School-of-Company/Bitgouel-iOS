@@ -11,15 +11,15 @@ public struct ClubRepositoryImpl: ClubRepository {
         try await remoteClubDataSource.queryClubList()
     }
 
-    public func queryClubDetail(clubId: String) async throws -> ClubDetailEntity {
-        try await remoteClubDataSource.queryClubDetail(clubId: clubId)
+    public func queryClubDetail(clubID: String) async throws -> ClubDetailEntity {
+        try await remoteClubDataSource.queryClubDetail(clubID: clubID)
     }
 
     public func queryStudentListByClub() async throws -> ClubDetailEntity {
         try await remoteClubDataSource.queryStudentListByClub()
     }
 
-    public func queryStudentDetailByClub(clubId: String, studentId: String) async throws -> StudentDetailByClubEntity {
-        try await remoteClubDataSource.queryStudentDetailByClub(clubId: clubId, studentId: studentId)
+    public func queryStudentDetailByClub(clubID: String, studentID: String) async throws -> StudentDetailByClubEntity {
+        try await remoteClubDataSource.queryStudentDetailByClub(clubID: clubID, studentID: studentID)
     }
 }

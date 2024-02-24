@@ -1,25 +1,25 @@
 import Foundation
 
 public struct ActivityEntity: Equatable {
-    public let activityId: String
+    public let activityID: String
     public let title: String
     public let activityDate: String
-    public let userId: String
+    public let userID: String
     public let userName: String
     public let approveStatus: ApproveStatusType
 
     public init(
-        activityId: String,
+        activityID: String,
         title: String,
         activityDate: String,
-        userId: String,
+        userID: String,
         userName: String,
         approveStatus: ApproveStatusType
     ) {
-        self.activityId = activityId
+        self.activityID = activityID
         self.title = title
         self.activityDate = activityDate
-        self.userId = userId
+        self.userID = userID
         self.userName = userName
         self.approveStatus = approveStatus
     }

@@ -2,12 +2,12 @@ import Foundation
 
 public protocol ActivityRepository {
     func addStudentActivity(req: AddStudentActivityRequestDTO) async throws
-    func updateStudentActibity(activityId: String) async throws
-    func approveStudentActivity(activityId: String) async throws
-    func rejectStudentActivity(activityId: String) async throws
-    func deleteStudentActivity(activityId: String) async throws
+    func updateStudentActibity(activityID: String) async throws
+    func approveStudentActivity(activityID: String) async throws
+    func rejectStudentActivity(activityID: String) async throws
+    func deleteStudentActivity(activityID: String) async throws
     func queryMyStudentActivity() async throws -> [ActivityEntity]
-    func queryStudentActivityById(studentID: String) async throws -> [ActivityEntity]
+    func queryStudentActivityByID(studentID: String) async throws -> [ActivityEntity]
     func queryStudentActivityList() async throws -> [ActivityEntity]
-    func queryStudentActivityDetails(activityId: String) async throws -> StudentActivityDetailEntity
+    func queryStudentActivityDetails(activityID: String) async throws -> StudentActivityDetailEntity
 }

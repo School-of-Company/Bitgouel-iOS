@@ -10,10 +10,10 @@ public struct ActivitiesResponseDTO: Decodable {
     }
 
     public struct ActivityInfo: Decodable {
-        public let activityId: String
+        public let activityID: String
         public let title: String
         public let activityDate: String
-        public let userId: String
+        public let userID: String
         public let username: String
         public let approveStatus: ApproveStatusType
     }
@@ -28,10 +28,10 @@ extension ActivitiesResponseDTO {
 extension ActivitiesResponseDTO.ActivityInfo {
     func toDomain() -> ActivityEntity {
         ActivityEntity(
-            activityId: activityId,
+            activityID: activityID,
             title: title,
             activityDate: activityDate,
-            userId: userId,
+            userID: userID,
             userName: username,
             approveStatus: approveStatus
         )

@@ -7,7 +7,7 @@ public struct QueryStudentDetailByClubUseCaseImpl: QueryStudentDetailByClubUseCa
         self.clubRepository = clubRepository
     }
 
-    public func callAsFunction(clubId: String, studentId: String) async throws -> StudentDetailByClubEntity {
-        try await clubRepository.queryStudentDetailByClub(clubId: clubId, studentId: studentId)
+    public func callAsFunction(clubID: String, studentID: String) async throws -> StudentDetailByClubEntity {
+        try await clubRepository.queryStudentDetailByClub(clubID: clubID, studentID: studentID)
     }
 }

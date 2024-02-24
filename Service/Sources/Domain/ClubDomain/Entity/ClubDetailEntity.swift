@@ -1,7 +1,7 @@
 import Foundation
 
 public struct ClubDetailEntity: Equatable {
-    public let clubId: String
+    public let clubID: String
     public let clubName: String
     public let highSchoolName: String
     public let headcount: Int
@@ -9,14 +9,14 @@ public struct ClubDetailEntity: Equatable {
     public let teacher: memberInfoEntity
 
     public init(
-        clubId: String,
+        clubID: String,
         clubName: String,
         highSchoolName: String,
         headcount: Int,
         students: [memberInfoEntity],
         teacher: memberInfoEntity
     ) {
-        self.clubId = clubId
+        self.clubID = clubID
         self.clubName = clubName
         self.highSchoolName = highSchoolName
         self.headcount = headcount

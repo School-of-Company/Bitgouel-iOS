@@ -9,10 +9,10 @@ public protocol ClubdetailDependency: Dependency {
 }
 
 public final class ClubDetailComponent: Component<ClubdetailDependency>, ClubDetailFactory {
-    public func makeView(clubId: String) -> some View {
+    public func makeView(clubID: String) -> some View {
         ClubDetailView(
             viewModel: .init(
-                clubId: clubId,
+                clubID: clubID,
                 loadUserAuthorityUseCase: dependency.loadUserAuthorityUseCase,
                 queryClubDetailUseCase: dependency.queryClubDetailUseCase,
                 queryStudentListByClubUseCase: dependency.queryStudentListByClubUseCase

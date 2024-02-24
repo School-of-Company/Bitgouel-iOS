@@ -4,7 +4,7 @@ public final class QueryStudentListByClubUseCaseStub: QueryStudentListByClubUseC
     public init() {}
     public func callAsFunction() async throws -> ClubDetailEntity {
         ClubDetailEntity(
-            clubId: .init(),
+            clubID: .init(),
             clubName: "devGSM",
             highSchoolName: "광주소프트웨어마이스터고등학교",
             headcount: 0,

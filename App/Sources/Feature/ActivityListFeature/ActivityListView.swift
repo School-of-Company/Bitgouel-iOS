@@ -26,19 +26,19 @@ struct ActivityListView: View {
             ScrollView {
                 VStack {
                     LazyVStack(spacing: 12) {
-                        ForEach(model.activityList, id: \.activityId) { item in
+                        ForEach(model.activityList, id: \.activityID) { item in
                             RoundListRow(
-                                id: item.activityId,
+                                id: item.activityID,
                                 title: item.title,
                                 date: item.activityDate,
-                                userId: item.userId,
+                                userID: item.userID,
                                 name: item.userName,
                                 state: item.approveStatus,
                                 authority: model.authority
                             )
                             .buttonWrapper {
                                 withAnimation {
-                                    viewModel.activityDidSelect(activityId: item.activityId)
+                                    viewModel.activityDidSelect(activityID: item.activityID)
                                     model.isPresentedActivityDetailPage = true
                                 }
                             }
@@ -73,7 +73,7 @@ struct ActivityListView: View {
                 }
             }
             .navigate(
-                to: activityDetailFactory.makeView(activityId: model.selectedActivityId ?? "").eraseToAnyView(),
+                to: activityDetailFactory.makeView(activityID: model.selectedActivityID ?? "").eraseToAnyView(),
                 when: Binding(
                     get: { model.isPresentedActivityDetailPage },
                     set: { _ in viewModel.activityDetailPageDismissed() }

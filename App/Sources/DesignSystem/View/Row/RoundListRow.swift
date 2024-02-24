@@ -5,7 +5,7 @@ struct RoundListRow: View {
     let id: String
     let title: String
     let date: String
-    let userId: String
+    let userID: String
     let name: String
     let state: ApproveStatusType
     let authority: UserAuthorityType
