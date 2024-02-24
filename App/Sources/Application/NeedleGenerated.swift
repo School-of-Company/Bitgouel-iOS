@@ -17,6 +17,19 @@ private func parent1(_ component: NeedleFoundation.Scope) -> NeedleFoundation.Sc
 
 #if !NEEDLE_DYNAMIC
 
+private class SuccessSignUpDependencydbc5dd5670791a0302f6Provider: SuccessSignUpDependency {
+    var loginFactory: any LoginFactory {
+        return appComponent.loginFactory
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->SuccessSignUpComponent
+private func factorybf219b153b668170161df47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return SuccessSignUpDependencydbc5dd5670791a0302f6Provider(appComponent: parent1(component) as! AppComponent)
+}
 private class InputPostDependency2bb888f6c56a6060d23fProvider: InputPostDependency {
     var postDetailSettingFactory: any PostDetailSettingFactory {
         return appComponent.postDetailSettingFactory
@@ -92,6 +105,9 @@ private class SignUpDependencyf83ac0c64026320e6dc2Provider: SignUpDependency {
     }
     var companyInstructorSignupUseCase: any CompanyInstructorSignupUseCase {
         return appComponent.companyInstructorSignupUseCase
+    }
+    var successSignUpFactory: any SuccessSignUpFactory {
+        return appComponent.successSignUpFactory
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -334,6 +350,11 @@ private func factory3fc1a279eeb8c906e603f47b58f8f304c97af4d5(_ component: Needle
 }
 
 #else
+extension SuccessSignUpComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\SuccessSignUpDependency.loginFactory] = "loginFactory-any LoginFactory"
+    }
+}
 extension InputPostComponent: Registration {
     public func registerItems() {
         keyPathToName[\InputPostDependency.postDetailSettingFactory] = "postDetailSettingFactory-any PostDetailSettingFactory"
@@ -365,6 +386,7 @@ extension SignUpComponent: Registration {
         keyPathToName[\SignUpDependency.professorSignupUseCase] = "professorSignupUseCase-any ProfessorSignupUseCase"
         keyPathToName[\SignUpDependency.governmentSignupUseCase] = "governmentSignupUseCase-any GovernmentSignupUseCase"
         keyPathToName[\SignUpDependency.companyInstructorSignupUseCase] = "companyInstructorSignupUseCase-any CompanyInstructorSignupUseCase"
+        keyPathToName[\SignUpDependency.successSignUpFactory] = "successSignUpFactory-any SuccessSignUpFactory"
     }
 }
 extension ActivityDetailSettingComponent: Registration {
@@ -511,6 +533,7 @@ extension AppComponent: Registration {
         localTable["loginFactory-any LoginFactory"] = { [unowned self] in self.loginFactory as Any }
         localTable["activityListFactory-any ActivityListFactory"] = { [unowned self] in self.activityListFactory as Any }
         localTable["signupFactory-any SignUpFactory"] = { [unowned self] in self.signupFactory as Any }
+        localTable["successSignUpFactory-any SuccessSignUpFactory"] = { [unowned self] in self.successSignUpFactory as Any }
         localTable["inputActivityFactory-any InputActivityFactory"] = { [unowned self] in self.inputActivityFactory as Any }
         localTable["activityDetailFactory-any ActivityDetailFactory"] = { [unowned self] in self.activityDetailFactory as Any }
         localTable["activityDetailSettingFactory-any ActivityDetailSettingFactory"] = { [unowned self] in self.activityDetailSettingFactory as Any }
@@ -543,6 +566,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
 #if !NEEDLE_DYNAMIC
 
 @inline(never) private func register1() {
+    registerProviderFactory("^->AppComponent->SuccessSignUpComponent", factorybf219b153b668170161df47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputPostComponent", factoryfd208488fdd5cb4acc65f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ClubListComponent", factory050817f1b6d356b83467e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->LectureListDetailComponent", factory22af859a70aa8ba0b346f47b58f8f304c97af4d5)

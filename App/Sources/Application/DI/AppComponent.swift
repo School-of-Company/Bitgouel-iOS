@@ -30,6 +30,10 @@ public extension AppComponent {
     var signupFactory: any SignUpFactory {
         SignUpComponent(parent: self)
     }
+    
+    var successSignUpFactory: any SuccessSignUpFactory {
+        SuccessSignUpComponent(parent: self)
+    }
 
     var inputActivityFactory: any InputActivityFactory {
         InputActivityComponent(parent: self)

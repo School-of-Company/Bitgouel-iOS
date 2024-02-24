@@ -9,6 +9,7 @@ public protocol SignUpDependency: Dependency {
     var professorSignupUseCase: any ProfessorSignupUseCase { get }
     var governmentSignupUseCase: any GovernmentSignupUseCase { get }
     var companyInstructorSignupUseCase: any CompanyInstructorSignupUseCase { get }
+    var successSignUpFactory: any SuccessSignUpFactory { get }
 }
 
 public final class SignUpComponent: Component<SignUpDependency>, SignUpFactory {
@@ -21,7 +22,8 @@ public final class SignUpComponent: Component<SignUpDependency>, SignUpFactory {
                 professorSignupUseCase: self.dependency.professorSignupUseCase,
                 governmentSignupUseCase: self.dependency.governmentSignupUseCase,
                 companyInstructorSignupUseCase: self.dependency.companyInstructorSignupUseCase
-            )
+            ),
+            successSignUpFactory: self.dependency.successSignUpFactory
         )
     }
 }

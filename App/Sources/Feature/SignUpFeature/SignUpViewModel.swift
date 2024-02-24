@@ -7,6 +7,7 @@ class SignUpViewModel: BaseViewModel {
     @Published var isPresentedUserRoleSheet = false
     @Published var isPresentedSchoolSheet = false
     @Published var isPresentedClubSheet = false
+    @Published var isShowingSuccessView = false
 
     // MARK: variable
     @Published var schoolSearch = ""
@@ -293,6 +294,8 @@ class SignUpViewModel: BaseViewModel {
         default:
             return
         }
+        
+        isShowingSuccessView = true
     }
 
     func studentSignup(
