@@ -27,8 +27,8 @@ public extension AppComponent {
         ActivityListComponent(parent: self)
     }
 
-    var signupFactory: any StudentSignUpFactory {
-        StudentSignUpComponent(parent: self)
+    var signupFactory: any SignUpFactory {
+        SignUpComponent(parent: self)
     }
 
     var inputActivityFactory: any InputActivityFactory {

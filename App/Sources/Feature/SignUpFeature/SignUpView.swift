@@ -1,8 +1,8 @@
 import Service
 import SwiftUI
 
-struct StudentSignUpView: View {
-    @StateObject var viewModel: StudentSignUpViewModel
+struct SignUpView: View {
+    @StateObject var viewModel: SignUpViewModel
     @State var isShowingSuccessView = false
 
     var body: some View {
