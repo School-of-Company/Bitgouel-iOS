@@ -3,7 +3,7 @@ import Foundation
 public struct CertificationRepositoryImpl: CertificationRepository {
     private let remoteCertificationDataSource: any RemoteCertificationDataSource
     
-    init(remoteCertificationDataSource: any RemoteCertificationDataSource) {
+    public init(remoteCertificationDataSource: any RemoteCertificationDataSource) {
         self.remoteCertificationDataSource = remoteCertificationDataSource
     }
     
