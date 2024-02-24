@@ -4,7 +4,7 @@ import Moya
 public enum CertificationAPI {
     case queryCertificationListByTeacher(studentID: String)
     case queryCertificationListByStudent
-    case inputCertification(studentID: String, req: InputCertificationRequestDTO)
+    case inputCertification(req: InputCertificationRequestDTO)
     case updateCertification(certificationID: String, req: InputCertificationRequestDTO)
 }
 
@@ -17,10 +17,10 @@ extension CertificationAPI: BitgouelAPI {
 
     public var urlPath: String {
         switch self {
-        case .queryCertificationListByStudent:
+        case .queryCertificationListByStudent,
+             .inputCertification:
             return ""
-        case let .queryCertificationListByTeacher(studentID),
-             let .inputCertification(studentID, _):
+        case let .queryCertificationListByTeacher(studentID):
             return "/\(studentID)"
         case let .updateCertification(certificationID, _):
             return "/\(certificationID)"
