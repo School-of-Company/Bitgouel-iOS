@@ -23,3 +23,19 @@ public struct CertificationListResponseDTO: Decodable {
         }
     }
 }
+
+extension CertificationListResponseDTO {
+    func toDomain() -> [CertificationInfoEntity] {
+        certifications.map { $0.toDomain() }
+    }
+}
+
+extension CertificationListResponseDTO.CertificationInfo {
+    func toDomain() -> CertificationInfoEntity {
+        CertificationInfoEntity(
+            certificationId: certificationId,
+            name: name,
+            acquisitionDate: acquisitionDate
+        )
+    }
+}

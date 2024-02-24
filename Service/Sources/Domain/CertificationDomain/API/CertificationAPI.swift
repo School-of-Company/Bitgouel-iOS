@@ -44,7 +44,7 @@ extension CertificationAPI: BitgouelAPI {
         case .queryCertificationListByTeacher,
              .queryCertificationListByStudent:
             return .requestPlain
-        case let .inputCertification(_, req),
+        case let .inputCertification(req),
              let .updateCertification(_, req):
             return .requestJSONEncodable(req)
         }
