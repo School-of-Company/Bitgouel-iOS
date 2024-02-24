@@ -46,7 +46,7 @@ extension PostAPI: BitgouelAPI {
         switch self {
         case let .writePost(req):
             return .requestJSONEncodable(req)
-            
+
         case let .updatePost(_, req):
             return .requestJSONEncodable(req)
 
