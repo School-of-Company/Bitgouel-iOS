@@ -1,8 +1,5 @@
-//
-//  InputCertificationUseCase.swift
-//  Service
-//
-//  Created by 정윤서 on 2/24/24.
-//
-
 import Foundation
+
+public protocol InputCertificationUseCase {
+    func callAsFunction(req: InputPostRequestDTO) async throws
+}
