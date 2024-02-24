@@ -58,7 +58,7 @@ struct PostListView: View {
                     to: postDetailFactory.makeView(postID: viewModel.seletedPostID).eraseToAnyView(),
                     when: Binding(
                         get: { viewModel.isPresentedPostDetailView },
-                        set: { _ in viewModel.isPresentedPostDetailView = false}
+                        set: { _ in viewModel.isPresentedPostDetailView = false }
                     )
                 )
                 .navigate(
