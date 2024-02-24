@@ -294,8 +294,6 @@ class SignUpViewModel: BaseViewModel {
         default:
             return
         }
-        
-        isShowingSuccessView = true
     }
 
     func studentSignup(
@@ -322,6 +320,7 @@ class SignUpViewModel: BaseViewModel {
                         admissionNumber: yearOfAdmission
                     )
                 )
+                isShowingSuccessView = true
                 print("학생 회원가입 성공")
             } catch {
                 print("학생 회원가입 실패")
@@ -345,6 +344,7 @@ class SignUpViewModel: BaseViewModel {
                         clubName: selectedClub
                     )
                 )
+                isShowingSuccessView = true
                 print("취동쌤 회원가입 성공")
             } catch {
                 print("취동쌤 회원가입 실패")
@@ -368,6 +368,7 @@ class SignUpViewModel: BaseViewModel {
                         clubName: selectedClub
                     )
                 )
+                isShowingSuccessView = true
                 print("뽀짝쌤 회원가입 성공")
             } catch {
                 print("뽀짝쌤 회원가입 실패")
@@ -392,6 +393,7 @@ class SignUpViewModel: BaseViewModel {
                         university: selectedUniversity
                     )
                 )
+                isShowingSuccessView = true
                 print("대학교수 회원가입 성공")
             } catch {
                 print("대학교수 회원가입 실패")
@@ -416,6 +418,7 @@ class SignUpViewModel: BaseViewModel {
                         governmentName: selectedGovernment
                     )
                 )
+                isShowingSuccessView = true
                 print("유관기관 회원가입 성공")
             } catch {
                 print("유관기관 회원가입 실패")
@@ -440,6 +443,7 @@ class SignUpViewModel: BaseViewModel {
                         company: selectedCompany
                     )
                 )
+                isShowingSuccessView = true
                 print("기업강사 회원가입 성공")
             } catch {
                 print("기업강사 회원가입 실패")
