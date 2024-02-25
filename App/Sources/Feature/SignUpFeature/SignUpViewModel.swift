@@ -1,7 +1,7 @@
 import Foundation
 import Service
 
-class SignUpViewModel: BaseViewModel {
+final class SignUpViewModel: BaseViewModel {
     // MARK: presentation
     @Published var isPresentedAssociationSheet = false
     @Published var isPresentedUserRoleSheet = false
