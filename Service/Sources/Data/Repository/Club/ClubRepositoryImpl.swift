@@ -7,8 +7,8 @@ public struct ClubRepositoryImpl: ClubRepository {
         self.remoteClubDataSource = remoteClubDataSource
     }
 
-    public func queryClubList() async throws -> [ClubEntity] {
-        try await remoteClubDataSource.queryClubList()
+    public func queryClubList(highSchool: String) async throws -> [ClubEntity] {
+        try await remoteClubDataSource.queryClubList(highSchool: highSchool)
     }
 
     public func queryClubDetail(clubID: String) async throws -> ClubDetailEntity {
