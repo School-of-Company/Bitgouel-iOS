@@ -1,12 +1,13 @@
 import Foundation
 import Service
 
-class StudentSignUpViewModel: BaseViewModel {
+final class SignUpViewModel: BaseViewModel {
     // MARK: presentation
     @Published var isPresentedAssociationSheet = false
     @Published var isPresentedUserRoleSheet = false
     @Published var isPresentedSchoolSheet = false
     @Published var isPresentedClubSheet = false
+    @Published var isShowingSuccessView = false
 
     // MARK: variable
     @Published var schoolSearch = ""
@@ -259,6 +260,14 @@ class StudentSignUpViewModel: BaseViewModel {
         checkPassword(password, checkPassword)
     }
 
+    var emailHelpMessage: String {
+        if !emailIsValid {
+            return "이메일 형식이 유효하지 않습니다"
+        } else {
+            return ""
+        }
+    }
+
     func checkPassword(_ password: String, _ checkPassword: String) -> Bool {
         return password == checkPassword
     }
@@ -319,6 +328,7 @@ class StudentSignUpViewModel: BaseViewModel {
                         admissionNumber: yearOfAdmission
                     )
                 )
+                isShowingSuccessView = true
                 print("학생 회원가입 성공")
             } catch {
                 print("학생 회원가입 실패")
@@ -342,6 +352,7 @@ class StudentSignUpViewModel: BaseViewModel {
                         clubName: selectedClub
                     )
                 )
+                isShowingSuccessView = true
                 print("취동쌤 회원가입 성공")
             } catch {
                 print("취동쌤 회원가입 실패")
@@ -365,6 +376,7 @@ class StudentSignUpViewModel: BaseViewModel {
                         clubName: selectedClub
                     )
                 )
+                isShowingSuccessView = true
                 print("뽀짝쌤 회원가입 성공")
             } catch {
                 print("뽀짝쌤 회원가입 실패")
@@ -389,6 +401,7 @@ class StudentSignUpViewModel: BaseViewModel {
                         university: selectedUniversity
                     )
                 )
+                isShowingSuccessView = true
                 print("대학교수 회원가입 성공")
             } catch {
                 print("대학교수 회원가입 실패")
@@ -413,6 +426,7 @@ class StudentSignUpViewModel: BaseViewModel {
                         governmentName: selectedGovernment
                     )
                 )
+                isShowingSuccessView = true
                 print("유관기관 회원가입 성공")
             } catch {
                 print("유관기관 회원가입 실패")
@@ -437,18 +451,11 @@ class StudentSignUpViewModel: BaseViewModel {
                         company: selectedCompany
                     )
                 )
+                isShowingSuccessView = true
                 print("기업강사 회원가입 성공")
             } catch {
                 print("기업강사 회원가입 실패")
             }
-        }
-    }
-
-    var emailHelpMessage: String {
-        if !emailIsValid {
-            return "이메일 형식이 유효하지 않습니다"
-        } else {
-            return ""
         }
     }
 }

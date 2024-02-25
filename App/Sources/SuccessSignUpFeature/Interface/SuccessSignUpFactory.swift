@@ -1,6 +1,6 @@
 import SwiftUI
 
-public protocol StudentSignUpFactory {
+public protocol SuccessSignUpFactory {
     associatedtype SomeView: View
     func makeView() -> SomeView
 }
