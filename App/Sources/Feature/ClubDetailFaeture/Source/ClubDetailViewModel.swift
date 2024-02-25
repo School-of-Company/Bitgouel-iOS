@@ -3,6 +3,8 @@ import SwiftUI
 
 final class ClubDetailViewModel: BaseViewModel {
     @Published var authority: UserAuthorityType = .user
+    @Published var isPresentedCertificationView: Bool = false
+    @Published var studentID: String = ""
 
     //MARK: ClubInfo
     private let clubID: String
