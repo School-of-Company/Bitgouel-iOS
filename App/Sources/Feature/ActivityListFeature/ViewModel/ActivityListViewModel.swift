@@ -9,7 +9,7 @@ final class ActivityListViewModel: BaseViewModel {
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
     private let queryMyStudentActivityUseCase: any QueryMyStudentActivityUseCase
     private let queryStudentActivityListUseCase: any QueryStudentActivityListUseCase
-    private let queryStudentActivityByIdUseCase: any QueryStudentActivityByIdUseCase
+    private let queryStudentActivityByIDUseCase: any QueryStudentActivityByIDUseCase
     private let studentID: String
     
     init(
@@ -18,14 +18,14 @@ final class ActivityListViewModel: BaseViewModel {
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
         queryMyStudentActivityUseCase: any QueryMyStudentActivityUseCase,
         queryStudentActivityListUseCase: any QueryStudentActivityListUseCase,
-        queryStudentActivityByIdUseCase: any QueryStudentActivityByIdUseCase
+        queryStudentActivityByIDUseCase: any QueryStudentActivityByIDUseCase
     ) {
         self.studentID = studentID
         self.model = model
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
         self.queryMyStudentActivityUseCase = queryMyStudentActivityUseCase
         self.queryStudentActivityListUseCase = queryStudentActivityListUseCase
-        self.queryStudentActivityByIdUseCase = queryStudentActivityByIdUseCase
+        self.queryStudentActivityByIDUseCase = queryStudentActivityByIDUseCase
     }
     
     @MainActor
@@ -68,7 +68,7 @@ final class ActivityListViewModel: BaseViewModel {
     }
     
     func onAppearStudentListByTeacher() async throws -> [ActivityEntity] {
-        return try await queryStudentActivityByIdUseCase(studentID: studentID)
+        return try await queryStudentActivityByIDUseCase(studentID: studentID)
     }
     
     func toastDismissed() {
@@ -76,8 +76,8 @@ final class ActivityListViewModel: BaseViewModel {
     }
     
     @MainActor
-    func activityDidSelect(activityId: String) {
-        model.updateSelectedActivityId(activityId: activityId)
+    func activityDidSelect(activityID: String) {
+        model.updateSelectedActivityID(activityID: activityID)
     }
     
     @MainActor

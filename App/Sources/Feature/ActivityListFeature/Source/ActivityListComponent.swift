@@ -8,7 +8,7 @@ public protocol ActivityListDependency: Dependency {
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase { get }
     var queryMyStudentActivityUseCase: any QueryMyStudentActivityUseCase { get }
     var queryStudentActivityListUseCase: any QueryStudentActivityListUseCase { get }
-    var queryStudentActivityByIdUseCase: any QueryStudentActivityByIdUseCase { get }
+    var queryStudentActivityByIDUseCase: any QueryStudentActivityByIDUseCase { get }
 }
 
 public final class ActivityListComponent: Component<ActivityListDependency>, ActivityListFactory {
@@ -23,7 +23,7 @@ public final class ActivityListComponent: Component<ActivityListDependency>, Act
                 loadUserAuthorityUseCase: self.dependency.loadUserAuthorityUseCase,
                 queryMyStudentActivityUseCase: self.dependency.queryMyStudentActivityUseCase,
                 queryStudentActivityListUseCase: self.dependency.queryStudentActivityListUseCase,
-                queryStudentActivityByIdUseCase: self.dependency.queryStudentActivityByIdUseCase
+                queryStudentActivityByIDUseCase: self.dependency.queryStudentActivityByIDUseCase
             ),
             inputActivityFactory: dependency.inputActivityFactory, 
             activityDetailFactory: dependency.activityDetailFactory

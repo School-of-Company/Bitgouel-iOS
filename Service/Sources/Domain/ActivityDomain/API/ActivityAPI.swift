@@ -3,14 +3,14 @@ import Moya
 
 public enum ActivityAPI {
     case addStudentActivity(AddStudentActivityRequestDTO)
-    case updateStudentActibity(activityId: String)
-    case approveStudentActivity(activityId: String)
-    case rejectStudentActivity(activityId: String)
-    case deleteStudentActivity(activityId: String)
+    case updateStudentActibity(activityID: String)
+    case approveStudentActivity(activityID: String)
+    case rejectStudentActivity(activityID: String)
+    case deleteStudentActivity(activityID: String)
     case queryMyStudentActivity
-    case queryStudentActivityById(studentID: String)
+    case queryStudentActivityByID(studentID: String)
     case queryStudentActivityList
-    case queryStudentActivityDetails(activityId: String)
+    case queryStudentActivityDetails(activityID: String)
 }
 
 extension ActivityAPI: BitgouelAPI {
@@ -24,20 +24,20 @@ extension ActivityAPI: BitgouelAPI {
         switch self {
         case .addStudentActivity, .queryStudentActivityList:
             return ""
-        case let .updateStudentActibity(activityId):
-            return "/\(activityId)"
-        case let .approveStudentActivity(activityId):
-            return "/\(activityId)/approve"
-        case let .rejectStudentActivity(activityId):
-            return "/\(activityId)/reject"
-        case let .deleteStudentActivity(activityId):
-            return "/\(activityId)"
+        case let .updateStudentActibity(activityID):
+            return "/\(activityID)"
+        case let .approveStudentActivity(activityID):
+            return "/\(activityID)/approve"
+        case let .rejectStudentActivity(activityID):
+            return "/\(activityID)/reject"
+        case let .deleteStudentActivity(activityID):
+            return "/\(activityID)"
         case .queryMyStudentActivity:
             return "/my"
-        case let .queryStudentActivityById(studentID):
+        case let .queryStudentActivityByID(studentID):
             return "/\(studentID)"
-        case let .queryStudentActivityDetails(activityId):
-            return "/\(activityId)/detail"
+        case let .queryStudentActivityDetails(activityID):
+            return "/\(activityID)/detail"
         }
     }
 
@@ -52,7 +52,7 @@ extension ActivityAPI: BitgouelAPI {
              .deleteStudentActivity:
             return .delete
         case .queryMyStudentActivity,
-             .queryStudentActivityById,
+             .queryStudentActivityByID,
              .queryStudentActivityList,
              .queryStudentActivityDetails:
             return .get
@@ -77,15 +77,7 @@ extension ActivityAPI: BitgouelAPI {
 
     public var jwtTokenType: JwtTokenType {
         switch self {
-        case .addStudentActivity,
-             .updateStudentActibity,
-             .approveStudentActivity,
-             .rejectStudentActivity,
-             .deleteStudentActivity,
-             .queryMyStudentActivity,
-             .queryStudentActivityById,
-             .queryStudentActivityList,
-             .queryStudentActivityDetails:
+        default:
             return .accessToken
         }
     }
@@ -107,7 +99,7 @@ extension ActivityAPI: BitgouelAPI {
             ]
         case .approveStudentActivity,
              .queryMyStudentActivity,
-             .queryStudentActivityById,
+             .queryStudentActivityByID,
              .queryStudentActivityList:
             return [
                 400: .badRequest,

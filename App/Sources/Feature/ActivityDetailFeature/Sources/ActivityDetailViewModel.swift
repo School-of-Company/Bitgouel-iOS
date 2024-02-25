@@ -11,7 +11,7 @@ final class ActivityDetailViewModel: BaseViewModel {
     @Published var isApprove: Bool = false
     @Published var activityDetail: StudentActivityDetailEntity?
 
-    private var activityId: String
+    private var activityID: String
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
     private let queryStudentActivityDetailsUseCase: any QueryStudentActivityDetailsUseCase
     private let approveStudentActivityUseCase: any ApproveStudentActivityUseCase
@@ -30,14 +30,14 @@ final class ActivityDetailViewModel: BaseViewModel {
     }
 
     init(
-        activityId: String,
+        activityID: String,
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
         queryStudentActivityDetailsUseCase: any QueryStudentActivityDetailsUseCase,
         approveStudentActivityUseCase: any ApproveStudentActivityUseCase,
         rejectStudentActivityUseCase: any RejectStudentActivityUseCase,
         deleteStudentActivityUseCase: any DeleteStudentActivityUseCase
     ) {
-        self.activityId = activityId
+        self.activityID = activityID
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
         self.queryStudentActivityDetailsUseCase = queryStudentActivityDetailsUseCase
         self.approveStudentActivityUseCase = approveStudentActivityUseCase
@@ -51,7 +51,7 @@ final class ActivityDetailViewModel: BaseViewModel {
 
         Task {
             do {
-                activityDetail = try await queryStudentActivityDetailsUseCase(activityId: activityId)
+                activityDetail = try await queryStudentActivityDetailsUseCase(activityID: activityID)
             } catch {
                 print(error.localizedDescription)
             }
@@ -61,7 +61,7 @@ final class ActivityDetailViewModel: BaseViewModel {
     func deleteActivity() {
         Task {
             do {
-                try await deleteStudentActivityUseCase(activityId: activityId)
+                try await deleteStudentActivityUseCase(activityID: activityID)
             } catch {
                 print(error.localizedDescription)
             }
@@ -71,7 +71,7 @@ final class ActivityDetailViewModel: BaseViewModel {
     func rejectActivity() {
         Task {
             do {
-                try await rejectStudentActivityUseCase(activityId: activityId)
+                try await rejectStudentActivityUseCase(activityID: activityID)
             } catch {
                 print(error.localizedDescription)
             }
@@ -81,7 +81,7 @@ final class ActivityDetailViewModel: BaseViewModel {
     func approveActivity() {
         Task {
             do {
-                try await approveStudentActivityUseCase(activityId: activityId)
+                try await approveStudentActivityUseCase(activityID: activityID)
             } catch {
                 print(error.localizedDescription)
             }

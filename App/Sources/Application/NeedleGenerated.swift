@@ -230,8 +230,8 @@ private class ActivityListDependencyb8e659960978b8384f80Provider: ActivityListDe
     var queryStudentActivityListUseCase: any QueryStudentActivityListUseCase {
         return appComponent.queryStudentActivityListUseCase
     }
-    var queryStudentActivityByIdUseCase: any QueryStudentActivityByIdUseCase {
-        return appComponent.queryStudentActivityByIdUseCase
+    var queryStudentActivityByIDUseCase: any QueryStudentActivityByIDUseCase {
+        return appComponent.queryStudentActivityByIDUseCase
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -418,7 +418,7 @@ extension ActivityListComponent: Registration {
         keyPathToName[\ActivityListDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
         keyPathToName[\ActivityListDependency.queryMyStudentActivityUseCase] = "queryMyStudentActivityUseCase-any QueryMyStudentActivityUseCase"
         keyPathToName[\ActivityListDependency.queryStudentActivityListUseCase] = "queryStudentActivityListUseCase-any QueryStudentActivityListUseCase"
-        keyPathToName[\ActivityListDependency.queryStudentActivityByIdUseCase] = "queryStudentActivityByIdUseCase-any QueryStudentActivityByIdUseCase"
+        keyPathToName[\ActivityListDependency.queryStudentActivityByIDUseCase] = "queryStudentActivityByIDUseCase-any QueryStudentActivityByIDUseCase"
     }
 }
 extension LoginComponent: Registration {
@@ -501,7 +501,7 @@ extension AppComponent: Registration {
         localTable["approveStudentActivityUseCase-any ApproveStudentActivityUseCase"] = { [unowned self] in self.approveStudentActivityUseCase as Any }
         localTable["deleteStudentActivityUseCase-any DeleteStudentActivityUseCase"] = { [unowned self] in self.deleteStudentActivityUseCase as Any }
         localTable["queryMyStudentActivityUseCase-any QueryMyStudentActivityUseCase"] = { [unowned self] in self.queryMyStudentActivityUseCase as Any }
-        localTable["queryStudentActivityByIdUseCase-any QueryStudentActivityByIdUseCase"] = { [unowned self] in self.queryStudentActivityByIdUseCase as Any }
+        localTable["queryStudentActivityByIDUseCase-any QueryStudentActivityByIDUseCase"] = { [unowned self] in self.queryStudentActivityByIDUseCase as Any }
         localTable["queryStudentActivityListUseCase-any QueryStudentActivityListUseCase"] = { [unowned self] in self.queryStudentActivityListUseCase as Any }
         localTable["queryStudentActivityDetailsUseCase-any QueryStudentActivityDetailsUseCase"] = { [unowned self] in self.queryStudentActivityDetailsUseCase as Any }
         localTable["remoteUserDataSource-any RemoteUserDataSource"] = { [unowned self] in self.remoteUserDataSource as Any }
@@ -525,6 +525,12 @@ extension AppComponent: Registration {
         localTable["editPostFactory-any EditPostFactory"] = { [unowned self] in self.editPostFactory as Any }
         localTable["noticeListFactory-any NoticeListFactory"] = { [unowned self] in self.noticeListFactory as Any }
         localTable["inquiryListFactory-any InquiryListFactory"] = { [unowned self] in self.inquiryListFactory as Any }
+        localTable["remoteCertificationDataSource-any RemoteCertificationDataSource"] = { [unowned self] in self.remoteCertificationDataSource as Any }
+        localTable["certificationRepository-any CertificationRepository"] = { [unowned self] in self.certificationRepository as Any }
+        localTable["queryCertificationListByTeacherUseCase-any QueryCertificationListByTeacherUseCase"] = { [unowned self] in self.queryCertificationListByTeacherUseCase as Any }
+        localTable["queryCertificationListByStudentUseCase-any QueryCertificationListByStudentUseCase"] = { [unowned self] in self.queryCertificationListByStudentUseCase as Any }
+        localTable["inputCertificationUseCase-any InputCertificationUseCase"] = { [unowned self] in self.inputCertificationUseCase as Any }
+        localTable["updateCertificationUseCase-any UpdateCertificationUseCase"] = { [unowned self] in self.updateCertificationUseCase as Any }
     }
 }
 

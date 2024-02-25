@@ -1,7 +1,7 @@
 import Foundation
 
 public struct ClubDetailResponseDTO: Decodable {
-    public let clubId: String
+    public let clubID: String
     public let clubName: String
     public let highSchoolName: String
     public let headcount: Int
@@ -9,14 +9,14 @@ public struct ClubDetailResponseDTO: Decodable {
     public let teacher: memberInfoResponseDTO
 
     init(
-        clubId: String,
+        clubID: String,
         clubName: String,
         highSchoolName: String,
         headcount: Int,
         students: [memberInfoResponseDTO],
         teacher: memberInfoResponseDTO
     ) {
-        self.clubId = clubId
+        self.clubID = clubID
         self.clubName = clubName
         self.highSchoolName = highSchoolName
         self.headcount = headcount
@@ -38,7 +38,7 @@ public struct ClubDetailResponseDTO: Decodable {
 extension ClubDetailResponseDTO {
     func toDomain() -> ClubDetailEntity {
         ClubDetailEntity(
-            clubId: clubId,
+            clubID: clubID,
             clubName: clubName,
             highSchoolName: highSchoolName,
             headcount: headcount,

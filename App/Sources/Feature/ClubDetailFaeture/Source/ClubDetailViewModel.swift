@@ -5,7 +5,7 @@ final class ClubDetailViewModel: BaseViewModel {
     @Published var authority: UserAuthorityType = .user
 
     //MARK: ClubInfo
-    private let clubId: String
+    private let clubID: String
     @Published var clubName: String = ""
     @Published var highSchoolName: String = ""
     @Published var students: [ClubDetailEntity.memberInfoEntity] = []
@@ -17,12 +17,12 @@ final class ClubDetailViewModel: BaseViewModel {
     private let queryStudentListByClubUseCase: any QueryStudentListByClubUseCase
 
     init(
-        clubId: String,
+        clubID: String,
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
         queryClubDetailUseCase: any QueryClubDetailUseCase,
         queryStudentListByClubUseCase: any QueryStudentListByClubUseCase
     ) {
-        self.clubId = clubId
+        self.clubID = clubID
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
         self.queryClubDetailUseCase = queryClubDetailUseCase
         self.queryStudentListByClubUseCase = queryStudentListByClubUseCase
@@ -37,7 +37,7 @@ final class ClubDetailViewModel: BaseViewModel {
             do {
                 let clubDetail: ClubDetailEntity = try await { () async throws -> ClubDetailEntity in
                     switch authority {
-                    case .admin: return try await onAppearClubDetailByAdmin(clubId: clubId)
+                    case .admin: return try await onAppearClubDetailByAdmin(clubID: clubID)
                     default: return try await onAppearClubDetail()
                     }
                 }()
@@ -50,8 +50,8 @@ final class ClubDetailViewModel: BaseViewModel {
         }
     }
 
-    func onAppearClubDetailByAdmin(clubId: String) async throws -> ClubDetailEntity {
-        return try await queryClubDetailUseCase(clubId: clubId)
+    func onAppearClubDetailByAdmin(clubID: String) async throws -> ClubDetailEntity {
+        return try await queryClubDetailUseCase(clubID: clubID)
     }
 
     func onAppearClubDetail() async throws -> ClubDetailEntity {

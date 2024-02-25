@@ -3,9 +3,9 @@ import Moya
 
 public enum ClubAPI {
     case queryClubList
-    case queryClubDetail(clubId: String)
+    case queryClubDetail(clubID: String)
     case queryStudentListByClub
-    case queryStudentDetailByClub(clubId: String, studentId: String)
+    case queryStudentDetailByClub(clubID: String, studentID: String)
 }
 
 extension ClubAPI: BitgouelAPI {
@@ -19,12 +19,12 @@ extension ClubAPI: BitgouelAPI {
         switch self {
         case .queryClubList:
             return ""
-        case let .queryClubDetail(clubId):
-            return "/\(clubId)"
+        case let .queryClubDetail(clubID):
+            return "/\(clubID)"
         case .queryStudentListByClub:
             return "/my"
-        case let .queryStudentDetailByClub(clubId, studentId):
-            return "/\(clubId)/\(studentId)"
+        case let .queryStudentDetailByClub(clubID, studentID):
+            return "/\(clubID)/\(studentID)"
         }
     }
 

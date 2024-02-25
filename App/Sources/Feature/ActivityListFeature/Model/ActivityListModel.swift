@@ -5,7 +5,7 @@ import Service
 final class ActivityListModel: ObservableObject {
     @Published var authority: UserAuthorityType = .user
     @Published var activityList: [ActivityEntity] = []
-    @Published var selectedActivityId: String?
+    @Published var selectedActivityID: String?
     @Published var isPresentedActivityDetailPage: Bool = false
 
     var errorMessage: String = ""
@@ -20,7 +20,7 @@ extension ActivityListModel {
         self.activityList = entity
     }
 
-    func updateSelectedActivityId(activityId: String) {
-        self.selectedActivityId = activityId
+    func updateSelectedActivityID(activityID: String) {
+        self.selectedActivityID = activityID
     }
 }

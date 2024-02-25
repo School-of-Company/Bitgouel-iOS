@@ -5,10 +5,10 @@ public final class QueryMyStudentActivityUseCaseStub: QueryMyStudentActivityUseC
     public func callAsFunction() async throws -> [ActivityEntity] {
         [
             ActivityEntity(
-                activityId: "asd",
+                activityID: "asd",
                 title: "asdf",
                 activityDate: "asdf",
-                userId: .init(),
+                userID: .init(),
                 userName: "asdf",
                 approveStatus: .approve
             )

@@ -44,9 +44,9 @@ public extension AppComponent {
         }
     }
 
-    var queryStudentActivityByIdUseCase: any QueryStudentActivityByIdUseCase {
+    var queryStudentActivityByIDUseCase: any QueryStudentActivityByIDUseCase {
         shared {
-            QueryStudentActivityByIdUseCaseImpl(activityRepository: activityRepository)
+            QueryStudentActivityByIDUseCaseImpl(activityRepository: activityRepository)
         }
     }
 
