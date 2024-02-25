@@ -1,7 +1,11 @@
 import SwiftUI
 
 struct CertificationListView: View {
-    @State var isPresentedAlterBottomSheet: Bool = false
+    @StateObject var viewModel: CertificationListViewModel
+    
+    init(viewModel: CertificationListViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
     
     var body: some View {
         NavigationView {
@@ -82,8 +86,8 @@ struct CertificationListView: View {
                                 title: "",
                                 modifiedAt: Date(),
                                 isPresented: Binding(
-                                    get: { isPresentedAlterBottomSheet },
-                                    set: { state in isPresentedAlterBottomSheet = state }
+                                    get: { viewModel.isPresentedAlterBottomSheet },
+                                    set: { state in viewModel.isPresentedAlterBottomSheet(state: state) }
                                 )
                             )
                         }
@@ -91,6 +95,16 @@ struct CertificationListView: View {
                 }
             }
             .padding(.horizontal, 28)
+            .alterBottomSheet(isShowing: Binding(
+                get: { viewModel.isPresentedAlterBottomSheet },
+                set: { state in viewModel.isPresentedAlterBottomSheet(state: state) }
+            ),
+            deleteAction: {
+                
+            },
+            editAction: {
+                
+            })
             .navigationTitle("학생 정보")
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
