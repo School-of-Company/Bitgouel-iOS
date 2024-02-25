@@ -3,8 +3,14 @@ import SwiftUI
 struct CertificationListView: View {
     @StateObject var viewModel: CertificationListViewModel
     
-    init(viewModel: CertificationListViewModel) {
+    private let activityListFactory: any ActivityListFactory
+    
+    init(
+        viewModel: CertificationListViewModel,
+        activityListFactory: any ActivityListFactory
+    ) {
         _viewModel = StateObject(wrappedValue: viewModel)
+        self.activityListFactory = activityListFactory
     }
     
     var body: some View {
@@ -105,16 +111,24 @@ struct CertificationListView: View {
             editAction: {
                 
             })
+            .navigate(
+                to: activityListFactory.makeView(studentID: viewModel.studentID).eraseToAnyView(),
+                when: Binding(
+                    get: { viewModel.isPresentedActivityListView },
+                    set: { state in viewModel.isPresentedActivityListView(state: state) }
+                )
+            )
             .navigationTitle("학생 정보")
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button {
-                        
+                        viewModel.isPresentedActivityListView(state: true)
                     } label: {
                         BitgouelAsset.Icons.person.swiftUIImage
                     }
                 }
             }
+            .navigationBarBackButtonHidden(true)
         }
     }
 }
