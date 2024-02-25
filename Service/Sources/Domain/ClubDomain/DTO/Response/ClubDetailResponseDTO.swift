@@ -1,7 +1,7 @@
 import Foundation
 
 public struct ClubDetailResponseDTO: Decodable {
-    public let clubID: String
+    public let clubID: Int
     public let clubName: String
     public let highSchoolName: String
     public let headcount: Int
@@ -9,7 +9,7 @@ public struct ClubDetailResponseDTO: Decodable {
     public let teacher: memberInfoResponseDTO
 
     init(
-        clubID: String,
+        clubID: Int,
         clubName: String,
         highSchoolName: String,
         headcount: Int,

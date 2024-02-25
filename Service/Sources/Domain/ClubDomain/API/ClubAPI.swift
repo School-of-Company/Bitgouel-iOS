@@ -3,9 +3,9 @@ import Moya
 
 public enum ClubAPI {
     case queryClubList(highSchool: String)
-    case queryClubDetail(clubID: String)
+    case queryClubDetail(clubID: Int)
     case queryStudentListByClub
-    case queryStudentDetailByClub(clubID: String, studentID: String)
+    case queryStudentDetailByClub(clubID: Int, studentID: String)
 }
 
 extension ClubAPI: BitgouelAPI {

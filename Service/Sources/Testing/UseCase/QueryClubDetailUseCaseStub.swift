@@ -2,7 +2,7 @@ import Foundation
 
 public final class QueryClubDetailUseCaseStub: QueryClubDetailUseCase {
     public init() {}
-    public func callAsFunction(clubID: String) async throws -> ClubDetailEntity {
+    public func callAsFunction(clubID: Int) async throws -> ClubDetailEntity {
         ClubDetailEntity(
             clubID: .init(),
             clubName: "devGSM",
