@@ -8,15 +8,15 @@ final class ClubListViewModel: BaseViewModel {
     @Published var clubList: [ClubEntity] = []
     @Published var clubID: Int = 0
     var schoolList: [HighSchoolType] = HighSchoolType.allCases
-    
+
     private let queryClubListUseCase: any QueryClubListUseCase
-    
+
     init(
         queryClubListUseCase: any QueryClubListUseCase
     ) {
         self.queryClubListUseCase = queryClubListUseCase
     }
-    
+
     func updateClubID(clubID: Int) {
         self.clubID = clubID
     }
@@ -26,7 +26,7 @@ final class ClubListViewModel: BaseViewModel {
         Task {
             do {
                 guard let selectedSchool else { return }
-                
+
                 clubList = try await queryClubListUseCase(highSchool: selectedSchool.rawValue)
                 print(clubList)
             } catch {

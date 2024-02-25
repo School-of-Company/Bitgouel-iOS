@@ -20,7 +20,7 @@ struct ClubListView: View {
                 if viewModel.selectedSchool == nil {
                     ClubListEmptyContentView()
                 }
-                
+
                 if viewModel.selectedSchool != nil {
                     ScrollView {
                         VStack(spacing: 0) {
@@ -29,14 +29,14 @@ struct ClubListView: View {
                                     text: viewModel.selectedSchool?.display() ?? "",
                                     font: .title3
                                 )
-                                
+
                                 Spacer()
                             }
                             .padding(.top, 40)
-                            
+
                             Divider()
                                 .padding(.top, 12)
-                            
+
                             LazyVStack(spacing: 0) {
                                 ForEach(viewModel.clubList, id: \.id) { club in
                                     ClubListRow(clubName: club.name)
@@ -53,7 +53,7 @@ struct ClubListView: View {
                         .padding(.horizontal, 28)
                     }
                 }
-                
+
                 ZStack(alignment: .center) {
                     if viewModel.isPresentedSelectedSchoolPopup {
                         Color.black.opacity(0.4)
@@ -61,7 +61,7 @@ struct ClubListView: View {
                             .onTapGesture {
                                 viewModel.isPresentedSelectedSchoolPopup = false
                             }
-                        
+
                         SchoolListPopup(
                             schoolList: viewModel.schoolList,
                             selectedSchool: viewModel.selectedSchool
