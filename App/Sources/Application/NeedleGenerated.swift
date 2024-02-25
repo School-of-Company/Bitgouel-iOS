@@ -180,6 +180,9 @@ private class CertificationListDependency809c1dfea1282552ea2dProvider: Certifica
     var activityListFactory: any ActivityListFactory {
         return appComponent.activityListFactory
     }
+    var queryStudentDetailByClubUseCase: any QueryStudentDetailByClubUseCase {
+        return appComponent.queryStudentDetailByClubUseCase
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -414,6 +417,7 @@ extension ClubDetailComponent: Registration {
 extension CertificationListComponent: Registration {
     public func registerItems() {
         keyPathToName[\CertificationListDependency.activityListFactory] = "activityListFactory-any ActivityListFactory"
+        keyPathToName[\CertificationListDependency.queryStudentDetailByClubUseCase] = "queryStudentDetailByClubUseCase-any QueryStudentDetailByClubUseCase"
     }
 }
 extension PostDetailComponent: Registration {
