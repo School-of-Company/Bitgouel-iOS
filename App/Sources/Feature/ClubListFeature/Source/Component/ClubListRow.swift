@@ -10,8 +10,9 @@ struct ClubListRow: View {
                     text: clubName,
                     font: .text1
                 )
+                .padding(.top, 8)
 
-                HStack(spacing: 6) {
+                HStack(spacing: 8) {
                     BitgouelText(
                         text: "내부 인원 보기",
                         font: .caption
@@ -23,6 +24,7 @@ struct ClubListRow: View {
                 .foregroundColor(.bitgouel(.greyscale(.g7)))
 
                 Divider()
+                    .padding(.top, 8)
             }
             .padding(.vertical, 8)
 

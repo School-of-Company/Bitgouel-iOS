@@ -32,9 +32,13 @@ struct ClubListView: View {
                             Divider()
                                 .padding(.top, 12)
                             
-                            ClubListRow(clubName: "동아리 이름")
-                                .padding(.top, 12)
-                            
+                            LazyVStack(spacing: 0) {
+                                ForEach(viewModel.clubList, id: \.id) { club in
+                                    ClubListRow(clubName: club.name)
+                                }
+                            }
+                            .padding(.top, 8)
+
                             Spacer()
                         }
                         .padding(.horizontal, 28)
@@ -54,6 +58,7 @@ struct ClubListView: View {
                             selectedSchool: viewModel.selectedSchool
                         ) { school in
                             viewModel.selectedSchool = school
+                            viewModel.fetchClubList()
                             viewModel.isPresentedSelectedSchoolPopup = false
                         } cancel: { cancle in
                             viewModel.isPresentedSelectedSchoolPopup = cancle
