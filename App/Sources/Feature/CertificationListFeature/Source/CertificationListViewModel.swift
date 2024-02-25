@@ -4,7 +4,7 @@ final class CertificationListViewModel: BaseViewModel {
     @Published var isPresentedAlterBottomSheet: Bool = false
     @Published var isPresentedActivityListView: Bool = false
     var studentID: String = ""
-    
+
     init(
         studentID: String
     ) {
