@@ -93,7 +93,7 @@ struct CertificationListView: View {
             .padding(.horizontal, 28)
             .navigationTitle("학생 정보")
             .toolbar {
-                ToolbarItemGroup(placement: .topBarTrailing) {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button {
                         
                     } label: {
