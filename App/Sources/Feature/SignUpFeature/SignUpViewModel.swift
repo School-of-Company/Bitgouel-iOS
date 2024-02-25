@@ -8,14 +8,14 @@ class SignUpViewModel: BaseViewModel {
     @Published var isPresentedSchoolSheet = false
     @Published var isPresentedClubSheet = false
     @Published var isShowingSuccessView = false
-    
+
     // MARK: variable
     @Published var schoolSearch = ""
     @Published var clubSearch = ""
     @Published var name = ""
     @Published var yearOfAdmission: Int?
     @Published var phoneNumber = ""
-    
+
     @Published var email = ""
     @Published var password = ""
     @Published var checkPassword = ""
@@ -30,39 +30,39 @@ class SignUpViewModel: BaseViewModel {
     @Published var studentID: String = ""
     @Published var selectedAssociation: AssociationType?
     @Published var selectedUserRole: UserAuthorityType?
-    
+
     // MARK: computed property
     var clubsForSelectedHighSchool: [String] {
         selectedSchool?.getClubsForSelectedHighSchool() ?? []
     }
-    
+
     // MARK: validation
     var nameIsValid: Bool {
         name.count >= 2
     }
-    
+
     var yearOfAdmissionIsValid: Bool {
         (yearOfAdmission ?? 0) >= 1000
     }
-    
+
     var studentIDIsValid: Bool {
         studentID.count == 4 && grade != nil && classRoom != nil && number != nil
     }
-    
+
     var phoneNumberIsValid: Bool {
         phoneNumber.count == 11
     }
-    
+
     var emailIsValid: Bool {
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
         return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: email)
     }
-    
+
     var passwordIsValid: Bool {
         let passwordRegex = "[A-Z0-9a-z@!#$%%^~&*()_+-=.]{8,24}"
         return NSPredicate(format: "SELF MATCHES %@", passwordRegex).evaluate(with: password)
     }
-    
+
     // MARK: usecase
     private let studentSignupUseCase: StudentSignupUseCase
     private let teacherSignupUseCase: TeacherSignupUseCase
@@ -71,7 +71,7 @@ class SignUpViewModel: BaseViewModel {
     private let governmentSignupUseCase: GovernmentSignupUseCase
     private let companyInstructorSignupUseCase: CompanyInstructorSignupUseCase
     let highSchool: [HighSchoolType] = HighSchoolType.allCases
-    
+
     init(
         studentSignupUseCase: StudentSignupUseCase,
         teacherSignupUseCase: TeacherSignupUseCase,
@@ -87,7 +87,7 @@ class SignUpViewModel: BaseViewModel {
         self.governmentSignupUseCase = governmentSignupUseCase
         self.companyInstructorSignupUseCase = companyInstructorSignupUseCase
     }
-    
+
     var searchedSchoolList: [HighSchoolType] {
         if schoolSearch.isEmpty {
             return highSchool
@@ -95,7 +95,7 @@ class SignUpViewModel: BaseViewModel {
             return highSchool.filter { $0.display().contains(schoolSearch) }
         }
     }
-    
+
     var searchedClubList: [String] {
         if clubSearch.isEmpty {
             return clubsForSelectedHighSchool
@@ -103,7 +103,7 @@ class SignUpViewModel: BaseViewModel {
             return clubsForSelectedHighSchool.filter { $0.lowercased().contains(clubSearch.lowercased()) }
         }
     }
-    
+
     var titleMessage: String {
         if selectedAssociation == nil {
             return "만나서 반가워요!"
@@ -131,7 +131,7 @@ class SignUpViewModel: BaseViewModel {
             } else if !nameIsValid {
                 return "이름 입력"
             }
-            
+
         case .companyInstructor:
             if selectedClub == nil {
                 return "동아리 선택"
@@ -140,7 +140,7 @@ class SignUpViewModel: BaseViewModel {
             } else if selectedCompany.isEmpty {
                 return "기업 입력"
             }
-            
+
         case .professor:
             if selectedClub == nil {
                 return "동아리 선택"
@@ -149,7 +149,7 @@ class SignUpViewModel: BaseViewModel {
             } else if selectedUniversity.isEmpty {
                 return "대학 입력"
             }
-            
+
         case .government:
             if !nameIsValid {
                 return "이름 입력"
@@ -159,7 +159,7 @@ class SignUpViewModel: BaseViewModel {
         default:
             return ""
         }
-        
+
         if !phoneNumberIsValid {
             return "전화번호 입력"
         } else if !emailIsValid {
@@ -170,7 +170,7 @@ class SignUpViewModel: BaseViewModel {
             return "비밀번호 재입력"
         }
     }
-    
+
     var subTitleMessage: String {
         switch selectedUserRole {
         case .student:
@@ -224,7 +224,7 @@ class SignUpViewModel: BaseViewModel {
         default:
             return ""
         }
-        
+
         if !phoneNumberIsValid {
             return "인증을 위해 전화번호를 입력해 주세요!"
         } else if !emailIsValid {
@@ -235,7 +235,7 @@ class SignUpViewModel: BaseViewModel {
             return "비밀번호를 다시 입력해 주세요!"
         }
     }
-    
+
     func parseStudentID() {
         if studentID.count == 4 {
             grade = Int(studentID.prefix(1))
@@ -247,19 +247,19 @@ class SignUpViewModel: BaseViewModel {
             number = nil
         }
     }
-    
+
     var selectedSchoolExists: Bool {
         selectedSchool != nil
     }
-    
+
     var selectedClubExists: Bool {
         selectedClub != nil
     }
-    
+
     var isPasswordMatching: Bool {
         checkPassword(password, checkPassword)
     }
-    
+
     var emailHelpMessage: String {
         if !emailIsValid {
             return "이메일 형식이 유효하지 않습니다"
@@ -267,11 +267,11 @@ class SignUpViewModel: BaseViewModel {
             return ""
         }
     }
-    
+
     func checkPassword(_ password: String, _ checkPassword: String) -> Bool {
         return password == checkPassword
     }
-    
+
     func signup() {
         guard let yearOfAdmission else { return }
         guard let selectedSchool else { return }
@@ -303,7 +303,7 @@ class SignUpViewModel: BaseViewModel {
             return
         }
     }
-    
+
     func studentSignup(
         grade: Int,
         classRoom: Int,
@@ -335,7 +335,7 @@ class SignUpViewModel: BaseViewModel {
             }
         }
     }
-    
+
     func teacherSignup(
         selectedSchool: HighSchoolType,
         selectedClub: String
@@ -359,7 +359,7 @@ class SignUpViewModel: BaseViewModel {
             }
         }
     }
-    
+
     func bbozzakSignup(
         selectedSchool: HighSchoolType,
         selectedClub: String
@@ -383,7 +383,7 @@ class SignUpViewModel: BaseViewModel {
             }
         }
     }
-    
+
     func professorSignup(
         selectedSchool: HighSchoolType,
         selectedClub: String
@@ -408,7 +408,7 @@ class SignUpViewModel: BaseViewModel {
             }
         }
     }
-    
+
     func governmentSignup(
         selectedSchool: HighSchoolType,
         selectedClub: String
@@ -433,7 +433,7 @@ class SignUpViewModel: BaseViewModel {
             }
         }
     }
-    
+
     func companyInstructorSignup(
         selectedSchool: HighSchoolType,
         selectedClub: String

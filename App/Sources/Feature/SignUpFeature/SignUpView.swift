@@ -4,9 +4,9 @@ import SwiftUI
 struct SignUpView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: SignUpViewModel
-    
+
     private let successSignUpFactory: any SuccessSignUpFactory
-    
+
     init(
         viewModel: SignUpViewModel,
         successSignUpFactory: any SuccessSignUpFactory

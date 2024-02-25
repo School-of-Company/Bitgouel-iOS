@@ -2,13 +2,13 @@ import SwiftUI
 
 struct SuccessSignUpView: View {
     @State var isBackLoginPage = false
-    
+
     private let loginFactory: any LoginFactory
-    
+
     init(loginFactory: any LoginFactory) {
         self.loginFactory = loginFactory
     }
-    
+
     var body: some View {
         VStack {
             BitgouelAsset.Icons.check.swiftUIImage
