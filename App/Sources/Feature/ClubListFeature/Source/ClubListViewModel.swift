@@ -28,7 +28,6 @@ final class ClubListViewModel: BaseViewModel {
                 guard let selectedSchool else { return }
 
                 clubList = try await queryClubListUseCase(highSchool: selectedSchool.rawValue)
-                print(clubList)
             } catch {
                 print(String(describing: error))
             }
