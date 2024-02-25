@@ -4,8 +4,10 @@ import Service
 final class ClubListViewModel: BaseViewModel {
     @Published var selectedSchool: HighSchoolType?
     @Published var isPresentedSelectedSchoolPopup: Bool = true
-    var schoolList: [HighSchoolType] = HighSchoolType.allCases
+    @Published var isPresentedClubDetailView: Bool = false
     @Published var clubList: [ClubEntity] = []
+    @Published var clubID: Int = 0
+    var schoolList: [HighSchoolType] = HighSchoolType.allCases
     
     private let queryClubListUseCase: any QueryClubListUseCase
     
@@ -13,6 +15,10 @@ final class ClubListViewModel: BaseViewModel {
         queryClubListUseCase: any QueryClubListUseCase
     ) {
         self.queryClubListUseCase = queryClubListUseCase
+    }
+    
+    func updateClubID(clubID: Int) {
+        self.clubID = clubID
     }
 
     @MainActor

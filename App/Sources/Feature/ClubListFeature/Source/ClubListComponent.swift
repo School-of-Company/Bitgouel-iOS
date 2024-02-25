@@ -4,6 +4,7 @@ import SwiftUI
 
 public protocol ClubListDependency: Dependency {
     var queryClubListUseCase: any QueryClubListUseCase { get }
+    var clubDetailFactory: any ClubDetailFactory { get }
 }
 
 public final class ClubListComponent: Component<ClubListDependency>, ClubListFactory {
@@ -11,7 +12,8 @@ public final class ClubListComponent: Component<ClubListDependency>, ClubListFac
         ClubListView(
             viewModel: .init(
                 queryClubListUseCase: dependency.queryClubListUseCase
-            )
+            ),
+            clubDetailFactory: dependency.clubDetailFactory
         )
     }
 }

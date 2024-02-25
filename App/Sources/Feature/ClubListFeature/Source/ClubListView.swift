@@ -4,14 +4,19 @@ struct ClubListView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: ClubListViewModel
 
-    init(viewModel: ClubListViewModel) {
+    private let clubDetailFactory: any ClubDetailFactory
+
+    init(
+        viewModel: ClubListViewModel,
+        clubDetailFactory: any ClubDetailFactory
+    ) {
         _viewModel = StateObject(wrappedValue: viewModel)
+        self.clubDetailFactory = clubDetailFactory
     }
 
     var body: some View {
         NavigationView {
             ZStack {
-                
                 if viewModel.selectedSchool == nil {
                     ClubListEmptyContentView()
                 }
@@ -35,6 +40,10 @@ struct ClubListView: View {
                             LazyVStack(spacing: 0) {
                                 ForEach(viewModel.clubList, id: \.id) { club in
                                     ClubListRow(clubName: club.name)
+                                        .onTapGesture {
+                                            viewModel.updateClubID(clubID: club.id)
+                                            viewModel.isPresentedClubDetailView = true
+                                        }
                                 }
                             }
                             .padding(.top, 8)
@@ -44,7 +53,7 @@ struct ClubListView: View {
                         .padding(.horizontal, 28)
                     }
                 }
-
+                
                 ZStack(alignment: .center) {
                     if viewModel.isPresentedSelectedSchoolPopup {
                         Color.black.opacity(0.4)
@@ -52,7 +61,7 @@ struct ClubListView: View {
                             .onTapGesture {
                                 viewModel.isPresentedSelectedSchoolPopup = false
                             }
-
+                        
                         SchoolListPopup(
                             schoolList: viewModel.schoolList,
                             selectedSchool: viewModel.selectedSchool
@@ -80,6 +89,13 @@ struct ClubListView: View {
                     }
                 }
             }
+            .navigate(
+                to: clubDetailFactory.makeView(clubID: viewModel.clubID).eraseToAnyView(),
+                when: Binding(
+                    get: { viewModel.isPresentedClubDetailView },
+                    set: { state in viewModel.isPresentedClubDetailView = state }
+                )
+            )
         }
     }
 }
