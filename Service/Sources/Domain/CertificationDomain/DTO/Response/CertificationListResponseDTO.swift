@@ -21,6 +21,12 @@ public struct CertificationListResponseDTO: Decodable {
             self.name = name
             self.acquisitionDate = acquisitionDate
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case certificationID = "certificationId"
+            case name
+            case acquisitionDate
+        }
     }
 }
 
