@@ -15,12 +15,10 @@ final class EditPostViewModel: BaseViewModel {
     
     func updateTitle(title: String) {
         modifiedTitle = title
-        print(modifiedTitle)
     }
     
     func updateContent(content: String) {
         modifiedContent = content
-        print(modifiedContent)
     }
     
     func updateLinks(links: [String]) {
