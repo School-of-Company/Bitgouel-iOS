@@ -3,6 +3,9 @@ import Foundation
 final class CertificationListViewModel: BaseViewModel {
     @Published var isPresentedAlterBottomSheet: Bool = false
     @Published var isPresentedActivityListView: Bool = false
+    @Published var isPresentedInputCertificationView: Bool = false
+    @Published var certificationName: String = ""
+    @Published var acquisitionDate = Date()
     var studentID: String = ""
 
     init(
@@ -11,11 +14,20 @@ final class CertificationListViewModel: BaseViewModel {
         self.studentID = studentID
     }
 
-    func isPresentedAlterBottomSheet(state: Bool) {
-        isPresentedAlterBottomSheet = state
+    func updateIsPresentedAlterBottomSheet(isPresented: Bool) {
+        isPresentedAlterBottomSheet = isPresented
     }
 
-    func isPresentedActivityListView(state: Bool) {
-        isPresentedActivityListView = state
+    func updateIsPresentedActivityListView(isPresented: Bool) {
+        isPresentedActivityListView = isPresented
+    }
+
+    func updateIsPresentedInputCertificationView(isPresented: Bool) {
+        isPresentedInputCertificationView = isPresented
+    }
+
+    func updateCertificationInfo(name: String, date: Date) {
+        certificationName = name
+        acquisitionDate = date
     }
 }

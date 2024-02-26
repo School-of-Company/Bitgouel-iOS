@@ -4,6 +4,7 @@ import SwiftUI
 
 public protocol CertificationListDependency: Dependency {
     var activityListFactory: any ActivityListFactory { get }
+    var inputCertificationFactory: any InputCertificationFactory { get }
 }
 
 public final class CertificationListComponent: Component<CertificationListDependency>, CertificationListFactory {
@@ -12,7 +13,8 @@ public final class CertificationListComponent: Component<CertificationListDepend
             viewModel: .init(
                 studentID: studentID
             ),
-            activityListFactory: dependency.activityListFactory
+            activityListFactory: dependency.activityListFactory,
+            inputCertificationFactory: dependency.inputCertificationFactory
         )
     }
 }
