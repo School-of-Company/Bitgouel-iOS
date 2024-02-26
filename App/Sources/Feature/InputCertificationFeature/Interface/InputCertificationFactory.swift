@@ -1,9 +1,10 @@
-//
-//  InputCertificationFactory.swift
-//  Bitgouel
-//
-//  Created by 정윤서 on 2/26/24.
-//  Copyright © 2024 team.msg. All rights reserved.
-//
+import SwiftUI
 
-import Foundation
+public protocol InputCertificationFactory {
+    associatedtype SomeView: View
+    func makeView(
+        certificationName: String,
+        acquisitionDate: Date,
+        completion: @escaping (String, Date) -> Void
+    ) -> SomeView
+}
