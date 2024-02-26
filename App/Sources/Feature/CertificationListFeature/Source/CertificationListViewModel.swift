@@ -4,8 +4,6 @@ final class CertificationListViewModel: BaseViewModel {
     @Published var isPresentedAlterBottomSheet: Bool = false
     @Published var isPresentedActivityListView: Bool = false
     @Published var isPresentedInputCertificationView: Bool = false
-    @Published var certificationName: String = ""
-    @Published var acquisitionDate = Date()
     var studentID: String = ""
 
     init(
@@ -24,10 +22,5 @@ final class CertificationListViewModel: BaseViewModel {
 
     func updateIsPresentedInputCertificationView(isPresented: Bool) {
         isPresentedInputCertificationView = isPresented
-    }
-
-    func updateCertificationInfo(name: String, date: Date) {
-        certificationName = name
-        acquisitionDate = date
     }
 }

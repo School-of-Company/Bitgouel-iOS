@@ -128,9 +128,6 @@ private class RootDependency3944cc797a4a88956fb5Provider: RootDependency {
     var loginFactory: any LoginFactory {
         return appComponent.loginFactory
     }
-    var certificationListFactory: any CertificationListFactory {
-        return appComponent.certificationListFactory
-    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -413,7 +410,6 @@ extension StudentSignUpComponent: Registration {
 extension RootComponent: Registration {
     public func registerItems() {
         keyPathToName[\RootDependency.loginFactory] = "loginFactory-any LoginFactory"
-        keyPathToName[\RootDependency.certificationListFactory] = "certificationListFactory-any CertificationListFactory"
     }
 }
 extension PostListComponent: Registration {

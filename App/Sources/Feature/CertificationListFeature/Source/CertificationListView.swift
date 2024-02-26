@@ -127,15 +127,7 @@ struct CertificationListView: View {
                 )
             ) {
                 DeferView {
-                    inputCertificationFactory.makeView(
-                        certificationName: viewModel.certificationName,
-                        acquisitionDate: viewModel.acquisitionDate
-                    ) { name, date in
-                        viewModel.updateCertificationInfo(
-                            name: name,
-                            date: date
-                        )
-                    }.eraseToAnyView()
+                    inputCertificationFactory.makeView().eraseToAnyView()
                 }
             }
             .navigationTitle("학생 정보")
