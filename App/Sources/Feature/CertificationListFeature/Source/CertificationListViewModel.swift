@@ -4,6 +4,7 @@ final class CertificationListViewModel: BaseViewModel {
     @Published var isPresentedAlterBottomSheet: Bool = false
     @Published var isPresentedActivityListView: Bool = false
     @Published var isPresentedInputCertificationView: Bool = false
+    @Published var selectedEpic: String = ""
     var studentID: String = ""
 
     init(
@@ -22,5 +23,9 @@ final class CertificationListViewModel: BaseViewModel {
 
     func updateIsPresentedInputCertificationView(isPresented: Bool) {
         isPresentedInputCertificationView = isPresented
+    }
+    
+    func updateEpic(epic: String) {
+        selectedEpic = epic
     }
 }

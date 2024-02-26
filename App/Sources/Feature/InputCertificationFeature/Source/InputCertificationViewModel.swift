@@ -4,11 +4,16 @@ import Service
 final class InputCertificationViewModel: BaseViewModel {
     @Published var certificationName: String = ""
     @Published var acquisitionDate = Date()
-    
+    var epic: String = ""
+
     private let inputCertificationUseCase: any InputCertificationUseCase
     
-    init(inputCertificationUseCase: any InputCertificationUseCase) {
+    init(
+        inputCertificationUseCase: any InputCertificationUseCase,
+        epic: String
+    ) {
         self.inputCertificationUseCase = inputCertificationUseCase
+        self.epic = epic
     }
 
     func updateDate(date: Date) {

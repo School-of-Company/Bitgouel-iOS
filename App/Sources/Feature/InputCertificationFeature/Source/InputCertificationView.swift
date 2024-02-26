@@ -53,7 +53,7 @@ struct InputCertificationView: View {
                 Spacer()
 
                 CTAButton(
-                    text: "적용하기",
+                    text: "\(viewModel.epic)하기",
                     style: .default
                 ) {
                     viewModel.applyButtonDidTap()
@@ -61,7 +61,7 @@ struct InputCertificationView: View {
                 }
             }
             .padding(.horizontal, 28)
-            .navigationTitle("자격증 등록")
+            .navigationTitle("자격증 \(viewModel.epic)")
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button {
