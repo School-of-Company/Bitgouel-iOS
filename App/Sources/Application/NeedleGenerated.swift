@@ -34,15 +34,17 @@ private func factoryfd208488fdd5cb4acc65f47b58f8f304c97af4d5(_ component: Needle
     return InputPostDependency2bb888f6c56a6060d23fProvider(appComponent: parent1(component) as! AppComponent)
 }
 private class InputCertificationDependency4e950d4995ce855c5cd5Provider: InputCertificationDependency {
-
-
-    init() {
-
+    var inputCertificationUseCase: any InputCertificationUseCase {
+        return appComponent.inputCertificationUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->InputCertificationComponent
-private func factory2810b45b31199a5f0c2ae3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return InputCertificationDependency4e950d4995ce855c5cd5Provider()
+private func factory2810b45b31199a5f0c2af47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return InputCertificationDependency4e950d4995ce855c5cd5Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class ClubListDependency90c6e61626f7c53ad50fProvider: ClubListDependency {
 
@@ -372,7 +374,7 @@ extension InputPostComponent: Registration {
 }
 extension InputCertificationComponent: Registration {
     public func registerItems() {
-
+        keyPathToName[\InputCertificationDependency.inputCertificationUseCase] = "inputCertificationUseCase-any InputCertificationUseCase"
     }
 }
 extension ClubListComponent: Registration {
@@ -594,7 +596,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
 
 @inline(never) private func register1() {
     registerProviderFactory("^->AppComponent->InputPostComponent", factoryfd208488fdd5cb4acc65f47b58f8f304c97af4d5)
-    registerProviderFactory("^->AppComponent->InputCertificationComponent", factory2810b45b31199a5f0c2ae3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->InputCertificationComponent", factory2810b45b31199a5f0c2af47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ClubListComponent", factory050817f1b6d356b83467e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->LectureListDetailComponent", factory22af859a70aa8ba0b346f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->NoticeListComponent", factorye14e687c08985bdffcd0e3b0c44298fc1c149afb)

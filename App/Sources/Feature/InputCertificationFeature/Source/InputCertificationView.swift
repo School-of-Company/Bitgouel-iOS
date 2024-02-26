@@ -56,6 +56,7 @@ struct InputCertificationView: View {
                     text: "적용하기",
                     style: .default
                 ) {
+                    viewModel.applyButtonDidTap()
                     dismiss()
                 }
             }
