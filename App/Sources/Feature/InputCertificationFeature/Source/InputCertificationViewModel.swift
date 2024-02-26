@@ -13,11 +13,13 @@ final class InputCertificationViewModel: BaseViewModel {
     init(
         inputCertificationUseCase: any InputCertificationUseCase,
         updateCertificationUseCase: any UpdateCertificationUseCase,
-        epic: String
+        epic: String,
+        certificationID: String
     ) {
         self.inputCertificationUseCase = inputCertificationUseCase
         self.updateCertificationUseCase = updateCertificationUseCase
         self.epic = epic
+        self.certificationID = certificationID
     }
 
     func updateDate(date: Date) {

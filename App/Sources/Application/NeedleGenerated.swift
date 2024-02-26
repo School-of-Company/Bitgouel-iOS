@@ -37,6 +37,9 @@ private class InputCertificationDependency4e950d4995ce855c5cd5Provider: InputCer
     var inputCertificationUseCase: any InputCertificationUseCase {
         return appComponent.inputCertificationUseCase
     }
+    var updateCertificationUseCase: any UpdateCertificationUseCase {
+        return appComponent.updateCertificationUseCase
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -375,6 +378,7 @@ extension InputPostComponent: Registration {
 extension InputCertificationComponent: Registration {
     public func registerItems() {
         keyPathToName[\InputCertificationDependency.inputCertificationUseCase] = "inputCertificationUseCase-any InputCertificationUseCase"
+        keyPathToName[\InputCertificationDependency.updateCertificationUseCase] = "updateCertificationUseCase-any UpdateCertificationUseCase"
     }
 }
 extension ClubListComponent: Registration {

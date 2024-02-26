@@ -8,12 +8,16 @@ public protocol InputCertificationDependency: Dependency {
 }
 
 public final class InputCertificationComponent: Component<InputCertificationDependency>, InputCertificationFactory {
-    public func makeView(epic: String) -> some View {
+    public func makeView(
+        epic: String,
+        certificationID: String
+    ) -> some View {
         InputCertificationView(
             viewModel: .init(
                 inputCertificationUseCase: dependency.inputCertificationUseCase,
                 updateCertificationUseCase: dependency.updateCertificationUseCase,
-                epic: epic
+                epic: epic,
+                certificationID: certificationID
             )
         )
     }

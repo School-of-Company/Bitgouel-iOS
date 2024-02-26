@@ -133,7 +133,10 @@ struct CertificationListView: View {
                 )
             ) {
                 DeferView {
-                    inputCertificationFactory.makeView(epic: viewModel.selectedEpic).eraseToAnyView()
+                    inputCertificationFactory.makeView(
+                        epic: viewModel.selectedEpic,
+                        certificationID: viewModel.certificationID
+                    ).eraseToAnyView()
                 }
             }
             .navigationTitle("학생 정보")
