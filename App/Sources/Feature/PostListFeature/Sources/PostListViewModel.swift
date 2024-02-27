@@ -42,7 +42,7 @@ final class PostListViewModel: BaseViewModel {
             }
         }
     }
-    
+
     func seletePost(postID: String) {
         seletedPostID = postID
     }

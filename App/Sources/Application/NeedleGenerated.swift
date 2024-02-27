@@ -207,6 +207,12 @@ private class EditPostDependency2fc4e7c9e3795c6e218eProvider: EditPostDependency
     var postDetailSettingFactory: any PostDetailSettingFactory {
         return appComponent.postDetailSettingFactory
     }
+    var queryPostDetailUseCase: any QueryPostDetailUseCase {
+        return appComponent.queryPostDetailUseCase
+    }
+    var updatePostUseCase: any UpdatePostUseCase {
+        return appComponent.updatePostUseCase
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -411,6 +417,8 @@ extension InquiryListComponent: Registration {
 extension EditPostComponent: Registration {
     public func registerItems() {
         keyPathToName[\EditPostDependency.postDetailSettingFactory] = "postDetailSettingFactory-any PostDetailSettingFactory"
+        keyPathToName[\EditPostDependency.queryPostDetailUseCase] = "queryPostDetailUseCase-any QueryPostDetailUseCase"
+        keyPathToName[\EditPostDependency.updatePostUseCase] = "updatePostUseCase-any UpdatePostUseCase"
     }
 }
 extension ActivityListComponent: Registration {

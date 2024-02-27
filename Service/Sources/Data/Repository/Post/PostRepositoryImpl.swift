@@ -19,7 +19,7 @@ public struct PostRepositoryImpl: PostRepository {
         try await remotePostDataSource.queryPostDetail(postID: postID)
     }
 
-    public func updatePost(postID: String, req: InputPostRequestDTO) async throws {
+    public func updatePost(postID: String, req: UpdatePostRequestDTO) async throws {
         try await remotePostDataSource.updatePost(postID: postID, req: req)
     }
 

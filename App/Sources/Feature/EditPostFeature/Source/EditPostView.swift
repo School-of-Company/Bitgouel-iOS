@@ -3,9 +3,9 @@ import SwiftUI
 struct EditPostView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: EditPostViewModel
-    
+
     private let postDetailSettingFactory: any PostDetailSettingFactory
-    
+
     init(
         viewModel: EditPostViewModel,
         postDetailSettingFactory: any PostDetailSettingFactory
@@ -13,7 +13,7 @@ struct EditPostView: View {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.postDetailSettingFactory = postDetailSettingFactory
     }
-    
+
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
@@ -24,6 +24,7 @@ struct EditPostView: View {
                         viewModel.isPresentedDetailSetting(state: true)
                     },
                     finalButtonAction: {
+                        viewModel.updatePost()
                         dismiss()
                     },
                     title: Binding(
@@ -35,6 +36,9 @@ struct EditPostView: View {
                         set: { text in viewModel.updateContent(content: text) }
                     )
                 )
+            }
+            .onAppear {
+                viewModel.onAppear()
             }
         }
         .fullScreenCover(
