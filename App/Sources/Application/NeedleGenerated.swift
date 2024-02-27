@@ -82,15 +82,17 @@ private func factory22af859a70aa8ba0b346f47b58f8f304c97af4d5(_ component: Needle
     return LectureListDetailDependency2a815f1240973966e6a6Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class NoticeListDependency0e93eb53be8626c408e4Provider: NoticeListDependency {
-
-
-    init() {
-
+    var inquiryListFactory: any InquiryListFactory {
+        return appComponent.inquiryListFactory
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->NoticeListComponent
-private func factorye14e687c08985bdffcd0e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return NoticeListDependency0e93eb53be8626c408e4Provider()
+private func factorye14e687c08985bdffcd0f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return NoticeListDependency0e93eb53be8626c408e4Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class SignUpDependencyf83ac0c64026320e6dc2Provider: SignUpDependency {
     var studentSignupUseCase: any StudentSignupUseCase {
@@ -381,7 +383,7 @@ extension LectureListDetailComponent: Registration {
 }
 extension NoticeListComponent: Registration {
     public func registerItems() {
-
+        keyPathToName[\NoticeListDependency.inquiryListFactory] = "inquiryListFactory-any InquiryListFactory"
     }
 }
 extension SignUpComponent: Registration {
@@ -582,7 +584,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->InputPostComponent", factoryfd208488fdd5cb4acc65f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ClubListComponent", factory050817f1b6d356b83467f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->LectureListDetailComponent", factory22af859a70aa8ba0b346f47b58f8f304c97af4d5)
-    registerProviderFactory("^->AppComponent->NoticeListComponent", factorye14e687c08985bdffcd0e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->NoticeListComponent", factorye14e687c08985bdffcd0f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->SignUpComponent", factory306e8ce5cfdf41304709f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ActivityDetailSettingComponent", factoryfd595280dea209e217b9e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->RootComponent", factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5)
