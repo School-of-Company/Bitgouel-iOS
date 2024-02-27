@@ -111,7 +111,10 @@ struct CertificationListView: View {
                     set: { state in viewModel.updateIsPresentedAlterBottomSheet(isPresented: state) }
                 ),
                 deleteAction: {},
-                editAction: {}
+                editAction: {
+                    viewModel.updateEpic(epic: "수정")
+                    viewModel.updateIsPresentedInputCertificationView(isPresented: true)
+                }
             )
             .navigate(
                 to: activityListFactory.makeView(studentID: viewModel.studentID).eraseToAnyView(),
@@ -123,11 +126,17 @@ struct CertificationListView: View {
             .fullScreenCover(
                 isPresented: Binding(
                     get: { viewModel.isPresentedInputCertificationView },
-                    set: { state in viewModel.updateIsPresentedInputCertificationView(isPresented: state) }
+                    set: { state in 
+                        viewModel.updateEpic(epic: "등록")
+                        viewModel.updateIsPresentedInputCertificationView(isPresented: state)
+                    }
                 )
             ) {
                 DeferView {
-                    inputCertificationFactory.makeView().eraseToAnyView()
+                    inputCertificationFactory.makeView(
+                        epic: viewModel.selectedEpic,
+                        certificationID: viewModel.certificationID
+                    ).eraseToAnyView()
                 }
             }
             .navigationTitle("학생 정보")
