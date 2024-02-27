@@ -9,11 +9,11 @@ struct LoginView: View {
 
     @FocusState private var focusField: FocusField?
     @StateObject var viewModel: LoginViewModel
-    private let signupFactory: any StudentSignUpFactory
+    private let signupFactory: any SignUpFactory
 
     init(
         viewModel: LoginViewModel,
-        signupFactory: any StudentSignUpFactory
+        signupFactory: any SignUpFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.signupFactory = signupFactory
@@ -92,5 +92,6 @@ struct LoginView: View {
                 )
             }
         }
+        .navigationBarBackButtonHidden(true)
     }
 }

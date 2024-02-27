@@ -4,18 +4,23 @@ struct ClubListView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: ClubListViewModel
 
-    init(viewModel: ClubListViewModel) {
+    private let clubDetailFactory: any ClubDetailFactory
+
+    init(
+        viewModel: ClubListViewModel,
+        clubDetailFactory: any ClubDetailFactory
+    ) {
         _viewModel = StateObject(wrappedValue: viewModel)
+        self.clubDetailFactory = clubDetailFactory
     }
 
     var body: some View {
         NavigationView {
             ZStack {
-                
                 if viewModel.selectedSchool == nil {
                     ClubListEmptyContentView()
                 }
-                
+
                 if viewModel.selectedSchool != nil {
                     ScrollView {
                         VStack(spacing: 0) {
@@ -24,17 +29,25 @@ struct ClubListView: View {
                                     text: viewModel.selectedSchool?.display() ?? "",
                                     font: .title3
                                 )
-                                
+
                                 Spacer()
                             }
                             .padding(.top, 40)
-                            
+
                             Divider()
                                 .padding(.top, 12)
-                            
-                            ClubListRow(clubName: "동아리 이름")
-                                .padding(.top, 12)
-                            
+
+                            LazyVStack(spacing: 0) {
+                                ForEach(viewModel.clubList, id: \.id) { club in
+                                    ClubListRow(clubName: club.name)
+                                        .onTapGesture {
+                                            viewModel.updateClubID(clubID: club.id)
+                                            viewModel.isPresentedClubDetailView = true
+                                        }
+                                }
+                            }
+                            .padding(.top, 8)
+
                             Spacer()
                         }
                         .padding(.horizontal, 28)
@@ -54,6 +67,7 @@ struct ClubListView: View {
                             selectedSchool: viewModel.selectedSchool
                         ) { school in
                             viewModel.selectedSchool = school
+                            viewModel.fetchClubList()
                             viewModel.isPresentedSelectedSchoolPopup = false
                         } cancel: { cancle in
                             viewModel.isPresentedSelectedSchoolPopup = cancle
@@ -75,6 +89,13 @@ struct ClubListView: View {
                     }
                 }
             }
+            .navigate(
+                to: clubDetailFactory.makeView(clubID: viewModel.clubID).eraseToAnyView(),
+                when: Binding(
+                    get: { viewModel.isPresentedClubDetailView },
+                    set: { state in viewModel.isPresentedClubDetailView = state }
+                )
+            )
         }
     }
 }

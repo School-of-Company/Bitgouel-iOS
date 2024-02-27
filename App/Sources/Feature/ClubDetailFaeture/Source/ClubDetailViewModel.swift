@@ -6,20 +6,20 @@ final class ClubDetailViewModel: BaseViewModel {
     @Published var isPresentedCertificationView: Bool = false
     @Published var studentID: String = ""
 
-    //MARK: ClubInfo
-    private let clubID: String
+    // MARK: ClubInfo
+    private var clubID: Int = 0
     @Published var clubName: String = ""
     @Published var highSchoolName: String = ""
     @Published var students: [ClubDetailEntity.memberInfoEntity] = []
     @Published var teacher: ClubDetailEntity.memberInfoEntity?
 
-    //MARK: UseCase
+    // MARK: UseCase
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
     private let queryClubDetailUseCase: any QueryClubDetailUseCase
     private let queryStudentListByClubUseCase: any QueryStudentListByClubUseCase
 
     init(
-        clubID: String,
+        clubID: Int,
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
         queryClubDetailUseCase: any QueryClubDetailUseCase,
         queryStudentListByClubUseCase: any QueryStudentListByClubUseCase
@@ -52,7 +52,7 @@ final class ClubDetailViewModel: BaseViewModel {
         }
     }
 
-    func onAppearClubDetailByAdmin(clubID: String) async throws -> ClubDetailEntity {
+    func onAppearClubDetailByAdmin(clubID: Int) async throws -> ClubDetailEntity {
         return try await queryClubDetailUseCase(clubID: clubID)
     }
 

@@ -1,12 +1,12 @@
 import Foundation
 
 public final class RemoteClubDataSourceImpl: BaseRemoteDataSource<ClubAPI>, RemoteClubDataSource {
-    public func queryClubList() async throws -> [ClubEntity] {
-        try await request(.queryClubList, dto: ClubListResponseDTO.self)
+    public func queryClubList(highSchool: String) async throws -> [ClubEntity] {
+        try await request(.queryClubList(highSchool: highSchool), dto: ClubListResponseDTO.self)
             .toDomain()
     }
 
-    public func queryClubDetail(clubID: String) async throws -> ClubDetailEntity {
+    public func queryClubDetail(clubID: Int) async throws -> ClubDetailEntity {
         try await request(.queryClubDetail(clubID: clubID), dto: ClubDetailResponseDTO.self)
             .toDomain()
     }
@@ -16,7 +16,7 @@ public final class RemoteClubDataSourceImpl: BaseRemoteDataSource<ClubAPI>, Remo
             .toDomain()
     }
 
-    public func queryStudentDetailByClub(clubID: String, studentID: String) async throws -> StudentDetailByClubEntity {
+    public func queryStudentDetailByClub(clubID: Int, studentID: String) async throws -> StudentDetailByClubEntity {
         try await request(
             .queryStudentDetailByClub(clubID: clubID, studentID: studentID),
             dto: StudentDetailByClubResponseDTO.self

@@ -4,7 +4,7 @@ import SwiftUI
 
 public protocol LoginDependency: Dependency {
     var loginUseCase: any LoginUseCase { get }
-    var signupFactory: any StudentSignUpFactory { get }
+    var signupFactory: any SignUpFactory { get }
     var saveUserAuthorityUseCase: any SaveUserAuthorityUseCase { get }
 }
 
