@@ -2,7 +2,7 @@ import Foundation
 
 public struct PostDetailResponseDTO: Decodable {
     public let title: String
-    public let writer: String
+    public let writtenBy: Bool
     public let content: String
     public let feedType: FeedType
     public let modifiedAt: String
@@ -10,14 +10,14 @@ public struct PostDetailResponseDTO: Decodable {
 
     public init(
         title: String,
-        writer: String,
+        writtenBy: Bool,
         content: String,
         feedType: FeedType,
         modifiedAt: String,
         links: [String]
     ) {
         self.title = title
-        self.writer = writer
+        self.writtenBy = writtenBy
         self.content = content
         self.feedType = feedType
         self.modifiedAt = modifiedAt
@@ -29,7 +29,7 @@ extension PostDetailResponseDTO {
     func toDomain() -> PostDetailEntity {
         PostDetailEntity(
             title: title,
-            writer: writer,
+            writtenBy: writtenBy,
             content: content,
             feedType: feedType,
             modifiedAt: modifiedAt,
