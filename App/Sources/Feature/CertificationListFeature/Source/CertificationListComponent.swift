@@ -8,6 +8,7 @@ public protocol CertificationListDependency: Dependency {
     var queryStudentDetailByClubUseCase: any QueryStudentDetailByClubUseCase { get }
     var queryCertificationListByStudentUseCase: any QueryCertificationListByStudentUseCase { get }
     var queryCertificationListByTeacherUseCase: any QueryCertificationListByTeacherUseCase { get }
+    var inputCertificationFactory: any InputCertificationFactory { get }
 }
 
 public final class CertificationListComponent: Component<CertificationListDependency>, CertificationListFactory {
@@ -25,7 +26,8 @@ public final class CertificationListComponent: Component<CertificationListDepend
                 queryCertificationListByStudent: dependency.queryCertificationListByStudentUseCase,
                 queryCertificationListByTeacher: dependency.queryCertificationListByTeacherUseCase
             ),
-            activityListFactory: dependency.activityListFactory
+            activityListFactory: dependency.activityListFactory,
+            inputCertificationFactory: dependency.inputCertificationFactory
         )
     }
 }

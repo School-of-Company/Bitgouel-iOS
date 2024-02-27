@@ -94,4 +94,8 @@ public extension AppComponent {
     var certificationListFactory: any CertificationListFactory {
         CertificationListComponent(parent: self)
     }
+
+    var inputCertificationFactory: any InputCertificationFactory {
+        InputCertificationComponent(parent: self)
+    }
 }

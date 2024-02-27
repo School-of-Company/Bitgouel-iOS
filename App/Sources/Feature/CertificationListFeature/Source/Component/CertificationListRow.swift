@@ -45,4 +45,3 @@ struct CertificationListRow: View {
         .padding(.vertical, 8)
     }
 }
-

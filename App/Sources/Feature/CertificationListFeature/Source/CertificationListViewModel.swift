@@ -7,6 +7,9 @@ final class CertificationListViewModel: BaseViewModel {
     @Published var studentInfo: StudentDetailByClubEntity?
     @Published var certificationList: [CertificationInfoEntity] = []
     @Published var authority: UserAuthorityType = .user
+    @Published var isPresentedInputCertificationView: Bool = false
+    @Published var selectedEpic: String = ""
+    @Published var certificationID: String = ""
     var studentID: String = ""
     var clubID: Int = 0
 
@@ -31,8 +34,16 @@ final class CertificationListViewModel: BaseViewModel {
         self.queryCertificationListByTeacher = queryCertificationListByTeacher
     }
 
-    func isPresentedActivityListView(state: Bool) {
-        isPresentedActivityListView = state
+    func updateIsPresentedActivityListView(isPresented: Bool) {
+        isPresentedActivityListView = isPresented
+    }
+
+    func updateIsPresentedInputCertificationView(isPresented: Bool) {
+        isPresentedInputCertificationView = isPresented
+    }
+    
+    func updateEpic(epic: String) {
+        selectedEpic = epic
     }
 
     func onAppear() {

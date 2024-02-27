@@ -4,13 +4,16 @@ struct CertificationListView: View {
     @StateObject var viewModel: CertificationListViewModel
     
     private let activityListFactory: any ActivityListFactory
+    private let inputCertificationFactory: any InputCertificationFactory
     
     init(
         viewModel: CertificationListViewModel,
-        activityListFactory: any ActivityListFactory
+        activityListFactory: any ActivityListFactory,
+        inputCertificationFactory: any InputCertificationFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.activityListFactory = activityListFactory
+        self.inputCertificationFactory = inputCertificationFactory
     }
     
     var body: some View {
@@ -79,7 +82,9 @@ struct CertificationListView: View {
                 
                 Spacer()
                 
-                Button {} label: {
+                Button {
+                    viewModel.updateIsPresentedInputCertificationView(isPresented: true)
+                } label: {
                     BitgouelAsset.Icons.add.swiftUIImage
                 }
             }
@@ -99,25 +104,38 @@ struct CertificationListView: View {
                     }
                 }
             }
-        }
-        .padding(.horizontal, 28)
-        .onAppear {
-            viewModel.onAppear()
-        }
-        .navigate(
-            to: activityListFactory.makeView(studentID: viewModel.studentID).eraseToAnyView(),
-            when: Binding(
-                get: { viewModel.isPresentedActivityListView },
-                set: { state in viewModel.isPresentedActivityListView(state: state) }
+            .padding(.horizontal, 28)
+            .navigate(
+                to: activityListFactory.makeView(studentID: viewModel.studentID).eraseToAnyView(),
+                when: Binding(
+                    get: { viewModel.isPresentedActivityListView },
+                    set: { state in viewModel.updateIsPresentedActivityListView(isPresented: state) }
+                )
             )
-        )
-        .navigationTitle("학생 정보")
-        .toolbar {
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
-                Button {
-                    viewModel.isPresentedActivityListView(state: true)
-                } label: {
-                    BitgouelAsset.Icons.person.swiftUIImage
+            .fullScreenCover(
+                isPresented: Binding(
+                    get: { viewModel.isPresentedInputCertificationView },
+                    set: { state in
+                        viewModel.updateEpic(epic: "등록")
+                        viewModel.updateIsPresentedInputCertificationView(isPresented: state)
+                    }
+                )
+            ) {
+                DeferView {
+                    inputCertificationFactory.makeView(
+                        epic: viewModel.selectedEpic,
+                        certificationID: viewModel.certificationID
+                    ).eraseToAnyView()
+                }
+            }
+            .navigationTitle("학생 정보")
+            .toolbar {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Button {
+                        viewModel.updateIsPresentedActivityListView(isPresented: true)
+                    } label: {
+                        BitgouelAsset.Icons.person.swiftUIImage
+                    }
                 }
             }
         }
