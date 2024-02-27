@@ -2,10 +2,10 @@ import SwiftUI
 
 struct CertificationListView: View {
     @StateObject var viewModel: CertificationListViewModel
-    
+
     private let activityListFactory: any ActivityListFactory
     private let inputCertificationFactory: any InputCertificationFactory
-    
+
     init(
         viewModel: CertificationListViewModel,
         activityListFactory: any ActivityListFactory,
@@ -15,7 +15,7 @@ struct CertificationListView: View {
         self.activityListFactory = activityListFactory
         self.inputCertificationFactory = inputCertificationFactory
     }
-    
+
     var body: some View {
         VStack(spacing: 24) {
             if let studentInfo = viewModel.studentInfo {
@@ -24,45 +24,45 @@ struct CertificationListView: View {
                         text: studentInfo.name,
                         font: .title2
                     )
-                    
+
                     HStack {
                         BitgouelText(
                             text: "총 학점",
                             font: .text3
                         )
-                        
+
                         Spacer()
-                        
+
                         BitgouelText(
                             text: "\(studentInfo.credit)",
                             font: .text3
                         )
                     }
                     .foregroundColor(.bitgouel(.primary(.p5)))
-                    
+
                     HStack {
                         BitgouelText(
                             text: "이메일",
                             font: .caption
                         )
-                        
+
                         Spacer()
-                        
+
                         BitgouelText(
                             text: studentInfo.email,
                             font: .text2
                         )
                     }
                     .foregroundColor(.bitgouel(.greyscale(.g4)))
-                    
+
                     HStack {
                         BitgouelText(
                             text: "전화번호",
                             font: .caption
                         )
-                        
+
                         Spacer()
-                        
+
                         BitgouelText(
                             text: studentInfo.phoneNumber,
                             font: .caption
@@ -71,24 +71,24 @@ struct CertificationListView: View {
                 }
                 .padding(.top, 24)
             }
-            
+
             Divider()
-            
+
             HStack {
                 BitgouelText(
                     text: "자격증",
                     font: .title3
                 )
-                
+
                 Spacer()
-                
+
                 Button {
                     viewModel.updateIsPresentedInputCertificationView(isPresented: true)
                 } label: {
                     BitgouelAsset.Icons.add.swiftUIImage
                 }
             }
-            
+
             ScrollView(showsIndicators: false) {
                 LazyVStack(spacing: 0) {
                     ForEach(viewModel.certificationList, id: \.certificationID) { certification in
@@ -99,7 +99,7 @@ struct CertificationListView: View {
                         ) {
                             print("edit")
                         }
-                        
+
                         Divider()
                     }
                 }

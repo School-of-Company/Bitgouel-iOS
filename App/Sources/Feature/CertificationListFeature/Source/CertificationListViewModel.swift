@@ -41,7 +41,7 @@ final class CertificationListViewModel: BaseViewModel {
     func updateIsPresentedInputCertificationView(isPresented: Bool) {
         isPresentedInputCertificationView = isPresented
     }
-    
+
     func updateEpic(epic: String) {
         selectedEpic = epic
     }
