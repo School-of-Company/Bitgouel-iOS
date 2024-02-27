@@ -13,7 +13,7 @@ public final class RemotePostDataSourceImpl: BaseRemoteDataSource<PostAPI>, Remo
         try await request(.queryPostDetail(postID: postID), dto: PostDetailResponseDTO.self).toDomain()
     }
 
-    public func updatePost(postID: String, req: InputPostRequestDTO) async throws {
+    public func updatePost(postID: String, req: UpdatePostRequestDTO) async throws {
         try await request(.updatePost(postID: postID, req: req))
     }
 

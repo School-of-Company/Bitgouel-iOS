@@ -3,9 +3,9 @@ import SwiftUI
 struct InputPostView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: InputPostViewModel
-    
+
     private let postDetailSettingFactory: any PostDetailSettingFactory
-    
+
     init(
         viewModel: InputPostViewModel,
         postDetailSettingFactory: any PostDetailSettingFactory
@@ -13,7 +13,7 @@ struct InputPostView: View {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.postDetailSettingFactory = postDetailSettingFactory
     }
-    
+
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {

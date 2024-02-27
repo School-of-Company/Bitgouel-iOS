@@ -1,6 +1,6 @@
 import NeedleFoundation
-import SwiftUI
 import Service
+import SwiftUI
 
 public protocol InputPostDependency: Dependency {
     var postDetailSettingFactory: any PostDetailSettingFactory { get }
