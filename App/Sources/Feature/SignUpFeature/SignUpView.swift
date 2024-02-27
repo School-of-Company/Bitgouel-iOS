@@ -1,9 +1,19 @@
 import Service
 import SwiftUI
 
-struct StudentSignUpView: View {
-    @StateObject var viewModel: StudentSignUpViewModel
-    @State var isShowingSuccessView = false
+struct SignUpView: View {
+    @Environment(\.dismiss) var dismiss
+    @StateObject var viewModel: SignUpViewModel
+
+    private let successSignUpFactory: any SuccessSignUpFactory
+
+    init(
+        viewModel: SignUpViewModel,
+        successSignUpFactory: any SuccessSignUpFactory
+    ) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+        self.successSignUpFactory = successSignUpFactory
+    }
 
     var body: some View {
         NavigationView {
@@ -131,14 +141,14 @@ struct StudentSignUpView: View {
             userRoleTypeView()
         }
         .animation(.default, value: viewModel.selectedAssociation)
-        .background(
-            NavigationLink(
-                destination: SuccessSignUpView(),
-                isActive: $isShowingSuccessView,
-                label: { EmptyView() }
+        .navigate(
+            to: successSignUpFactory.makeView().eraseToAnyView(),
+            when: Binding(
+                get: { viewModel.isShowingSuccessView },
+                set: { _ in viewModel.isShowingSuccessView = false }
             )
         )
-        .navigationBarHidden(true)
+        .bitgouelBackButton(dismiss: dismiss)
     }
 
     @ViewBuilder

@@ -1,8 +1,8 @@
 import Foundation
 
 public protocol RemoteClubDataSource: BaseRemoteDataSource<ClubAPI> {
-    func queryClubList() async throws -> [ClubEntity]
-    func queryClubDetail(clubID: String) async throws -> ClubDetailEntity
+    func queryClubList(highSchool: String) async throws -> [ClubEntity]
+    func queryClubDetail(clubID: Int) async throws -> ClubDetailEntity
     func queryStudentListByClub() async throws -> ClubDetailEntity
-    func queryStudentDetailByClub(clubID: String, studentID: String) async throws -> StudentDetailByClubEntity
+    func queryStudentDetailByClub(clubID: Int, studentID: String) async throws -> StudentDetailByClubEntity
 }

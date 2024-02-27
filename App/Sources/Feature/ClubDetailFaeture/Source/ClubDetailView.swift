@@ -52,7 +52,7 @@ struct ClubDetailView: View {
                 }
                 .foregroundColor(.bitgouel(.greyscale(.g4)))
             }
-            .padding(.top, 24)
+            .padding(.top, -40)
 
             VStack(alignment: .leading, spacing: 0) {
                 BitgouelText(
@@ -63,40 +63,38 @@ struct ClubDetailView: View {
                 Divider()
                     .padding(.top, 12)
 
-                ScrollView {
-                    LazyVStack(spacing: 20) {
-                        ClubMemberListRow(
-                            id: viewModel.teacher?.id ?? "",
-                            name: viewModel.teacher?.name ?? "",
-                            autority: .teacher
-                        )
+                LazyVStack(spacing: 20) {
+                    ClubMemberListRow(
+                        id: viewModel.teacher?.id ?? "",
+                        name: viewModel.teacher?.name ?? "",
+                        autority: .teacher
+                    )
 
-                        ForEach(viewModel.students, id: \.id) { student in
-                            ClubMemberListRow(
-                                id: student.id,
-                                name: student.name,
-                                autority: .student
-                            )
-                            .onTapGesture {
-                                viewModel.isPresentedCertificationView = true
-                                viewModel.studentID = student.id
-                            }
+                    ForEach(viewModel.students, id: \.id) { student in
+                        ClubMemberListRow(
+                            id: student.id,
+                            name: student.name,
+                            autority: .student
+                        )
+                        .onTapGesture {
+                            viewModel.updateIsPresentedCertificationView(isPresented: true)
                         }
                     }
                 }
                 .padding(.top, 20)
-                
-                Spacer()
             }
-            .bitgouelBackButton(dismiss: dismiss)
-            .navigate(
-                to: certificationListFactory.makeView(studentID: viewModel.studentID).eraseToAnyView(),
-                when: Binding(
-                    get: { viewModel.isPresentedCertificationView },
-                    set: { _ in viewModel.isPresentedCertificationView = false }
-                )
-            )
+
+            Spacer()
         }
+        .navigate(
+            to: certificationListFactory.makeView(studentID: viewModel.studentID).eraseToAnyView(),
+            when: Binding(
+                get: { viewModel.isPresentedCertificationView },
+                set: { isPresented in
+                    viewModel.updateIsPresentedCertificationView(isPresented: isPresented)
+                }
+            )
+        )
         .padding(.horizontal, 28)
         .onAppear {
             viewModel.onAppear()

@@ -88,34 +88,23 @@ struct CertificationListView: View {
                     }
                 }
 
-                ScrollView {
+                ScrollView(showsIndicators: false) {
                     LazyVStack(spacing: 0) {
                         ForEach(0..<4, id: \.self) { index in
-                            ListRow(
+                            CertificationListRow(
                                 id: "",
-                                title: "",
-                                modifiedAt: Date(),
-                                isPresented: Binding(
-                                    get: { viewModel.isPresentedAlterBottomSheet },
-                                    set: { state in viewModel.updateIsPresentedAlterBottomSheet(isPresented: state) }
-                                )
-                            )
+                                title: "자격증",
+                                acquisitionDate: Date()
+                            ) {
+                                print("edit")
+                            }
+                            
+                            Divider()
                         }
                     }
                 }
             }
             .padding(.horizontal, 28)
-            .alterBottomSheet(
-                isShowing: Binding(
-                    get: { viewModel.isPresentedAlterBottomSheet },
-                    set: { state in viewModel.updateIsPresentedAlterBottomSheet(isPresented: state) }
-                ),
-                deleteAction: {},
-                editAction: {
-                    viewModel.updateEpic(epic: "수정")
-                    viewModel.updateIsPresentedInputCertificationView(isPresented: true)
-                }
-            )
             .navigate(
                 to: activityListFactory.makeView(studentID: viewModel.studentID).eraseToAnyView(),
                 when: Binding(
