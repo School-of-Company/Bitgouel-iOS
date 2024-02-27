@@ -60,7 +60,7 @@ struct CertificationListView: View {
                             )
 
                             Spacer()
-
+                            
                             BitgouelText(
                                 text: studentInfo.phoneNumber,
                                 font: .caption
@@ -68,47 +68,39 @@ struct CertificationListView: View {
                         }
                     }
                     .padding(.top, 24)
-
+                    
                     Divider()
-
+                    
                     HStack {
                         BitgouelText(
                             text: "자격증",
                             font: .title3
                         )
-
+                        
                         Spacer()
-
+                        
                         Button {} label: {
                             BitgouelAsset.Icons.add.swiftUIImage
                         }
                     }
-
-                    ScrollView {
+                    
+                    ScrollView(showsIndicators: false) {
                         LazyVStack(spacing: 0) {
                             ForEach(0..<4, id: \.self) { index in
-                                ListRow(
+                                CertificationListRow(
                                     id: "",
-                                    title: "",
-                                    modifiedAt: Date(),
-                                    isPresented: Binding(
-                                        get: { viewModel.isPresentedAlterBottomSheet },
-                                        set: { state in viewModel.isPresentedAlterBottomSheet(state: state) }
-                                    )
-                                )
+                                    title: "자격증",
+                                    acquisitionDate: Date()
+                                ) {
+                                    print("edit")
+                                }
+                                
+                                Divider()
                             }
                         }
                     }
                 }
                 .padding(.horizontal, 28)
-                .alterBottomSheet(
-                    isShowing: Binding(
-                        get: { viewModel.isPresentedAlterBottomSheet },
-                        set: { state in viewModel.isPresentedAlterBottomSheet(state: state) }
-                    ),
-                    deleteAction: {},
-                    editAction: {}
-                )
                 .navigate(
                     to: activityListFactory.makeView(studentID: viewModel.studentID).eraseToAnyView(),
                     when: Binding(

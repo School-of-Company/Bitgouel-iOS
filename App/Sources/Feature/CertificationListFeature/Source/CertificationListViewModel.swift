@@ -2,7 +2,6 @@ import Foundation
 import Service
 
 final class CertificationListViewModel: BaseViewModel {
-    @Published var isPresentedAlterBottomSheet: Bool = false
     @Published var isPresentedActivityListView: Bool = false
     @Published var studentInfo: StudentDetailByClubEntity?
     @Published var certificationList: [CertificationInfoEntity] = []
@@ -29,10 +28,6 @@ final class CertificationListViewModel: BaseViewModel {
         self.queryStudentDetailByClubUseCase = queryStudentDetailByClubUseCase
         self.queryCertificationListByStudent = queryCertificationListByStudent
         self.queryCertificationListByTeacher = queryCertificationListByTeacher
-    }
-
-    func isPresentedAlterBottomSheet(state: Bool) {
-        isPresentedAlterBottomSheet = state
     }
 
     func isPresentedActivityListView(state: Bool) {

@@ -66,4 +66,8 @@ final class ClubDetailViewModel: BaseViewModel {
         self.students = clubInfo.students
         self.teacher = clubInfo.teacher
     }
+    
+    func updateIsPresentedCertificationView(isPresented: Bool) {
+        isPresentedCertificationView = isPresented
+    }
 }

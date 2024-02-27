@@ -76,6 +76,9 @@ struct ClubDetailView: View {
                             name: student.name,
                             autority: .student
                         )
+                        .onTapGesture {
+                            viewModel.updateIsPresentedCertificationView(isPresented: true)
+                        }
                     }
                 }
                 .padding(.top, 20)
@@ -83,6 +86,15 @@ struct ClubDetailView: View {
 
             Spacer()
         }
+        .navigate(
+            to: certificationListFactory.makeView(studentID: viewModel.studentID).eraseToAnyView(),
+            when: Binding(
+                get: { viewModel.isPresentedCertificationView },
+                set: { isPresented in
+                    viewModel.updateIsPresentedCertificationView(isPresented: isPresented)
+                }
+            )
+        )
         .padding(.horizontal, 28)
         .onAppear {
             viewModel.onAppear()
