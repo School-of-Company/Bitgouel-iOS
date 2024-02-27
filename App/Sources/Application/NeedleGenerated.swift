@@ -47,15 +47,20 @@ private func factoryfd208488fdd5cb4acc65f47b58f8f304c97af4d5(_ component: Needle
     return InputPostDependency2bb888f6c56a6060d23fProvider(appComponent: parent1(component) as! AppComponent)
 }
 private class ClubListDependency90c6e61626f7c53ad50fProvider: ClubListDependency {
-
-
-    init() {
-
+    var queryClubListUseCase: any QueryClubListUseCase {
+        return appComponent.queryClubListUseCase
+    }
+    var clubDetailFactory: any ClubDetailFactory {
+        return appComponent.clubDetailFactory
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->ClubListComponent
-private func factory050817f1b6d356b83467e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return ClubListDependency90c6e61626f7c53ad50fProvider()
+private func factory050817f1b6d356b83467f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return ClubListDependency90c6e61626f7c53ad50fProvider(appComponent: parent1(component) as! AppComponent)
 }
 private class LectureListDetailDependency2a815f1240973966e6a6Provider: LectureListDetailDependency {
     var queryLectureDetailUseCase: any QueryLectureDetailUseCase {
@@ -363,7 +368,8 @@ extension InputPostComponent: Registration {
 }
 extension ClubListComponent: Registration {
     public func registerItems() {
-
+        keyPathToName[\ClubListDependency.queryClubListUseCase] = "queryClubListUseCase-any QueryClubListUseCase"
+        keyPathToName[\ClubListDependency.clubDetailFactory] = "clubDetailFactory-any ClubDetailFactory"
     }
 }
 extension LectureListDetailComponent: Registration {
@@ -574,7 +580,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
 @inline(never) private func register1() {
     registerProviderFactory("^->AppComponent->SuccessSignUpComponent", factorybf219b153b668170161df47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputPostComponent", factoryfd208488fdd5cb4acc65f47b58f8f304c97af4d5)
-    registerProviderFactory("^->AppComponent->ClubListComponent", factory050817f1b6d356b83467e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->ClubListComponent", factory050817f1b6d356b83467f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->LectureListDetailComponent", factory22af859a70aa8ba0b346f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->NoticeListComponent", factorye14e687c08985bdffcd0e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->SignUpComponent", factory306e8ce5cfdf41304709f47b58f8f304c97af4d5)

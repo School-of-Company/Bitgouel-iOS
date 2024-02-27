@@ -2,10 +2,10 @@ import Foundation
 import Moya
 
 public enum ClubAPI {
-    case queryClubList
-    case queryClubDetail(clubID: String)
+    case queryClubList(highSchool: String)
+    case queryClubDetail(clubID: Int)
     case queryStudentListByClub
-    case queryStudentDetailByClub(clubID: String, studentID: String)
+    case queryStudentDetailByClub(clubID: Int, studentID: String)
 }
 
 extension ClubAPI: BitgouelAPI {
@@ -40,9 +40,9 @@ extension ClubAPI: BitgouelAPI {
 
     public var task: Moya.Task {
         switch self {
-        case .queryClubList:
+        case let .queryClubList(highSchool):
             return .requestParameters(parameters: [
-                "highschool": HighSchoolType.self
+                "highSchool": highSchool
             ], encoding: URLEncoding.queryString)
         case .queryClubDetail,
              .queryStudentListByClub,
