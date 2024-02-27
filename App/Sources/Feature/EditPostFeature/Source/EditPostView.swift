@@ -24,6 +24,7 @@ struct EditPostView: View {
                         viewModel.isPresentedDetailSetting(state: true)
                     },
                     finalButtonAction: {
+                        viewModel.updatePost()
                         dismiss()
                     },
                     title: Binding(

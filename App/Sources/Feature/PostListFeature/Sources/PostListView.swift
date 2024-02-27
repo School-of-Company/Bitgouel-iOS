@@ -104,7 +104,7 @@ struct PostListView: View {
                                 .frame(width: 24, height: 24)
                         }
 
-                        if viewModel.authority == .admin {
+                        if viewModel.authority != .student && viewModel.authority != .teacher {
                             Button {
                                 viewModel.isPresentedInputPostView = true
                             } label: {

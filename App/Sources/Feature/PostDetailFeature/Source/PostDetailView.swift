@@ -19,6 +19,7 @@ struct PostDetailView: View {
             title: viewModel.postDetail?.title ?? "",
             content: viewModel.postDetail?.content ?? "",
             links: viewModel.postDetail?.links ?? [""],
+            writtenBy: viewModel.postDetail?.writtenBy ?? false,
             deleteAction: {
                 viewModel.postDelete()
                 dismiss()
@@ -32,6 +33,9 @@ struct PostDetailView: View {
             )
         )
         .onAppear {
+            viewModel.onAppear()
+        }
+        .refreshable {
             viewModel.onAppear()
         }
         .navigate(
