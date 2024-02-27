@@ -4,6 +4,7 @@ import Service
 final class CertificationListViewModel: BaseViewModel {
     @Published var isPresentedAlterBottomSheet: Bool = false
     @Published var isPresentedActivityListView: Bool = false
+    @Published var studentInfo: StudentDetailByClubEntity?
     var studentID: String = ""
     var clubID: String = ""
     
@@ -28,7 +29,11 @@ final class CertificationListViewModel: BaseViewModel {
 
     func onAppear() {
         Task {
-            try await queryStudentDetailByClubUseCase(clubID: clubID, studentID: studentID)
+            do {
+                studentInfo = try await queryStudentDetailByClubUseCase(clubID: clubID, studentID: studentID)
+            } catch {
+                print(error.localizedDescription)
+            }
         }
     }
 }
