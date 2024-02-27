@@ -11,6 +11,7 @@ public protocol CertificationListDependency: Dependency {
 }
 
 public final class CertificationListComponent: Component<CertificationListDependency>, CertificationListFactory {
+    @MainActor 
     public func makeView(
         clubID: Int,
         studentID: String

@@ -50,6 +50,9 @@ private class ClubListDependency90c6e61626f7c53ad50fProvider: ClubListDependency
     var queryClubListUseCase: any QueryClubListUseCase {
         return appComponent.queryClubListUseCase
     }
+    var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
+        return appComponent.loadUserAuthorityUseCase
+    }
     var clubDetailFactory: any ClubDetailFactory {
         return appComponent.clubDetailFactory
     }
@@ -397,6 +400,7 @@ extension InputPostComponent: Registration {
 extension ClubListComponent: Registration {
     public func registerItems() {
         keyPathToName[\ClubListDependency.queryClubListUseCase] = "queryClubListUseCase-any QueryClubListUseCase"
+        keyPathToName[\ClubListDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
         keyPathToName[\ClubListDependency.clubDetailFactory] = "clubDetailFactory-any ClubDetailFactory"
     }
 }

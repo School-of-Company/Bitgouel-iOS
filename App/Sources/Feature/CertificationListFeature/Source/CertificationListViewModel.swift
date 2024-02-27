@@ -1,6 +1,7 @@
 import Foundation
 import Service
 
+@MainActor
 final class CertificationListViewModel: BaseViewModel {
     @Published var isPresentedActivityListView: Bool = false
     @Published var studentInfo: StudentDetailByClubEntity?
