@@ -201,8 +201,17 @@ private class CertificationListDependency809c1dfea1282552ea2dProvider: Certifica
     var activityListFactory: any ActivityListFactory {
         return appComponent.activityListFactory
     }
+    var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
+        return appComponent.loadUserAuthorityUseCase
+    }
     var queryStudentDetailByClubUseCase: any QueryStudentDetailByClubUseCase {
         return appComponent.queryStudentDetailByClubUseCase
+    }
+    var queryCertificationListByStudentUseCase: any QueryCertificationListByStudentUseCase {
+        return appComponent.queryCertificationListByStudentUseCase
+    }
+    var queryCertificationListByTeacherUseCase: any QueryCertificationListByTeacherUseCase {
+        return appComponent.queryCertificationListByTeacherUseCase
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -445,7 +454,10 @@ extension ClubDetailComponent: Registration {
 extension CertificationListComponent: Registration {
     public func registerItems() {
         keyPathToName[\CertificationListDependency.activityListFactory] = "activityListFactory-any ActivityListFactory"
+        keyPathToName[\CertificationListDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
         keyPathToName[\CertificationListDependency.queryStudentDetailByClubUseCase] = "queryStudentDetailByClubUseCase-any QueryStudentDetailByClubUseCase"
+        keyPathToName[\CertificationListDependency.queryCertificationListByStudentUseCase] = "queryCertificationListByStudentUseCase-any QueryCertificationListByStudentUseCase"
+        keyPathToName[\CertificationListDependency.queryCertificationListByTeacherUseCase] = "queryCertificationListByTeacherUseCase-any QueryCertificationListByTeacherUseCase"
     }
 }
 extension PostDetailComponent: Registration {
