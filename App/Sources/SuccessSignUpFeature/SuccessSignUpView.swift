@@ -1,6 +1,14 @@
 import SwiftUI
 
 struct SuccessSignUpView: View {
+    @State var isBackLoginPage = false
+
+    private let loginFactory: any LoginFactory
+
+    init(loginFactory: any LoginFactory) {
+        self.loginFactory = loginFactory
+    }
+
     var body: some View {
         VStack {
             BitgouelAsset.Icons.check.swiftUIImage
@@ -17,10 +25,20 @@ struct SuccessSignUpView: View {
 
             BitgouelButton(
                 text: "돌아가기"
-            )
+            ) {
+                isBackLoginPage = true
+            }
             .cornerRadius(8)
             .padding(.horizontal, 28)
             .padding(.bottom, 46)
         }
+        .navigate(
+            to: loginFactory.makeView().eraseToAnyView(),
+            when: Binding(
+                get: { isBackLoginPage },
+                set: { _ in isBackLoginPage = false}
+            )
+        )
+        .navigationBarBackButtonHidden(true)
     }
 }

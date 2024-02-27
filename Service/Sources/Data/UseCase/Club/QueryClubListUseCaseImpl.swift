@@ -7,7 +7,7 @@ public struct QueryClubListUseCaseImpl: QueryClubListUseCase {
         self.clubRepository = clubRepository
     }
 
-    public func callAsFunction() async throws -> [ClubEntity] {
-        try await clubRepository.queryClubList()
+    public func callAsFunction(highSchool: String) async throws -> [ClubEntity] {
+        try await clubRepository.queryClubList(highSchool: highSchool)
     }
 }

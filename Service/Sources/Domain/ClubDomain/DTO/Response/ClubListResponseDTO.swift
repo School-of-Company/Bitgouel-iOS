@@ -10,7 +10,7 @@ public struct ClubListResponseDTO: Decodable {
 
 public extension ClubListResponseDTO {
     struct Club: Decodable {
-        public let id: String
+        public let id: Int
         public let name: String
     }
 }

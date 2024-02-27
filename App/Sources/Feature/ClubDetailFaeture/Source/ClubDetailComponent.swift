@@ -1,6 +1,6 @@
 import NeedleFoundation
-import SwiftUI
 import Service
+import SwiftUI
 
 public protocol ClubdetailDependency: Dependency {
     var certificationListFactory: any CertificationListFactory { get }
@@ -10,7 +10,7 @@ public protocol ClubdetailDependency: Dependency {
 }
 
 public final class ClubDetailComponent: Component<ClubdetailDependency>, ClubDetailFactory {
-    public func makeView(clubID: String) -> some View {
+    public func makeView(clubID: Int) -> some View {
         ClubDetailView(
             viewModel: .init(
                 clubID: clubID,
