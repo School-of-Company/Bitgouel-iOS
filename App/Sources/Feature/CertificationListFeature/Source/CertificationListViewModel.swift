@@ -8,7 +8,7 @@ final class CertificationListViewModel: BaseViewModel {
     var clubID: String = ""
     
     private let queryStudentDetailByClubUseCase: any QueryStudentDetailByClubUseCase
-    
+
     init(
         clubID: String,
         studentID: String,

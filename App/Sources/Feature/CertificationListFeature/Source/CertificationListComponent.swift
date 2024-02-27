@@ -1,6 +1,6 @@
 import NeedleFoundation
-import SwiftUI
 import Service
+import SwiftUI
 
 public protocol CertificationListDependency: Dependency {
     var activityListFactory: any ActivityListFactory { get }
