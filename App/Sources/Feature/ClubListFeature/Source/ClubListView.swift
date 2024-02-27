@@ -76,6 +76,9 @@ struct ClubListView: View {
                 }
                 .zIndex(1)
             }
+            .onAppear {
+                viewModel.onAppear()
+            }
             .navigationTitle("동아리 목록")
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
