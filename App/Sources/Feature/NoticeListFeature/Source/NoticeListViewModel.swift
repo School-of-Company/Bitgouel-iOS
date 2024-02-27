@@ -3,7 +3,6 @@ import Service
 
 final class NoticeListViewModel: BaseViewModel {
     @Published var isPresentedInquiryListView: Bool = false
-    @Published var list: Bool = false
     
     func updateIsPresentedInquiryListView(isPresented: Bool) {
         isPresentedInquiryListView = isPresented

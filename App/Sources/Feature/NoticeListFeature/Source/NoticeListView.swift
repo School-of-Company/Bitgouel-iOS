@@ -21,11 +21,7 @@ struct NoticeListView: View {
                     ListRow(
                         id: "공지사항",
                         title: "어쩌구 저쩌구",
-                        modifiedAt: Date(),
-                        isPresented: Binding(
-                            get: { viewModel.list },
-                            set: { _ in viewModel.list = true}
-                        )
+                        modifiedAt: Date()
                     )
                     
                     Divider()
