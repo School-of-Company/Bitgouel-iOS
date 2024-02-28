@@ -3,6 +3,8 @@ import SwiftUI
 
 final class ClubDetailViewModel: BaseViewModel {
     @Published var authority: UserAuthorityType = .user
+    @Published var isPresentedCertificationView: Bool = false
+    @Published var studentID: String = ""
 
     // MARK: ClubInfo
     private var clubID: Int = 0
@@ -63,5 +65,9 @@ final class ClubDetailViewModel: BaseViewModel {
         self.highSchoolName = clubInfo.highSchoolName
         self.students = clubInfo.students
         self.teacher = clubInfo.teacher
+    }
+    
+    func updateIsPresentedCertificationView(isPresented: Bool) {
+        isPresentedCertificationView = isPresented
     }
 }

@@ -46,6 +46,22 @@ private class InputPostDependency2bb888f6c56a6060d23fProvider: InputPostDependen
 private func factoryfd208488fdd5cb4acc65f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return InputPostDependency2bb888f6c56a6060d23fProvider(appComponent: parent1(component) as! AppComponent)
 }
+private class InputCertificationDependency4e950d4995ce855c5cd5Provider: InputCertificationDependency {
+    var inputCertificationUseCase: any InputCertificationUseCase {
+        return appComponent.inputCertificationUseCase
+    }
+    var updateCertificationUseCase: any UpdateCertificationUseCase {
+        return appComponent.updateCertificationUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->InputCertificationComponent
+private func factory2810b45b31199a5f0c2af47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return InputCertificationDependency4e950d4995ce855c5cd5Provider(appComponent: parent1(component) as! AppComponent)
+}
 private class ClubListDependency90c6e61626f7c53ad50fProvider: ClubListDependency {
     var queryClubListUseCase: any QueryClubListUseCase {
         return appComponent.queryClubListUseCase
@@ -176,6 +192,9 @@ private func factory0c89e2bbcc02dbcac018f47b58f8f304c97af4d5(_ component: Needle
     return PostListDependencye041dce90a2be61e7af5Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class ClubdetailDependency09c03e1ee67d1fbecba1Provider: ClubdetailDependency {
+    var certificationListFactory: any CertificationListFactory {
+        return appComponent.certificationListFactory
+    }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
         return appComponent.loadUserAuthorityUseCase
     }
@@ -193,6 +212,22 @@ private class ClubdetailDependency09c03e1ee67d1fbecba1Provider: ClubdetailDepend
 /// ^->AppComponent->ClubDetailComponent
 private func factory1559652f8e80cfa88d06f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return ClubdetailDependency09c03e1ee67d1fbecba1Provider(appComponent: parent1(component) as! AppComponent)
+}
+private class CertificationListDependency809c1dfea1282552ea2dProvider: CertificationListDependency {
+    var activityListFactory: any ActivityListFactory {
+        return appComponent.activityListFactory
+    }
+    var inputCertificationFactory: any InputCertificationFactory {
+        return appComponent.inputCertificationFactory
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->CertificationListComponent
+private func factoryc231b853779286e489fbf47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return CertificationListDependency809c1dfea1282552ea2dProvider(appComponent: parent1(component) as! AppComponent)
 }
 private class PostDetailDependencycf431278832ae8226535Provider: PostDetailDependency {
     var editPostFactory: any EditPostFactory {
@@ -374,6 +409,12 @@ extension InputPostComponent: Registration {
         keyPathToName[\InputPostDependency.writePostUseCase] = "writePostUseCase-any WritePostUseCase"
     }
 }
+extension InputCertificationComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\InputCertificationDependency.inputCertificationUseCase] = "inputCertificationUseCase-any InputCertificationUseCase"
+        keyPathToName[\InputCertificationDependency.updateCertificationUseCase] = "updateCertificationUseCase-any UpdateCertificationUseCase"
+    }
+}
 extension ClubListComponent: Registration {
     public func registerItems() {
         keyPathToName[\ClubListDependency.queryClubListUseCase] = "queryClubListUseCase-any QueryClubListUseCase"
@@ -425,9 +466,16 @@ extension PostListComponent: Registration {
 }
 extension ClubDetailComponent: Registration {
     public func registerItems() {
+        keyPathToName[\ClubdetailDependency.certificationListFactory] = "certificationListFactory-any CertificationListFactory"
         keyPathToName[\ClubdetailDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
         keyPathToName[\ClubdetailDependency.queryClubDetailUseCase] = "queryClubDetailUseCase-any QueryClubDetailUseCase"
         keyPathToName[\ClubdetailDependency.queryStudentListByClubUseCase] = "queryStudentListByClubUseCase-any QueryStudentListByClubUseCase"
+    }
+}
+extension CertificationListComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\CertificationListDependency.activityListFactory] = "activityListFactory-any ActivityListFactory"
+        keyPathToName[\CertificationListDependency.inputCertificationFactory] = "inputCertificationFactory-any InputCertificationFactory"
     }
 }
 extension PostDetailComponent: Registration {
@@ -564,6 +612,8 @@ extension AppComponent: Registration {
         localTable["editPostFactory-any EditPostFactory"] = { [unowned self] in self.editPostFactory as Any }
         localTable["noticeListFactory-any NoticeListFactory"] = { [unowned self] in self.noticeListFactory as Any }
         localTable["inquiryListFactory-any InquiryListFactory"] = { [unowned self] in self.inquiryListFactory as Any }
+        localTable["certificationListFactory-any CertificationListFactory"] = { [unowned self] in self.certificationListFactory as Any }
+        localTable["inputCertificationFactory-any InputCertificationFactory"] = { [unowned self] in self.inputCertificationFactory as Any }
         localTable["remoteCertificationDataSource-any RemoteCertificationDataSource"] = { [unowned self] in self.remoteCertificationDataSource as Any }
         localTable["certificationRepository-any CertificationRepository"] = { [unowned self] in self.certificationRepository as Any }
         localTable["queryCertificationListByTeacherUseCase-any QueryCertificationListByTeacherUseCase"] = { [unowned self] in self.queryCertificationListByTeacherUseCase as Any }
@@ -590,6 +640,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
 @inline(never) private func register1() {
     registerProviderFactory("^->AppComponent->SuccessSignUpComponent", factorybf219b153b668170161df47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputPostComponent", factoryfd208488fdd5cb4acc65f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->InputCertificationComponent", factory2810b45b31199a5f0c2af47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ClubListComponent", factory050817f1b6d356b83467f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->LectureListDetailComponent", factory22af859a70aa8ba0b346f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->NoticeListComponent", factorye14e687c08985bdffcd0e3b0c44298fc1c149afb)
@@ -598,6 +649,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->RootComponent", factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->PostListComponent", factory0c89e2bbcc02dbcac018f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ClubDetailComponent", factory1559652f8e80cfa88d06f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->CertificationListComponent", factoryc231b853779286e489fbf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->PostDetailComponent", factorybc555a73df3767a26999f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InquiryListComponent", factorydd7e28250a180554c7a0e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->EditPostComponent", factoryf55a9d7f6c1ed8d0f0aef47b58f8f304c97af4d5)

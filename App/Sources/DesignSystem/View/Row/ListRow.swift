@@ -4,7 +4,6 @@ struct ListRow: View {
     let id: String
     let title: String
     let modifiedAt: Date
-    @Binding var isPresented: Bool
 
     var body: some View {
         VStack(spacing: 12) {
@@ -17,12 +16,6 @@ struct ListRow: View {
                 )
 
                 Spacer()
-
-                Button {
-                    isPresented = true
-                } label: {
-                    BitgouelAsset.Icons.verticalEllipsisFill.swiftUIImage
-                }
             }
 
             HStack(spacing: 0) {
