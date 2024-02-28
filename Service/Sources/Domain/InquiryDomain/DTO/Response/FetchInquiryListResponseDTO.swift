@@ -2,11 +2,11 @@ import Foundation
 
 public struct FetchInquiryListResponseDTO: Decodable {
     public let inquerys: [InquiryInfo]
-
+    
     init(inquerys: [InquiryInfo]) {
         self.inquerys = inquerys
     }
-
+    
     public struct InquiryInfo: Decodable {
         public let inquiryID: String
         public let question: String
@@ -14,7 +14,7 @@ public struct FetchInquiryListResponseDTO: Decodable {
         public let username: String
         public let answerStatus: AnswerStatusType
         public let createdAt: String
-
+        
         public init(
             inquiryID: String,
             question: String,
@@ -30,7 +30,7 @@ public struct FetchInquiryListResponseDTO: Decodable {
             self.answerStatus = answerStatus
             self.createdAt = createdAt
         }
-
+        
         enum CodingKeys: String, CodingKey {
             case inquiryID = "id"
             case question
