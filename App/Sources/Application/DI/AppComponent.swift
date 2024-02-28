@@ -90,4 +90,8 @@ public extension AppComponent {
     var inquiryListFactory: any InquiryListFactory {
         InquiryListComponent(parent: self)
     }
+    
+    var noticeDetailFactory: any NoticeDetailFactory {
+        NoticeDetailViewComponent(parent: self)
+    }
 }
