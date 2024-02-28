@@ -5,11 +5,19 @@ final class NoticeDetailViewModel: BaseViewModel {
     @Published var isDeleteNotice: Bool = false
     @Published var noticeID: String = ""
     @Published var isPresentedEditView: Bool = false
+    @Published var noticeDetail: PostDetailEntity?
+
+    private let queryPostDetailUseCase: any QueryPostDetailUseCase
+    private let deletePostUseCase: any DeletePostUseCase
 
     init(
-        noticeID: String
+        noticeID: String,
+        queryPostDetailUseCase: any QueryPostDetailUseCase,
+        deletePostUseCase: any DeletePostUseCase
     ) {
         self.noticeID = noticeID
+        self.queryPostDetailUseCase = queryPostDetailUseCase
+        self.deletePostUseCase = deletePostUseCase
     }
 
     func updateIsPresentedEditView(isPresented: Bool) {
@@ -21,11 +29,24 @@ final class NoticeDetailViewModel: BaseViewModel {
     }
 
     func onAppear() {
-        #warning("TODO: 공지사항 상세 조회 기능 추가")
+        Task {
+            do {
+                noticeDetail = try await queryPostDetailUseCase(postID: noticeID)
+            } catch {
+                print(String(describing: error))
+            }
+        }
     }
 
     func deleteNotice() {
-        #warning("공지사항 삭제 기능 추가")
+        Task {
+            do {
+                try await deletePostUseCase(postID: noticeID)
+                print("공지사항 삭제 완료")
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
 }
 
