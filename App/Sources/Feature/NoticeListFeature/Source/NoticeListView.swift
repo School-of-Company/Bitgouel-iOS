@@ -17,14 +17,21 @@ struct NoticeListView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
-                LazyVStack(spacing: 0) {
-                    ListRow(
-                        id: "공지사항",
-                        title: "어쩌구 저쩌구",
-                        modifiedAt: Date()
-                    )
-                    
-                    Divider()
+                if let noticeInfo = viewModel.noticeContent {
+                    LazyVStack(spacing: 0) {
+                        ForEach(noticeInfo.content, id: \.postID) { notice in
+                            ListRow(
+                                id: notice.postID,
+                                title: notice.title,
+                                modifiedAt: notice.modifiedAt.toDateCustomFormat(format: "yyyy-MM-dd'T'HH:mm:ss.SSS")
+                            )
+                            .onTapGesture {
+                                viewModel.noticeID = notice.postID
+                            }
+                            
+                            Divider()
+                        }
+                    }
                 }
                 
                 Spacer()
