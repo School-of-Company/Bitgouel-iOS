@@ -6,7 +6,7 @@ public struct InquiryInfoEntity: Equatable {
     public let userID: String
     public let username: String
     public let answerStatus: AnswerStatusType
-
+    
     public init(
         inquiryID: String,
         question: String,

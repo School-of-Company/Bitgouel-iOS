@@ -10,7 +10,7 @@ public struct InquiryDetailEntity: Equatable {
     public let answer: String
     public let adminID: String
     public let answeredDate: String
-
+    
     public init(
         inquiryID: String,
         question: String,
