@@ -3,9 +3,9 @@ import SwiftUI
 struct PostDetailView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: PostDetailViewModel
-    
+
     private let editPostFactory: any EditPostFactory
-    
+
     init(
         viewModel: PostDetailViewModel,
         editPostFactory: any EditPostFactory
@@ -13,12 +13,13 @@ struct PostDetailView: View {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.editPostFactory = editPostFactory
     }
-    
+
     var body: some View {
         DetailView(
             title: viewModel.postDetail?.title ?? "",
             content: viewModel.postDetail?.content ?? "",
             links: viewModel.postDetail?.links ?? [""],
+            writtenBy: viewModel.postDetail?.writtenBy ?? false,
             deleteAction: {
                 viewModel.postDelete()
                 dismiss()

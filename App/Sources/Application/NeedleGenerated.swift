@@ -225,15 +225,23 @@ private func factorydd7e28250a180554c7a0e3b0c44298fc1c149afb(_ component: Needle
     return InquiryListDependencyec75a7335a50ded93b28Provider()
 }
 private class EditPostDependency2fc4e7c9e3795c6e218eProvider: EditPostDependency {
-
-
-    init() {
-
+    var postDetailSettingFactory: any PostDetailSettingFactory {
+        return appComponent.postDetailSettingFactory
+    }
+    var queryPostDetailUseCase: any QueryPostDetailUseCase {
+        return appComponent.queryPostDetailUseCase
+    }
+    var updatePostUseCase: any UpdatePostUseCase {
+        return appComponent.updatePostUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->EditPostComponent
-private func factoryf55a9d7f6c1ed8d0f0aee3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return EditPostDependency2fc4e7c9e3795c6e218eProvider()
+private func factoryf55a9d7f6c1ed8d0f0aef47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return EditPostDependency2fc4e7c9e3795c6e218eProvider(appComponent: parent1(component) as! AppComponent)
 }
 private class ActivityListDependencyb8e659960978b8384f80Provider: ActivityListDependency {
     var activityDetailFactory: any ActivityDetailFactory {
@@ -447,7 +455,9 @@ extension InquiryListComponent: Registration {
 }
 extension EditPostComponent: Registration {
     public func registerItems() {
-
+        keyPathToName[\EditPostDependency.postDetailSettingFactory] = "postDetailSettingFactory-any PostDetailSettingFactory"
+        keyPathToName[\EditPostDependency.queryPostDetailUseCase] = "queryPostDetailUseCase-any QueryPostDetailUseCase"
+        keyPathToName[\EditPostDependency.updatePostUseCase] = "updatePostUseCase-any UpdatePostUseCase"
     }
 }
 extension ActivityListComponent: Registration {
@@ -607,7 +617,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->SuccessSignUpComponent", factorybf219b153b668170161df47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->PostDetailComponent", factorybc555a73df3767a26999f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InquiryListComponent", factorydd7e28250a180554c7a0e3b0c44298fc1c149afb)
-    registerProviderFactory("^->AppComponent->EditPostComponent", factoryf55a9d7f6c1ed8d0f0aee3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->EditPostComponent", factoryf55a9d7f6c1ed8d0f0aef47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ActivityListComponent", factory7177e6769ee69064a61bf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->LoginComponent", factoryd6018e98563de75a2ba4f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->LectureListComponent", factorya2eac906a839dcacda45f47b58f8f304c97af4d5)

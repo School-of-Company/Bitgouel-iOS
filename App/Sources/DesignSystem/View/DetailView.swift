@@ -4,6 +4,7 @@ struct DetailView: View {
     let title: String
     let content: String
     let links: [String]
+    let writtenBy: Bool
     let deleteAction: () -> Void
     let editAction: () -> Void
     @Binding var isDelete: Bool
@@ -35,7 +36,11 @@ struct DetailView: View {
                 }
             }
 
-            popupButton()
+            if writtenBy {
+                popupButton()
+            } else {
+                EmptyView()
+            }
         }
         .padding(.horizontal, 28)
         .bitgouelAlert(
