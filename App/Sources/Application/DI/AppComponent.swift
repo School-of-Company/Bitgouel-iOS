@@ -90,4 +90,12 @@ public extension AppComponent {
     var inquiryListFactory: any InquiryListFactory {
         InquiryListComponent(parent: self)
     }
+
+    var certificationListFactory: any CertificationListFactory {
+        CertificationListComponent(parent: self)
+    }
+
+    var inputCertificationFactory: any InputCertificationFactory {
+        InputCertificationComponent(parent: self)
+    }
 }
