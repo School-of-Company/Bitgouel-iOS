@@ -94,4 +94,12 @@ public extension AppComponent {
     var noticeDetailFactory: any NoticeDetailFactory {
         NoticeDetailViewComponent(parent: self)
     }
+
+    var certificationListFactory: any CertificationListFactory {
+        CertificationListComponent(parent: self)
+    }
+
+    var inputCertificationFactory: any InputCertificationFactory {
+        InputCertificationComponent(parent: self)
+    }
 }
