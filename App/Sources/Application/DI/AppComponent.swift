@@ -98,4 +98,8 @@ public extension AppComponent {
     var inputCertificationFactory: any InputCertificationFactory {
         InputCertificationComponent(parent: self)
     }
+    
+    var noticeDetailFactory: any NoticeDetailFactory {
+        NoticeDetailViewComponent(parent: self)
+    }
 }
