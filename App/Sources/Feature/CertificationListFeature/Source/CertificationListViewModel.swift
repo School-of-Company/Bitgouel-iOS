@@ -48,7 +48,6 @@ final class CertificationListViewModel: BaseViewModel {
 
     func onAppear() {
         authority = loadUserAuthorityUseCase()
-        print(authority)
 
         Task {
             do {
