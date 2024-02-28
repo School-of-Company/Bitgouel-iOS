@@ -66,15 +66,22 @@ struct DetailView: View {
             
             VStack(alignment: .leading, spacing: 4) {
                 ForEach(links, id: \.self) { link in
+                    var attributedString: AttributedString {
+                        var attributedString = AttributedString(link)
+                        attributedString.font = .bitgouel(.caption)
+                        attributedString.underlineStyle = .single
+                        return attributedString
+                    }
+
                     if let url = URL(string: link) {
                         Link(destination: url, 
                              label: {
-                            BitgouelText(
-                                text: "\(url)",
-                                font: .caption
-                            )
-                        }
-                        )
+                                Text(attributedString)
+                                    .foregroundColor(.bitgouel(.greyscale(.g7)))
+                                    .multilineTextAlignment(.leading)
+                        })
+                    } else {
+                        EmptyView()
                     }
                 }
             }
