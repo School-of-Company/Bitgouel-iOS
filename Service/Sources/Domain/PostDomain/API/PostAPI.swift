@@ -5,7 +5,7 @@ public enum PostAPI {
     case writePost(req: InputPostRequestDTO)
     case queryPostList(postType: FeedType)
     case queryPostDetail(postID: String)
-    case updatePost(postID: String, req: InputPostRequestDTO)
+    case updatePost(postID: String, req: UpdatePostRequestDTO)
     case deletePost(postID: String)
 }
 
@@ -44,8 +44,10 @@ extension PostAPI: BitgouelAPI {
 
     public var task: Moya.Task {
         switch self {
-        case let .writePost(req),
-             let .updatePost(_, req):
+        case let .writePost(req):
+            return .requestJSONEncodable(req)
+
+        case let .updatePost(_, req):
             return .requestJSONEncodable(req)
 
         case let .queryPostList(postType):

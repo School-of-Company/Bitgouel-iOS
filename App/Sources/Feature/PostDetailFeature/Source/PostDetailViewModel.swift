@@ -19,11 +19,11 @@ final class PostDetailViewModel: BaseViewModel {
         self.queryPostDetailUseCase = queryPostDetailUseCase
         self.deletePostUseCase = deletePostUseCase
     }
-    
+
     func editAction() {
         isPresentedEditView = true
     }
-    
+
     @MainActor
     func onAppear() {
         Task {
@@ -34,7 +34,7 @@ final class PostDetailViewModel: BaseViewModel {
             }
         }
     }
-    
+
     func postDelete() {
         Task {
             do {

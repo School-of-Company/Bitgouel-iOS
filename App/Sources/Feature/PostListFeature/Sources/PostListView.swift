@@ -32,12 +32,7 @@ struct PostListView: View {
                                 ListRow(
                                     id: item.postID,
                                     title: item.title,
-                                    modifiedAt: item.modifiedAt.toDateCustomFormat(format: "yyyy-MM-dd'T'HH:mm:ss.SSS"),
-                                    isPresented: Binding(get: {
-                                        viewModel.isPresentedPostDetailView
-                                    }, set: { isPresented in
-                                        viewModel.isPresentedPostDetailView = isPresented
-                                    })
+                                    modifiedAt: item.modifiedAt.toDateCustomFormat(format: "yyyy-MM-dd'T'HH:mm:ss.SSS")
                                 )
                                 .onTapGesture {
                                     viewModel.seletePost(postID: item.postID)
@@ -58,7 +53,7 @@ struct PostListView: View {
                     to: postDetailFactory.makeView(postID: viewModel.seletedPostID).eraseToAnyView(),
                     when: Binding(
                         get: { viewModel.isPresentedPostDetailView },
-                        set: { _ in viewModel.isPresentedPostDetailView = false}
+                        set: { _ in viewModel.isPresentedPostDetailView = false }
                     )
                 )
                 .navigate(
@@ -104,7 +99,7 @@ struct PostListView: View {
                                 .frame(width: 24, height: 24)
                         }
 
-                        if viewModel.authority == .admin {
+                        if viewModel.authority != .student && viewModel.authority != .teacher {
                             Button {
                                 viewModel.isPresentedInputPostView = true
                             } label: {
