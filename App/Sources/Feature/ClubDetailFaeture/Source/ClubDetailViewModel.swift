@@ -7,7 +7,7 @@ final class ClubDetailViewModel: BaseViewModel {
     @Published var studentID: String = ""
 
     // MARK: ClubInfo
-    private var clubID: Int = 0
+    var clubID: Int = 0
     @Published var clubName: String = ""
     @Published var highSchoolName: String = ""
     @Published var students: [ClubDetailEntity.memberInfoEntity] = []
@@ -61,6 +61,7 @@ final class ClubDetailViewModel: BaseViewModel {
     }
 
     func updateClubDetail(clubInfo: ClubDetailEntity) {
+        self.clubID = clubInfo.clubID
         self.clubName = clubInfo.clubName
         self.highSchoolName = clubInfo.highSchoolName
         self.students = clubInfo.students

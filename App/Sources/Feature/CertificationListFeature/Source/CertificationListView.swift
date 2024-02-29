@@ -17,11 +17,11 @@ struct CertificationListView: View {
     }
 
     var body: some View {
-        NavigationView {
-            VStack(spacing: 24) {
+        VStack(spacing: 24) {
+            if let studentInfo = viewModel.studentInfo {
                 VStack(alignment: .leading, spacing: 4) {
                     BitgouelText(
-                        text: "유저 이름",
+                        text: studentInfo.name,
                         font: .title2
                     )
 
@@ -34,7 +34,7 @@ struct CertificationListView: View {
                         Spacer()
 
                         BitgouelText(
-                            text: "300",
+                            text: "\(studentInfo.credit)",
                             font: .text3
                         )
                     }
@@ -49,7 +49,7 @@ struct CertificationListView: View {
                         Spacer()
 
                         BitgouelText(
-                            text: "adjdjdj@.com",
+                            text: studentInfo.email,
                             font: .text2
                         )
                     }
@@ -64,43 +64,43 @@ struct CertificationListView: View {
                         Spacer()
 
                         BitgouelText(
-                            text: "00",
+                            text: studentInfo.phoneNumber,
                             font: .caption
                         )
                     }
                 }
                 .padding(.top, 24)
+            }
 
-                Divider()
+            Divider()
 
-                HStack {
-                    BitgouelText(
-                        text: "자격증",
-                        font: .title3
-                    )
+            HStack {
+                BitgouelText(
+                    text: "자격증",
+                    font: .title3
+                )
 
-                    Spacer()
+                Spacer()
 
-                    Button {
-                        viewModel.updateIsPresentedInputCertificationView(isPresented: true)
-                    } label: {
-                        BitgouelAsset.Icons.add.swiftUIImage
-                    }
+                Button {
+                    viewModel.updateIsPresentedInputCertificationView(isPresented: true)
+                } label: {
+                    BitgouelAsset.Icons.add.swiftUIImage
                 }
+            }
 
-                ScrollView(showsIndicators: false) {
-                    LazyVStack(spacing: 0) {
-                        ForEach(0..<4, id: \.self) { index in
-                            CertificationListRow(
-                                id: "",
-                                title: "자격증",
-                                acquisitionDate: Date()
-                            ) {
-                                print("edit")
-                            }
-                            
-                            Divider()
+            ScrollView(showsIndicators: false) {
+                LazyVStack(spacing: 0) {
+                    ForEach(viewModel.certificationList, id: \.certificationID) { certification in
+                        CertificationListRow(
+                            id: certification.certificationID,
+                            title: certification.name,
+                            acquisitionDate: certification.acquisitionDate
+                        ) {
+                            print("edit")
                         }
+
+                        Divider()
                     }
                 }
             }
@@ -115,7 +115,7 @@ struct CertificationListView: View {
             .fullScreenCover(
                 isPresented: Binding(
                     get: { viewModel.isPresentedInputCertificationView },
-                    set: { state in 
+                    set: { state in
                         viewModel.updateEpic(epic: "등록")
                         viewModel.updateIsPresentedInputCertificationView(isPresented: state)
                     }
@@ -138,7 +138,6 @@ struct CertificationListView: View {
                     }
                 }
             }
-            .navigationBarBackButtonHidden(true)
         }
     }
 }
