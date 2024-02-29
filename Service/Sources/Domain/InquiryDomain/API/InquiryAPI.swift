@@ -1,5 +1,5 @@
-import Moya
 import Foundation
+import Moya
 
 public enum InquiryAPI {
     case inputInquiry(req: InputInquiryRequestDTO)
@@ -14,11 +14,11 @@ public enum InquiryAPI {
 
 extension InquiryAPI: BitgouelAPI {
     public typealias ErrorType = InquiryDomainError
-    
+
     public var domain: BitgouelDomain {
         .inquiry
     }
-    
+
     public var urlPath: String {
         switch self {
         case .inputInquiry,
@@ -40,27 +40,27 @@ extension InquiryAPI: BitgouelAPI {
             return "/\(inquiryID)/reject"
         }
     }
-    
+
     public var method: Moya.Method {
         switch self {
         case .inputInquiry,
              .replyInquiry:
             return .post
-            
+
         case .fetchMyInquiryList,
              .fetchInquiryDetail,
              .fetchInquiryListByAdmin:
             return .get
-            
+
         case .deleteMyInquiry,
              .deleteInquiryByAdmin:
             return .delete
-            
+
         case .modifyMyInquiry:
             return .patch
         }
     }
-    
+
     public var task: Moya.Task {
         switch self {
         case let .inputInquiry(req),
@@ -82,7 +82,7 @@ extension InquiryAPI: BitgouelAPI {
             return .requestPlain
         }
     }
-    
+
     public var jwtTokenType: JwtTokenType {
         switch self {
         default:
@@ -101,7 +101,7 @@ extension InquiryAPI: BitgouelAPI {
                 409: .conflict,
                 429: .invalidRequest
             ]
-            
+
         case .fetchMyInquiryList,
              .deleteMyInquiry:
             return [
@@ -109,7 +109,7 @@ extension InquiryAPI: BitgouelAPI {
                 401: .invalidRequest,
                 429: .invalidRequest
             ]
-            
+
         case .fetchInquiryDetail:
             return [
                 400: .invalidRequest,
@@ -117,7 +117,7 @@ extension InquiryAPI: BitgouelAPI {
                 404: .invalidRequest,
                 429: .invalidRequest
             ]
-            
+
         case .replyInquiry,
              .fetchInquiryListByAdmin,
              .deleteInquiryByAdmin:

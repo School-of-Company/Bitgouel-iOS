@@ -10,7 +10,7 @@ public struct FetchInquiryDetailResponseDTO: Decodable {
     public let answer: String
     public let adminID: String
     public let answeredDate: String
-    
+
     public init(
         inquiryID: String,
         question: String,
@@ -32,7 +32,7 @@ public struct FetchInquiryDetailResponseDTO: Decodable {
         self.adminID = adminID
         self.answeredDate = answeredDate
     }
-    
+
     enum CodingKeys: String, CodingKey {
         case inquiryID = "id"
         case question
