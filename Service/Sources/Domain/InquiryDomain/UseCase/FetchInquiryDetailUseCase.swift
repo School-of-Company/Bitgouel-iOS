@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol FetchInquiryDetail {
+public protocol FetchInquiryDetailUseCase {
     func callAsFunction(inquiryID: String) async throws -> InquiryDetailEntity
 }
