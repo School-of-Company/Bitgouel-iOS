@@ -15,7 +15,7 @@ struct NoticeDetailView: View {
             title: "",
             content: "",
             links: [""],
-            writtenBy: Bool(),
+            writtenBy: false,
             deleteAction: {
                 viewModel.deleteNotice()
                 dismiss()

@@ -4,8 +4,14 @@ struct ClubDetailView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: ClubDetailViewModel
 
-    init(viewModel: ClubDetailViewModel) {
+    private let certificationListFactory: any CertificationListFactory
+
+    init(
+        viewModel: ClubDetailViewModel,
+        certificationListFactory: any CertificationListFactory
+    ) {
         _viewModel = StateObject(wrappedValue: viewModel)
+        self.certificationListFactory = certificationListFactory
     }
 
     var body: some View {
@@ -70,6 +76,10 @@ struct ClubDetailView: View {
                             name: student.name,
                             autority: .student
                         )
+                        .onTapGesture {
+                            viewModel.studentID = student.id
+                            viewModel.updateIsPresentedCertificationView(isPresented: true)
+                        }
                     }
                 }
                 .padding(.top, 20)
@@ -77,6 +87,18 @@ struct ClubDetailView: View {
 
             Spacer()
         }
+        .navigate(
+            to: certificationListFactory.makeView(
+                clubID: viewModel.clubID,
+                studentID: viewModel.studentID
+            ).eraseToAnyView(),
+            when: Binding(
+                get: { viewModel.isPresentedCertificationView },
+                set: { isPresented in
+                    viewModel.updateIsPresentedCertificationView(isPresented: isPresented)
+                }
+            )
+        )
         .padding(.horizontal, 28)
         .onAppear {
             viewModel.onAppear()

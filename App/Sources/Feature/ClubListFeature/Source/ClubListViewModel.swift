@@ -3,22 +3,37 @@ import Service
 
 final class ClubListViewModel: BaseViewModel {
     @Published var selectedSchool: HighSchoolType?
-    @Published var isPresentedSelectedSchoolPopup: Bool = true
+    @Published var isPresentedSelectedSchoolPopup: Bool = false
     @Published var isPresentedClubDetailView: Bool = false
     @Published var clubList: [ClubEntity] = []
     @Published var clubID: Int = 0
     var schoolList: [HighSchoolType] = HighSchoolType.allCases
+    var authority: UserAuthorityType = .user
 
     private let queryClubListUseCase: any QueryClubListUseCase
+    private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
 
     init(
-        queryClubListUseCase: any QueryClubListUseCase
+        queryClubListUseCase: any QueryClubListUseCase,
+        loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
     ) {
         self.queryClubListUseCase = queryClubListUseCase
+        self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
     }
 
     func updateClubID(clubID: Int) {
         self.clubID = clubID
+    }
+    
+    func onAppear() {
+        authority = loadUserAuthorityUseCase()
+        
+        switch authority {
+        case .admin:
+            isPresentedSelectedSchoolPopup = true
+        default:
+            isPresentedClubDetailView = true
+        }
     }
 
     @MainActor

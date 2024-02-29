@@ -38,8 +38,6 @@ struct DetailView: View {
 
             if writtenBy {
                 popupButton()
-            } else {
-                EmptyView()
             }
         }
         .padding(.horizontal, 28)
@@ -82,8 +80,6 @@ struct DetailView: View {
                                     .foregroundColor(.bitgouel(.greyscale(.g7)))
                                     .multilineTextAlignment(.leading)
                         })
-                    } else {
-                        EmptyView()
                     }
                 }
             }
