@@ -91,6 +91,9 @@ private class NoticeListDependency0e93eb53be8626c408e4Provider: NoticeListDepend
     var inquiryListFactory: any InquiryListFactory {
         return appComponent.inquiryListFactory
     }
+    var noticeDetailFactory: any NoticeDetailFactory {
+        return appComponent.noticeDetailFactory
+    }
     var queryPostListUseCase: any QueryPostListUseCase {
         return appComponent.queryPostListUseCase
     }
@@ -458,6 +461,7 @@ extension LectureListDetailComponent: Registration {
 extension NoticeListComponent: Registration {
     public func registerItems() {
         keyPathToName[\NoticeListDependency.inquiryListFactory] = "inquiryListFactory-any InquiryListFactory"
+        keyPathToName[\NoticeListDependency.noticeDetailFactory] = "noticeDetailFactory-any NoticeDetailFactory"
         keyPathToName[\NoticeListDependency.queryPostListUseCase] = "queryPostListUseCase-any QueryPostListUseCase"
     }
 }
