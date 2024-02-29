@@ -53,6 +53,9 @@ private class ClubListDependency90c6e61626f7c53ad50fProvider: ClubListDependency
     var queryClubListUseCase: any QueryClubListUseCase {
         return appComponent.queryClubListUseCase
     }
+    var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
+        return appComponent.loadUserAuthorityUseCase
+    }
     var clubDetailFactory: any ClubDetailFactory {
         return appComponent.clubDetailFactory
     }
@@ -141,6 +144,9 @@ private class RootDependency3944cc797a4a88956fb5Provider: RootDependency {
     var loginFactory: any LoginFactory {
         return appComponent.loginFactory
     }
+    var clubListFactory: any ClubListFactory {
+        return appComponent.clubListFactory
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -216,6 +222,18 @@ private func factorybf219b153b668170161df47b58f8f304c97af4d5(_ component: Needle
 private class CertificationListDependency809c1dfea1282552ea2dProvider: CertificationListDependency {
     var activityListFactory: any ActivityListFactory {
         return appComponent.activityListFactory
+    }
+    var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
+        return appComponent.loadUserAuthorityUseCase
+    }
+    var queryStudentDetailByClubUseCase: any QueryStudentDetailByClubUseCase {
+        return appComponent.queryStudentDetailByClubUseCase
+    }
+    var queryCertificationListByStudentUseCase: any QueryCertificationListByStudentUseCase {
+        return appComponent.queryCertificationListByStudentUseCase
+    }
+    var queryCertificationListByTeacherUseCase: any QueryCertificationListByTeacherUseCase {
+        return appComponent.queryCertificationListByTeacherUseCase
     }
     var inputCertificationFactory: any InputCertificationFactory {
         return appComponent.inputCertificationFactory
@@ -424,6 +442,7 @@ extension InputCertificationComponent: Registration {
 extension ClubListComponent: Registration {
     public func registerItems() {
         keyPathToName[\ClubListDependency.queryClubListUseCase] = "queryClubListUseCase-any QueryClubListUseCase"
+        keyPathToName[\ClubListDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
         keyPathToName[\ClubListDependency.clubDetailFactory] = "clubDetailFactory-any ClubDetailFactory"
     }
 }
@@ -458,6 +477,7 @@ extension ActivityDetailSettingComponent: Registration {
 extension RootComponent: Registration {
     public func registerItems() {
         keyPathToName[\RootDependency.loginFactory] = "loginFactory-any LoginFactory"
+        keyPathToName[\RootDependency.clubListFactory] = "clubListFactory-any ClubListFactory"
     }
 }
 extension PostListComponent: Registration {
@@ -486,6 +506,10 @@ extension SuccessSignUpComponent: Registration {
 extension CertificationListComponent: Registration {
     public func registerItems() {
         keyPathToName[\CertificationListDependency.activityListFactory] = "activityListFactory-any ActivityListFactory"
+        keyPathToName[\CertificationListDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
+        keyPathToName[\CertificationListDependency.queryStudentDetailByClubUseCase] = "queryStudentDetailByClubUseCase-any QueryStudentDetailByClubUseCase"
+        keyPathToName[\CertificationListDependency.queryCertificationListByStudentUseCase] = "queryCertificationListByStudentUseCase-any QueryCertificationListByStudentUseCase"
+        keyPathToName[\CertificationListDependency.queryCertificationListByTeacherUseCase] = "queryCertificationListByTeacherUseCase-any QueryCertificationListByTeacherUseCase"
         keyPathToName[\CertificationListDependency.inputCertificationFactory] = "inputCertificationFactory-any InputCertificationFactory"
     }
 }

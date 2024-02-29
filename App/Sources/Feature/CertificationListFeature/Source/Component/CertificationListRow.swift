@@ -17,7 +17,7 @@ struct CertificationListRow: View {
                 )
 
                 Spacer()
-                
+
                 Button {
                     editAction()
                 } label: {
@@ -27,8 +27,8 @@ struct CertificationListRow: View {
                     )
                     .overlay(
                         Rectangle()
-                            .frame(height: 1)
-                        , alignment: .bottom
+                            .frame(height: 1),
+                        alignment: .bottom
                     )
                     .foregroundColor(.bitgouel(.greyscale(.g7)))
                 }
@@ -45,4 +45,3 @@ struct CertificationListRow: View {
         .padding(.vertical, 8)
     }
 }
-
