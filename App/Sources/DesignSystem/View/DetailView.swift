@@ -38,8 +38,6 @@ struct DetailView: View {
 
             if writtenBy {
                 popupButton()
-            } else {
-                EmptyView()
             }
         }
         .padding(.horizontal, 28)
