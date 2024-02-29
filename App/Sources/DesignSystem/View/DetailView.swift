@@ -80,8 +80,6 @@ struct DetailView: View {
                                     .foregroundColor(.bitgouel(.greyscale(.g7)))
                                     .multilineTextAlignment(.leading)
                         })
-                    } else {
-                        EmptyView()
                     }
                 }
             }
