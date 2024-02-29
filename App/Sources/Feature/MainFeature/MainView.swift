@@ -182,7 +182,7 @@ struct MainView: View {
                 
                 IntroduceView(
                     introduceTitle: "취업동아리 소개",
-                    introduceText: "Sample Text"
+                    introduceText: ""
                 )
                 
                 ClubRoleView(
@@ -236,7 +236,7 @@ struct MainView: View {
             VStack {
                 IntroduceView(
                     introduceTitle: "연계 대학 소개",
-                    introduceText: "Sample Text"
+                    introduceText: ""
                 )
                 
                 UniversityView(
@@ -273,7 +273,7 @@ struct MainView: View {
                 
                 IntroduceView(
                     introduceTitle: "참여 기업 소개",
-                    introduceText: "Sample Text"
+                    introduceText: ""
                 )
             }
             .padding(.horizontal, 28)
