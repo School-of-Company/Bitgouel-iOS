@@ -1,10 +1,8 @@
 import NeedleFoundation
-import SwiftUI
 import Service
+import SwiftUI
 
-public protocol NoticeDetailDependency: Dependency {
-    
-}
+public protocol NoticeDetailDependency: Dependency {}
 
 public final class NoticeDetailViewComponent: Component<NoticeDetailDependency>, NoticeDetailFactory {
     public func makeView(noticeID: String) -> some View {

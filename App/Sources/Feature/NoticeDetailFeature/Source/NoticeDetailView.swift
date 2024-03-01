@@ -3,13 +3,13 @@ import SwiftUI
 struct NoticeDetailView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: NoticeDetailViewModel
-    
+
     init(
         viewModel: NoticeDetailViewModel
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
-    
+
     var body: some View {
         DetailView(
             title: "",
