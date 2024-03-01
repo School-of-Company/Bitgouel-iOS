@@ -28,4 +28,3 @@ final class NoticeDetailViewModel: BaseViewModel {
         #warning("공지사항 삭제 기능 추가")
     }
 }
-

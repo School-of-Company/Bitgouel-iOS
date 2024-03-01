@@ -92,7 +92,7 @@ private extension BaseRemoteDataSource {
     func tokenReissue() async throws {
         let provider = MoyaProvider<RefreshAPI>(plugins: [JwtPlugin(keychain: keychain)])
         do {
-            let response  = try await provider.request(api: .reissueToken)
+            let response = try await provider.request(api: .reissueToken)
         } catch {
             throw error
         }
