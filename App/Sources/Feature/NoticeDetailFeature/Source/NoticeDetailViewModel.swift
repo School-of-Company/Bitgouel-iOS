@@ -4,8 +4,8 @@ import Service
 final class NoticeDetailViewModel: BaseViewModel {
     @Published var isDeleteNotice: Bool = false
     @Published var noticeID: String = ""
-    @Published var isPresentedEditView: Bool = false
     @Published var noticeDetail: PostDetailEntity?
+    @Published var isPresentedInputNoticeView: Bool = false
 
     private let queryPostDetailUseCase: any QueryPostDetailUseCase
     private let deletePostUseCase: any DeletePostUseCase
@@ -20,13 +20,14 @@ final class NoticeDetailViewModel: BaseViewModel {
         self.deletePostUseCase = deletePostUseCase
     }
 
-    func updateIsPresentedEditView(isPresented: Bool) {
-        isPresentedEditView = isPresented
+    func updateIsPresentedInputNoticeView(isPresented: Bool) {
+        isPresentedInputNoticeView = isPresented
     }
 
     func updateIsDeleteNotice(isDelete: Bool) {
         isDeleteNotice = isDelete
     }
+    
 
     @MainActor
     func onAppear() {

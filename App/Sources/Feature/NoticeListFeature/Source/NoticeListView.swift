@@ -64,7 +64,7 @@ struct NoticeListView: View {
                     }
                     
                     Button {
-                        
+                        viewModel.updateIsPresentedInputNoticeView(isPresented: true)
                     } label: {
                         BitgouelAsset.Icons.add.swiftUIImage
                     }
@@ -91,9 +91,9 @@ struct NoticeListView: View {
             .navigate(
                 to: inputNoticeFactory.makeView(state: "추가").eraseToAnyView(),
                 when: Binding(
-                    get: { viewModel.isPresentedNoticeDetailView },
+                    get: { viewModel.isPresentedInputNoticeView },
                     set: { isPresented in
-                        viewModel.updateIsPresentedNoticeDetailView(isPresented: isPresented)
+                        viewModel.updateIsPresentedInputNoticeView(isPresented: isPresented)
                     }
                 )
             )
