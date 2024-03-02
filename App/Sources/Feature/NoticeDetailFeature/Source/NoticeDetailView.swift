@@ -33,7 +33,10 @@ struct NoticeDetailView: View {
             )
         )
         .navigate(
-            to: inputNoticeFactory.makeView(state: "수정").eraseToAnyView(),
+            to: inputNoticeFactory.makeView(
+                state: "수정",
+                noticeID: viewModel.noticeID
+            ).eraseToAnyView(),
             when: Binding(
                 get: { viewModel.isPresentedInputNoticeView },
                 set: { isPresented in

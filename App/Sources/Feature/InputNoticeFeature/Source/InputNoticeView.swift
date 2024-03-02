@@ -3,11 +3,11 @@ import SwiftUI
 struct InputNoticeView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: InputNoticeViewModel
-    
+
     init(viewModel: InputNoticeViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
-    
+
     var body: some View {
         InputFormView(
             epic: "공지사항",
@@ -29,7 +29,9 @@ struct InputNoticeView: View {
             )
         )
         .onAppear {
-            viewModel.onAppear()
+            if viewModel.state == "수정" {
+                viewModel.onAppear()
+            }
         }
     }
 }
