@@ -11,6 +11,7 @@ final class NoticeListViewModel: BaseViewModel {
             }
         } set { _noticeContent = newValue }
     }
+
     @Published var _noticeContent: PostContentEntity?
     @Published var noticeID: String = ""
 
