@@ -13,9 +13,10 @@ struct InputNoticeView: View {
             epic: "공지사항",
             state: viewModel.state,
             settingButtonAction: {
-                
+                viewModel.updateIsPresentedNoticeSettingView(isPresented: true)
             },
             finalButtonAction: {
+                viewModel.applyButtonDidTap()
                 dismiss()
             },
             title: Binding(
@@ -27,5 +28,8 @@ struct InputNoticeView: View {
                 set: { content in viewModel.updateNoticeContent(content: content) }
             )
         )
+        .onAppear {
+            viewModel.onAppear()
+        }
     }
 }

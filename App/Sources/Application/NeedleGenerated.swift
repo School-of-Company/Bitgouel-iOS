@@ -418,6 +418,9 @@ private func factory7c395808ac9dfb8fb229f47b58f8f304c97af4d5(_ component: Needle
     return ActivityDetailDependencyc459286ea5f8c1b2ecdbProvider(appComponent: parent1(component) as! AppComponent)
 }
 private class NoticeDetailDependency3e09bbd26d7f6105e665Provider: NoticeDetailDependency {
+    var inputNoticeFactory: any InputNoticeFactory {
+        return appComponent.inputNoticeFactory
+    }
     var queryPostDetailUseCase: any QueryPostDetailUseCase {
         return appComponent.queryPostDetailUseCase
     }
@@ -603,6 +606,7 @@ extension ActivityDetailComponent: Registration {
 }
 extension NoticeDetailViewComponent: Registration {
     public func registerItems() {
+        keyPathToName[\NoticeDetailDependency.inputNoticeFactory] = "inputNoticeFactory-any InputNoticeFactory"
         keyPathToName[\NoticeDetailDependency.queryPostDetailUseCase] = "queryPostDetailUseCase-any QueryPostDetailUseCase"
         keyPathToName[\NoticeDetailDependency.deletePostUseCase] = "deletePostUseCase-any DeletePostUseCase"
     }
