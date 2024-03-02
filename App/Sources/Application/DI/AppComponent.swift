@@ -102,4 +102,8 @@ public extension AppComponent {
     var noticeDetailFactory: any NoticeDetailFactory {
         NoticeDetailViewComponent(parent: self)
     }
+
+    var inputNoticeFactory: any InputNoticeFactory {
+        InputNoticeComponent(parent: self)
+    }
 }

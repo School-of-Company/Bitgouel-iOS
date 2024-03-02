@@ -2,5 +2,5 @@ import SwiftUI
 
 public protocol InputNoticeFactory {
     associatedtype SomeView: View
-    func makeView(epic: String) -> SomeView
+    func makeView(state: String) -> SomeView
 }
