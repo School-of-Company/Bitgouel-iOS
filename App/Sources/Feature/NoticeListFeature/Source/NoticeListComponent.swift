@@ -1,6 +1,6 @@
 import NeedleFoundation
-import SwiftUI
 import Service
+import SwiftUI
 
 public protocol NoticeListDependency: Dependency {
     var inquiryListFactory: any InquiryListFactory { get }
