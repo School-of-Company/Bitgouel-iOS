@@ -29,7 +29,7 @@ final class NoticeListViewModel: BaseViewModel {
     func updateIsPresentedNoticeDetailView(isPresented: Bool) {
         isPresentedNoticeDetailView = isPresented
     }
-    
+
     func updateIsPresentedInputNoticeView(isPresented: Bool) {
         isPresentedInputNoticeView = isPresented
     }
