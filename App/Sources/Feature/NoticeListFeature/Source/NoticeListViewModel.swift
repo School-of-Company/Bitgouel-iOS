@@ -4,6 +4,7 @@ import Service
 final class NoticeListViewModel: BaseViewModel {
     @Published var isPresentedInquiryListView: Bool = false
     @Published var isPresentedNoticeDetailView: Bool = false
+    @Published var isPresentedInputNoticeView: Bool = false
     var noticeContent: PostContentEntity? {
         get {
             _noticeContent.map {
@@ -27,6 +28,10 @@ final class NoticeListViewModel: BaseViewModel {
 
     func updateIsPresentedNoticeDetailView(isPresented: Bool) {
         isPresentedNoticeDetailView = isPresented
+    }
+    
+    func updateIsPresentedInputNoticeView(isPresented: Bool) {
+        isPresentedInputNoticeView = isPresented
     }
 
     @MainActor

@@ -5,6 +5,7 @@ import SwiftUI
 public protocol NoticeListDependency: Dependency {
     var inquiryListFactory: any InquiryListFactory { get }
     var noticeDetailFactory: any NoticeDetailFactory { get }
+    var inputNoticeFactory: any InputNoticeFactory { get }
     var queryPostListUseCase: any QueryPostListUseCase { get }
 }
 
@@ -15,7 +16,8 @@ public final class NoticeListComponent: Component<NoticeListDependency>, NoticeL
                 queryPostListUseCase: dependency.queryPostListUseCase
             ),
             inquiryListFactory: dependency.inquiryListFactory,
-            noticeDetailFactory: dependency.noticeDetailFactory
+            noticeDetailFactory: dependency.noticeDetailFactory,
+            inputNoticeFactory: dependency.inputNoticeFactory
         )
     }
 }

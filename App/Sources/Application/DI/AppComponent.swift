@@ -102,4 +102,8 @@ public extension AppComponent {
     var inputCertificationFactory: any InputCertificationFactory {
         InputCertificationComponent(parent: self)
     }
+
+    var inputNoticeFactory: any InputNoticeFactory {
+        InputNoticeComponent(parent: self)
+    }
 }
