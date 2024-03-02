@@ -1,6 +1,6 @@
 import NeedleFoundation
-import SwiftUI
 import Service
+import SwiftUI
 
 public protocol NoticeDetailDependency: Dependency {
     var queryPostDetailUseCase: any QueryPostDetailUseCase { get }

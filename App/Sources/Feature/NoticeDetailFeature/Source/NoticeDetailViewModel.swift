@@ -28,6 +28,7 @@ final class NoticeDetailViewModel: BaseViewModel {
         isDeleteNotice = isDelete
     }
 
+    @MainActor
     func onAppear() {
         Task {
             do {
@@ -49,4 +50,3 @@ final class NoticeDetailViewModel: BaseViewModel {
         }
     }
 }
-
