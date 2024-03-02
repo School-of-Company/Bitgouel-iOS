@@ -17,4 +17,16 @@ final class InputNoticeViewModel: BaseViewModel {
     func updateNoticeContent(content: String) {
         noticeContent = content
     }
+    
+    func updateIsPresentedNoticeSettingView(isPresented: Bool) {
+        isPresentedNoticeSettingView = isPresented
+    }
+    
+    func onAppear() {
+        print("onAppear")
+    }
+    
+    func applyButtonDidTap() {
+        print("apply")
+    }
 }
