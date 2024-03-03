@@ -5,7 +5,7 @@ final class InputNoticeViewModel: BaseViewModel {
     @Published var noticeTitle: String = ""
     @Published var noticeContent: String = ""
     @Published var noticeLinks: [String] = []
-    @Published var isPresentedNoticeSettingView: Bool = false
+    @Published var isPresentedNoticeDetailSettingAppend: Bool = false
     var state: String = ""
     var noticeID: String = ""
 
@@ -39,8 +39,8 @@ final class InputNoticeViewModel: BaseViewModel {
         noticeLinks = links
     }
 
-    func updateIsPresentedNoticeSettingView(isPresented: Bool) {
-        isPresentedNoticeSettingView = isPresented
+    func updateIsPresentedNoticeSettingAppend(isPresented: Bool) {
+        isPresentedNoticeDetailSettingAppend = isPresented
     }
 
     @MainActor

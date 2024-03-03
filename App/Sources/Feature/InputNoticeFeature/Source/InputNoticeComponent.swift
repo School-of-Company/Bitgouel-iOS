@@ -3,6 +3,7 @@ import Service
 import SwiftUI
 
 public protocol InputNoticeDependency: Dependency {
+    var noticeDetailSettingFactory: any NoticeDetailSettingFactory { get }
     var queryPostDetailUseCase: any QueryPostDetailUseCase { get }
     var writePostUseCase: any WritePostUseCase { get }
     var updatePostUseCase: any UpdatePostUseCase { get }
@@ -20,7 +21,8 @@ public final class InputNoticeComponent: Component<InputNoticeDependency>, Input
                 queryPostDetailUseCase: dependency.queryPostDetailUseCase,
                 writePostUseCase: dependency.writePostUseCase,
                 updatePostUseCase: dependency.updatePostUseCase
-            )
+            ),
+            noticeDetailSettingFactory: dependency.noticeDetailSettingFactory
         )
     }
 }
