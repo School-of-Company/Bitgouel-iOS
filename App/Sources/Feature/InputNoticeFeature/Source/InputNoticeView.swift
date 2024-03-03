@@ -3,17 +3,23 @@ import SwiftUI
 struct InputNoticeView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: InputNoticeViewModel
-
-    init(viewModel: InputNoticeViewModel) {
+    
+    private let noticeDetailSettingFactory: any NoticeDetailSettingFactory
+    
+    init(
+        viewModel: InputNoticeViewModel,
+        noticeDetailSettingFactory: any NoticeDetailSettingFactory
+    ) {
         _viewModel = StateObject(wrappedValue: viewModel)
+        self.noticeDetailSettingFactory = noticeDetailSettingFactory
     }
-
+    
     var body: some View {
         InputFormView(
             epic: "공지사항",
             state: viewModel.state,
             settingButtonAction: {
-                viewModel.updateIsPresentedNoticeSettingView(isPresented: true)
+                viewModel.updateIsPresentedNoticeSettingAppend(isPresented: true)
             },
             finalButtonAction: {
                 viewModel.applyButtonDidTap()
@@ -31,6 +37,21 @@ struct InputNoticeView: View {
         .onAppear {
             if viewModel.state == "수정" {
                 viewModel.onAppear()
+            }
+        }
+        .fullScreenCover(
+            isPresented: Binding(
+                get: { viewModel.isPresentedNoticeDetailSettingAppend },
+                set: { isPresented in
+                    viewModel.updateIsPresentedNoticeSettingAppend(isPresented: isPresented)
+                }
+            )
+        ) {
+            DeferView {
+                noticeDetailSettingFactory.makeView(noticeLinks: viewModel.noticeLinks) {
+                    links in
+                    viewModel.updateNoticeLinks(links: links)
+                }.eraseToAnyView()
             }
         }
     }
