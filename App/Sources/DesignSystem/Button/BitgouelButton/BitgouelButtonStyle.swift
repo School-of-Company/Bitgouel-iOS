@@ -50,6 +50,7 @@ private extension BitgouelButtonStyle {
                 .bitgouelFont(.text1)
                 .foregroundColor(foregroundColor)
                 .background(backgroundColor)
+                .cornerRadius(8)
         }
     }
 }
