@@ -63,10 +63,12 @@ struct NoticeListView: View {
                         BitgouelAsset.Icons.questionmark.swiftUIImage
                     }
 
-                    Button {
-                        viewModel.updateIsPresentedInputNoticeView(isPresented: true)
-                    } label: {
-                        BitgouelAsset.Icons.add.swiftUIImage
+                    if viewModel.authority == .admin {
+                        Button {
+                            viewModel.updateIsPresentedInputNoticeView(isPresented: true)
+                        } label: {
+                            BitgouelAsset.Icons.add.swiftUIImage
+                        }
                     }
                 }
             }
