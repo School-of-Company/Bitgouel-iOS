@@ -6,15 +6,18 @@ struct NoticeListView: View {
 
     private let inquiryListFactory: any InquiryListFactory
     private let noticeDetailFactory: any NoticeDetailFactory
+    private let inputNoticeFactory: any InputNoticeFactory
 
     init(
         viewModel: NoticeListViewModel,
         inquiryListFactory: any InquiryListFactory,
-        noticeDetailFactory: any NoticeDetailFactory
+        noticeDetailFactory: any NoticeDetailFactory,
+        inputNoticeFactory: any InputNoticeFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.inquiryListFactory = inquiryListFactory
         self.noticeDetailFactory = noticeDetailFactory
+        self.inputNoticeFactory = inputNoticeFactory
     }
 
     var body: some View {
@@ -53,17 +56,19 @@ struct NoticeListView: View {
                     } label: {
                         BitgouelAsset.Icons.message.swiftUIImage
                     }
-                    
+
                     Button {
                         viewModel.updateIsPresentedInquiryListView(isPresented: true)
                     } label: {
                         BitgouelAsset.Icons.questionmark.swiftUIImage
                     }
-                    
-                    Button {
-                        
-                    } label: {
-                        BitgouelAsset.Icons.add.swiftUIImage
+
+                    if viewModel.authority == .admin {
+                        Button {
+                            viewModel.updateIsPresentedInputNoticeView(isPresented: true)
+                        } label: {
+                            BitgouelAsset.Icons.add.swiftUIImage
+                        }
                     }
                 }
             }
@@ -82,6 +87,15 @@ struct NoticeListView: View {
                     get: { viewModel.isPresentedNoticeDetailView },
                     set: { isPresented in
                         viewModel.updateIsPresentedNoticeDetailView(isPresented: isPresented)
+                    }
+                )
+            )
+            .navigate(
+                to: inputNoticeFactory.makeView(state: "추가", noticeID: "").eraseToAnyView(),
+                when: Binding(
+                    get: { viewModel.isPresentedInputNoticeView },
+                    set: { isPresented in
+                        viewModel.updateIsPresentedInputNoticeView(isPresented: isPresented)
                     }
                 )
             )

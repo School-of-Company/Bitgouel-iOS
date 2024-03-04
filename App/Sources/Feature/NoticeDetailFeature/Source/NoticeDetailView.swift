@@ -4,10 +4,14 @@ struct NoticeDetailView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: NoticeDetailViewModel
 
+    private let inputNoticeFactory: any InputNoticeFactory
+
     init(
-        viewModel: NoticeDetailViewModel
+        viewModel: NoticeDetailViewModel,
+        inputNoticeFactory: any InputNoticeFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
+        self.inputNoticeFactory = inputNoticeFactory
     }
 
     var body: some View {
@@ -21,11 +25,23 @@ struct NoticeDetailView: View {
                 dismiss()
             },
             editAction: {
-                viewModel.updateIsPresentedEditView(isPresented: true)
+                viewModel.updateIsPresentedInputNoticeView(isPresented: true)
             },
             isDelete: Binding(
                 get: { viewModel.isDeleteNotice },
                 set: { isDelete in viewModel.updateIsDeleteNotice(isDelete: isDelete) }
+            )
+        )
+        .navigate(
+            to: inputNoticeFactory.makeView(
+                state: "수정",
+                noticeID: viewModel.noticeID
+            ).eraseToAnyView(),
+            when: Binding(
+                get: { viewModel.isPresentedInputNoticeView },
+                set: { isPresented in
+                    viewModel.updateIsPresentedInputNoticeView(isPresented: isPresented)
+                }
             )
         )
         .onAppear {

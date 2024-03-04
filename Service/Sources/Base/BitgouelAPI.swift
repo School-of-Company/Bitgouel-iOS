@@ -33,7 +33,7 @@ public enum BitgouelDomain: String {
     case user
     case activity
     case post
-    case inquery
+    case inquiry
     case faq
     case lecture
     case withdraw
