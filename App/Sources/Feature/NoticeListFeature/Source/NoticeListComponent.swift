@@ -4,6 +4,7 @@ import Service
 
 public protocol NoticeListDependency: Dependency {
     var inquiryListFactory: any InquiryListFactory { get }
+    var noticeDetailFactory: any NoticeDetailFactory { get }
     var queryPostListUseCase: any QueryPostListUseCase { get }
 }
 
@@ -13,7 +14,8 @@ public final class NoticeListComponent: Component<NoticeListDependency>, NoticeL
             viewModel: .init(
                 queryPostListUseCase: dependency.queryPostListUseCase
             ),
-            inquiryListFactory: dependency.inquiryListFactory
+            inquiryListFactory: dependency.inquiryListFactory,
+            noticeDetailFactory: dependency.noticeDetailFactory
         )
     }
 }

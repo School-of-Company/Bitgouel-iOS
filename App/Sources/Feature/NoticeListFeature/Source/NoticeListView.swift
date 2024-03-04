@@ -3,17 +3,20 @@ import SwiftUI
 struct NoticeListView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: NoticeListViewModel
-    
+
     private let inquiryListFactory: any InquiryListFactory
-    
+    private let noticeDetailFactory: any NoticeDetailFactory
+
     init(
         viewModel: NoticeListViewModel,
-        inquiryListFactory: any InquiryListFactory
+        inquiryListFactory: any InquiryListFactory,
+        noticeDetailFactory: any NoticeDetailFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.inquiryListFactory = inquiryListFactory
+        self.noticeDetailFactory = noticeDetailFactory
     }
-    
+
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
@@ -27,13 +30,14 @@ struct NoticeListView: View {
                             )
                             .onTapGesture {
                                 viewModel.noticeID = notice.postID
+                                viewModel.updateIsPresentedNoticeDetailView(isPresented: true)
                             }
-                            
+
                             Divider()
                         }
                     }
                 }
-                
+
                 Spacer()
             }
             .padding(.horizontal, 28)
@@ -69,6 +73,15 @@ struct NoticeListView: View {
                     get: { viewModel.isPresentedInquiryListView },
                     set: { isPresented in
                         viewModel.updateIsPresentedInquiryListView(isPresented: isPresented)
+                    }
+                )
+            )
+            .navigate(
+                to: noticeDetailFactory.makeView(noticeID: viewModel.noticeID).eraseToAnyView(),
+                when: Binding(
+                    get: { viewModel.isPresentedNoticeDetailView },
+                    set: { isPresented in
+                        viewModel.updateIsPresentedNoticeDetailView(isPresented: isPresented)
                     }
                 )
             )
