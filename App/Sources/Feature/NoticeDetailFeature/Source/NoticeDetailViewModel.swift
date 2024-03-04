@@ -27,7 +27,6 @@ final class NoticeDetailViewModel: BaseViewModel {
     func updateIsDeleteNotice(isDelete: Bool) {
         isDeleteNotice = isDelete
     }
-    
 
     @MainActor
     func onAppear() {

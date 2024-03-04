@@ -15,11 +15,17 @@ final class NoticeListViewModel: BaseViewModel {
 
     @Published var _noticeContent: PostContentEntity?
     @Published var noticeID: String = ""
+    var authority: UserAuthorityType = .user
 
     private let queryPostListUseCase: any QueryPostListUseCase
+    private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
 
-    init(queryPostListUseCase: any QueryPostListUseCase) {
+    init(
+        queryPostListUseCase: any QueryPostListUseCase,
+        loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
+    ) {
         self.queryPostListUseCase = queryPostListUseCase
+        self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
     }
 
     func updateIsPresentedInquiryListView(isPresented: Bool) {
@@ -29,13 +35,15 @@ final class NoticeListViewModel: BaseViewModel {
     func updateIsPresentedNoticeDetailView(isPresented: Bool) {
         isPresentedNoticeDetailView = isPresented
     }
-    
+
     func updateIsPresentedInputNoticeView(isPresented: Bool) {
         isPresentedInputNoticeView = isPresented
     }
 
     @MainActor
     func onAppear() {
+        authority = loadUserAuthorityUseCase()
+
         Task {
             do {
                 noticeContent = try await queryPostListUseCase(postType: .notice)

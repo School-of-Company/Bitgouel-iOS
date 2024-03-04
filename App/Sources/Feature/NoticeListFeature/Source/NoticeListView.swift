@@ -56,17 +56,19 @@ struct NoticeListView: View {
                     } label: {
                         BitgouelAsset.Icons.message.swiftUIImage
                     }
-                    
+
                     Button {
                         viewModel.updateIsPresentedInquiryListView(isPresented: true)
                     } label: {
                         BitgouelAsset.Icons.questionmark.swiftUIImage
                     }
-                    
-                    Button {
-                        viewModel.updateIsPresentedInputNoticeView(isPresented: true)
-                    } label: {
-                        BitgouelAsset.Icons.add.swiftUIImage
+
+                    if viewModel.authority == .admin {
+                        Button {
+                            viewModel.updateIsPresentedInputNoticeView(isPresented: true)
+                        } label: {
+                            BitgouelAsset.Icons.add.swiftUIImage
+                        }
                     }
                 }
             }
@@ -89,7 +91,7 @@ struct NoticeListView: View {
                 )
             )
             .navigate(
-                to: inputNoticeFactory.makeView(state: "추가").eraseToAnyView(),
+                to: inputNoticeFactory.makeView(state: "추가", noticeID: "").eraseToAnyView(),
                 when: Binding(
                     get: { viewModel.isPresentedInputNoticeView },
                     set: { isPresented in
