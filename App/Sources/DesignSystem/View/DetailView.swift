@@ -28,9 +28,9 @@ struct DetailView: View {
                         font: .caption
                     )
 
-                    if !links.isEmpty  {
+                    if !links.isEmpty {
                         Divider()
-                        
+
                         relatedLinkRow()
                     }
                 }
@@ -55,7 +55,7 @@ struct DetailView: View {
             ]
         )
     }
-    
+
     @ViewBuilder
     func relatedLinkRow() -> some View {
         VStack(alignment: .leading) {
@@ -63,24 +63,25 @@ struct DetailView: View {
                 text: "관련 링크 보기",
                 font: .text1
             )
-            
+
             VStack(alignment: .leading, spacing: 4) {
                 ForEach(links, id: \.self) { link in
                     if let url = URL(string: link) {
-                        Link(destination: url, 
-                             label: {
-                            BitgouelText(
-                                text: "\(url)",
-                                font: .caption
-                            )
-                        }
+                        Link(
+                            destination: url,
+                            label: {
+                                BitgouelText(
+                                    text: "\(url)",
+                                    font: .caption
+                                )
+                            }
                         )
                     }
                 }
             }
         }
     }
-    
+
     @ViewBuilder
     func popupButton() -> some View {
         HStack {
