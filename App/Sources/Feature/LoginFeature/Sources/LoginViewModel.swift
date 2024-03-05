@@ -85,6 +85,7 @@ final class LoginViewModel: BaseViewModel {
         self.isPresentedSignupPage = false
     }
 
+    @MainActor
     func login() {
         guard checkEmail(email) && checkPassword(password) else { return }
 
