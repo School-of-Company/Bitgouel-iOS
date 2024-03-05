@@ -1,9 +1,22 @@
-//
-//  MainTabComponent.swift
-//  Bitgouel
-//
-//  Created by 정윤서 on 3/5/24.
-//  Copyright © 2024 team.msg. All rights reserved.
-//
+import NeedleFoundation
+import SwiftUI
 
-import Foundation
+public protocol MainTabDependency: Dependency {
+    var mainFactory: any MainFactory { get }
+    var lectureListFactory: any LectureListFactory { get }
+    var postListFactory: any PostListFactory { get }
+    var clubListFactory: any ClubListFactory { get }
+    var myPageFactory: any MyPageFactory { get }
+}
+
+public final class MainTabComponent: Component<MainTabDependency>, MainTabFactory {
+    public func makeView() -> some View {
+        MainTabView(
+            mainFactory: dependency.mainFactory,
+            lectureListFactory: dependency.lectureListFactory,
+            postListFactory: dependency.postListFactory,
+            clubListFactory: dependency.clubListFactory,
+            myPageFactory: dependency.myPageFactory
+        )
+    }
+}
