@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MainTabView: View {
     @State var selection: TabFlow = .home
+    @State var tabbarHidden = false
 
     private let mainFactory: any MainFactory
     private let lectureListFactory: any LectureListFactory
@@ -72,6 +73,10 @@ struct MainTabView: View {
 
                     Text("내 정보")
                 }
+        }
+        .environment(\.tabbarHidden, $tabbarHidden)
+        .onChange(of: tabbarHidden) { newValue in
+            isHiddenTabbar(newValue)
         }
     }
 }
