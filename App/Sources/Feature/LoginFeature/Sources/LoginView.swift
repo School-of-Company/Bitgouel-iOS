@@ -7,6 +7,7 @@ struct LoginView: View {
         case password
     }
 
+    @EnvironmentObject var sceneState: SceneState
     @FocusState private var focusField: FocusField?
     @StateObject var viewModel: LoginViewModel
     private let signupFactory: any SignUpFactory
@@ -90,6 +91,10 @@ struct LoginView: View {
                         set: { _ in viewModel.signupPageDismissed() }
                     )
                 )
+                .onChange(of: viewModel.isSuccessSignin) { newValue in
+                    guard newValue else { return }
+                    sceneState.sceneFlow = .main
+                }
             }
         }
         .navigationBarBackButtonHidden(true)

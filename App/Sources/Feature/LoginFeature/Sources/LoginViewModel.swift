@@ -5,6 +5,7 @@ final class LoginViewModel: BaseViewModel {
     @Published var email = ""
     @Published var password = ""
     @Published var isPresentedSignupPage: Bool = false
+    @Published var isSuccessSignin = false
     private let loginUseCase: any LoginUseCase
     private let saveUserAuthority: any SaveUserAuthorityUseCase
 
@@ -91,6 +92,7 @@ final class LoginViewModel: BaseViewModel {
             do {
                 let userLoginInfo = try await self.loginUseCase(req: LoginRequestDTO(email: email, password: password))
                 saveUserAuthority(authority: userLoginInfo.authority)
+                isSuccessSignin = true
                 print("로그인 성공 \(userLoginInfo.authority)")
             } catch {
                 isErrorOccurred = true
