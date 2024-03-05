@@ -54,15 +54,15 @@ struct CertificationListView: View {
                         )
                     }
                     .foregroundColor(.bitgouel(.greyscale(.g4)))
-                    
+
                     HStack {
                         BitgouelText(
                             text: "전화번호",
                             font: .caption
                         )
-                        
+
                         Spacer()
-                        
+
                         BitgouelText(
                             text: studentInfo.phoneNumber,
                             font: .caption
@@ -71,24 +71,24 @@ struct CertificationListView: View {
                 }
                 .padding(.top, 24)
             }
-            
+
             Divider()
-            
+
             HStack {
                 BitgouelText(
                     text: "자격증",
                     font: .title3
                 )
-                
+
                 Spacer()
-                
+
                 Button {
                     viewModel.updateIsPresentedInputCertificationView(isPresented: true)
                 } label: {
                     BitgouelAsset.Icons.add.swiftUIImage
                 }
             }
-            
+
             ScrollView(showsIndicators: false) {
                 LazyVStack(spacing: 0) {
                     ForEach(viewModel.certificationList, id: \.certificationID) { certification in
@@ -99,7 +99,7 @@ struct CertificationListView: View {
                         ) {
                             print("edit")
                         }
-                        
+
                         Divider()
                     }
                 }
