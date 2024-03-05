@@ -90,6 +90,10 @@ public extension AppComponent {
     var inquiryListFactory: any InquiryListFactory {
         InquiryListComponent(parent: self)
     }
+    
+    var noticeDetailFactory: any NoticeDetailFactory {
+        NoticeDetailViewComponent(parent: self)
+    }
 
     var certificationListFactory: any CertificationListFactory {
         CertificationListComponent(parent: self)
@@ -109,5 +113,13 @@ public extension AppComponent {
     
     var mainTabFactory: any MainTabFactory {
         MainTabComponent(parent: self)
+    }
+
+    var inputNoticeFactory: any InputNoticeFactory {
+        InputNoticeComponent(parent: self)
+    }
+
+    var noticeDetailSettingFactory: any NoticeDetailSettingFactory {
+        NoticeDetailSettingComponent(parent: self)
     }
 }
