@@ -158,12 +158,56 @@ private class ActivityDetailSettingDependency0b98c5f90168b920a8b8Provider: Activ
 private func factoryfd595280dea209e217b9e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
     return ActivityDetailSettingDependency0b98c5f90168b920a8b8Provider()
 }
-private class RootDependency3944cc797a4a88956fb5Provider: RootDependency {
-    var loginFactory: any LoginFactory {
-        return appComponent.loginFactory
+private class MainTabDependency2826cdb310ed0b17a725Provider: MainTabDependency {
+    var mainFactory: any MainFactory {
+        return appComponent.mainFactory
+    }
+    var lectureListFactory: any LectureListFactory {
+        return appComponent.lectureListFactory
+    }
+    var postListFactory: any PostListFactory {
+        return appComponent.postListFactory
     }
     var clubListFactory: any ClubListFactory {
         return appComponent.clubListFactory
+    }
+    var myPageFactory: any MyPageFactory {
+        return appComponent.myPageFactory
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->MainTabComponent
+private func factory1ab5a747ddf21e1393f9f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return MainTabDependency2826cdb310ed0b17a725Provider(appComponent: parent1(component) as! AppComponent)
+}
+private class MyPageDependency48d84b530313b3ee40feProvider: MyPageDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->MyPageComponent
+private func factory0f6f456ebf157d02dfb3e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return MyPageDependency48d84b530313b3ee40feProvider()
+}
+private class MainDependency7c6a5b4738b211b8e155Provider: MainDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->MainComponent
+private func factoryc9274e46e78e70f29c54e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return MainDependency7c6a5b4738b211b8e155Provider()
+}
+private class RootDependency3944cc797a4a88956fb5Provider: RootDependency {
+    var loginFactory: any LoginFactory {
+        return appComponent.loginFactory
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -474,10 +518,28 @@ extension ActivityDetailSettingComponent: Registration {
 
     }
 }
+extension MainTabComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\MainTabDependency.mainFactory] = "mainFactory-any MainFactory"
+        keyPathToName[\MainTabDependency.lectureListFactory] = "lectureListFactory-any LectureListFactory"
+        keyPathToName[\MainTabDependency.postListFactory] = "postListFactory-any PostListFactory"
+        keyPathToName[\MainTabDependency.clubListFactory] = "clubListFactory-any ClubListFactory"
+        keyPathToName[\MainTabDependency.myPageFactory] = "myPageFactory-any MyPageFactory"
+    }
+}
+extension MyPageComponent: Registration {
+    public func registerItems() {
+
+    }
+}
+extension MainComponent: Registration {
+    public func registerItems() {
+
+    }
+}
 extension RootComponent: Registration {
     public func registerItems() {
         keyPathToName[\RootDependency.loginFactory] = "loginFactory-any LoginFactory"
-        keyPathToName[\RootDependency.clubListFactory] = "clubListFactory-any ClubListFactory"
     }
 }
 extension PostListComponent: Registration {
@@ -595,6 +657,16 @@ extension AppComponent: Registration {
         localTable["queryPostDetailUseCase-any QueryPostDetailUseCase"] = { [unowned self] in self.queryPostDetailUseCase as Any }
         localTable["updatePostUseCase-any UpdatePostUseCase"] = { [unowned self] in self.updatePostUseCase as Any }
         localTable["deletePostUseCase-any DeletePostUseCase"] = { [unowned self] in self.deletePostUseCase as Any }
+        localTable["remoteInquiryDataSource-RemoteInquiryDataSource"] = { [unowned self] in self.remoteInquiryDataSource as Any }
+        localTable["inquiryRepository-InquiryRepository"] = { [unowned self] in self.inquiryRepository as Any }
+        localTable["inputInquiryUseCase-any InputInquiryUseCase"] = { [unowned self] in self.inputInquiryUseCase as Any }
+        localTable["fetchMyInquiryListUseCase-any FetchMyInquiryListUseCase"] = { [unowned self] in self.fetchMyInquiryListUseCase as Any }
+        localTable["fetchInquiryDetailUseCase-any FetchInquiryDetailUseCase"] = { [unowned self] in self.fetchInquiryDetailUseCase as Any }
+        localTable["deleteMyInquiryUseCase-any DeleteMyInquiryUseCase"] = { [unowned self] in self.deleteMyInquiryUseCase as Any }
+        localTable["modifyMyInquiryUseCase-any ModifyMyInquiryUseCase"] = { [unowned self] in self.modifyMyInquiryUseCase as Any }
+        localTable["replyInquiryUseCase-any ReplyInquiryUseCase"] = { [unowned self] in self.replyInquiryUseCase as Any }
+        localTable["fetchInquiryByAdmin-any FetchInquiryByAdminUseCase"] = { [unowned self] in self.fetchInquiryByAdmin as Any }
+        localTable["deleteInquiryByAdmin-any DeleteInquiryByAdminUseCase"] = { [unowned self] in self.deleteInquiryByAdmin as Any }
         localTable["localAuthDataSource-any LocalAuthDataSource"] = { [unowned self] in self.localAuthDataSource as Any }
         localTable["remoteAuthDataSource-any RemoteAuthDataSource"] = { [unowned self] in self.remoteAuthDataSource as Any }
         localTable["authRepository-any AuthRepository"] = { [unowned self] in self.authRepository as Any }
@@ -644,6 +716,9 @@ extension AppComponent: Registration {
         localTable["inquiryListFactory-any InquiryListFactory"] = { [unowned self] in self.inquiryListFactory as Any }
         localTable["certificationListFactory-any CertificationListFactory"] = { [unowned self] in self.certificationListFactory as Any }
         localTable["inputCertificationFactory-any InputCertificationFactory"] = { [unowned self] in self.inputCertificationFactory as Any }
+        localTable["mainFactory-any MainFactory"] = { [unowned self] in self.mainFactory as Any }
+        localTable["myPageFactory-any MyPageFactory"] = { [unowned self] in self.myPageFactory as Any }
+        localTable["mainTabFactory-any MainTabFactory"] = { [unowned self] in self.mainTabFactory as Any }
         localTable["remoteCertificationDataSource-any RemoteCertificationDataSource"] = { [unowned self] in self.remoteCertificationDataSource as Any }
         localTable["certificationRepository-any CertificationRepository"] = { [unowned self] in self.certificationRepository as Any }
         localTable["queryCertificationListByTeacherUseCase-any QueryCertificationListByTeacherUseCase"] = { [unowned self] in self.queryCertificationListByTeacherUseCase as Any }
@@ -676,6 +751,9 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->NoticeListComponent", factorye14e687c08985bdffcd0f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->SignUpComponent", factory306e8ce5cfdf41304709f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ActivityDetailSettingComponent", factoryfd595280dea209e217b9e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->MainTabComponent", factory1ab5a747ddf21e1393f9f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->MyPageComponent", factory0f6f456ebf157d02dfb3e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->MainComponent", factoryc9274e46e78e70f29c54e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->RootComponent", factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->PostListComponent", factory0c89e2bbcc02dbcac018f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ClubDetailComponent", factory1559652f8e80cfa88d06f47b58f8f304c97af4d5)
