@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct InputActivityView: View {
+    @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var viewModel: InputActivityViewModel
 
     private let activityDetailSettingFactory: any ActivityDetailSettingFactory
@@ -51,6 +52,12 @@ struct InputActivityView: View {
         }
         .onTapGesture {
             hideKeyboard()
+        }
+        .onAppear {
+            tabbarHidden.wrappedValue = true
+        }
+        .onDisappear {
+            tabbarHidden.wrappedValue = false
         }
     }
 }

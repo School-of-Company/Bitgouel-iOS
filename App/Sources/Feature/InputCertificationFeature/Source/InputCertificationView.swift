@@ -2,6 +2,7 @@ import SwiftUI
 
 struct InputCertificationView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var viewModel: InputCertificationViewModel
 
     init(viewModel: InputCertificationViewModel) {
@@ -70,6 +71,12 @@ struct InputCertificationView: View {
                         BitgouelAsset.Icons.cancel.swiftUIImage
                     }
                 }
+            }
+            .onAppear {
+                tabbarHidden.wrappedValue = true
+            }
+            .onDisappear {
+                tabbarHidden.wrappedValue = false
             }
         }
     }

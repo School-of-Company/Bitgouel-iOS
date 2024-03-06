@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct LectureListDetailView: View {
+    @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var viewModel: LectureListDetailViewModel
     
     init(viewModel: LectureListDetailViewModel) {
@@ -69,6 +70,10 @@ struct LectureListDetailView: View {
             }
             .onAppear {
                 viewModel.onAppear()
+                tabbarHidden.wrappedValue = true
+            }
+            .onDisappear {
+                tabbarHidden.wrappedValue = false
             }
             .overlay(alignment: .bottom) {
                 if viewModel.lectureDetail?.isRegistered ?? true {
