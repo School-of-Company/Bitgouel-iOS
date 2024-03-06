@@ -2,6 +2,7 @@ import SwiftUI
 
 struct InputPostView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var viewModel: InputPostViewModel
 
     private let postDetailSettingFactory: any PostDetailSettingFactory
@@ -37,6 +38,12 @@ struct InputPostView: View {
                     )
                 )
             }
+        }
+        .onAppear {
+            tabbarHidden.wrappedValue = true
+        }
+        .onDisappear {
+            tabbarHidden.wrappedValue = false
         }
         .fullScreenCover(
             isPresented: Binding(

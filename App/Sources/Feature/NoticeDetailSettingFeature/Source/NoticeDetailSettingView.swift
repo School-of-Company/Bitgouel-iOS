@@ -2,6 +2,7 @@ import SwiftUI
 
 struct NoticeDetailSettingView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var viewModel: NoticeDetailSettingViewModel
     
     init(viewModel: NoticeDetailSettingViewModel) {
@@ -29,6 +30,12 @@ struct NoticeDetailSettingView: View {
                         BitgouelAsset.Icons.cancel.swiftUIImage
                     }
                 }
+            }
+            .onAppear {
+                tabbarHidden.wrappedValue = true
+            }
+            .onDisappear {
+                tabbarHidden.wrappedValue = false
             }
         }
     }

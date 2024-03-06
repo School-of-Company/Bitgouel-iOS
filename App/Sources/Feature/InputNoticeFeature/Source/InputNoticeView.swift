@@ -2,6 +2,7 @@ import SwiftUI
 
 struct InputNoticeView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var viewModel: InputNoticeViewModel
     
     private let noticeDetailSettingFactory: any NoticeDetailSettingFactory
@@ -35,9 +36,13 @@ struct InputNoticeView: View {
             )
         )
         .onAppear {
+            tabbarHidden.wrappedValue = true
             if viewModel.state == "수정" {
                 viewModel.onAppear()
             }
+        }
+        .onDisappear {
+            tabbarHidden.wrappedValue = false
         }
         .fullScreenCover(
             isPresented: Binding(

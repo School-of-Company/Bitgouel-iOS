@@ -2,6 +2,7 @@ import SwiftUI
 
 struct PostDetailView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var viewModel: PostDetailViewModel
 
     private let editPostFactory: any EditPostFactory
@@ -34,6 +35,10 @@ struct PostDetailView: View {
         )
         .onAppear {
             viewModel.onAppear()
+            tabbarHidden.wrappedValue = true
+        }
+        .onDisappear {
+            tabbarHidden.wrappedValue = false
         }
         .navigate(
             to: editPostFactory.makeView(postID: viewModel.postID).eraseToAnyView(),
