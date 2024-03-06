@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ClubDetailView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var viewModel: ClubDetailViewModel
 
     private let certificationListFactory: any CertificationListFactory
@@ -102,6 +103,10 @@ struct ClubDetailView: View {
         .padding(.horizontal, 28)
         .onAppear {
             viewModel.onAppear()
+            tabbarHidden.wrappedValue = true
+        }
+        .onDisappear {
+            tabbarHidden.wrappedValue = false
         }
     }
 }

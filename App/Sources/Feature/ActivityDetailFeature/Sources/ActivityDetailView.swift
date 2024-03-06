@@ -2,6 +2,7 @@ import Service
 import SwiftUI
 
 struct ActivityDetailView: View {
+    @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var viewModel: ActivityDetailViewModel
     
     init(viewModel: ActivityDetailViewModel) {
@@ -74,6 +75,10 @@ struct ActivityDetailView: View {
         .padding(.horizontal, 28)
         .onAppear {
             viewModel.onAppear()
+            tabbarHidden.wrappedValue = true
+        }
+        .onDisappear {
+            tabbarHidden.wrappedValue = false
         }
         .bitgouelAlert(
             title: "활동 승인하시겠습니까?",

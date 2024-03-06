@@ -2,6 +2,7 @@ import SwiftUI
 
 struct EditPostView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var viewModel: EditPostViewModel
 
     private let postDetailSettingFactory: any PostDetailSettingFactory
@@ -39,6 +40,10 @@ struct EditPostView: View {
             }
             .onAppear {
                 viewModel.onAppear()
+                tabbarHidden.wrappedValue = true
+            }
+            .onDisappear {
+                tabbarHidden.wrappedValue = false
             }
         }
         .fullScreenCover(

@@ -2,6 +2,7 @@ import SwiftUI
 
 struct NoticeDetailView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var viewModel: NoticeDetailViewModel
 
     private let inputNoticeFactory: any InputNoticeFactory
@@ -46,6 +47,10 @@ struct NoticeDetailView: View {
         )
         .onAppear {
             viewModel.onAppear()
+            tabbarHidden.wrappedValue = true
+        }
+        .onDisappear {
+            tabbarHidden.wrappedValue = false
         }
     }
 }

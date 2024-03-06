@@ -102,11 +102,23 @@ public extension AppComponent {
     var inputCertificationFactory: any InputCertificationFactory {
         InputCertificationComponent(parent: self)
     }
+    
+    var mainFactory: any MainFactory {
+        MainComponent(parent: self)
+    }
+
+    var myPageFactory: any MyPageFactory {
+        MyPageComponent(parent: self)
+    }
+    
+    var mainTabFactory: any MainTabFactory {
+        MainTabComponent(parent: self)
+    }
 
     var inputNoticeFactory: any InputNoticeFactory {
         InputNoticeComponent(parent: self)
     }
-    
+
     var noticeDetailSettingFactory: any NoticeDetailSettingFactory {
         NoticeDetailSettingComponent(parent: self)
     }
