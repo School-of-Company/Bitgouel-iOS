@@ -35,7 +35,3 @@ struct InquiryListView: View {
         .padding(.horizontal, 28)
     }
 }
-
-#Preview {
-    InquiryListView()
-}
