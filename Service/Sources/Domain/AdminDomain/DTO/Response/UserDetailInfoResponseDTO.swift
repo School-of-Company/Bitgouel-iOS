@@ -25,3 +25,14 @@ public struct UserDetailInfoResponseDTO: Decodable {
         case approveStatus
     }
 }
+
+extension UserDetailInfoResponseDTO {
+    func toDomain() -> UserInfoEntity {
+        UserInfoEntity(
+            userID: userID,
+            name: name,
+            authority: authority,
+            approveStatus: approveStatus
+        )
+    }
+}

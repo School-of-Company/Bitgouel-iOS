@@ -45,7 +45,7 @@ extension UserInfoResponseDTO.UserInfo {
         UserInfoEntity(
             userID: userID,
             name: name,
-            autority: authority,
+            authority: authority,
             approveStatus: approveStatus
         )
     }
