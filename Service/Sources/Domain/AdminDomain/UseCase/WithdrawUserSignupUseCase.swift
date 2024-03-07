@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol WithdrawUserSignupUseCase {
+public protocol WithdrawUserUseCase {
     func callAsFunction(userID: [String]) async throws
 }
