@@ -36,8 +36,8 @@ public struct FetchInquiryListResponseDTO: Decodable {
             case question
             case userID = "userId"
             case username
-            case answerStatus
             case createdAt
+            case answerStatus
         }
     }
 }
@@ -55,6 +55,7 @@ extension FetchInquiryListResponseDTO.InquiryInfo {
             question: question,
             userID: userID,
             username: username,
+            createdAt: createdAt,
             answerStatus: answerStatus
         )
     }

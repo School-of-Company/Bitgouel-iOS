@@ -8,7 +8,7 @@ public enum InquiryAPI {
     case deleteMyInquiry(inquiryID: String)
     case modifyMyInquiry(inquiryID: String, req: InputInquiryRequestDTO)
     case replyInquiry(inquiryID: String, answer: String)
-    case fetchInquiryListByAdmin(answerStatus: AnswerStatusType, keyword: String)
+    case fetchInquiryListByAdmin(answerStatus: String, keyword: String)
     case deleteInquiryByAdmin(inquiryID: String)
 }
 

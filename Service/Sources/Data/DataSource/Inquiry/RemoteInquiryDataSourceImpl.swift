@@ -26,7 +26,7 @@ public final class RemoteInquiryDataSourceImpl: BaseRemoteDataSource<InquiryAPI>
     }
 
     public func fetchInquiryListByAdmin(
-        answerStatus: AnswerStatusType,
+        answerStatus: String,
         keyword: String
     ) async throws -> [InquiryInfoEntity] {
         try await request(
