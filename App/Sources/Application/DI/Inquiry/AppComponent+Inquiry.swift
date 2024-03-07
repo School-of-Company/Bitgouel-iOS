@@ -50,13 +50,13 @@ public extension AppComponent {
         }
     }
     
-    var fetchInquiryByAdmin: any FetchInquiryByAdminUseCase {
+    var fetchInquiryByAdminUseCase: any FetchInquiryByAdminUseCase {
         shared {
             FetchInquiryByAdminUseCaseImpl(inquiryRepository: inquiryRepository)
         }
     }
     
-    var deleteInquiryByAdmin: any DeleteInquiryByAdminUseCase {
+    var deleteInquiryByAdminUseCase: any DeleteInquiryByAdminUseCase {
         shared {
             DeleteInquiryByAdminUseCaseImpl(inquiryRepository: inquiryRepository)
         }
