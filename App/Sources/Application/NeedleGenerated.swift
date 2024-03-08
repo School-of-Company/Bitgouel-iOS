@@ -361,15 +361,23 @@ private func factorybc555a73df3767a26999f47b58f8f304c97af4d5(_ component: Needle
     return PostDetailDependencycf431278832ae8226535Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class InquiryListDependencyec75a7335a50ded93b28Provider: InquiryListDependency {
-
-
-    init() {
-
+    var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
+        return appComponent.loadUserAuthorityUseCase
+    }
+    var fetchMyInquiryListUseCase: any FetchMyInquiryListUseCase {
+        return appComponent.fetchMyInquiryListUseCase
+    }
+    var fetchInquiryByAdminUseCase: any FetchInquiryByAdminUseCase {
+        return appComponent.fetchInquiryByAdminUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->InquiryListComponent
-private func factorydd7e28250a180554c7a0e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return InquiryListDependencyec75a7335a50ded93b28Provider()
+private func factorydd7e28250a180554c7a0f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return InquiryListDependencyec75a7335a50ded93b28Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class EditPostDependency2fc4e7c9e3795c6e218eProvider: EditPostDependency {
     var postDetailSettingFactory: any PostDetailSettingFactory {
@@ -660,7 +668,9 @@ extension PostDetailComponent: Registration {
 }
 extension InquiryListComponent: Registration {
     public func registerItems() {
-
+        keyPathToName[\InquiryListDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
+        keyPathToName[\InquiryListDependency.fetchMyInquiryListUseCase] = "fetchMyInquiryListUseCase-any FetchMyInquiryListUseCase"
+        keyPathToName[\InquiryListDependency.fetchInquiryByAdminUseCase] = "fetchInquiryByAdminUseCase-any FetchInquiryByAdminUseCase"
     }
 }
 extension EditPostComponent: Registration {
@@ -753,8 +763,8 @@ extension AppComponent: Registration {
         localTable["deleteMyInquiryUseCase-any DeleteMyInquiryUseCase"] = { [unowned self] in self.deleteMyInquiryUseCase as Any }
         localTable["modifyMyInquiryUseCase-any ModifyMyInquiryUseCase"] = { [unowned self] in self.modifyMyInquiryUseCase as Any }
         localTable["replyInquiryUseCase-any ReplyInquiryUseCase"] = { [unowned self] in self.replyInquiryUseCase as Any }
-        localTable["fetchInquiryByAdmin-any FetchInquiryByAdminUseCase"] = { [unowned self] in self.fetchInquiryByAdmin as Any }
-        localTable["deleteInquiryByAdmin-any DeleteInquiryByAdminUseCase"] = { [unowned self] in self.deleteInquiryByAdmin as Any }
+        localTable["fetchInquiryByAdminUseCase-any FetchInquiryByAdminUseCase"] = { [unowned self] in self.fetchInquiryByAdminUseCase as Any }
+        localTable["deleteInquiryByAdminUseCase-any DeleteInquiryByAdminUseCase"] = { [unowned self] in self.deleteInquiryByAdminUseCase as Any }
         localTable["localAuthDataSource-any LocalAuthDataSource"] = { [unowned self] in self.localAuthDataSource as Any }
         localTable["remoteAuthDataSource-any RemoteAuthDataSource"] = { [unowned self] in self.remoteAuthDataSource as Any }
         localTable["authRepository-any AuthRepository"] = { [unowned self] in self.authRepository as Any }
@@ -852,7 +862,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->SuccessSignUpComponent", factorybf219b153b668170161df47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->CertificationListComponent", factoryc231b853779286e489fbf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->PostDetailComponent", factorybc555a73df3767a26999f47b58f8f304c97af4d5)
-    registerProviderFactory("^->AppComponent->InquiryListComponent", factorydd7e28250a180554c7a0e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->InquiryListComponent", factorydd7e28250a180554c7a0f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->EditPostComponent", factoryf55a9d7f6c1ed8d0f0aef47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ActivityListComponent", factory7177e6769ee69064a61bf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->LoginComponent", factoryd6018e98563de75a2ba4f47b58f8f304c97af4d5)
