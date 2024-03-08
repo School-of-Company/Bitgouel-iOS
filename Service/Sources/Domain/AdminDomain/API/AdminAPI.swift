@@ -29,7 +29,7 @@ extension AdminAPI: BitgouelAPI {
             return "/\(userID)"
 
         case let .rejectUserSignup(userID):
-            return "/\(userID)/reject"
+            return "/reject"
         }
     }
 
@@ -57,9 +57,13 @@ extension AdminAPI: BitgouelAPI {
                 "approveStatus": approveStatus
             ], encoding: URLEncoding.queryString)
 
+        case let .approveUserSignup(userID),
+             let .rejectUserSignup(userID):
+            return .requestParameters(parameters: [
+                "userIds": userID
+            ], encoding: URLEncoding.queryString)
+
         case .fetchUserDetail,
-             .approveUserSignup,
-             .rejectUserSignup,
              .withdrawUserSignup:
             return .requestPlain
         }

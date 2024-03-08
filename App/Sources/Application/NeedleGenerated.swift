@@ -780,6 +780,13 @@ extension AppComponent: Registration {
         localTable["queryStudentActivityByIDUseCase-any QueryStudentActivityByIDUseCase"] = { [unowned self] in self.queryStudentActivityByIDUseCase as Any }
         localTable["queryStudentActivityListUseCase-any QueryStudentActivityListUseCase"] = { [unowned self] in self.queryStudentActivityListUseCase as Any }
         localTable["queryStudentActivityDetailsUseCase-any QueryStudentActivityDetailsUseCase"] = { [unowned self] in self.queryStudentActivityDetailsUseCase as Any }
+        localTable["remoteAdminDataSource-any RemoteAdminDataSource"] = { [unowned self] in self.remoteAdminDataSource as Any }
+        localTable["adminRepository-any AdminRepository"] = { [unowned self] in self.adminRepository as Any }
+        localTable["fetchUserListUseCase-any FetchUserListUseCase"] = { [unowned self] in self.fetchUserListUseCase as Any }
+        localTable["fetchUserDetailUseCase-any FetchUserDetailUseCase"] = { [unowned self] in self.fetchUserDetailUseCase as Any }
+        localTable["approveUserSignupUseCase-any ApproveUserSignupUseCase"] = { [unowned self] in self.approveUserSignupUseCase as Any }
+        localTable["rejectUserSignupUseCase-any RejectUserSignupUseCase"] = { [unowned self] in self.rejectUserSignupUseCase as Any }
+        localTable["withdrawUserUseCase-any WithdrawUserUseCase"] = { [unowned self] in self.withdrawUserUseCase as Any }
         localTable["remoteUserDataSource-any RemoteUserDataSource"] = { [unowned self] in self.remoteUserDataSource as Any }
         localTable["userRepository-any UserRepository"] = { [unowned self] in self.userRepository as Any }
         localTable["changePasswordUseCase-any ChangePasswordUseCase"] = { [unowned self] in self.changePasswordUseCase as Any }
