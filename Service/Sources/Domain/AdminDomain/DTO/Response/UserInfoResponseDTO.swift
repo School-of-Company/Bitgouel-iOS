@@ -2,17 +2,17 @@ import Foundation
 
 public struct UserInfoResponseDTO: Decodable {
     public let users: [UserInfo]
-    
+
     public init(users: [UserInfo]) {
         self.users = users
     }
-    
+
     public struct UserInfo: Decodable {
         public let userID: String
         public let name: String
         public let authority: UserAuthorityType
         public let approveStatus: ApproveStatusType
-        
+
         public init(
             userID: String,
             name: String,
@@ -24,7 +24,7 @@ public struct UserInfoResponseDTO: Decodable {
             self.authority = authority
             self.approveStatus = approveStatus
         }
-        
+
         enum CodingKeys: String, CodingKey {
             case userID = "id"
             case name

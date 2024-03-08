@@ -5,7 +5,7 @@ public struct UserInfoEntity: Equatable {
     public let name: String
     public let authority: UserAuthorityType
     public let approveStatus: ApproveStatusType
-    
+
     public init(
         userID: String,
         name: String,

@@ -5,7 +5,7 @@ public struct UserDetailInfoResponseDTO: Decodable {
     public let name: String
     public let authority: UserAuthorityType
     public let approveStatus: ApproveStatusType
-    
+
     public init(
         userID: String,
         name: String,
@@ -17,7 +17,7 @@ public struct UserDetailInfoResponseDTO: Decodable {
         self.authority = authority
         self.approveStatus = approveStatus
     }
-    
+
     enum CodingKeys: String, CodingKey {
         case userID = "id"
         case name
