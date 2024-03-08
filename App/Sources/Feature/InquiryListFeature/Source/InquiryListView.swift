@@ -6,44 +6,69 @@ struct InquiryListView: View {
     init(viewModel: InquiryListViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
-
+    
     var body: some View {
-        ScrollView {
-            VStack(spacing: 12) {
-                ForEach(viewModel.inquiryList, id: \.inquiryID) { inquiry in
-                    InquiryListRow(
-                        id: inquiry.inquiryID,
-                        title: inquiry.question,
-                        date: inquiry.createdAt,
-                        userID: inquiry.userID,
-                        name: inquiry.username,
-                        state: inquiry.answerStatus,
-                        authority: viewModel.authority
-                    )
-                }
-            }
-            .navigationTitle("문의사항")
-            .toolbar {
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    if viewModel.authority == .admin {
-                        Button {
-                            
-                        } label: {
-                            BitgouelAsset.Icons.filter.swiftUIImage
-                        }
-                    } else {
-                        Button {
-                            
-                        } label: {
-                            BitgouelAsset.Icons.add.swiftUIImage
-                        }
+        ZStack {
+            ScrollView {
+                VStack(spacing: 12) {
+                    ForEach(viewModel.inquiryList, id: \.inquiryID) { inquiry in
+                        InquiryListRow(
+                            id: inquiry.inquiryID,
+                            title: inquiry.question,
+                            date: inquiry.createdAt,
+                            userID: inquiry.userID,
+                            name: inquiry.username,
+                            state: inquiry.answerStatus,
+                            authority: viewModel.authority
+                        )
                     }
                 }
             }
-            .onAppear {
-                viewModel.onAppear()
+            .padding(.horizontal, 28)
+
+            ZStack(alignment: .center) {
+                if viewModel.isPresentedFilter {
+                    Color.black.opacity(0.4)
+                        .edgesIgnoringSafeArea(.all)
+                        .onTapGesture {
+                            
+                        }
+
+                    AnswerFilterPopup(
+                        answerList: viewModel.answerList,
+                        selectedAnswer: viewModel.selectedAnswer
+                    ) { answer in
+                        viewModel.selectedAnswer = answer
+                        viewModel.updateAnswerStatus(answer: answer)
+                        print(answer)
+                    } cancel: { cancle in
+                        viewModel.updateIsPresentedFilter(isPresented: cancle)
+                    }
+                    .padding(.horizontal, 28)
+                }
+            }
+            .zIndex(1)
+        }
+        .navigationTitle("문의사항")
+        .toolbar {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                if viewModel.authority == .admin {
+                    Button {
+                        viewModel.updateIsPresentedFilter(isPresented: true)
+                    } label: {
+                        BitgouelAsset.Icons.filter.swiftUIImage
+                    }
+                } else {
+                    Button {
+                        
+                    } label: {
+                        BitgouelAsset.Icons.add.swiftUIImage
+                    }
+                }
             }
         }
-        .padding(.horizontal, 28)
+        .onAppear {
+            viewModel.onAppear()
+        }
     }
 }

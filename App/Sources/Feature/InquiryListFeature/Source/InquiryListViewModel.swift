@@ -6,7 +6,9 @@ final class InquiryListViewModel: BaseViewModel {
     @Published var inquiryList: [InquiryInfoEntity] = []
     @Published var answerStatus: AnswerStatusType?
     @Published var keyword: String = ""
-    var answerStatusList: [AnswerStatusType] = AnswerStatusType.allCases
+    @Published var selectedAnswer: AnswerList = .all
+    @Published var isPresentedFilter: Bool = false
+    var answerList: [AnswerList] = AnswerList.allCases
 
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
     private let fetchMyInquiryListUseCase: any FetchMyInquiryListUseCase
@@ -22,9 +24,22 @@ final class InquiryListViewModel: BaseViewModel {
         self.fetchInquiryByAdminUseCase = fetchInquiryByAdminUseCase
     }
 
-    func updateAnswerStatus(answer: AnswerStatusType) {
-        answerStatus = answer
+    
+    func updateIsPresentedFilter(isPresented: Bool) {
+        isPresentedFilter = isPresented
     }
+
+    func updateAnswerStatus(answer: AnswerList) {
+        switch answer {
+        case .all:
+            break
+        case .answer:
+            answerStatus = .answered
+        case .unanswer:
+            answerStatus = .unanswered
+        }
+    }
+
     @MainActor
     func onAppear() {
         authority = loadUserAuthorityUseCase()

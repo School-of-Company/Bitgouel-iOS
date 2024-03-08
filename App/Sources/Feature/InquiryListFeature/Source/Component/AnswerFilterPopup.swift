@@ -1,17 +1,22 @@
-import SwiftUI
 import Service
+import SwiftUI
 
-struct AnswerStatusListPopup: View {
-    let answerStatusList: [AnswerStatusType]
-    var selectedAnswerStatus: AnswerStatusType
-    var answerStatus: [AnswerStatusType]
-    let onAnswerStatusSelect: ([AnswerStatusType]) -> Void
+enum AnswerList: String, CaseIterable {
+    case all = "전체"
+    case answer = "답변 된 문의사항만"
+    case unanswer = "대기중인 문의사항만"
+}
+
+struct AnswerFilterPopup: View {
+    let answerList: [AnswerList]
+    var selectedAnswer: AnswerList?
+    let onAnswerSelect: (AnswerList) -> Void
     let cancel: (Bool) -> Void
 
     var body: some View {
         RoundedRectangle(cornerRadius: 8)
             .fill(Color.white)
-            .frame(height: 204)
+            .frame(height: 206)
             .overlay {
                 VStack(spacing: 0) {
                     HStack {
@@ -32,47 +37,51 @@ struct AnswerStatusListPopup: View {
 
                     Spacer()
 
-                    LazyVStack(spacing: 16) {
-                        ForEach(answerStatusList, id: \.self) { status in
-                            answerStatusListRow(
-                                answerStatus: status,
-                                selectedAnswerStatus: selectedAnswerStatus) { status in
-                                    
-                                }
+                    ScrollView(showsIndicators: false) {
+                        LazyVStack(spacing: 8) {
+                            ForEach(answerList, id: \.self) { answer in
+                                answerListRow(
+                                    answer: answer,
+                                    selectedAnswer: selectedAnswer,
+                                    onAnswerSelect: onAnswerSelect
+                                )
+                            }
                         }
-                    }
-                    .padding(.top, 32)
+                        .padding(.top, 24)
 
-                    Spacer()
+                        Spacer()
+                    }
                 }
+                .padding(.horizontal, 24)
             }
-            .padding(.horizontal, 24)
     }
 
     @ViewBuilder
-    func answerStatusListRow(
-        answerStatus: AnswerStatusType,
-        selectedAnswerStatus: AnswerStatusType,
-        onAnswerStatusSelect: @escaping (AnswerStatusType) -> Void
+    func answerListRow(
+        answer: AnswerList,
+        selectedAnswer: AnswerList?,
+        onAnswerSelect: @escaping (AnswerList) -> Void
     ) -> some View {
-        HStack {
-            CheckButton(
+        HStack(spacing: 8) {
+            BitgouelRadioButton(
                 isSelected: Binding(
-                    get: { selectedAnswerStatus.rawValue == answerStatus.display() },
-                    set: { value in
-                        if value {
-                            onAnswerStatusSelect(selectedAnswerStatus)
+                    get: { selectedAnswer?.rawValue == answer.rawValue },
+                    set: { isSelected in
+                        if isSelected {
+                            onAnswerSelect(answer)
                         }
                     }
                 )
             )
-
-            Spacer()
-
+            
             BitgouelText(
-                text: answerStatus.display(),
+                text: answer.rawValue,
                 font: .text3
             )
+            
+            Spacer()
         }
+        .id(answer)
+        .frame(height: 54)
     }
 }
