@@ -31,7 +31,7 @@ struct InquiryListView: View {
                     Color.black.opacity(0.4)
                         .edgesIgnoringSafeArea(.all)
                         .onTapGesture {
-                            
+                            viewModel.updateIsPresentedFilter(isPresented: false)
                         }
 
                     AnswerFilterPopup(
