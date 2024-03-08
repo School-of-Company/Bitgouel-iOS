@@ -40,7 +40,7 @@ struct InquiryListView: View {
                     ) { answer in
                         viewModel.selectedAnswer = answer
                         viewModel.updateAnswerStatus(answer: answer)
-                        print(answer)
+                        viewModel.onAppear()
                     } cancel: { cancle in
                         viewModel.updateIsPresentedFilter(isPresented: cancle)
                     }
