@@ -57,9 +57,6 @@ struct InquiryListView: View {
             placement: .navigationBarDrawer,
             prompt: "키워드로 검색"
         )
-        .onSubmit(of: .search) {
-            viewModel.onAppear()
-        }
         .navigationTitle("문의사항")
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
