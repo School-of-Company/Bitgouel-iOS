@@ -56,14 +56,6 @@ struct InquiryListView: View {
             }
             .zIndex(1)
         }
-        .searchable(
-            text: Binding(
-                get: { viewModel.keyword },
-                set: { text in viewModel.updateKeyword(text: text) }
-            ),
-            placement: .navigationBarDrawer,
-            prompt: "키워드로 검색"
-        )
         .navigationTitle("문의사항")
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -82,11 +74,8 @@ struct InquiryListView: View {
                 }
             }
         }
-        .onAppear {
-            viewModel.onAppear()
-        }
         .navigate(
-            to: inputInquiryFactory.makeView(state: "추가", InquiryID: "").eraseToAnyView(),
+            to: inputInquiryFactory.makeView(state: "추가", inquiryID: "").eraseToAnyView(),
             when: Binding(
                 get: { viewModel.isPresentedInputInquiryView },
                 set: { isPresented in
@@ -94,5 +83,16 @@ struct InquiryListView: View {
                 }
             )
         )
+        .searchable(
+            text: Binding(
+                get: { viewModel.keyword },
+                set: { text in viewModel.updateKeyword(text: text) }
+            ),
+            placement: .navigationBarDrawer,
+            prompt: "키워드로 검색"
+        )
+        .onAppear {
+            viewModel.onAppear()
+        }
     }
 }

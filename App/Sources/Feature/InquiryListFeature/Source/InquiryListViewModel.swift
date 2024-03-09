@@ -26,6 +26,7 @@ final class InquiryListViewModel: BaseViewModel {
     }
 
     func updateIsPresentedInputInquiryView(isPresented: Bool) {
+        print(isPresented)
         isPresentedInputInquiryView = isPresented
     }
     
