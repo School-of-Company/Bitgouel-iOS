@@ -49,6 +49,17 @@ struct InquiryListView: View {
             }
             .zIndex(1)
         }
+        .searchable(
+            text: Binding(
+                get: { viewModel.keyword },
+                set: { text in viewModel.updateKeyword(text: text) }
+            ),
+            placement: .navigationBarDrawer,
+            prompt: "키워드로 검색"
+        )
+        .onSubmit(of: .search) {
+            viewModel.onAppear()
+        }
         .navigationTitle("문의사항")
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {

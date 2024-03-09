@@ -60,6 +60,21 @@ final class InquiryListViewModel: BaseViewModel {
         }
     }
 
+    @MainActor
+    func updateKeyword(text: String) {
+        keyword = text
+        
+        Task {
+            do {
+                let response = try await onAppearInquiryByAdmin()
+
+                updateContent(entity: response)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+
     func updateContent(entity: [InquiryInfoEntity]) {
         inquiryList = entity
     }
