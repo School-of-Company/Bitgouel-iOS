@@ -3,8 +3,15 @@ import SwiftUI
 struct InquiryListView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: InquiryListViewModel
-    init(viewModel: InquiryListViewModel) {
+
+    private let inputInquiryFactory: any InputInquiryFactory
+    
+    init(
+        viewModel: InquiryListViewModel,
+        inputInquiryFactory: any InputInquiryFactory
+    ) {
         _viewModel = StateObject(wrappedValue: viewModel)
+        self.inputInquiryFactory = inputInquiryFactory
     }
     
     var body: some View {
@@ -68,7 +75,7 @@ struct InquiryListView: View {
                     }
                 } else {
                     Button {
-                        
+                        viewModel.updateIsPresentedInputInquiryView(isPresented: true)
                     } label: {
                         BitgouelAsset.Icons.add.swiftUIImage
                     }
@@ -78,5 +85,14 @@ struct InquiryListView: View {
         .onAppear {
             viewModel.onAppear()
         }
+        .navigate(
+            to: inputInquiryFactory.makeView(state: "추가", InquiryID: "").eraseToAnyView(),
+            when: Binding(
+                get: { viewModel.isPresentedInputInquiryView },
+                set: { isPresented in
+                    viewModel.updateIsPresentedInputInquiryView(isPresented: isPresented)
+                }
+            )
+        )
     }
 }

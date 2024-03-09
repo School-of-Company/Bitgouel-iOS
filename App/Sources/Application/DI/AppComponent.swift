@@ -122,4 +122,8 @@ public extension AppComponent {
     var noticeDetailSettingFactory: any NoticeDetailSettingFactory {
         NoticeDetailSettingComponent(parent: self)
     }
+
+    var inputInquiryFactory: any InputInquiryFactory {
+        InputInquiryComponent(parent: self)
+    }
 }
