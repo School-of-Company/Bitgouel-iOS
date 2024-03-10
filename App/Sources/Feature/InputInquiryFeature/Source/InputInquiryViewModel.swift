@@ -4,6 +4,7 @@ import Service
 final class InputInquiryViewModel: BaseViewModel {
     @Published var question: String = ""
     @Published var questionDetail: String = ""
+    @Published var isShowingAlert: Bool = false
     var state: String = ""
     var inquiryID: String = ""
 
@@ -23,6 +24,10 @@ final class InputInquiryViewModel: BaseViewModel {
         self.inputInquiryUseCase = inputInquiryUseCase
         self.modifyMyInquiryUseCase = modifyMyInquiryUseCase
         self.fetchInquiryDetailUseCase = fetchInquiryDetailUseCase
+    }
+
+    func updateIsShowingAlert(isShowing: Bool) {
+        isShowingAlert = isShowing
     }
 
     func onAppear() {

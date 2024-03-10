@@ -66,7 +66,7 @@ struct InputInquiryView: View {
                 text: "문의사항 \(viewModel.state)",
                 style: .default
             ) {
-                viewModel.applyButtonDidTap()
+                viewModel.updateIsShowingAlert(isShowing: true)
             }
         }
         .onAppear {
@@ -79,5 +79,23 @@ struct InputInquiryView: View {
             tabbarHidden.wrappedValue = false
         }
         .padding(.horizontal, 24)
+        .bitgouelAlert(
+            title: "문의사항을 \(viewModel.state)하시겠습니까?",
+            description: viewModel.question,
+            isShowing: Binding(
+                get: { viewModel.isShowingAlert },
+                set: { isShowing in
+                    viewModel.updateIsShowingAlert(isShowing: isShowing)
+                }
+            ),
+            alertActions: [
+                .init(text: "취소", style: .cancel) {
+                    viewModel.updateIsShowingAlert(isShowing: false)
+                },
+                .init(text: viewModel.state, style: .default) {
+                    viewModel.applyButtonDidTap()
+                }
+            ]
+        )
     }
 }
