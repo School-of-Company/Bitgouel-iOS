@@ -523,15 +523,17 @@ private func factory0798e0f01e95aeaff56ff47b58f8f304c97af4d5(_ component: Needle
     return NoticeDetailDependency3e09bbd26d7f6105e665Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class InputInquiryDependency0f59954f6ae75e794799Provider: InputInquiryDependency {
-
-
-    init() {
-
+    var inputInquiryUseCase: any InputInquiryUseCase {
+        return appComponent.inputInquiryUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->InputInquiryComponent
-private func factory818540ce7b5cc0ed9d3be3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return InputInquiryDependency0f59954f6ae75e794799Provider()
+private func factory818540ce7b5cc0ed9d3bf47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return InputInquiryDependency0f59954f6ae75e794799Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class InputActivityDependency4e692e68e51cea5b706dProvider: InputActivityDependency {
     var activityDetailSettingFactory: any ActivityDetailSettingFactory {
@@ -742,7 +744,7 @@ extension NoticeDetailViewComponent: Registration {
 }
 extension InputInquiryComponent: Registration {
     public func registerItems() {
-
+        keyPathToName[\InputInquiryDependency.inputInquiryUseCase] = "inputInquiryUseCase-any InputInquiryUseCase"
     }
 }
 extension InputActivityComponent: Registration {
@@ -898,7 +900,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->PostDetailSettingComponent", factoryaacb19523586bb790cade3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->ActivityDetailComponent", factory7c395808ac9dfb8fb229f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->NoticeDetailViewComponent", factory0798e0f01e95aeaff56ff47b58f8f304c97af4d5)
-    registerProviderFactory("^->AppComponent->InputInquiryComponent", factory818540ce7b5cc0ed9d3be3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->InputInquiryComponent", factory818540ce7b5cc0ed9d3bf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputActivityComponent", factory3fc1a279eeb8c906e603f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)
 }

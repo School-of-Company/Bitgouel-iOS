@@ -66,7 +66,7 @@ struct InputInquiryView: View {
                 text: "문의사항 \(viewModel.state)",
                 style: .default
             ) {
-                
+                viewModel.applyButtonDidTap()
             }
         }
         .onAppear {
