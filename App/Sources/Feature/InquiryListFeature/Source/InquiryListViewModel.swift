@@ -32,7 +32,7 @@ final class InquiryListViewModel: BaseViewModel {
     func updateAnswerStatus(answer: AnswerList) {
         switch answer {
         case .all:
-            break
+            answerStatus = nil
         case .answer:
             answerStatus = .answered
         case .unanswer:
