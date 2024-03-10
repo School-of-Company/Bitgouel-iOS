@@ -56,6 +56,16 @@ struct InquiryListView: View {
             }
             .zIndex(1)
         }
+        .if(viewModel.authority == .admin) {
+            $0.searchable(
+                text: $viewModel.keyword,
+                placement: .navigationBarDrawer,
+                prompt: "키워드로 검색..."
+            )
+            .onChange(of: viewModel.keyword) { newValue in
+                viewModel.updateKeyword(text: newValue)
+            }
+        }
         .navigationTitle("문의사항")
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -82,14 +92,6 @@ struct InquiryListView: View {
                     viewModel.updateIsPresentedInputInquiryView(isPresented: isPresented)
                 }
             )
-        )
-        .searchable(
-            text: Binding(
-                get: { viewModel.keyword },
-                set: { text in viewModel.updateKeyword(text: text) }
-            ),
-            placement: .navigationBarDrawer,
-            prompt: "키워드로 검색"
         )
         .onAppear {
             viewModel.onAppear()

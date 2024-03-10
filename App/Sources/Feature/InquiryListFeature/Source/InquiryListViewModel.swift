@@ -26,7 +26,6 @@ final class InquiryListViewModel: BaseViewModel {
     }
 
     func updateIsPresentedInputInquiryView(isPresented: Bool) {
-        print(isPresented)
         isPresentedInputInquiryView = isPresented
     }
     
@@ -37,7 +36,7 @@ final class InquiryListViewModel: BaseViewModel {
     func updateAnswerStatus(answer: AnswerList) {
         switch answer {
         case .all:
-            break
+            answerStatus = nil
         case .answer:
             answerStatus = .answered
         case .unanswer:
