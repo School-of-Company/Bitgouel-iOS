@@ -526,6 +526,12 @@ private class InputInquiryDependency0f59954f6ae75e794799Provider: InputInquiryDe
     var inputInquiryUseCase: any InputInquiryUseCase {
         return appComponent.inputInquiryUseCase
     }
+    var modifyMyInquiryUseCase: any ModifyMyInquiryUseCase {
+        return appComponent.modifyMyInquiryUseCase
+    }
+    var fetchInquiryDetailUseCase: any FetchInquiryDetailUseCase {
+        return appComponent.fetchInquiryDetailUseCase
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -745,6 +751,8 @@ extension NoticeDetailViewComponent: Registration {
 extension InputInquiryComponent: Registration {
     public func registerItems() {
         keyPathToName[\InputInquiryDependency.inputInquiryUseCase] = "inputInquiryUseCase-any InputInquiryUseCase"
+        keyPathToName[\InputInquiryDependency.modifyMyInquiryUseCase] = "modifyMyInquiryUseCase-any ModifyMyInquiryUseCase"
+        keyPathToName[\InputInquiryDependency.fetchInquiryDetailUseCase] = "fetchInquiryDetailUseCase-any FetchInquiryDetailUseCase"
     }
 }
 extension InputActivityComponent: Registration {

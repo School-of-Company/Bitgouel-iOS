@@ -4,6 +4,8 @@ import Service
 
 public protocol InputInquiryDependency: Dependency {
     var inputInquiryUseCase: any InputInquiryUseCase { get }
+    var modifyMyInquiryUseCase: any ModifyMyInquiryUseCase { get }
+    var fetchInquiryDetailUseCase: any FetchInquiryDetailUseCase { get }
 }
 
 public final class InputInquiryComponent: Component<InputInquiryDependency>, InputInquiryFactory {
@@ -15,7 +17,9 @@ public final class InputInquiryComponent: Component<InputInquiryDependency>, Inp
             viewModel: .init(
                 state: state,
                 inquiryID: inquiryID,
-                inputInquiryUseCase: dependency.inputInquiryUseCase
+                inputInquiryUseCase: dependency.inputInquiryUseCase,
+                modifyMyInquiryUseCase: dependency.modifyMyInquiryUseCase,
+                fetchInquiryDetailUseCase: dependency.fetchInquiryDetailUseCase
             )
         )
     }
