@@ -5,13 +5,16 @@ struct InquiryListView: View {
     @StateObject var viewModel: InquiryListViewModel
 
     private let inputInquiryFactory: any InputInquiryFactory
+    private let inquiryDetailFactory: any InquiryDetailFactory
     
     init(
         viewModel: InquiryListViewModel,
-        inputInquiryFactory: any InputInquiryFactory
+        inputInquiryFactory: any InputInquiryFactory,
+        inquiryDetailFactory: any InquiryDetailFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.inputInquiryFactory = inputInquiryFactory
+        self.inquiryDetailFactory = inquiryDetailFactory
     }
     
     var body: some View {
@@ -28,6 +31,10 @@ struct InquiryListView: View {
                             state: inquiry.answerStatus,
                             authority: viewModel.authority
                         )
+                        .onTapGesture {
+                            viewModel.updateInquiryID(ID: inquiry.inquiryID)
+                            viewModel.updateIsPresentedInquiryDetailView(isPresented: true)
+                        }
                     }
                 }
             }
@@ -90,6 +97,15 @@ struct InquiryListView: View {
                 get: { viewModel.isPresentedInputInquiryView },
                 set: { isPresented in
                     viewModel.updateIsPresentedInputInquiryView(isPresented: isPresented)
+                }
+            )
+        )
+        .navigate(
+            to: inquiryDetailFactory.makeView(inquiryID: viewModel.inquiryID).eraseToAnyView(),
+            when: Binding(
+                get: { viewModel.isPresentedInquiryDetailView },
+                set: { isPresented in
+                    viewModel.updateIsPresentedInquiryDetailView(isPresented: isPresented)
                 }
             )
         )

@@ -7,8 +7,10 @@ final class InquiryListViewModel: BaseViewModel {
     @Published var answerStatus: AnswerStatusType?
     @Published var keyword: String = ""
     @Published var selectedAnswer: AnswerList = .all
+    @Published var inquiryID: String = ""
     @Published var isPresentedFilter: Bool = false
     @Published var isPresentedInputInquiryView: Bool = false
+    @Published var isPresentedInquiryDetailView: Bool = false
     var answerList: [AnswerList] = AnswerList.allCases
 
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
@@ -23,6 +25,14 @@ final class InquiryListViewModel: BaseViewModel {
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
         self.fetchMyInquiryListUseCase = fetchMyInquiryListUseCase
         self.fetchInquiryByAdminUseCase = fetchInquiryByAdminUseCase
+    }
+    
+    func updateInquiryID(ID: String) {
+        inquiryID = ID
+    }
+
+    func updateIsPresentedInquiryDetailView(isPresented: Bool) {
+        isPresentedInquiryDetailView = isPresented
     }
 
     func updateIsPresentedInputInquiryView(isPresented: Bool) {
