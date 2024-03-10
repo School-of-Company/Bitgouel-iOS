@@ -71,6 +71,9 @@ struct InputInquiryView: View {
         }
         .onAppear {
             tabbarHidden.wrappedValue = true
+            if viewModel.state == "수정" {
+                viewModel.onAppear()
+            }
         }
         .onDisappear {
             tabbarHidden.wrappedValue = false
