@@ -7,9 +7,9 @@ public struct InquiryDetailEntity: Equatable {
     public let questioner: String
     public let questionDate: String
     public let answerStatus: AnswerStatusType
-    public let answer: String
-    public let adminID: String
-    public let answeredDate: String
+    public let answer: String?
+    public let adminID: String?
+    public let answeredDate: String?
 
     public init(
         inquiryID: String,
@@ -18,9 +18,9 @@ public struct InquiryDetailEntity: Equatable {
         questioner: String,
         questionDate: String,
         answerStatus: AnswerStatusType,
-        answer: String,
-        adminID: String,
-        answeredDate: String
+        answer: String?,
+        adminID: String?,
+        answeredDate: String?
     ) {
         self.inquiryID = inquiryID
         self.question = question
