@@ -8,6 +8,6 @@ public protocol InquiryDetailDependency: Dependency {
 
 final class InquiryDetailComponent: Component<InquiryDetailDependency>, InquiryDetailFactory {
     func makeView(inquiryID: String) -> some View {
-        InquiryDetailView()
+        InquiryDetailView(viewModel: .init(inquiryID: inquiryID))
     }
 }
