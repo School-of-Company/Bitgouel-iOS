@@ -3,9 +3,15 @@ import SwiftUI
 struct InquiryDetailView: View {
     @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var viewModel: InquiryDetailViewModel
-    
-    init(viewModel: InquiryDetailViewModel) {
+
+    private let inputInquiryFactory: any InputInquiryFactory
+
+    init(
+        viewModel: InquiryDetailViewModel,
+        inputInquiryFactory: any InputInquiryFactory
+    ) {
         _viewModel = StateObject(wrappedValue: viewModel)
+        self.inputInquiryFactory = inputInquiryFactory
     }
     
     var body: some View {
@@ -73,10 +79,21 @@ struct InquiryDetailView: View {
             tabbarHidden.wrappedValue = true
         }
         .onDisappear {
-            tabbarHidden.wrappedValue = false
+            if !viewModel.isPresentedInputInquiryView {
+                tabbarHidden.wrappedValue = false
+            }
         }
+        .navigate(
+            to: inputInquiryFactory.makeView(state: "수정", inquiryID: viewModel.inquiryID).eraseToAnyView(),
+            when: Binding(
+                get: { viewModel.isPresentedInputInquiryView },
+                set: { isPresented in
+                    viewModel.updateIsPresentedInputInquiryView(isPresented: isPresented)
+                }
+            )
+        )
     }
-    
+
     @ViewBuilder
     func popupButtonByAdmin() -> some View {
         HStack {
@@ -105,7 +122,7 @@ struct InquiryDetailView: View {
                 text: "문의 수정",
                 style: .default,
                 action: {
-                    
+                    viewModel.updateIsPresentedInputInquiryView(isPresented: true)
                 }
             )
             
