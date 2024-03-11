@@ -205,6 +205,12 @@ private class InquiryDetailDependencyf68d260d1f6dc07aaedbProvider: InquiryDetail
     var inputInquiryFactory: any InputInquiryFactory {
         return appComponent.inputInquiryFactory
     }
+    var fetchInquiryDetailUseCase: any FetchInquiryDetailUseCase {
+        return appComponent.fetchInquiryDetailUseCase
+    }
+    var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
+        return appComponent.loadUserAuthorityUseCase
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -648,6 +654,8 @@ extension MyPageComponent: Registration {
 extension InquiryDetailComponent: Registration {
     public func registerItems() {
         keyPathToName[\InquiryDetailDependency.inputInquiryFactory] = "inputInquiryFactory-any InputInquiryFactory"
+        keyPathToName[\InquiryDetailDependency.fetchInquiryDetailUseCase] = "fetchInquiryDetailUseCase-any FetchInquiryDetailUseCase"
+        keyPathToName[\InquiryDetailDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
     }
 }
 extension InputNoticeComponent: Registration {
