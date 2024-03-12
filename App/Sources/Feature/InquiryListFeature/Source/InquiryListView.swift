@@ -63,6 +63,9 @@ struct InquiryListView: View {
             }
             .zIndex(1)
         }
+        .refreshable {
+            viewModel.onAppear()
+        }
         .if(viewModel.authority == .admin) {
             $0.searchable(
                 text: $viewModel.keyword,
