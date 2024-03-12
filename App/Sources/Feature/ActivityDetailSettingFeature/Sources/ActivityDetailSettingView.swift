@@ -114,9 +114,6 @@ struct ActivityDetailSettingView: View {
             .onAppear {
                 tabbarHidden.wrappedValue = true
             }
-            .onDisappear {
-                tabbarHidden.wrappedValue = false
-            }
         }
     }
 

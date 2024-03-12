@@ -42,7 +42,9 @@ struct InputNoticeView: View {
             }
         }
         .onDisappear {
-            tabbarHidden.wrappedValue = false
+            if viewModel.state == "추가" {
+                tabbarHidden.wrappedValue = false
+            }
         }
         .fullScreenCover(
             isPresented: Binding(

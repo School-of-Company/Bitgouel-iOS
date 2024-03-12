@@ -50,7 +50,9 @@ struct NoticeDetailView: View {
             tabbarHidden.wrappedValue = true
         }
         .onDisappear {
-            tabbarHidden.wrappedValue = false
+            if !viewModel.isPresentedInputNoticeView {
+                tabbarHidden.wrappedValue = false
+            }
         }
     }
 }

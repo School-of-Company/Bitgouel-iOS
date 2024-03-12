@@ -38,7 +38,9 @@ struct PostDetailView: View {
             tabbarHidden.wrappedValue = true
         }
         .onDisappear {
-            tabbarHidden.wrappedValue = false
+            if !viewModel.isPresentedEditView {
+                tabbarHidden.wrappedValue = false
+            }
         }
         .navigate(
             to: editPostFactory.makeView(postID: viewModel.postID).eraseToAnyView(),

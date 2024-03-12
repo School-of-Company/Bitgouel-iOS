@@ -42,9 +42,6 @@ struct EditPostView: View {
                 viewModel.onAppear()
                 tabbarHidden.wrappedValue = true
             }
-            .onDisappear {
-                tabbarHidden.wrappedValue = false
-            }
         }
         .fullScreenCover(
             isPresented: Binding(
