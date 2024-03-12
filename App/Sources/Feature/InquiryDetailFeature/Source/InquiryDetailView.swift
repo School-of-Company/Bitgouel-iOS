@@ -2,6 +2,7 @@ import SwiftUI
 
 struct InquiryDetailView: View {
     @Environment(\.tabbarHidden) var tabbarHidden
+    @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: InquiryDetailViewModel
     
     private let inputInquiryFactory: any InputInquiryFactory
@@ -96,6 +97,34 @@ struct InquiryDetailView: View {
                 }
             )
         )
+        .bitgouelAlert(
+            title: "문의사항을 삭제하시겠습니까?",
+            description: viewModel.inquiryDetail?.question ?? "",
+            isShowing: Binding(
+                get: { viewModel.isDeleteInquiry },
+                set: { isDelete in
+                    viewModel.updateIsDeleteInquiry(isDelete: isDelete)
+                }
+            ),
+            alertActions: [
+                .init(
+                    text: "취소",
+                    style: .cancel,
+                    action: {
+                        viewModel.updateIsDeleteInquiry(isDelete: false)
+                    })
+                ,
+                
+                .init(
+                    text: "삭제",
+                    style: .error,
+                    action: {
+                        viewModel.deleteAction()
+                        dismiss()
+                    }
+                )
+            ]
+        )
     }
     
     @ViewBuilder
@@ -105,6 +134,7 @@ struct InquiryDetailView: View {
                 text: "문의 삭제",
                 style: .error,
                 action: {
+                    viewModel.updateIsDeleteInquiry(isDelete: true)
                 }
             )
             
@@ -136,6 +166,7 @@ struct InquiryDetailView: View {
                 text: "문의 삭제",
                 style: .error,
                 action: {
+                    viewModel.updateIsDeleteInquiry(isDelete: true)
                 }
             )
         }

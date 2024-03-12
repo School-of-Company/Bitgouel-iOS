@@ -6,6 +6,8 @@ public protocol InquiryDetailDependency: Dependency {
     var inputInquiryFactory: any InputInquiryFactory { get }
     var fetchInquiryDetailUseCase: any FetchInquiryDetailUseCase { get }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase { get }
+    var deleteMyInquiryUseCase: any DeleteMyInquiryUseCase { get }
+    var deleteInquiryByAdminUseCase: any DeleteInquiryByAdminUseCase { get }
 }
 
 final class InquiryDetailComponent: Component<InquiryDetailDependency>, InquiryDetailFactory {
@@ -14,7 +16,9 @@ final class InquiryDetailComponent: Component<InquiryDetailDependency>, InquiryD
             viewModel: .init(
                 inquiryID: inquiryID,
                 fetchInquiryDetailUseCase: dependency.fetchInquiryDetailUseCase,
-                loadUserAuthorityUseCase: dependency.loadUserAuthorityUseCase
+                loadUserAuthorityUseCase: dependency.loadUserAuthorityUseCase,
+                deleteMyInquiryUseCase: dependency.deleteMyInquiryUseCase,
+                deleteInquiryByAdminUseCase: dependency.deleteInquiryByAdminUseCase
             ),
             inputInquiryFactory: dependency.inputInquiryFactory
         )

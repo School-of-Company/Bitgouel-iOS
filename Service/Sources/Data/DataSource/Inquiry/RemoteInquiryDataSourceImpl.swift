@@ -36,6 +36,6 @@ public final class RemoteInquiryDataSourceImpl: BaseRemoteDataSource<InquiryAPI>
     }
 
     public func deleteInquiryByAdmin(inquiryID: String) async throws {
-        try await request(.deleteMyInquiry(inquiryID: inquiryID))
+        try await request(.deleteInquiryByAdmin(inquiryID: inquiryID))
     }
 }
