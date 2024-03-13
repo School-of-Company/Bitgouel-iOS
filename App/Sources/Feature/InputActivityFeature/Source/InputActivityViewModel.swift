@@ -8,10 +8,19 @@ final class InputActivityViewModel: BaseViewModel {
     @Published var activityDate = Date()
     @Published var activityCredit: Int = 0
 
-    private let addStudentActivityUseCase: any AddStudentActivityUseCase
+    var state: String = ""
+    var activityID: String = ""
+    
+    private let inputActivityUseCase: any InputActivityUseCase
 
-    init(addStudentActivityUseCase: any AddStudentActivityUseCase) {
-        self.addStudentActivityUseCase = addStudentActivityUseCase
+    init(
+        state: String,
+        activityID: String,
+        inputActivityUseCase: any InputActivityUseCase
+    ) {
+        self.state = state
+        self.activityID = activityID
+        self.inputActivityUseCase = inputActivityUseCase
     }
 
     func detailSettingAppendDismissed() {
@@ -27,8 +36,8 @@ final class InputActivityViewModel: BaseViewModel {
     func addActivity() {
         Task {
             do {
-                try await addStudentActivityUseCase(
-                    req: AddStudentActivityRequestDTO(
+                try await inputActivityUseCase(
+                    req: InputActivityRequestDTO(
                         title: activityTitle,
                         content: activityText,
                         credit: activityCredit,

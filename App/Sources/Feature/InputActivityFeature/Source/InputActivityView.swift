@@ -18,7 +18,7 @@ struct InputActivityView: View {
             VStack(spacing: 0) {
                 InputFormView(
                     epic: "활동",
-                    state: "추가",
+                    state: viewModel.state,
                     settingButtonAction: {
                         viewModel.isPresentedDetailSettingAppend = true
                     },

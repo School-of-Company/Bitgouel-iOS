@@ -2,5 +2,8 @@ import SwiftUI
 
 public protocol InputActivityFactory {
     associatedtype SomeView: View
-    func makeView() -> SomeView
+    func makeView(
+        state: String,
+        activityID: String
+    ) -> SomeView
 }

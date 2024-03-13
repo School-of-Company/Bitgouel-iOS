@@ -7,25 +7,25 @@ final class ActivityListViewModel: BaseViewModel {
     var model: ActivityListModel
     
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
-    private let queryMyStudentActivityUseCase: any QueryMyStudentActivityUseCase
-    private let queryStudentActivityListUseCase: any QueryStudentActivityListUseCase
-    private let queryStudentActivityByIDUseCase: any QueryStudentActivityByIDUseCase
+    private let fetchMyActivityUseCase: any FetchMyActivityUseCase
+    private let fetchActivityListUseCase: any FetchActivityListUseCase
+    private let fetchActivityByIDUseCase: any FetchActivityByIDUseCase
     private let studentID: String
     
     init(
         studentID: String,
         model: ActivityListModel,
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
-        queryMyStudentActivityUseCase: any QueryMyStudentActivityUseCase,
-        queryStudentActivityListUseCase: any QueryStudentActivityListUseCase,
-        queryStudentActivityByIDUseCase: any QueryStudentActivityByIDUseCase
+        fetchMyActivityUseCase: any FetchMyActivityUseCase,
+        fetchActivityListUseCase: any FetchActivityListUseCase,
+        fetchActivityByIDUseCase: any FetchActivityByIDUseCase
     ) {
         self.studentID = studentID
         self.model = model
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
-        self.queryMyStudentActivityUseCase = queryMyStudentActivityUseCase
-        self.queryStudentActivityListUseCase = queryStudentActivityListUseCase
-        self.queryStudentActivityByIDUseCase = queryStudentActivityByIDUseCase
+        self.fetchMyActivityUseCase = fetchMyActivityUseCase
+        self.fetchActivityListUseCase = fetchActivityListUseCase
+        self.fetchActivityByIDUseCase = fetchActivityByIDUseCase
     }
     
     @MainActor
@@ -37,9 +37,9 @@ final class ActivityListViewModel: BaseViewModel {
             do {
                 let studentActivityList: ActivityContentEntity = try await { () async throws -> ActivityContentEntity in
                     switch model.authority {
-                    case .admin: return try await onAppearStudentListByAdmin()
-                    case .student: return try await onAppearStudentListByStudent()
-                    case .teacher: return try await onAppearStudentListByTeacher()
+                    case .admin: return try await onAppearActivityListByAdmin()
+                    case .student: return try await onAppearActivityListByStudent()
+                    case .teacher: return try await onAppearActivityListByTeacher()
                     default:
                         throw ActivityDomainError.forbidden
                     }
@@ -59,16 +59,16 @@ final class ActivityListViewModel: BaseViewModel {
         }
     }
     
-    func onAppearStudentListByAdmin() async throws -> ActivityContentEntity {
-        return try await queryStudentActivityListUseCase()
+    func onAppearActivityListByAdmin() async throws -> ActivityContentEntity {
+        return try await fetchActivityListUseCase()
     }
     
-    func onAppearStudentListByStudent() async throws -> ActivityContentEntity {
-        return try await queryMyStudentActivityUseCase()
+    func onAppearActivityListByStudent() async throws -> ActivityContentEntity {
+        return try await fetchMyActivityUseCase()
     }
     
-    func onAppearStudentListByTeacher() async throws -> ActivityContentEntity {
-        return try await queryStudentActivityByIDUseCase(studentID: studentID)
+    func onAppearActivityListByTeacher() async throws -> ActivityContentEntity {
+        return try await fetchActivityByIDUseCase(studentID: studentID)
     }
     
     func toastDismissed() {
