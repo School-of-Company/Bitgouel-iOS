@@ -4,6 +4,7 @@ import SwiftUI
 
 public protocol InputActivityDependency: Dependency {
     var activityDetailSettingFactory: any ActivityDetailSettingFactory { get }
+    var fetchActivityDetailUseCase: any FetchActivityDetailUseCase { get }
     var inputActivityUseCase: any InputActivityUseCase { get }
 }
 
@@ -15,7 +16,8 @@ public final class InputActivityComponent: Component<InputActivityDependency>, I
         InputActivityView(
             viewModel: .init(
                 state: state,
-                activityID: activityID,
+                activityID: activityID, 
+                fetchActivityDetailUseCase: dependency.fetchActivityDetailUseCase,
                 inputActivityUseCase: dependency.inputActivityUseCase
             ),
             activityDetailSettingFactory: dependency.activityDetailSettingFactory

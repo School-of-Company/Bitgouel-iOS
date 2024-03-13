@@ -10,16 +10,19 @@ final class InputActivityViewModel: BaseViewModel {
 
     var state: String = ""
     var activityID: String = ""
-    
+
+    private let fetchActivityDetailUseCase: any FetchActivityDetailUseCase
     private let inputActivityUseCase: any InputActivityUseCase
 
     init(
         state: String,
         activityID: String,
+        fetchActivityDetailUseCase: any FetchActivityDetailUseCase,
         inputActivityUseCase: any InputActivityUseCase
     ) {
         self.state = state
         self.activityID = activityID
+        self.fetchActivityDetailUseCase = fetchActivityDetailUseCase
         self.inputActivityUseCase = inputActivityUseCase
     }
 
@@ -29,8 +32,27 @@ final class InputActivityViewModel: BaseViewModel {
 
     func updateActivityDetail(date: Date, credit: Int) {
         self.activityDate = date
-        print("\(activityDate)")
         self.activityCredit = credit
+    }
+
+    func updateActivityDetail(entity: ActivityDetailEntity) {
+        activityTitle = entity.title
+        activityText = entity.content
+        activityCredit = entity.credit
+        activityDate = entity.activityDate.toDateCustomFormat(format: "yyyy-MM-dd")
+    }
+
+    @MainActor
+    func onAppear() {
+        Task {
+            do {
+                let response = try await fetchActivityDetailUseCase(activityID: activityID)
+                
+                updateActivityDetail(entity: response)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
 
     func addActivity() {

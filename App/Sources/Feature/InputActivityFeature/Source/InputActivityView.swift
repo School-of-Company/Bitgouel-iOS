@@ -52,5 +52,8 @@ struct InputActivityView: View {
         .onTapGesture {
             hideKeyboard()
         }
+        .onAppear {
+            viewModel.onAppear()
+        }
     }
 }
