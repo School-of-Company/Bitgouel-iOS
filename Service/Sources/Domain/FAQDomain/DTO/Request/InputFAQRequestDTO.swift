@@ -1,6 +1,6 @@
 import Foundation
 
-public struct InputQuestionRequestDTO: Encodable {
+public struct InputFAQRequestDTO: Encodable {
     public let question: String
     public let answer: String
     
