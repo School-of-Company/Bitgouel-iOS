@@ -3,7 +3,9 @@ import SwiftUI
 import Service
 
 public protocol InputInquiryDependency: Dependency {
-    
+    var inputInquiryUseCase: any InputInquiryUseCase { get }
+    var modifyMyInquiryUseCase: any ModifyMyInquiryUseCase { get }
+    var fetchInquiryDetailUseCase: any FetchInquiryDetailUseCase { get }
 }
 
 public final class InputInquiryComponent: Component<InputInquiryDependency>, InputInquiryFactory {
@@ -14,7 +16,10 @@ public final class InputInquiryComponent: Component<InputInquiryDependency>, Inp
         InputInquiryView(
             viewModel: .init(
                 state: state,
-                inquiryID: inquiryID
+                inquiryID: inquiryID,
+                inputInquiryUseCase: dependency.inputInquiryUseCase,
+                modifyMyInquiryUseCase: dependency.modifyMyInquiryUseCase,
+                fetchInquiryDetailUseCase: dependency.fetchInquiryDetailUseCase
             )
         )
     }
