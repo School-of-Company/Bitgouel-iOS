@@ -26,20 +26,21 @@ struct ActivityListView: View {
         ScrollView {
             VStack {
                 LazyVStack(spacing: 12) {
-                    ForEach(model.activityList, id: \.activityID) { item in
-                        RoundListRow(
-                            id: item.activityID,
-                            title: item.title,
-                            date: item.activityDate,
-                            userID: item.userID,
-                            name: item.userName,
-                            state: item.approveStatus,
-                            authority: model.authority
-                        )
-                        .buttonWrapper {
-                            withAnimation {
-                                viewModel.activityDidSelect(activityID: item.activityID)
-                                model.isPresentedActivityDetailPage = true
+                    if let activityList = model.activityList {
+                        ForEach(activityList.content, id: \.activityID) { item in
+                            RoundListRow(
+                                id: item.activityID,
+                                title: item.title,
+                                date: item.activityDate,
+                                userID: item.userID,
+                                name: item.userName,
+                                authority: model.authority
+                            )
+                            .buttonWrapper {
+                                withAnimation {
+                                    viewModel.activityDidSelect(activityID: item.activityID)
+                                    model.isPresentedActivityDetailPage = true
+                                }
                             }
                         }
                     }

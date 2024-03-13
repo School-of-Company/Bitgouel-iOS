@@ -35,7 +35,7 @@ final class ActivityListViewModel: BaseViewModel {
         
         Task {
             do {
-                let studentActivityList: [ActivityEntity] = try await { () async throws -> [ActivityEntity] in
+                let studentActivityList: ActivityContentEntity = try await { () async throws -> ActivityContentEntity in
                     switch model.authority {
                     case .admin: return try await onAppearStudentListByAdmin()
                     case .student: return try await onAppearStudentListByStudent()
@@ -59,15 +59,15 @@ final class ActivityListViewModel: BaseViewModel {
         }
     }
     
-    func onAppearStudentListByAdmin() async throws -> [ActivityEntity] {
+    func onAppearStudentListByAdmin() async throws -> ActivityContentEntity {
         return try await queryStudentActivityListUseCase()
     }
     
-    func onAppearStudentListByStudent() async throws -> [ActivityEntity] {
+    func onAppearStudentListByStudent() async throws -> ActivityContentEntity {
         return try await queryMyStudentActivityUseCase()
     }
     
-    func onAppearStudentListByTeacher() async throws -> [ActivityEntity] {
+    func onAppearStudentListByTeacher() async throws -> ActivityContentEntity {
         return try await queryStudentActivityByIDUseCase(studentID: studentID)
     }
     
