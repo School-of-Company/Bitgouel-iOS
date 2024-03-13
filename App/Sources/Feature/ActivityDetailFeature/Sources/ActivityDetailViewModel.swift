@@ -6,24 +6,28 @@ import SwiftUI
 final class ActivityDetailViewModel: BaseViewModel {
     @Published var authority: UserAuthorityType = .user
     @Published var isDelete: Bool = false
-    @Published var isEdit: Bool = false
     @Published var activityDetail: ActivityDetailEntity?
+    @Published var isPresentedInputActivityView: Bool = false
 
-    private var activityID: String
+    var activityID: String
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
-    private let fetchActivityDetailsUseCase: any FetchActivityDetailsUseCase
+    private let fetchActivityDetailUseCase: any FetchActivityDetailUseCase
     private let deleteActivityUseCase: any DeleteActivityUseCase
 
     init(
         activityID: String,
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
-        fetchActivityDetailsUseCase: any FetchActivityDetailsUseCase,
+        fetchActivityDetailUseCase: any FetchActivityDetailUseCase,
         deleteActivityUseCase: any DeleteActivityUseCase
     ) {
         self.activityID = activityID
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
-        self.fetchActivityDetailsUseCase = fetchActivityDetailsUseCase
+        self.fetchActivityDetailUseCase = fetchActivityDetailUseCase
         self.deleteActivityUseCase = deleteActivityUseCase
+    }
+
+    func updateIsPresentedInputActivityView(isPresented: Bool) {
+        isPresentedInputActivityView = isPresented
     }
 
     func onAppear() {
@@ -31,7 +35,7 @@ final class ActivityDetailViewModel: BaseViewModel {
 
         Task {
             do {
-                activityDetail = try await fetchActivityDetailsUseCase(activityID: activityID)
+                activityDetail = try await fetchActivityDetailUseCase(activityID: activityID)
             } catch {
                 print(error.localizedDescription)
             }
