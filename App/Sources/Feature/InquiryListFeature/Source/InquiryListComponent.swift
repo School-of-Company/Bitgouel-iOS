@@ -4,6 +4,7 @@ import Service
 
 public protocol InquiryListDependency: Dependency {
     var inputInquiryFactory: any InputInquiryFactory { get }
+    var inquiryDetailFactory: any InquiryDetailFactory { get }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase { get }
     var fetchMyInquiryListUseCase: any FetchMyInquiryListUseCase { get }
     var fetchInquiryByAdminUseCase: any FetchInquiryByAdminUseCase { get }
@@ -17,7 +18,8 @@ public final class InquiryListComponent: Component<InquiryListDependency>, Inqui
                 fetchMyInquiryListUseCase: dependency.fetchMyInquiryListUseCase,
                 fetchInquiryByAdminUseCase: dependency.fetchInquiryByAdminUseCase
             ),
-            inputInquiryFactory: dependency.inputInquiryFactory
+            inputInquiryFactory: dependency.inputInquiryFactory,
+            inquiryDetailFactory: dependency.inquiryDetailFactory
         )
     }
 }

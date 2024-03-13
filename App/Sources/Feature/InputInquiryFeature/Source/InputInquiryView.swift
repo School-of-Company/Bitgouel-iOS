@@ -3,6 +3,7 @@ import SwiftUI
 struct InputInquiryView: View {
     @StateObject var viewModel: InputInquiryViewModel
     @Environment(\.tabbarHidden) var tabbarHidden
+    @Environment(\.dismiss) var dismiss
     
     init(viewModel: InputInquiryViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -76,7 +77,9 @@ struct InputInquiryView: View {
             }
         }
         .onDisappear {
-            tabbarHidden.wrappedValue = false
+            if viewModel.state == "추가" {
+                tabbarHidden.wrappedValue = false
+            }
         }
         .padding(.horizontal, 24)
         .bitgouelAlert(
@@ -94,6 +97,7 @@ struct InputInquiryView: View {
                 },
                 .init(text: viewModel.state, style: .default) {
                     viewModel.applyButtonDidTap()
+                    dismiss()
                 }
             ]
         )

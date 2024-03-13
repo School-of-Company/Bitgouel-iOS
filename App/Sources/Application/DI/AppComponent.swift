@@ -126,4 +126,8 @@ public extension AppComponent {
     var inputInquiryFactory: any InputInquiryFactory {
         InputInquiryComponent(parent: self)
     }
+
+    var inquiryDetailFactory: any InquiryDetailFactory {
+        InquiryDetailComponent(parent: self)
+    }
 }

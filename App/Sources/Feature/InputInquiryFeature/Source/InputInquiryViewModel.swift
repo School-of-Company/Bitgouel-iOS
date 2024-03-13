@@ -1,6 +1,7 @@
 import Foundation
 import Service
 
+@MainActor
 final class InputInquiryViewModel: BaseViewModel {
     @Published var question: String = ""
     @Published var questionDetail: String = ""
@@ -38,7 +39,7 @@ final class InputInquiryViewModel: BaseViewModel {
                 question = response.question
                 questionDetail = response.questionDetail
             } catch {
-                print(error.localizedDescription)
+                print(String(describing: error))
             }
         }
     }

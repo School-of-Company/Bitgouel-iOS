@@ -9,6 +9,7 @@ public protocol InputInquiryDependency: Dependency {
 }
 
 public final class InputInquiryComponent: Component<InputInquiryDependency>, InputInquiryFactory {
+    @MainActor
     public func makeView(
         state: String,
         inquiryID: String
