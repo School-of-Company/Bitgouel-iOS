@@ -10,12 +10,12 @@ public struct CertificationListResponseDTO: Decodable {
     public struct CertificationInfo: Decodable {
         public let certificationID: String
         public let name: String
-        public let acquisitionDate: Date
+        public let acquisitionDate: String
 
         public init(
             certificationID: String,
             name: String,
-            acquisitionDate: Date
+            acquisitionDate: String
         ) {
             self.certificationID = certificationID
             self.name = name
@@ -23,7 +23,7 @@ public struct CertificationListResponseDTO: Decodable {
         }
         
         enum CodingKeys: String, CodingKey {
-            case certificationID = "certificationId"
+            case certificationID = "id"
             case name
             case acquisitionDate
         }
