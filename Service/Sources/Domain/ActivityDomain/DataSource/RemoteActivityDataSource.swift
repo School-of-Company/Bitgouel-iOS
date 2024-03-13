@@ -6,8 +6,8 @@ public protocol RemoteActivityDataSource: BaseRemoteDataSource<ActivityAPI> {
     func approveStudentActivity(activityID: String) async throws
     func rejectStudentActivity(activityID: String) async throws
     func deleteStudentActivity(activityID: String) async throws
-    func queryMyStudentActivity() async throws -> [ActivityEntity]
-    func queryStudentActivityByID(studentID: String) async throws -> [ActivityEntity]
-    func queryStudentActivityList() async throws -> [ActivityEntity]
+    func queryMyStudentActivity() async throws -> ActivityContentEntity
+    func queryStudentActivityByID(studentID: String) async throws -> ActivityContentEntity
+    func queryStudentActivityList() async throws -> ActivityContentEntity
     func queryStudentActivityDetails(activityID: String) async throws -> StudentActivityDetailEntity
 }

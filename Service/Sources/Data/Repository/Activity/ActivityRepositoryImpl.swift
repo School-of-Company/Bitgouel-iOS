@@ -27,15 +27,15 @@ public struct ActivityRepositoryImpl: ActivityRepository {
         try await remoteActivityDataSource.deleteStudentActivity(activityID: activityID)
     }
 
-    public func queryMyStudentActivity() async throws -> [ActivityEntity] {
+    public func queryMyStudentActivity() async throws -> ActivityContentEntity {
         try await remoteActivityDataSource.queryMyStudentActivity()
     }
 
-    public func queryStudentActivityByID(studentID: String) async throws -> [ActivityEntity] {
+    public func queryStudentActivityByID(studentID: String) async throws -> ActivityContentEntity {
         try await remoteActivityDataSource.queryStudentActivityByID(studentID: studentID)
     }
 
-    public func queryStudentActivityList() async throws -> [ActivityEntity] {
+    public func queryStudentActivityList() async throws -> ActivityContentEntity {
         try await remoteActivityDataSource.queryStudentActivityList()
     }
 

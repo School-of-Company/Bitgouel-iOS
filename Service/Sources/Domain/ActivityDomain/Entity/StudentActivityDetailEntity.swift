@@ -6,8 +6,7 @@ public struct StudentActivityDetailEntity: Equatable {
     public let content: String
     public let credit: Int
     public let activityDate: String
-    public let modifiedAt: String
-    public let approveStatus: ApproveStatusType
+    public let modifiedAt: Date
 
     public init(
         id: String,
@@ -15,8 +14,7 @@ public struct StudentActivityDetailEntity: Equatable {
         content: String,
         credit: Int,
         activityDate: String,
-        modifiedAt: String,
-        approveState: ApproveStatusType
+        modifiedAt: Date
     ) {
         self.id = id
         self.title = title
@@ -24,6 +22,5 @@ public struct StudentActivityDetailEntity: Equatable {
         self.credit = credit
         self.activityDate = activityDate
         self.modifiedAt = modifiedAt
-        self.approveStatus = approveState
     }
 }

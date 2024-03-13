@@ -7,7 +7,6 @@ public struct StudentActivityDetailResponseDTO: Decodable {
     public let credit: Int
     public let activityDate: String
     public let modifiedAt: String
-    public let approveState: ApproveStatusType
 
     public init(
         id: String,
@@ -15,8 +14,7 @@ public struct StudentActivityDetailResponseDTO: Decodable {
         content: String,
         credit: Int,
         activityDate: String,
-        modifiedAt: String,
-        approveState: ApproveStatusType
+        modifiedAt: String
     ) {
         self.id = id
         self.title = title
@@ -24,7 +22,6 @@ public struct StudentActivityDetailResponseDTO: Decodable {
         self.credit = credit
         self.activityDate = activityDate
         self.modifiedAt = modifiedAt
-        self.approveState = approveState
     }
 }
 
@@ -36,8 +33,7 @@ extension StudentActivityDetailResponseDTO {
             content: content,
             credit: credit,
             activityDate: activityDate,
-            modifiedAt: modifiedAt,
-            approveState: approveState
+            modifiedAt: modifiedAt.toDateCustomFormat(format: "yyyy.M.dd")
         )
     }
 }

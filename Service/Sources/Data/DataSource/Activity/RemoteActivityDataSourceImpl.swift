@@ -21,17 +21,17 @@ public final class RemoteActivityDataSourceImpl: BaseRemoteDataSource<ActivityAP
         try await request(.deleteStudentActivity(activityID: activityID))
     }
 
-    public func queryMyStudentActivity() async throws -> [ActivityEntity] {
+    public func queryMyStudentActivity() async throws -> ActivityContentEntity {
         try await request(.queryMyStudentActivity, dto: ActivitiesResponseDTO.self)
             .toDomain()
     }
 
-    public func queryStudentActivityByID(studentID: String) async throws -> [ActivityEntity] {
+    public func queryStudentActivityByID(studentID: String) async throws -> ActivityContentEntity {
         try await request(.queryStudentActivityByID(studentID: studentID), dto: ActivitiesResponseDTO.self)
             .toDomain()
     }
 
-    public func queryStudentActivityList() async throws -> [ActivityEntity] {
+    public func queryStudentActivityList() async throws -> ActivityContentEntity {
         try await request(.queryStudentActivityList, dto: ActivitiesResponseDTO.self)
             .toDomain()
     }

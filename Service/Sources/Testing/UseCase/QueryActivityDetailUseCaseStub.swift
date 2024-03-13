@@ -27,8 +27,7 @@ public final class QueryActivityDetailUseCaseStub: QueryStudentActivityDetailsUs
             """,
             credit: 2,
             activityDate: "2023.10.31",
-            modifiedAt: "2023년 11월 11일 12:34",
-            approveState: .pending
+            modifiedAt: Date()
         )
     }
 }
