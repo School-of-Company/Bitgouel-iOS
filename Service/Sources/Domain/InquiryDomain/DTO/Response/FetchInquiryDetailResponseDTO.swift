@@ -53,11 +53,11 @@ extension FetchInquiryDetailResponseDTO {
             question: question,
             questionDetail: questionDetail,
             questioner: questioner,
-            questionDate: questionDate,
+            questionDate: questionDate.toDateCustomFormat(format: "yyyy.M.dd"),
             answerStatus: answerStatus,
             answer: answer,
             adminID: adminID,
-            answeredDate: answeredDate
+            answeredDate: answeredDate?.toDateCustomFormat(format: "yyyy.M.dd")
         )
     }
 }

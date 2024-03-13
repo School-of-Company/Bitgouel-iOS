@@ -1,4 +1,4 @@
-import Foundation
+import SwiftUI
 import Service
 
 final class InquiryDetailViewModel: BaseViewModel {
@@ -6,14 +6,79 @@ final class InquiryDetailViewModel: BaseViewModel {
     @Published var inquiryID: String = ""
     @Published var authority: UserAuthorityType = .user
     @Published var isPresentedInputInquiryView: Bool = false
+    @Published var isDeleteInquiry: Bool = false
+
+    private let fetchInquiryDetailUseCase: any FetchInquiryDetailUseCase
+    private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
+    private let deleteMyInquiryUseCase: any DeleteMyInquiryUseCase
+    private let deleteInquiryByAdminUseCase: any DeleteInquiryByAdminUseCase
+
+    var statusColor: Color {
+        guard let status = inquiryDetail?.answerStatus else { return .bitgouel(.greyscale(.g0)) }
+
+        switch status {
+        case .answered:
+            return .bitgouel(.primary(.p5))
+        case .unanswered:
+            return .bitgouel(.error(.e5))
+        }
+    }
 
     init(
-        inquiryID: String
+        inquiryID: String,
+        fetchInquiryDetailUseCase: any FetchInquiryDetailUseCase,
+        loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
+        deleteMyInquiryUseCase: any DeleteMyInquiryUseCase,
+        deleteInquiryByAdminUseCase: any DeleteInquiryByAdminUseCase
     ) {
         self.inquiryID = inquiryID
+        self.fetchInquiryDetailUseCase = fetchInquiryDetailUseCase
+        self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
+        self.deleteMyInquiryUseCase = deleteMyInquiryUseCase
+        self.deleteInquiryByAdminUseCase = deleteInquiryByAdminUseCase
     }
 
     func updateIsPresentedInputInquiryView(isPresented: Bool) {
         isPresentedInputInquiryView = isPresented
+    }
+    
+    func updateIsDeleteInquiry(isDelete: Bool) {
+        isDeleteInquiry = isDelete
+    }
+
+    @MainActor
+    func onAppear() {
+        authority = loadUserAuthorityUseCase()
+
+        Task {
+            do {
+                inquiryDetail = try await fetchInquiryDetailUseCase(inquiryID: inquiryID)
+            } catch {
+                print(String(describing: error))
+            }
+        }
+    }
+
+    func deleteAction() {
+        Task {
+            do {
+                switch authority {
+                case .admin:
+                    try await deleteInquiryByAdmin()
+                default:
+                    try await deleteMyInquiry()
+                }
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func deleteInquiryByAdmin() async throws {
+        return try await deleteInquiryByAdminUseCase(inquiryID: inquiryID)
+    }
+    
+    func deleteMyInquiry() async throws {
+        return try await deleteMyInquiryUseCase(inquiryID: inquiryID)
     }
 }

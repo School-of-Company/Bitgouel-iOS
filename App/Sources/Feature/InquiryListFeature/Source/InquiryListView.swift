@@ -74,6 +74,9 @@ struct InquiryListView: View {
             }
             .zIndex(1)
         }
+        .refreshable {
+            viewModel.onAppear()
+        }
         .navigationTitle("문의사항")
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
