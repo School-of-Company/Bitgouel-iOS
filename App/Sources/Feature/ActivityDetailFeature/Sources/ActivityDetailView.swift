@@ -3,8 +3,10 @@ import SwiftUI
 
 struct ActivityDetailView: View {
     @StateObject var viewModel: ActivityDetailViewModel
-    
-    init(viewModel: ActivityDetailViewModel) {
+
+    init(
+        viewModel: ActivityDetailViewModel
+    ) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
     
@@ -12,13 +14,10 @@ struct ActivityDetailView: View {
         VStack(spacing: 0) {
             VStack(alignment: .leading) {
                 HStack {
-                    Text(viewModel.activityDetail?.approveStatus.display() ?? "")
-                        .foregroundColor(viewModel.statusColor)
-                    
                     Spacer()
                     
                     HStack(spacing: 0) {
-                        Text(viewModel.activityDetail?.modifiedAt ?? "")
+                        Text(viewModel.activityDetail?.modifiedAt.toStringCustomFormat(format: "yyyy년M월dd일HH:SS") ?? "")
                         
                         Text("에 수정됨")
                     }
@@ -65,39 +64,14 @@ struct ActivityDetailView: View {
             }
             .padding(.top, 24)
             
-            if viewModel.authority == .admin {
-                popupButtonByTeacher()
-            } else if viewModel.authority == .student || viewModel.authority == .teacher {
+            if viewModel.authority == .student {
                 popupButtonByWriter()
             }
         }
+        .onAppear {
+            viewModel.onAppear()
+        }
         .padding(.horizontal, 28)
-        .bitgouelAlert(
-            title: "활동 승인하시겠습니까?",
-            description: viewModel.activityDetail?.content ?? "",
-            isShowing: $viewModel.isApprove,
-            alertActions: [
-                .init(text: "취소", style: .cancel) {
-                    viewModel.isApprove = false
-                },
-                .init(text: "승인", style: .default) {
-                    viewModel.approveActivity()
-                }
-            ]
-        )
-        .bitgouelAlert(
-            title: "활동 거부하시겠습니까?",
-            description: viewModel.activityDetail?.content ?? "",
-            isShowing: $viewModel.isReject,
-            alertActions: [
-                .init(text: "취소", style: .cancel) {
-                    viewModel.isReject = false
-                },
-                .init(text: "거부", style: .error) {
-                    viewModel.rejectActivity()
-                }
-            ]
-        )
         .bitgouelAlert(
             title: "활동 삭제하시겠습니까?",
             description: viewModel.activityDetail?.content ?? "",
@@ -111,29 +85,6 @@ struct ActivityDetailView: View {
                 }
             ]
         )
-    }
-    
-    @ViewBuilder
-    func popupButtonByTeacher() -> some View {
-        HStack {
-            CTAButton(
-                text: "활동 거부",
-                style: .error,
-                action: {
-                    viewModel.isReject = true
-                }
-            )
-            
-            Spacer()
-            
-            CTAButton(
-                text: "활동 승인",
-                style: .default,
-                action: {
-                    viewModel.isApprove = true
-                }
-            )
-        }
     }
     
     @ViewBuilder
