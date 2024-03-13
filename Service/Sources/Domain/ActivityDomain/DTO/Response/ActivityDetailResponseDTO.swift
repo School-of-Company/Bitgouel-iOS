@@ -23,7 +23,7 @@ public struct ActivityDetailResponseDTO: Decodable {
         self.activityDate = activityDate
         self.modifiedAt = modifiedAt
     }
-    
+
     enum CodingKeys: String, CodingKey {
         case activityID = "id"
         case title

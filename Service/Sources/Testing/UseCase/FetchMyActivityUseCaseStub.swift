@@ -1,6 +1,6 @@
 import Foundation
 
-public final class QueryMyStudentActivityUseCaseStub: QueryMyStudentActivityUseCase {
+public final class FetchMyActivityUseCaseStub: FetchMyActivityUseCase {
     public init() {}
     public func callAsFunction() async throws -> ActivityContentEntity {
             ActivityContentEntity(

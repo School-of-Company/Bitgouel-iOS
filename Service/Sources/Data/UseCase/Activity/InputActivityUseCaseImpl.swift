@@ -1,6 +1,6 @@
 import Foundation
 
-public struct InputStudentActivityUseCaseImpl: InputActivityUseCase {
+public struct InputActivityUseCaseImpl: InputActivityUseCase {
     private let activityRepository: any ActivityRepository
 
     public init(activityRepository: any ActivityRepository) {

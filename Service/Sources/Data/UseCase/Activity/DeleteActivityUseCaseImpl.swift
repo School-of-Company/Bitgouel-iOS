@@ -1,6 +1,6 @@
 import Foundation
 
-public struct DeleteStudentActivityUseCaseImpl: DeleteActivityUseCase {
+public struct DeleteActivityUseCaseImpl: DeleteActivityUseCase {
     private let activityRepository: ActivityRepository
 
     public init(activityRepository: ActivityRepository) {

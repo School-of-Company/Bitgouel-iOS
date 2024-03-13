@@ -2,11 +2,11 @@ import Foundation
 
 public struct ActivitiesResponseDTO: Decodable {
     public let activities: Content
-    
+
     public init(activities: Content) {
         self.activities = activities
     }
-    
+
     public struct Content: Decodable {
         public let content: [ActivityInfo]
 
@@ -21,7 +21,7 @@ public struct ActivitiesResponseDTO: Decodable {
         public let activityDate: String
         public let userID: String
         public let username: String
-        
+
         enum CodingKeys: String, CodingKey {
             case activityID = "activityId"
             case title

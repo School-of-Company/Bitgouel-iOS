@@ -1,45 +1,37 @@
 import Foundation
 
 public final class RemoteActivityDataSourceImpl: BaseRemoteDataSource<ActivityAPI>, RemoteActivityDataSource {
-    public func addStudentActivity(req: AddStudentActivityRequestDTO) async throws {
-        try await request(.addStudentActivity(req))
+    public func inputActivity(req: InputActivityRequestDTO) async throws {
+        try await request(.inputActivity(req: req))
     }
 
-    public func updateStudentActibity(activityID: String) async throws {
-        try await request(.updateStudentActibity(activityID: activityID))
+    public func updateActibity(activityID: String, req: InputActivityRequestDTO) async throws {
+        try await request(.updateActibity(activityID: activityID, req: req))
     }
 
-    public func approveStudentActivity(activityID: String) async throws {
-        try await request(.approveStudentActivity(activityID: activityID))
+    public func deleteActivity(activityID: String) async throws {
+        try await request(.deleteActivity(activityID: activityID))
     }
 
-    public func rejectStudentActivity(activityID: String) async throws {
-        try await request(.rejectStudentActivity(activityID: activityID))
-    }
-
-    public func deleteStudentActivity(activityID: String) async throws {
-        try await request(.deleteStudentActivity(activityID: activityID))
-    }
-
-    public func queryMyStudentActivity() async throws -> ActivityContentEntity {
-        try await request(.queryMyStudentActivity, dto: ActivitiesResponseDTO.self)
+    public func fetchMyActivity() async throws -> ActivityContentEntity {
+        try await request(.fetchMyActivity, dto: ActivitiesResponseDTO.self)
             .toDomain()
     }
 
-    public func queryStudentActivityByID(studentID: String) async throws -> ActivityContentEntity {
-        try await request(.queryStudentActivityByID(studentID: studentID), dto: ActivitiesResponseDTO.self)
+    public func fetchActivityByID(studentID: String) async throws -> ActivityContentEntity {
+        try await request(.fetchActivityByID(studentID: studentID), dto: ActivitiesResponseDTO.self)
             .toDomain()
     }
 
-    public func queryStudentActivityList() async throws -> ActivityContentEntity {
-        try await request(.queryStudentActivityList, dto: ActivitiesResponseDTO.self)
+    public func fetchActivityList() async throws -> ActivityContentEntity {
+        try await request(.fetchActivityList, dto: ActivitiesResponseDTO.self)
             .toDomain()
     }
 
-    public func queryStudentActivityDetails(activityID: String) async throws -> StudentActivityDetailEntity {
+    public func fetchActivityDetails(activityID: String) async throws -> ActivityDetailEntity {
         try await request(
-            .queryStudentActivityDetails(activityID: activityID),
-            dto: StudentActivityDetailResponseDTO.self
+            .fetchActivityDetails(activityID: activityID),
+            dto: ActivityDetailResponseDTO.self
         )
         .toDomain()
     }
