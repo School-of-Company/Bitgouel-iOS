@@ -32,7 +32,7 @@ final class InquiryListViewModel: BaseViewModel {
     func updateAnswerStatus(answer: AnswerList) {
         switch answer {
         case .all:
-            break
+            answerStatus = nil
         case .answer:
             answerStatus = .answered
         case .unanswer:
@@ -56,6 +56,21 @@ final class InquiryListViewModel: BaseViewModel {
                 updateContent(entity: inquiryInfo)
             } catch {
                 print(String(describing: error))
+            }
+        }
+    }
+
+    @MainActor
+    func updateKeyword(text: String) {
+        keyword = text
+        
+        Task {
+            do {
+                let response = try await onAppearInquiryByAdmin()
+
+                updateContent(entity: response)
+            } catch {
+                print(error.localizedDescription)
             }
         }
     }

@@ -9,18 +9,33 @@ struct InquiryListView: View {
     
     var body: some View {
         ZStack {
-            ScrollView {
-                VStack(spacing: 12) {
-                    ForEach(viewModel.inquiryList, id: \.inquiryID) { inquiry in
-                        InquiryListRow(
-                            id: inquiry.inquiryID,
-                            title: inquiry.question,
-                            date: inquiry.createdAt,
-                            userID: inquiry.userID,
-                            name: inquiry.username,
-                            state: inquiry.answerStatus,
-                            authority: viewModel.authority
-                        )
+            VStack {
+                if viewModel.authority == .admin {
+                    KeywordSearchBar(
+                        text: Binding(
+                            get: { viewModel.keyword },
+                            set: { text in viewModel.updateKeyword(text: text) }
+                        ),
+                        prompt: "키워드로 검색...") {
+                            viewModel.updateIsPresentedFilter(isPresented: true)
+                        }
+                }
+                
+                Spacer()
+                
+                ScrollView {
+                    VStack(spacing: 12) {
+                        ForEach(viewModel.inquiryList, id: \.inquiryID) { inquiry in
+                            InquiryListRow(
+                                id: inquiry.inquiryID,
+                                title: inquiry.question,
+                                date: inquiry.createdAt,
+                                userID: inquiry.userID,
+                                name: inquiry.username,
+                                state: inquiry.answerStatus,
+                                authority: viewModel.authority
+                            )
+                        }
                     }
                 }
             }
@@ -52,13 +67,7 @@ struct InquiryListView: View {
         .navigationTitle("문의사항")
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                if viewModel.authority == .admin {
-                    Button {
-                        viewModel.updateIsPresentedFilter(isPresented: true)
-                    } label: {
-                        BitgouelAsset.Icons.filter.swiftUIImage
-                    }
-                } else {
+                if viewModel.authority != .admin {
                     Button {
                         
                     } label: {
