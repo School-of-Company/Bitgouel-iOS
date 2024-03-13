@@ -44,9 +44,9 @@ public extension AppComponent {
         }
     }
 
-    var fetchActivityDetailsUseCase: any FetchActivityDetailsUseCase {
+    var fetchActivityDetailUseCase: any FetchActivityDetailUseCase {
         shared {
-            FetchActivityDetailsUseCaseImpl(activityRepository: activityRepository)
+            FetchActivityDetailUseCaseImpl(activityRepository: activityRepository)
         }
     }
 }

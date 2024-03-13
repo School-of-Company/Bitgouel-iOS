@@ -1,6 +1,6 @@
 import Foundation
 
-public final class FetchActivityDetailUseCaseStub: FetchActivityDetailsUseCase {
+public final class FetchActivityDetailUseCaseStub: FetchActivityDetailUseCase {
     public init() {}
     public func callAsFunction(activityID: String) async throws -> ActivityDetailEntity {
         ActivityDetailEntity(

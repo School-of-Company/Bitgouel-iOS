@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol FetchActivityDetailsUseCase {
+public protocol FetchActivityDetailUseCase {
     func callAsFunction(activityID: String) async throws -> ActivityDetailEntity
 }
