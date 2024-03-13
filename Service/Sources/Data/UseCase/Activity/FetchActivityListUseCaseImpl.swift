@@ -1,6 +1,6 @@
 import Foundation
 
-public struct FetchtActivityListUseCaseImpl: FetchActivityListUseCase {
+public struct FetchActivityListUseCaseImpl: FetchActivityListUseCase {
     private let activityRepository: any ActivityRepository
 
     public init(activityRepository: any ActivityRepository) {

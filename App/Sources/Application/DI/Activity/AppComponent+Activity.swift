@@ -14,51 +14,39 @@ public extension AppComponent {
         }
     }
 
-    var addStudentActivityUseCase: any AddStudentActivityUseCase {
+    var inputActivityUseCase: any InputActivityUseCase {
         shared {
-            AddStudentActivityUseCaseImpl(activityRepository: activityRepository)
+            InputActivityUseCaseImpl(activityRepository: activityRepository)
         }
     }
 
-    var rejectStudentActivityUseCase: any RejectStudentActivityUseCase {
+    var deleteActivityUseCase: any DeleteActivityUseCase {
         shared {
-            RejectStudentActivityUseCaseImpl(activityRepository: activityRepository)
+            DeleteActivityUseCaseImpl(activityRepository: activityRepository)
         }
     }
 
-    var approveStudentActivityUseCase: any ApproveStudentActivityUseCase {
+    var fetchMyActivityUseCase: any FetchMyActivityUseCase {
         shared {
-            ApproveStudentActivityUseCaseImpl(activityRepository: activityRepository)
+            FetchMyActivityUseCaseImpl(activityRepository: activityRepository)
         }
     }
 
-    var deleteStudentActivityUseCase: any DeleteStudentActivityUseCase {
+    var fetchActivityByIDUseCase: any FetchActivityByIDUseCase {
         shared {
-            DeleteStudentActivityUseCaseImpl(activityRepository: activityRepository)
+            FetchActivityByIDUseCaseImpl(activityRepository: activityRepository)
         }
     }
 
-    var queryMyStudentActivityUseCase: any QueryMyStudentActivityUseCase {
+    var fetchActivityListUseCase: any FetchActivityListUseCase {
         shared {
-            QueryMyStudentActivityUseCaseImpl(activityRepository: activityRepository)
+            FetchActivityListUseCaseImpl(activityRepository: activityRepository)
         }
     }
 
-    var queryStudentActivityByIDUseCase: any QueryStudentActivityByIDUseCase {
+    var fetchActivityDetailsUseCase: any FetchActivityDetailsUseCase {
         shared {
-            QueryStudentActivityByIDUseCaseImpl(activityRepository: activityRepository)
-        }
-    }
-
-    var queryStudentActivityListUseCase: any QueryStudentActivityListUseCase {
-        shared {
-            QueryStudentActivityListUseCaseImpl(activityRepository: activityRepository)
-        }
-    }
-
-    var queryStudentActivityDetailsUseCase: any QueryStudentActivityDetailsUseCase {
-        shared {
-            QueryStudentActivityDetailsUseCaseImpl(activityRepository: activityRepository)
+            FetchActivityDetailsUseCaseImpl(activityRepository: activityRepository)
         }
     }
 }
