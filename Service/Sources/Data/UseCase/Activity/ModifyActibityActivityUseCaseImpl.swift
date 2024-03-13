@@ -1,6 +1,6 @@
 import Foundation
 
-public struct UpdateActivityUseCaseImpl: UpdateActibityUseCase {
+public struct ModifyActivityUseCaseImpl: ModifyActivityUseCase {
     private let activityRepository: any ActivityRepository
 
     public init(activityRepository: any ActivityRepository) {
@@ -8,6 +8,6 @@ public struct UpdateActivityUseCaseImpl: UpdateActibityUseCase {
     }
 
     public func callAsFunction(activityID: String, req: InputActivityRequestDTO) async throws {
-        try await activityRepository.updateActibity(activityID: activityID, req: req)
+        try await activityRepository.modifyActivity(activityID: activityID, req: req)
     }
 }
