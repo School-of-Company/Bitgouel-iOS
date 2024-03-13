@@ -2,15 +2,15 @@ import Foundation
 
 public struct FetchFAQListResponseDTO: Decodable {
     public let faqList: [FAQInfo]
-    
+
     public init(faqList: [FAQInfo]) {
         self.faqList = faqList
     }
-    
+
     public struct FAQInfo: Decodable {
         public let questionID: String
         public let question: String
-        
+
         public init(
             questionID: String,
             question: String
@@ -18,7 +18,7 @@ public struct FetchFAQListResponseDTO: Decodable {
             self.questionID = questionID
             self.question = question
         }
-        
+
         public enum CodingKeys: String, CodingKey {
             case questionID = "id"
             case question

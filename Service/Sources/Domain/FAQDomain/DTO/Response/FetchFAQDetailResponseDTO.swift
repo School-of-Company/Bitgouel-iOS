@@ -4,7 +4,7 @@ public struct FetchFAQDetailResponseDTO: Decodable {
     public let questionID: String
     public let question: String
     public let answer: String
-    
+
     public init(
         questionID: String,
         question: String,
@@ -14,7 +14,7 @@ public struct FetchFAQDetailResponseDTO: Decodable {
         self.question = question
         self.answer = answer
     }
-    
+
     enum CodingKeys: String, CodingKey {
         case questionID = "id"
         case question
