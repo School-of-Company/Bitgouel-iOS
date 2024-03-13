@@ -1,20 +1,20 @@
 import Moya
 import Foundation
 
-enum FAQAPI {
+public enum FAQAPI {
     case inputFAQ(req: InputFAQRequestDTO)
     case fetchFAQList
     case fetchFAQDetail(faqID: String)
 }
 
 extension FAQAPI: BitgouelAPI {
-    typealias ErrorType = FAQDomainError
+    public typealias ErrorType = FAQDomainError
     
-    var domain: BitgouelDomain {
+    public var domain: BitgouelDomain {
         .faq
     }
     
-    var urlPath: String {
+    public var urlPath: String {
         switch self {
         case .inputFAQ,
              .fetchFAQList:
@@ -25,7 +25,7 @@ extension FAQAPI: BitgouelAPI {
         }
     }
     
-    var method: Moya.Method {
+    public var method: Moya.Method {
         switch self {
         case .inputFAQ:
             return .post
@@ -36,7 +36,7 @@ extension FAQAPI: BitgouelAPI {
         }
     }
     
-    var task: Moya.Task {
+    public var task: Moya.Task {
         switch self {
         case let .inputFAQ(req):
             return .requestJSONEncodable(req)
@@ -47,14 +47,14 @@ extension FAQAPI: BitgouelAPI {
         }
     }
     
-    var jwtTokenType: JwtTokenType {
+    public var jwtTokenType: JwtTokenType {
         switch self {
         default:
             return .accessToken
         }
     }
     
-    var errorMap: [Int : FAQDomainError] {
+    public var errorMap: [Int : FAQDomainError] {
         switch self {
         case .inputFAQ:
             return [
