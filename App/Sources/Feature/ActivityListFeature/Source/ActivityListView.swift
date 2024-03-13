@@ -4,42 +4,39 @@ import SwiftUI
 struct ActivityListView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.tabbarHidden) var tabbarHidden
-    @StateObject var model: ActivityListModel
     @StateObject var viewModel: ActivityListViewModel
-    
+
     private let inputActivityFactory: any InputActivityFactory
     private let activityDetailFactory: any ActivityDetailFactory
-    
+
     init(
-        model: ActivityListModel,
         viewModel: ActivityListViewModel,
         inputActivityFactory: any InputActivityFactory,
         activityDetailFactory: any ActivityDetailFactory
     ) {
-        _model = StateObject(wrappedValue: model)
         _viewModel = StateObject(wrappedValue: viewModel)
         self.inputActivityFactory = inputActivityFactory
         self.activityDetailFactory = activityDetailFactory
     }
-    
+
     var body: some View {
         ScrollView {
             VStack {
                 LazyVStack(spacing: 12) {
-                    if let activityList = model.activityList {
+                    if let activityList = viewModel.activityList {
                         ForEach(activityList.content, id: \.activityID) { item in
-                            RoundListRow(
+                            ActivityListRow(
                                 id: item.activityID,
                                 title: item.title,
                                 date: item.activityDate,
                                 userID: item.userID,
                                 name: item.userName,
-                                authority: model.authority
+                                authority: viewModel.authority
                             )
                             .buttonWrapper {
                                 withAnimation {
-                                    viewModel.activityDidSelect(activityID: item.activityID)
-                                    model.isPresentedActivityDetailPage = true
+                                    viewModel.updateActivityID(activityID: item.activityID)
+                                    viewModel.updateIsPresentedActivityDetailView(isPresented: true)
                                 }
                             }
                         }
@@ -49,10 +46,10 @@ struct ActivityListView: View {
             }
         }
         .bitgouelToast(
-            text: model.errorMessage,
+            text: viewModel.errorMessage,
             isShowing: Binding(
                 get: { viewModel.isErrorOccurred },
-                set: { _ in viewModel.toastDismissed() }
+                set: { state in viewModel.updateIsErrorOccurred(state: state) }
             )
         )
         .bitgouelBackButton(dismiss: dismiss)
@@ -60,9 +57,9 @@ struct ActivityListView: View {
         .navigationTitle("학생활동").navigationBarTitleDisplayMode(.large)
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                if model.authority == .student {
+                if viewModel.authority == .student {
                     Button {
-                        viewModel.inputActivityViewIsRequired()
+                        viewModel.updateIsPresentedInputActivityView(isPresented: true)
                     } label: {
                         Image(systemName: "plus")
                             .resizable()
@@ -74,20 +71,24 @@ struct ActivityListView: View {
             }
         }
         .navigate(
-            to: activityDetailFactory.makeView(activityID: model.selectedActivityID ?? "").eraseToAnyView(),
+            to: activityDetailFactory.makeView(activityID: viewModel.activityID).eraseToAnyView(),
             when: Binding(
-                get: { model.isPresentedActivityDetailPage },
-                set: { _ in viewModel.activityDetailPageDismissed() }
+                get: { viewModel.isPresentedActivityDetailView },
+                set: { isPresented in
+                    viewModel.updateIsPresentedActivityDetailView(isPresented: isPresented)
+                }
             )
         )
-        .onChange(of: model.isPresentedActivityDetailPage) { newValue in
+        .onChange(of: viewModel.isPresentedActivityDetailView) { newValue in
             tabbarHidden.wrappedValue = newValue
         }
         .navigate(
             to: inputActivityFactory.makeView(state: "추가", activityID: "").eraseToAnyView(),
             when: Binding(
                 get: { viewModel.isPresentedInputActivityView },
-                set: { _ in viewModel.inputActivityViewIsDismissed() }
+                set: { isPresented in
+                    viewModel.updateIsPresentedInputActivityView(isPresented: isPresented)
+                }
             )
         )
         .onChange(of: viewModel.isPresentedInputActivityView) { newValue in

@@ -2,41 +2,60 @@ import Foundation
 import Service
 
 final class ActivityListViewModel: BaseViewModel {
+    @Published var authority: UserAuthorityType = .user
+    @Published var activityList: ActivityContentEntity?
+    @Published var activityID: String = ""
+    @Published var isPresentedActivityDetailView: Bool = false
     @Published var isPresentedInputActivityView: Bool = false
-    
-    var model: ActivityListModel
-    
+
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
     private let fetchMyActivityUseCase: any FetchMyActivityUseCase
     private let fetchActivityListUseCase: any FetchActivityListUseCase
     private let fetchActivityByIDUseCase: any FetchActivityByIDUseCase
     private let studentID: String
-    
+
     init(
         studentID: String,
-        model: ActivityListModel,
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
         fetchMyActivityUseCase: any FetchMyActivityUseCase,
         fetchActivityListUseCase: any FetchActivityListUseCase,
         fetchActivityByIDUseCase: any FetchActivityByIDUseCase
     ) {
         self.studentID = studentID
-        self.model = model
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
         self.fetchMyActivityUseCase = fetchMyActivityUseCase
         self.fetchActivityListUseCase = fetchActivityListUseCase
         self.fetchActivityByIDUseCase = fetchActivityByIDUseCase
     }
-    
+
+    func updateContent(entity: ActivityContentEntity) {
+        self.activityList = entity
+    }
+
+    func updateIsErrorOccurred(state: Bool) {
+        isErrorOccurred = state
+    }
+
+    func updateActivityID(activityID: String) {
+        self.activityID = activityID
+    }
+
+    func updateIsPresentedActivityDetailView(isPresented: Bool) {
+        isPresentedActivityDetailView = isPresented
+    }
+
+    func updateIsPresentedInputActivityView(isPresented: Bool) {
+        isPresentedInputActivityView = isPresented
+    }
+
     @MainActor
     func onAppear() {
-        let authority = loadUserAuthorityUseCase()
-        model.updateUserRole(authority: authority)
-        
+        authority = loadUserAuthorityUseCase()
+
         Task {
             do {
                 let studentActivityList: ActivityContentEntity = try await { () async throws -> ActivityContentEntity in
-                    switch model.authority {
+                    switch authority {
                     case .admin: return try await onAppearActivityListByAdmin()
                     case .student: return try await onAppearActivityListByStudent()
                     case .teacher: return try await onAppearActivityListByTeacher()
@@ -44,52 +63,30 @@ final class ActivityListViewModel: BaseViewModel {
                         throw ActivityDomainError.forbidden
                     }
                 }()
-                
-                model.updateContent(entity: studentActivityList)
+
+                updateContent(entity: studentActivityList)
             } catch {
                 if let activityDomainError = error as? ActivityDomainError {
-                    model.errorMessage = activityDomainError.errorDescription ?? "알 수 없는 오류가 발생했습니다."
+                    errorMessage = activityDomainError.errorDescription ?? "알 수 없는 오류가 발생했습니다."
                 } else {
-                    model.errorMessage = "알 수 없는 오류가 발생했습니다."
+                    errorMessage = "알 수 없는 오류가 발생했습니다."
                 }
-                self.isErrorOccurred = true
-                
+                updateIsErrorOccurred(state: true)
+
                 print(error.localizedDescription)
             }
         }
     }
-    
+
     func onAppearActivityListByAdmin() async throws -> ActivityContentEntity {
         return try await fetchActivityListUseCase()
     }
-    
+
     func onAppearActivityListByStudent() async throws -> ActivityContentEntity {
         return try await fetchMyActivityUseCase()
     }
-    
+
     func onAppearActivityListByTeacher() async throws -> ActivityContentEntity {
         return try await fetchActivityByIDUseCase(studentID: studentID)
-    }
-    
-    func toastDismissed() {
-        self.isErrorOccurred = false
-    }
-    
-    @MainActor
-    func activityDidSelect(activityID: String) {
-        model.updateSelectedActivityID(activityID: activityID)
-    }
-    
-    @MainActor
-    func activityDetailPageDismissed() {
-        model.isPresentedActivityDetailPage = false
-    }
-    
-    func inputActivityViewIsRequired() {
-        self.isPresentedInputActivityView = true
-    }
-    
-    func inputActivityViewIsDismissed() {
-        self.isPresentedInputActivityView = false
     }
 }
