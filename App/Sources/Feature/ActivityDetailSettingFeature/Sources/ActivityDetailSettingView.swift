@@ -2,7 +2,6 @@ import SwiftUI
 
 struct ActivityDetailSettingView: View {
     @Environment(\.dismiss) var dismiss
-    @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var viewModel: ActivityDetailSettingViewModel
 
     init(viewModel: ActivityDetailSettingViewModel) {
@@ -110,12 +109,6 @@ struct ActivityDetailSettingView: View {
                             .foregroundColor(.bitgouel(.greyscale(.g8)))
                     }
                 }
-            }
-            .onAppear {
-                tabbarHidden.wrappedValue = true
-            }
-            .onDisappear {
-                tabbarHidden.wrappedValue = false
             }
         }
     }

@@ -2,6 +2,7 @@ import SwiftUI
 
 struct NoticeListView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var viewModel: NoticeListViewModel
 
     private let inquiryListFactory: any InquiryListFactory
@@ -90,6 +91,9 @@ struct NoticeListView: View {
                     }
                 )
             )
+            .onChange(of: viewModel.isPresentedNoticeDetailView) { newValue in
+                tabbarHidden.wrappedValue = newValue
+            }
             .navigate(
                 to: inputNoticeFactory.makeView(state: "추가", noticeID: "").eraseToAnyView(),
                 when: Binding(
@@ -99,6 +103,9 @@ struct NoticeListView: View {
                     }
                 )
             )
+            .onChange(of: viewModel.isPresentedInputNoticeView) { newValue in
+                tabbarHidden.wrappedValue = newValue
+            }
         }
         .refreshable {
             viewModel.onAppear()

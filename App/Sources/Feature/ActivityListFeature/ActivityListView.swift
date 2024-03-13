@@ -3,6 +3,7 @@ import SwiftUI
 
 struct ActivityListView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var model: ActivityListModel
     @StateObject var viewModel: ActivityListViewModel
     
@@ -78,6 +79,9 @@ struct ActivityListView: View {
                 set: { _ in viewModel.activityDetailPageDismissed() }
             )
         )
+        .onChange(of: model.isPresentedActivityDetailPage) { newValue in
+            tabbarHidden.wrappedValue = newValue
+        }
         .navigate(
             to: inputActivityFactory.makeView().eraseToAnyView(),
             when: Binding(
@@ -85,6 +89,9 @@ struct ActivityListView: View {
                 set: { _ in viewModel.inputActivityViewIsDismissed() }
             )
         )
+        .onChange(of: viewModel.isPresentedInputActivityView) { newValue in
+            tabbarHidden.wrappedValue = newValue
+        }
         .onAppear {
             viewModel.onAppear()
         }

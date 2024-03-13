@@ -2,7 +2,6 @@ import SwiftUI
 
 struct PostDetailSettingView: View {
     @Environment(\.dismiss) var dismiss
-    @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var viewModel: PostDetailSettingViewModel
 
     var body: some View {
@@ -26,12 +25,6 @@ struct PostDetailSettingView: View {
                         BitgouelAsset.Icons.cancel.swiftUIImage
                     }
                 }
-            }
-            .onAppear {
-                tabbarHidden.wrappedValue = true
-            }
-            .onDisappear {
-                tabbarHidden.wrappedValue = false
             }
         }
     }

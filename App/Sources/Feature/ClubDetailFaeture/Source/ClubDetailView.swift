@@ -103,10 +103,6 @@ struct ClubDetailView: View {
         .padding(.horizontal, 28)
         .onAppear {
             viewModel.onAppear()
-            tabbarHidden.wrappedValue = true
-        }
-        .onDisappear {
-            tabbarHidden.wrappedValue = false
         }
     }
 }
