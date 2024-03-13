@@ -361,6 +361,9 @@ private func factorybc555a73df3767a26999f47b58f8f304c97af4d5(_ component: Needle
     return PostDetailDependencycf431278832ae8226535Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class InquiryListDependencyec75a7335a50ded93b28Provider: InquiryListDependency {
+    var inputInquiryFactory: any InputInquiryFactory {
+        return appComponent.inputInquiryFactory
+    }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
         return appComponent.loadUserAuthorityUseCase
     }
@@ -519,6 +522,17 @@ private class NoticeDetailDependency3e09bbd26d7f6105e665Provider: NoticeDetailDe
 private func factory0798e0f01e95aeaff56ff47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return NoticeDetailDependency3e09bbd26d7f6105e665Provider(appComponent: parent1(component) as! AppComponent)
 }
+private class InputInquiryDependency0f59954f6ae75e794799Provider: InputInquiryDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->InputInquiryComponent
+private func factory818540ce7b5cc0ed9d3be3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return InputInquiryDependency0f59954f6ae75e794799Provider()
+}
 private class InputActivityDependency4e692e68e51cea5b706dProvider: InputActivityDependency {
     var activityDetailSettingFactory: any ActivityDetailSettingFactory {
         return appComponent.activityDetailSettingFactory
@@ -668,6 +682,7 @@ extension PostDetailComponent: Registration {
 }
 extension InquiryListComponent: Registration {
     public func registerItems() {
+        keyPathToName[\InquiryListDependency.inputInquiryFactory] = "inputInquiryFactory-any InputInquiryFactory"
         keyPathToName[\InquiryListDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
         keyPathToName[\InquiryListDependency.fetchMyInquiryListUseCase] = "fetchMyInquiryListUseCase-any FetchMyInquiryListUseCase"
         keyPathToName[\InquiryListDependency.fetchInquiryByAdminUseCase] = "fetchInquiryByAdminUseCase-any FetchInquiryByAdminUseCase"
@@ -723,6 +738,11 @@ extension NoticeDetailViewComponent: Registration {
         keyPathToName[\NoticeDetailDependency.inputNoticeFactory] = "inputNoticeFactory-any InputNoticeFactory"
         keyPathToName[\NoticeDetailDependency.queryPostDetailUseCase] = "queryPostDetailUseCase-any QueryPostDetailUseCase"
         keyPathToName[\NoticeDetailDependency.deletePostUseCase] = "deletePostUseCase-any DeletePostUseCase"
+    }
+}
+extension InputInquiryComponent: Registration {
+    public func registerItems() {
+
     }
 }
 extension InputActivityComponent: Registration {
@@ -827,6 +847,7 @@ extension AppComponent: Registration {
         localTable["mainTabFactory-any MainTabFactory"] = { [unowned self] in self.mainTabFactory as Any }
         localTable["inputNoticeFactory-any InputNoticeFactory"] = { [unowned self] in self.inputNoticeFactory as Any }
         localTable["noticeDetailSettingFactory-any NoticeDetailSettingFactory"] = { [unowned self] in self.noticeDetailSettingFactory as Any }
+        localTable["inputInquiryFactory-any InputInquiryFactory"] = { [unowned self] in self.inputInquiryFactory as Any }
         localTable["remoteCertificationDataSource-any RemoteCertificationDataSource"] = { [unowned self] in self.remoteCertificationDataSource as Any }
         localTable["certificationRepository-any CertificationRepository"] = { [unowned self] in self.certificationRepository as Any }
         localTable["queryCertificationListByTeacherUseCase-any QueryCertificationListByTeacherUseCase"] = { [unowned self] in self.queryCertificationListByTeacherUseCase as Any }
@@ -877,6 +898,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->PostDetailSettingComponent", factoryaacb19523586bb790cade3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->ActivityDetailComponent", factory7c395808ac9dfb8fb229f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->NoticeDetailViewComponent", factory0798e0f01e95aeaff56ff47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->InputInquiryComponent", factory818540ce7b5cc0ed9d3be3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->InputActivityComponent", factory3fc1a279eeb8c906e603f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)
 }

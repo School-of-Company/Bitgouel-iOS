@@ -3,6 +3,7 @@ import SwiftUI
 import Service
 
 public protocol InquiryListDependency: Dependency {
+    var inputInquiryFactory: any InputInquiryFactory { get }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase { get }
     var fetchMyInquiryListUseCase: any FetchMyInquiryListUseCase { get }
     var fetchInquiryByAdminUseCase: any FetchInquiryByAdminUseCase { get }
@@ -15,7 +16,8 @@ public final class InquiryListComponent: Component<InquiryListDependency>, Inqui
                 loadUserAuthorityUseCase: dependency.loadUserAuthorityUseCase,
                 fetchMyInquiryListUseCase: dependency.fetchMyInquiryListUseCase,
                 fetchInquiryByAdminUseCase: dependency.fetchInquiryByAdminUseCase
-            )
+            ),
+            inputInquiryFactory: dependency.inputInquiryFactory
         )
     }
 }

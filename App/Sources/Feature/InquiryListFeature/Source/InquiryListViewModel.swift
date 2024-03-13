@@ -8,6 +8,7 @@ final class InquiryListViewModel: BaseViewModel {
     @Published var keyword: String = ""
     @Published var selectedAnswer: AnswerList = .all
     @Published var isPresentedFilter: Bool = false
+    @Published var isPresentedInputInquiryView: Bool = false
     var answerList: [AnswerList] = AnswerList.allCases
 
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
@@ -24,6 +25,9 @@ final class InquiryListViewModel: BaseViewModel {
         self.fetchInquiryByAdminUseCase = fetchInquiryByAdminUseCase
     }
 
+    func updateIsPresentedInputInquiryView(isPresented: Bool) {
+        isPresentedInputInquiryView = isPresented
+    }
     
     func updateIsPresentedFilter(isPresented: Bool) {
         isPresentedFilter = isPresented
