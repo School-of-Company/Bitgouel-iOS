@@ -2,16 +2,16 @@ import Foundation
 
 public struct FetchWithdrawUserListResponseDTO: Decodable {
     public let students: [WithdrawUserInfo]
-    
+
     public init(students: [WithdrawUserInfo]) {
         self.students = students
     }
-    
+
     public struct WithdrawUserInfo: Decodable {
         public let withdrawID: String
         public let userID: String
         public let name: String
-        
+
         public init(
             withdrawID: String,
             userID: String,
@@ -21,7 +21,7 @@ public struct FetchWithdrawUserListResponseDTO: Decodable {
             self.userID = userID
             self.name = name
         }
-        
+
         enum CodingKeys: String, CodingKey {
             case withdrawID = "withdrawId"
             case userID = "userId"
@@ -29,6 +29,7 @@ public struct FetchWithdrawUserListResponseDTO: Decodable {
         }
     }
 }
+
 extension FetchWithdrawUserListResponseDTO {
     func toDomain() -> [WithdrawUserInfoEntity] {
         students.map { $0.toDomain() }
