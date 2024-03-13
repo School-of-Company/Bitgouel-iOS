@@ -2,6 +2,7 @@ import SwiftUI
 
 struct InquiryListView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var viewModel: InquiryListViewModel
 
     private let inputInquiryFactory: any InputInquiryFactory
@@ -103,6 +104,9 @@ struct InquiryListView: View {
                 }
             )
         )
+        .onChange(of: viewModel.isPresentedInputInquiryView) { newValue in
+            tabbarHidden.wrappedValue = newValue
+        }
         .navigate(
             to: inquiryDetailFactory.makeView(inquiryID: viewModel.inquiryID).eraseToAnyView(),
             when: Binding(
@@ -112,6 +116,9 @@ struct InquiryListView: View {
                 }
             )
         )
+        .onChange(of: viewModel.isPresentedInquiryDetailView) { newValue in
+            tabbarHidden.wrappedValue = newValue
+        }
         .onAppear {
             viewModel.onAppear()
         }

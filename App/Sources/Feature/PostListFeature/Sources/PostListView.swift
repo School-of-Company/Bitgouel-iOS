@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct PostListView: View {
+    @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var viewModel: PostListViewModel
 
     private let noticeListFactory: any NoticeListFactory
@@ -56,6 +57,9 @@ struct PostListView: View {
                         set: { _ in viewModel.isPresentedPostDetailView = false }
                     )
                 )
+                .onChange(of: viewModel.isPresentedPostDetailView) { newValue in
+                    tabbarHidden.wrappedValue = newValue
+                }
                 .navigate(
                     to: noticeListFactory.makeview().eraseToAnyView(),
                     when: Binding(
@@ -77,6 +81,9 @@ struct PostListView: View {
                         set: { _ in viewModel.isPresentedInputPostView = false }
                     )
                 )
+                .onChange(of: viewModel.isPresentedInputPostView) { newValue in
+                    tabbarHidden.wrappedValue = newValue
+                }
                 .padding(.horizontal, 28)
                 .navigationTitle("게시글 목록")
                 .toolbar {

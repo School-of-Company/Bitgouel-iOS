@@ -2,7 +2,6 @@ import SwiftUI
 
 struct InputInquiryView: View {
     @StateObject var viewModel: InputInquiryViewModel
-    @Environment(\.tabbarHidden) var tabbarHidden
     @Environment(\.dismiss) var dismiss
     
     init(viewModel: InputInquiryViewModel) {
@@ -71,14 +70,8 @@ struct InputInquiryView: View {
             }
         }
         .onAppear {
-            tabbarHidden.wrappedValue = true
             if viewModel.state == "수정" {
                 viewModel.onAppear()
-            }
-        }
-        .onDisappear {
-            if viewModel.state == "추가" {
-                tabbarHidden.wrappedValue = false
             }
         }
         .padding(.horizontal, 24)

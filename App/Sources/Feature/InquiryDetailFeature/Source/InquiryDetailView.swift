@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct InquiryDetailView: View {
-    @Environment(\.tabbarHidden) var tabbarHidden
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: InquiryDetailViewModel
     
@@ -80,13 +79,7 @@ struct InquiryDetailView: View {
         }
         .padding(.horizontal, 28)
         .onAppear {
-            tabbarHidden.wrappedValue = true
             viewModel.onAppear()
-        }
-        .onDisappear {
-            if !viewModel.isPresentedInputInquiryView {
-                tabbarHidden.wrappedValue = false
-            }
         }
         .navigate(
             to: inputInquiryFactory.makeView(state: "수정", inquiryID: viewModel.inquiryID).eraseToAnyView(),
