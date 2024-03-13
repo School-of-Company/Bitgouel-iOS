@@ -6,6 +6,7 @@ public protocol InputActivityDependency: Dependency {
     var activityDetailSettingFactory: any ActivityDetailSettingFactory { get }
     var fetchActivityDetailUseCase: any FetchActivityDetailUseCase { get }
     var inputActivityUseCase: any InputActivityUseCase { get }
+    var modifyActivityUseCase: any ModifyActivityUseCase { get }
 }
 
 public final class InputActivityComponent: Component<InputActivityDependency>, InputActivityFactory {
@@ -18,7 +19,8 @@ public final class InputActivityComponent: Component<InputActivityDependency>, I
                 state: state,
                 activityID: activityID, 
                 fetchActivityDetailUseCase: dependency.fetchActivityDetailUseCase,
-                inputActivityUseCase: dependency.inputActivityUseCase
+                inputActivityUseCase: dependency.inputActivityUseCase,
+                modifyActivityUseCase: dependency.modifyActivityUseCase
             ),
             activityDetailSettingFactory: dependency.activityDetailSettingFactory
         )

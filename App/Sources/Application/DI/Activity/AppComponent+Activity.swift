@@ -20,6 +20,12 @@ public extension AppComponent {
         }
     }
 
+    var modifyActivityUseCase: any ModifyActivityUseCase {
+        shared {
+            ModifyActivityUseCaseImpl(activityRepository: activityRepository)
+        }
+    }
+
     var deleteActivityUseCase: any DeleteActivityUseCase {
         shared {
             DeleteActivityUseCaseImpl(activityRepository: activityRepository)

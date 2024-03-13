@@ -13,17 +13,20 @@ final class InputActivityViewModel: BaseViewModel {
 
     private let fetchActivityDetailUseCase: any FetchActivityDetailUseCase
     private let inputActivityUseCase: any InputActivityUseCase
+    private let modifyActivityUseCase: any ModifyActivityUseCase
 
     init(
         state: String,
         activityID: String,
         fetchActivityDetailUseCase: any FetchActivityDetailUseCase,
-        inputActivityUseCase: any InputActivityUseCase
+        inputActivityUseCase: any InputActivityUseCase,
+        modifyActivityUseCase: any ModifyActivityUseCase
     ) {
         self.state = state
         self.activityID = activityID
         self.fetchActivityDetailUseCase = fetchActivityDetailUseCase
         self.inputActivityUseCase = inputActivityUseCase
+        self.modifyActivityUseCase = modifyActivityUseCase
     }
 
     func detailSettingAppendDismissed() {
@@ -55,20 +58,43 @@ final class InputActivityViewModel: BaseViewModel {
         }
     }
 
-    func addActivity() {
+    func applyButtonDidTap() {
         Task {
             do {
-                try await inputActivityUseCase(
-                    req: InputActivityRequestDTO(
-                        title: activityTitle,
-                        content: activityText,
-                        credit: activityCredit,
-                        activityDate: activityDate.toStringCustomFormat(format: "yyyy-MM-dd")
-                    )
-                )
+                switch state {
+                case "추가":
+                    try await addActivity()
+                case "수정":
+                    try await modifyActivity()
+                default:
+                    break
+                }
             } catch {
                 print(error.localizedDescription)
             }
         }
+    }
+
+    func addActivity() async throws{
+        try await inputActivityUseCase(
+            req: InputActivityRequestDTO(
+                title: activityTitle,
+                content: activityText,
+                credit: activityCredit,
+                activityDate: activityDate.toStringCustomFormat(format: "yyyy-MM-dd")
+            )
+        )
+    }
+    
+    func modifyActivity() async throws {
+        try await modifyActivityUseCase(
+            activityID: activityID,
+            req: InputActivityRequestDTO(
+                title: activityTitle,
+                content: activityText,
+                credit: activityCredit,
+                activityDate: activityDate.toStringCustomFormat(format: "yyyy-MM-dd")
+            )
+        )
     }
 }

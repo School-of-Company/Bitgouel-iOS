@@ -576,6 +576,9 @@ private class InputActivityDependency4e692e68e51cea5b706dProvider: InputActivity
     var inputActivityUseCase: any InputActivityUseCase {
         return appComponent.inputActivityUseCase
     }
+    var modifyActivityUseCase: any ModifyActivityUseCase {
+        return appComponent.modifyActivityUseCase
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -797,6 +800,7 @@ extension InputActivityComponent: Registration {
         keyPathToName[\InputActivityDependency.activityDetailSettingFactory] = "activityDetailSettingFactory-any ActivityDetailSettingFactory"
         keyPathToName[\InputActivityDependency.fetchActivityDetailUseCase] = "fetchActivityDetailUseCase-any FetchActivityDetailUseCase"
         keyPathToName[\InputActivityDependency.inputActivityUseCase] = "inputActivityUseCase-any InputActivityUseCase"
+        keyPathToName[\InputActivityDependency.modifyActivityUseCase] = "modifyActivityUseCase-any ModifyActivityUseCase"
     }
 }
 extension AppComponent: Registration {
@@ -851,6 +855,7 @@ extension AppComponent: Registration {
         localTable["remoteActivityDataSource-any RemoteActivityDataSource"] = { [unowned self] in self.remoteActivityDataSource as Any }
         localTable["activityRepository-any ActivityRepository"] = { [unowned self] in self.activityRepository as Any }
         localTable["inputActivityUseCase-any InputActivityUseCase"] = { [unowned self] in self.inputActivityUseCase as Any }
+        localTable["modifyActivityUseCase-any ModifyActivityUseCase"] = { [unowned self] in self.modifyActivityUseCase as Any }
         localTable["deleteActivityUseCase-any DeleteActivityUseCase"] = { [unowned self] in self.deleteActivityUseCase as Any }
         localTable["fetchMyActivityUseCase-any FetchMyActivityUseCase"] = { [unowned self] in self.fetchMyActivityUseCase as Any }
         localTable["fetchActivityByIDUseCase-any FetchActivityByIDUseCase"] = { [unowned self] in self.fetchActivityByIDUseCase as Any }
