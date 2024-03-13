@@ -1,6 +1,6 @@
 import Foundation
 
-public struct DeleteStudentActivityUseCaseImpl: DeleteStudentActivityUseCase {
+public struct DeleteStudentActivityUseCaseImpl: DeleteActivityUseCase {
     private let activityRepository: ActivityRepository
 
     public init(activityRepository: ActivityRepository) {
@@ -8,6 +8,6 @@ public struct DeleteStudentActivityUseCaseImpl: DeleteStudentActivityUseCase {
     }
 
     public func callAsFunction(activityID: String) async throws {
-        try await activityRepository.deleteStudentActivity(activityID: activityID)
+        try await activityRepository.deleteActivity(activityID: activityID)
     }
 }

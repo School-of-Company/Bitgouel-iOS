@@ -1,7 +1,7 @@
 import Foundation
 
-public struct StudentActivityDetailResponseDTO: Decodable {
-    public let id: String
+public struct ActivityDetailResponseDTO: Decodable {
+    public let activityID: String
     public let title: String
     public let content: String
     public let credit: Int
@@ -9,26 +9,35 @@ public struct StudentActivityDetailResponseDTO: Decodable {
     public let modifiedAt: String
 
     public init(
-        id: String,
+        activityID: String,
         title: String,
         content: String,
         credit: Int,
         activityDate: String,
         modifiedAt: String
     ) {
-        self.id = id
+        self.activityID = activityID
         self.title = title
         self.content = content
         self.credit = credit
         self.activityDate = activityDate
         self.modifiedAt = modifiedAt
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case activityID = "id"
+        case title
+        case content
+        case credit
+        case activityDate
+        case modifiedAt
+    }
 }
 
-extension StudentActivityDetailResponseDTO {
-    func toDomain() -> StudentActivityDetailEntity {
-        StudentActivityDetailEntity(
-            id: id,
+extension ActivityDetailResponseDTO {
+    func toDomain() -> ActivityDetailEntity {
+        ActivityDetailEntity(
+            activityID: activityID,
             title: title,
             content: content,
             credit: credit,

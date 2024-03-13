@@ -1,13 +1,11 @@
 import Foundation
 
 public protocol RemoteActivityDataSource: BaseRemoteDataSource<ActivityAPI> {
-    func addStudentActivity(req: AddStudentActivityRequestDTO) async throws
-    func updateStudentActibity(activityID: String) async throws
-    func approveStudentActivity(activityID: String) async throws
-    func rejectStudentActivity(activityID: String) async throws
-    func deleteStudentActivity(activityID: String) async throws
-    func queryMyStudentActivity() async throws -> ActivityContentEntity
-    func queryStudentActivityByID(studentID: String) async throws -> ActivityContentEntity
-    func queryStudentActivityList() async throws -> ActivityContentEntity
-    func queryStudentActivityDetails(activityID: String) async throws -> StudentActivityDetailEntity
+    func inputActivity(req: InputActivityRequestDTO) async throws
+    func updateActibity(activityID: String, req: InputActivityRequestDTO) async throws
+    func deleteActivity(activityID: String) async throws
+    func fetchMyActivity() async throws -> ActivityContentEntity
+    func fetchActivityByID(studentID: String) async throws -> ActivityContentEntity
+    func fetchActivityList() async throws -> ActivityContentEntity
+    func fetchActivityDetails(activityID: String) async throws -> ActivityDetailEntity
 }

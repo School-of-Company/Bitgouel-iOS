@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol QueryMyStudentActivityUseCase {
+public protocol FetchActivityListUseCase {
     func callAsFunction() async throws -> ActivityContentEntity
 }

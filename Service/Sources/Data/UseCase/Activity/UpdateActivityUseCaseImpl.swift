@@ -8,6 +8,6 @@ public struct UpdateStudentActivityUseCaseImpl: UpdateStudentActibityUseCase {
     }
 
     public func callAsFunction(activityID: String) async throws {
-        try await activityRepository.updateStudentActibity(activityID: activityID)
+        try await activityRepository.updateActibity(activityID: activityID)
     }
 }

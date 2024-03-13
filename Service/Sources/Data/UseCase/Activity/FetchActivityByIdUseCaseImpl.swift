@@ -1,6 +1,6 @@
 import Foundation
 
-public struct QueryStudentActivityByIDUseCaseImpl: QueryStudentActivityByIDUseCase {
+public struct FetchStudentActivityByIDUseCaseImpl: FetchActivityByIDUseCase {
     private let activityRepository: any ActivityRepository
 
     public init(activityRepository: any ActivityRepository) {
@@ -8,6 +8,6 @@ public struct QueryStudentActivityByIDUseCaseImpl: QueryStudentActivityByIDUseCa
     }
 
     public func callAsFunction(studentID: String) async throws -> ActivityContentEntity {
-        try await activityRepository.queryStudentActivityByID(studentID: studentID)
+        try await activityRepository.fetchActivityByID(studentID: studentID)
     }
 }
