@@ -84,7 +84,7 @@ struct ActivityListView: View {
             tabbarHidden.wrappedValue = newValue
         }
         .navigate(
-            to: inputActivityFactory.makeView().eraseToAnyView(),
+            to: inputActivityFactory.makeView(state: "추가", activityID: "").eraseToAnyView(),
             when: Binding(
                 get: { viewModel.isPresentedInputActivityView },
                 set: { _ in viewModel.inputActivityViewIsDismissed() }
