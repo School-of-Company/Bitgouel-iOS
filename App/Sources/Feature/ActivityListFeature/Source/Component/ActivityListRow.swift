@@ -1,7 +1,7 @@
 import Service
 import SwiftUI
 
-struct RoundListRow: View {
+struct ActivityListRow: View {
     let id: String
     let title: String
     let date: String
@@ -17,6 +17,7 @@ struct RoundListRow: View {
                         text: title,
                         font: .title3
                     )
+                    .foregroundColor(.bitgouel(.greyscale(.g0)))
 
                     BitgouelText(
                         text: date,
@@ -45,4 +46,3 @@ struct RoundListRow: View {
         }
     }
 }
-
