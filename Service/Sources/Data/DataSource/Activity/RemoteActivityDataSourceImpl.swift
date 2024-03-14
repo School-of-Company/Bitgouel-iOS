@@ -5,8 +5,8 @@ public final class RemoteActivityDataSourceImpl: BaseRemoteDataSource<ActivityAP
         try await request(.inputActivity(req: req))
     }
 
-    public func updateActibity(activityID: String, req: InputActivityRequestDTO) async throws {
-        try await request(.updateActibity(activityID: activityID, req: req))
+    public func modifyActivity(activityID: String, req: InputActivityRequestDTO) async throws {
+        try await request(.modifyActivity(activityID: activityID, req: req))
     }
 
     public func deleteActivity(activityID: String) async throws {

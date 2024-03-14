@@ -11,8 +11,8 @@ public struct ActivityRepositoryImpl: ActivityRepository {
         try await remoteActivityDataSource.inputActivity(req: req)
     }
 
-    public func updateActibity(activityID: String, req: InputActivityRequestDTO) async throws {
-        try await remoteActivityDataSource.updateActibity(activityID: activityID, req: req)
+    public func modifyActivity(activityID: String, req: InputActivityRequestDTO) async throws {
+        try await remoteActivityDataSource.modifyActivity(activityID: activityID, req: req)
     }
 
     public func deleteActivity(activityID: String) async throws {
