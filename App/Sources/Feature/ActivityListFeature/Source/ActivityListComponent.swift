@@ -7,7 +7,6 @@ public protocol ActivityListDependency: Dependency {
     var inputActivityFactory: any InputActivityFactory { get }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase { get }
     var fetchMyActivityUseCase: any FetchMyActivityUseCase { get }
-    var fetchActivityListUseCase: any FetchActivityListUseCase { get }
     var fetchActivityByIDUseCase: any FetchActivityByIDUseCase { get }
 }
 
@@ -19,7 +18,6 @@ public final class ActivityListComponent: Component<ActivityListDependency>, Act
                 studentID: studentID,
                 loadUserAuthorityUseCase: self.dependency.loadUserAuthorityUseCase,
                 fetchMyActivityUseCase: self.dependency.fetchMyActivityUseCase,
-                fetchActivityListUseCase: self.dependency.fetchActivityListUseCase,
                 fetchActivityByIDUseCase: self.dependency.fetchActivityByIDUseCase
             ),
             inputActivityFactory: dependency.inputActivityFactory,
