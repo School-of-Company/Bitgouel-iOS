@@ -439,14 +439,14 @@ private class ActivityListDependencyb8e659960978b8384f80Provider: ActivityListDe
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
         return appComponent.loadUserAuthorityUseCase
     }
-    var queryMyStudentActivityUseCase: any QueryMyStudentActivityUseCase {
-        return appComponent.queryMyStudentActivityUseCase
+    var fetchMyActivityUseCase: any FetchMyActivityUseCase {
+        return appComponent.fetchMyActivityUseCase
     }
-    var queryStudentActivityListUseCase: any QueryStudentActivityListUseCase {
-        return appComponent.queryStudentActivityListUseCase
+    var fetchActivityListUseCase: any FetchActivityListUseCase {
+        return appComponent.fetchActivityListUseCase
     }
-    var queryStudentActivityByIDUseCase: any QueryStudentActivityByIDUseCase {
-        return appComponent.queryStudentActivityByIDUseCase
+    var fetchActivityByIDUseCase: any FetchActivityByIDUseCase {
+        return appComponent.fetchActivityByIDUseCase
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -510,17 +510,11 @@ private class ActivityDetailDependencyc459286ea5f8c1b2ecdbProvider: ActivityDeta
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
         return appComponent.loadUserAuthorityUseCase
     }
-    var queryStudentActivityDetailsUseCase: any QueryStudentActivityDetailsUseCase {
-        return appComponent.queryStudentActivityDetailsUseCase
+    var fetchActivityDetailsUseCase: any FetchActivityDetailsUseCase {
+        return appComponent.fetchActivityDetailsUseCase
     }
-    var approveStudentActivityUseCase: any ApproveStudentActivityUseCase {
-        return appComponent.approveStudentActivityUseCase
-    }
-    var rejectStudentActivityUseCase: any RejectStudentActivityUseCase {
-        return appComponent.rejectStudentActivityUseCase
-    }
-    var deleteStudentActivityUseCase: any DeleteStudentActivityUseCase {
-        return appComponent.deleteStudentActivityUseCase
+    var deleteActivityUseCase: any DeleteActivityUseCase {
+        return appComponent.deleteActivityUseCase
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -573,8 +567,8 @@ private class InputActivityDependency4e692e68e51cea5b706dProvider: InputActivity
     var activityDetailSettingFactory: any ActivityDetailSettingFactory {
         return appComponent.activityDetailSettingFactory
     }
-    var addStudentActivityUseCase: any AddStudentActivityUseCase {
-        return appComponent.addStudentActivityUseCase
+    var inputActivityUseCase: any InputActivityUseCase {
+        return appComponent.inputActivityUseCase
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -746,9 +740,9 @@ extension ActivityListComponent: Registration {
         keyPathToName[\ActivityListDependency.activityDetailFactory] = "activityDetailFactory-any ActivityDetailFactory"
         keyPathToName[\ActivityListDependency.inputActivityFactory] = "inputActivityFactory-any InputActivityFactory"
         keyPathToName[\ActivityListDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
-        keyPathToName[\ActivityListDependency.queryMyStudentActivityUseCase] = "queryMyStudentActivityUseCase-any QueryMyStudentActivityUseCase"
-        keyPathToName[\ActivityListDependency.queryStudentActivityListUseCase] = "queryStudentActivityListUseCase-any QueryStudentActivityListUseCase"
-        keyPathToName[\ActivityListDependency.queryStudentActivityByIDUseCase] = "queryStudentActivityByIDUseCase-any QueryStudentActivityByIDUseCase"
+        keyPathToName[\ActivityListDependency.fetchMyActivityUseCase] = "fetchMyActivityUseCase-any FetchMyActivityUseCase"
+        keyPathToName[\ActivityListDependency.fetchActivityListUseCase] = "fetchActivityListUseCase-any FetchActivityListUseCase"
+        keyPathToName[\ActivityListDependency.fetchActivityByIDUseCase] = "fetchActivityByIDUseCase-any FetchActivityByIDUseCase"
     }
 }
 extension LoginComponent: Registration {
@@ -773,10 +767,8 @@ extension PostDetailSettingComponent: Registration {
 extension ActivityDetailComponent: Registration {
     public func registerItems() {
         keyPathToName[\ActivityDetailDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
-        keyPathToName[\ActivityDetailDependency.queryStudentActivityDetailsUseCase] = "queryStudentActivityDetailsUseCase-any QueryStudentActivityDetailsUseCase"
-        keyPathToName[\ActivityDetailDependency.approveStudentActivityUseCase] = "approveStudentActivityUseCase-any ApproveStudentActivityUseCase"
-        keyPathToName[\ActivityDetailDependency.rejectStudentActivityUseCase] = "rejectStudentActivityUseCase-any RejectStudentActivityUseCase"
-        keyPathToName[\ActivityDetailDependency.deleteStudentActivityUseCase] = "deleteStudentActivityUseCase-any DeleteStudentActivityUseCase"
+        keyPathToName[\ActivityDetailDependency.fetchActivityDetailsUseCase] = "fetchActivityDetailsUseCase-any FetchActivityDetailsUseCase"
+        keyPathToName[\ActivityDetailDependency.deleteActivityUseCase] = "deleteActivityUseCase-any DeleteActivityUseCase"
     }
 }
 extension NoticeDetailViewComponent: Registration {
@@ -796,7 +788,7 @@ extension InputInquiryComponent: Registration {
 extension InputActivityComponent: Registration {
     public func registerItems() {
         keyPathToName[\InputActivityDependency.activityDetailSettingFactory] = "activityDetailSettingFactory-any ActivityDetailSettingFactory"
-        keyPathToName[\InputActivityDependency.addStudentActivityUseCase] = "addStudentActivityUseCase-any AddStudentActivityUseCase"
+        keyPathToName[\InputActivityDependency.inputActivityUseCase] = "inputActivityUseCase-any InputActivityUseCase"
     }
 }
 extension AppComponent: Registration {
@@ -850,14 +842,12 @@ extension AppComponent: Registration {
         localTable["companyInstructorSignupUseCase-any CompanyInstructorSignupUseCase"] = { [unowned self] in self.companyInstructorSignupUseCase as Any }
         localTable["remoteActivityDataSource-any RemoteActivityDataSource"] = { [unowned self] in self.remoteActivityDataSource as Any }
         localTable["activityRepository-any ActivityRepository"] = { [unowned self] in self.activityRepository as Any }
-        localTable["addStudentActivityUseCase-any AddStudentActivityUseCase"] = { [unowned self] in self.addStudentActivityUseCase as Any }
-        localTable["rejectStudentActivityUseCase-any RejectStudentActivityUseCase"] = { [unowned self] in self.rejectStudentActivityUseCase as Any }
-        localTable["approveStudentActivityUseCase-any ApproveStudentActivityUseCase"] = { [unowned self] in self.approveStudentActivityUseCase as Any }
-        localTable["deleteStudentActivityUseCase-any DeleteStudentActivityUseCase"] = { [unowned self] in self.deleteStudentActivityUseCase as Any }
-        localTable["queryMyStudentActivityUseCase-any QueryMyStudentActivityUseCase"] = { [unowned self] in self.queryMyStudentActivityUseCase as Any }
-        localTable["queryStudentActivityByIDUseCase-any QueryStudentActivityByIDUseCase"] = { [unowned self] in self.queryStudentActivityByIDUseCase as Any }
-        localTable["queryStudentActivityListUseCase-any QueryStudentActivityListUseCase"] = { [unowned self] in self.queryStudentActivityListUseCase as Any }
-        localTable["queryStudentActivityDetailsUseCase-any QueryStudentActivityDetailsUseCase"] = { [unowned self] in self.queryStudentActivityDetailsUseCase as Any }
+        localTable["inputActivityUseCase-any InputActivityUseCase"] = { [unowned self] in self.inputActivityUseCase as Any }
+        localTable["deleteActivityUseCase-any DeleteActivityUseCase"] = { [unowned self] in self.deleteActivityUseCase as Any }
+        localTable["fetchMyActivityUseCase-any FetchMyActivityUseCase"] = { [unowned self] in self.fetchMyActivityUseCase as Any }
+        localTable["fetchActivityByIDUseCase-any FetchActivityByIDUseCase"] = { [unowned self] in self.fetchActivityByIDUseCase as Any }
+        localTable["fetchActivityListUseCase-any FetchActivityListUseCase"] = { [unowned self] in self.fetchActivityListUseCase as Any }
+        localTable["fetchActivityDetailsUseCase-any FetchActivityDetailsUseCase"] = { [unowned self] in self.fetchActivityDetailsUseCase as Any }
         localTable["remoteAdminDataSource-any RemoteAdminDataSource"] = { [unowned self] in self.remoteAdminDataSource as Any }
         localTable["adminRepository-any AdminRepository"] = { [unowned self] in self.adminRepository as Any }
         localTable["fetchUserListUseCase-any FetchUserListUseCase"] = { [unowned self] in self.fetchUserListUseCase as Any }

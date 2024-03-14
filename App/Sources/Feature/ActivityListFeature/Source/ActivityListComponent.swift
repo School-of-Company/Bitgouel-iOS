@@ -6,9 +6,9 @@ public protocol ActivityListDependency: Dependency {
     var activityDetailFactory: any ActivityDetailFactory { get }
     var inputActivityFactory: any InputActivityFactory { get }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase { get }
-    var queryMyStudentActivityUseCase: any QueryMyStudentActivityUseCase { get }
-    var queryStudentActivityListUseCase: any QueryStudentActivityListUseCase { get }
-    var queryStudentActivityByIDUseCase: any QueryStudentActivityByIDUseCase { get }
+    var fetchMyActivityUseCase: any FetchMyActivityUseCase { get }
+    var fetchActivityListUseCase: any FetchActivityListUseCase { get }
+    var fetchActivityByIDUseCase: any FetchActivityByIDUseCase { get }
 }
 
 public final class ActivityListComponent: Component<ActivityListDependency>, ActivityListFactory {
@@ -21,9 +21,9 @@ public final class ActivityListComponent: Component<ActivityListDependency>, Act
                 studentID: studentID,
                 model: model,
                 loadUserAuthorityUseCase: self.dependency.loadUserAuthorityUseCase,
-                queryMyStudentActivityUseCase: self.dependency.queryMyStudentActivityUseCase,
-                queryStudentActivityListUseCase: self.dependency.queryStudentActivityListUseCase,
-                queryStudentActivityByIDUseCase: self.dependency.queryStudentActivityByIDUseCase
+                fetchMyActivityUseCase: self.dependency.fetchMyActivityUseCase,
+                fetchActivityListUseCase: self.dependency.fetchActivityListUseCase,
+                fetchActivityByIDUseCase: self.dependency.fetchActivityByIDUseCase
             ),
             inputActivityFactory: dependency.inputActivityFactory, 
             activityDetailFactory: dependency.activityDetailFactory

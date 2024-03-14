@@ -1,20 +1,26 @@
 import Foundation
 
-public struct AddStudentActivityRequestDTO: Encodable {
+public struct ActivityDetailEntity: Equatable {
+    public let activityID: String
     public let title: String
     public let content: String
     public let credit: Int
     public let activityDate: String
+    public let modifiedAt: Date
 
     public init(
+        activityID: String,
         title: String,
         content: String,
         credit: Int,
-        activityDate: String
+        activityDate: String,
+        modifiedAt: Date
     ) {
+        self.activityID = activityID
         self.title = title
         self.content = content
         self.credit = credit
         self.activityDate = activityDate
+        self.modifiedAt = modifiedAt
     }
 }

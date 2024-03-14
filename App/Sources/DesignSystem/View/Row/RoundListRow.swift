@@ -7,7 +7,6 @@ struct RoundListRow: View {
     let date: String
     let userID: String
     let name: String
-    let state: ApproveStatusType
     let authority: UserAuthorityType
 
     var body: some View {
@@ -37,24 +36,6 @@ struct RoundListRow: View {
                 .padding(.leading, 16)
 
                 Spacer()
-            }
-            .overlay(alignment: .bottomTrailing) {
-                if authority != .student {
-                    Text(state.display())
-                        .bitgouelFont(.caption, color: .greyscale(.g10))
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 4)
-                        .background {
-                            if state == .approve {
-                                Color.bitgouel(.primary(.p5))
-                            } else {
-                                Color.bitgouel(.error(.e5))
-                            }
-                        }
-                        .cornerRadius(18)
-                        .padding(.trailing, 16)
-                        .padding(.bottom, 16)
-                }
             }
         }
         .frame(height: 156)

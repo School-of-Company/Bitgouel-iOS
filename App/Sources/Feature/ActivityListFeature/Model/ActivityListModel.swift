@@ -4,7 +4,7 @@ import Service
 @MainActor
 final class ActivityListModel: ObservableObject {
     @Published var authority: UserAuthorityType = .user
-    @Published var activityList: [ActivityEntity] = []
+    @Published var activityList: ActivityContentEntity?
     @Published var selectedActivityID: String?
     @Published var isPresentedActivityDetailPage: Bool = false
 
@@ -16,7 +16,7 @@ extension ActivityListModel {
         self.authority = authority
     }
 
-    func updateContent(entity: [ActivityEntity]) {
+    func updateContent(entity: ActivityContentEntity) {
         self.activityList = entity
     }
 

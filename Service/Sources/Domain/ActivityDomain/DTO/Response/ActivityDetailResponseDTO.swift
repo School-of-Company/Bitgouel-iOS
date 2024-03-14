@@ -1,43 +1,48 @@
 import Foundation
 
-public struct StudentActivityDetailResponseDTO: Decodable {
-    public let id: String
+public struct ActivityDetailResponseDTO: Decodable {
+    public let activityID: String
     public let title: String
     public let content: String
     public let credit: Int
     public let activityDate: String
     public let modifiedAt: String
-    public let approveState: ApproveStatusType
 
     public init(
-        id: String,
+        activityID: String,
         title: String,
         content: String,
         credit: Int,
         activityDate: String,
-        modifiedAt: String,
-        approveState: ApproveStatusType
+        modifiedAt: String
     ) {
-        self.id = id
+        self.activityID = activityID
         self.title = title
         self.content = content
         self.credit = credit
         self.activityDate = activityDate
         self.modifiedAt = modifiedAt
-        self.approveState = approveState
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case activityID = "id"
+        case title
+        case content
+        case credit
+        case activityDate
+        case modifiedAt
     }
 }
 
-extension StudentActivityDetailResponseDTO {
-    func toDomain() -> StudentActivityDetailEntity {
-        StudentActivityDetailEntity(
-            id: id,
+extension ActivityDetailResponseDTO {
+    func toDomain() -> ActivityDetailEntity {
+        ActivityDetailEntity(
+            activityID: activityID,
             title: title,
             content: content,
             credit: credit,
             activityDate: activityDate,
-            modifiedAt: modifiedAt,
-            approveState: approveState
+            modifiedAt: modifiedAt.toDateCustomFormat(format: "yyyy.M.dd")
         )
     }
 }

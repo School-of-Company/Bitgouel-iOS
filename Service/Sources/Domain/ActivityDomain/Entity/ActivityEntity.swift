@@ -6,21 +6,18 @@ public struct ActivityEntity: Equatable {
     public let activityDate: String
     public let userID: String
     public let userName: String
-    public let approveStatus: ApproveStatusType
 
     public init(
         activityID: String,
         title: String,
         activityDate: String,
         userID: String,
-        userName: String,
-        approveStatus: ApproveStatusType
+        userName: String
     ) {
         self.activityID = activityID
         self.title = title
         self.activityDate = activityDate
         self.userID = userID
         self.userName = userName
-        self.approveStatus = approveStatus
     }
 }

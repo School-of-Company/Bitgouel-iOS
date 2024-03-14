@@ -26,20 +26,21 @@ struct ActivityListView: View {
         ScrollView {
             VStack {
                 LazyVStack(spacing: 12) {
-                    ForEach(model.activityList, id: \.activityID) { item in
-                        RoundListRow(
-                            id: item.activityID,
-                            title: item.title,
-                            date: item.activityDate,
-                            userID: item.userID,
-                            name: item.userName,
-                            state: item.approveStatus,
-                            authority: model.authority
-                        )
-                        .buttonWrapper {
-                            withAnimation {
-                                viewModel.activityDidSelect(activityID: item.activityID)
-                                model.isPresentedActivityDetailPage = true
+                    if let activityList = model.activityList {
+                        ForEach(activityList.content, id: \.activityID) { item in
+                            RoundListRow(
+                                id: item.activityID,
+                                title: item.title,
+                                date: item.activityDate,
+                                userID: item.userID,
+                                name: item.userName,
+                                authority: model.authority
+                            )
+                            .buttonWrapper {
+                                withAnimation {
+                                    viewModel.activityDidSelect(activityID: item.activityID)
+                                    model.isPresentedActivityDetailPage = true
+                                }
                             }
                         }
                     }
@@ -83,7 +84,7 @@ struct ActivityListView: View {
             tabbarHidden.wrappedValue = newValue
         }
         .navigate(
-            to: inputActivityFactory.makeView().eraseToAnyView(),
+            to: inputActivityFactory.makeView(state: "추가", activityID: "").eraseToAnyView(),
             when: Binding(
                 get: { viewModel.isPresentedInputActivityView },
                 set: { _ in viewModel.inputActivityViewIsDismissed() }

@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol DeleteStudentActivityUseCase {
+public protocol DeleteActivityUseCase {
     func callAsFunction(activityID: String) async throws
 }

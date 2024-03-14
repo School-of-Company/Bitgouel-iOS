@@ -2,15 +2,13 @@ import Foundation
 import Moya
 
 public enum ActivityAPI {
-    case addStudentActivity(AddStudentActivityRequestDTO)
-    case updateStudentActibity(activityID: String)
-    case approveStudentActivity(activityID: String)
-    case rejectStudentActivity(activityID: String)
-    case deleteStudentActivity(activityID: String)
-    case queryMyStudentActivity
-    case queryStudentActivityByID(studentID: String)
-    case queryStudentActivityList
-    case queryStudentActivityDetails(activityID: String)
+    case inputActivity(req: InputActivityRequestDTO)
+    case modifyActivity(activityID: String, req: InputActivityRequestDTO)
+    case deleteActivity(activityID: String)
+    case fetchMyActivity
+    case fetchActivityByID(studentID: String)
+    case fetchActivityList
+    case fetchActivityDetails(activityID: String)
 }
 
 extension ActivityAPI: BitgouelAPI {
@@ -22,54 +20,41 @@ extension ActivityAPI: BitgouelAPI {
 
     public var urlPath: String {
         switch self {
-        case .addStudentActivity, .queryStudentActivityList:
+        case .inputActivity, .fetchActivityList:
             return ""
-        case let .updateStudentActibity(activityID):
+        case let .modifyActivity(activityID, _),
+             let .deleteActivity(activityID):
             return "/\(activityID)"
-        case let .approveStudentActivity(activityID):
-            return "/\(activityID)/approve"
-        case let .rejectStudentActivity(activityID):
-            return "/\(activityID)/reject"
-        case let .deleteStudentActivity(activityID):
-            return "/\(activityID)"
-        case .queryMyStudentActivity:
+        case .fetchMyActivity:
             return "/my"
-        case let .queryStudentActivityByID(studentID):
+        case let .fetchActivityByID(studentID):
             return "/\(studentID)"
-        case let .queryStudentActivityDetails(activityID):
+        case let .fetchActivityDetails(activityID):
             return "/\(activityID)/detail"
         }
     }
 
     public var method: Moya.Method {
         switch self {
-        case .addStudentActivity:
+        case .inputActivity:
             return .post
-        case .updateStudentActibity,
-             .approveStudentActivity:
+        case .modifyActivity:
             return .patch
-        case .rejectStudentActivity,
-             .deleteStudentActivity:
+        case .deleteActivity:
             return .delete
-        case .queryMyStudentActivity,
-             .queryStudentActivityByID,
-             .queryStudentActivityList,
-             .queryStudentActivityDetails:
+        case .fetchMyActivity,
+             .fetchActivityByID,
+             .fetchActivityList,
+             .fetchActivityDetails:
             return .get
         }
     }
 
     public var task: Moya.Task {
         switch self {
-        case let .addStudentActivity(req):
+        case let .inputActivity(req),
+             let .modifyActivity(_, req):
             return .requestJSONEncodable(req)
-        case .updateStudentActibity:
-            return .requestParameters(parameters: [
-                "title": String(),
-                "content": String(),
-                "credit": Int(),
-                "activity": String()
-            ], encoding: URLEncoding.httpBody)
         default:
             return .requestPlain
         }
@@ -84,11 +69,10 @@ extension ActivityAPI: BitgouelAPI {
 
     public var errorMap: [Int: ErrorType] {
         switch self {
-        case .addStudentActivity,
-             .updateStudentActibity,
-             .rejectStudentActivity,
-             .deleteStudentActivity,
-             .queryStudentActivityDetails:
+        case .inputActivity,
+             .modifyActivity,
+             .deleteActivity,
+             .fetchActivityDetails:
             return [
                 400: .badRequest,
                 401: .unauthorized,
@@ -97,10 +81,9 @@ extension ActivityAPI: BitgouelAPI {
                 409: .conflict,
                 429: .tooManyRequest
             ]
-        case .approveStudentActivity,
-             .queryMyStudentActivity,
-             .queryStudentActivityByID,
-             .queryStudentActivityList:
+        case .fetchMyActivity,
+             .fetchActivityByID,
+             .fetchActivityList:
             return [
                 400: .badRequest,
                 401: .unauthorized,

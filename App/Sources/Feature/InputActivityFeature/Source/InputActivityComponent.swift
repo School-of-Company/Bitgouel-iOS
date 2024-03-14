@@ -4,14 +4,19 @@ import SwiftUI
 
 public protocol InputActivityDependency: Dependency {
     var activityDetailSettingFactory: any ActivityDetailSettingFactory { get }
-    var addStudentActivityUseCase: any AddStudentActivityUseCase { get }
+    var inputActivityUseCase: any InputActivityUseCase { get }
 }
 
 public final class InputActivityComponent: Component<InputActivityDependency>, InputActivityFactory {
-    public func makeView() -> some View {
+    public func makeView(
+        state: String,
+        activityID: String
+    ) -> some View {
         InputActivityView(
             viewModel: .init(
-                addStudentActivityUseCase: dependency.addStudentActivityUseCase
+                state: state,
+                activityID: activityID,
+                inputActivityUseCase: dependency.inputActivityUseCase
             ),
             activityDetailSettingFactory: dependency.activityDetailSettingFactory
         )
