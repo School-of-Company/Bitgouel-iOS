@@ -5,13 +5,16 @@ struct InquiryDetailView: View {
     @StateObject var viewModel: InquiryDetailViewModel
     
     private let inputInquiryFactory: any InputInquiryFactory
+    private let writeInquiryAnswerFactory: any WriteInquiryAnswerFactory
     
     init(
         viewModel: InquiryDetailViewModel,
-        inputInquiryFactory: any InputInquiryFactory
+        inputInquiryFactory: any InputInquiryFactory,
+        writeInquiryAnswerFactory: any WriteInquiryAnswerFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.inputInquiryFactory = inputInquiryFactory
+        self.writeInquiryAnswerFactory = writeInquiryAnswerFactory
     }
     
     var body: some View {
@@ -90,6 +93,15 @@ struct InquiryDetailView: View {
                 }
             )
         )
+        .navigate(
+            to: writeInquiryAnswerFactory.makeView(inquiryID: viewModel.inquiryID).eraseToAnyView(),
+            when: Binding(
+                get: { viewModel.isPresentedWriteInquiryAnswerView },
+                set: { isPresented in
+                    viewModel.updateIsPresentedWriteInquiryAnswerView(isPresented: isPresented)
+                }
+            )
+        )
         .bitgouelAlert(
             title: "문의사항을 삭제하시겠습니까?",
             description: viewModel.inquiryDetail?.question ?? "",
@@ -118,6 +130,32 @@ struct InquiryDetailView: View {
                 )
             ]
         )
+        .bitgouelAlert(
+            title: "답변을 추가하시겠습니까?",
+            description: viewModel.inquiryDetail?.question ?? "",
+            isShowing: Binding(
+                get: { viewModel.isWriteInquiryAnswer },
+                set: { isWrite in
+                    viewModel.updateIsWriteInquiryAnswer(isWrite: isWrite)
+                }
+            ),
+            alertActions: [
+                .init(
+                    text: "취소",
+                    style: .cancel,
+                    action: {
+                        viewModel.updateIsWriteInquiryAnswer(isWrite: false)
+                    }
+                ),
+                .init(
+                    text: "추가",
+                    style: .default,
+                    action: {
+                        viewModel.updateIsPresentedWriteInquiryAnswerView(isPresented: true)
+                    }
+                )
+            ]
+        )
     }
     
     @ViewBuilder
@@ -137,6 +175,7 @@ struct InquiryDetailView: View {
                 text: "문의 답변",
                 style: .default,
                 action: {
+                    viewModel.updateIsWriteInquiryAnswer(isWrite: true)
                 }
             )
         }
