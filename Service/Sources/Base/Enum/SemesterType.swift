@@ -1,6 +1,6 @@
 import Foundation
 
-public enum SemesterType: String, Decodable {
+public enum SemesterType: String, Decodable, Encodable {
     case fistYearFallSemester = "FIRST_YEAR_FALL_SEMESTER"
     case secondYearSpringSemester = "SECOND_YEAR_SPRING_SEMESTER"
     case secondYearFallSemester = "SECOND_YEAR_FALL_SEMESTER"

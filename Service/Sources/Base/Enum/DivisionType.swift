@@ -1,6 +1,6 @@
 import Foundation
 
-public enum DivisionType: String, Decodable {
+public enum DivisionType: String, Decodable, Encodable {
     case automobileIndustry = "AUTOMOBILE_INDUSTRY"
     case energyIndustry = "ENERGY_INDUSTRY"
     case medicalHealthcare = "MEDICAL_HEALTHCARE"
