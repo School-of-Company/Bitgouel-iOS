@@ -202,15 +202,17 @@ private func factory0f6f456ebf157d02dfb3e3b0c44298fc1c149afb(_ component: Needle
     return MyPageDependency48d84b530313b3ee40feProvider()
 }
 private class WriteInquiryAnswerDependencyeba82c0423abdd3e1acfProvider: WriteInquiryAnswerDependency {
-
-
-    init() {
-
+    var replyInquiryUseCase: any ReplyInquiryUseCase {
+        return appComponent.replyInquiryUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->WriteInquiryAnswerComponent
-private func factory3d4cadf14cd9a3336981e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return WriteInquiryAnswerDependencyeba82c0423abdd3e1acfProvider()
+private func factory3d4cadf14cd9a3336981f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return WriteInquiryAnswerDependencyeba82c0423abdd3e1acfProvider(appComponent: parent1(component) as! AppComponent)
 }
 private class InquiryDetailDependencyf68d260d1f6dc07aaedbProvider: InquiryDetailDependency {
     var inputInquiryFactory: any InputInquiryFactory {
@@ -664,7 +666,7 @@ extension MyPageComponent: Registration {
 }
 extension WriteInquiryAnswerComponent: Registration {
     public func registerItems() {
-
+        keyPathToName[\WriteInquiryAnswerDependency.replyInquiryUseCase] = "replyInquiryUseCase-any ReplyInquiryUseCase"
     }
 }
 extension InquiryDetailComponent: Registration {
@@ -941,7 +943,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->MainTabComponent", factory1ab5a747ddf21e1393f9f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->NoticeDetailSettingComponent", factory24d19202afbef2333be9e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->MyPageComponent", factory0f6f456ebf157d02dfb3e3b0c44298fc1c149afb)
-    registerProviderFactory("^->AppComponent->WriteInquiryAnswerComponent", factory3d4cadf14cd9a3336981e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->WriteInquiryAnswerComponent", factory3d4cadf14cd9a3336981f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InquiryDetailComponent", factory2d6736bd037393a86ae3f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputNoticeComponent", factory4545df5fcd42aaf8ed60f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->MainComponent", factoryc9274e46e78e70f29c54e3b0c44298fc1c149afb)
