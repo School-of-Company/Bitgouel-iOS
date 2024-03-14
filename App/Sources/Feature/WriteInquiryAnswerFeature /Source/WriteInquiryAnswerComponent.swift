@@ -6,6 +6,6 @@ public protocol WriteInquiryAnswerDependency: Dependency {}
 
 public final class WriteInquiryAnswerComponent: Component<WriteInquiryAnswerDependency>, WriteInquiryAnswerFactory {
     public func makeView(inquiryID: String) -> some View {
-        WriteInquiryAnswerView()
+        WriteInquiryAnswerView(viewModel: .init())
     }
 }
