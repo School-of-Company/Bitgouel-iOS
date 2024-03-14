@@ -1,10 +1,10 @@
 import Foundation
 
 public struct FetchInquiryListResponseDTO: Decodable {
-    public let inquerys: [InquiryInfo]
+    public let inquiries: [InquiryInfo]
 
-    init(inquerys: [InquiryInfo]) {
-        self.inquerys = inquerys
+    init(inquiries: [InquiryInfo]) {
+        self.inquiries = inquiries
     }
 
     public struct InquiryInfo: Decodable {
@@ -36,15 +36,15 @@ public struct FetchInquiryListResponseDTO: Decodable {
             case question
             case userID = "userId"
             case username
-            case answerStatus
             case createdAt
+            case answerStatus
         }
     }
 }
 
 extension FetchInquiryListResponseDTO {
     func toDomain() -> [InquiryInfoEntity] {
-        inquerys.map { $0.toDomain() }
+        inquiries.map { $0.toDomain() }
     }
 }
 
@@ -55,6 +55,7 @@ extension FetchInquiryListResponseDTO.InquiryInfo {
             question: question,
             userID: userID,
             username: username,
+            createdAt: createdAt,
             answerStatus: answerStatus
         )
     }

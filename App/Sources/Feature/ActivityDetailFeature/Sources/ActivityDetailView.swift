@@ -72,9 +72,6 @@ struct ActivityDetailView: View {
             }
         }
         .padding(.horizontal, 28)
-        .onAppear {
-            viewModel.onAppear()
-        }
         .bitgouelAlert(
             title: "활동 승인하시겠습니까?",
             description: viewModel.activityDetail?.content ?? "",

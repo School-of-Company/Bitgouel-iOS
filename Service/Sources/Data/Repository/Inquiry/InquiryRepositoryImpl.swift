@@ -32,7 +32,7 @@ public struct InquiryRepositoryImpl: InquiryRepository {
     }
 
     public func fetchInquiryListByAdmin(
-        answerStatus: AnswerStatusType,
+        answerStatus: String,
         keyword: String
     ) async throws -> [InquiryInfoEntity] {
         try await remoteInquiryDataSource.fetchInquiryListByAdmin(answerStatus: answerStatus, keyword: keyword)

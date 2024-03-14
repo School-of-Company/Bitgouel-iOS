@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ClubListView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var viewModel: ClubListViewModel
 
     private let clubDetailFactory: any ClubDetailFactory
@@ -99,6 +100,9 @@ struct ClubListView: View {
                     set: { state in viewModel.isPresentedClubDetailView = state }
                 )
             )
+            .onChange(of: viewModel.isPresentedClubDetailView) { newValue in
+                tabbarHidden.wrappedValue = newValue
+            }
         }
     }
 }

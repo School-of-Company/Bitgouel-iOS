@@ -7,7 +7,7 @@ public struct FetchInquiryByAdminUseCaseImpl: FetchInquiryByAdminUseCase {
         self.inquiryRepository = inquiryRepository
     }
 
-    public func callAsFunction(answerStatus: AnswerStatusType, keyword: String) async throws -> [InquiryInfoEntity] {
+    public func callAsFunction(answerStatus: String, keyword: String) async throws -> [InquiryInfoEntity] {
         try await inquiryRepository.fetchInquiryListByAdmin(answerStatus: answerStatus, keyword: keyword)
     }
 }

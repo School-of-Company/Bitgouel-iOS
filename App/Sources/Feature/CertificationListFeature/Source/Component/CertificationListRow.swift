@@ -3,7 +3,7 @@ import SwiftUI
 struct CertificationListRow: View {
     let id: String
     let title: String
-    let acquisitionDate: Date
+    let acquisitionDate: String
     let editAction: () -> Void
 
     var body: some View {
@@ -35,7 +35,7 @@ struct CertificationListRow: View {
             }
 
             BitgouelText(
-                text: acquisitionDate.toStringCustomFormat(format: "yyyy.M.dd"),
+                text: acquisitionDate,
                 font: .caption
             )
             .foregroundColor(.bitgouel(.greyscale(.g7)))
