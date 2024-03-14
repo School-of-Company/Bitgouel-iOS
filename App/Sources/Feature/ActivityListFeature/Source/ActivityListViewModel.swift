@@ -10,7 +10,6 @@ final class ActivityListViewModel: BaseViewModel {
 
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
     private let fetchMyActivityUseCase: any FetchMyActivityUseCase
-    private let fetchActivityListUseCase: any FetchActivityListUseCase
     private let fetchActivityByIDUseCase: any FetchActivityByIDUseCase
     private let studentID: String
 
@@ -18,13 +17,11 @@ final class ActivityListViewModel: BaseViewModel {
         studentID: String,
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
         fetchMyActivityUseCase: any FetchMyActivityUseCase,
-        fetchActivityListUseCase: any FetchActivityListUseCase,
         fetchActivityByIDUseCase: any FetchActivityByIDUseCase
     ) {
         self.studentID = studentID
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
         self.fetchMyActivityUseCase = fetchMyActivityUseCase
-        self.fetchActivityListUseCase = fetchActivityListUseCase
         self.fetchActivityByIDUseCase = fetchActivityByIDUseCase
     }
 
@@ -56,9 +53,12 @@ final class ActivityListViewModel: BaseViewModel {
             do {
                 let studentActivityList: ActivityContentEntity = try await { () async throws -> ActivityContentEntity in
                     switch authority {
-                    case .admin: return try await onAppearActivityListByAdmin()
+                    case .admin,
+                         .teacher:
+                        return try await onAppearActivityList()
+
                     case .student: return try await onAppearActivityListByStudent()
-                    case .teacher: return try await onAppearActivityListByTeacher()
+
                     default:
                         throw ActivityDomainError.forbidden
                     }
@@ -73,20 +73,16 @@ final class ActivityListViewModel: BaseViewModel {
                 }
                 updateIsErrorOccurred(state: true)
 
-                print(error.localizedDescription)
+                print(String(describing: error))
             }
         }
-    }
-
-    func onAppearActivityListByAdmin() async throws -> ActivityContentEntity {
-        return try await fetchActivityListUseCase()
     }
 
     func onAppearActivityListByStudent() async throws -> ActivityContentEntity {
         return try await fetchMyActivityUseCase()
     }
 
-    func onAppearActivityListByTeacher() async throws -> ActivityContentEntity {
+    func onAppearActivityList() async throws -> ActivityContentEntity {
         return try await fetchActivityByIDUseCase(studentID: studentID)
     }
 }

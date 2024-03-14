@@ -442,9 +442,6 @@ private class ActivityListDependencyb8e659960978b8384f80Provider: ActivityListDe
     var fetchMyActivityUseCase: any FetchMyActivityUseCase {
         return appComponent.fetchMyActivityUseCase
     }
-    var fetchActivityListUseCase: any FetchActivityListUseCase {
-        return appComponent.fetchActivityListUseCase
-    }
     var fetchActivityByIDUseCase: any FetchActivityByIDUseCase {
         return appComponent.fetchActivityByIDUseCase
     }
@@ -750,7 +747,6 @@ extension ActivityListComponent: Registration {
         keyPathToName[\ActivityListDependency.inputActivityFactory] = "inputActivityFactory-any InputActivityFactory"
         keyPathToName[\ActivityListDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
         keyPathToName[\ActivityListDependency.fetchMyActivityUseCase] = "fetchMyActivityUseCase-any FetchMyActivityUseCase"
-        keyPathToName[\ActivityListDependency.fetchActivityListUseCase] = "fetchActivityListUseCase-any FetchActivityListUseCase"
         keyPathToName[\ActivityListDependency.fetchActivityByIDUseCase] = "fetchActivityByIDUseCase-any FetchActivityByIDUseCase"
     }
 }
