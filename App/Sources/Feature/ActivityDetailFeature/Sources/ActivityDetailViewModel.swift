@@ -26,6 +26,10 @@ final class ActivityDetailViewModel: BaseViewModel {
         self.deleteActivityUseCase = deleteActivityUseCase
     }
 
+    func updateIsDelete(state: Bool) {
+        isDelete = state
+    }
+    
     func updateIsPresentedInputActivityView(isPresented: Bool) {
         isPresentedInputActivityView = isPresented
     }

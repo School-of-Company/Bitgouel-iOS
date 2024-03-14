@@ -3,7 +3,7 @@ import SwiftUI
 
 struct ActivityDetailView: View {
     @StateObject var viewModel: ActivityDetailViewModel
-
+    
     private let inputActivityFactory: any InputActivityFactory
     init(
         viewModel: ActivityDetailViewModel,
@@ -15,60 +15,63 @@ struct ActivityDetailView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            VStack(alignment: .leading) {
-                HStack {
-                    Spacer()
-                    
-                    HStack(spacing: 0) {
-                        Text(viewModel.activityDetail?.modifiedAt.toStringCustomFormat(format: "yyyy년M월dd일HH:mm") ?? "")
+            if let activityDetail = viewModel.activityDetail {
+                VStack(alignment: .leading) {
+                    HStack {
+                        Spacer()
                         
-                        Text("에 수정됨")
+                        HStack(spacing: 0) {
+                            Text(activityDetail.modifiedAt.toStringCustomFormat(format: "yyyy년M월dd일HH:mm"))
+                            
+                            Text("에 수정됨")
+                        }
+                        .foregroundColor(.bitgouel(.greyscale(.g7)))
                     }
-                    .foregroundColor(.bitgouel(.greyscale(.g7)))
-                }
-                .font(.bitgouel(.caption))
-                
-                BitgouelText(
-                    text: viewModel.activityDetail?.title ?? "",
-                    font: .text1
-                )
-                .padding(.top, 4)
-                
-                HStack {
-                    BitgouelText(
-                        text: viewModel.activityDetail?.activityDate ?? "",
-                        font: .text3
-                    )
-                    BitgouelText(
-                        text: "활동",
-                        font: .text3
-                    )
+                    .font(.bitgouel(.caption))
                     
-                    Spacer()
+                    BitgouelText(
+                        text: activityDetail.title,
+                        font: .text1
+                    )
+                    .padding(.top, 4)
                     
-                    HStack(spacing: 0) {
-                        BitgouelText(text: "학점", font: .text3)
-                        
+                    HStack {
                         BitgouelText(
-                            text: "\(viewModel.activityDetail?.credit ?? 0)",
+                            text: activityDetail.activityDate,
                             font: .text3
                         )
-                        .padding(.leading, 4)
+                        BitgouelText(
+                            text: "활동",
+                            font: .text3
+                        )
                         
-                        BitgouelText(text: "점 부여", font: .text3)
+                        Spacer()
+                        
+                        HStack(spacing: 0) {
+                            BitgouelText(text: "학점", font: .text3)
+                            
+                            BitgouelText(
+                                text: "\(activityDetail.credit)",
+                                font: .text3
+                            )
+                            .padding(.leading, 4)
+                            
+                            BitgouelText(text: "점 부여", font: .text3)
+                        }
                     }
+                    .foregroundColor(.bitgouel(.greyscale(.g4)))
+                    .padding(.top, 4)
                 }
-                .foregroundColor(.bitgouel(.greyscale(.g4)))
-                .padding(.top, 4)
-            }
-            
-            ScrollView {
-                Text(viewModel.activityDetail?.content ?? "")
-            }
-            .padding(.top, 24)
-            
-            if viewModel.authority == .student {
-                popupButtonByWriter()
+                
+                ScrollView(showsIndicators: false) {
+                    Text(activityDetail.content)
+                        .multilineTextAlignment(.leading)
+                }
+                .padding(.top, 24)
+                
+                if viewModel.authority == .student {
+                    popupButtonByWriter()
+                }
             }
         }
         .onAppear {
@@ -90,7 +93,7 @@ struct ActivityDetailView: View {
             isShowing: $viewModel.isDelete,
             alertActions: [
                 .init(text: "취소", style: .cancel) {
-                    viewModel.isDelete = false
+                    viewModel.updateIsDelete(state: false)
                 },
                 .init(text: "삭제", style: .error) {
                     viewModel.deleteActivity()
@@ -116,7 +119,7 @@ struct ActivityDetailView: View {
                 text: "활동 삭제",
                 style: .error,
                 action: {
-                    viewModel.isDelete = true
+                    viewModel.updateIsDelete(state: true)
                 }
             )
         }
