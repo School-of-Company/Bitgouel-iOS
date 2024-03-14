@@ -4,7 +4,7 @@ import SwiftUI
 struct ActivityDetailView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: ActivityDetailViewModel
-    
+
     private let inputActivityFactory: any InputActivityFactory
     init(
         viewModel: ActivityDetailViewModel,
@@ -13,29 +13,29 @@ struct ActivityDetailView: View {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.inputActivityFactory = inputActivityFactory
     }
-    
+
     var body: some View {
         VStack(spacing: 0) {
             if let activityDetail = viewModel.activityDetail {
                 VStack(alignment: .leading) {
                     HStack {
                         Spacer()
-                        
+
                         HStack(spacing: 0) {
                             Text(activityDetail.modifiedAt.toStringCustomFormat(format: "yyyy년M월dd일HH:mm"))
-                            
+
                             Text("에 수정됨")
                         }
                         .foregroundColor(.bitgouel(.greyscale(.g7)))
                     }
                     .font(.bitgouel(.caption))
-                    
+
                     BitgouelText(
                         text: activityDetail.title,
                         font: .text1
                     )
                     .padding(.top, 4)
-                    
+
                     HStack {
                         BitgouelText(
                             text: activityDetail.activityDate.toStringCustomFormat(format: "yyyy.M.d"),
@@ -45,29 +45,29 @@ struct ActivityDetailView: View {
                             text: "활동",
                             font: .text3
                         )
-                        
+
                         Spacer()
-                        
+
                         HStack(spacing: 0) {
                             BitgouelText(
                                 text: "\(activityDetail.credit)",
                                 font: .text3
                             )
                             .padding(.leading, 4)
-                            
+
                             BitgouelText(text: "점 수여", font: .text3)
                         }
                     }
                     .foregroundColor(.bitgouel(.greyscale(.g4)))
                     .padding(.top, 4)
                 }
-                
+
                 ScrollView(showsIndicators: false) {
                     Text(activityDetail.content)
                         .multilineTextAlignment(.leading)
                 }
                 .padding(.top, 24)
-                
+
                 if viewModel.authority == .student {
                     popupButtonByWriter()
                 }
@@ -101,7 +101,7 @@ struct ActivityDetailView: View {
             ]
         )
     }
-    
+
     @ViewBuilder
     func popupButtonByWriter() -> some View {
         HStack {
@@ -112,9 +112,9 @@ struct ActivityDetailView: View {
                     viewModel.updateIsPresentedInputActivityView(isPresented: true)
                 }
             )
-            
+
             Spacer()
-            
+
             CTAButton(
                 text: "활동 삭제",
                 style: .error,

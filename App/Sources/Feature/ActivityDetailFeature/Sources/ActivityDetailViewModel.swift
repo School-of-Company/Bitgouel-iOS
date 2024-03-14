@@ -29,7 +29,7 @@ final class ActivityDetailViewModel: BaseViewModel {
     func updateIsDelete(state: Bool) {
         isDelete = state
     }
-    
+
     func updateIsPresentedInputActivityView(isPresented: Bool) {
         isPresentedInputActivityView = isPresented
     }
