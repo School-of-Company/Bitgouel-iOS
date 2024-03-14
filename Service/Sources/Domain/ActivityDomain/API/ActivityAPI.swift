@@ -3,7 +3,7 @@ import Moya
 
 public enum ActivityAPI {
     case inputActivity(req: InputActivityRequestDTO)
-    case updateActibity(activityID: String, req: InputActivityRequestDTO)
+    case modifyActivity(activityID: String, req: InputActivityRequestDTO)
     case deleteActivity(activityID: String)
     case fetchMyActivity
     case fetchActivityByID(studentID: String)
@@ -22,7 +22,7 @@ extension ActivityAPI: BitgouelAPI {
         switch self {
         case .inputActivity, .fetchActivityList:
             return ""
-        case let .updateActibity(activityID, _),
+        case let .modifyActivity(activityID, _),
              let .deleteActivity(activityID):
             return "/\(activityID)"
         case .fetchMyActivity:
@@ -38,7 +38,7 @@ extension ActivityAPI: BitgouelAPI {
         switch self {
         case .inputActivity:
             return .post
-        case .updateActibity:
+        case .modifyActivity:
             return .patch
         case .deleteActivity:
             return .delete
@@ -53,7 +53,7 @@ extension ActivityAPI: BitgouelAPI {
     public var task: Moya.Task {
         switch self {
         case let .inputActivity(req),
-             let .updateActibity(_, req):
+             let .modifyActivity(_, req):
             return .requestJSONEncodable(req)
         default:
             return .requestPlain
@@ -70,7 +70,7 @@ extension ActivityAPI: BitgouelAPI {
     public var errorMap: [Int: ErrorType] {
         switch self {
         case .inputActivity,
-             .updateActibity,
+             .modifyActivity,
              .deleteActivity,
              .fetchActivityDetails:
             return [
