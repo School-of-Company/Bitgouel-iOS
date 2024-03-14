@@ -1,12 +1,22 @@
 import Foundation
 
 public struct FetchLectureDetailResponseDTO: Decodable {
+    public struct LectureDates: Decodable {
+        public let completeDate: Date
+        public let startTime: Date
+        public let endTime: Date
+    }
+    
     public let name: String
     public let content: String
+    public let semester: SemesterType
+    public let division: DivisionType
+    public let department: String
+    public let line: String
     public let createAt: String
     public let startDate: String
     public let endDate: String
-    public let completedDate: String
+    public let lectureDates: [LectureDates]
     public let lectureType: LectureType
     public let lectureStatus: LectureStatusType
     public let headCount: Int
@@ -18,10 +28,14 @@ public struct FetchLectureDetailResponseDTO: Decodable {
     public init(
         name: String,
         content: String,
+        semester: SemesterType,
+        division: DivisionType,
+        department: String,
+        line: String,
         createAt: String,
         startDate: String,
         endDate: String,
-        completedDate: String,
+        lectrueDates: [LectureDates],
         lectureType: LectureType,
         lectureStatus: LectureStatusType,
         headCount: Int,
@@ -32,10 +46,14 @@ public struct FetchLectureDetailResponseDTO: Decodable {
     ) {
         self.name = name
         self.content = content
+        self.semester = semester
+        self.division = division
+        self.department = department
+        self.line = line
         self.createAt = createAt
         self.startDate = startDate
         self.endDate = endDate
-        self.completedDate = completedDate
+        self.lectureDates = lectrueDates
         self.lectureType = lectureType
         self.lectureStatus = lectureStatus
         self.headCount = headCount
@@ -54,7 +72,6 @@ extension FetchLectureDetailResponseDTO {
             createAt: createAt,
             startDate: startDate,
             endDate: endDate,
-            completedDate: completedDate,
             lectureType: lectureType,
             lectureStatus: lectureStatus,
             headCount: headCount,
