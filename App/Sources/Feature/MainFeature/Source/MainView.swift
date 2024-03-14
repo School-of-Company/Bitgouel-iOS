@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct HomeView: View {
+struct MainView: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             Image("mainpage_image_1")
