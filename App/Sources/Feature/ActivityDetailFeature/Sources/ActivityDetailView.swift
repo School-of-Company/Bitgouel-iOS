@@ -2,6 +2,7 @@ import Service
 import SwiftUI
 
 struct ActivityDetailView: View {
+    @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: ActivityDetailViewModel
     
     private let inputActivityFactory: any InputActivityFactory
@@ -37,7 +38,7 @@ struct ActivityDetailView: View {
                     
                     HStack {
                         BitgouelText(
-                            text: activityDetail.activityDate,
+                            text: activityDetail.activityDate.toStringCustomFormat(format: "yyyy.M.d"),
                             font: .text3
                         )
                         BitgouelText(
@@ -48,15 +49,13 @@ struct ActivityDetailView: View {
                         Spacer()
                         
                         HStack(spacing: 0) {
-                            BitgouelText(text: "학점", font: .text3)
-                            
                             BitgouelText(
                                 text: "\(activityDetail.credit)",
                                 font: .text3
                             )
                             .padding(.leading, 4)
                             
-                            BitgouelText(text: "점 부여", font: .text3)
+                            BitgouelText(text: "점 수여", font: .text3)
                         }
                     }
                     .foregroundColor(.bitgouel(.greyscale(.g4)))
@@ -97,6 +96,7 @@ struct ActivityDetailView: View {
                 },
                 .init(text: "삭제", style: .error) {
                     viewModel.deleteActivity()
+                    dismiss()
                 }
             ]
         )
