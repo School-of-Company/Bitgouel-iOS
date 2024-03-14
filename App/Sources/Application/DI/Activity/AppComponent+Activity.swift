@@ -20,6 +20,12 @@ public extension AppComponent {
         }
     }
 
+    var modifyActivityUseCase: any ModifyActivityUseCase {
+        shared {
+            ModifyActivityUseCaseImpl(activityRepository: activityRepository)
+        }
+    }
+
     var deleteActivityUseCase: any DeleteActivityUseCase {
         shared {
             DeleteActivityUseCaseImpl(activityRepository: activityRepository)
@@ -44,9 +50,9 @@ public extension AppComponent {
         }
     }
 
-    var fetchActivityDetailsUseCase: any FetchActivityDetailsUseCase {
+    var fetchActivityDetailUseCase: any FetchActivityDetailUseCase {
         shared {
-            FetchActivityDetailsUseCaseImpl(activityRepository: activityRepository)
+            FetchActivityDetailUseCaseImpl(activityRepository: activityRepository)
         }
     }
 }

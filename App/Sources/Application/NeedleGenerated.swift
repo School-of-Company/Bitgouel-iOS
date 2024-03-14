@@ -504,11 +504,14 @@ private func factoryaacb19523586bb790cade3b0c44298fc1c149afb(_ component: Needle
     return PostDetailSettingDependency372dc6ac7d7de7c5ac4eProvider()
 }
 private class ActivityDetailDependencyc459286ea5f8c1b2ecdbProvider: ActivityDetailDependency {
+    var inputActivityFactory: any InputActivityFactory {
+        return appComponent.inputActivityFactory
+    }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
         return appComponent.loadUserAuthorityUseCase
     }
-    var fetchActivityDetailsUseCase: any FetchActivityDetailsUseCase {
-        return appComponent.fetchActivityDetailsUseCase
+    var fetchActivityDetailUseCase: any FetchActivityDetailUseCase {
+        return appComponent.fetchActivityDetailUseCase
     }
     var deleteActivityUseCase: any DeleteActivityUseCase {
         return appComponent.deleteActivityUseCase
@@ -564,8 +567,14 @@ private class InputActivityDependency4e692e68e51cea5b706dProvider: InputActivity
     var activityDetailSettingFactory: any ActivityDetailSettingFactory {
         return appComponent.activityDetailSettingFactory
     }
+    var fetchActivityDetailUseCase: any FetchActivityDetailUseCase {
+        return appComponent.fetchActivityDetailUseCase
+    }
     var inputActivityUseCase: any InputActivityUseCase {
         return appComponent.inputActivityUseCase
+    }
+    var modifyActivityUseCase: any ModifyActivityUseCase {
+        return appComponent.modifyActivityUseCase
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -762,8 +771,9 @@ extension PostDetailSettingComponent: Registration {
 }
 extension ActivityDetailComponent: Registration {
     public func registerItems() {
+        keyPathToName[\ActivityDetailDependency.inputActivityFactory] = "inputActivityFactory-any InputActivityFactory"
         keyPathToName[\ActivityDetailDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
-        keyPathToName[\ActivityDetailDependency.fetchActivityDetailsUseCase] = "fetchActivityDetailsUseCase-any FetchActivityDetailsUseCase"
+        keyPathToName[\ActivityDetailDependency.fetchActivityDetailUseCase] = "fetchActivityDetailUseCase-any FetchActivityDetailUseCase"
         keyPathToName[\ActivityDetailDependency.deleteActivityUseCase] = "deleteActivityUseCase-any DeleteActivityUseCase"
     }
 }
@@ -784,7 +794,9 @@ extension InputInquiryComponent: Registration {
 extension InputActivityComponent: Registration {
     public func registerItems() {
         keyPathToName[\InputActivityDependency.activityDetailSettingFactory] = "activityDetailSettingFactory-any ActivityDetailSettingFactory"
+        keyPathToName[\InputActivityDependency.fetchActivityDetailUseCase] = "fetchActivityDetailUseCase-any FetchActivityDetailUseCase"
         keyPathToName[\InputActivityDependency.inputActivityUseCase] = "inputActivityUseCase-any InputActivityUseCase"
+        keyPathToName[\InputActivityDependency.modifyActivityUseCase] = "modifyActivityUseCase-any ModifyActivityUseCase"
     }
 }
 extension AppComponent: Registration {
@@ -839,11 +851,12 @@ extension AppComponent: Registration {
         localTable["remoteActivityDataSource-any RemoteActivityDataSource"] = { [unowned self] in self.remoteActivityDataSource as Any }
         localTable["activityRepository-any ActivityRepository"] = { [unowned self] in self.activityRepository as Any }
         localTable["inputActivityUseCase-any InputActivityUseCase"] = { [unowned self] in self.inputActivityUseCase as Any }
+        localTable["modifyActivityUseCase-any ModifyActivityUseCase"] = { [unowned self] in self.modifyActivityUseCase as Any }
         localTable["deleteActivityUseCase-any DeleteActivityUseCase"] = { [unowned self] in self.deleteActivityUseCase as Any }
         localTable["fetchMyActivityUseCase-any FetchMyActivityUseCase"] = { [unowned self] in self.fetchMyActivityUseCase as Any }
         localTable["fetchActivityByIDUseCase-any FetchActivityByIDUseCase"] = { [unowned self] in self.fetchActivityByIDUseCase as Any }
         localTable["fetchActivityListUseCase-any FetchActivityListUseCase"] = { [unowned self] in self.fetchActivityListUseCase as Any }
-        localTable["fetchActivityDetailsUseCase-any FetchActivityDetailsUseCase"] = { [unowned self] in self.fetchActivityDetailsUseCase as Any }
+        localTable["fetchActivityDetailUseCase-any FetchActivityDetailUseCase"] = { [unowned self] in self.fetchActivityDetailUseCase as Any }
         localTable["remoteAdminDataSource-any RemoteAdminDataSource"] = { [unowned self] in self.remoteAdminDataSource as Any }
         localTable["adminRepository-any AdminRepository"] = { [unowned self] in self.adminRepository as Any }
         localTable["fetchUserListUseCase-any FetchUserListUseCase"] = { [unowned self] in self.fetchUserListUseCase as Any }

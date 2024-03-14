@@ -4,10 +4,13 @@ import SwiftUI
 struct ActivityDetailView: View {
     @StateObject var viewModel: ActivityDetailViewModel
 
+    private let inputActivityFactory: any InputActivityFactory
     init(
-        viewModel: ActivityDetailViewModel
+        viewModel: ActivityDetailViewModel,
+        inputActivityFactory: any InputActivityFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
+        self.inputActivityFactory = inputActivityFactory
     }
     
     var body: some View {
@@ -17,7 +20,7 @@ struct ActivityDetailView: View {
                     Spacer()
                     
                     HStack(spacing: 0) {
-                        Text(viewModel.activityDetail?.modifiedAt.toStringCustomFormat(format: "yyyy년M월dd일HH:SS") ?? "")
+                        Text(viewModel.activityDetail?.modifiedAt.toStringCustomFormat(format: "yyyy년M월dd일HH:mm") ?? "")
                         
                         Text("에 수정됨")
                     }
@@ -72,6 +75,15 @@ struct ActivityDetailView: View {
             viewModel.onAppear()
         }
         .padding(.horizontal, 28)
+        .navigate(
+            to: inputActivityFactory.makeView(state: "수정", activityID: viewModel.activityID).eraseToAnyView(),
+            when: Binding(
+                get: { viewModel.isPresentedInputActivityView },
+                set: { isPresented in
+                    viewModel.updateIsPresentedInputActivityView(isPresented: isPresented)
+                }
+            )
+        )
         .bitgouelAlert(
             title: "활동 삭제하시겠습니까?",
             description: viewModel.activityDetail?.content ?? "",
@@ -93,7 +105,9 @@ struct ActivityDetailView: View {
             CTAButton(
                 text: "활동 수정",
                 style: .default,
-                action: {}
+                action: {
+                    viewModel.updateIsPresentedInputActivityView(isPresented: true)
+                }
             )
             
             Spacer()

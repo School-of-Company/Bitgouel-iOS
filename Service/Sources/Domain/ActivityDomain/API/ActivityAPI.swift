@@ -8,7 +8,7 @@ public enum ActivityAPI {
     case fetchMyActivity
     case fetchActivityByID(studentID: String)
     case fetchActivityList
-    case fetchActivityDetails(activityID: String)
+    case fetchActivityDetail(activityID: String)
 }
 
 extension ActivityAPI: BitgouelAPI {
@@ -29,7 +29,7 @@ extension ActivityAPI: BitgouelAPI {
             return "/my"
         case let .fetchActivityByID(studentID):
             return "/\(studentID)"
-        case let .fetchActivityDetails(activityID):
+        case let .fetchActivityDetail(activityID):
             return "/\(activityID)/detail"
         }
     }
@@ -45,7 +45,7 @@ extension ActivityAPI: BitgouelAPI {
         case .fetchMyActivity,
              .fetchActivityByID,
              .fetchActivityList,
-             .fetchActivityDetails:
+             .fetchActivityDetail:
             return .get
         }
     }
@@ -72,7 +72,7 @@ extension ActivityAPI: BitgouelAPI {
         case .inputActivity,
              .modifyActivity,
              .deleteActivity,
-             .fetchActivityDetails:
+             .fetchActivityDetail:
             return [
                 400: .badRequest,
                 401: .unauthorized,

@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct InputActivityView: View {
+    @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: InputActivityViewModel
 
     private let activityDetailSettingFactory: any ActivityDetailSettingFactory
@@ -23,7 +24,8 @@ struct InputActivityView: View {
                         viewModel.isPresentedDetailSettingAppend = true
                     },
                     finalButtonAction: {
-                        viewModel.addActivity()
+                        viewModel.applyButtonDidTap()
+                        dismiss()
                     },
                     title: $viewModel.activityTitle,
                     text: $viewModel.activityText
@@ -51,6 +53,11 @@ struct InputActivityView: View {
         }
         .onTapGesture {
             hideKeyboard()
+        }
+        .onAppear {
+            if viewModel.state == "수정" {
+                viewModel.onAppear()
+            }
         }
     }
 }

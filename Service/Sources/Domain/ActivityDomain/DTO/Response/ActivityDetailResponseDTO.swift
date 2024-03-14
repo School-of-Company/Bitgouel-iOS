@@ -42,7 +42,7 @@ extension ActivityDetailResponseDTO {
             content: content,
             credit: credit,
             activityDate: activityDate,
-            modifiedAt: modifiedAt.toDateCustomFormat(format: "yyyy.M.dd")
+            modifiedAt: modifiedAt.toDateCustomFormat(format: "yyyy-MM-dd'T'HH:mm:ss.SSS")
         )
     }
 }

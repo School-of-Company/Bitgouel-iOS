@@ -28,9 +28,9 @@ public final class RemoteActivityDataSourceImpl: BaseRemoteDataSource<ActivityAP
             .toDomain()
     }
 
-    public func fetchActivityDetails(activityID: String) async throws -> ActivityDetailEntity {
+    public func fetchActivityDetail(activityID: String) async throws -> ActivityDetailEntity {
         try await request(
-            .fetchActivityDetails(activityID: activityID),
+            .fetchActivityDetail(activityID: activityID),
             dto: ActivityDetailResponseDTO.self
         )
         .toDomain()

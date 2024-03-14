@@ -31,7 +31,7 @@ public struct ActivityRepositoryImpl: ActivityRepository {
         try await remoteActivityDataSource.fetchActivityList()
     }
 
-    public func fetchActivityDetails(activityID: String) async throws -> ActivityDetailEntity {
-        try await remoteActivityDataSource.fetchActivityDetails(activityID: activityID)
+    public func fetchActivityDetail(activityID: String) async throws -> ActivityDetailEntity {
+        try await remoteActivityDataSource.fetchActivityDetail(activityID: activityID)
     }
 }

@@ -7,5 +7,5 @@ public protocol RemoteActivityDataSource: BaseRemoteDataSource<ActivityAPI> {
     func fetchMyActivity() async throws -> ActivityContentEntity
     func fetchActivityByID(studentID: String) async throws -> ActivityContentEntity
     func fetchActivityList() async throws -> ActivityContentEntity
-    func fetchActivityDetails(activityID: String) async throws -> ActivityDetailEntity
+    func fetchActivityDetail(activityID: String) async throws -> ActivityDetailEntity
 }
