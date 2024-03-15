@@ -7,27 +7,27 @@ final class LectureListDetailViewModel: BaseViewModel {
     @Published var isApply = false
     @Published var isCancel = false
     
-    private let userID: String
-    private let queryLectureDetailUseCase: any QueryLectureDetailUseCase
-    private let lectureApplyUseCase: any LectureApplyUseCase
-    private let lectureCancelUseCase: any LectureCancelUseCase
+    private let lectureID: String
+    private let fetchLectureDetailUseCase: any FetchLectureDetailUseCase
+    private let applyLectureUseCase: any ApplyLectureUseCase
+    private let cancelLectureUseCase: any CancelLectureUseCase
     
     init(
-        userID: String,
-        queryLectureDetailUseCase: any QueryLectureDetailUseCase,
-        lectureApplyUseCase: any LectureApplyUseCase,
-        lectureCancelUseCase: any LectureCancelUseCase
+        lectureID: String,
+        fetchLectureDetailUseCase: any FetchLectureDetailUseCase,
+        applyLectureUseCase: any ApplyLectureUseCase,
+        cancelLectureUseCase: any CancelLectureUseCase
     ) {
-        self.userID = userID
-        self.queryLectureDetailUseCase = queryLectureDetailUseCase
-        self.lectureApplyUseCase = lectureApplyUseCase
-        self.lectureCancelUseCase = lectureCancelUseCase
+        self.lectureID = lectureID
+        self.fetchLectureDetailUseCase = fetchLectureDetailUseCase
+        self.applyLectureUseCase = applyLectureUseCase
+        self.cancelLectureUseCase = cancelLectureUseCase
     }
     
     func onAppear() {
         Task {
             do {
-                lectureDetail = try await queryLectureDetailUseCase(userID: userID)
+                lectureDetail = try await fetchLectureDetailUseCase(lectureID: lectureID)
             } catch {
                 print(error.localizedDescription)
             }
@@ -37,7 +37,7 @@ final class LectureListDetailViewModel: BaseViewModel {
     func applyLecture() {
         Task {
             do {
-                try await lectureApplyUseCase(userID: userID)
+                try await applyLectureUseCase(lectureID: lectureID)
             } catch {
                 print(error.localizedDescription)
             }
@@ -47,7 +47,7 @@ final class LectureListDetailViewModel: BaseViewModel {
     func cancelLecture() {
         Task {
             do {
-                try await lectureCancelUseCase(userID: userID)
+                try await cancelLectureUseCase(lectureID: lectureID)
             } catch {
                 print(error.localizedDescription)
             }
