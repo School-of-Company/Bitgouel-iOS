@@ -46,6 +46,10 @@ struct InquiryListView: View {
                                 state: inquiry.answerStatus,
                                 authority: viewModel.authority
                             )
+                            .onTapGesture {
+                                viewModel.updateInquiryID(ID: inquiry.inquiryID)
+                                viewModel.updateIsPresentedInquiryDetailView(isPresented: true)
+                            }
                         }
                     }
                 }
