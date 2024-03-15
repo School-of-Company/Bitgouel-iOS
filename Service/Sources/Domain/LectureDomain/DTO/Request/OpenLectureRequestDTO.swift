@@ -1,6 +1,6 @@
 import Foundation
 
-public struct LectureOpenRequestDTO: Encodable {
+public struct OpenLectureRequestDTO: Encodable {
     public let name: String
     public let content: String
     public let semester: SemesterType

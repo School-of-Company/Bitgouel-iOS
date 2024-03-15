@@ -1,7 +1,7 @@
 import Foundation
 
 public protocol LectureRepository {
-    func openLecture(req: LectureOpenRequestDTO) async throws
+    func openLecture(req: OpenLectureRequestDTO) async throws
     func fetchLectureList(type: String) async throws -> [LectureListEntity]
     func fetchLectureDetail(lectureID: String) async throws -> LectureDetailEntity
     func applyLecture(lectureID: String) async throws
