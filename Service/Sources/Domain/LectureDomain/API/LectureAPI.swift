@@ -2,7 +2,7 @@ import Foundation
 import Moya
 
 public enum LectureAPI {
-    case openLecture(req: LectureOpenRequestDTO)
+    case openLecture(req: OpenLectureRequestDTO)
     case fetchLectureList(type: String)
     case fetchLectureDetail(lectureID: String)
     case applyLecture(lectureID: String)

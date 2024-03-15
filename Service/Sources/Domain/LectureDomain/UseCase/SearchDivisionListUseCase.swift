@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol FetchDivisionListUseCase {
+public protocol SearchDivisionListUseCase {
     func callAsFunction(keyword: String, division: String) async throws -> DivisionListEntity
 }
