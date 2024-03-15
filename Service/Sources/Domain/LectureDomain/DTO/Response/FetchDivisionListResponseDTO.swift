@@ -1,6 +1,6 @@
 import Foundation
 
-public struct FetchLineResponseDTO: Decodable {
+public struct FetchDivisionListResponseDTO: Decodable {
     public let lines: [String]
     
     public init(lines: [String]) {
@@ -8,7 +8,7 @@ public struct FetchLineResponseDTO: Decodable {
     }
 }
 
-extension FetchLineResponseDTO {
+extension FetchDivisionListResponseDTO {
     func toDomain() -> DivisionListEntity {
         DivisionListEntity(lines: lines)
     }
