@@ -1,7 +1,7 @@
 import Foundation
 
 public struct LectureListEntity: Equatable {
-    public var id: String
+    public var lectureID: String
     public let name: String
     public let content: String
     public let semester: SemesterType
@@ -17,7 +17,7 @@ public struct LectureListEntity: Equatable {
     public let lecturer: String
 
     public init(
-        id: String,
+        lectureID: String,
         name: String,
         content: String,
         semester: SemesterType,
@@ -32,7 +32,7 @@ public struct LectureListEntity: Equatable {
         maxRegisteredUser: Int,
         lecturer: String
     ) {
-        self.id = id
+        self.lectureID = lectureID
         self.name = name
         self.content = content
         self.semester = semester
