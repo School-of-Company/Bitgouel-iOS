@@ -14,7 +14,7 @@ struct ActivityDetailView: View {
     }
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: 24) {
             VStack(alignment: .leading) {
                 HStack {
                     Spacer()
@@ -62,10 +62,12 @@ struct ActivityDetailView: View {
                 .padding(.top, 4)
             }
             
+            Divider()
+            
             ScrollView {
                 Text(viewModel.activityDetail?.content ?? "")
+                    .multilineTextAlignment(.leading)
             }
-            .padding(.top, 24)
             
             if viewModel.authority == .student {
                 popupButtonByWriter()
