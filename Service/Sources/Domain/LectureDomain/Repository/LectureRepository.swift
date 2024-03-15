@@ -6,7 +6,7 @@ public protocol LectureRepository {
     func fetchLectureDetail(lectureID: String) async throws -> LectureDetailEntity
     func applyLecture(lectureID: String) async throws
     func cancelLecture(lectureID: String) async throws
-    func fetchInstructorList(keyword: String) async throws -> InstructorInfoEntity
+    func fetchInstructorList(keyword: String) async throws -> [InstructorInfoEntity]
     func fetchDivisionList(keyword: String, division: String) async throws -> DivisionListEntity
     func fetchDepartmentList(keyword: String) async throws -> DepartmentListEntity
 }
