@@ -62,7 +62,7 @@ public struct LectureDateEntity: Equatable {
     public let completeDate: String
     public let startTime: String
     public let endTime: String
-    
+
     public init(
         completeDate: String,
         startTime: String,

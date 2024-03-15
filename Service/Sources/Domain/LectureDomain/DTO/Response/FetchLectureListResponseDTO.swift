@@ -2,13 +2,13 @@ import Foundation
 
 public struct FetchLectureListResponseDTO: Decodable {
     public let lectures: [LectureInfo]
-    
+
     public init(
         lectures: [LectureInfo]
     ) {
         self.lectures = lectures
     }
-    
+
     public struct LectureInfo: Decodable {
         public var lectureID: String
         public let name: String
@@ -24,7 +24,7 @@ public struct FetchLectureListResponseDTO: Decodable {
         public let headCount: Int
         public let maxRegisteredUser: Int
         public let lecturer: String
-        
+
         public init(
             lectureID: String,
             name: String,
@@ -81,7 +81,7 @@ extension FetchLectureListResponseDTO {
         lectures.map { $0.toDomain() }
     }
 }
-    
+
 extension FetchLectureListResponseDTO.LectureInfo {
     func toDomain() -> LectureListEntity {
         LectureListEntity(

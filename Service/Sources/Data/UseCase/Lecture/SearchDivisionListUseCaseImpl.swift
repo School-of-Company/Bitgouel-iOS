@@ -6,7 +6,7 @@ public struct SearchDivisionListUseCaseImpl: SearchDivisionListUseCase {
     public init(lectureRepository: any LectureRepository) {
         self.lectureRepository = lectureRepository
     }
-    
+
     public func callAsFunction(keyword: String, division: String) async throws -> DivisionListEntity {
         try await lectureRepository.fetchDivisionList(keyword: keyword, division: division)
     }

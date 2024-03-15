@@ -5,7 +5,7 @@ public struct InstructorInfoEntity: Equatable {
     public let name: String
     public let organization: String
     public let authority: UserAuthorityType
-    
+
     public init(
         instructorID: String,
         name: String,

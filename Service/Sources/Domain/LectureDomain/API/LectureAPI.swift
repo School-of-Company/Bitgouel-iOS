@@ -24,18 +24,18 @@ extension LectureAPI: BitgouelAPI {
         case .openLecture,
              .fetchLectureList:
             return ""
-            
+
         case let .fetchLectureDetail(lectureID),
              let .applyLecture(lectureID),
              let .cancelLecture(lectureID):
             return "/\(lectureID)"
-            
+
         case .fetchInstructorList:
             return "/instructor"
-            
+
         case .fetchDivisionList:
             return "/line"
-            
+
         case .fetchDepartmentList:
             return "/department"
         }
@@ -46,14 +46,14 @@ extension LectureAPI: BitgouelAPI {
         case .openLecture,
              .applyLecture:
             return .post
-            
+
         case .fetchLectureList,
              .fetchLectureDetail,
              .fetchInstructorList,
              .fetchDivisionList,
              .fetchDepartmentList:
             return .get
-            
+
         case .cancelLecture:
             return .delete
         }
@@ -63,24 +63,24 @@ extension LectureAPI: BitgouelAPI {
         switch self {
         case let .openLecture(req):
             return .requestJSONEncodable(req)
-            
+
         case let .fetchLectureList(type):
             return .requestParameters(parameters: [
                 "type": type
             ], encoding: URLEncoding.queryString)
-            
+
         case let .fetchInstructorList(keyword),
              let .fetchDepartmentList(keyword):
             return .requestParameters(parameters: [
                 "keyword": keyword
             ], encoding: URLEncoding.queryString)
-            
+
         case let .fetchDivisionList(keyword, division):
             return .requestParameters(parameters: [
                 "keyword": keyword,
                 "division": division
             ], encoding: URLEncoding.queryString)
-            
+
         default:
             return .requestPlain
         }
@@ -102,7 +102,7 @@ extension LectureAPI: BitgouelAPI {
                 403: .forbidden,
                 409: .conflict
             ]
-            
+
         case .fetchLectureList,
              .fetchInstructorList,
              .fetchDivisionList,
@@ -112,7 +112,7 @@ extension LectureAPI: BitgouelAPI {
                 401: .unauthorized,
                 403 : .forbidden
             ]
-            
+
         case .fetchLectureDetail:
             return [
                 400: .badRequest,
@@ -120,7 +120,7 @@ extension LectureAPI: BitgouelAPI {
                 403: .forbidden,
                 404: .notFound
             ]
-            
+
         case .applyLecture,
              .cancelLecture:
             return [

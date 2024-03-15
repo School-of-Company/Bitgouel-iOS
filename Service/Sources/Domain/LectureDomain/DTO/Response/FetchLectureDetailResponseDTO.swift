@@ -56,12 +56,12 @@ public struct FetchLectureDetailResponseDTO: Decodable {
         self.lecturer = lecturer
         self.credit = credit
     }
-    
+
     public struct LectureDate: Decodable {
         public let completeDate: String
         public let startTime: String
         public let endTime: String
-        
+
         public init(
             completeDate: String,
             startTime: String,

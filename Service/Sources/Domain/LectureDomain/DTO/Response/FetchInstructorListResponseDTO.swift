@@ -2,17 +2,17 @@ import Foundation
 
 public struct FetchInstructorListResponseDTO: Decodable {
     public let instructors: [InstructorInfo]
-    
+
     public init(instructors: [InstructorInfo]) {
         self.instructors = instructors
     }
-    
+
     public struct InstructorInfo: Decodable {
         public let instructorID: String
         public let name: String
         public let organization: String
         public let authority: UserAuthorityType
-        
+
         public init(
             instructorID: String,
             name: String,
@@ -24,7 +24,7 @@ public struct FetchInstructorListResponseDTO: Decodable {
             self.organization = organization
             self.authority = authority
         }
-        
+
         enum CodingKeys: String, CodingKey {
             case instructorID = "id"
             case name

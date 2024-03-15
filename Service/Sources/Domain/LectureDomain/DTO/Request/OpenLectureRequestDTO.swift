@@ -44,7 +44,7 @@ public struct OpenLectureRequestDTO: Encodable {
         self.credit = credit
         self.maxRegisteredUser = maxRegisteredUser
     }
-    
+
     enum CodingKeys: String, CodingKey {
         case name
         case content
@@ -60,12 +60,12 @@ public struct OpenLectureRequestDTO: Encodable {
         case credit
         case maxRegisteredUser
     }
-    
+
     public struct LectureDateInfo: Encodable {
         public let completeDate: Date
         public let startTime: Date
         public let endTime: Date
-        
+
         public init(
             completeDate: Date,
             startTime: Date,
