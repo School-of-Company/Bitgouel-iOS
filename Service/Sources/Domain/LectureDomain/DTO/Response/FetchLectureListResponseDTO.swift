@@ -10,7 +10,7 @@ public struct FetchLectureListResponseDTO: Decodable {
     }
     
     public struct LectureInfo: Decodable {
-        public var id: String
+        public var lectureID: String
         public let name: String
         public let content: String
         public let semester: SemesterType
@@ -24,6 +24,55 @@ public struct FetchLectureListResponseDTO: Decodable {
         public let headCount: Int
         public let maxRegisteredUser: Int
         public let lecturer: String
+        
+        public init(
+            lectureID: String,
+            name: String,
+            content: String,
+            semester: SemesterType,
+            division: DivisionType,
+            department: String,
+            line: String,
+            startDate: String,
+            endDate: String,
+            lectureType: LectureType,
+            lectureStatus: LectureStatusType,
+            headCount: Int,
+            maxRegisteredUser: Int,
+            lecturer: String
+        ) {
+            self.lectureID = lectureID
+            self.name = name
+            self.content = content
+            self.semester = semester
+            self.division = division
+            self.department = department
+            self.line = line
+            self.startDate = startDate
+            self.endDate = endDate
+            self.lectureType = lectureType
+            self.lectureStatus = lectureStatus
+            self.headCount = headCount
+            self.maxRegisteredUser = maxRegisteredUser
+            self.lecturer = lecturer
+        }
+
+        enum CodingKeys: String, CodingKey {
+            case lectureID = "id"
+            case name
+            case content
+            case semester
+            case division
+            case department
+            case line
+            case startDate
+            case endDate
+            case lectureType
+            case lectureStatus
+            case headCount
+            case maxRegisteredUser
+            case lecturer
+        }
     }
 }
 
@@ -36,7 +85,7 @@ extension FetchLectureListResponseDTO {
 extension FetchLectureListResponseDTO.LectureInfo {
     func toDomain() -> LectureListEntity {
         LectureListEntity(
-            id: id,
+            lectureID: lectureID,
             name: name,
             content: content,
             semester: semester,

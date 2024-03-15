@@ -1,12 +1,6 @@
 import Foundation
 
 public struct FetchLectureDetailResponseDTO: Decodable {
-    public struct LectureDates: Decodable {
-        public let completeDate: Date
-        public let startTime: Date
-        public let endTime: Date
-    }
-    
     public let name: String
     public let content: String
     public let semester: SemesterType
@@ -16,7 +10,7 @@ public struct FetchLectureDetailResponseDTO: Decodable {
     public let createAt: String
     public let startDate: String
     public let endDate: String
-    public let lectureDates: [LectureDates]
+    public let lectureDates: [LectureDate]
     public let lectureType: LectureType
     public let lectureStatus: LectureStatusType
     public let headCount: Int
@@ -35,7 +29,7 @@ public struct FetchLectureDetailResponseDTO: Decodable {
         createAt: String,
         startDate: String,
         endDate: String,
-        lectrueDates: [LectureDates],
+        lectureDates: [LectureDate],
         lectureType: LectureType,
         lectureStatus: LectureStatusType,
         headCount: Int,
@@ -53,7 +47,7 @@ public struct FetchLectureDetailResponseDTO: Decodable {
         self.createAt = createAt
         self.startDate = startDate
         self.endDate = endDate
-        self.lectureDates = lectrueDates
+        self.lectureDates = lectureDates
         self.lectureType = lectureType
         self.lectureStatus = lectureStatus
         self.headCount = headCount
@@ -62,6 +56,22 @@ public struct FetchLectureDetailResponseDTO: Decodable {
         self.lecturer = lecturer
         self.credit = credit
     }
+    
+    public struct LectureDate: Decodable {
+        public let completeDate: String
+        public let startTime: String
+        public let endTime: String
+        
+        public init(
+            completeDate: String,
+            startTime: String,
+            endTime: String
+        ) {
+            self.completeDate = completeDate
+            self.startTime = startTime
+            self.endTime = endTime
+        }
+    }
 }
 
 extension FetchLectureDetailResponseDTO {
@@ -69,9 +79,14 @@ extension FetchLectureDetailResponseDTO {
         LectureDetailEntity(
             name: name,
             content: content,
+            semester: semester,
+            division: division,
+            department: department,
+            line: line,
             createAt: createAt,
             startDate: startDate,
             endDate: endDate,
+            lectureDates: lectureDates.map { $0.toDomain() },
             lectureType: lectureType,
             lectureStatus: lectureStatus,
             headCount: headCount,
@@ -79,6 +94,16 @@ extension FetchLectureDetailResponseDTO {
             isRegistered: isRegistered,
             lecturer: lecturer,
             credit: credit
+        )
+    }
+}
+
+extension FetchLectureDetailResponseDTO.LectureDate {
+    func toDomain() -> LectureDateEntity {
+        LectureDateEntity(
+            completeDate: completeDate,
+            startTime: startTime,
+            endTime: endTime
         )
     }
 }

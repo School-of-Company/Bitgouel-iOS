@@ -56,20 +56,20 @@ public struct LectureDetailEntity: Equatable {
         self.lecturer = lecturer
         self.credit = credit
     }
+}
+
+public struct LectureDateEntity: Equatable {
+    public let completeDate: String
+    public let startTime: String
+    public let endTime: String
     
-    public struct LectureDateEntity: Equatable {
-        public let completeDate: String
-        public let startTime: String
-        public let endTime: String
-        
-        public init(
-            completeDate: String,
-            startTime: String,
-            endTime: String
-        ) {
-            self.completeDate = completeDate
-            self.startTime = startTime
-            self.endTime = endTime
-        }
+    public init(
+        completeDate: String,
+        startTime: String,
+        endTime: String
+    ) {
+        self.completeDate = completeDate
+        self.startTime = startTime
+        self.endTime = endTime
     }
 }
