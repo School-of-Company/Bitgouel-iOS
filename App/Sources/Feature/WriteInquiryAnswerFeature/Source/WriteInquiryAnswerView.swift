@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct WriteInquiryAnswerView: View {
+    @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: WriteInquiryAnswerViewModel
 
     init(viewModel: WriteInquiryAnswerViewModel) {
@@ -37,7 +38,8 @@ struct WriteInquiryAnswerView: View {
                     text: "답변하기",
                     style: .default
                 ) {
-                    #warning("문의 사항 답변하기 ButtonAction")
+                    viewModel.applyButtonDidTap()
+                    dismiss()
                 }
             }
         }
