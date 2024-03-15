@@ -23,13 +23,12 @@ struct LectureListView: View {
             ZStack {
                 ScrollView {
                     LazyVStack {
-                        ForEach(model.lectureList, id: \.id) { item in
+                        ForEach(model.lectureList, id: \.lectureID) { item in
                             LectureListRow(
                                 name: item.name,
                                 content: item.content,
                                 startDate: item.startDate,
                                 endDate: item.endDate,
-                                completeDate: item.completeDate,
                                 lectureType: item.lectureType,
                                 lectureStatus: item.lectureStatus,
                                 headCount: item.headCount,
@@ -38,7 +37,7 @@ struct LectureListView: View {
                             )
                             .buttonWrapper {
                                 withAnimation {
-                                    viewModel.lectureDidSelect(userID: item.id)
+                                    viewModel.lectureDidSelect(lectureID: item.lectureID)
                                     model.isPresentedLectureDetailPage = true
                                 }
                             }
@@ -68,7 +67,7 @@ struct LectureListView: View {
                 }
             }
             .navigate(
-                to: lectureListDetailFactory.makeView(userID: model.selectedUserID ?? "").eraseToAnyView(),
+                to: lectureListDetailFactory.makeView(lectureID: model.selectedLectureID ?? "").eraseToAnyView(),
                 when: Binding(
                     get: { model.isPresentedLectureDetailPage },
                     set: { _ in viewModel.lectureDetailPageDismissed() }
