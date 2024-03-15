@@ -69,14 +69,14 @@ private func factory050817f1b6d356b83467f47b58f8f304c97af4d5(_ component: Needle
     return ClubListDependency90c6e61626f7c53ad50fProvider(appComponent: parent1(component) as! AppComponent)
 }
 private class LectureListDetailDependency2a815f1240973966e6a6Provider: LectureListDetailDependency {
-    var queryLectureDetailUseCase: any QueryLectureDetailUseCase {
-        return appComponent.queryLectureDetailUseCase
+    var fetchLectureDetailUseCase: any FetchLectureDetailUseCase {
+        return appComponent.fetchLectureDetailUseCase
     }
-    var lectureApplyUseCase: any LectureApplyUseCase {
-        return appComponent.lectureApplyUseCase
+    var applyLectureUseCase: any ApplyLectureUseCase {
+        return appComponent.applyLectureUseCase
     }
-    var lectureCancelUseCase: any LectureCancelUseCase {
-        return appComponent.lectureCancelUseCase
+    var cancelLectureUseCase: any CancelLectureUseCase {
+        return appComponent.cancelLectureUseCase
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -480,8 +480,8 @@ private class LectureListDependencyf05b805b4d41a7643bcdProvider: LectureListDepe
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
         return appComponent.loadUserAuthorityUseCase
     }
-    var queryLectureListUseCase: any QueryLectureListUseCase {
-        return appComponent.queryLectureListUseCase
+    var fetchLectureListUseCase: any FetchLectureListUseCase {
+        return appComponent.fetchLectureListUseCase
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -608,9 +608,9 @@ extension ClubListComponent: Registration {
 }
 extension LectureListDetailComponent: Registration {
     public func registerItems() {
-        keyPathToName[\LectureListDetailDependency.queryLectureDetailUseCase] = "queryLectureDetailUseCase-any QueryLectureDetailUseCase"
-        keyPathToName[\LectureListDetailDependency.lectureApplyUseCase] = "lectureApplyUseCase-any LectureApplyUseCase"
-        keyPathToName[\LectureListDetailDependency.lectureCancelUseCase] = "lectureCancelUseCase-any LectureCancelUseCase"
+        keyPathToName[\LectureListDetailDependency.fetchLectureDetailUseCase] = "fetchLectureDetailUseCase-any FetchLectureDetailUseCase"
+        keyPathToName[\LectureListDetailDependency.applyLectureUseCase] = "applyLectureUseCase-any ApplyLectureUseCase"
+        keyPathToName[\LectureListDetailDependency.cancelLectureUseCase] = "cancelLectureUseCase-any CancelLectureUseCase"
     }
 }
 extension NoticeListComponent: Registration {
@@ -761,7 +761,7 @@ extension LectureListComponent: Registration {
     public func registerItems() {
         keyPathToName[\LectureListDependency.lectureListDetailFactory] = "lectureListDetailFactory-any LectureListDetailFactory"
         keyPathToName[\LectureListDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
-        keyPathToName[\LectureListDependency.queryLectureListUseCase] = "queryLectureListUseCase-any QueryLectureListUseCase"
+        keyPathToName[\LectureListDependency.fetchLectureListUseCase] = "fetchLectureListUseCase-any FetchLectureListUseCase"
     }
 }
 extension PostDetailSettingComponent: Registration {
@@ -805,11 +805,14 @@ extension AppComponent: Registration {
         localTable["keychain-Keychain"] = { [unowned self] in self.keychain as Any }
         localTable["remoteLectureDataSource-any RemoteLectureDataSource"] = { [unowned self] in self.remoteLectureDataSource as Any }
         localTable["lectureRepository-any LectureRepository"] = { [unowned self] in self.lectureRepository as Any }
-        localTable["lectureOpenUseCase-any LectureOpenUseCase"] = { [unowned self] in self.lectureOpenUseCase as Any }
-        localTable["queryLectureListUseCase-any QueryLectureListUseCase"] = { [unowned self] in self.queryLectureListUseCase as Any }
-        localTable["queryLectureDetailUseCase-any QueryLectureDetailUseCase"] = { [unowned self] in self.queryLectureDetailUseCase as Any }
-        localTable["lectureApplyUseCase-any LectureApplyUseCase"] = { [unowned self] in self.lectureApplyUseCase as Any }
-        localTable["lectureCancelUseCase-any LectureCancelUseCase"] = { [unowned self] in self.lectureCancelUseCase as Any }
+        localTable["openLectureUseCase-any OpenLectureUseCase"] = { [unowned self] in self.openLectureUseCase as Any }
+        localTable["fetchLectureListUseCase-any FetchLectureListUseCase"] = { [unowned self] in self.fetchLectureListUseCase as Any }
+        localTable["fetchLectureDetailUseCase-any FetchLectureDetailUseCase"] = { [unowned self] in self.fetchLectureDetailUseCase as Any }
+        localTable["applyLectureUseCase-any ApplyLectureUseCase"] = { [unowned self] in self.applyLectureUseCase as Any }
+        localTable["cancelLectureUseCase-any CancelLectureUseCase"] = { [unowned self] in self.cancelLectureUseCase as Any }
+        localTable["searchInstructorListUseCase-any SearchInstructorListUseCase"] = { [unowned self] in self.searchInstructorListUseCase as Any }
+        localTable["searchDivisionListUseCase-any SearchDivisionListUseCase"] = { [unowned self] in self.searchDivisionListUseCase as Any }
+        localTable["searchDepartmentListUseCase-any SearchDepartmentListUseCase"] = { [unowned self] in self.searchDepartmentListUseCase as Any }
         localTable["remoteClubDataSource-any RemoteClubDataSource"] = { [unowned self] in self.remoteClubDataSource as Any }
         localTable["clubRepository-any ClubRepository"] = { [unowned self] in self.clubRepository as Any }
         localTable["queryClubListUseCase-any QueryClubListUseCase"] = { [unowned self] in self.queryClubListUseCase as Any }

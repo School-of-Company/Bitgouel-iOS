@@ -6,7 +6,6 @@ struct LectureListRow: View {
     let content: String
     let startDate: String
     let endDate: String
-    let completeDate: String
     let lectureType: LectureType
     let lectureStatus: LectureStatusType
     let headCount: Int
@@ -18,9 +17,6 @@ struct LectureListRow: View {
             HStack(spacing: 8) {
                 Text(lecturer)
                     .bitgouelFont(.text3, color: .greyscale(.g0))
-
-                Text(completeDate)
-                    .bitgouelFont(.text3, color: .greyscale(.g7))
             }
 
             Text(name)
