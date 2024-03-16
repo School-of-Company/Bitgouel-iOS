@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol QueryMyInfoUseCase {
+public protocol FetchMyInfoUseCase {
     func callAsFunction() async throws -> MyInfoEntity
 }
