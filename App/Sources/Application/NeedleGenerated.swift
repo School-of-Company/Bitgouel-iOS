@@ -191,15 +191,20 @@ private func factory24d19202afbef2333be9e3b0c44298fc1c149afb(_ component: Needle
     return NoticeDetailSettingDependencye2c86b5d9ab8fbf629c4Provider()
 }
 private class MyPageDependency48d84b530313b3ee40feProvider: MyPageDependency {
-
-
-    init() {
-
+    var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
+        return appComponent.loadUserAuthorityUseCase
+    }
+    var fetchMyInfoUseCase: any FetchMyInfoUseCase {
+        return appComponent.fetchMyInfoUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->MyPageComponent
-private func factory0f6f456ebf157d02dfb3e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return MyPageDependency48d84b530313b3ee40feProvider()
+private func factory0f6f456ebf157d02dfb3f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return MyPageDependency48d84b530313b3ee40feProvider(appComponent: parent1(component) as! AppComponent)
 }
 private class InquiryDetailDependencyf68d260d1f6dc07aaedbProvider: InquiryDetailDependency {
     var inputInquiryFactory: any InputInquiryFactory {
@@ -670,7 +675,8 @@ extension NoticeDetailSettingComponent: Registration {
 }
 extension MyPageComponent: Registration {
     public func registerItems() {
-
+        keyPathToName[\MyPageDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
+        keyPathToName[\MyPageDependency.fetchMyInfoUseCase] = "fetchMyInfoUseCase-any FetchMyInfoUseCase"
     }
 }
 extension InquiryDetailComponent: Registration {
@@ -892,7 +898,7 @@ extension AppComponent: Registration {
         localTable["remoteUserDataSource-any RemoteUserDataSource"] = { [unowned self] in self.remoteUserDataSource as Any }
         localTable["userRepository-any UserRepository"] = { [unowned self] in self.userRepository as Any }
         localTable["changePasswordUseCase-any ChangePasswordUseCase"] = { [unowned self] in self.changePasswordUseCase as Any }
-        localTable["queryMyInfoUseCase-any QueryMyInfoUseCase"] = { [unowned self] in self.queryMyInfoUseCase as Any }
+        localTable["fetchMyInfoUseCase-any FetchMyInfoUseCase"] = { [unowned self] in self.fetchMyInfoUseCase as Any }
         localTable["loginFactory-any LoginFactory"] = { [unowned self] in self.loginFactory as Any }
         localTable["activityListFactory-any ActivityListFactory"] = { [unowned self] in self.activityListFactory as Any }
         localTable["signupFactory-any SignUpFactory"] = { [unowned self] in self.signupFactory as Any }
@@ -958,7 +964,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->ActivityDetailSettingComponent", factoryfd595280dea209e217b9e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->MainTabComponent", factory1ab5a747ddf21e1393f9f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->NoticeDetailSettingComponent", factory24d19202afbef2333be9e3b0c44298fc1c149afb)
-    registerProviderFactory("^->AppComponent->MyPageComponent", factory0f6f456ebf157d02dfb3e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->MyPageComponent", factory0f6f456ebf157d02dfb3f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InquiryDetailComponent", factory2d6736bd037393a86ae3f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputNoticeComponent", factory4545df5fcd42aaf8ed60f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->MainComponent", factoryc9274e46e78e70f29c54e3b0c44298fc1c149afb)
