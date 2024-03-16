@@ -97,47 +97,58 @@ struct CertificationListView: View {
                             title: certification.name,
                             acquisitionDate: certification.acquisitionDate
                         ) {
-                            print("edit")
+                            viewModel.updateEpic(epic: "수정")
+                            viewModel.selectedCertification(
+                                certificationID: certification.certificationID,
+                                certificationName: certification.name,
+                                acquisitionDate: certification.acquisitionDate
+                            )
+                            viewModel.updateIsPresentedInputCertificationView(isPresented: true)
                         }
 
                         Divider()
                     }
                 }
             }
-            .padding(.horizontal, 28)
-            .navigate(
-                to: activityListFactory.makeView(studentID: viewModel.studentID).eraseToAnyView(),
-                when: Binding(
-                    get: { viewModel.isPresentedActivityListView },
-                    set: { state in viewModel.updateIsPresentedActivityListView(isPresented: state) }
-                )
+        }
+        .padding(.horizontal, 28)
+        .navigate(
+            to: activityListFactory.makeView(studentID: viewModel.studentID).eraseToAnyView(),
+            when: Binding(
+                get: { viewModel.isPresentedActivityListView },
+                set: { state in viewModel.updateIsPresentedActivityListView(isPresented: state) }
             )
-            .fullScreenCover(
-                isPresented: Binding(
-                    get: { viewModel.isPresentedInputCertificationView },
-                    set: { state in
-                        viewModel.updateEpic(epic: "등록")
-                        viewModel.updateIsPresentedInputCertificationView(isPresented: state)
-                    }
-                )
-            ) {
-                DeferView {
-                    inputCertificationFactory.makeView(
-                        epic: viewModel.selectedEpic,
-                        certificationID: viewModel.certificationID
-                    ).eraseToAnyView()
+        )
+        .fullScreenCover(
+            isPresented: Binding(
+                get: { viewModel.isPresentedInputCertificationView },
+                set: { state in
+                    viewModel.updateEpic(epic: "등록")
+                    viewModel.updateIsPresentedInputCertificationView(isPresented: state)
+                }
+            )
+        ) {
+            DeferView {
+                inputCertificationFactory.makeView(
+                    epic: viewModel.selectedEpic,
+                    certificationID: viewModel.selectedCertificationID,
+                    certificationName: viewModel.selectedCertificationName, 
+                    acquisitionDate: viewModel.selectedAcquisitionDate
+                ).eraseToAnyView()
+            }
+        }
+        .navigationTitle("학생 정보")
+        .toolbar {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                Button {
+                    viewModel.updateIsPresentedActivityListView(isPresented: true)
+                } label: {
+                    BitgouelAsset.Icons.person.swiftUIImage
                 }
             }
-            .navigationTitle("학생 정보")
-            .toolbar {
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button {
-                        viewModel.updateIsPresentedActivityListView(isPresented: true)
-                    } label: {
-                        BitgouelAsset.Icons.person.swiftUIImage
-                    }
-                }
-            }
+        }
+        .onAppear {
+            viewModel.onAppear()
         }
     }
 }

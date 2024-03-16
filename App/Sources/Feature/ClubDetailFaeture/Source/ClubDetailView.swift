@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ClubDetailView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var viewModel: ClubDetailViewModel
 
     private let certificationListFactory: any CertificationListFactory

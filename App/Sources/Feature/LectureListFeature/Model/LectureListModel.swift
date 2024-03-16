@@ -5,7 +5,7 @@ import Service
 final class LectureListModel: ObservableObject {
     @Published var authority: UserAuthorityType = .user
     @Published var lectureList: [LectureListEntity] = []
-    @Published var selectedUserID: String?
+    @Published var selectedLectureID: String?
     @Published var isPresentedLectureDetailPage: Bool = false
     var errorMessage: String = ""
 }
@@ -19,7 +19,7 @@ extension LectureListModel {
         self.lectureList = entity
     }
     
-    func updateSelectedUserID(userID: String) {
-        self.selectedUserID = userID
+    func updateSelectedLectureID(lectureID: String) {
+        self.selectedLectureID = lectureID
     }
 }

@@ -6,52 +6,40 @@ import SwiftUI
 final class ActivityDetailViewModel: BaseViewModel {
     @Published var authority: UserAuthorityType = .user
     @Published var isDelete: Bool = false
-    @Published var isEdit: Bool = false
-    @Published var isReject: Bool = false
-    @Published var isApprove: Bool = false
-    @Published var activityDetail: StudentActivityDetailEntity?
+    @Published var activityDetail: ActivityDetailEntity?
+    @Published var isPresentedInputActivityView: Bool = false
 
-    private var activityID: String
+    var activityID: String
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
-    private let queryStudentActivityDetailsUseCase: any QueryStudentActivityDetailsUseCase
-    private let approveStudentActivityUseCase: any ApproveStudentActivityUseCase
-    private let rejectStudentActivityUseCase: any RejectStudentActivityUseCase
-    private let deleteStudentActivityUseCase: any DeleteStudentActivityUseCase
-
-    var statusColor: Color {
-        guard let status = activityDetail?.approveStatus else { return .bitgouel(.greyscale(.g0)) }
-
-        switch status {
-        case .approve:
-            return .bitgouel(.primary(.p5))
-        case .pending:
-            return .bitgouel(.error(.e5))
-        }
-    }
+    private let fetchActivityDetailUseCase: any FetchActivityDetailUseCase
+    private let deleteActivityUseCase: any DeleteActivityUseCase
 
     init(
         activityID: String,
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
-        queryStudentActivityDetailsUseCase: any QueryStudentActivityDetailsUseCase,
-        approveStudentActivityUseCase: any ApproveStudentActivityUseCase,
-        rejectStudentActivityUseCase: any RejectStudentActivityUseCase,
-        deleteStudentActivityUseCase: any DeleteStudentActivityUseCase
+        fetchActivityDetailUseCase: any FetchActivityDetailUseCase,
+        deleteActivityUseCase: any DeleteActivityUseCase
     ) {
         self.activityID = activityID
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
-        self.queryStudentActivityDetailsUseCase = queryStudentActivityDetailsUseCase
-        self.approveStudentActivityUseCase = approveStudentActivityUseCase
-        self.rejectStudentActivityUseCase = rejectStudentActivityUseCase
-        self.deleteStudentActivityUseCase = deleteStudentActivityUseCase
+        self.fetchActivityDetailUseCase = fetchActivityDetailUseCase
+        self.deleteActivityUseCase = deleteActivityUseCase
+    }
+
+    func updateIsDelete(state: Bool) {
+        isDelete = state
+    }
+
+    func updateIsPresentedInputActivityView(isPresented: Bool) {
+        isPresentedInputActivityView = isPresented
     }
 
     func onAppear() {
         authority = loadUserAuthorityUseCase()
-        print(authority)
 
         Task {
             do {
-                activityDetail = try await queryStudentActivityDetailsUseCase(activityID: activityID)
+                activityDetail = try await fetchActivityDetailUseCase(activityID: activityID)
             } catch {
                 print(error.localizedDescription)
             }
@@ -61,27 +49,7 @@ final class ActivityDetailViewModel: BaseViewModel {
     func deleteActivity() {
         Task {
             do {
-                try await deleteStudentActivityUseCase(activityID: activityID)
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
-    }
-
-    func rejectActivity() {
-        Task {
-            do {
-                try await rejectStudentActivityUseCase(activityID: activityID)
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
-    }
-
-    func approveActivity() {
-        Task {
-            do {
-                try await approveStudentActivityUseCase(activityID: activityID)
+                try await deleteActivityUseCase(activityID: activityID)
             } catch {
                 print(error.localizedDescription)
             }

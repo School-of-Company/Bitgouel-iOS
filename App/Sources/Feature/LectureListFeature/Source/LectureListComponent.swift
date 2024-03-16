@@ -5,7 +5,7 @@ import SwiftUI
 public protocol LectureListDependency: Dependency {
     var lectureListDetailFactory: any LectureListDetailFactory { get }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase { get }
-    var queryLectureListUseCase: any QueryLectureListUseCase { get }
+    var fetchLectureListUseCase: any FetchLectureListUseCase { get }
 }
 
 public final class LectureListComponent: Component<LectureListDependency>, LectureListFactory {
@@ -19,7 +19,7 @@ public final class LectureListComponent: Component<LectureListDependency>, Lectu
                 model: model, 
                 loadUserAuthorityUseCase: self.dependency.loadUserAuthorityUseCase,
                 lectureListDetailFactory: self.dependency.lectureListDetailFactory,
-                queryLectureListUseCase: self.dependency.queryLectureListUseCase
+                fetchLectureListUseCase: self.dependency.fetchLectureListUseCase
             )
         )
     }

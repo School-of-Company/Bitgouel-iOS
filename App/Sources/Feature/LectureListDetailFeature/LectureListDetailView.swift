@@ -32,12 +32,8 @@ struct LectureListDetailView: View {
                     .bitgouelFont(.text3, color: .primary(.p5))
 
                     HStack(spacing: 4) {
-                        Text(viewModel.lectureDetail?.completedDate ?? "")
-
-                        Text("부터 시작")
-
                         Spacer()
-
+                        
                         Text("학점")
 
                         Text("\(viewModel.lectureDetail?.credit ?? 0)점")

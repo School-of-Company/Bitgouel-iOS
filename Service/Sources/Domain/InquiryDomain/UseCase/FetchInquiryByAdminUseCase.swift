@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol FetchInquiryByAdminUseCase {
-    func callAsFunction(answerStatus: AnswerStatusType, keyword: String) async throws -> [InquiryInfoEntity]
+    func callAsFunction(answerStatus: String, keyword: String) async throws -> [InquiryInfoEntity]
 }

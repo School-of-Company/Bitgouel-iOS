@@ -7,7 +7,7 @@ public struct ReplyInquiryUseCaseImpl: ReplyInquiryUseCase {
         self.inquiryRepository = inquiryRepository
     }
 
-    public func callAsFunction(inquiryID: String, answer: String) async throws {
-        try await inquiryRepository.replyInquiry(inquiryID: inquiryID, answer: answer)
+    public func callAsFunction(inquiryID: String, req: InquiryAnswerRequestDTO) async throws {
+        try await inquiryRepository.replyInquiry(inquiryID: inquiryID, req: req)
     }
 }

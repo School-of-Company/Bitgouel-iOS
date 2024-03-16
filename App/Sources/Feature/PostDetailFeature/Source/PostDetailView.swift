@@ -35,9 +35,6 @@ struct PostDetailView: View {
         .onAppear {
             viewModel.onAppear()
         }
-        .refreshable {
-            viewModel.onAppear()
-        }
         .navigate(
             to: editPostFactory.makeView(postID: viewModel.postID).eraseToAnyView(),
             when: Binding(

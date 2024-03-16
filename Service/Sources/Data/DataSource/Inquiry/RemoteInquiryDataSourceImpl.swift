@@ -21,12 +21,12 @@ public final class RemoteInquiryDataSourceImpl: BaseRemoteDataSource<InquiryAPI>
         try await request(.modifyMyInquiry(inquiryID: inquiryID, req: req))
     }
 
-    public func replyInquiry(inquiryID: String, answer: String) async throws {
-        try await request(.replyInquiry(inquiryID: inquiryID, answer: answer))
+    public func replyInquiry(inquiryID: String, req: InquiryAnswerRequestDTO) async throws {
+        try await request(.replyInquiry(inquiryID: inquiryID, req: req))
     }
 
     public func fetchInquiryListByAdmin(
-        answerStatus: AnswerStatusType,
+        answerStatus: String,
         keyword: String
     ) async throws -> [InquiryInfoEntity] {
         try await request(
@@ -36,6 +36,6 @@ public final class RemoteInquiryDataSourceImpl: BaseRemoteDataSource<InquiryAPI>
     }
 
     public func deleteInquiryByAdmin(inquiryID: String) async throws {
-        try await request(.deleteMyInquiry(inquiryID: inquiryID))
+        try await request(.deleteInquiryByAdmin(inquiryID: inquiryID))
     }
 }

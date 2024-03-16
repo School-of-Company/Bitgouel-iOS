@@ -69,14 +69,14 @@ private func factory050817f1b6d356b83467f47b58f8f304c97af4d5(_ component: Needle
     return ClubListDependency90c6e61626f7c53ad50fProvider(appComponent: parent1(component) as! AppComponent)
 }
 private class LectureListDetailDependency2a815f1240973966e6a6Provider: LectureListDetailDependency {
-    var queryLectureDetailUseCase: any QueryLectureDetailUseCase {
-        return appComponent.queryLectureDetailUseCase
+    var fetchLectureDetailUseCase: any FetchLectureDetailUseCase {
+        return appComponent.fetchLectureDetailUseCase
     }
-    var lectureApplyUseCase: any LectureApplyUseCase {
-        return appComponent.lectureApplyUseCase
+    var applyLectureUseCase: any ApplyLectureUseCase {
+        return appComponent.applyLectureUseCase
     }
-    var lectureCancelUseCase: any LectureCancelUseCase {
-        return appComponent.lectureCancelUseCase
+    var cancelLectureUseCase: any CancelLectureUseCase {
+        return appComponent.cancelLectureUseCase
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -91,8 +91,17 @@ private class NoticeListDependency0e93eb53be8626c408e4Provider: NoticeListDepend
     var inquiryListFactory: any InquiryListFactory {
         return appComponent.inquiryListFactory
     }
+    var noticeDetailFactory: any NoticeDetailFactory {
+        return appComponent.noticeDetailFactory
+    }
+    var inputNoticeFactory: any InputNoticeFactory {
+        return appComponent.inputNoticeFactory
+    }
     var queryPostListUseCase: any QueryPostListUseCase {
         return appComponent.queryPostListUseCase
+    }
+    var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
+        return appComponent.loadUserAuthorityUseCase
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -145,9 +154,120 @@ private class ActivityDetailSettingDependency0b98c5f90168b920a8b8Provider: Activ
 private func factoryfd595280dea209e217b9e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
     return ActivityDetailSettingDependency0b98c5f90168b920a8b8Provider()
 }
+private class MainTabDependency2826cdb310ed0b17a725Provider: MainTabDependency {
+    var mainFactory: any MainFactory {
+        return appComponent.mainFactory
+    }
+    var lectureListFactory: any LectureListFactory {
+        return appComponent.lectureListFactory
+    }
+    var postListFactory: any PostListFactory {
+        return appComponent.postListFactory
+    }
+    var clubListFactory: any ClubListFactory {
+        return appComponent.clubListFactory
+    }
+    var myPageFactory: any MyPageFactory {
+        return appComponent.myPageFactory
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->MainTabComponent
+private func factory1ab5a747ddf21e1393f9f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return MainTabDependency2826cdb310ed0b17a725Provider(appComponent: parent1(component) as! AppComponent)
+}
+private class NoticeDetailSettingDependencye2c86b5d9ab8fbf629c4Provider: NoticeDetailSettingDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->NoticeDetailSettingComponent
+private func factory24d19202afbef2333be9e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return NoticeDetailSettingDependencye2c86b5d9ab8fbf629c4Provider()
+}
+private class MyPageDependency48d84b530313b3ee40feProvider: MyPageDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->MyPageComponent
+private func factory0f6f456ebf157d02dfb3e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return MyPageDependency48d84b530313b3ee40feProvider()
+}
+private class InquiryDetailDependencyf68d260d1f6dc07aaedbProvider: InquiryDetailDependency {
+    var inputInquiryFactory: any InputInquiryFactory {
+        return appComponent.inputInquiryFactory
+    }
+    var writeInquiryAnswerFactory: any WriteInquiryAnswerFactory {
+        return appComponent.writeInquiryAnswerFactory
+    }
+    var fetchInquiryDetailUseCase: any FetchInquiryDetailUseCase {
+        return appComponent.fetchInquiryDetailUseCase
+    }
+    var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
+        return appComponent.loadUserAuthorityUseCase
+    }
+    var deleteMyInquiryUseCase: any DeleteMyInquiryUseCase {
+        return appComponent.deleteMyInquiryUseCase
+    }
+    var deleteInquiryByAdminUseCase: any DeleteInquiryByAdminUseCase {
+        return appComponent.deleteInquiryByAdminUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->InquiryDetailComponent
+private func factory2d6736bd037393a86ae3f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return InquiryDetailDependencyf68d260d1f6dc07aaedbProvider(appComponent: parent1(component) as! AppComponent)
+}
+private class InputNoticeDependency7b594803ad882c7e25c9Provider: InputNoticeDependency {
+    var noticeDetailSettingFactory: any NoticeDetailSettingFactory {
+        return appComponent.noticeDetailSettingFactory
+    }
+    var queryPostDetailUseCase: any QueryPostDetailUseCase {
+        return appComponent.queryPostDetailUseCase
+    }
+    var writePostUseCase: any WritePostUseCase {
+        return appComponent.writePostUseCase
+    }
+    var updatePostUseCase: any UpdatePostUseCase {
+        return appComponent.updatePostUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->InputNoticeComponent
+private func factory4545df5fcd42aaf8ed60f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return InputNoticeDependency7b594803ad882c7e25c9Provider(appComponent: parent1(component) as! AppComponent)
+}
+private class MainDependency7c6a5b4738b211b8e155Provider: MainDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->MainComponent
+private func factoryc9274e46e78e70f29c54e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return MainDependency7c6a5b4738b211b8e155Provider()
+}
 private class RootDependency3944cc797a4a88956fb5Provider: RootDependency {
     var loginFactory: any LoginFactory {
         return appComponent.loginFactory
+    }
+    var mainTabFactory: any MainTabFactory {
+        return appComponent.mainTabFactory
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -249,6 +369,19 @@ private class CertificationListDependency809c1dfea1282552ea2dProvider: Certifica
 private func factoryc231b853779286e489fbf47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return CertificationListDependency809c1dfea1282552ea2dProvider(appComponent: parent1(component) as! AppComponent)
 }
+private class WriteInquiryAnswerDependencyeba82c0423abdd3e1acfProvider: WriteInquiryAnswerDependency {
+    var replyInquiryUseCase: any ReplyInquiryUseCase {
+        return appComponent.replyInquiryUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->WriteInquiryAnswerComponent
+private func factory3d4cadf14cd9a3336981f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return WriteInquiryAnswerDependencyeba82c0423abdd3e1acfProvider(appComponent: parent1(component) as! AppComponent)
+}
 private class PostDetailDependencycf431278832ae8226535Provider: PostDetailDependency {
     var editPostFactory: any EditPostFactory {
         return appComponent.editPostFactory
@@ -269,15 +402,29 @@ private func factorybc555a73df3767a26999f47b58f8f304c97af4d5(_ component: Needle
     return PostDetailDependencycf431278832ae8226535Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class InquiryListDependencyec75a7335a50ded93b28Provider: InquiryListDependency {
-
-
-    init() {
-
+    var inputInquiryFactory: any InputInquiryFactory {
+        return appComponent.inputInquiryFactory
+    }
+    var inquiryDetailFactory: any InquiryDetailFactory {
+        return appComponent.inquiryDetailFactory
+    }
+    var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
+        return appComponent.loadUserAuthorityUseCase
+    }
+    var fetchMyInquiryListUseCase: any FetchMyInquiryListUseCase {
+        return appComponent.fetchMyInquiryListUseCase
+    }
+    var fetchInquiryByAdminUseCase: any FetchInquiryByAdminUseCase {
+        return appComponent.fetchInquiryByAdminUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->InquiryListComponent
-private func factorydd7e28250a180554c7a0e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return InquiryListDependencyec75a7335a50ded93b28Provider()
+private func factorydd7e28250a180554c7a0f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return InquiryListDependencyec75a7335a50ded93b28Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class EditPostDependency2fc4e7c9e3795c6e218eProvider: EditPostDependency {
     var postDetailSettingFactory: any PostDetailSettingFactory {
@@ -308,14 +455,11 @@ private class ActivityListDependencyb8e659960978b8384f80Provider: ActivityListDe
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
         return appComponent.loadUserAuthorityUseCase
     }
-    var queryMyStudentActivityUseCase: any QueryMyStudentActivityUseCase {
-        return appComponent.queryMyStudentActivityUseCase
+    var fetchMyActivityUseCase: any FetchMyActivityUseCase {
+        return appComponent.fetchMyActivityUseCase
     }
-    var queryStudentActivityListUseCase: any QueryStudentActivityListUseCase {
-        return appComponent.queryStudentActivityListUseCase
-    }
-    var queryStudentActivityByIDUseCase: any QueryStudentActivityByIDUseCase {
-        return appComponent.queryStudentActivityByIDUseCase
+    var fetchActivityByIDUseCase: any FetchActivityByIDUseCase {
+        return appComponent.fetchActivityByIDUseCase
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -352,8 +496,8 @@ private class LectureListDependencyf05b805b4d41a7643bcdProvider: LectureListDepe
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
         return appComponent.loadUserAuthorityUseCase
     }
-    var queryLectureListUseCase: any QueryLectureListUseCase {
-        return appComponent.queryLectureListUseCase
+    var fetchLectureListUseCase: any FetchLectureListUseCase {
+        return appComponent.fetchLectureListUseCase
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -376,20 +520,17 @@ private func factoryaacb19523586bb790cade3b0c44298fc1c149afb(_ component: Needle
     return PostDetailSettingDependency372dc6ac7d7de7c5ac4eProvider()
 }
 private class ActivityDetailDependencyc459286ea5f8c1b2ecdbProvider: ActivityDetailDependency {
+    var inputActivityFactory: any InputActivityFactory {
+        return appComponent.inputActivityFactory
+    }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
         return appComponent.loadUserAuthorityUseCase
     }
-    var queryStudentActivityDetailsUseCase: any QueryStudentActivityDetailsUseCase {
-        return appComponent.queryStudentActivityDetailsUseCase
+    var fetchActivityDetailUseCase: any FetchActivityDetailUseCase {
+        return appComponent.fetchActivityDetailUseCase
     }
-    var approveStudentActivityUseCase: any ApproveStudentActivityUseCase {
-        return appComponent.approveStudentActivityUseCase
-    }
-    var rejectStudentActivityUseCase: any RejectStudentActivityUseCase {
-        return appComponent.rejectStudentActivityUseCase
-    }
-    var deleteStudentActivityUseCase: any DeleteStudentActivityUseCase {
-        return appComponent.deleteStudentActivityUseCase
+    var deleteActivityUseCase: any DeleteActivityUseCase {
+        return appComponent.deleteActivityUseCase
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -400,12 +541,56 @@ private class ActivityDetailDependencyc459286ea5f8c1b2ecdbProvider: ActivityDeta
 private func factory7c395808ac9dfb8fb229f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return ActivityDetailDependencyc459286ea5f8c1b2ecdbProvider(appComponent: parent1(component) as! AppComponent)
 }
+private class NoticeDetailDependency3e09bbd26d7f6105e665Provider: NoticeDetailDependency {
+    var inputNoticeFactory: any InputNoticeFactory {
+        return appComponent.inputNoticeFactory
+    }
+    var queryPostDetailUseCase: any QueryPostDetailUseCase {
+        return appComponent.queryPostDetailUseCase
+    }
+    var deletePostUseCase: any DeletePostUseCase {
+        return appComponent.deletePostUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->NoticeDetailViewComponent
+private func factory0798e0f01e95aeaff56ff47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return NoticeDetailDependency3e09bbd26d7f6105e665Provider(appComponent: parent1(component) as! AppComponent)
+}
+private class InputInquiryDependency0f59954f6ae75e794799Provider: InputInquiryDependency {
+    var inputInquiryUseCase: any InputInquiryUseCase {
+        return appComponent.inputInquiryUseCase
+    }
+    var modifyMyInquiryUseCase: any ModifyMyInquiryUseCase {
+        return appComponent.modifyMyInquiryUseCase
+    }
+    var fetchInquiryDetailUseCase: any FetchInquiryDetailUseCase {
+        return appComponent.fetchInquiryDetailUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->InputInquiryComponent
+private func factory818540ce7b5cc0ed9d3bf47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return InputInquiryDependency0f59954f6ae75e794799Provider(appComponent: parent1(component) as! AppComponent)
+}
 private class InputActivityDependency4e692e68e51cea5b706dProvider: InputActivityDependency {
     var activityDetailSettingFactory: any ActivityDetailSettingFactory {
         return appComponent.activityDetailSettingFactory
     }
-    var addStudentActivityUseCase: any AddStudentActivityUseCase {
-        return appComponent.addStudentActivityUseCase
+    var fetchActivityDetailUseCase: any FetchActivityDetailUseCase {
+        return appComponent.fetchActivityDetailUseCase
+    }
+    var inputActivityUseCase: any InputActivityUseCase {
+        return appComponent.inputActivityUseCase
+    }
+    var modifyActivityUseCase: any ModifyActivityUseCase {
+        return appComponent.modifyActivityUseCase
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -439,15 +624,18 @@ extension ClubListComponent: Registration {
 }
 extension LectureListDetailComponent: Registration {
     public func registerItems() {
-        keyPathToName[\LectureListDetailDependency.queryLectureDetailUseCase] = "queryLectureDetailUseCase-any QueryLectureDetailUseCase"
-        keyPathToName[\LectureListDetailDependency.lectureApplyUseCase] = "lectureApplyUseCase-any LectureApplyUseCase"
-        keyPathToName[\LectureListDetailDependency.lectureCancelUseCase] = "lectureCancelUseCase-any LectureCancelUseCase"
+        keyPathToName[\LectureListDetailDependency.fetchLectureDetailUseCase] = "fetchLectureDetailUseCase-any FetchLectureDetailUseCase"
+        keyPathToName[\LectureListDetailDependency.applyLectureUseCase] = "applyLectureUseCase-any ApplyLectureUseCase"
+        keyPathToName[\LectureListDetailDependency.cancelLectureUseCase] = "cancelLectureUseCase-any CancelLectureUseCase"
     }
 }
 extension NoticeListComponent: Registration {
     public func registerItems() {
         keyPathToName[\NoticeListDependency.inquiryListFactory] = "inquiryListFactory-any InquiryListFactory"
+        keyPathToName[\NoticeListDependency.noticeDetailFactory] = "noticeDetailFactory-any NoticeDetailFactory"
+        keyPathToName[\NoticeListDependency.inputNoticeFactory] = "inputNoticeFactory-any InputNoticeFactory"
         keyPathToName[\NoticeListDependency.queryPostListUseCase] = "queryPostListUseCase-any QueryPostListUseCase"
+        keyPathToName[\NoticeListDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
     }
 }
 extension SignUpComponent: Registration {
@@ -466,9 +654,52 @@ extension ActivityDetailSettingComponent: Registration {
 
     }
 }
+extension MainTabComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\MainTabDependency.mainFactory] = "mainFactory-any MainFactory"
+        keyPathToName[\MainTabDependency.lectureListFactory] = "lectureListFactory-any LectureListFactory"
+        keyPathToName[\MainTabDependency.postListFactory] = "postListFactory-any PostListFactory"
+        keyPathToName[\MainTabDependency.clubListFactory] = "clubListFactory-any ClubListFactory"
+        keyPathToName[\MainTabDependency.myPageFactory] = "myPageFactory-any MyPageFactory"
+    }
+}
+extension NoticeDetailSettingComponent: Registration {
+    public func registerItems() {
+
+    }
+}
+extension MyPageComponent: Registration {
+    public func registerItems() {
+
+    }
+}
+extension InquiryDetailComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\InquiryDetailDependency.inputInquiryFactory] = "inputInquiryFactory-any InputInquiryFactory"
+        keyPathToName[\InquiryDetailDependency.writeInquiryAnswerFactory] = "writeInquiryAnswerFactory-any WriteInquiryAnswerFactory"
+        keyPathToName[\InquiryDetailDependency.fetchInquiryDetailUseCase] = "fetchInquiryDetailUseCase-any FetchInquiryDetailUseCase"
+        keyPathToName[\InquiryDetailDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
+        keyPathToName[\InquiryDetailDependency.deleteMyInquiryUseCase] = "deleteMyInquiryUseCase-any DeleteMyInquiryUseCase"
+        keyPathToName[\InquiryDetailDependency.deleteInquiryByAdminUseCase] = "deleteInquiryByAdminUseCase-any DeleteInquiryByAdminUseCase"
+    }
+}
+extension InputNoticeComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\InputNoticeDependency.noticeDetailSettingFactory] = "noticeDetailSettingFactory-any NoticeDetailSettingFactory"
+        keyPathToName[\InputNoticeDependency.queryPostDetailUseCase] = "queryPostDetailUseCase-any QueryPostDetailUseCase"
+        keyPathToName[\InputNoticeDependency.writePostUseCase] = "writePostUseCase-any WritePostUseCase"
+        keyPathToName[\InputNoticeDependency.updatePostUseCase] = "updatePostUseCase-any UpdatePostUseCase"
+    }
+}
+extension MainComponent: Registration {
+    public func registerItems() {
+
+    }
+}
 extension RootComponent: Registration {
     public func registerItems() {
         keyPathToName[\RootDependency.loginFactory] = "loginFactory-any LoginFactory"
+        keyPathToName[\RootDependency.mainTabFactory] = "mainTabFactory-any MainTabFactory"
     }
 }
 extension PostListComponent: Registration {
@@ -504,6 +735,11 @@ extension CertificationListComponent: Registration {
         keyPathToName[\CertificationListDependency.inputCertificationFactory] = "inputCertificationFactory-any InputCertificationFactory"
     }
 }
+extension WriteInquiryAnswerComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\WriteInquiryAnswerDependency.replyInquiryUseCase] = "replyInquiryUseCase-any ReplyInquiryUseCase"
+    }
+}
 extension PostDetailComponent: Registration {
     public func registerItems() {
         keyPathToName[\PostDetailDependency.editPostFactory] = "editPostFactory-any EditPostFactory"
@@ -513,7 +749,11 @@ extension PostDetailComponent: Registration {
 }
 extension InquiryListComponent: Registration {
     public func registerItems() {
-
+        keyPathToName[\InquiryListDependency.inputInquiryFactory] = "inputInquiryFactory-any InputInquiryFactory"
+        keyPathToName[\InquiryListDependency.inquiryDetailFactory] = "inquiryDetailFactory-any InquiryDetailFactory"
+        keyPathToName[\InquiryListDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
+        keyPathToName[\InquiryListDependency.fetchMyInquiryListUseCase] = "fetchMyInquiryListUseCase-any FetchMyInquiryListUseCase"
+        keyPathToName[\InquiryListDependency.fetchInquiryByAdminUseCase] = "fetchInquiryByAdminUseCase-any FetchInquiryByAdminUseCase"
     }
 }
 extension EditPostComponent: Registration {
@@ -528,9 +768,8 @@ extension ActivityListComponent: Registration {
         keyPathToName[\ActivityListDependency.activityDetailFactory] = "activityDetailFactory-any ActivityDetailFactory"
         keyPathToName[\ActivityListDependency.inputActivityFactory] = "inputActivityFactory-any InputActivityFactory"
         keyPathToName[\ActivityListDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
-        keyPathToName[\ActivityListDependency.queryMyStudentActivityUseCase] = "queryMyStudentActivityUseCase-any QueryMyStudentActivityUseCase"
-        keyPathToName[\ActivityListDependency.queryStudentActivityListUseCase] = "queryStudentActivityListUseCase-any QueryStudentActivityListUseCase"
-        keyPathToName[\ActivityListDependency.queryStudentActivityByIDUseCase] = "queryStudentActivityByIDUseCase-any QueryStudentActivityByIDUseCase"
+        keyPathToName[\ActivityListDependency.fetchMyActivityUseCase] = "fetchMyActivityUseCase-any FetchMyActivityUseCase"
+        keyPathToName[\ActivityListDependency.fetchActivityByIDUseCase] = "fetchActivityByIDUseCase-any FetchActivityByIDUseCase"
     }
 }
 extension LoginComponent: Registration {
@@ -544,7 +783,7 @@ extension LectureListComponent: Registration {
     public func registerItems() {
         keyPathToName[\LectureListDependency.lectureListDetailFactory] = "lectureListDetailFactory-any LectureListDetailFactory"
         keyPathToName[\LectureListDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
-        keyPathToName[\LectureListDependency.queryLectureListUseCase] = "queryLectureListUseCase-any QueryLectureListUseCase"
+        keyPathToName[\LectureListDependency.fetchLectureListUseCase] = "fetchLectureListUseCase-any FetchLectureListUseCase"
     }
 }
 extension PostDetailSettingComponent: Registration {
@@ -554,17 +793,32 @@ extension PostDetailSettingComponent: Registration {
 }
 extension ActivityDetailComponent: Registration {
     public func registerItems() {
+        keyPathToName[\ActivityDetailDependency.inputActivityFactory] = "inputActivityFactory-any InputActivityFactory"
         keyPathToName[\ActivityDetailDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
-        keyPathToName[\ActivityDetailDependency.queryStudentActivityDetailsUseCase] = "queryStudentActivityDetailsUseCase-any QueryStudentActivityDetailsUseCase"
-        keyPathToName[\ActivityDetailDependency.approveStudentActivityUseCase] = "approveStudentActivityUseCase-any ApproveStudentActivityUseCase"
-        keyPathToName[\ActivityDetailDependency.rejectStudentActivityUseCase] = "rejectStudentActivityUseCase-any RejectStudentActivityUseCase"
-        keyPathToName[\ActivityDetailDependency.deleteStudentActivityUseCase] = "deleteStudentActivityUseCase-any DeleteStudentActivityUseCase"
+        keyPathToName[\ActivityDetailDependency.fetchActivityDetailUseCase] = "fetchActivityDetailUseCase-any FetchActivityDetailUseCase"
+        keyPathToName[\ActivityDetailDependency.deleteActivityUseCase] = "deleteActivityUseCase-any DeleteActivityUseCase"
+    }
+}
+extension NoticeDetailViewComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\NoticeDetailDependency.inputNoticeFactory] = "inputNoticeFactory-any InputNoticeFactory"
+        keyPathToName[\NoticeDetailDependency.queryPostDetailUseCase] = "queryPostDetailUseCase-any QueryPostDetailUseCase"
+        keyPathToName[\NoticeDetailDependency.deletePostUseCase] = "deletePostUseCase-any DeletePostUseCase"
+    }
+}
+extension InputInquiryComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\InputInquiryDependency.inputInquiryUseCase] = "inputInquiryUseCase-any InputInquiryUseCase"
+        keyPathToName[\InputInquiryDependency.modifyMyInquiryUseCase] = "modifyMyInquiryUseCase-any ModifyMyInquiryUseCase"
+        keyPathToName[\InputInquiryDependency.fetchInquiryDetailUseCase] = "fetchInquiryDetailUseCase-any FetchInquiryDetailUseCase"
     }
 }
 extension InputActivityComponent: Registration {
     public func registerItems() {
         keyPathToName[\InputActivityDependency.activityDetailSettingFactory] = "activityDetailSettingFactory-any ActivityDetailSettingFactory"
-        keyPathToName[\InputActivityDependency.addStudentActivityUseCase] = "addStudentActivityUseCase-any AddStudentActivityUseCase"
+        keyPathToName[\InputActivityDependency.fetchActivityDetailUseCase] = "fetchActivityDetailUseCase-any FetchActivityDetailUseCase"
+        keyPathToName[\InputActivityDependency.inputActivityUseCase] = "inputActivityUseCase-any InputActivityUseCase"
+        keyPathToName[\InputActivityDependency.modifyActivityUseCase] = "modifyActivityUseCase-any ModifyActivityUseCase"
     }
 }
 extension AppComponent: Registration {
@@ -573,11 +827,14 @@ extension AppComponent: Registration {
         localTable["keychain-Keychain"] = { [unowned self] in self.keychain as Any }
         localTable["remoteLectureDataSource-any RemoteLectureDataSource"] = { [unowned self] in self.remoteLectureDataSource as Any }
         localTable["lectureRepository-any LectureRepository"] = { [unowned self] in self.lectureRepository as Any }
-        localTable["lectureOpenUseCase-any LectureOpenUseCase"] = { [unowned self] in self.lectureOpenUseCase as Any }
-        localTable["queryLectureListUseCase-any QueryLectureListUseCase"] = { [unowned self] in self.queryLectureListUseCase as Any }
-        localTable["queryLectureDetailUseCase-any QueryLectureDetailUseCase"] = { [unowned self] in self.queryLectureDetailUseCase as Any }
-        localTable["lectureApplyUseCase-any LectureApplyUseCase"] = { [unowned self] in self.lectureApplyUseCase as Any }
-        localTable["lectureCancelUseCase-any LectureCancelUseCase"] = { [unowned self] in self.lectureCancelUseCase as Any }
+        localTable["openLectureUseCase-any OpenLectureUseCase"] = { [unowned self] in self.openLectureUseCase as Any }
+        localTable["fetchLectureListUseCase-any FetchLectureListUseCase"] = { [unowned self] in self.fetchLectureListUseCase as Any }
+        localTable["fetchLectureDetailUseCase-any FetchLectureDetailUseCase"] = { [unowned self] in self.fetchLectureDetailUseCase as Any }
+        localTable["applyLectureUseCase-any ApplyLectureUseCase"] = { [unowned self] in self.applyLectureUseCase as Any }
+        localTable["cancelLectureUseCase-any CancelLectureUseCase"] = { [unowned self] in self.cancelLectureUseCase as Any }
+        localTable["searchInstructorListUseCase-any SearchInstructorListUseCase"] = { [unowned self] in self.searchInstructorListUseCase as Any }
+        localTable["searchDivisionListUseCase-any SearchDivisionListUseCase"] = { [unowned self] in self.searchDivisionListUseCase as Any }
+        localTable["searchDepartmentListUseCase-any SearchDepartmentListUseCase"] = { [unowned self] in self.searchDepartmentListUseCase as Any }
         localTable["remoteClubDataSource-any RemoteClubDataSource"] = { [unowned self] in self.remoteClubDataSource as Any }
         localTable["clubRepository-any ClubRepository"] = { [unowned self] in self.clubRepository as Any }
         localTable["queryClubListUseCase-any QueryClubListUseCase"] = { [unowned self] in self.queryClubListUseCase as Any }
@@ -599,8 +856,8 @@ extension AppComponent: Registration {
         localTable["deleteMyInquiryUseCase-any DeleteMyInquiryUseCase"] = { [unowned self] in self.deleteMyInquiryUseCase as Any }
         localTable["modifyMyInquiryUseCase-any ModifyMyInquiryUseCase"] = { [unowned self] in self.modifyMyInquiryUseCase as Any }
         localTable["replyInquiryUseCase-any ReplyInquiryUseCase"] = { [unowned self] in self.replyInquiryUseCase as Any }
-        localTable["fetchInquiryByAdmin-any FetchInquiryByAdminUseCase"] = { [unowned self] in self.fetchInquiryByAdmin as Any }
-        localTable["deleteInquiryByAdmin-any DeleteInquiryByAdminUseCase"] = { [unowned self] in self.deleteInquiryByAdmin as Any }
+        localTable["fetchInquiryByAdminUseCase-any FetchInquiryByAdminUseCase"] = { [unowned self] in self.fetchInquiryByAdminUseCase as Any }
+        localTable["deleteInquiryByAdminUseCase-any DeleteInquiryByAdminUseCase"] = { [unowned self] in self.deleteInquiryByAdminUseCase as Any }
         localTable["localAuthDataSource-any LocalAuthDataSource"] = { [unowned self] in self.localAuthDataSource as Any }
         localTable["remoteAuthDataSource-any RemoteAuthDataSource"] = { [unowned self] in self.remoteAuthDataSource as Any }
         localTable["authRepository-any AuthRepository"] = { [unowned self] in self.authRepository as Any }
@@ -618,14 +875,20 @@ extension AppComponent: Registration {
         localTable["companyInstructorSignupUseCase-any CompanyInstructorSignupUseCase"] = { [unowned self] in self.companyInstructorSignupUseCase as Any }
         localTable["remoteActivityDataSource-any RemoteActivityDataSource"] = { [unowned self] in self.remoteActivityDataSource as Any }
         localTable["activityRepository-any ActivityRepository"] = { [unowned self] in self.activityRepository as Any }
-        localTable["addStudentActivityUseCase-any AddStudentActivityUseCase"] = { [unowned self] in self.addStudentActivityUseCase as Any }
-        localTable["rejectStudentActivityUseCase-any RejectStudentActivityUseCase"] = { [unowned self] in self.rejectStudentActivityUseCase as Any }
-        localTable["approveStudentActivityUseCase-any ApproveStudentActivityUseCase"] = { [unowned self] in self.approveStudentActivityUseCase as Any }
-        localTable["deleteStudentActivityUseCase-any DeleteStudentActivityUseCase"] = { [unowned self] in self.deleteStudentActivityUseCase as Any }
-        localTable["queryMyStudentActivityUseCase-any QueryMyStudentActivityUseCase"] = { [unowned self] in self.queryMyStudentActivityUseCase as Any }
-        localTable["queryStudentActivityByIDUseCase-any QueryStudentActivityByIDUseCase"] = { [unowned self] in self.queryStudentActivityByIDUseCase as Any }
-        localTable["queryStudentActivityListUseCase-any QueryStudentActivityListUseCase"] = { [unowned self] in self.queryStudentActivityListUseCase as Any }
-        localTable["queryStudentActivityDetailsUseCase-any QueryStudentActivityDetailsUseCase"] = { [unowned self] in self.queryStudentActivityDetailsUseCase as Any }
+        localTable["inputActivityUseCase-any InputActivityUseCase"] = { [unowned self] in self.inputActivityUseCase as Any }
+        localTable["modifyActivityUseCase-any ModifyActivityUseCase"] = { [unowned self] in self.modifyActivityUseCase as Any }
+        localTable["deleteActivityUseCase-any DeleteActivityUseCase"] = { [unowned self] in self.deleteActivityUseCase as Any }
+        localTable["fetchMyActivityUseCase-any FetchMyActivityUseCase"] = { [unowned self] in self.fetchMyActivityUseCase as Any }
+        localTable["fetchActivityByIDUseCase-any FetchActivityByIDUseCase"] = { [unowned self] in self.fetchActivityByIDUseCase as Any }
+        localTable["fetchActivityListUseCase-any FetchActivityListUseCase"] = { [unowned self] in self.fetchActivityListUseCase as Any }
+        localTable["fetchActivityDetailUseCase-any FetchActivityDetailUseCase"] = { [unowned self] in self.fetchActivityDetailUseCase as Any }
+        localTable["remoteAdminDataSource-any RemoteAdminDataSource"] = { [unowned self] in self.remoteAdminDataSource as Any }
+        localTable["adminRepository-any AdminRepository"] = { [unowned self] in self.adminRepository as Any }
+        localTable["fetchUserListUseCase-any FetchUserListUseCase"] = { [unowned self] in self.fetchUserListUseCase as Any }
+        localTable["fetchUserDetailUseCase-any FetchUserDetailUseCase"] = { [unowned self] in self.fetchUserDetailUseCase as Any }
+        localTable["approveUserSignupUseCase-any ApproveUserSignupUseCase"] = { [unowned self] in self.approveUserSignupUseCase as Any }
+        localTable["rejectUserSignupUseCase-any RejectUserSignupUseCase"] = { [unowned self] in self.rejectUserSignupUseCase as Any }
+        localTable["withdrawUserUseCase-any WithdrawUserUseCase"] = { [unowned self] in self.withdrawUserUseCase as Any }
         localTable["remoteUserDataSource-any RemoteUserDataSource"] = { [unowned self] in self.remoteUserDataSource as Any }
         localTable["userRepository-any UserRepository"] = { [unowned self] in self.userRepository as Any }
         localTable["changePasswordUseCase-any ChangePasswordUseCase"] = { [unowned self] in self.changePasswordUseCase as Any }
@@ -648,8 +911,20 @@ extension AppComponent: Registration {
         localTable["editPostFactory-any EditPostFactory"] = { [unowned self] in self.editPostFactory as Any }
         localTable["noticeListFactory-any NoticeListFactory"] = { [unowned self] in self.noticeListFactory as Any }
         localTable["inquiryListFactory-any InquiryListFactory"] = { [unowned self] in self.inquiryListFactory as Any }
+        localTable["noticeDetailFactory-any NoticeDetailFactory"] = { [unowned self] in self.noticeDetailFactory as Any }
         localTable["certificationListFactory-any CertificationListFactory"] = { [unowned self] in self.certificationListFactory as Any }
         localTable["inputCertificationFactory-any InputCertificationFactory"] = { [unowned self] in self.inputCertificationFactory as Any }
+        localTable["mainFactory-any MainFactory"] = { [unowned self] in self.mainFactory as Any }
+        localTable["myPageFactory-any MyPageFactory"] = { [unowned self] in self.myPageFactory as Any }
+        localTable["mainTabFactory-any MainTabFactory"] = { [unowned self] in self.mainTabFactory as Any }
+        localTable["inputNoticeFactory-any InputNoticeFactory"] = { [unowned self] in self.inputNoticeFactory as Any }
+        localTable["noticeDetailSettingFactory-any NoticeDetailSettingFactory"] = { [unowned self] in self.noticeDetailSettingFactory as Any }
+        localTable["inputInquiryFactory-any InputInquiryFactory"] = { [unowned self] in self.inputInquiryFactory as Any }
+        localTable["inquiryDetailFactory-any InquiryDetailFactory"] = { [unowned self] in self.inquiryDetailFactory as Any }
+        localTable["writeInquiryAnswerFactory-any WriteInquiryAnswerFactory"] = { [unowned self] in self.writeInquiryAnswerFactory as Any }
+        localTable["remoteWithdrawDataSource-any RemoteWithdrawDataSource"] = { [unowned self] in self.remoteWithdrawDataSource as Any }
+        localTable["withdrawRepository-any WithdrawRepository"] = { [unowned self] in self.withdrawRepository as Any }
+        localTable["fetchWithdrawUserListUseCase-any FetchWithdrawUserListUseCase"] = { [unowned self] in self.fetchWithdrawUserListUseCase as Any }
         localTable["remoteCertificationDataSource-any RemoteCertificationDataSource"] = { [unowned self] in self.remoteCertificationDataSource as Any }
         localTable["certificationRepository-any CertificationRepository"] = { [unowned self] in self.certificationRepository as Any }
         localTable["queryCertificationListByTeacherUseCase-any QueryCertificationListByTeacherUseCase"] = { [unowned self] in self.queryCertificationListByTeacherUseCase as Any }
@@ -681,19 +956,28 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->NoticeListComponent", factorye14e687c08985bdffcd0f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->SignUpComponent", factory306e8ce5cfdf41304709f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ActivityDetailSettingComponent", factoryfd595280dea209e217b9e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->MainTabComponent", factory1ab5a747ddf21e1393f9f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->NoticeDetailSettingComponent", factory24d19202afbef2333be9e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->MyPageComponent", factory0f6f456ebf157d02dfb3e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->InquiryDetailComponent", factory2d6736bd037393a86ae3f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->InputNoticeComponent", factory4545df5fcd42aaf8ed60f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->MainComponent", factoryc9274e46e78e70f29c54e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->RootComponent", factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->PostListComponent", factory0c89e2bbcc02dbcac018f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ClubDetailComponent", factory1559652f8e80cfa88d06f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->SuccessSignUpComponent", factorybf219b153b668170161df47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->CertificationListComponent", factoryc231b853779286e489fbf47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->WriteInquiryAnswerComponent", factory3d4cadf14cd9a3336981f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->PostDetailComponent", factorybc555a73df3767a26999f47b58f8f304c97af4d5)
-    registerProviderFactory("^->AppComponent->InquiryListComponent", factorydd7e28250a180554c7a0e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->InquiryListComponent", factorydd7e28250a180554c7a0f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->EditPostComponent", factoryf55a9d7f6c1ed8d0f0aef47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ActivityListComponent", factory7177e6769ee69064a61bf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->LoginComponent", factoryd6018e98563de75a2ba4f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->LectureListComponent", factorya2eac906a839dcacda45f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->PostDetailSettingComponent", factoryaacb19523586bb790cade3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->ActivityDetailComponent", factory7c395808ac9dfb8fb229f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->NoticeDetailViewComponent", factory0798e0f01e95aeaff56ff47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->InputInquiryComponent", factory818540ce7b5cc0ed9d3bf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputActivityComponent", factory3fc1a279eeb8c906e603f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)
 }

@@ -28,17 +28,16 @@ struct DetailView: View {
                         font: .caption
                     )
 
-                    if !links.isEmpty  {
+                    if !links.isEmpty {
+                        Divider()
+
                         relatedLinkRow()
-                            .padding(.top, -24)
                     }
                 }
             }
 
             if writtenBy {
                 popupButton()
-            } else {
-                EmptyView()
             }
         }
         .padding(.horizontal, 28)
@@ -56,35 +55,33 @@ struct DetailView: View {
             ]
         )
     }
-    
+
     @ViewBuilder
     func relatedLinkRow() -> some View {
-        VStack {
+        VStack(alignment: .leading) {
             BitgouelText(
                 text: "관련 링크 보기",
                 font: .text1
             )
-            
-            VStack(
-                alignment: .leading,
-                spacing: 4
-            ) {
+
+            VStack(alignment: .leading, spacing: 4) {
                 ForEach(links, id: \.self) { link in
                     if let url = URL(string: link) {
-                        Link(destination: url, label: {
-                            BitgouelText(
-                                text: "\(url)",
-                                font: .caption
-                            )
-                        })
-                    } else {
-                        EmptyView()
+                        Link(
+                            destination: url,
+                            label: {
+                                BitgouelText(
+                                    text: "\(url)",
+                                    font: .caption
+                                )
+                            }
+                        )
                     }
                 }
             }
         }
     }
-    
+
     @ViewBuilder
     func popupButton() -> some View {
         HStack {

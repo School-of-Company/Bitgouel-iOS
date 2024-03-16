@@ -1,45 +1,37 @@
 import Foundation
 
 public struct ActivityRepositoryImpl: ActivityRepository {
-    private let remoteActivityDataSource: RemoteActivityDataSource
+    private let remoteActivityDataSource: any RemoteActivityDataSource
 
-    public init(remoteActivityDataSource: RemoteActivityDataSource) {
+    public init(remoteActivityDataSource: any RemoteActivityDataSource) {
         self.remoteActivityDataSource = remoteActivityDataSource
     }
 
-    public func addStudentActivity(req: AddStudentActivityRequestDTO) async throws {
-        try await remoteActivityDataSource.addStudentActivity(req: req)
+    public func inputActivity(req: InputActivityRequestDTO) async throws {
+        try await remoteActivityDataSource.inputActivity(req: req)
     }
 
-    public func updateStudentActibity(activityID: String) async throws {
-        try await remoteActivityDataSource.updateStudentActibity(activityID: activityID)
+    public func modifyActivity(activityID: String, req: InputActivityRequestDTO) async throws {
+        try await remoteActivityDataSource.modifyActivity(activityID: activityID, req: req)
     }
 
-    public func approveStudentActivity(activityID: String) async throws {
-        try await remoteActivityDataSource.approveStudentActivity(activityID: activityID)
+    public func deleteActivity(activityID: String) async throws {
+        try await remoteActivityDataSource.deleteActivity(activityID: activityID)
     }
 
-    public func rejectStudentActivity(activityID: String) async throws {
-        try await remoteActivityDataSource.rejectStudentActivity(activityID: activityID)
+    public func fetchMyActivity() async throws -> ActivityContentEntity {
+        try await remoteActivityDataSource.fetchMyActivity()
     }
 
-    public func deleteStudentActivity(activityID: String) async throws {
-        try await remoteActivityDataSource.deleteStudentActivity(activityID: activityID)
+    public func fetchActivityByID(studentID: String) async throws -> ActivityContentEntity {
+        try await remoteActivityDataSource.fetchActivityByID(studentID: studentID)
     }
 
-    public func queryMyStudentActivity() async throws -> [ActivityEntity] {
-        try await remoteActivityDataSource.queryMyStudentActivity()
+    public func fetchActivityList() async throws -> ActivityContentEntity {
+        try await remoteActivityDataSource.fetchActivityList()
     }
 
-    public func queryStudentActivityByID(studentID: String) async throws -> [ActivityEntity] {
-        try await remoteActivityDataSource.queryStudentActivityByID(studentID: studentID)
-    }
-
-    public func queryStudentActivityList() async throws -> [ActivityEntity] {
-        try await remoteActivityDataSource.queryStudentActivityList()
-    }
-
-    public func queryStudentActivityDetails(activityID: String) async throws -> StudentActivityDetailEntity {
-        try await remoteActivityDataSource.queryStudentActivityDetails(activityID: activityID)
+    public func fetchActivityDetail(activityID: String) async throws -> ActivityDetailEntity {
+        try await remoteActivityDataSource.fetchActivityDetail(activityID: activityID)
     }
 }

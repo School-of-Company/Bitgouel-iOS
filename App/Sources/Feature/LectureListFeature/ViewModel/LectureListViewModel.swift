@@ -10,7 +10,7 @@ final class LectureListViewModel: BaseViewModel {
     var model: LectureListModel
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
     private let lectureListDetailFactory: any LectureListDetailFactory
-    private let queryLectureListUseCase: any QueryLectureListUseCase
+    private let fetchLectureListUseCase: any FetchLectureListUseCase
     let lectureType: [LectureType] = LectureType.allCases
     let approveStatusType: [ApproveStatusType] = ApproveStatusType.allCases
     
@@ -18,12 +18,12 @@ final class LectureListViewModel: BaseViewModel {
         model: LectureListModel,
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
         lectureListDetailFactory: any LectureListDetailFactory,
-        queryLectureListUseCase: any QueryLectureListUseCase
+        fetchLectureListUseCase: any FetchLectureListUseCase
     ) {
         self.model = model
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
         self.lectureListDetailFactory = lectureListDetailFactory
-        self.queryLectureListUseCase = queryLectureListUseCase
+        self.fetchLectureListUseCase = fetchLectureListUseCase
     }
     
     @MainActor
@@ -33,7 +33,7 @@ final class LectureListViewModel: BaseViewModel {
         
         Task {
             do {
-                lectureList = try await queryLectureListUseCase()
+                lectureList = try await fetchLectureListUseCase(type: selectedLectureType)
                 model.updateContent(entity: lectureList ?? [])
             } catch {
                 print(error.localizedDescription)
@@ -42,8 +42,8 @@ final class LectureListViewModel: BaseViewModel {
     }
     
     @MainActor
-    func lectureDidSelect(userID: String) {
-        model.updateSelectedUserID(userID: userID)
+    func lectureDidSelect(lectureID: String) {
+        model.updateSelectedLectureID(lectureID: lectureID)
     }
     
     @MainActor

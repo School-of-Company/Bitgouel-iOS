@@ -14,33 +14,51 @@ public extension AppComponent {
         }
     }
 
-    var lectureOpenUseCase: any LectureOpenUseCase {
+    var openLectureUseCase: any OpenLectureUseCase {
         shared {
-            LectureOpenUseCaseImpl(lectureRepository: lectureRepository)
+            OpenLectureUseCaseImpl(lectureRepository: lectureRepository)
         }
     }
 
-    var queryLectureListUseCase: any QueryLectureListUseCase {
+    var fetchLectureListUseCase: any FetchLectureListUseCase {
         shared {
-            QueryLectureListUseCaseImpl(lectureRepository: lectureRepository)
+            FetchLectureListUseCaseImpl(lectureRepository: lectureRepository)
         }
     }
 
-    var queryLectureDetailUseCase: any QueryLectureDetailUseCase {
+    var fetchLectureDetailUseCase: any FetchLectureDetailUseCase {
         shared {
-            QueryLectureDetailUseCaseImpl(lectureRepository: lectureRepository)
+            FetchLectureDetailUseCaseImpl(lectureRepository: lectureRepository)
         }
     }
 
-    var lectureApplyUseCase: any LectureApplyUseCase {
+    var applyLectureUseCase: any ApplyLectureUseCase {
         shared {
-            LectureApplyUseCaseImpl(lectureRepository: lectureRepository)
+            ApplyLectureUseCaseImpl(lectureRepository: lectureRepository)
         }
     }
 
-    var lectureCancelUseCase: any LectureCancelUseCase {
+    var cancelLectureUseCase: any CancelLectureUseCase {
         shared {
-            LectureCancelUseCaseImpl(lectureRepository: lectureRepository)
+            CancelLectureUseCaseImpl(lectureRepository: lectureRepository)
+        }
+    }
+
+    var searchInstructorListUseCase: any SearchInstructorListUseCase {
+        shared {
+            SearchInstructorListUseCaseImpl(lectureRepository: lectureRepository)
+        }
+    }
+
+    var searchDivisionListUseCase: any SearchDivisionListUseCase {
+        shared {
+            SearchDivisionListUseCaseImpl(lectureRepository: lectureRepository)
+        }
+    }
+
+    var searchDepartmentListUseCase: any SearchDepartmentListUseCase {
+        shared {
+            SearchDepartmentListUseCaseImpl(lectureRepository: lectureRepository)
         }
     }
 }

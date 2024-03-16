@@ -2,11 +2,14 @@ import Foundation
 import Moya
 
 public enum LectureAPI {
-    case lectureOpen(LectureOpenRequestDTO)
-    case queryLectureList
-    case queryLectureDetail(userID: String)
-    case lectureApply(userID: String)
-    case lectureCancel(userID: String)
+    case openLecture(req: OpenLectureRequestDTO)
+    case fetchLectureList(type: String)
+    case fetchLectureDetail(lectureID: String)
+    case applyLecture(lectureID: String)
+    case cancelLecture(lectureID: String)
+    case fetchInstructorList(keyword: String)
+    case fetchDivisionList(keyword: String, division: String)
+    case fetchDepartmentList(keyword: String)
 }
 
 extension LectureAPI: BitgouelAPI {
@@ -18,44 +21,64 @@ extension LectureAPI: BitgouelAPI {
 
     public var urlPath: String {
         switch self {
-        case .lectureOpen, .queryLectureList:
+        case .openLecture,
+             .fetchLectureList:
             return ""
 
-        case let .queryLectureDetail(userID):
-            return "/\(userID)"
+        case let .fetchLectureDetail(lectureID),
+             let .applyLecture(lectureID),
+             let .cancelLecture(lectureID):
+            return "/\(lectureID)"
 
-        case let .lectureApply(userID):
-            return "/\(userID)"
-            
-        case let .lectureCancel(userID):
-            return "/\(userID)"
+        case .fetchInstructorList:
+            return "/instructor"
+
+        case .fetchDivisionList:
+            return "/line"
+
+        case .fetchDepartmentList:
+            return "/department"
         }
     }
 
     public var method: Moya.Method {
         switch self {
-        case .lectureOpen, .lectureApply:
+        case .openLecture,
+             .applyLecture:
             return .post
 
-        case .queryLectureList, .queryLectureDetail:
+        case .fetchLectureList,
+             .fetchLectureDetail,
+             .fetchInstructorList,
+             .fetchDivisionList,
+             .fetchDepartmentList:
             return .get
-            
-        case .lectureCancel:
+
+        case .cancelLecture:
             return .delete
         }
     }
 
     public var task: Moya.Task {
         switch self {
-        case let .lectureOpen(req):
+        case let .openLecture(req):
             return .requestJSONEncodable(req)
 
-        case .queryLectureList:
+        case let .fetchLectureList(type):
             return .requestParameters(parameters: [
-                "page" : Int(),
-                "size" : Int(),
-                "statuse" : ApproveStatusType.self,
-                "type" : LectureType.self
+                "type": type
+            ], encoding: URLEncoding.queryString)
+
+        case let .fetchInstructorList(keyword),
+             let .fetchDepartmentList(keyword):
+            return .requestParameters(parameters: [
+                "keyword": keyword
+            ], encoding: URLEncoding.queryString)
+
+        case let .fetchDivisionList(keyword, division):
+            return .requestParameters(parameters: [
+                "keyword": keyword,
+                "division": division
             ], encoding: URLEncoding.queryString)
 
         default:
@@ -65,18 +88,14 @@ extension LectureAPI: BitgouelAPI {
 
     public var jwtTokenType: JwtTokenType {
         switch self {
-        case .lectureOpen,
-             .queryLectureList,
-             .queryLectureDetail,
-             .lectureApply,
-             .lectureCancel:
+        default:
             return .accessToken
         }
     }
 
     public var errorMap: [Int : LectureDomainError] {
         switch self {
-        case .lectureOpen:
+        case .openLecture:
             return [
                 400: .badRequest,
                 401: .unauthorized,
@@ -84,15 +103,17 @@ extension LectureAPI: BitgouelAPI {
                 409: .conflict
             ]
 
-        case .queryLectureList:
+        case .fetchLectureList,
+             .fetchInstructorList,
+             .fetchDivisionList,
+             .fetchDepartmentList:
             return [
                 400: .badRequest,
                 401: .unauthorized,
-                403 : .forbidden,
-                404 : .notFound
+                403 : .forbidden
             ]
 
-        case .queryLectureDetail:
+        case .fetchLectureDetail:
             return [
                 400: .badRequest,
                 401: .unauthorized,
@@ -100,17 +121,8 @@ extension LectureAPI: BitgouelAPI {
                 404: .notFound
             ]
 
-        case .lectureApply:
-            return [
-                400: .badRequest,
-                401: .unauthorized,
-                403: .forbidden,
-                404: .notFound,
-                409: .conflict,
-                429: .tooManyRequest
-            ]
-            
-        case .lectureCancel:
+        case .applyLecture,
+             .cancelLecture:
             return [
                 400: .badRequest,
                 401: .unauthorized,
