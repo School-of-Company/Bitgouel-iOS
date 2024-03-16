@@ -2,15 +2,15 @@ import SwiftUI
 import Service
 
 struct UserTypeFilterPopup: View {
-    let userAuthorityType: [UserAuthorityType]
-    var selectedAuthority: UserAuthorityType?
-    let onAuthoritySelect: (UserAuthorityType) -> Void
+    let userAuthorityType: [AdminUserListAuthorityType]
+    var selectedAuthority: AdminUserListAuthorityType?
+    let onAuthoritySelect: (AdminUserListAuthorityType) -> Void
     let cancel: (Bool) -> Void
     
     var body: some View {
         RoundedRectangle(cornerRadius: 8)
             .fill(Color.white)
-            .frame(height: 430)
+            .frame(height: 400)
             .overlay {
                 VStack(spacing: 0) {
                     HStack {
@@ -50,14 +50,14 @@ struct UserTypeFilterPopup: View {
     
     @ViewBuilder
     func userAuthorityTypeRow(
-        authority: UserAuthorityType,
-        selectedAuthority: UserAuthorityType?,
-        onAuthoritySelect: @escaping (UserAuthorityType) -> Void
+        authority: AdminUserListAuthorityType,
+        selectedAuthority: AdminUserListAuthorityType?,
+        onAuthoritySelect: @escaping (AdminUserListAuthorityType) -> Void
     ) -> some View {
         HStack(spacing: 8) {
             BitgouelRadioButton(
                 isSelected: Binding(
-                    get: { selectedAuthority?.display() == authority.display() },
+                    get: { selectedAuthority?.adminUserListValue() == authority.adminUserListValue() },
                     set: { isSelected in
                         if isSelected {
                             onAuthoritySelect(authority)
@@ -67,7 +67,7 @@ struct UserTypeFilterPopup: View {
             )
             
             BitgouelText(
-                text: authority.display(),
+                text: authority.adminUserListValue(),
                 font: .text3
             )
             

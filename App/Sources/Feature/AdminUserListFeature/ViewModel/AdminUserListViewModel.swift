@@ -13,11 +13,11 @@ final class AdminUserListViewModel: BaseViewModel {
     @Published var isReject: Bool = false
     @Published var isWithdraw: Bool = false
     @Published var isSelectedUserList = false
-    @Published var selectedAuthority: UserAuthorityType = .user
+    @Published var selectedAuthority: AdminUserListAuthorityType = .admin
     @Published var selectedCohort: CohortList = .first
     @Published var isPresentedUserTypeFilter: Bool = false
     @Published var isPresentedUserCohortFilter: Bool = false
-    var userAuthorityType: [UserAuthorityType] = UserAuthorityType.allCases
+    var userAuthorityType: [AdminUserListAuthorityType] = AdminUserListAuthorityType.allCases
     var cohortList: [CohortList] = CohortList.allCases
     var type: UserListType
     
