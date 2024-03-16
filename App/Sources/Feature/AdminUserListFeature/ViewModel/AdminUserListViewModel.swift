@@ -13,10 +13,13 @@ final class AdminUserListViewModel: BaseViewModel {
     @Published var isReject: Bool = false
     @Published var isWithdraw: Bool = false
     @Published var isSelectedUserList = false
-    @Published var selectedAuthority: AdminUserListAuthorityType = .admin
-    @Published var selectedCohort: CohortList = .first
+    @Published var isPresentedRegisterList: Bool = false
+    @Published var isPresentedWithdrawList: Bool = false
+    @Published var isPresentedDefaultList: Bool = false
     @Published var isPresentedUserTypeFilter: Bool = false
     @Published var isPresentedUserCohortFilter: Bool = false
+    @Published var selectedAuthority: AdminUserListAuthorityType = .admin
+    @Published var selectedCohort: CohortList = .first
     var userAuthorityType: [AdminUserListAuthorityType] = AdminUserListAuthorityType.allCases
     var cohortList: [CohortList] = CohortList.allCases
     var type: UserListType
@@ -41,18 +44,21 @@ final class AdminUserListViewModel: BaseViewModel {
         isPresentedUserCohortFilter = isPresented
     }
     
-    @MainActor
     func updateDefaultType() {
-        type = .default
+        isPresentedDefaultList = true
+        isPresentedRegisterList = false
+        isPresentedWithdrawList = false
     }
     
-    @MainActor
     func updateRegisterType() {
-        type = .register
+        isPresentedDefaultList = false
+        isPresentedRegisterList = true
+        isPresentedWithdrawList = false
     }
     
-    @MainActor
     func updateWithdrawType() {
-        type = .withdraw
+        isPresentedDefaultList = false
+        isPresentedRegisterList = false
+        isPresentedWithdrawList = true
     }
 }

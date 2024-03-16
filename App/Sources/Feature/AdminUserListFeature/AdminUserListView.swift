@@ -180,6 +180,19 @@ struct AdminUserListView: View {
                 }
             }
         }
+        .onReceive(viewModel.objectWillChange) { _ in
+            if viewModel.isPresentedDefaultList {
+                viewModel.type = .default
+            }
+            
+            if viewModel.isPresentedRegisterList {
+                viewModel.type = .register
+            }
+            
+            if viewModel.isPresentedWithdrawList {
+                viewModel.type = .withdraw
+            }
+        }
         .bitgouelAlert(
             title: "가입을 수락 하시겠습니까?",
             description: "",
