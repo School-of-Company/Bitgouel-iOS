@@ -9,7 +9,9 @@ final class CertificationListViewModel: BaseViewModel {
     @Published var authority: UserAuthorityType = .user
     @Published var isPresentedInputCertificationView: Bool = false
     @Published var selectedEpic: String = ""
-    @Published var certificationID: String = ""
+    @Published var selectedCertificationID: String = ""
+    @Published var selectedCertificationName: String = ""
+    @Published var selectedAcquisitionDate = Date()
     var studentID: String = ""
     var clubID: Int = 0
 
@@ -44,6 +46,12 @@ final class CertificationListViewModel: BaseViewModel {
 
     func updateEpic(epic: String) {
         selectedEpic = epic
+    }
+
+    func selectedCertification(certificationID: String, certificationName: String, acquisitionDate: String) {
+        selectedCertificationID = certificationID
+        selectedCertificationName = certificationName
+        selectedAcquisitionDate = acquisitionDate.toDateCustomFormat(format: "yyyy-M-d")
     }
 
     func onAppear() {

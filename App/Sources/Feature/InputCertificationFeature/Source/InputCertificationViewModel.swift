@@ -3,7 +3,7 @@ import Service
 
 final class InputCertificationViewModel: BaseViewModel {
     @Published var certificationName: String = ""
-    @Published var acquisitionDate = Date()
+    @Published var acquisitionDate: Date
     var epic: String = ""
     var certificationID: String = ""
 
@@ -14,12 +14,16 @@ final class InputCertificationViewModel: BaseViewModel {
         inputCertificationUseCase: any InputCertificationUseCase,
         updateCertificationUseCase: any UpdateCertificationUseCase,
         epic: String,
-        certificationID: String
+        certificationID: String,
+        certificationName: String,
+        acquisitionDate: Date
     ) {
         self.inputCertificationUseCase = inputCertificationUseCase
         self.updateCertificationUseCase = updateCertificationUseCase
         self.epic = epic
         self.certificationID = certificationID
+        self.certificationName = certificationName
+        self.acquisitionDate = acquisitionDate
     }
 
     func updateDate(date: Date) {

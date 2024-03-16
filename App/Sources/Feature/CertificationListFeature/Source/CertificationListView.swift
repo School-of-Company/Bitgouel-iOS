@@ -97,7 +97,13 @@ struct CertificationListView: View {
                             title: certification.name,
                             acquisitionDate: certification.acquisitionDate
                         ) {
-                            print("edit")
+                            viewModel.updateEpic(epic: "수정")
+                            viewModel.selectedCertification(
+                                certificationID: certification.certificationID,
+                                certificationName: certification.name,
+                                acquisitionDate: certification.acquisitionDate
+                            )
+                            viewModel.updateIsPresentedInputCertificationView(isPresented: true)
                         }
 
                         Divider()
@@ -125,7 +131,9 @@ struct CertificationListView: View {
             DeferView {
                 inputCertificationFactory.makeView(
                     epic: viewModel.selectedEpic,
-                    certificationID: viewModel.certificationID
+                    certificationID: viewModel.selectedCertificationID,
+                    certificationName: viewModel.selectedCertificationName, 
+                    acquisitionDate: viewModel.selectedAcquisitionDate
                 ).eraseToAnyView()
             }
         }
