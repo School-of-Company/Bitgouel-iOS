@@ -10,8 +10,7 @@ struct LectureDetailSettingsView: View {
         ZStack(alignment: .bottom) {
             VStack {
                 HStack {
-                    Text("강의 세부 설정")
-                        .bitgouelFont(.title3)
+                    BitgouelText(text: "강의 세부 설정", font: .title3)
                     
                     Spacer()
                     
@@ -24,20 +23,19 @@ struct LectureDetailSettingsView: View {
                     VStack(alignment: .leading, spacing: 28) {
                         
                         HStack {
-                            Text("강의 유형")
-                                .bitgouelFont(.text1)
+                            BitgouelText(text: "강의 유형", font: .text1)
                         }
                         
                         VStack(alignment: .leading, spacing: 16) {
                             Text("상호학점인정교육과정")
-                                .bitgouelFont(.text2, color: viewModel.lectureTypeText1)
+                                .bitgouelFont(.text2, color: viewModel.lectureTextColor(parameter: viewModel.lectureType1))
                                 .padding(.horizontal, 16)
                                 .padding(.vertical, 8)
                                 .overlay {
                                     RoundedRectangle(cornerRadius: 99)
-                                        .stroke(viewModel.lectureTypeStroke1)
+                                        .stroke(viewModel.lectureStrokeColor(parameter: viewModel.lectureType1))
                                 }
-                                .background(viewModel.lectureTypeBackground1)
+                                .background(viewModel.lectureBackgroundColor(parameter: viewModel.lectureType1))
                                 .cornerRadius(99)
                                 .buttonWrapper {
                                     viewModel.lectureType1.toggle()
@@ -45,14 +43,14 @@ struct LectureDetailSettingsView: View {
                                 }
                             
                             Text("대학탐방프로그램")
-                                .bitgouelFont(.text2, color: viewModel.lectureTypeText2)
+                                .bitgouelFont(.text2, color: viewModel.lectureTextColor(parameter: viewModel.lectureType2))
                                 .padding(.horizontal, 16)
                                 .padding(.vertical, 8)
                                 .overlay {
                                     RoundedRectangle(cornerRadius: 99)
-                                        .stroke(viewModel.lectureTypeStroke2)
+                                        .stroke(viewModel.lectureStrokeColor(parameter: viewModel.lectureType2))
                                 }
-                                .background(viewModel.lectureTypeBackground2)
+                                .background(viewModel.lectureBackgroundColor(parameter: viewModel.lectureType2))
                                 .cornerRadius(99)
                                 .buttonWrapper {
                                     viewModel.lectureType2.toggle()
@@ -61,16 +59,14 @@ struct LectureDetailSettingsView: View {
                         }
                         
                         HStack {
-                            Text("강의 계열")
-                                .bitgouelFont(.text1)
+                            BitgouelText(text: "강의 계열", font: .text1)
                         }
                         
                         LectureLineView(viewModel: LectureOpeningApplyViewModel())
                         
                         VStack {
                             HStack {
-                                Text("신청 시작일")
-                                    .bitgouelFont(.text1)
+                                BitgouelText(text: "신청 시작일", font: .text1)
                                 
                                 Spacer()
                             }
@@ -79,7 +75,7 @@ struct LectureDetailSettingsView: View {
                             HStack {
                                 PickerButton(
                                     text: viewModel.formattedStartDate,
-                                    image: viewModel.chevronChange
+                                    image: viewModel.chevronChange(parameter: viewModel.startDateSheet)
                                 ) {
                                     viewModel.startDateSheet.toggle()
                                     viewModel.startDate = true
@@ -88,7 +84,7 @@ struct LectureDetailSettingsView: View {
                                 
                                 PickerButton(
                                     text: viewModel.formattedStartTime,
-                                    image: viewModel.chevronChange2
+                                    image: viewModel.chevronChange(parameter: viewModel.startTimeSheet)
                                 ) {
                                     viewModel.startTimeSheet.toggle()
                                     viewModel.startTime = true
@@ -99,8 +95,7 @@ struct LectureDetailSettingsView: View {
                         
                         VStack {
                             HStack {
-                                Text("신청 마감일")
-                                    .bitgouelFont(.text1)
+                                BitgouelText(text: "신청 마감일", font: .text1)
                                 
                                 Spacer()
                             }
@@ -109,7 +104,7 @@ struct LectureDetailSettingsView: View {
                             HStack {
                                 PickerButton(
                                     text: viewModel.formattedEndDate,
-                                    image: viewModel.chevronChange3
+                                    image: viewModel.chevronChange(parameter: viewModel.endDateSheet)
                                 ) {
                                     viewModel.endDateSheet.toggle()
                                     viewModel.endDate = true
@@ -118,7 +113,7 @@ struct LectureDetailSettingsView: View {
                                 
                                 PickerButton(
                                     text: viewModel.formattedEndTime,
-                                    image: viewModel.chevronChange4
+                                    image: viewModel.chevronChange(parameter: viewModel.endTimeSheet)
                                 ) {
                                     viewModel.endTimeSheet.toggle()
                                     viewModel.endTime = true
@@ -129,8 +124,7 @@ struct LectureDetailSettingsView: View {
                         
                         VStack {
                             HStack {
-                                Text("개강일")
-                                    .bitgouelFont(.text1)
+                                BitgouelText(text: "개강일", font: .text1)
                                 
                                 Spacer()
                             }
@@ -139,7 +133,7 @@ struct LectureDetailSettingsView: View {
                             HStack {
                                 PickerButton(
                                     text: viewModel.formattedOpenDate,
-                                    image: viewModel.chevronChange5
+                                    image: viewModel.chevronChange(parameter: viewModel.openDateSheet)
                                 ) {
                                     viewModel.openDateSheet.toggle()
                                     viewModel.openDate = true
@@ -148,7 +142,7 @@ struct LectureDetailSettingsView: View {
                                 
                                 PickerButton(
                                     text: viewModel.formattedOpenTime,
-                                    image: viewModel.chevronChange6
+                                    image: viewModel.chevronChange(parameter: viewModel.openTimeSheet)
                                 ) {
                                     viewModel.openTimeSheet.toggle()
                                     viewModel.openTime = true
@@ -169,7 +163,7 @@ struct LectureDetailSettingsView: View {
                                 
                                 PickerButton(
                                     text: viewModel.giveScore,
-                                    image: viewModel.chevronChange7
+                                    image: viewModel.chevronChange(parameter: viewModel.scoreSheet)
                                 ) {
                                     viewModel.scoreSheet.toggle()
                                 }
@@ -178,8 +172,7 @@ struct LectureDetailSettingsView: View {
                         
                         VStack {
                             HStack {
-                                Text("최대 수강 인원")
-                                    .bitgouelFont(.text1)
+                                BitgouelText(text: "최대 수강 인원", font: .text1)
                                 
                                 Spacer()
                             }
@@ -191,8 +184,7 @@ struct LectureDetailSettingsView: View {
                             )
                             
                             HStack {
-                                Text("담당 교수")
-                                    .bitgouelFont(.text1)
+                                BitgouelText(text: "담당 교수", font: .text1)
                                 
                                 Spacer()
                             }
@@ -201,7 +193,7 @@ struct LectureDetailSettingsView: View {
                             HStack {
                                 PickerButton(
                                     text: viewModel.formattedProfessorChoice,
-                                    image: viewModel.chevronChange8
+                                    image: viewModel.chevronChange(parameter: viewModel.professor)
                                 ) {
                                     viewModel.professor = true
                                 }
@@ -343,8 +335,7 @@ struct LectureDetailSettingsView: View {
                     ZStack {
                         VStack(alignment: .leading) {
                             HStack {
-                                Text("담당 교수 선택")
-                                    .bitgouelFont(.title2)
+                                BitgouelText(text: "담당 교수 선택", font: .text2)
                                 
                                 Spacer()
                                 

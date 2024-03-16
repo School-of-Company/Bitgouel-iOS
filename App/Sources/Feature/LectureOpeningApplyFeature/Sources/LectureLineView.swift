@@ -6,108 +6,79 @@ struct LectureLineView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack(spacing: 16) {
-                Text("전기•전자")
-                    .bitgouelFont(.text2, color: viewModel.lectureLineText1)
+                Text("자동차 산업")
+                    .bitgouelFont(.text2, color: viewModel.lectureTextColor(parameter: viewModel.automobile))
                     .padding(.horizontal, 16)
                     .padding(.vertical, 8)
                     .overlay {
                         RoundedRectangle(cornerRadius: 99)
-                            .stroke(viewModel.lectureLineStroke1)
+                            .stroke(viewModel.lectureStrokeColor(parameter: viewModel.automobile))
                     }
-                    .background(viewModel.lectureLineBackground1)
-                    .cornerRadius(99)
-                    .buttonWrapper {
-                        viewModel.electricity.toggle()
-                    }
-                
-                Text("기계")
-                    .bitgouelFont(.text2, color: viewModel.lectureLineText2)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 8)
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 99)
-                            .stroke(viewModel.lectureLineStroke2)
-                    }
-                    .background(viewModel.lectureLineBackground2)
-                    .cornerRadius(99)
-                    .buttonWrapper {
-                        viewModel.machine.toggle()
-                    }
-                
-                Text("자동차")
-                    .bitgouelFont(.text2, color: viewModel.lectureLineText3)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 8)
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 99)
-                            .stroke(viewModel.lectureLineStroke3)
-                    }
-                    .background(viewModel.lectureLineBackground3)
+                    .background(viewModel.lectureBackgroundColor(parameter: viewModel.automobile))
                     .cornerRadius(99)
                     .buttonWrapper {
                         viewModel.automobile.toggle()
                     }
-            }
-            
-            HStack(spacing: 16) {
-                Text("생명화학공학")
-                    .bitgouelFont(.text2, color: viewModel.lectureLineText4)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 8)
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 99)
-                            .stroke(viewModel.lectureLineStroke4)
-                    }
-                    .background(viewModel.lectureLineBackground4)
-                    .cornerRadius(99)
-                    .buttonWrapper {
-                        viewModel.biochemicalEngineering.toggle()
-                    }
                 
-                Text("뷰티")
-                    .bitgouelFont(.text2, color: viewModel.lectureLineText5)
+                Text("에너지 산업")
+                    .bitgouelFont(.text2, color: viewModel.lectureTextColor(parameter: viewModel.energy))
                     .padding(.horizontal, 16)
                     .padding(.vertical, 8)
                     .overlay {
                         RoundedRectangle(cornerRadius: 99)
-                            .stroke(viewModel.lectureLineStroke5)
+                            .stroke(viewModel.lectureStrokeColor(parameter: viewModel.energy))
                     }
-                    .background(viewModel.lectureLineBackground5)
+                    .background(viewModel.lectureBackgroundColor(parameter: viewModel.energy))
                     .cornerRadius(99)
                     .buttonWrapper {
-                        viewModel.beauty.toggle()
+                        viewModel.energy.toggle()
                     }
             }
             
             HStack(spacing: 16) {
                 Text("의료•헬스")
-                    .bitgouelFont(.text2, color: viewModel.lectureLineText6)
+                    .bitgouelFont(.text2, color: viewModel.lectureTextColor(parameter: viewModel.medicalHealth))
                     .padding(.horizontal, 16)
                     .padding(.vertical, 8)
                     .overlay {
                         RoundedRectangle(cornerRadius: 99)
-                            .stroke(viewModel.lectureLineStroke6)
+                            .stroke(viewModel.lectureStrokeColor(parameter: viewModel.medicalHealth))
                     }
-                    .background(viewModel.lectureLineBackground6)
+                    .background(viewModel.lectureBackgroundColor(parameter: viewModel.medicalHealth))
                     .cornerRadius(99)
                     .buttonWrapper {
                         viewModel.medicalHealth.toggle()
                     }
                 
-                Text("드론")
-                    .bitgouelFont(.text2, color: viewModel.lectureLineText7)
+                Text("A.I 융•복합")
+                    .bitgouelFont(.text2, color: viewModel.lectureTextColor(parameter: viewModel.aiFusionComplex))
                     .padding(.horizontal, 16)
                     .padding(.vertical, 8)
                     .overlay {
                         RoundedRectangle(cornerRadius: 99)
-                            .stroke(viewModel.lectureLineStroke7)
+                            .stroke(viewModel.lectureStrokeColor(parameter: viewModel.aiFusionComplex))
                     }
-                    .background(viewModel.lectureLineBackground7)
+                    .background(viewModel.lectureBackgroundColor(parameter: viewModel.aiFusionComplex))
                     .cornerRadius(99)
                     .buttonWrapper {
-                        viewModel.drone.toggle()
+                        viewModel.aiFusionComplex.toggle()
                     }
             }
+            
+            Text("문화 산업")
+                .bitgouelFont(.text2, color: viewModel.lectureTextColor(parameter: viewModel.culture))
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 99)
+                        .stroke(viewModel.lectureStrokeColor(parameter: viewModel.culture))
+                }
+                .background(viewModel.lectureBackgroundColor(parameter: viewModel.culture))
+                .cornerRadius(99)
+                .buttonWrapper {
+                    viewModel.culture.toggle()
+                }
         }
     }
 }
+
