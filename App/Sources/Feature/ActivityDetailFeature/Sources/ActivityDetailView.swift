@@ -15,8 +15,8 @@ struct ActivityDetailView: View {
     }
     
     var body: some View {
-        VStack(spacing: 24) {
-            VStack(spacing: 0) {
+        VStack(spacing: 0) {
+            VStack(spacing: 24) {
                 if let activityDetail = viewModel.activityDetail {
                     VStack(alignment: .leading) {
                         HStack {

@@ -201,19 +201,6 @@ private class MyPageDependency48d84b530313b3ee40feProvider: MyPageDependency {
 private func factory0f6f456ebf157d02dfb3e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
     return MyPageDependency48d84b530313b3ee40feProvider()
 }
-private class WriteInquiryAnswerDependencyeba82c0423abdd3e1acfProvider: WriteInquiryAnswerDependency {
-    var replyInquiryUseCase: any ReplyInquiryUseCase {
-        return appComponent.replyInquiryUseCase
-    }
-    private let appComponent: AppComponent
-    init(appComponent: AppComponent) {
-        self.appComponent = appComponent
-    }
-}
-/// ^->AppComponent->WriteInquiryAnswerComponent
-private func factory3d4cadf14cd9a3336981f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return WriteInquiryAnswerDependencyeba82c0423abdd3e1acfProvider(appComponent: parent1(component) as! AppComponent)
-}
 private class InquiryDetailDependencyf68d260d1f6dc07aaedbProvider: InquiryDetailDependency {
     var inputInquiryFactory: any InputInquiryFactory {
         return appComponent.inputInquiryFactory
@@ -381,6 +368,19 @@ private class CertificationListDependency809c1dfea1282552ea2dProvider: Certifica
 /// ^->AppComponent->CertificationListComponent
 private func factoryc231b853779286e489fbf47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return CertificationListDependency809c1dfea1282552ea2dProvider(appComponent: parent1(component) as! AppComponent)
+}
+private class WriteInquiryAnswerDependencyeba82c0423abdd3e1acfProvider: WriteInquiryAnswerDependency {
+    var replyInquiryUseCase: any ReplyInquiryUseCase {
+        return appComponent.replyInquiryUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->WriteInquiryAnswerComponent
+private func factory3d4cadf14cd9a3336981f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return WriteInquiryAnswerDependencyeba82c0423abdd3e1acfProvider(appComponent: parent1(component) as! AppComponent)
 }
 private class PostDetailDependencycf431278832ae8226535Provider: PostDetailDependency {
     var editPostFactory: any EditPostFactory {
@@ -673,11 +673,6 @@ extension MyPageComponent: Registration {
 
     }
 }
-extension WriteInquiryAnswerComponent: Registration {
-    public func registerItems() {
-        keyPathToName[\WriteInquiryAnswerDependency.replyInquiryUseCase] = "replyInquiryUseCase-any ReplyInquiryUseCase"
-    }
-}
 extension InquiryDetailComponent: Registration {
     public func registerItems() {
         keyPathToName[\InquiryDetailDependency.inputInquiryFactory] = "inputInquiryFactory-any InputInquiryFactory"
@@ -738,6 +733,11 @@ extension CertificationListComponent: Registration {
         keyPathToName[\CertificationListDependency.queryCertificationListByStudentUseCase] = "queryCertificationListByStudentUseCase-any QueryCertificationListByStudentUseCase"
         keyPathToName[\CertificationListDependency.queryCertificationListByTeacherUseCase] = "queryCertificationListByTeacherUseCase-any QueryCertificationListByTeacherUseCase"
         keyPathToName[\CertificationListDependency.inputCertificationFactory] = "inputCertificationFactory-any InputCertificationFactory"
+    }
+}
+extension WriteInquiryAnswerComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\WriteInquiryAnswerDependency.replyInquiryUseCase] = "replyInquiryUseCase-any ReplyInquiryUseCase"
     }
 }
 extension PostDetailComponent: Registration {
@@ -959,7 +959,6 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->MainTabComponent", factory1ab5a747ddf21e1393f9f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->NoticeDetailSettingComponent", factory24d19202afbef2333be9e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->MyPageComponent", factory0f6f456ebf157d02dfb3e3b0c44298fc1c149afb)
-    registerProviderFactory("^->AppComponent->WriteInquiryAnswerComponent", factory3d4cadf14cd9a3336981f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InquiryDetailComponent", factory2d6736bd037393a86ae3f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputNoticeComponent", factory4545df5fcd42aaf8ed60f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->MainComponent", factoryc9274e46e78e70f29c54e3b0c44298fc1c149afb)
@@ -968,6 +967,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->ClubDetailComponent", factory1559652f8e80cfa88d06f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->SuccessSignUpComponent", factorybf219b153b668170161df47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->CertificationListComponent", factoryc231b853779286e489fbf47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->WriteInquiryAnswerComponent", factory3d4cadf14cd9a3336981f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->PostDetailComponent", factorybc555a73df3767a26999f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InquiryListComponent", factorydd7e28250a180554c7a0f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->EditPostComponent", factoryf55a9d7f6c1ed8d0f0aef47b58f8f304c97af4d5)
