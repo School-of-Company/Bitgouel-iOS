@@ -42,7 +42,7 @@ final class InputActivityViewModel: BaseViewModel {
         activityTitle = entity.title
         activityText = entity.content
         activityCredit = entity.credit
-        activityDate = entity.activityDate.toDateCustomFormat(format: "yyyy-MM-dd")
+        activityDate = entity.activityDate
     }
 
     @MainActor

@@ -26,7 +26,7 @@ public final class FetchActivityDetailUseCaseStub: FetchActivityDetailUseCase {
             청춘은 인생의 황금 시대(黃金時代)다. 우리는 이 황금 시대의 가치를 충분히 발휘하기 위하여, 이 황금 시대를 영원히 붙잡아 두기 위하여, 힘차게 노래하며 힘차게 약동하자!
             """,
             credit: 2,
-            activityDate: "2023.10.31",
+            activityDate: Date(),
             modifiedAt: Date()
         )
     }

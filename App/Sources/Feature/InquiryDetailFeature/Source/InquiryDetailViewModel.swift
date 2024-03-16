@@ -6,7 +6,9 @@ final class InquiryDetailViewModel: BaseViewModel {
     @Published var inquiryID: String = ""
     @Published var authority: UserAuthorityType = .user
     @Published var isPresentedInputInquiryView: Bool = false
+    @Published var isPresentedWriteInquiryAnswerView: Bool = false
     @Published var isDeleteInquiry: Bool = false
+    @Published var isWriteInquiryAnswer: Bool = false
 
     private let fetchInquiryDetailUseCase: any FetchInquiryDetailUseCase
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
@@ -38,12 +40,20 @@ final class InquiryDetailViewModel: BaseViewModel {
         self.deleteInquiryByAdminUseCase = deleteInquiryByAdminUseCase
     }
 
+    func updateIsPresentedWriteInquiryAnswerView(isPresented: Bool) {
+        isPresentedWriteInquiryAnswerView = isPresented
+    }
+
     func updateIsPresentedInputInquiryView(isPresented: Bool) {
         isPresentedInputInquiryView = isPresented
     }
     
     func updateIsDeleteInquiry(isDelete: Bool) {
         isDeleteInquiry = isDelete
+    }
+
+    func updateIsWriteInquiryAnswer(isWrite: Bool) {
+        isWriteInquiryAnswer = isWrite
     }
 
     @MainActor

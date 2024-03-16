@@ -2,8 +2,9 @@ import Service
 import SwiftUI
 
 struct ActivityDetailView: View {
+    @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: ActivityDetailViewModel
-
+    
     private let inputActivityFactory: any InputActivityFactory
     init(
         viewModel: ActivityDetailViewModel,
@@ -15,62 +16,65 @@ struct ActivityDetailView: View {
     
     var body: some View {
         VStack(spacing: 24) {
-            VStack(alignment: .leading) {
-                HStack {
-                    Spacer()
-                    
-                    HStack(spacing: 0) {
-                        Text(viewModel.activityDetail?.modifiedAt.toStringCustomFormat(format: "yyyy년M월dd일HH:mm") ?? "")
-                        
-                        Text("에 수정됨")
-                    }
-                    .foregroundColor(.bitgouel(.greyscale(.g7)))
-                }
-                .font(.bitgouel(.caption))
-                
-                BitgouelText(
-                    text: viewModel.activityDetail?.title ?? "",
-                    font: .text1
-                )
-                .padding(.top, 4)
-                
-                HStack {
-                    BitgouelText(
-                        text: viewModel.activityDetail?.activityDate ?? "",
-                        font: .text3
-                    )
-                    BitgouelText(
-                        text: "활동",
-                        font: .text3
-                    )
-                    
-                    Spacer()
-                    
-                    HStack(spacing: 0) {
-                        BitgouelText(text: "학점", font: .text3)
+            VStack(spacing: 0) {
+                if let activityDetail = viewModel.activityDetail {
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Spacer()
+                            
+                            HStack(spacing: 0) {
+                                Text(activityDetail.modifiedAt.toStringCustomFormat(format: "yyyy년M월dd일HH:mm"))
+                                
+                                Text("에 수정됨")
+                            }
+                            .foregroundColor(.bitgouel(.greyscale(.g7)))
+                        }
+                        .font(.bitgouel(.caption))
                         
                         BitgouelText(
-                            text: "\(viewModel.activityDetail?.credit ?? 0)",
-                            font: .text3
+                            text: activityDetail.title,
+                            font: .text1
                         )
-                        .padding(.leading, 4)
+                        .padding(.top, 4)
                         
-                        BitgouelText(text: "점 부여", font: .text3)
+                        HStack {
+                            BitgouelText(
+                                text: activityDetail.activityDate.toStringCustomFormat(format: "yyyy.M.d"),
+                                font: .text3
+                            )
+                            BitgouelText(
+                                text: "활동",
+                                font: .text3
+                            )
+                            
+                            Spacer()
+                            
+                            HStack(spacing: 0) {
+                                BitgouelText(
+                                    text: "\(activityDetail.credit)",
+                                    font: .text3
+                                )
+                                .padding(.leading, 4)
+                                
+                                BitgouelText(text: "점 수여", font: .text3)
+                            }
+                        }
+                        .foregroundColor(.bitgouel(.greyscale(.g4)))
+                        .padding(.top, 4)
+                    }
+                    
+                    Divider()
+                    
+                    ScrollView(showsIndicators: false) {
+                        Text(activityDetail.content)
+                            .multilineTextAlignment(.leading)
+                    }
+                    .padding(.top, 24)
+                    
+                    if viewModel.authority == .student {
+                        popupButtonByWriter()
                     }
                 }
-                .foregroundColor(.bitgouel(.greyscale(.g4)))
-                .padding(.top, 4)
-            }
-            
-            Divider()
-            
-            ScrollView {
-                Text(viewModel.activityDetail?.content ?? "")
-                    .multilineTextAlignment(.leading)
-            }
-            
-            if viewModel.authority == .student {
-                popupButtonByWriter()
             }
         }
         .onAppear {
@@ -92,10 +96,11 @@ struct ActivityDetailView: View {
             isShowing: $viewModel.isDelete,
             alertActions: [
                 .init(text: "취소", style: .cancel) {
-                    viewModel.isDelete = false
+                    viewModel.updateIsDelete(state: false)
                 },
                 .init(text: "삭제", style: .error) {
                     viewModel.deleteActivity()
+                    dismiss()
                 }
             ]
         )
@@ -118,7 +123,7 @@ struct ActivityDetailView: View {
                 text: "활동 삭제",
                 style: .error,
                 action: {
-                    viewModel.isDelete = true
+                    viewModel.updateIsDelete(state: true)
                 }
             )
         }

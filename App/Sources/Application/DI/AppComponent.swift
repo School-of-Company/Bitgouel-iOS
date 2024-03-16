@@ -130,4 +130,8 @@ public extension AppComponent {
     var inquiryDetailFactory: any InquiryDetailFactory {
         InquiryDetailComponent(parent: self)
     }
+
+    var writeInquiryAnswerFactory: any WriteInquiryAnswerFactory {
+        WriteInquiryAnswerComponent(parent: self)
+    }
 }

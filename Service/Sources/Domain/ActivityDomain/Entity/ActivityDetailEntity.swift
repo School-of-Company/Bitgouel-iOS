@@ -5,7 +5,7 @@ public struct ActivityDetailEntity: Equatable {
     public let title: String
     public let content: String
     public let credit: Int
-    public let activityDate: String
+    public let activityDate: Date
     public let modifiedAt: Date
 
     public init(
@@ -13,7 +13,7 @@ public struct ActivityDetailEntity: Equatable {
         title: String,
         content: String,
         credit: Int,
-        activityDate: String,
+        activityDate: Date,
         modifiedAt: Date
     ) {
         self.activityID = activityID

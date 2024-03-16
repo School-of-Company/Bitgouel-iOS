@@ -201,9 +201,25 @@ private class MyPageDependency48d84b530313b3ee40feProvider: MyPageDependency {
 private func factory0f6f456ebf157d02dfb3e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
     return MyPageDependency48d84b530313b3ee40feProvider()
 }
+private class WriteInquiryAnswerDependencyeba82c0423abdd3e1acfProvider: WriteInquiryAnswerDependency {
+    var replyInquiryUseCase: any ReplyInquiryUseCase {
+        return appComponent.replyInquiryUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->WriteInquiryAnswerComponent
+private func factory3d4cadf14cd9a3336981f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return WriteInquiryAnswerDependencyeba82c0423abdd3e1acfProvider(appComponent: parent1(component) as! AppComponent)
+}
 private class InquiryDetailDependencyf68d260d1f6dc07aaedbProvider: InquiryDetailDependency {
     var inputInquiryFactory: any InputInquiryFactory {
         return appComponent.inputInquiryFactory
+    }
+    var writeInquiryAnswerFactory: any WriteInquiryAnswerFactory {
+        return appComponent.writeInquiryAnswerFactory
     }
     var fetchInquiryDetailUseCase: any FetchInquiryDetailUseCase {
         return appComponent.fetchInquiryDetailUseCase
@@ -657,9 +673,15 @@ extension MyPageComponent: Registration {
 
     }
 }
+extension WriteInquiryAnswerComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\WriteInquiryAnswerDependency.replyInquiryUseCase] = "replyInquiryUseCase-any ReplyInquiryUseCase"
+    }
+}
 extension InquiryDetailComponent: Registration {
     public func registerItems() {
         keyPathToName[\InquiryDetailDependency.inputInquiryFactory] = "inputInquiryFactory-any InputInquiryFactory"
+        keyPathToName[\InquiryDetailDependency.writeInquiryAnswerFactory] = "writeInquiryAnswerFactory-any WriteInquiryAnswerFactory"
         keyPathToName[\InquiryDetailDependency.fetchInquiryDetailUseCase] = "fetchInquiryDetailUseCase-any FetchInquiryDetailUseCase"
         keyPathToName[\InquiryDetailDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
         keyPathToName[\InquiryDetailDependency.deleteMyInquiryUseCase] = "deleteMyInquiryUseCase-any DeleteMyInquiryUseCase"
@@ -899,6 +921,7 @@ extension AppComponent: Registration {
         localTable["noticeDetailSettingFactory-any NoticeDetailSettingFactory"] = { [unowned self] in self.noticeDetailSettingFactory as Any }
         localTable["inputInquiryFactory-any InputInquiryFactory"] = { [unowned self] in self.inputInquiryFactory as Any }
         localTable["inquiryDetailFactory-any InquiryDetailFactory"] = { [unowned self] in self.inquiryDetailFactory as Any }
+        localTable["writeInquiryAnswerFactory-any WriteInquiryAnswerFactory"] = { [unowned self] in self.writeInquiryAnswerFactory as Any }
         localTable["remoteWithdrawDataSource-any RemoteWithdrawDataSource"] = { [unowned self] in self.remoteWithdrawDataSource as Any }
         localTable["withdrawRepository-any WithdrawRepository"] = { [unowned self] in self.withdrawRepository as Any }
         localTable["fetchWithdrawUserListUseCase-any FetchWithdrawUserListUseCase"] = { [unowned self] in self.fetchWithdrawUserListUseCase as Any }
@@ -936,6 +959,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->MainTabComponent", factory1ab5a747ddf21e1393f9f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->NoticeDetailSettingComponent", factory24d19202afbef2333be9e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->MyPageComponent", factory0f6f456ebf157d02dfb3e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->WriteInquiryAnswerComponent", factory3d4cadf14cd9a3336981f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InquiryDetailComponent", factory2d6736bd037393a86ae3f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputNoticeComponent", factory4545df5fcd42aaf8ed60f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->MainComponent", factoryc9274e46e78e70f29c54e3b0c44298fc1c149afb)
