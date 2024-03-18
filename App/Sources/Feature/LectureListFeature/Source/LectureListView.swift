@@ -2,7 +2,7 @@ import SwiftUI
 import Service
 
 struct LectureListView: View {
-    @StateObject var model: LectureListModel
+    @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var viewModel: LectureListViewModel
     @State var isShowingFilter = false
 
@@ -10,11 +10,9 @@ struct LectureListView: View {
 
     init(
         lectureListDetailFactory: any LectureListDetailFactory,
-        model: LectureListModel,
         viewModel: LectureListViewModel
     ) {
         self.lectureListDetailFactory = lectureListDetailFactory
-        _model = StateObject(wrappedValue: model)
         _viewModel = StateObject(wrappedValue: viewModel)
     }
 
@@ -22,7 +20,7 @@ struct LectureListView: View {
         NavigationView {
             ZStack {
                 ScrollView {
-                    if let lectureList = model.lectureList {
+                    if let lectureList = viewModel.lectureList {
                         LazyVStack(alignment: .leading) {
                             ForEach(lectureList.content, id: \.lectureID) { item in
                                 LectureListRow(
@@ -38,8 +36,8 @@ struct LectureListView: View {
                                 )
                                 .buttonWrapper {
                                     withAnimation {
-                                        viewModel.lectureDidSelect(lectureID: item.lectureID)
-                                        model.isPresentedLectureDetailPage = true
+                                        viewModel.updateSelectedLectureID(lectureID: item.lectureID)
+                                        viewModel.updateIsPresentedLectureDetailView(isPresented: true)
                                     }
                                 }
 
@@ -52,29 +50,41 @@ struct LectureListView: View {
                 .navigationTitle("강의 목록")
                 .toolbar {
                     ToolbarItemGroup(placement: .navigationBarTrailing) {
-                        BitgouelAsset.Icons.filterStroke.swiftUIImage
-                        
-                        Text("필터")
-                            .bitgouelFont(.text3, color: .greyscale(.g7))
-                            .onTapGesture {
-                                isShowingFilter.toggle()
+                        Button {
+                            isShowingFilter.toggle()
+                        } label: {
+                            HStack(spacing: 8) {
+                                BitgouelAsset.Icons.filterStroke.swiftUIImage
+                                
+                                Text("필터")
+                                    .bitgouelFont(.text3, color: .greyscale(.g7))
                             }
+                        }
                     }
                 }
             }
-        }
-        .navigate(
-            to: lectureListDetailFactory.makeView(lectureID: model.selectedLectureID ?? "").eraseToAnyView(),
-            when: Binding(
-                get: { model.isPresentedLectureDetailPage },
-                set: { _ in viewModel.lectureDetailPageDismissed() }
+            .navigate(
+                to: lectureListDetailFactory.makeView(lectureID: viewModel.selectedLectureID ?? "").eraseToAnyView(),
+                when: Binding(
+                    get: { viewModel.isPresentedLectureDetailView },
+                    set: { isPresented in viewModel.updateIsPresentedLectureDetailView(isPresented: isPresented) }
+                )
             )
-        )
-        .bitgouelBottomSheet(isShowing: $isShowingFilter) {
-            filterView()
+            .onChange(of: viewModel.isPresentedLectureDetailView) { newValue in
+                tabbarHidden.wrappedValue = newValue
+            }
+            .bitgouelBottomSheet(isShowing: $isShowingFilter) {
+                filterView()
+            }
+            .onChange(of: isShowingFilter) { newValue in
+                tabbarHidden.wrappedValue = newValue
+            }
         }
         .onAppear{
             viewModel.onAppear()
+        }
+        .onChange(of: viewModel.selectedLectureType) { newValue in
+            viewModel.updateType(lectureType: newValue)
         }
     }
 
@@ -96,7 +106,10 @@ struct LectureListView: View {
 
                 BitgouelButton(
                     text: "적용하기"
-                )
+                ) {
+                    isShowingFilter = false
+                    viewModel.onAppear()
+                }
                 .cornerRadius(8)
                 .padding(.top, 8)
             }

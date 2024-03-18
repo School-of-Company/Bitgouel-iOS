@@ -11,12 +11,9 @@ public protocol LectureListDependency: Dependency {
 public final class LectureListComponent: Component<LectureListDependency>, LectureListFactory {
     @MainActor
     public func makeView() -> some View {
-        let model = LectureListModel()
         return LectureListView(
             lectureListDetailFactory: dependency.lectureListDetailFactory,
-            model: model,
             viewModel: .init(
-                model: model, 
                 loadUserAuthorityUseCase: self.dependency.loadUserAuthorityUseCase,
                 lectureListDetailFactory: self.dependency.lectureListDetailFactory,
                 fetchLectureListUseCase: self.dependency.fetchLectureListUseCase
