@@ -16,12 +16,12 @@ struct AdminUserListView: View {
                 
                 BitgouelAsset.Icons.addFill.swiftUIImage
                     .onTapGesture {
-                        <#code#>
+                        
                     }
                 
                 BitgouelAsset.Icons.minusFill.swiftUIImage
                     .onTapGesture {
-                        <#code#>
+                        
                     }
             }
             
