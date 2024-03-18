@@ -18,7 +18,7 @@ struct MyPageView: View {
                                     text: myInfo.name,
                                     font: .title2
                                 )
-                                
+
                                 BitgouelText(
                                     text: myInfo.authority.display(),
                                     font: .text1
@@ -32,14 +32,14 @@ struct MyPageView: View {
                                         text: viewModel.userOrganization,
                                         font: .text1
                                     )
-                                    
+
                                     BitgouelText(
                                         text: "소속",
                                         font: .text1
                                     )
                                     .foregroundColor(.bitgouel(.greyscale(.g7)))
                                 }
-                                
+
                                 LazyVStack(alignment: .leading, spacing: 4) {
                                     ForEach(viewModel.userInfo, id: \.self) { info in
                                         BitgouelText(
@@ -51,45 +51,45 @@ struct MyPageView: View {
                                 }
                             }
                         }
-                        
+
                         Spacer()
                     }
                     .padding(.top, 32)
-                    
+
                     HStack {
                         VStack(alignment: .leading, spacing: 4) {
                             BitgouelText(
                                 text: "계정 정보",
                                 font: .text1
                             )
-                            
+
                             BitgouelText(
                                 text: myInfo.email,
                                 font: .text3
                             )
                             .foregroundColor(.bitgouel(.greyscale(.g7)))
-                            
+
                             BitgouelText(
                                 text: myInfo.phoneNumber,
                                 font: .text3
                             )
                             .foregroundColor(.bitgouel(.greyscale(.g7)))
                         }
-                        
+
                         Spacer()
                     }
-                    
+
                     if viewModel.authority == .admin {
                         adminUserListButton()
                     }
-                    
+
                     HStack {
                         VStack(alignment: .leading, spacing: 21) {
                             BitgouelText(
                                 text: "계정 설정",
                                 font: .text1
                             )
-                            
+
                             Button {} label: {
                                 BitgouelText(
                                     text: "비밀번호 변경",
@@ -97,10 +97,12 @@ struct MyPageView: View {
                                 )
                             }
                             .padding(.top, 19)
-                            
+
                             Divider()
-                            
-                            Button {} label: {
+
+                            Button {
+                                viewModel.logout()
+                            } label: {
                                 BitgouelText(
                                     text: "로그아웃",
                                     font: .text3
@@ -109,7 +111,9 @@ struct MyPageView: View {
                             
                             Divider()
                             
-                            Button {} label: {
+                            Button {
+                                viewModel.withdraw()
+                            } label: {
                                 BitgouelText(
                                     text: "회원 탈퇴",
                                     font: .text3

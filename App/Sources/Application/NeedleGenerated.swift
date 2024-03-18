@@ -197,6 +197,12 @@ private class MyPageDependency48d84b530313b3ee40feProvider: MyPageDependency {
     var fetchMyInfoUseCase: any FetchMyInfoUseCase {
         return appComponent.fetchMyInfoUseCase
     }
+    var logoutUseCase: any LogoutUseCase {
+        return appComponent.logoutUseCase
+    }
+    var withdrawalUseCase: any WithdrawalUseCase {
+        return appComponent.withdrawalUseCase
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -677,6 +683,8 @@ extension MyPageComponent: Registration {
     public func registerItems() {
         keyPathToName[\MyPageDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
         keyPathToName[\MyPageDependency.fetchMyInfoUseCase] = "fetchMyInfoUseCase-any FetchMyInfoUseCase"
+        keyPathToName[\MyPageDependency.logoutUseCase] = "logoutUseCase-any LogoutUseCase"
+        keyPathToName[\MyPageDependency.withdrawalUseCase] = "withdrawalUseCase-any WithdrawalUseCase"
     }
 }
 extension InquiryDetailComponent: Registration {

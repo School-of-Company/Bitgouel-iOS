@@ -5,6 +5,8 @@ import Service
 public protocol MyPageDependency: Dependency {
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase { get }
     var fetchMyInfoUseCase: any FetchMyInfoUseCase { get }
+    var logoutUseCase: any LogoutUseCase { get }
+    var withdrawalUseCase: any WithdrawalUseCase { get }
 }
 
 public final class MyPageComponent: Component<MyPageDependency>, MyPageFactory {
@@ -12,7 +14,9 @@ public final class MyPageComponent: Component<MyPageDependency>, MyPageFactory {
         MyPageView(
             viewModel: .init(
                 loadUserAuthorityUseCase: dependency.loadUserAuthorityUseCase,
-                fetchMyInfoUseCase: dependency.fetchMyInfoUseCase
+                fetchMyInfoUseCase: dependency.fetchMyInfoUseCase,
+                logoutUseCase: dependency.logoutUseCase,
+                withdrawalUseCase: dependency.withdrawalUseCase
             )
         )
     }
