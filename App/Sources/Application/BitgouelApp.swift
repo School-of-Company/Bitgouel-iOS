@@ -13,6 +13,7 @@ struct BitgouelApp: App {
         WindowGroup {
             AppComponent().makeRootView()
                 .environmentObject(sceneState)
+//            AdminUserListView(viewModel: AdminUserListViewModel(type: .default))
         }
     }
 }
