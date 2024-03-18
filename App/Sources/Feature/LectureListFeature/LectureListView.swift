@@ -22,58 +22,54 @@ struct LectureListView: View {
         NavigationView {
             ZStack {
                 ScrollView {
-                    LazyVStack {
-                        ForEach(model.lectureList, id: \.lectureID) { item in
-                            LectureListRow(
-                                name: item.name,
-                                content: item.content,
-                                startDate: item.startDate,
-                                endDate: item.endDate,
-                                lectureType: item.lectureType,
-                                lectureStatus: item.lectureStatus,
-                                headCount: item.headCount,
-                                maxRegisteredUser: item.maxRegisteredUser,
-                                lecturer: item.lecturer
-                            )
-                            .buttonWrapper {
-                                withAnimation {
-                                    viewModel.lectureDidSelect(lectureID: item.lectureID)
-                                    model.isPresentedLectureDetailPage = true
+                    if let lectureList = model.lectureList {
+                        LazyVStack(alignment: .leading) {
+                            ForEach(lectureList.content, id: \.lectureID) { item in
+                                LectureListRow(
+                                    name: item.name,
+                                    content: item.content,
+                                    startDate: item.startDate.toStringCustomFormat(format: "yyyy.M.d"),
+                                    endDate: item.endDate.toStringCustomFormat(format: "yyyy.M.d"),
+                                    lectureType: item.lectureType,
+                                    lectureStatus: item.lectureStatus,
+                                    headCount: item.headCount,
+                                    maxRegisteredUser: item.maxRegisteredUser,
+                                    lecturer: item.lecturer
+                                )
+                                .buttonWrapper {
+                                    withAnimation {
+                                        viewModel.lectureDidSelect(lectureID: item.lectureID)
+                                        model.isPresentedLectureDetailPage = true
+                                    }
                                 }
+
+                                Divider()
                             }
-
-                            Divider()
-                        }
-                        .padding(.horizontal, 28)
-                    }
-                    .toolbar {
-                        ToolbarItem(placement: .navigationBarLeading) {
-                            Text("강의 목록")
-                                .bitgouelFont(.title2)
-                                .padding(.leading, 15)
-                        }
-                    }
-                    .toolbar {
-                        ToolbarItemGroup(placement: .navigationBarTrailing) {
-                            BitgouelAsset.Icons.filterStroke.swiftUIImage
-
-                            Text("필터")
-                                .bitgouelFont(.text3, color: .greyscale(.g7))
-                                .onTapGesture {
-                                    isShowingFilter.toggle()
-                                }
+                            .padding(.horizontal, 28)
                         }
                     }
                 }
+                .navigationTitle("강의 목록")
+                .toolbar {
+                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+                        BitgouelAsset.Icons.filterStroke.swiftUIImage
+                        
+                        Text("필터")
+                            .bitgouelFont(.text3, color: .greyscale(.g7))
+                            .onTapGesture {
+                                isShowingFilter.toggle()
+                            }
+                    }
+                }
             }
-            .navigate(
-                to: lectureListDetailFactory.makeView(lectureID: model.selectedLectureID ?? "").eraseToAnyView(),
-                when: Binding(
-                    get: { model.isPresentedLectureDetailPage },
-                    set: { _ in viewModel.lectureDetailPageDismissed() }
-                )
-            )
         }
+        .navigate(
+            to: lectureListDetailFactory.makeView(lectureID: model.selectedLectureID ?? "").eraseToAnyView(),
+            when: Binding(
+                get: { model.isPresentedLectureDetailPage },
+                set: { _ in viewModel.lectureDetailPageDismissed() }
+            )
+        )
         .bitgouelBottomSheet(isShowing: $isShowingFilter) {
             filterView()
         }

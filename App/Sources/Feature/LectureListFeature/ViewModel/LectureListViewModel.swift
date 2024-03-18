@@ -5,7 +5,6 @@ final class LectureListViewModel: BaseViewModel {
     @Published var selectedLectureType: String = ""
     @Published var filteredLectureList: [LectureType] = []
     @Published var isNavigateLectureDetailDidTap = false
-    @Published var lectureList: [LectureListEntity]?
     
     var model: LectureListModel
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
@@ -33,10 +32,10 @@ final class LectureListViewModel: BaseViewModel {
         
         Task {
             do {
-                lectureList = try await fetchLectureListUseCase(type: selectedLectureType)
-                model.updateContent(entity: lectureList ?? [])
+                let response = try await fetchLectureListUseCase(type: selectedLectureType)
+                model.updateContent(entity: response)
             } catch {
-                print(error.localizedDescription)
+                print(String(describing: error))
             }
         }
     }
