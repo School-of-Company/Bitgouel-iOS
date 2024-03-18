@@ -4,6 +4,19 @@ struct AdminUserListView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: AdminUserListViewModel
     
+    private let adminWithdrawUserListFactory: any AdminWithdrawUserListFactory
+    private let adminRequestUserSignupFactory: any AdminRequestUserSignupFactory
+    
+    init(
+        adminWithdrawUserListFactory: any AdminWithdrawUserListFactory,
+        adminRequestUserSignupFactory: any AdminRequestUserSignupFactory,
+        viewModel: AdminUserListViewModel
+    ) {
+        self.adminWithdrawUserListFactory = adminWithdrawUserListFactory
+        self.adminRequestUserSignupFactory = adminRequestUserSignupFactory
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             HStack(spacing: 24) {
@@ -16,12 +29,12 @@ struct AdminUserListView: View {
                 
                 BitgouelAsset.Icons.addFill.swiftUIImage
                     .onTapGesture {
-                        
+                        viewModel.isNavigateRequestSignUpDidTap = true
                     }
                 
                 BitgouelAsset.Icons.minusFill.swiftUIImage
                     .onTapGesture {
-                        
+                        viewModel.isNavigateWithdrawListDidTap = true
                     }
             }
             
@@ -85,5 +98,19 @@ struct AdminUserListView: View {
                     
                 }
             }
+            .navigate(
+                to: adminRequestUserSignupFactory.makeView().eraseToAnyView(),
+                when: Binding(
+                    get: { viewModel.isNavigateRequestSignUpDidTap },
+                    set: { _ in viewModel.requestSignUpPageDismissed() }
+                )
+            )
+            .navigate(
+                to: adminWithdrawUserListFactory.makeView().eraseToAnyView(),
+                when: Binding(
+                    get: { viewModel.isNavigateWithdrawListDidTap },
+                    set: { _ in viewModel.withdrawListPageDismissed() }
+                )
+            )
     }
 }

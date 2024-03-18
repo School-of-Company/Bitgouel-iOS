@@ -3,6 +3,19 @@ import SwiftUI
 struct AdminRequestUserSignupView: View {
     @StateObject var viewModel: AdminRequestUserSignupViewModel
     
+    private let adminUserListFactory: any AdminUserListFactory
+    private let adminWithdrawUserListFactory: any AdminWithdrawUserListFactory
+    
+    init(
+        adminUserListFactory: any AdminUserListFactory,
+        adminWithdrawUserListFactory: any AdminWithdrawUserListFactory,
+        viewModel: AdminRequestUserSignupViewModel
+    ) {
+        self.adminUserListFactory = adminUserListFactory
+        self.adminWithdrawUserListFactory = adminWithdrawUserListFactory
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
+    
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
@@ -16,12 +29,12 @@ struct AdminRequestUserSignupView: View {
                     
                     BitgouelAsset.Icons.people.swiftUIImage
                         .onTapGesture {
-                            
+                            viewModel.isNavigateUserListDidTap = true
                         }
                     
                     BitgouelAsset.Icons.minusFill.swiftUIImage
                         .onTapGesture {
-                            
+                            viewModel.isNavigateWithdrawListDidTap = true
                         }
                 }
                 
@@ -97,6 +110,20 @@ struct AdminRequestUserSignupView: View {
                 ]
             )
         }
+        .navigate(
+            to: adminUserListFactory.makeView().eraseToAnyView(),
+            when: Binding(
+                get: { viewModel.isNavigateUserListDidTap },
+                set: { _ in viewModel.userListPageDismissed() }
+            )
+        )
+        .navigate(
+            to: adminWithdrawUserListFactory.makeView().eraseToAnyView(),
+            when: Binding(
+                get: { viewModel.isNavigateWithdrawListDidTap },
+                set: { _ in viewModel.withdrawListPageDismissed() }
+            )
+        )
     }
     
     @ViewBuilder

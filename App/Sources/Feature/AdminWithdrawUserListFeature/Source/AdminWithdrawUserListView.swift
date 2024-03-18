@@ -4,6 +4,19 @@ struct AdminWithdrawUserListView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: AdminWithdrawUserListViewModel
     
+    private let adminUserListFactory: any AdminUserListFactory
+    private let adminRequestUserSignupFactory: any AdminRequestUserSignupFactory
+    
+    init(
+        adminUserListFactory: any AdminUserListFactory,
+        adminRequestUserSignupFactory: any AdminRequestUserSignupFactory,
+        viewModel: AdminWithdrawUserListViewModel
+    ) {
+        self.adminUserListFactory = adminUserListFactory
+        self.adminRequestUserSignupFactory = adminRequestUserSignupFactory
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
+    
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
@@ -17,12 +30,12 @@ struct AdminWithdrawUserListView: View {
                     
                     BitgouelAsset.Icons.people.swiftUIImage
                         .onTapGesture {
-                            <#code#>
+                            viewModel.isNavigateUserListDidTap = true
                         }
                     
                     BitgouelAsset.Icons.addFill.swiftUIImage
                         .onTapGesture {
-                            <#code#>
+                            viewModel.isNavigateRequestSignUpDidTap = true
                         }
                 }
                 
@@ -120,6 +133,20 @@ struct AdminWithdrawUserListView: View {
                 },
                 .init(text: "승인", style: .error)
             ]
+        )
+        .navigate(
+            to: adminUserListFactory.makeView().eraseToAnyView(),
+            when: Binding(
+                get: { viewModel.isNavigateUserListDidTap },
+                set: { _ in viewModel.userListPageDismissed() }
+            )
+        )
+        .navigate(
+            to: adminRequestUserSignupFactory.makeView().eraseToAnyView(),
+            when: Binding(
+                get: { viewModel.isNavigateRequestSignUpDidTap },
+                set: { _ in viewModel.requestSignUpPageDismissed() }
+            )
         )
     }
     @ViewBuilder
