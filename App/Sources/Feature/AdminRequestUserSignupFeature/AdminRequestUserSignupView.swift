@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct AdminRequestUserSignupView: View {
-    @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: AdminRequestUserSignupViewModel
     
     var body: some View {
