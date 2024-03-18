@@ -7,4 +7,8 @@ final class AdminWithdrawUserListViewModel: BaseViewModel {
     @Published var isPresentedUserCohortFilter: Bool = false
     @Published var selectedCohort: CohortList = .first
     var cohortList: [CohortList] = CohortList.allCases
+    
+    func updateIsPresentedCohortFilter(isPresented: Bool) {
+        isPresentedUserCohortFilter = isPresented
+    }
 }

@@ -1,5 +1,4 @@
 import Foundation
-import Service
 
 final class AdminRequestUserSignupViewModel: BaseViewModel {
     @Published var isAppeove: Bool = false

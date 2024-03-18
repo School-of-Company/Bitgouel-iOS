@@ -2,7 +2,7 @@ import SwiftUI
 
 struct AdminWithdrawUserListView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var viewModel: AdminUserListViewModel
+    @StateObject var viewModel: AdminWithdrawUserListViewModel
     
     var body: some View {
         ZStack {
