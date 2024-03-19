@@ -1,11 +1,30 @@
 import Foundation
+import Service
 
 final class ChangePasswordViewModel: BaseViewModel {
     @Published var currentPassword: String = ""
     @Published var newPassword: String = ""
     @Published var checkNewPassword: String = ""
+    @Published var isShowingToast: Bool = false
+
+    private let changePasswordUseCase: any ChangePasswordUseCase
+
+    init(changePasswordUseCase: any ChangePasswordUseCase) {
+        self.changePasswordUseCase = changePasswordUseCase
+    }
 
     func changePasswordButtonDidTap() {
-        #warning("비밀번호 변경 action")
+        guard newPassword == checkNewPassword else {
+            errorMessage = "비밀번호를 다시 입력해 주세요!"
+            return isShowingToast = true
+        }
+
+        Task {
+            do {
+                try await changePasswordUseCase(req: ChangePasswordRequestDTO(currentPassword: currentPassword, newPassword: newPassword))
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
 }

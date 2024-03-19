@@ -321,15 +321,17 @@ private func factory0c89e2bbcc02dbcac018f47b58f8f304c97af4d5(_ component: Needle
     return PostListDependencye041dce90a2be61e7af5Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class ChangePasswordDependency04ab7ced24136c4fb27eProvider: ChangePasswordDependency {
-
-
-    init() {
-
+    var changePasswordUseCase: any ChangePasswordUseCase {
+        return appComponent.changePasswordUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->ChangePasswordComponent
-private func factoryab7c4d87dab53e0a51b9e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return ChangePasswordDependency04ab7ced24136c4fb27eProvider()
+private func factoryab7c4d87dab53e0a51b9f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return ChangePasswordDependency04ab7ced24136c4fb27eProvider(appComponent: parent1(component) as! AppComponent)
 }
 private class ClubdetailDependency09c03e1ee67d1fbecba1Provider: ClubdetailDependency {
     var certificationListFactory: any CertificationListFactory {
@@ -743,7 +745,7 @@ extension PostListComponent: Registration {
 }
 extension ChangePasswordComponent: Registration {
     public func registerItems() {
-
+        keyPathToName[\ChangePasswordDependency.changePasswordUseCase] = "changePasswordUseCase-any ChangePasswordUseCase"
     }
 }
 extension ClubDetailComponent: Registration {
@@ -999,7 +1001,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->MainComponent", factoryc9274e46e78e70f29c54e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->RootComponent", factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->PostListComponent", factory0c89e2bbcc02dbcac018f47b58f8f304c97af4d5)
-    registerProviderFactory("^->AppComponent->ChangePasswordComponent", factoryab7c4d87dab53e0a51b9e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->ChangePasswordComponent", factoryab7c4d87dab53e0a51b9f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ClubDetailComponent", factory1559652f8e80cfa88d06f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->SuccessSignUpComponent", factorybf219b153b668170161df47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->CertificationListComponent", factoryc231b853779286e489fbf47b58f8f304c97af4d5)
