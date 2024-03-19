@@ -3,6 +3,7 @@ import SwiftUI
 struct MyPageView: View {
     @StateObject var viewModel: MyPageViewModel
     @EnvironmentObject var sceneState: SceneState
+    @Environment(\.tabbarHidden) var tabbarHidden
 
     private let changePasswordFactory: any ChangePasswordFactory
 
@@ -152,6 +153,9 @@ struct MyPageView: View {
                     }
                 )
             )
+            .onChange(of: viewModel.isPresentedChangePasswordView) { newValue in
+                tabbarHidden.wrappedValue = newValue
+            }
             .bitgouelAlert(
                 title: "회원 탈퇴하시겠습니까?",
                 description: "회원 탈퇴하면 계정을 복구할 수 없으며,\n    회원가입을 다시 진행해야 합니다!",
