@@ -27,7 +27,7 @@ struct AdminWithdrawUserListView: View {
                         strokeColor: .bitgouel(.error(.e5)),
                         backgroundColor: .bitgouel(.greyscale(.g10))
                     ) {
-                        viewModel.isWithdraw = true
+                        viewModel.isShowingWithdrawAlert = true
                     }
                     
                     OptionButton(
@@ -36,7 +36,7 @@ struct AdminWithdrawUserListView: View {
                         strokeColor: .bitgouel(.error(.e5)),
                         backgroundColor: .bitgouel(.error(.e5))
                     ) {
-                        viewModel.isWithdraw = true
+                        viewModel.isShowingWithdrawAlert = true
                     }
                     
                     HStack {
@@ -129,10 +129,10 @@ struct AdminWithdrawUserListView: View {
         .bitgouelAlert(
             title: "탈퇴를 승인 하시겠습니까?",
             description: "",
-            isShowing: $viewModel.isWithdraw,
+            isShowing: $viewModel.isShowingWithdrawAlert,
             alertActions: [
                 .init(text: "취소", style: .cancel) {
-                    viewModel.isWithdraw = false
+                    viewModel.isShowingWithdrawAlert = false
                 },
                 .init(text: "승인", style: .error)
             ]
