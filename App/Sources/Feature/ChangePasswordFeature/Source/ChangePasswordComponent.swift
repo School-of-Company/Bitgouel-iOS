@@ -6,6 +6,6 @@ public protocol ChangePasswordDependency: Dependency {}
 
 public final class ChangePasswordComponent: Component<ChangePasswordDependency>, ChangePasswordFactory {
     public func makeView() -> some View {
-        ChangePasswordView()
+        ChangePasswordView(viewModel: .init())
     }
 }
