@@ -11,7 +11,7 @@ public struct LectureRepositoryImpl: LectureRepository {
         try await remoteLectureDataSource.openLecture(req: req)
     }
 
-    public func fetchLectureList(type: String) async throws -> [LectureListEntity] {
+    public func fetchLectureList(type: String) async throws -> LectureContentEntity {
         try await remoteLectureDataSource.fetchLectureList(type: type)
     }
 

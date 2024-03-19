@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol FetchLectureListUseCase {
-    func callAsFunction(type: String) async throws -> [LectureListEntity]
+    func callAsFunction(type: String) async throws -> LectureContentEntity
 }

@@ -5,7 +5,7 @@ public final class RemoteLectureDataSourceImpl: BaseRemoteDataSource<LectureAPI>
         try await request(.openLecture(req: req))
     }
 
-    public func fetchLectureList(type: String) async throws -> [LectureListEntity] {
+    public func fetchLectureList(type: String) async throws -> LectureContentEntity {
         try await request(.fetchLectureList(type: type), dto: FetchLectureListResponseDTO.self).toDomain()
     }
 

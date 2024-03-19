@@ -83,9 +83,9 @@ extension FetchLectureDetailResponseDTO {
             division: division,
             department: department,
             line: line,
-            createAt: createAt,
-            startDate: startDate,
-            endDate: endDate,
+            createAt: createAt.toDateCustomFormat(format: "yyyy-MM-dd'T'HH:mm:ss"),
+            startDate: startDate.toDateCustomFormat(format: "yyyy-MM-dd'T'HH:mm:ss"),
+            endDate: endDate.toDateCustomFormat(format: "yyyy-MM-dd'T'HH:mm:ss"),
             lectureDates: lectureDates.map { $0.toDomain() },
             lectureType: lectureType,
             lectureStatus: lectureStatus,
@@ -101,7 +101,7 @@ extension FetchLectureDetailResponseDTO {
 extension FetchLectureDetailResponseDTO.LectureDate {
     func toDomain() -> LectureDateEntity {
         LectureDateEntity(
-            completeDate: completeDate,
+            completeDate: completeDate.toDateCustomFormat(format: "yyyy-MM-dd"),
             startTime: startTime,
             endTime: endTime
         )
