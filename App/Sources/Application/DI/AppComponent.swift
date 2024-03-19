@@ -134,4 +134,16 @@ public extension AppComponent {
     var writeInquiryAnswerFactory: any WriteInquiryAnswerFactory {
         WriteInquiryAnswerComponent(parent: self)
     }
+    
+    var adminUserListFactory: any AdminUserListFactory {
+        AdminUserListComponent(parent: self)
+    }
+    
+    var adminRequestUserSignupFactory: any AdminRequestUserSignupFactory {
+        AdminRequestUserSignupComponent(parent: self)
+    }
+    
+    var adminWithdrawUserListFactory: any AdminWithdrawUserListFactory {
+        AdminWithdrawUserListComponent(parent: self)
+    }
 }
