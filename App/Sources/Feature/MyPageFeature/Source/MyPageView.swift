@@ -2,8 +2,11 @@ import SwiftUI
 
 struct MyPageView: View {
     @StateObject var viewModel: MyPageViewModel
+    @EnvironmentObject var sceneState: SceneState
 
-    init(viewModel: MyPageViewModel) {
+    init(
+        viewModel: MyPageViewModel
+    ) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
     
@@ -101,7 +104,7 @@ struct MyPageView: View {
                             Divider()
 
                             Button {
-                                viewModel.logout()
+                                viewModel.updateIsShowingLogoutAlert(isShowing: true)
                             } label: {
                                 BitgouelText(
                                     text: "로그아웃",
@@ -112,7 +115,7 @@ struct MyPageView: View {
                             Divider()
                             
                             Button {
-                                viewModel.withdraw()
+                                viewModel.updateIsShowingWithdrawAlert(isShowing: true)
                             } label: {
                                 BitgouelText(
                                     text: "회원 탈퇴",
@@ -134,7 +137,56 @@ struct MyPageView: View {
             }
             .navigationTitle("내 정보")
             .padding(.horizontal, 28)
-            Spacer()
+            .bitgouelAlert(
+                title: "회원 탈퇴하시겠습니까?",
+                description: "회원 탈퇴하면 계정을 복구할 수 없으며,\n    회원가입을 다시 진행해야 합니다!",
+                isShowing: Binding(
+                    get: { viewModel.isShowingWithdrawAlert },
+                    set: { isShowing in
+                        viewModel.updateIsShowingWithdrawAlert(isShowing: isShowing)
+                    }
+                ),
+                alertActions: [
+                    .init(
+                        text: "취소",
+                        style: .cancel,
+                        action: { viewModel.updateIsShowingWithdrawAlert(isShowing: false) }
+                    ),
+
+                    .init(
+                        text: "탈퇴",
+                        style: .error
+                    ) {
+                        viewModel.withdraw()
+                        sceneState.sceneFlow = .login
+                    }
+                ]
+            )
+            .bitgouelAlert(
+                title: "로그아웃 하시겠습니까?",
+                description: "",
+                isShowing: Binding(
+                    get: { viewModel.isShowingLogoutAlert },
+                    set: { isShowing in
+                        viewModel.updateIsShowingLogoutAlert(isShowing: isShowing)
+                    }
+                ),
+                alertActions: [
+                    .init(
+                        text: "취소",
+                        style: .cancel,
+                        action: { viewModel.updateIsShowingLogoutAlert(isShowing: false) }
+                    ),
+
+                    .init(
+                        text: "로그아웃",
+                        style: .error
+                    ) {
+                        viewModel.logout()
+                        sceneState.sceneFlow = .login
+                    }
+                ]
+            )
         }
     }
 

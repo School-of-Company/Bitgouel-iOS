@@ -1,8 +1,10 @@
-import Foundation
+import SwiftUI
 import Service
 
 final class MyPageViewModel: BaseViewModel {
     @Published var myInfo: MyInfoEntity?
+    @Published var isShowingWithdrawAlert: Bool = false
+    @Published var isShowingLogoutAlert: Bool = false
     
     var authority: UserAuthorityType = .user
     var userInfo: [String] = []
@@ -30,6 +32,14 @@ final class MyPageViewModel: BaseViewModel {
 
         userOrganization = userInfo.first ?? ""
         userInfo.removeFirst()
+    }
+
+    func updateIsShowingWithdrawAlert(isShowing: Bool) {
+        isShowingWithdrawAlert = isShowing
+    }
+
+    func updateIsShowingLogoutAlert(isShowing: Bool) {
+        isShowingLogoutAlert = isShowing
     }
     
     @MainActor
