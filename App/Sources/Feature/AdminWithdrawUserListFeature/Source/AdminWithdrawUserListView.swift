@@ -20,29 +20,6 @@ struct AdminWithdrawUserListView: View {
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
-                HStack(spacing: 24) {
-                    BitgouelText(
-                        text: "탈퇴 예정자 명단",
-                        font: .title2
-                    )
-                    
-                    Spacer()
-                    
-                    BitgouelAsset.Icons.people.swiftUIImage
-                        .buttonWrapper {
-                            withAnimation {
-                                viewModel.isNavigateUserListDidTap = true
-                            }
-                        }
-                    
-                    BitgouelAsset.Icons.addFill.swiftUIImage
-                        .buttonWrapper {
-                            withAnimation {
-                                viewModel.isNavigateRequestSignUpDidTap = true
-                            }
-                        }
-                }
-                
                 HStack(spacing: 10) {
                     OptionButton(
                         buttonText: "선택 탈퇴",
@@ -110,6 +87,28 @@ struct AdminWithdrawUserListView: View {
                 Spacer()
             }
             .padding(.horizontal, 28)
+            .navigationTitle("사용자 명단")
+            .toolbar {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Button {
+                        viewModel.isNavigateUserListDidTap = true
+                    } label: {
+                        BitgouelAsset.Icons.people.swiftUIImage
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 24, height: 24)
+                    }
+                    
+                    Button {
+                        viewModel.isNavigateRequestSignUpDidTap = true
+                    } label: {
+                        BitgouelAsset.Icons.addFill.swiftUIImage
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 24, height: 24)
+                    }
+                }
+            }
             ZStack(alignment: .center) {
                 if viewModel.isPresentedUserCohortFilter {
                     Color.black.opacity(0.4)

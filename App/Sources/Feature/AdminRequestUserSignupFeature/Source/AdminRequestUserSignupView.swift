@@ -19,29 +19,6 @@ struct AdminRequestUserSignupView: View {
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
-                HStack(spacing: 24) {
-                    BitgouelText(
-                        text: "가입 요청자 명단",
-                        font: .title2
-                    )
-                    
-                    Spacer()
-                    
-                    BitgouelAsset.Icons.people.swiftUIImage
-                        .buttonWrapper {
-                            withAnimation {
-                                viewModel.isNavigateUserListDidTap = true
-                            }
-                        }
-                    
-                    BitgouelAsset.Icons.minusFill.swiftUIImage
-                        .buttonWrapper {
-                            withAnimation {
-                                viewModel.isNavigateWithdrawListDidTap = true
-                            }
-                        }
-                }
-                
                 HStack(spacing: 10) {
                     OptionButton(
                         buttonText: "전체 선택",
@@ -91,6 +68,28 @@ struct AdminRequestUserSignupView: View {
                 Spacer()
             }
             .padding(.horizontal, 28)
+            .navigationTitle("가입 요청자 명단")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        viewModel.isNavigateUserListDidTap = true
+                    } label: {
+                        BitgouelAsset.Icons.people.swiftUIImage
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 24, height: 24)
+                    }
+                    
+                    Button {
+                        viewModel.isNavigateWithdrawListDidTap = true
+                    } label: {
+                        BitgouelAsset.Icons.minusFill.swiftUIImage
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 24, height: 24)
+                    }
+                }
+            }
             .bitgouelAlert(
                 title: "가입을 수락 하시겠습니까?",
                 description: "",
