@@ -7,7 +7,7 @@ struct RootView: View {
 
     public init(
         loginFactory: any LoginFactory,
-        mainTabFactory: any MainTabFactory,
+        mainTabFactory: any MainTabFactory
     ) {
         self.loginFactory = loginFactory
         self.mainTabFactory = mainTabFactory
