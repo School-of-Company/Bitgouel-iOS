@@ -29,7 +29,7 @@ struct AdminRequestUserSignupView: View {
                         buttonText: "선택 수락",
                         foregroundColor: .bitgouel(.primary(.p5))
                     ) {
-                        viewModel.isApprove = true
+                        viewModel.isShowingApproveAlert = true
                     }
                     
                     OptionButton(
@@ -93,10 +93,10 @@ struct AdminRequestUserSignupView: View {
             .bitgouelAlert(
                 title: "가입을 수락 하시겠습니까?",
                 description: "",
-                isShowing: $viewModel.isApprove,
+                isShowing: $viewModel.isShowingApproveAlert,
                 alertActions: [
                     .init(text: "취소", style: .cancel) {
-                        viewModel.isApprove = false
+                        viewModel.isShowingApproveAlert = false
                     },
                     .init(text: "수락", style: .default) {}
                 ]
