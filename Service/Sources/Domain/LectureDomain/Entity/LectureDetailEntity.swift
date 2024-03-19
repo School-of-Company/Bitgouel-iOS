@@ -7,9 +7,9 @@ public struct LectureDetailEntity: Equatable {
     public let division: DivisionType
     public let department: String
     public let line: String
-    public let createAt: String
-    public let startDate: String
-    public let endDate: String
+    public let createAt: Date
+    public let startDate: Date
+    public let endDate: Date
     public let lectureDates: [LectureDateEntity]
     public let lectureType: LectureType
     public let lectureStatus: LectureStatusType
@@ -26,9 +26,9 @@ public struct LectureDetailEntity: Equatable {
         division: DivisionType,
         department: String,
         line: String,
-        createAt: String,
-        startDate: String,
-        endDate: String,
+        createAt: Date,
+        startDate: Date,
+        endDate: Date,
         lectureDates: [LectureDateEntity],
         lectureType: LectureType,
         lectureStatus: LectureStatusType,
@@ -59,12 +59,12 @@ public struct LectureDetailEntity: Equatable {
 }
 
 public struct LectureDateEntity: Equatable {
-    public let completeDate: String
+    public let completeDate: Date
     public let startTime: String
     public let endTime: String
 
     public init(
-        completeDate: String,
+        completeDate: Date,
         startTime: String,
         endTime: String
     ) {

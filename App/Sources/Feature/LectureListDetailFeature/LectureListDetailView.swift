@@ -10,58 +10,60 @@ struct LectureListDetailView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack(spacing: 4) {
-                    HStack {
-                        Text("# \(viewModel.lectureDetail?.lectureType.display() ?? "")")
-                            .bitgouelFont(.caption, color: .primary(.p3))
-
-                        Spacer()
-                    }
-
-                    Text("\(viewModel.lectureDetail?.name ?? "")")
-                    .bitgouelFont(.text1, color: .greyscale(.g0))
-                    .lineSpacing(5)
-
-                    HStack {
-                        Text("\(viewModel.lectureDetail?.startDate ?? "") ~ \(viewModel.lectureDetail?.endDate ?? "")")
-
-                        Spacer()
-
-                        Text("\(viewModel.lectureDetail?.headCount ?? 0)/\(viewModel.lectureDetail?.maxRegisteredUser ?? 0)명")
-                    }
-                    .bitgouelFont(.text3, color: .primary(.p5))
-
-                    HStack(spacing: 4) {
-                        Spacer()
+                if let lectureDetail = viewModel.lectureDetail {
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text("# \(lectureDetail.lectureType.display())")
+                                .bitgouelFont(.caption, color: .primary(.p3))
+                            
+                            Spacer()
+                        }
                         
-                        Text("학점")
-
-                        Text("\(viewModel.lectureDetail?.credit ?? 0)점")
-
-                        Text("부여")
+                        Text("\(lectureDetail.name)")
+                            .bitgouelFont(.text1, color: .greyscale(.g0))
+                            .lineSpacing(5)
+                        
+                        HStack {
+                            Text("\(lectureDetail.startDate.toStringCustomFormat(format: "yyyy.M.d")) ~ \(lectureDetail.endDate.toStringCustomFormat(format: "yyyy.M.d"))")
+                            
+                            Spacer()
+                            
+                            Text("\(lectureDetail.headCount)/\(lectureDetail.maxRegisteredUser)명")
+                        }
+                        .bitgouelFont(.text3, color: .primary(.p5))
+                        
+                        HStack(spacing: 4) {
+                            Spacer()
+                            
+                            Text("학점")
+                            
+                            Text("\(lectureDetail.credit)점")
+                            
+                            Text("부여")
+                        }
+                        .bitgouelFont(.caption, color: .greyscale(.g4))
+                        
+                        HStack(spacing: 4) {
+                            Text(lectureDetail.createAt.toStringCustomFormat(format: "yyyy.M.d"))
+                            
+                            Text("에 게시")
+                            
+                            Spacer()
+                            
+                            Text(lectureDetail.lecturer)
+                            
+                            Text("교수님")
+                        }
+                        .bitgouelFont(.caption, color: .greyscale(.g7))
+                        
+                        Text(lectureDetail.content)
+                            .bitgouelFont(.text3)
+                            .lineSpacing(10)
+                            .padding(.top, 20)
                     }
-                    .bitgouelFont(.caption, color: .greyscale(.g4))
-
-                    HStack(spacing: 4) {
-                        Text(viewModel.lectureDetail?.createAt ?? "")
-
-                        Text("에 게시")
-
-                        Spacer()
-
-                        Text(viewModel.lectureDetail?.lecturer ?? "")
-
-                        Text("교수님")
-                    }
-                    .bitgouelFont(.caption, color: .greyscale(.g7))
-
-                    Text(viewModel.lectureDetail?.content ?? "")
-                    .bitgouelFont(.text3)
-                    .lineSpacing(10)
-                    .padding(.top, 20)
+                    .padding(.top, 24)
+                    .padding(.horizontal, 28)
                 }
-                .padding(.top, 24)
-                .padding(.horizontal, 28)
             }
             .onAppear {
                 viewModel.onAppear()

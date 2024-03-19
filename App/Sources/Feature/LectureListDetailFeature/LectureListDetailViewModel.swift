@@ -23,7 +23,8 @@ final class LectureListDetailViewModel: BaseViewModel {
         self.applyLectureUseCase = applyLectureUseCase
         self.cancelLectureUseCase = cancelLectureUseCase
     }
-    
+
+    @MainActor
     func onAppear() {
         Task {
             do {

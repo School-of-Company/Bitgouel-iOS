@@ -8,8 +8,8 @@ public struct LectureListEntity: Equatable {
     public let division: DivisionType
     public let department: String
     public let line: String
-    public let startDate: String
-    public let endDate: String
+    public let startDate: Date
+    public let endDate: Date
     public let lectureType: LectureType
     public let lectureStatus: LectureStatusType
     public let headCount: Int
@@ -24,8 +24,8 @@ public struct LectureListEntity: Equatable {
         division: DivisionType,
         department: String,
         line: String,
-        startDate: String,
-        endDate: String,
+        startDate: Date,
+        endDate: Date,
         lectureType: LectureType,
         lectureStatus: LectureStatusType,
         headCount: Int,
@@ -46,5 +46,13 @@ public struct LectureListEntity: Equatable {
         self.headCount = headCount
         self.maxRegisteredUser = maxRegisteredUser
         self.lecturer = lecturer
+    }
+}
+
+public struct LectureContentEntity: Equatable {
+    public let content: [LectureListEntity]
+    
+    public init(content: [LectureListEntity]) {
+        self.content = content
     }
 }

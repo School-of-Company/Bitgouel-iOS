@@ -5,9 +5,12 @@ final class LectureListViewModel: BaseViewModel {
     @Published var selectedLectureType: String = ""
     @Published var filteredLectureList: [LectureType] = []
     @Published var isNavigateLectureDetailDidTap = false
-    @Published var lectureList: [LectureListEntity]?
-    
-    var model: LectureListModel
+    @Published var authority: UserAuthorityType = .user
+    @Published var lectureList: LectureContentEntity?
+    @Published var selectedLectureID: String?
+    @Published var isPresentedLectureDetailView: Bool = false
+    @Published var type: LectureType?
+
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
     private let lectureListDetailFactory: any LectureListDetailFactory
     private let fetchLectureListUseCase: any FetchLectureListUseCase
@@ -15,40 +18,50 @@ final class LectureListViewModel: BaseViewModel {
     let approveStatusType: [ApproveStatusType] = ApproveStatusType.allCases
     
     init(
-        model: LectureListModel,
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
         lectureListDetailFactory: any LectureListDetailFactory,
         fetchLectureListUseCase: any FetchLectureListUseCase
     ) {
-        self.model = model
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
         self.lectureListDetailFactory = lectureListDetailFactory
         self.fetchLectureListUseCase = fetchLectureListUseCase
     }
+
+    func updateType(lectureType: String) {
+        switch lectureType {
+        case "상호학점인정교육과정": 
+            return type = .mutualCreditRecognitionProgram
+        case "대학탐방프로그램":
+            return type = .universityExplorationProgram
+        default:
+            return type = nil
+        }
+    }
+
+    func updateContent(entity: LectureContentEntity) {
+        self.lectureList = entity
+    }
     
+    func updateSelectedLectureID(lectureID: String) {
+        self.selectedLectureID = lectureID
+    }
+
     @MainActor
     func onAppear() {
-        let authority = loadUserAuthorityUseCase()
-        model.updateUserRole(authority: authority)
+        authority = loadUserAuthorityUseCase()
         
         Task {
             do {
-                lectureList = try await fetchLectureListUseCase(type: selectedLectureType)
-                model.updateContent(entity: lectureList ?? [])
+                let response = try await fetchLectureListUseCase(type: type?.rawValue ?? "")
+                updateContent(entity: response)
             } catch {
-                print(error.localizedDescription)
+                print(String(describing: error))
             }
         }
     }
-    
-    @MainActor
-    func lectureDidSelect(lectureID: String) {
-        model.updateSelectedLectureID(lectureID: lectureID)
-    }
-    
-    @MainActor
-    func lectureDetailPageDismissed() {
-        model.isPresentedLectureDetailPage = false
+
+    func updateIsPresentedLectureDetailView(isPresented: Bool) {
+        isPresentedLectureDetailView = isPresented
     }
 
     func filteredLectureType(_ filterType: LectureType) {

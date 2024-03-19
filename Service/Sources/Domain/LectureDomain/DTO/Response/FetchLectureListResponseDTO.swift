@@ -1,12 +1,20 @@
 import Foundation
 
 public struct FetchLectureListResponseDTO: Decodable {
-    public let lectures: [LectureInfo]
+    public let lectures: LectureContent
 
     public init(
-        lectures: [LectureInfo]
+        lectures: LectureContent
     ) {
         self.lectures = lectures
+    }
+
+    public struct LectureContent: Decodable {
+        public let content: [LectureInfo]
+        
+        public init(content: [LectureInfo]) {
+            self.content = content
+        }
     }
 
     public struct LectureInfo: Decodable {
@@ -77,8 +85,14 @@ public struct FetchLectureListResponseDTO: Decodable {
 }
 
 extension FetchLectureListResponseDTO {
+    func toDomain() -> LectureContentEntity {
+        LectureContentEntity(content: lectures.toDomain())
+    }
+}
+
+extension FetchLectureListResponseDTO.LectureContent {
     func toDomain() -> [LectureListEntity] {
-        lectures.map { $0.toDomain() }
+        content.map { $0.toDomain() }
     }
 }
 
@@ -92,8 +106,8 @@ extension FetchLectureListResponseDTO.LectureInfo {
             division: division,
             department: department,
             line: line,
-            startDate: startDate,
-            endDate: endDate,
+            startDate: startDate.toDateCustomFormat(format: "yyyy-MM-dd'T'HH:mm:ss"),
+            endDate: endDate.toDateCustomFormat(format: "yyyy-MM-dd'T'HH:mm:ss"),
             lectureType: lectureType,
             lectureStatus: lectureStatus,
             headCount: headCount,
