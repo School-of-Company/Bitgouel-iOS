@@ -36,7 +36,7 @@ struct AdminRequestUserSignupView: View {
                         buttonText: "선택 거절",
                         foregroundColor: .bitgouel(.error(.e5))
                     ) {
-                        viewModel.isReject = true
+                        viewModel.isShowingRejectAlert = true
                     }
                 }
                 .padding(.top, 24)
@@ -104,10 +104,10 @@ struct AdminRequestUserSignupView: View {
             .bitgouelAlert(
                 title: "가입을 거절 하시겠습니까?",
                 description: "",
-                isShowing: $viewModel.isReject,
+                isShowing: $viewModel.isShowingRejectAlert,
                 alertActions: [
                     .init(text: "취소", style: .cancel) {
-                        viewModel.isReject = false
+                        viewModel.isShowingRejectAlert = false
                     },
                     .init(text: "거절", style: .error) {}
                 ]
