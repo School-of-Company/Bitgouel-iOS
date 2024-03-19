@@ -7,13 +7,13 @@ struct AdminRequestUserSignupView: View {
     private let adminWithdrawUserListFactory: any AdminWithdrawUserListFactory
     
     init(
+        viewModel: AdminRequestUserSignupViewModel
         adminUserListFactory: any AdminUserListFactory,
         adminWithdrawUserListFactory: any AdminWithdrawUserListFactory,
-        viewModel: AdminRequestUserSignupViewModel
     ) {
+        _viewModel = StateObject(wrappedValue: viewModel)
         self.adminUserListFactory = adminUserListFactory
         self.adminWithdrawUserListFactory = adminWithdrawUserListFactory
-        _viewModel = StateObject(wrappedValue: viewModel)
     }
     
     var body: some View {
