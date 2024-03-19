@@ -7,11 +7,11 @@ final class AdminRequestUserSignupViewModel: BaseViewModel {
     @Published var isNavigateUserListDidTap = false
     @Published var isNavigateWithdrawListDidTap = false
     
-    private let adminUserListFactory: any adminUserListFactory
+    private let adminUserListFactory: any AdminUserListFactory
     private let adminWithdrawUserListFactory: any AdminWithdrawUserListFactory
     
     init(
-        adminUserListFactory: any adminUserListFactory,
+        adminUserListFactory: any AdminUserListFactory,
         adminWithdrawUserListFactory: any AdminWithdrawUserListFactory
     ) {
         self.adminUserListFactory = adminUserListFactory

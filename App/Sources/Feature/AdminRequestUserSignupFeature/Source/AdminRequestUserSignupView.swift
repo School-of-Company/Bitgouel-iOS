@@ -7,9 +7,9 @@ struct AdminRequestUserSignupView: View {
     private let adminWithdrawUserListFactory: any AdminWithdrawUserListFactory
     
     init(
-        viewModel: AdminRequestUserSignupViewModel
+        viewModel: AdminRequestUserSignupViewModel,
         adminUserListFactory: any AdminUserListFactory,
-        adminWithdrawUserListFactory: any AdminWithdrawUserListFactory,
+        adminWithdrawUserListFactory: any AdminWithdrawUserListFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.adminUserListFactory = adminUserListFactory
@@ -28,13 +28,17 @@ struct AdminRequestUserSignupView: View {
                     Spacer()
                     
                     BitgouelAsset.Icons.people.swiftUIImage
-                        .onTapGesture {
-                            viewModel.isNavigateUserListDidTap = true
+                        .buttonWrapper {
+                            withAnimation {
+                                viewModel.isNavigateUserListDidTap = true
+                            }
                         }
                     
                     BitgouelAsset.Icons.minusFill.swiftUIImage
-                        .onTapGesture {
-                            viewModel.isNavigateWithdrawListDidTap = true
+                        .buttonWrapper {
+                            withAnimation {
+                                viewModel.isNavigateWithdrawListDidTap = true
+                            }
                         }
                 }
                 

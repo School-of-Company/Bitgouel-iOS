@@ -29,13 +29,17 @@ struct AdminWithdrawUserListView: View {
                     Spacer()
                     
                     BitgouelAsset.Icons.people.swiftUIImage
-                        .onTapGesture {
-                            viewModel.isNavigateUserListDidTap = true
+                        .buttonWrapper {
+                            withAnimation {
+                                viewModel.isNavigateUserListDidTap = true
+                            }
                         }
                     
                     BitgouelAsset.Icons.addFill.swiftUIImage
-                        .onTapGesture {
-                            viewModel.isNavigateRequestSignUpDidTap = true
+                        .buttonWrapper {
+                            withAnimation {
+                                viewModel.isNavigateRequestSignUpDidTap = true
+                            }
                         }
                 }
                 
