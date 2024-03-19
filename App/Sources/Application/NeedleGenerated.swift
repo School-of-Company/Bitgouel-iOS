@@ -191,6 +191,9 @@ private func factory24d19202afbef2333be9e3b0c44298fc1c149afb(_ component: Needle
     return NoticeDetailSettingDependencye2c86b5d9ab8fbf629c4Provider()
 }
 private class MyPageDependency48d84b530313b3ee40feProvider: MyPageDependency {
+    var changePasswordFactory: any ChangePasswordFactory {
+        return appComponent.changePasswordFactory
+    }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
         return appComponent.loadUserAuthorityUseCase
     }
@@ -316,6 +319,17 @@ private class PostListDependencye041dce90a2be61e7af5Provider: PostListDependency
 /// ^->AppComponent->PostListComponent
 private func factory0c89e2bbcc02dbcac018f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return PostListDependencye041dce90a2be61e7af5Provider(appComponent: parent1(component) as! AppComponent)
+}
+private class ChangePasswordDependency04ab7ced24136c4fb27eProvider: ChangePasswordDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->ChangePasswordComponent
+private func factoryab7c4d87dab53e0a51b9e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return ChangePasswordDependency04ab7ced24136c4fb27eProvider()
 }
 private class ClubdetailDependency09c03e1ee67d1fbecba1Provider: ClubdetailDependency {
     var certificationListFactory: any CertificationListFactory {
@@ -681,6 +695,7 @@ extension NoticeDetailSettingComponent: Registration {
 }
 extension MyPageComponent: Registration {
     public func registerItems() {
+        keyPathToName[\MyPageDependency.changePasswordFactory] = "changePasswordFactory-any ChangePasswordFactory"
         keyPathToName[\MyPageDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
         keyPathToName[\MyPageDependency.fetchMyInfoUseCase] = "fetchMyInfoUseCase-any FetchMyInfoUseCase"
         keyPathToName[\MyPageDependency.logoutUseCase] = "logoutUseCase-any LogoutUseCase"
@@ -724,6 +739,11 @@ extension PostListComponent: Registration {
         keyPathToName[\PostListDependency.postDetailFactory] = "postDetailFactory-any PostDetailFactory"
         keyPathToName[\PostListDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
         keyPathToName[\PostListDependency.queryPostListUseCase] = "queryPostListUseCase-any QueryPostListUseCase"
+    }
+}
+extension ChangePasswordComponent: Registration {
+    public func registerItems() {
+
     }
 }
 extension ClubDetailComponent: Registration {
@@ -936,6 +956,7 @@ extension AppComponent: Registration {
         localTable["inputInquiryFactory-any InputInquiryFactory"] = { [unowned self] in self.inputInquiryFactory as Any }
         localTable["inquiryDetailFactory-any InquiryDetailFactory"] = { [unowned self] in self.inquiryDetailFactory as Any }
         localTable["writeInquiryAnswerFactory-any WriteInquiryAnswerFactory"] = { [unowned self] in self.writeInquiryAnswerFactory as Any }
+        localTable["changePasswordFactory-any ChangePasswordFactory"] = { [unowned self] in self.changePasswordFactory as Any }
         localTable["remoteWithdrawDataSource-any RemoteWithdrawDataSource"] = { [unowned self] in self.remoteWithdrawDataSource as Any }
         localTable["withdrawRepository-any WithdrawRepository"] = { [unowned self] in self.withdrawRepository as Any }
         localTable["fetchWithdrawUserListUseCase-any FetchWithdrawUserListUseCase"] = { [unowned self] in self.fetchWithdrawUserListUseCase as Any }
@@ -978,6 +999,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->MainComponent", factoryc9274e46e78e70f29c54e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->RootComponent", factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->PostListComponent", factory0c89e2bbcc02dbcac018f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->ChangePasswordComponent", factoryab7c4d87dab53e0a51b9e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->ClubDetailComponent", factory1559652f8e80cfa88d06f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->SuccessSignUpComponent", factorybf219b153b668170161df47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->CertificationListComponent", factoryc231b853779286e489fbf47b58f8f304c97af4d5)
