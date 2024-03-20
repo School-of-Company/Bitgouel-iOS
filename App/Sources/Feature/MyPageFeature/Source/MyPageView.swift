@@ -3,11 +3,16 @@ import SwiftUI
 struct MyPageView: View {
     @StateObject var viewModel: MyPageViewModel
     @EnvironmentObject var sceneState: SceneState
+    @Environment(\.tabbarHidden) var tabbarHidden
+
+    private let changePasswordFactory: any ChangePasswordFactory
 
     init(
-        viewModel: MyPageViewModel
+        viewModel: MyPageViewModel,
+        changePasswordFactory: any ChangePasswordFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
+        self.changePasswordFactory = changePasswordFactory
     }
     
     var body: some View {
@@ -93,7 +98,9 @@ struct MyPageView: View {
                                 font: .text1
                             )
 
-                            Button {} label: {
+                            Button {
+                                viewModel.updateIsPresentedChangePasswordView(isPresented: true)
+                            } label: {
                                 BitgouelText(
                                     text: "비밀번호 변경",
                                     font: .text3
@@ -137,6 +144,18 @@ struct MyPageView: View {
             }
             .navigationTitle("내 정보")
             .padding(.horizontal, 28)
+            .navigate(
+                to: changePasswordFactory.makeView().eraseToAnyView(),
+                when: Binding(
+                    get: { viewModel.isPresentedChangePasswordView },
+                    set: { isPresented in
+                        viewModel.updateIsPresentedChangePasswordView(isPresented: isPresented)
+                    }
+                )
+            )
+            .onChange(of: viewModel.isPresentedChangePasswordView) { newValue in
+                tabbarHidden.wrappedValue = newValue
+            }
             .bitgouelAlert(
                 title: "회원 탈퇴하시겠습니까?",
                 description: "회원 탈퇴하면 계정을 복구할 수 없으며,\n    회원가입을 다시 진행해야 합니다!",

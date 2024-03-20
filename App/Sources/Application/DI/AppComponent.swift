@@ -134,7 +134,11 @@ public extension AppComponent {
     var writeInquiryAnswerFactory: any WriteInquiryAnswerFactory {
         WriteInquiryAnswerComponent(parent: self)
     }
-    
+
+    var changePasswordFactory: any ChangePasswordFactory {
+        ChangePasswordComponent(parent: self)
+    }
+
     var adminUserListFactory: any AdminUserListFactory {
         AdminUserListComponent(parent: self)
     }

@@ -3,6 +3,7 @@ import SwiftUI
 import Service
 
 public protocol MyPageDependency: Dependency {
+    var changePasswordFactory: any ChangePasswordFactory { get }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase { get }
     var fetchMyInfoUseCase: any FetchMyInfoUseCase { get }
     var logoutUseCase: any LogoutUseCase { get }
@@ -17,7 +18,8 @@ public final class MyPageComponent: Component<MyPageDependency>, MyPageFactory {
                 fetchMyInfoUseCase: dependency.fetchMyInfoUseCase,
                 logoutUseCase: dependency.logoutUseCase,
                 withdrawalUseCase: dependency.withdrawalUseCase
-            )
+            ),
+            changePasswordFactory: dependency.changePasswordFactory
         )
     }
 }
