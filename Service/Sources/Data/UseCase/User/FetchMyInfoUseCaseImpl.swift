@@ -1,6 +1,6 @@
 import Foundation
 
-public struct QueryMyInfoUseCaseImpl: QueryMyInfoUseCase {
+public struct FetchMyInfoUseCaseImpl: FetchMyInfoUseCase {
     private let userRepository: any UserRepository
 
     public init(userRepository: any UserRepository) {
@@ -8,6 +8,6 @@ public struct QueryMyInfoUseCaseImpl: QueryMyInfoUseCase {
     }
 
     public func callAsFunction() async throws -> MyInfoEntity {
-        try await userRepository.queryMyInfo()
+        try await userRepository.fetchMyInfo()
     }
 }
