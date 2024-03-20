@@ -150,4 +150,8 @@ public extension AppComponent {
     var adminWithdrawUserListFactory: any AdminWithdrawUserListFactory {
         AdminWithdrawUserListComponent(parent: self)
     }
+
+    var successChangePasswordFactory: any SuccessChangePasswordFactory {
+        SuccessChangePasswordComponent(parent: self)
+    }
 }

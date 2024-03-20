@@ -3,6 +3,7 @@ import SwiftUI
 import Service
 
 public protocol ChangePasswordDependency: Dependency {
+    var successChangePasswordFactory: any SuccessChangePasswordFactory { get }
     var changePasswordUseCase: any ChangePasswordUseCase { get }
 }
 
@@ -11,7 +12,8 @@ public final class ChangePasswordComponent: Component<ChangePasswordDependency>,
         ChangePasswordView(
             viewModel: .init(
                 changePasswordUseCase: dependency.changePasswordUseCase
-            )
+            ),
+            successChangePasswordFactory: dependency.successChangePasswordFactory
         )
     }
 }

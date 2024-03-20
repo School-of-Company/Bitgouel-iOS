@@ -3,8 +3,14 @@ import SwiftUI
 struct ChangePasswordView: View {
     @StateObject var viewModel: ChangePasswordViewModel
 
-    init(viewModel: ChangePasswordViewModel) {
+    private let successChangePasswordFactory: any SuccessChangePasswordFactory
+
+    init(
+        viewModel: ChangePasswordViewModel,
+        successChangePasswordFactory: any SuccessChangePasswordFactory
+    ) {
         _viewModel = StateObject(wrappedValue: viewModel)
+        self.successChangePasswordFactory = successChangePasswordFactory
     }
 
     var body: some View {
@@ -56,6 +62,15 @@ struct ChangePasswordView: View {
             }
         }
         .padding(.horizontal, 28)
+        .navigate(
+            to: successChangePasswordFactory.makeView().eraseToAnyView(),
+            when: Binding(
+                get: { viewModel.isPresentedSuccessView },
+                set: { isPresented in
+                    viewModel.updateIsPresentedSuccessView(isPresented: isPresented)
+                }
+            )
+        )
         .bitgouelToast(
             text: viewModel.errorMessage,
             isShowing: Binding(
