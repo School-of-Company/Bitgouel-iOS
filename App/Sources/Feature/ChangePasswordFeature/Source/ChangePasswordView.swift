@@ -45,16 +45,23 @@ struct ChangePasswordView: View {
                         set: { newValue in viewModel.checkNewPassword = newValue }
                     )
                 )
+                
+                Spacer()
+                
+                BitgouelButton(
+                    text: "비밀번호 변경",
+                    style: .primary) {
+                        viewModel.changePasswordButtonDidTap()
+                    }
             }
-            
-            Spacer()
-            
-            BitgouelButton(
-                text: "비밀번호 변경",
-                style: .primary) {
-                    viewModel.changePasswordButtonDidTap()
-                }
         }
         .padding(.horizontal, 28)
+        .bitgouelToast(
+            text: viewModel.errorMessage,
+            isShowing: Binding(
+                get: { viewModel.isShowingToast },
+                set: { newValue in viewModel.isShowingToast = newValue }
+            )
+        )
     }
 }
