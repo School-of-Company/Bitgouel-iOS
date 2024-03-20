@@ -6,13 +6,16 @@ struct MyPageView: View {
     @Environment(\.tabbarHidden) var tabbarHidden
 
     private let changePasswordFactory: any ChangePasswordFactory
+    private let adminUserListFactory: any AdminUserListFactory
 
     init(
         viewModel: MyPageViewModel,
-        changePasswordFactory: any ChangePasswordFactory
+        changePasswordFactory: any ChangePasswordFactory,
+        adminUserListFactory: any AdminUserListFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.changePasswordFactory = changePasswordFactory
+        self.adminUserListFactory = adminUserListFactory
     }
     
     var body: some View {
@@ -156,6 +159,15 @@ struct MyPageView: View {
             .onChange(of: viewModel.isPresentedChangePasswordView) { newValue in
                 tabbarHidden.wrappedValue = newValue
             }
+            .navigate(
+                to: adminUserListFactory.makeView().eraseToAnyView(),
+                when: Binding(
+                    get: { viewModel.isPresentedAdminUserListView },
+                    set: { isPresented in
+                        viewModel.updateIsPresentedAdminUserListView(isPresented: isPresented)
+                    }
+                )
+            )
             .bitgouelAlert(
                 title: "회원 탈퇴하시겠습니까?",
                 description: "회원 탈퇴하면 계정을 복구할 수 없으며,\n    회원가입을 다시 진행해야 합니다!",
@@ -212,7 +224,7 @@ struct MyPageView: View {
     @ViewBuilder
     func adminUserListButton() -> some View {
         Button {
-            
+            viewModel.updateIsPresentedAdminUserListView(isPresented: true)
         } label: {
             BitgouelText(
                text: "사용자 명단 관리하기",

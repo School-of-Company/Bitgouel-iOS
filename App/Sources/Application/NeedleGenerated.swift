@@ -210,6 +210,9 @@ private class MyPageDependency48d84b530313b3ee40feProvider: MyPageDependency {
     var changePasswordFactory: any ChangePasswordFactory {
         return appComponent.changePasswordFactory
     }
+    var adminUserListFactory: any AdminUserListFactory {
+        return appComponent.adminUserListFactory
+    }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
         return appComponent.loadUserAuthorityUseCase
     }
@@ -752,6 +755,7 @@ extension NoticeDetailSettingComponent: Registration {
 extension MyPageComponent: Registration {
     public func registerItems() {
         keyPathToName[\MyPageDependency.changePasswordFactory] = "changePasswordFactory-any ChangePasswordFactory"
+        keyPathToName[\MyPageDependency.adminUserListFactory] = "adminUserListFactory-any AdminUserListFactory"
         keyPathToName[\MyPageDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
         keyPathToName[\MyPageDependency.fetchMyInfoUseCase] = "fetchMyInfoUseCase-any FetchMyInfoUseCase"
         keyPathToName[\MyPageDependency.logoutUseCase] = "logoutUseCase-any LogoutUseCase"
