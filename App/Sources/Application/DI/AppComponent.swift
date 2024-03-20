@@ -138,4 +138,8 @@ public extension AppComponent {
     var changePasswordFactory: any ChangePasswordFactory {
         ChangePasswordComponent(parent: self)
     }
+
+    var successChangePasswordFactory: any SuccessChangePasswordFactory {
+        SuccessChangePasswordComponent(parent: self)
+    }
 }

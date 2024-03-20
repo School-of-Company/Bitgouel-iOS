@@ -321,6 +321,9 @@ private func factory0c89e2bbcc02dbcac018f47b58f8f304c97af4d5(_ component: Needle
     return PostListDependencye041dce90a2be61e7af5Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class ChangePasswordDependency04ab7ced24136c4fb27eProvider: ChangePasswordDependency {
+    var successChangePasswordFactory: any SuccessChangePasswordFactory {
+        return appComponent.successChangePasswordFactory
+    }
     var changePasswordUseCase: any ChangePasswordUseCase {
         return appComponent.changePasswordUseCase
     }
@@ -427,6 +430,19 @@ private class PostDetailDependencycf431278832ae8226535Provider: PostDetailDepend
 /// ^->AppComponent->PostDetailComponent
 private func factorybc555a73df3767a26999f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return PostDetailDependencycf431278832ae8226535Provider(appComponent: parent1(component) as! AppComponent)
+}
+private class SuccessChangePasswordDependency05dde412f91beb4c3b8dProvider: SuccessChangePasswordDependency {
+    var myPageFactory: any MyPageFactory {
+        return appComponent.myPageFactory
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->SuccessChangePasswordComponent
+private func factoryde3552d9e0f793ec8b8df47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return SuccessChangePasswordDependency05dde412f91beb4c3b8dProvider(appComponent: parent1(component) as! AppComponent)
 }
 private class InquiryListDependencyec75a7335a50ded93b28Provider: InquiryListDependency {
     var inputInquiryFactory: any InputInquiryFactory {
@@ -745,6 +761,7 @@ extension PostListComponent: Registration {
 }
 extension ChangePasswordComponent: Registration {
     public func registerItems() {
+        keyPathToName[\ChangePasswordDependency.successChangePasswordFactory] = "successChangePasswordFactory-any SuccessChangePasswordFactory"
         keyPathToName[\ChangePasswordDependency.changePasswordUseCase] = "changePasswordUseCase-any ChangePasswordUseCase"
     }
 }
@@ -781,6 +798,11 @@ extension PostDetailComponent: Registration {
         keyPathToName[\PostDetailDependency.editPostFactory] = "editPostFactory-any EditPostFactory"
         keyPathToName[\PostDetailDependency.queryPostDetailUseCase] = "queryPostDetailUseCase-any QueryPostDetailUseCase"
         keyPathToName[\PostDetailDependency.deletePostUseCase] = "deletePostUseCase-any DeletePostUseCase"
+    }
+}
+extension SuccessChangePasswordComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\SuccessChangePasswordDependency.myPageFactory] = "myPageFactory-any MyPageFactory"
     }
 }
 extension InquiryListComponent: Registration {
@@ -959,6 +981,7 @@ extension AppComponent: Registration {
         localTable["inquiryDetailFactory-any InquiryDetailFactory"] = { [unowned self] in self.inquiryDetailFactory as Any }
         localTable["writeInquiryAnswerFactory-any WriteInquiryAnswerFactory"] = { [unowned self] in self.writeInquiryAnswerFactory as Any }
         localTable["changePasswordFactory-any ChangePasswordFactory"] = { [unowned self] in self.changePasswordFactory as Any }
+        localTable["successChangePasswordFactory-any SuccessChangePasswordFactory"] = { [unowned self] in self.successChangePasswordFactory as Any }
         localTable["remoteWithdrawDataSource-any RemoteWithdrawDataSource"] = { [unowned self] in self.remoteWithdrawDataSource as Any }
         localTable["withdrawRepository-any WithdrawRepository"] = { [unowned self] in self.withdrawRepository as Any }
         localTable["fetchWithdrawUserListUseCase-any FetchWithdrawUserListUseCase"] = { [unowned self] in self.fetchWithdrawUserListUseCase as Any }
@@ -1007,6 +1030,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->CertificationListComponent", factoryc231b853779286e489fbf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->WriteInquiryAnswerComponent", factory3d4cadf14cd9a3336981f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->PostDetailComponent", factorybc555a73df3767a26999f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->SuccessChangePasswordComponent", factoryde3552d9e0f793ec8b8df47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InquiryListComponent", factorydd7e28250a180554c7a0f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->EditPostComponent", factoryf55a9d7f6c1ed8d0f0aef47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ActivityListComponent", factory7177e6769ee69064a61bf47b58f8f304c97af4d5)
