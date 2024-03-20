@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct SuccessChangePasswordView: View {
+    @EnvironmentObject var sceneState: SceneState
     private let myPageFactory: any MyPageFactory
 
     init(
@@ -26,6 +27,7 @@ struct SuccessChangePasswordView: View {
             BitgouelButton(
                 text: "돌아가기",
                 action: {
+                    sceneState.sceneFlow = .login
                 }
             )
             .cornerRadius(8)
