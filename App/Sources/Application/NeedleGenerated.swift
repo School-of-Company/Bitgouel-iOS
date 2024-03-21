@@ -94,6 +94,9 @@ private class AdminUserListDependency44bf9c85ea93b1b98debProvider: AdminUserList
     var adminWithdrawUserListFactory: any AdminWithdrawUserListFactory {
         return appComponent.adminWithdrawUserListFactory
     }
+    var fetchUserListUseCase: any FetchUserListUseCase {
+        return appComponent.fetchUserListUseCase
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -711,6 +714,7 @@ extension AdminUserListComponent: Registration {
     public func registerItems() {
         keyPathToName[\AdminUserListDependency.adminRequestUserSignupFactory] = "adminRequestUserSignupFactory-any AdminRequestUserSignupFactory"
         keyPathToName[\AdminUserListDependency.adminWithdrawUserListFactory] = "adminWithdrawUserListFactory-any AdminWithdrawUserListFactory"
+        keyPathToName[\AdminUserListDependency.fetchUserListUseCase] = "fetchUserListUseCase-any FetchUserListUseCase"
     }
 }
 extension NoticeListComponent: Registration {

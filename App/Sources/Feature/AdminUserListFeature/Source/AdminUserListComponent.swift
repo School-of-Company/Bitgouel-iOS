@@ -5,6 +5,7 @@ import SwiftUI
 public protocol AdminUserListDependency: Dependency {
     var adminRequestUserSignupFactory: any AdminRequestUserSignupFactory { get }
     var adminWithdrawUserListFactory: any AdminWithdrawUserListFactory { get }
+    var fetchUserListUseCase: any FetchUserListUseCase { get }
 }
 
 public final class AdminUserListComponent: Component<AdminUserListDependency>, AdminUserListFactory {
@@ -12,8 +13,7 @@ public final class AdminUserListComponent: Component<AdminUserListDependency>, A
     public func makeView() -> some View {
         AdminUserListView(
             viewModel: .init(
-                adminWithdrawUserListFactory: dependency.adminWithdrawUserListFactory,
-                adminRequestUserSignupFactory: dependency.adminRequestUserSignupFactory
+                fetchUserListUseCase: dependency.fetchUserListUseCase
             ),
             adminWithdrawUserListFactory: dependency.adminWithdrawUserListFactory,
             adminRequestUserSignupFactory: dependency.adminRequestUserSignupFactory

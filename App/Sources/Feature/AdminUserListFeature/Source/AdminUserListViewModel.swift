@@ -2,29 +2,43 @@ import Foundation
 import Service
 
 final class AdminUserListViewModel: BaseViewModel {
-    @Published var searchName = ""
+    @Published var keyword = ""
     @Published var isSelectedUserList = false
     @Published var isPresentedUserTypeFilter: Bool = false
     @Published var isNavigateRequestSignUpDidTap = false
     @Published var isNavigateWithdrawListDidTap = false
-    @Published var selectedAuthority: AdminUserListAuthorityType = .admin
-    
-    private let adminWithdrawUserListFactory: any AdminWithdrawUserListFactory
-    private let adminRequestUserSignupFactory: any AdminRequestUserSignupFactory
+    @Published var selectedAuthority: AdminUserListAuthorityType?
+    @Published var userList: [UserInfoEntity] = []
+
+    private let fetchUserListUseCase: any FetchUserListUseCase
+
     var userAuthorityType: [AdminUserListAuthorityType] = AdminUserListAuthorityType.allCases
     
     init(
-        adminWithdrawUserListFactory: any AdminWithdrawUserListFactory,
-        adminRequestUserSignupFactory: any AdminRequestUserSignupFactory
+        fetchUserListUseCase: any FetchUserListUseCase
     ) {
-        self.adminWithdrawUserListFactory = adminWithdrawUserListFactory
-        self.adminRequestUserSignupFactory = adminRequestUserSignupFactory
+        self.fetchUserListUseCase = fetchUserListUseCase
     }
     
     func updateIsPresentedUserTypeFilter(isPresented: Bool) {
         isPresentedUserTypeFilter = isPresented
     }
-    
+
+    @MainActor
+    func onAppear() {
+        Task {
+            do {
+                userList = try await fetchUserListUseCase(
+                    keyword: keyword,
+                    authority: selectedAuthority?.rawValue ?? "",
+                    approveStatus: ""
+                )
+            } catch {
+                print(String(describing: error))
+            }
+        }
+    }
+
     @MainActor
     func requestSignUpPageDismissed() {
         isNavigateRequestSignUpDidTap = false
