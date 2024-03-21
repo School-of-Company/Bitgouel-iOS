@@ -1,21 +1,40 @@
 import Foundation
+import Service
 
 final class AdminRequestUserSignupViewModel: BaseViewModel {
     @Published var isShowingApproveAlert: Bool = false
     @Published var isShowingRejectAlert: Bool = false
-    @Published var isSelectedUserList = false
-    @Published var isNavigateUserListDidTap = false
-    @Published var isNavigateWithdrawListDidTap = false
-    
-    private let adminUserListFactory: any AdminUserListFactory
-    private let adminWithdrawUserListFactory: any AdminWithdrawUserListFactory
+    @Published var isSelectedUserList: Bool = false
+    @Published var isNavigateUserListDidTap: Bool = false
+    @Published var isNavigateWithdrawListDidTap: Bool = false
+    @Published var userList: [UserInfoEntity] = []
+
+    let approveStatus: ApproveStatusType = .pending
+    private let fetchUserListUseCase: any FetchUserListUseCase
+    private let approveUserSignupUseCase: any ApproveUserSignupUseCase
+    private let rejectUserSignupUseCase: any RejectUserSignupUseCase
     
     init(
-        adminUserListFactory: any AdminUserListFactory,
-        adminWithdrawUserListFactory: any AdminWithdrawUserListFactory
+        fetchUserListUseCase: any FetchUserListUseCase,
+        approveUserSignupUseCase: any ApproveUserSignupUseCase,
+        rejectUserSignupUseCase: any RejectUserSignupUseCase
     ) {
-        self.adminUserListFactory = adminUserListFactory
-        self.adminWithdrawUserListFactory = adminWithdrawUserListFactory
+        self.fetchUserListUseCase = fetchUserListUseCase
+        self.approveUserSignupUseCase = approveUserSignupUseCase
+        self.rejectUserSignupUseCase = rejectUserSignupUseCase
+    }
+
+    @MainActor
+    func onAppear() {
+        Task {
+            do {
+                userList = try await fetchUserListUseCase(
+                    keyword: "",
+                    authority: "",
+                    approveStatus: approveStatus.rawValue
+                )
+            }
+        }
     }
     
     @MainActor

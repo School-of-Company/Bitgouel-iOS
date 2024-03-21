@@ -397,6 +397,15 @@ private class AdminRequestUserSignupDependency260e3843e854d6971798Provider: Admi
     var adminWithdrawUserListFactory: any AdminWithdrawUserListFactory {
         return appComponent.adminWithdrawUserListFactory
     }
+    var fetchUserListUseCase: any FetchUserListUseCase {
+        return appComponent.fetchUserListUseCase
+    }
+    var approveUserSignupUseCase: any ApproveUserSignupUseCase {
+        return appComponent.approveUserSignupUseCase
+    }
+    var rejectUserSignupUseCase: any RejectUserSignupUseCase {
+        return appComponent.rejectUserSignupUseCase
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -827,6 +836,9 @@ extension AdminRequestUserSignupComponent: Registration {
     public func registerItems() {
         keyPathToName[\AdminRequestUserSignupDependency.adminUserListFactory] = "adminUserListFactory-any AdminUserListFactory"
         keyPathToName[\AdminRequestUserSignupDependency.adminWithdrawUserListFactory] = "adminWithdrawUserListFactory-any AdminWithdrawUserListFactory"
+        keyPathToName[\AdminRequestUserSignupDependency.fetchUserListUseCase] = "fetchUserListUseCase-any FetchUserListUseCase"
+        keyPathToName[\AdminRequestUserSignupDependency.approveUserSignupUseCase] = "approveUserSignupUseCase-any ApproveUserSignupUseCase"
+        keyPathToName[\AdminRequestUserSignupDependency.rejectUserSignupUseCase] = "rejectUserSignupUseCase-any RejectUserSignupUseCase"
     }
 }
 extension CertificationListComponent: Registration {

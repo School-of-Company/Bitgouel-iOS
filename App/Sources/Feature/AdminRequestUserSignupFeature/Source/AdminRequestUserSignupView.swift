@@ -41,31 +41,36 @@ struct AdminRequestUserSignupView: View {
                 }
                 .padding(.top, 24)
                 
-                LazyVStack(alignment: .leading, spacing: 0) {
-                    ForEach(0..<1) { _ in
-                        HStack(spacing: 8) {
-                            CheckButton(isSelected: $viewModel.isSelectedUserList)
-                            
-                            BitgouelText(
-                                text: "홍길동",
-                                font: .text1
-                            )
-                            
-                            BitgouelText(
-                                text: "학생",
-                                font: .text1
-                            )
-                            .foregroundColor(.bitgouel(.greyscale(.g6)))
+                ScrollView {
+                    LazyVStack(alignment: .leading, spacing: 0) {
+                        ForEach(viewModel.userList, id: \.userID) { userInfo in
+                            HStack(spacing: 8) {
+                                CheckButton(isSelected: $viewModel.isSelectedUserList)
+                                
+                                BitgouelText(
+                                    text: userInfo.name,
+                                    font: .text1
+                                )
+                                
+                                BitgouelText(
+                                    text: userInfo.authority.display(),
+                                    font: .text1
+                                )
+                                .foregroundColor(.bitgouel(.greyscale(.g6)))
+                            }
+
+                            Divider()
+                                .frame(height: 1)
+                                .padding(.vertical, 14)
                         }
-                        
-                        Divider()
-                            .frame(height: 1)
-                            .padding(.vertical, 14)
                     }
                 }
                 .padding(.top, 24)
                 
                 Spacer()
+            }
+            .onAppear {
+                viewModel.onAppear()
             }
             .padding(.horizontal, 28)
             .navigationTitle("가입 요청자 명단")
