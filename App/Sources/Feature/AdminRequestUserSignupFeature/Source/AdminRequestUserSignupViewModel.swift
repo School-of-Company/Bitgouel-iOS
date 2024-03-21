@@ -54,6 +54,16 @@ final class AdminRequestUserSignupViewModel: BaseViewModel {
             }
         }
     }
+
+    func approveUserSignupButtonDidTap() {
+        Task {
+            do {
+                try await approveUserSignupUseCase(userID: Array(selectedUserList).joined(separator: ", "))
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
     
     @MainActor
     func userListPageDismissed() {

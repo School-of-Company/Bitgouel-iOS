@@ -119,7 +119,9 @@ struct AdminRequestUserSignupView: View {
                     .init(text: "취소", style: .cancel) {
                         viewModel.isShowingApproveAlert = false
                     },
-                    .init(text: "수락", style: .default) {}
+                    .init(text: "수락", style: .default) {
+                        viewModel.approveUserSignupButtonDidTap()
+                    }
                 ]
             )
             .bitgouelAlert(
