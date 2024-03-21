@@ -23,7 +23,10 @@ struct AdminUserListView: View {
                 HStack(spacing: 10) {
                     UserNameSearchTextField(
                         text: $viewModel.keyword
-                    ) {}
+                    )
+                    .onChange(of: viewModel.keyword) { _ in
+                        viewModel.onAppear()
+                    }
                     
                     BitgouelAsset.Icons.filterStroke.swiftUIImage
                         .padding(.horizontal, 10)
