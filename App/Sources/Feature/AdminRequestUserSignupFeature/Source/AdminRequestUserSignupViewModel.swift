@@ -58,7 +58,17 @@ final class AdminRequestUserSignupViewModel: BaseViewModel {
     func approveUserSignupButtonDidTap() {
         Task {
             do {
-                try await approveUserSignupUseCase(userID: Array(selectedUserList).joined(separator: ", "))
+                try await approveUserSignupUseCase(userID: Array(selectedUserList).joined(separator: ","))
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+
+    func rejectUserSignupButtonDidTap() {
+        Task {
+            do {
+                try await rejectUserSignupUseCase(userID: Array(selectedUserList).joined(separator: ","))
             } catch {
                 print(error.localizedDescription)
             }

@@ -88,6 +88,9 @@ struct AdminRequestUserSignupView: View {
             .onAppear {
                 viewModel.onAppear()
             }
+            .refreshable {
+                viewModel.onAppear()
+            }
             .padding(.horizontal, 28)
             .navigationTitle("가입 요청자 명단")
             .toolbar {
@@ -121,6 +124,7 @@ struct AdminRequestUserSignupView: View {
                     },
                     .init(text: "수락", style: .default) {
                         viewModel.approveUserSignupButtonDidTap()
+                        viewModel.isShowingApproveAlert = false
                     }
                 ]
             )
@@ -132,7 +136,10 @@ struct AdminRequestUserSignupView: View {
                     .init(text: "취소", style: .cancel) {
                         viewModel.isShowingRejectAlert = false
                     },
-                    .init(text: "거절", style: .error) {}
+                    .init(text: "거절", style: .error) {
+                        viewModel.rejectUserSignupButtonDidTap()
+                        viewModel.isShowingRejectAlert = false
+                    }
                 ]
             )
         }

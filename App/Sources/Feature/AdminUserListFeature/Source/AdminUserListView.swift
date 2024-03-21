@@ -94,6 +94,9 @@ struct AdminUserListView: View {
         .onAppear {
             viewModel.onAppear()
         }
+        .refreshable {
+            viewModel.onAppear()
+        }
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button {
