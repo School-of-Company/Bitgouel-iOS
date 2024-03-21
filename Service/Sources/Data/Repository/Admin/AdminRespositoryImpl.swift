@@ -23,15 +23,15 @@ public struct AdminRespositoryImpl: AdminRepository {
         try await remoteAdminDataSource.fetchUserDetail(userID: userID)
     }
 
-    public func approveUserSignup(userID: [String]) async throws {
+    public func approveUserSignup(userID: String) async throws {
         try await remoteAdminDataSource.approveUserSignup(userID: userID)
     }
 
-    public func rejectUserSignup(userID: [String]) async throws {
+    public func rejectUserSignup(userID: String) async throws {
         try await remoteAdminDataSource.rejectUserSignup(userID: userID)
     }
 
-    public func withdrawUserSignup(userID: [String]) async throws {
+    public func withdrawUserSignup(userID: String) async throws {
         try await remoteAdminDataSource.withdrawUserSignup(userID: userID)
     }
 }
