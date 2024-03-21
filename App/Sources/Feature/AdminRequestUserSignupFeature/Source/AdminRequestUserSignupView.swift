@@ -23,7 +23,15 @@ struct AdminRequestUserSignupView: View {
                     OptionButton(
                         buttonText: "전체 선택",
                         foregroundColor: .bitgouel(.greyscale(.g6))
-                    )
+                    ){
+                        if viewModel.isSelectedUserList {
+                            viewModel.removeAllUserList()
+                            viewModel.isSelectedUserList = false
+                        } else {
+                            viewModel.insertAllUserList()
+                            viewModel.isSelectedUserList = true
+                        }
+                    }
                     
                     OptionButton(
                         buttonText: "선택 수락",
@@ -45,7 +53,15 @@ struct AdminRequestUserSignupView: View {
                     LazyVStack(alignment: .leading, spacing: 0) {
                         ForEach(viewModel.userList, id: \.userID) { userInfo in
                             HStack(spacing: 8) {
-                                CheckButton(isSelected: $viewModel.isSelectedUserList)
+                                CheckButton(isSelected: Binding(
+                                    get: { viewModel.selectedUserList.contains(userInfo.userID) },
+                                    set: { isSelected in
+                                        viewModel.insertUserList(userID: userInfo.userID)
+                                        if !isSelected {
+                                            viewModel.removeUserList(userID: userInfo.userID)
+                                        }
+                                    })
+                                )
                                 
                                 BitgouelText(
                                     text: userInfo.name,

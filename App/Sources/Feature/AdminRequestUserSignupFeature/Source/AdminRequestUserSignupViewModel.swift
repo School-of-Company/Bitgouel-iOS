@@ -8,6 +8,7 @@ final class AdminRequestUserSignupViewModel: BaseViewModel {
     @Published var isNavigateUserListDidTap: Bool = false
     @Published var isNavigateWithdrawListDidTap: Bool = false
     @Published var userList: [UserInfoEntity] = []
+    @Published var selectedUserList: Set<String> = []
 
     let approveStatus: ApproveStatusType = .pending
     private let fetchUserListUseCase: any FetchUserListUseCase
@@ -22,6 +23,23 @@ final class AdminRequestUserSignupViewModel: BaseViewModel {
         self.fetchUserListUseCase = fetchUserListUseCase
         self.approveUserSignupUseCase = approveUserSignupUseCase
         self.rejectUserSignupUseCase = rejectUserSignupUseCase
+    }
+
+    func insertAllUserList() {
+        let userIDs = userList.map(\.userID)
+        selectedUserList.formUnion(userIDs)
+    }
+
+    func removeAllUserList() {
+        selectedUserList.removeAll()
+    }
+
+    func insertUserList(userID: String) {
+        selectedUserList.insert(userID)
+    }
+
+    func removeUserList(userID: String) {
+        selectedUserList.remove(userID)
     }
 
     @MainActor
