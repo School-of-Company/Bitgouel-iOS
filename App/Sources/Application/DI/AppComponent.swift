@@ -139,6 +139,10 @@ public extension AppComponent {
         ChangePasswordComponent(parent: self)
     }
 
+    var successChangePasswordFactory: any SuccessChangePasswordFactory {
+        SuccessChangePasswordComponent(parent: self)
+    }
+
     var adminUserListFactory: any AdminUserListFactory {
         AdminUserListComponent(parent: self)
     }
@@ -149,9 +153,5 @@ public extension AppComponent {
     
     var adminWithdrawUserListFactory: any AdminWithdrawUserListFactory {
         AdminWithdrawUserListComponent(parent: self)
-    }
-
-    var successChangePasswordFactory: any SuccessChangePasswordFactory {
-        SuccessChangePasswordComponent(parent: self)
     }
 }
