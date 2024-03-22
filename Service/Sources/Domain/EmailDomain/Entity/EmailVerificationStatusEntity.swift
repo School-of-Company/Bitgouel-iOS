@@ -1,6 +1,6 @@
 import Foundation
 
-public struct FetchEmailVerificationStatusEntity: Equatable {
+public struct EmailVerificationStatusEntity: Equatable {
     public let isAuthentication: Bool
 
     public init(isAuthentication: Bool) {
