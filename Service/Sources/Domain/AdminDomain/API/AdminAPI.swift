@@ -4,9 +4,9 @@ import Moya
 public enum AdminAPI {
     case fetchUserList(keyword: String, authority: String, approveStatus: String)
     case fetchUserDetail(userID: String)
-    case approveUserSignup(userID: [String])
-    case rejectUserSignup(userID: [String])
-    case withdrawUserSignup(userID: [String])
+    case approveUserSignup(userID: String)
+    case rejectUserSignup(userID: String)
+    case withdrawUserSignup(userID: String)
 }
 
 extension AdminAPI: BitgouelAPI {

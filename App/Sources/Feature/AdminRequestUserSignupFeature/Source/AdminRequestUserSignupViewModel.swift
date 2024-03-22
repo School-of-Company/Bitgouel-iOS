@@ -1,21 +1,78 @@
 import Foundation
+import Service
 
 final class AdminRequestUserSignupViewModel: BaseViewModel {
     @Published var isShowingApproveAlert: Bool = false
     @Published var isShowingRejectAlert: Bool = false
-    @Published var isSelectedUserList = false
-    @Published var isNavigateUserListDidTap = false
-    @Published var isNavigateWithdrawListDidTap = false
-    
-    private let adminUserListFactory: any AdminUserListFactory
-    private let adminWithdrawUserListFactory: any AdminWithdrawUserListFactory
+    @Published var isSelectedUserList: Bool = false
+    @Published var isNavigateUserListDidTap: Bool = false
+    @Published var isNavigateWithdrawListDidTap: Bool = false
+    @Published var userList: [UserInfoEntity] = []
+    @Published var selectedUserList: Set<String> = []
+
+    let approveStatus: ApproveStatusType = .pending
+    private let fetchUserListUseCase: any FetchUserListUseCase
+    private let approveUserSignupUseCase: any ApproveUserSignupUseCase
+    private let rejectUserSignupUseCase: any RejectUserSignupUseCase
     
     init(
-        adminUserListFactory: any AdminUserListFactory,
-        adminWithdrawUserListFactory: any AdminWithdrawUserListFactory
+        fetchUserListUseCase: any FetchUserListUseCase,
+        approveUserSignupUseCase: any ApproveUserSignupUseCase,
+        rejectUserSignupUseCase: any RejectUserSignupUseCase
     ) {
-        self.adminUserListFactory = adminUserListFactory
-        self.adminWithdrawUserListFactory = adminWithdrawUserListFactory
+        self.fetchUserListUseCase = fetchUserListUseCase
+        self.approveUserSignupUseCase = approveUserSignupUseCase
+        self.rejectUserSignupUseCase = rejectUserSignupUseCase
+    }
+
+    func insertAllUserList() {
+        let userIDs = userList.map(\.userID)
+        selectedUserList.formUnion(userIDs)
+    }
+
+    func removeAllUserList() {
+        selectedUserList.removeAll()
+    }
+
+    func insertUserList(userID: String) {
+        selectedUserList.insert(userID)
+    }
+
+    func removeUserList(userID: String) {
+        selectedUserList.remove(userID)
+    }
+
+    @MainActor
+    func onAppear() {
+        Task {
+            do {
+                userList = try await fetchUserListUseCase(
+                    keyword: "",
+                    authority: "",
+                    approveStatus: approveStatus.rawValue
+                )
+            }
+        }
+    }
+
+    func approveUserSignupButtonDidTap() {
+        Task {
+            do {
+                try await approveUserSignupUseCase(userID: Array(selectedUserList).joined(separator: ","))
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+
+    func rejectUserSignupButtonDidTap() {
+        Task {
+            do {
+                try await rejectUserSignupUseCase(userID: Array(selectedUserList).joined(separator: ","))
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
     
     @MainActor

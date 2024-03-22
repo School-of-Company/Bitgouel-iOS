@@ -23,7 +23,15 @@ struct AdminRequestUserSignupView: View {
                     OptionButton(
                         buttonText: "전체 선택",
                         foregroundColor: .bitgouel(.greyscale(.g6))
-                    )
+                    ){
+                        if viewModel.isSelectedUserList {
+                            viewModel.removeAllUserList()
+                            viewModel.isSelectedUserList = false
+                        } else {
+                            viewModel.insertAllUserList()
+                            viewModel.isSelectedUserList = true
+                        }
+                    }
                     
                     OptionButton(
                         buttonText: "선택 수락",
@@ -41,31 +49,47 @@ struct AdminRequestUserSignupView: View {
                 }
                 .padding(.top, 24)
                 
-                LazyVStack(alignment: .leading, spacing: 0) {
-                    ForEach(0..<1) { _ in
-                        HStack(spacing: 8) {
-                            CheckButton(isSelected: $viewModel.isSelectedUserList)
-                            
-                            BitgouelText(
-                                text: "홍길동",
-                                font: .text1
-                            )
-                            
-                            BitgouelText(
-                                text: "학생",
-                                font: .text1
-                            )
-                            .foregroundColor(.bitgouel(.greyscale(.g6)))
+                ScrollView {
+                    LazyVStack(alignment: .leading, spacing: 0) {
+                        ForEach(viewModel.userList, id: \.userID) { userInfo in
+                            HStack(spacing: 8) {
+                                CheckButton(isSelected: Binding(
+                                    get: { viewModel.selectedUserList.contains(userInfo.userID) },
+                                    set: { isSelected in
+                                        viewModel.insertUserList(userID: userInfo.userID)
+                                        if !isSelected {
+                                            viewModel.removeUserList(userID: userInfo.userID)
+                                        }
+                                    })
+                                )
+                                
+                                BitgouelText(
+                                    text: userInfo.name,
+                                    font: .text1
+                                )
+                                
+                                BitgouelText(
+                                    text: userInfo.authority.display(),
+                                    font: .text1
+                                )
+                                .foregroundColor(.bitgouel(.greyscale(.g6)))
+                            }
+
+                            Divider()
+                                .frame(height: 1)
+                                .padding(.vertical, 14)
                         }
-                        
-                        Divider()
-                            .frame(height: 1)
-                            .padding(.vertical, 14)
                     }
                 }
                 .padding(.top, 24)
                 
                 Spacer()
+            }
+            .onAppear {
+                viewModel.onAppear()
+            }
+            .refreshable {
+                viewModel.onAppear()
             }
             .padding(.horizontal, 28)
             .navigationTitle("가입 요청자 명단")
@@ -98,7 +122,10 @@ struct AdminRequestUserSignupView: View {
                     .init(text: "취소", style: .cancel) {
                         viewModel.isShowingApproveAlert = false
                     },
-                    .init(text: "수락", style: .default) {}
+                    .init(text: "수락", style: .default) {
+                        viewModel.approveUserSignupButtonDidTap()
+                        viewModel.isShowingApproveAlert = false
+                    }
                 ]
             )
             .bitgouelAlert(
@@ -109,7 +136,10 @@ struct AdminRequestUserSignupView: View {
                     .init(text: "취소", style: .cancel) {
                         viewModel.isShowingRejectAlert = false
                     },
-                    .init(text: "거절", style: .error) {}
+                    .init(text: "거절", style: .error) {
+                        viewModel.rejectUserSignupButtonDidTap()
+                        viewModel.isShowingRejectAlert = false
+                    }
                 ]
             )
         }

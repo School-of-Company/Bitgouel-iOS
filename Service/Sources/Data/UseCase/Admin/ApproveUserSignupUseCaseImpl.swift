@@ -7,7 +7,7 @@ public struct ApproveUserSignupUseCaseImpl: ApproveUserSignupUseCase {
         self.adminRepository = adminRepository
     }
 
-    public func callAsFunction(userID: [String]) async throws {
+    public func callAsFunction(userID: String) async throws {
         try await adminRepository.approveUserSignup(userID: userID)
     }
 }
