@@ -50,6 +50,16 @@ final class AdminWithdrawUserListViewModel: BaseViewModel {
         isPresentedUserCohortFilter = isPresented
     }
 
+    func withdrawUser() {
+        Task {
+            do {
+                try await withdrawUserUseCase(userID: selectedWithdrawUserList.joined(separator: ","))
+            } catch {
+                print(String(describing: error))
+            }
+        }
+    }
+
     @MainActor
     func onAppear() {
         Task {

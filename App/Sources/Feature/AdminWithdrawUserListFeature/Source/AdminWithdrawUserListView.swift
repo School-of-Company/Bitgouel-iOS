@@ -155,7 +155,10 @@ struct AdminWithdrawUserListView: View {
                     viewModel.isShowingWithdrawAlert = false
                     viewModel.removeAllUserList()
                 },
-                .init(text: "승인", style: .error)
+                .init(text: "승인", style: .error) {
+                    viewModel.withdrawUser()
+                    viewModel.isShowingWithdrawAlert = false
+                }
             ]
         )
         .navigate(

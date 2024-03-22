@@ -25,8 +25,8 @@ extension AdminAPI: BitgouelAPI {
         case let .fetchUserDetail(userID):
             return "/\(userID)"
 
-        case let .withdrawUserSignup(userID):
-            return "/\(userID)"
+        case .withdrawUserSignup:
+            return "/withdraw"
 
         case let .rejectUserSignup(userID):
             return "/reject"
@@ -58,13 +58,13 @@ extension AdminAPI: BitgouelAPI {
             ], encoding: URLEncoding.queryString)
 
         case let .approveUserSignup(userID),
-             let .rejectUserSignup(userID):
+             let .rejectUserSignup(userID),
+             let .withdrawUserSignup(userID):
             return .requestParameters(parameters: [
                 "userIds": userID
             ], encoding: URLEncoding.queryString)
 
-        case .fetchUserDetail,
-             .withdrawUserSignup:
+        case .fetchUserDetail:
             return .requestPlain
         }
     }
