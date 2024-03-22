@@ -1,5 +1,5 @@
-import Moya
 import Foundation
+import Moya
 
 public enum EmailAPI {
     case sendEmailCertificationLink(email: String)
@@ -8,7 +8,7 @@ public enum EmailAPI {
 
 extension EmailAPI: BitgouelAPI {
     public typealias ErrorType = ActivityDomainError
-    
+
     public var domain: BitgouelDomain {
         .email
     }
@@ -29,21 +29,21 @@ extension EmailAPI: BitgouelAPI {
             return .get
         }
     }
-    
+
     public var task: Moya.Task {
         switch self {
         case let .sendEmailCertificationLink(email):
             return .requestParameters(parameters: [
                 "email" : email
             ], encoding: URLEncoding.httpBody)
-            
+
         case let .fetchEmailVerificationStatus(email):
             return .requestParameters(parameters: [
                 "email" : email
             ], encoding: URLEncoding.queryString)
         }
     }
-    
+
     public var jwtTokenType: JwtTokenType {
         switch self {
         default:
