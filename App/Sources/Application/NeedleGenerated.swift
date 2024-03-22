@@ -393,6 +393,17 @@ private class SuccessSignUpDependencydbc5dd5670791a0302f6Provider: SuccessSignUp
 private func factorybf219b153b668170161df47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return SuccessSignUpDependencydbc5dd5670791a0302f6Provider(appComponent: parent1(component) as! AppComponent)
 }
+private class FindPasswordDependency542eacce769b9dc25904Provider: FindPasswordDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->FindPasswordComponent
+private func factory15775d8436b06b9741d1e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return FindPasswordDependency542eacce769b9dc25904Provider()
+}
 private class AdminRequestUserSignupDependency260e3843e854d6971798Provider: AdminRequestUserSignupDependency {
     var adminUserListFactory: any AdminUserListFactory {
         return appComponent.adminUserListFactory
@@ -591,6 +602,9 @@ private class LoginDependencyf4e78d0ad57be469bfd9Provider: LoginDependency {
     }
     var saveUserAuthorityUseCase: any SaveUserAuthorityUseCase {
         return appComponent.saveUserAuthorityUseCase
+    }
+    var findPasswordFactory: any FindPasswordFactory {
+        return appComponent.findPasswordFactory
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -855,6 +869,11 @@ extension SuccessSignUpComponent: Registration {
         keyPathToName[\SuccessSignUpDependency.loginFactory] = "loginFactory-any LoginFactory"
     }
 }
+extension FindPasswordComponent: Registration {
+    public func registerItems() {
+
+    }
+}
 extension AdminRequestUserSignupComponent: Registration {
     public func registerItems() {
         keyPathToName[\AdminRequestUserSignupDependency.adminUserListFactory] = "adminUserListFactory-any AdminUserListFactory"
@@ -929,6 +948,7 @@ extension LoginComponent: Registration {
         keyPathToName[\LoginDependency.loginUseCase] = "loginUseCase-any LoginUseCase"
         keyPathToName[\LoginDependency.signupFactory] = "signupFactory-any SignUpFactory"
         keyPathToName[\LoginDependency.saveUserAuthorityUseCase] = "saveUserAuthorityUseCase-any SaveUserAuthorityUseCase"
+        keyPathToName[\LoginDependency.findPasswordFactory] = "findPasswordFactory-any FindPasswordFactory"
     }
 }
 extension LectureListComponent: Registration {
@@ -1079,9 +1099,14 @@ extension AppComponent: Registration {
         localTable["adminUserListFactory-any AdminUserListFactory"] = { [unowned self] in self.adminUserListFactory as Any }
         localTable["adminRequestUserSignupFactory-any AdminRequestUserSignupFactory"] = { [unowned self] in self.adminRequestUserSignupFactory as Any }
         localTable["adminWithdrawUserListFactory-any AdminWithdrawUserListFactory"] = { [unowned self] in self.adminWithdrawUserListFactory as Any }
+        localTable["findPasswordFactory-any FindPasswordFactory"] = { [unowned self] in self.findPasswordFactory as Any }
         localTable["remoteWithdrawDataSource-any RemoteWithdrawDataSource"] = { [unowned self] in self.remoteWithdrawDataSource as Any }
         localTable["withdrawRepository-any WithdrawRepository"] = { [unowned self] in self.withdrawRepository as Any }
         localTable["fetchWithdrawUserListUseCase-any FetchWithdrawUserListUseCase"] = { [unowned self] in self.fetchWithdrawUserListUseCase as Any }
+        localTable["remoteEmailDataSource-any RemoteEmailDataSource"] = { [unowned self] in self.remoteEmailDataSource as Any }
+        localTable["emailRepository-any EmailRepository"] = { [unowned self] in self.emailRepository as Any }
+        localTable["sendEmailCertificationLinkUseCase-any SendEmailCertificationLinkUseCase"] = { [unowned self] in self.sendEmailCertificationLinkUseCase as Any }
+        localTable["fetchEmailVerificationStatusUseCase-any FetchEmailVertificationStatusUseCase"] = { [unowned self] in self.fetchEmailVerificationStatusUseCase as Any }
         localTable["remoteCertificationDataSource-any RemoteCertificationDataSource"] = { [unowned self] in self.remoteCertificationDataSource as Any }
         localTable["certificationRepository-any CertificationRepository"] = { [unowned self] in self.certificationRepository as Any }
         localTable["queryCertificationListByTeacherUseCase-any QueryCertificationListByTeacherUseCase"] = { [unowned self] in self.queryCertificationListByTeacherUseCase as Any }
@@ -1125,6 +1150,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->ChangePasswordComponent", factoryab7c4d87dab53e0a51b9f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ClubDetailComponent", factory1559652f8e80cfa88d06f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->SuccessSignUpComponent", factorybf219b153b668170161df47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->FindPasswordComponent", factory15775d8436b06b9741d1e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->AdminRequestUserSignupComponent", factory2c6c6f3f10221ceac3a8f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->CertificationListComponent", factoryc231b853779286e489fbf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->AdminWithdrawUserListComponent", factory1ef284da45544ee52e3ef47b58f8f304c97af4d5)

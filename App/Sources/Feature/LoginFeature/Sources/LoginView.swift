@@ -8,16 +8,20 @@ struct LoginView: View {
     }
 
     @EnvironmentObject var sceneState: SceneState
+    @Environment(\.tabbarHidden) var tabbarHidden
     @FocusState private var focusField: FocusField?
     @StateObject var viewModel: LoginViewModel
     private let signupFactory: any SignUpFactory
+    private let findPasswordFactory: any FindPasswordFactory
 
     init(
         viewModel: LoginViewModel,
-        signupFactory: any SignUpFactory
+        signupFactory: any SignUpFactory,
+        findPasswordFactory: any FindPasswordFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.signupFactory = signupFactory
+        self.findPasswordFactory = findPasswordFactory
     }
 
     var body: some View {
@@ -38,10 +42,9 @@ struct LoginView: View {
                         "이메일",
                         text: $viewModel.email,
                         helpMessage: viewModel.emailHelpMessage,
-                        isError: viewModel.isEmailErrorOccured
-                    ) {
-                        focusField = .password
-                    }
+                        isError: viewModel.isEmailErrorOccured, onLink:  {
+                            focusField = .password
+                        })
                     .textContentType(.emailAddress)
                     .focused($focusField, equals: .email)
 
@@ -50,7 +53,10 @@ struct LoginView: View {
                         text: $viewModel.password,
                         helpMessage: viewModel.passwordHelpMessage,
                         link: "비밀번호 찾기",
-                        isError: viewModel.isPasswordErrorOcuured
+                        isError: viewModel.isPasswordErrorOcuured,
+                        linkAction: {
+                            viewModel.updateIsPresentedFindPasswordPage(isPresented: true)
+                        }
                     )
                     .textContentType(.password)
                     .focused($focusField, equals: .password)
@@ -94,6 +100,18 @@ struct LoginView: View {
                 .onChange(of: viewModel.isSuccessSignin) { newValue in
                     guard newValue else { return }
                     sceneState.sceneFlow = .main
+                }
+                .navigate(
+                    to: findPasswordFactory.makeView().eraseToAnyView(),
+                    when: Binding(
+                        get: { viewModel.isPresentedFindPasswordPage },
+                        set: { isPresented in
+                            viewModel.updateIsPresentedFindPasswordPage(isPresented: isPresented)
+                        }
+                    )
+                )
+                .onChange(of: viewModel.isPresentedFindPasswordPage) { newValue in
+                    tabbarHidden.wrappedValue = newValue
                 }
             }
         }
