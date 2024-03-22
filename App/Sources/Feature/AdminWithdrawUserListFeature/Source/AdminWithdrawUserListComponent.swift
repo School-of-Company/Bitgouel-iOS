@@ -5,6 +5,8 @@ import SwiftUI
 public protocol AdminWithdrawUserListDependency: Dependency {
     var adminUserListFactory: any AdminUserListFactory { get }
     var adminRequestUserSignupFactory: any AdminRequestUserSignupFactory { get }
+    var fetchWithdrawUserListUseCase: any FetchWithdrawUserListUseCase { get }
+    var withdrawUserUseCase: any WithdrawUserUseCase { get }
 }
 
 public final class AdminWithdrawUserListComponent: Component<AdminWithdrawUserListDependency>, AdminWithdrawUserListFactory {
@@ -12,8 +14,8 @@ public final class AdminWithdrawUserListComponent: Component<AdminWithdrawUserLi
     public func makeView() -> some View {
         AdminWithdrawUserListView(
             viewModel: .init(
-                adminUserListFactory: dependency.adminUserListFactory,
-                adminRequestUserSignupFactory: dependency.adminRequestUserSignupFactory
+                fetchWithdrawUserListUseCase: dependency.fetchWithdrawUserListUseCase,
+                withdrawUserUseCase: dependency.withdrawUserUseCase
             ),
             adminUserListFactory: dependency.adminUserListFactory,
             adminRequestUserSignupFactory: dependency.adminRequestUserSignupFactory
