@@ -1,7 +1,7 @@
 import Moya
 import Foundation
 
-enum EmailAPI {
+public enum EmailAPI {
     case sendEmailCertificationLink(email: String)
     case fetchEmailVerificationStatus(email: String)
 }
