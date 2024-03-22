@@ -94,6 +94,9 @@ private class AdminUserListDependency44bf9c85ea93b1b98debProvider: AdminUserList
     var adminWithdrawUserListFactory: any AdminWithdrawUserListFactory {
         return appComponent.adminWithdrawUserListFactory
     }
+    var fetchUserListUseCase: any FetchUserListUseCase {
+        return appComponent.fetchUserListUseCase
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -209,6 +212,9 @@ private func factory24d19202afbef2333be9e3b0c44298fc1c149afb(_ component: Needle
 private class MyPageDependency48d84b530313b3ee40feProvider: MyPageDependency {
     var changePasswordFactory: any ChangePasswordFactory {
         return appComponent.changePasswordFactory
+    }
+    var adminUserListFactory: any AdminUserListFactory {
+        return appComponent.adminUserListFactory
     }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
         return appComponent.loadUserAuthorityUseCase
@@ -724,6 +730,7 @@ extension AdminUserListComponent: Registration {
     public func registerItems() {
         keyPathToName[\AdminUserListDependency.adminRequestUserSignupFactory] = "adminRequestUserSignupFactory-any AdminRequestUserSignupFactory"
         keyPathToName[\AdminUserListDependency.adminWithdrawUserListFactory] = "adminWithdrawUserListFactory-any AdminWithdrawUserListFactory"
+        keyPathToName[\AdminUserListDependency.fetchUserListUseCase] = "fetchUserListUseCase-any FetchUserListUseCase"
     }
 }
 extension NoticeListComponent: Registration {
@@ -768,6 +775,7 @@ extension NoticeDetailSettingComponent: Registration {
 extension MyPageComponent: Registration {
     public func registerItems() {
         keyPathToName[\MyPageDependency.changePasswordFactory] = "changePasswordFactory-any ChangePasswordFactory"
+        keyPathToName[\MyPageDependency.adminUserListFactory] = "adminUserListFactory-any AdminUserListFactory"
         keyPathToName[\MyPageDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
         keyPathToName[\MyPageDependency.fetchMyInfoUseCase] = "fetchMyInfoUseCase-any FetchMyInfoUseCase"
         keyPathToName[\MyPageDependency.logoutUseCase] = "logoutUseCase-any LogoutUseCase"

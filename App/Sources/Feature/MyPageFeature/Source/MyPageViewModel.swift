@@ -6,6 +6,7 @@ final class MyPageViewModel: BaseViewModel {
     @Published var isShowingWithdrawAlert: Bool = false
     @Published var isShowingLogoutAlert: Bool = false
     @Published var isPresentedChangePasswordView: Bool = false
+    @Published var isPresentedAdminUserListView: Bool = false
     
     var authority: UserAuthorityType = .user
     var userInfo: [String] = []
@@ -26,6 +27,10 @@ final class MyPageViewModel: BaseViewModel {
         self.fetchMyInfoUseCase = fetchMyInfoUseCase
         self.logoutUseCase = logoutUseCase
         self.withdrawalUseCase = withdrawalUseCase
+    }
+
+    func updateIsPresentedAdminUserListView(isPresented: Bool) {
+        isPresentedAdminUserListView = isPresented
     }
 
     func updateIsPresentedChangePasswordView(isPresented: Bool) {
