@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol FetchEmailVertificationStatus {
+public protocol FetchEmailVertificationStatusUseCase {
     func callAsFunction(email: String) async throws -> EmailVerificationStatusEntity
 }

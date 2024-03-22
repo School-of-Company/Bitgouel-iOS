@@ -7,13 +7,13 @@ public enum EmailAPI {
 }
 
 extension EmailAPI: BitgouelAPI {
-    typealias ErrorType = ActivityDomainError
+    public typealias ErrorType = ActivityDomainError
     
-    var domain: BitgouelDomain {
+    public var domain: BitgouelDomain {
         .email
     }
 
-    var urlPath: String {
+    public var urlPath: String {
         switch self {
         case .sendEmailCertificationLink,
              .fetchEmailVerificationStatus:
@@ -21,7 +21,7 @@ extension EmailAPI: BitgouelAPI {
         }
     }
 
-    var method: Moya.Method {
+    public var method: Moya.Method {
         switch self {
         case .sendEmailCertificationLink:
             return .post
@@ -30,7 +30,7 @@ extension EmailAPI: BitgouelAPI {
         }
     }
     
-    var task: Moya.Task {
+    public var task: Moya.Task {
         switch self {
         case let .sendEmailCertificationLink(email):
             return .requestParameters(parameters: [
@@ -44,14 +44,14 @@ extension EmailAPI: BitgouelAPI {
         }
     }
     
-    var jwtTokenType: JwtTokenType {
+    public var jwtTokenType: JwtTokenType {
         switch self {
         default:
             return .none
         }
     }
 
-    var errorMap: [Int : ActivityDomainError] {
+    public var errorMap: [Int : ActivityDomainError] {
         switch self {
         case .sendEmailCertificationLink:
             return [
