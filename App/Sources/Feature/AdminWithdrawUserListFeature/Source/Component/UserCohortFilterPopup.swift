@@ -1,17 +1,10 @@
 import SwiftUI
 import Service
 
-enum CohortList: String, CaseIterable {
-    case first = "1기"
-    case second = "2기"
-    case third = "3기"
-    case fourth = "4기"
-}
-
 struct UserCohortFilterPopup: View {
-    let cohortList: [CohortList]
-    var selectedCohort: CohortList?
-    let onCohortSelect: (CohortList) -> Void
+    let currentYear: Int
+    var selectedCohort: Int
+    let onCohortSelect: (Int) -> Void
     let cancel: (Bool) -> Void
     
     var body: some View {
@@ -38,17 +31,20 @@ struct UserCohortFilterPopup: View {
                     
                     Spacer()
                     
-                    VStack(spacing: 16) {
-                        ForEach(cohortList, id: \.self) { cohort in
-                            userCohortTypeRow(
-                                cohort: cohort,
-                                selectedCohort: selectedCohort,
-                                onCohortSelect: onCohortSelect)
+                    ScrollView {
+                        VStack(spacing: 16) {
+                            ForEach(2022...currentYear, id: \.self) { cohort in
+                                userCohortTypeRow(
+                                    cohort: cohort - 2021,
+                                    selectedCohort: selectedCohort,
+                                    onCohortSelect: onCohortSelect)
+                            }
+                            
+                            Spacer()
                         }
-                        
-                        Spacer()
                     }
                     .padding(.top, 32)
+
                 }
                 .padding(.horizontal, 24)
             }
@@ -56,14 +52,14 @@ struct UserCohortFilterPopup: View {
     
     @ViewBuilder
     func userCohortTypeRow(
-        cohort: CohortList,
-        selectedCohort: CohortList?,
-        onCohortSelect: @escaping (CohortList) -> Void
+        cohort: Int,
+        selectedCohort: Int?,
+        onCohortSelect: @escaping (Int) -> Void
     ) -> some View {
         HStack(spacing: 8) {
             BitgouelRadioButton(
                 isSelected: Binding(
-                    get: { selectedCohort?.rawValue == cohort.rawValue },
+                    get: { selectedCohort == cohort },
                     set: { isSelected in
                         if isSelected {
                             onCohortSelect(cohort)
@@ -73,7 +69,7 @@ struct UserCohortFilterPopup: View {
             )
             
             BitgouelText(
-                text: cohort.rawValue,
+                text: "\(cohort)기",
                 font: .text3
             )
             

@@ -453,6 +453,12 @@ private class AdminWithdrawUserListDependency06942465f0ac1aaeda24Provider: Admin
     var adminRequestUserSignupFactory: any AdminRequestUserSignupFactory {
         return appComponent.adminRequestUserSignupFactory
     }
+    var fetchWithdrawUserListUseCase: any FetchWithdrawUserListUseCase {
+        return appComponent.fetchWithdrawUserListUseCase
+    }
+    var withdrawUserUseCase: any WithdrawUserUseCase {
+        return appComponent.withdrawUserUseCase
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -872,6 +878,8 @@ extension AdminWithdrawUserListComponent: Registration {
     public func registerItems() {
         keyPathToName[\AdminWithdrawUserListDependency.adminUserListFactory] = "adminUserListFactory-any AdminUserListFactory"
         keyPathToName[\AdminWithdrawUserListDependency.adminRequestUserSignupFactory] = "adminRequestUserSignupFactory-any AdminRequestUserSignupFactory"
+        keyPathToName[\AdminWithdrawUserListDependency.fetchWithdrawUserListUseCase] = "fetchWithdrawUserListUseCase-any FetchWithdrawUserListUseCase"
+        keyPathToName[\AdminWithdrawUserListDependency.withdrawUserUseCase] = "withdrawUserUseCase-any WithdrawUserUseCase"
     }
 }
 extension WriteInquiryAnswerComponent: Registration {

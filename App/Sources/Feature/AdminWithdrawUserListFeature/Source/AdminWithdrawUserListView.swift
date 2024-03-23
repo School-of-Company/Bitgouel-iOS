@@ -36,7 +36,12 @@ struct AdminWithdrawUserListView: View {
                         strokeColor: .bitgouel(.error(.e5)),
                         backgroundColor: .bitgouel(.error(.e5))
                     ) {
-                        viewModel.isShowingWithdrawAlert = true
+                        if viewModel.isShowingWithdrawAlert {
+                            viewModel.isShowingWithdrawAlert = false
+                        } else {
+                            viewModel.isShowingWithdrawAlert = true
+                            viewModel.insertAllUserList()
+                        }
                     }
                     
                     HStack {
@@ -61,20 +66,24 @@ struct AdminWithdrawUserListView: View {
                 .padding(.top, 24)
                 
                 LazyVStack(alignment: .leading, spacing: 0) {
-                    ForEach(0..<1) { _ in
+                    ForEach(viewModel.userList, id: \.userID) { userInfo in
                         HStack(spacing: 8) {
-                            CheckButton(isSelected: $viewModel.isSelectedUserList)
-                            
-                            BitgouelText(
-                                text: "홍길동",
-                                font: .text1
+                            CheckButton(
+                                isSelected: Binding(
+                                    get: { viewModel.selectedWithdrawUserList.contains(userInfo.userID) },
+                                    set: { isSelected in
+                                        viewModel.insertUserList(userID: userInfo.userID)
+                                        if !isSelected {
+                                            viewModel.removeUserList(userID: userInfo.userID)
+                                        }
+                                    }
+                                )
                             )
                             
                             BitgouelText(
-                                text: "학생",
+                                text: userInfo.name,
                                 font: .text1
                             )
-                            .foregroundColor(.bitgouel(.greyscale(.g6)))
                         }
                         
                         Divider()
@@ -87,42 +96,53 @@ struct AdminWithdrawUserListView: View {
                 Spacer()
             }
             .padding(.horizontal, 28)
-            .navigationTitle("사용자 명단")
-            .toolbar {
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button {
-                        viewModel.isNavigateUserListDidTap = true
-                    } label: {
-                        BitgouelAsset.Icons.people.swiftUIImage
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 24, height: 24)
-                    }
-                    
-                    Button {
-                        viewModel.isNavigateRequestSignUpDidTap = true
-                    } label: {
-                        BitgouelAsset.Icons.addFill.swiftUIImage
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 24, height: 24)
-                    }
-                }
-            }
+            
             ZStack(alignment: .center) {
                 if viewModel.isPresentedUserCohortFilter {
                     Color.black.opacity(0.4)
                         .edgesIgnoringSafeArea(.all)
+                        .onTapGesture {
+                            viewModel.updateIsPresentedCohortFilter(isPresented: false)
+                        }
                     
                     UserCohortFilterPopup(
-                        cohortList: viewModel.cohortList,
-                        selectedCohort: viewModel.selectedCohort
-                    ) { cohort in
-                        viewModel.selectedCohort = cohort
-                    } cancel: { cancel in
-                        viewModel.updateIsPresentedCohortFilter(isPresented: cancel)
-                    }
+                        currentYear: viewModel.currentYear,
+                        selectedCohort: viewModel.selectedCohort,
+                        onCohortSelect: { cohort in
+                            viewModel.selectedCohort = cohort
+                            viewModel.onAppear()
+                        },
+                        cancel: { cancel in
+                            viewModel.updateIsPresentedCohortFilter(isPresented: cancel)
+                        }
+                    )
                     .padding(.horizontal, 28)
+                }
+            }
+            .zIndex(1)
+        }
+        .onAppear {
+            viewModel.onAppear()
+        }
+        .navigationTitle("탈퇴 예정자 명단")
+        .toolbar {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                Button {
+                    viewModel.isNavigateUserListDidTap = true
+                } label: {
+                    BitgouelAsset.Icons.people.swiftUIImage
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 24, height: 24)
+                }
+                
+                Button {
+                    viewModel.isNavigateRequestSignUpDidTap = true
+                } label: {
+                    BitgouelAsset.Icons.addFill.swiftUIImage
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 24, height: 24)
                 }
             }
         }
@@ -133,8 +153,12 @@ struct AdminWithdrawUserListView: View {
             alertActions: [
                 .init(text: "취소", style: .cancel) {
                     viewModel.isShowingWithdrawAlert = false
+                    viewModel.removeAllUserList()
                 },
-                .init(text: "승인", style: .error)
+                .init(text: "승인", style: .error) {
+                    viewModel.withdrawUser()
+                    viewModel.isShowingWithdrawAlert = false
+                }
             ]
         )
         .navigate(

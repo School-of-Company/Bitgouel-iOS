@@ -8,12 +8,12 @@ public struct FetchWithdrawUserListResponseDTO: Decodable {
     }
 
     public struct WithdrawUserInfo: Decodable {
-        public let withdrawID: String
+        public let withdrawID: Int
         public let userID: String
         public let name: String
 
         public init(
-            withdrawID: String,
+            withdrawID: Int,
             userID: String,
             name: String
         ) {
@@ -25,7 +25,7 @@ public struct FetchWithdrawUserListResponseDTO: Decodable {
         enum CodingKeys: String, CodingKey {
             case withdrawID = "withdrawId"
             case userID = "userId"
-            case name
+            case name = "studentName"
         }
     }
 }
