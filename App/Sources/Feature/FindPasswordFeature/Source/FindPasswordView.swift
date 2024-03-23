@@ -42,6 +42,7 @@ struct FindPasswordView: View {
                 style: .primary,
                 action: {
                     viewModel.updateIsPresentedSendEmailPage(isPresented: true)
+                    viewModel.nextToButtonDidTap()
                 }
             )
             .padding(.bottom, 20)
