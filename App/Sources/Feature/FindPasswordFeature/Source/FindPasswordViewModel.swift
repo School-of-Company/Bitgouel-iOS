@@ -9,7 +9,7 @@ final class FindPasswordViewModel: BaseViewModel {
     }
 
     func updateIsPresentedSendEmailPage(isPresented: Bool) {
-        guard email.isEmpty else { return }
+        guard !email.isEmpty else { return }
         isPresentedSendEmailPage = isPresented
     }
 }
