@@ -61,4 +61,8 @@ public struct AuthRepositoryImpl: AuthRepository {
     public func companyInstructorSignup(req: CompanyInstructorSignupRequestDTO) async throws {
         try await remoteAuthDataSource.companyInstructorSignup(req: req)
     }
+
+    public func findPassword(email: String, newPassword: String) async throws {
+        try await remoteAuthDataSource.findPassword(email: email, newPassword: newPassword)
+    }
 }

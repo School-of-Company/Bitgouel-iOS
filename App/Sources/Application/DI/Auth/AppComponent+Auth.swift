@@ -94,4 +94,10 @@ public extension AppComponent {
             CompanyInstructorSignupUseCaseImpl(authRepository: authRepository)
         }
     }
+
+    var findPasswordUseCase: any FindPasswordUseCase {
+        shared {
+            FindPasswordUseCaseImpl(authRepository: authRepository)
+        }
+    }
 }

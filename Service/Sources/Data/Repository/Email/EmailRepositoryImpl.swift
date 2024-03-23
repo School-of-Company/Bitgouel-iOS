@@ -7,8 +7,8 @@ public struct EmailRepositoryImpl: EmailRepository {
         self.remoteEmailDataSource = remoteEmailDataSource
     }
 
-    public func sendEmailCertificationLink(email: String) async throws {
-        try await remoteEmailDataSource.sendEmailCertificationLink(email: email)
+    public func sendEmailCertificationLink(req: EmailRequestDTO) async throws {
+        try await remoteEmailDataSource.sendEmailCertificationLink(req: req)
     }
 
     public func fetchEmailVerificationStatus(email: String) async throws -> EmailVerificationStatusEntity {

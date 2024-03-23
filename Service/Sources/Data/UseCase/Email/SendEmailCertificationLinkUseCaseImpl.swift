@@ -7,7 +7,7 @@ public struct SendEmailCertificationLinkUseCaseImpl: SendEmailCertificationLinkU
         self.emailRepository = emailRepository
     }
 
-    public func callAsFunction(email: String) async throws {
-        try await emailRepository.sendEmailCertificationLink(email: email)
+    public func callAsFunction(req: EmailRequestDTO) async throws {
+        try await emailRepository.sendEmailCertificationLink(req: req)
     }
 }
