@@ -6,6 +6,6 @@ public protocol FindPasswordDependency: Dependency {}
 
 public final class FindPasswordComponent: Component<FindPasswordDependency>, FindPasswordFactory {
     public func makeView() -> some View {
-        FindPasswordView()
+        FindPasswordView(viewModel: .init())
     }
 }
