@@ -60,13 +60,13 @@ public struct LectureDetailEntity: Equatable {
 
 public struct LectureDateEntity: Equatable {
     public let completeDate: Date
-    public let startTime: String
-    public let endTime: String
+    public let startTime: Date
+    public let endTime: Date
 
     public init(
         completeDate: Date,
-        startTime: String,
-        endTime: String
+        startTime: Date,
+        endTime: Date
     ) {
         self.completeDate = completeDate
         self.startTime = startTime

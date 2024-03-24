@@ -102,8 +102,8 @@ extension FetchLectureDetailResponseDTO.LectureDate {
     func toDomain() -> LectureDateEntity {
         LectureDateEntity(
             completeDate: completeDate.toDateCustomFormat(format: "yyyy-MM-dd"),
-            startTime: startTime,
-            endTime: endTime
+            startTime: startTime.toDateCustomFormat(format: "hh:mm:ss"),
+            endTime: endTime.toDateCustomFormat(format: "hh:mm:ss")
         )
     }
 }
