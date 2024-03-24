@@ -1,9 +1,11 @@
-//
-//  NewPasswordComponent.swift
-//  Bitgouel
-//
-//  Created by 정윤서 on 3/24/24.
-//  Copyright © 2024 team.msg. All rights reserved.
-//
+import NeedleFoundation
+import SwiftUI
+import Service
 
-import Foundation
+public protocol NewPasswordDependency: Dependency {}
+
+public final class NewPasswordComponent: Component<NewPasswordDependency>, NewPasswordFactory {
+    public func makeView() -> some View {
+        NewPasswordView()
+    }
+}

@@ -158,4 +158,8 @@ public extension AppComponent {
     var findPasswordFactory: any FindPasswordFactory {
         FindPasswordComponent(parent: self)
     }
+
+    var newPasswordFactory: any NewPasswordFactory {
+        NewPasswordComponent(parent: self)
+    }
 }

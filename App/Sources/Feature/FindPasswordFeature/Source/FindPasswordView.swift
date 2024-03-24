@@ -4,8 +4,14 @@ struct FindPasswordView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: FindPasswordViewModel
 
-    init(viewModel: FindPasswordViewModel) {
+    private let newPasswordFactory: any NewPasswordFactory
+
+    init(
+        viewModel: FindPasswordViewModel,
+        newPasswordFactory: any NewPasswordFactory
+    ) {
         _viewModel = StateObject(wrappedValue: viewModel)
+        self.newPasswordFactory = newPasswordFactory
     }
 
     var body: some View {
@@ -50,11 +56,25 @@ struct FindPasswordView: View {
         .bitgouelBackButton(dismiss: dismiss)
         .padding(.horizontal, 28)
         .navigate(
-            to: SendEmailView(email: viewModel.email),
+            to: SendEmailView(
+                email: viewModel.email, 
+                nextToButtonAction: {
+                    viewModel.nextToButtonAction()
+                }
+            ),
             when: Binding(
                 get: { viewModel.isPresentedSendEmailPage },
                 set: { isPresented in
                     viewModel.updateIsPresentedSendEmailPage(isPresented: isPresented)
+                }
+            )
+        )
+        .navigate(
+            to: newPasswordFactory.makeView().eraseToAnyView(),
+            when: Binding(
+                get: { viewModel.isPresentedNewPasswordPage },
+                set: { isPresented in
+                    viewModel.updateIsPresentedNewPasswordPage(isPresented: isPresented)
                 }
             )
         )

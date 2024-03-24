@@ -397,6 +397,12 @@ private class FindPasswordDependency542eacce769b9dc25904Provider: FindPasswordDe
     var sendEmailCertificationLinkUseCase: any SendEmailCertificationLinkUseCase {
         return appComponent.sendEmailCertificationLinkUseCase
     }
+    var fetchEmailVertificationStatusUseCase: any FetchEmailVertificationStatusUseCase {
+        return appComponent.fetchEmailVertificationStatusUseCase
+    }
+    var newPasswordFactory: any NewPasswordFactory {
+        return appComponent.newPasswordFactory
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -525,6 +531,17 @@ private class SuccessChangePasswordDependency05dde412f91beb4c3b8dProvider: Succe
 /// ^->AppComponent->SuccessChangePasswordComponent
 private func factoryde3552d9e0f793ec8b8df47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return SuccessChangePasswordDependency05dde412f91beb4c3b8dProvider(appComponent: parent1(component) as! AppComponent)
+}
+private class NewPasswordDependency3320cbf6e40b8cd8a8eaProvider: NewPasswordDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->NewPasswordComponent
+private func factory52985a6d5ec65d75bd97e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return NewPasswordDependency3320cbf6e40b8cd8a8eaProvider()
 }
 private class InquiryListDependencyec75a7335a50ded93b28Provider: InquiryListDependency {
     var inputInquiryFactory: any InputInquiryFactory {
@@ -874,6 +891,8 @@ extension SuccessSignUpComponent: Registration {
 extension FindPasswordComponent: Registration {
     public func registerItems() {
         keyPathToName[\FindPasswordDependency.sendEmailCertificationLinkUseCase] = "sendEmailCertificationLinkUseCase-any SendEmailCertificationLinkUseCase"
+        keyPathToName[\FindPasswordDependency.fetchEmailVertificationStatusUseCase] = "fetchEmailVertificationStatusUseCase-any FetchEmailVertificationStatusUseCase"
+        keyPathToName[\FindPasswordDependency.newPasswordFactory] = "newPasswordFactory-any NewPasswordFactory"
     }
 }
 extension AdminRequestUserSignupComponent: Registration {
@@ -918,6 +937,11 @@ extension PostDetailComponent: Registration {
 extension SuccessChangePasswordComponent: Registration {
     public func registerItems() {
         keyPathToName[\SuccessChangePasswordDependency.myPageFactory] = "myPageFactory-any MyPageFactory"
+    }
+}
+extension NewPasswordComponent: Registration {
+    public func registerItems() {
+
     }
 }
 extension InquiryListComponent: Registration {
@@ -1103,13 +1127,14 @@ extension AppComponent: Registration {
         localTable["adminRequestUserSignupFactory-any AdminRequestUserSignupFactory"] = { [unowned self] in self.adminRequestUserSignupFactory as Any }
         localTable["adminWithdrawUserListFactory-any AdminWithdrawUserListFactory"] = { [unowned self] in self.adminWithdrawUserListFactory as Any }
         localTable["findPasswordFactory-any FindPasswordFactory"] = { [unowned self] in self.findPasswordFactory as Any }
+        localTable["newPasswordFactory-any NewPasswordFactory"] = { [unowned self] in self.newPasswordFactory as Any }
         localTable["remoteWithdrawDataSource-any RemoteWithdrawDataSource"] = { [unowned self] in self.remoteWithdrawDataSource as Any }
         localTable["withdrawRepository-any WithdrawRepository"] = { [unowned self] in self.withdrawRepository as Any }
         localTable["fetchWithdrawUserListUseCase-any FetchWithdrawUserListUseCase"] = { [unowned self] in self.fetchWithdrawUserListUseCase as Any }
         localTable["remoteEmailDataSource-any RemoteEmailDataSource"] = { [unowned self] in self.remoteEmailDataSource as Any }
         localTable["emailRepository-any EmailRepository"] = { [unowned self] in self.emailRepository as Any }
         localTable["sendEmailCertificationLinkUseCase-any SendEmailCertificationLinkUseCase"] = { [unowned self] in self.sendEmailCertificationLinkUseCase as Any }
-        localTable["fetchEmailVerificationStatusUseCase-any FetchEmailVertificationStatusUseCase"] = { [unowned self] in self.fetchEmailVerificationStatusUseCase as Any }
+        localTable["fetchEmailVertificationStatusUseCase-any FetchEmailVertificationStatusUseCase"] = { [unowned self] in self.fetchEmailVertificationStatusUseCase as Any }
         localTable["remoteCertificationDataSource-any RemoteCertificationDataSource"] = { [unowned self] in self.remoteCertificationDataSource as Any }
         localTable["certificationRepository-any CertificationRepository"] = { [unowned self] in self.certificationRepository as Any }
         localTable["queryCertificationListByTeacherUseCase-any QueryCertificationListByTeacherUseCase"] = { [unowned self] in self.queryCertificationListByTeacherUseCase as Any }
@@ -1160,6 +1185,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->WriteInquiryAnswerComponent", factory3d4cadf14cd9a3336981f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->PostDetailComponent", factorybc555a73df3767a26999f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->SuccessChangePasswordComponent", factoryde3552d9e0f793ec8b8df47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->NewPasswordComponent", factory52985a6d5ec65d75bd97e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->InquiryListComponent", factorydd7e28250a180554c7a0f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->EditPostComponent", factoryf55a9d7f6c1ed8d0f0aef47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ActivityListComponent", factory7177e6769ee69064a61bf47b58f8f304c97af4d5)

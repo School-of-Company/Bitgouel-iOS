@@ -1,9 +1,6 @@
-//
-//  NewPasswordFactory.swift
-//  Bitgouel
-//
-//  Created by 정윤서 on 3/24/24.
-//  Copyright © 2024 team.msg. All rights reserved.
-//
+import SwiftUI
 
-import Foundation
+public protocol NewPasswordFactory {
+    associatedtype SomeView: View
+    func makeView() -> SomeView
+}
