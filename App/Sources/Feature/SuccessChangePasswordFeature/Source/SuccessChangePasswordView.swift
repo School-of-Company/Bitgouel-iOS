@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SuccessChangePasswordView: View {
     @EnvironmentObject var sceneState: SceneState
+
     private let myPageFactory: any MyPageFactory
 
     init(
