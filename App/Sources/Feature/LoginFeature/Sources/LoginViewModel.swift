@@ -5,6 +5,7 @@ final class LoginViewModel: BaseViewModel {
     @Published var email = ""
     @Published var password = ""
     @Published var isPresentedSignupPage: Bool = false
+    @Published var isPresentedFindPasswordPage: Bool = false
     @Published var isSuccessSignin = false
     private let loginUseCase: any LoginUseCase
     private let saveUserAuthority: any SaveUserAuthorityUseCase
@@ -75,6 +76,10 @@ final class LoginViewModel: BaseViewModel {
 
     func updateIsPresentedSignupPage(isPresented: Bool) {
         self.isPresentedSignupPage = isPresented
+    }
+
+    func updateIsPresentedFindPasswordPage(isPresented: Bool) {
+        self.isPresentedFindPasswordPage = isPresented
     }
 
     func signupPageIsRequired() {

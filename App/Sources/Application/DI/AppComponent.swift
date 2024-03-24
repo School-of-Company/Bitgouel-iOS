@@ -154,4 +154,8 @@ public extension AppComponent {
     var adminWithdrawUserListFactory: any AdminWithdrawUserListFactory {
         AdminWithdrawUserListComponent(parent: self)
     }
+
+    var findPasswordFactory: any FindPasswordFactory {
+        FindPasswordComponent(parent: self)
+    }
 }
