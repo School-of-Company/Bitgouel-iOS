@@ -12,5 +12,5 @@ public protocol RemoteAuthDataSource {
     func professorSignup(req: ProfessorSignupRequestDTO) async throws
     func governmentSignup(req: GovernmentSignupRequestDTO) async throws
     func companyInstructorSignup(req: CompanyInstructorSignupRequestDTO) async throws
-    func findPassword(email: String, newPassword: String) async throws
+    func findPassword(req: FindPasswordRequestDTO) async throws
 }
