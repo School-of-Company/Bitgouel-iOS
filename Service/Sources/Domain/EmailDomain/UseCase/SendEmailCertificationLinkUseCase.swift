@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol SendEmailCertificationLinkUseCase {
-    func callAsFunction(email: String) async throws
+    func callAsFunction(req: EmailRequestDTO) async throws
 }

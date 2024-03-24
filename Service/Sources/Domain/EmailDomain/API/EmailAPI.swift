@@ -2,7 +2,7 @@ import Foundation
 import Moya
 
 public enum EmailAPI {
-    case sendEmailCertificationLink(email: String)
+    case sendEmailCertificationLink(req: EmailRequestDTO)
     case fetchEmailVerificationStatus(email: String)
 }
 
@@ -32,10 +32,8 @@ extension EmailAPI: BitgouelAPI {
 
     public var task: Moya.Task {
         switch self {
-        case let .sendEmailCertificationLink(email):
-            return .requestParameters(parameters: [
-                "email" : email
-            ], encoding: URLEncoding.httpBody)
+        case let .sendEmailCertificationLink(req):
+            return .requestJSONEncodable(req)
 
         case let .fetchEmailVerificationStatus(email):
             return .requestParameters(parameters: [
