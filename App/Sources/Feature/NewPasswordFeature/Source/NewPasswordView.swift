@@ -51,7 +51,7 @@ struct NewPasswordView: View {
             BitgouelButton(
                 text: "다음으로",
                 action: {
-                    viewModel.updateIsPresentedSuccessFindPasswordPage(isPresented: true)
+                    viewModel.nextToButtonDidTap()
                 }
             )
             .disabled(viewModel.isPasswordEmpty)
