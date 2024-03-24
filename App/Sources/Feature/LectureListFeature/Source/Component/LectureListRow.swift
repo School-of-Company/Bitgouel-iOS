@@ -18,8 +18,15 @@ struct LectureListRow: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text(lecturer)
-                .bitgouelFont(.text3, color: .greyscale(.g0))
+            HStack {
+                Text(lecturer)
+                    .bitgouelFont(.text3, color: .greyscale(.g0))
+                
+                Spacer()
+                
+                Text(lectureType.display())
+                    .bitgouelFont(.caption, color: .greyscale(.g4))
+            }
 
             Text(name)
                 .bitgouelFont(.text1, color: .greyscale(.g0))
@@ -45,33 +52,23 @@ struct LectureListRow: View {
                 .foregroundColor(.bitgouel(.greyscale(.g7)))
             }
             
-            VStack(alignment: .leading, spacing: 8) {
-                HStack(spacing: 8) {
-                    keywordText(text: department)
-                    
-                    keywordText(text: line)
-                }
+            HStack(spacing: 8) {
+                Text(department)
                 
+                Divider()
                 
-                HStack(spacing: 8) {
-                    keywordText(text: lectureType.display())
-                    
-                    keywordText(text: division.display())
-                }
+                Text(division.display())
+                
+                Divider()
+                
+                Text(line)
             }
-        }
-        .padding(.vertical, 20)
-    }
-    
-    @ViewBuilder
-    func keywordText(text: String) -> some View {
-        Text(text)
-            .bitgouelFont(.caption, color: .greyscale(.g4))
             .padding(.horizontal, 8)
             .padding(.vertical, 4)
-            .background(
-                Color.bitgouel(.greyscale(.g9))
-            )
+            .bitgouelFont(.caption, color: .greyscale(.g4))
+            .background(Color.bitgouel(.greyscale(.g9)))
             .cornerRadius(18)
+        }
+        .padding(.vertical, 20)
     }
 }
