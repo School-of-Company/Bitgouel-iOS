@@ -45,12 +45,12 @@ struct FindPasswordView: View {
             
             BitgouelButton(
                 text: "다음으로",
-                style: .primary,
                 action: {
                     viewModel.updateIsPresentedSendEmailPage(isPresented: true)
                     viewModel.nextToButtonDidTap()
                 }
             )
+            .disabled(viewModel.isEmailEmpty)
             .padding(.bottom, 20)
         }
         .bitgouelBackButton(dismiss: dismiss)

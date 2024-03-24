@@ -6,6 +6,9 @@ final class FindPasswordViewModel: BaseViewModel {
     @Published var isPresentedSendEmailPage: Bool = false
     @Published var isPresentedNewPasswordPage: Bool = false
     var isAuthentication: Bool = false
+    var isEmailEmpty: Bool {
+        email.isEmpty
+    }
 
     private let sendEmailCertificationLinkUseCase: any SendEmailCertificationLinkUseCase
     private let fetchEmailVertificationStatusUseCase: any FetchEmailVertificationStatusUseCase
@@ -23,7 +26,6 @@ final class FindPasswordViewModel: BaseViewModel {
     }
 
     func updateIsPresentedSendEmailPage(isPresented: Bool) {
-        guard !email.isEmpty else { return }
         isPresentedSendEmailPage = isPresented
     }
 
