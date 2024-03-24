@@ -48,7 +48,7 @@ struct FindPasswordView: View {
                     text: "다음으로",
                     action: {
                         viewModel.updateIsPresentedSendEmailPage(isPresented: true)
-                        //                    viewModel.nextToButtonDidTap()
+                        viewModel.nextToButtonDidTap()
                     }
                 )
                 .disabled(viewModel.isEmailEmpty)
@@ -60,8 +60,7 @@ struct FindPasswordView: View {
                 to: SendEmailView(
                     email: viewModel.email,
                     nextToButtonAction: {
-    //                    viewModel.nextToButtonAction()
-                        viewModel.updateIsPresentedNewPasswordPage(isPresented: true)
+                        viewModel.nextToButtonAction()
                     }
                 ),
                 when: Binding(
