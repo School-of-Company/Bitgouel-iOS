@@ -51,12 +51,21 @@ struct NewPasswordView: View {
             BitgouelButton(
                 text: "다음으로",
                 action: {
-                    #warning("비밀번호 찾기 API 연결")
+                    viewModel.updateIsPresentedSuccessFindPasswordPage(isPresented: true)
                 }
             )
             .disabled(viewModel.isPasswordEmpty)
             .padding(.bottom, 20)
         }
         .padding(.horizontal, 28)
+        .navigate(
+            to: SuccessFindPasswordChangeView(),
+            when: Binding(
+                get: { viewModel.isPresentedSuccessFindPasswordPage },
+                set: { isPresented in
+                    viewModel.updateIsPresentedSuccessFindPasswordPage(isPresented: isPresented)
+                }
+            )
+        )
     }
 }

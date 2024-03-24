@@ -15,68 +15,71 @@ struct FindPasswordView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            VStack(alignment: .leading) {
-                BitgouelText(
-                    text: "비밀번호 찾기",
-                    font: .title2
-                )
+        NavigationView {
+            VStack(alignment: .leading, spacing: 0) {
+                VStack(alignment: .leading) {
+                    BitgouelText(
+                        text: "비밀번호 찾기",
+                        font: .title2
+                    )
+                    
+                    BitgouelText(
+                        text: "이메일 인증을 진행합니다.",
+                        font: .text3
+                    )
+                    .foregroundColor(.bitgouel(.greyscale(.g4)))
+                }
+                .padding(.top, 24)
                 
-                BitgouelText(
-                    text: "이메일 인증을 진행합니다.",
-                    font: .text3
+                BitgouelTextField(
+                    "이메일",
+                    text: Binding(
+                        get: { viewModel.email },
+                        set: { email in
+                            viewModel.updateEmail(email: email)
+                        }
+                    )
                 )
-                .foregroundColor(.bitgouel(.greyscale(.g4)))
+                .padding(.top, 32)
+                
+                Spacer()
+                
+                BitgouelButton(
+                    text: "다음으로",
+                    action: {
+                        viewModel.updateIsPresentedSendEmailPage(isPresented: true)
+                        //                    viewModel.nextToButtonDidTap()
+                    }
+                )
+                .disabled(viewModel.isEmailEmpty)
+                .padding(.bottom, 20)
             }
-            .padding(.top, 24)
-            
-            BitgouelTextField(
-                "이메일",
-                text: Binding(
-                    get: { viewModel.email },
-                    set: { email in
-                        viewModel.updateEmail(email: email)
+            .bitgouelBackButton(dismiss: dismiss)
+            .padding(.horizontal, 28)
+            .navigate(
+                to: SendEmailView(
+                    email: viewModel.email,
+                    nextToButtonAction: {
+    //                    viewModel.nextToButtonAction()
+                        viewModel.updateIsPresentedNewPasswordPage(isPresented: true)
+                    }
+                ),
+                when: Binding(
+                    get: { viewModel.isPresentedSendEmailPage },
+                    set: { isPresented in
+                        viewModel.updateIsPresentedSendEmailPage(isPresented: isPresented)
                     }
                 )
             )
-            .padding(.top, 32)
-            
-            Spacer()
-            
-            BitgouelButton(
-                text: "다음으로",
-                action: {
-                    viewModel.updateIsPresentedSendEmailPage(isPresented: true)
-                    viewModel.nextToButtonDidTap()
-                }
+            .navigate(
+                to: newPasswordFactory.makeView().eraseToAnyView(),
+                when: Binding(
+                    get: { viewModel.isPresentedNewPasswordPage },
+                    set: { isPresented in
+                        viewModel.updateIsPresentedNewPasswordPage(isPresented: isPresented)
+                    }
+                )
             )
-            .disabled(viewModel.isEmailEmpty)
-            .padding(.bottom, 20)
         }
-        .bitgouelBackButton(dismiss: dismiss)
-        .padding(.horizontal, 28)
-        .navigate(
-            to: SendEmailView(
-                email: viewModel.email, 
-                nextToButtonAction: {
-                    viewModel.nextToButtonAction()
-                }
-            ),
-            when: Binding(
-                get: { viewModel.isPresentedSendEmailPage },
-                set: { isPresented in
-                    viewModel.updateIsPresentedSendEmailPage(isPresented: isPresented)
-                }
-            )
-        )
-        .navigate(
-            to: newPasswordFactory.makeView().eraseToAnyView(),
-            when: Binding(
-                get: { viewModel.isPresentedNewPasswordPage },
-                set: { isPresented in
-                    viewModel.updateIsPresentedNewPasswordPage(isPresented: isPresented)
-                }
-            )
-        )
     }
 }

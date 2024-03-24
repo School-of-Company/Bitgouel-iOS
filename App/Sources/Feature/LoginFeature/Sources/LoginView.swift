@@ -111,6 +111,7 @@ struct LoginView: View {
                     )
                 )
                 .onChange(of: viewModel.isPresentedFindPasswordPage) { newValue in
+                    sceneState.sceneFlow = .findPassword
                     tabbarHidden.wrappedValue = newValue
                 }
             }

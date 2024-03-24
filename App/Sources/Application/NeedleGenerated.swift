@@ -305,6 +305,9 @@ private class RootDependency3944cc797a4a88956fb5Provider: RootDependency {
     var mainTabFactory: any MainTabFactory {
         return appComponent.mainTabFactory
     }
+    var findPasswordFactory: any FindPasswordFactory {
+        return appComponent.findPasswordFactory
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -857,6 +860,7 @@ extension RootComponent: Registration {
     public func registerItems() {
         keyPathToName[\RootDependency.loginFactory] = "loginFactory-any LoginFactory"
         keyPathToName[\RootDependency.mainTabFactory] = "mainTabFactory-any MainTabFactory"
+        keyPathToName[\RootDependency.findPasswordFactory] = "findPasswordFactory-any FindPasswordFactory"
     }
 }
 extension PostListComponent: Registration {
