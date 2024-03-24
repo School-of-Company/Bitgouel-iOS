@@ -11,7 +11,7 @@ public struct EmailRepositoryImpl: EmailRepository {
         try await remoteEmailDataSource.sendEmailCertificationLink(req: req)
     }
 
-    public func fetchEmailVerificationStatus(email: String) async throws -> EmailVerificationStatusEntity {
+    public func fetchEmailVerificationStatus(email: String) async throws -> Bool {
         try await remoteEmailDataSource.fetchEmailVerificationStatus(email: email)
     }
 }
