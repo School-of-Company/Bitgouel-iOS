@@ -4,9 +4,12 @@ import Service
 struct LectureListRow: View {
     let name: String
     let content: String
+    let semester: SemesterType
+    let division: DivisionType
+    let department: String
+    let line: String
     let startDate: String
     let endDate: String
-    let semester: SemesterType
     let lectureType: LectureType
     let lectureStatus: LectureStatusType
     let headCount: Int
@@ -42,17 +45,33 @@ struct LectureListRow: View {
                 .foregroundColor(.bitgouel(.greyscale(.g7)))
             }
             
-            HStack(spacing: 8) {
-                Text(lectureType.display())
-                    .bitgouelFont(.caption, color: .greyscale(.g4))
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                    .background(
-                        Color.bitgouel(.greyscale(.g9))
-                    )
-                    .cornerRadius(18)
+            VStack(alignment: .leading, spacing: 8) {
+                HStack(spacing: 8) {
+                    keywordText(text: department)
+                    
+                    keywordText(text: line)
+                }
+                
+                
+                HStack(spacing: 8) {
+                    keywordText(text: lectureType.display())
+                    
+                    keywordText(text: division.display())
+                }
             }
         }
         .padding(.vertical, 20)
+    }
+    
+    @ViewBuilder
+    func keywordText(text: String) -> some View {
+        Text(text)
+            .bitgouelFont(.caption, color: .greyscale(.g4))
+            .padding(.horizontal, 8)
+            .padding(.vertical, 4)
+            .background(
+                Color.bitgouel(.greyscale(.g9))
+            )
+            .cornerRadius(18)
     }
 }
