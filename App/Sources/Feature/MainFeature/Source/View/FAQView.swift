@@ -50,14 +50,13 @@ struct FAQView: View {
                 }
             }
         }
+        .padding(.vertical, 16)
+        .padding(.horizontal, 20)
         .background(
-            RoundedRectangle(cornerRadius: 20)
+            RoundedRectangle(cornerRadius: 12)
                 .foregroundColor(.white)
                 .shadow(color: .gray, radius: 1, x: 1, y: 1)
                 .opacity(0.3)
-                .padding(.vertical, -16)
-                .padding(.horizontal, -20)
-                .cornerRadius(12)
         )
     }
 }
