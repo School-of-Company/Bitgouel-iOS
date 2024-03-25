@@ -7,9 +7,3 @@ public struct FetchEmailVerificationStatusResponseDTO: Decodable {
         self.isAuthentication = isAuthentication
     }
 }
-
-extension FetchEmailVerificationStatusResponseDTO {
-    func toDomain() -> EmailVerificationStatusEntity {
-        EmailVerificationStatusEntity(isAuthentication: isAuthentication)
-    }
-}

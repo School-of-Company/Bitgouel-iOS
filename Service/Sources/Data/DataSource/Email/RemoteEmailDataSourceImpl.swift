@@ -5,10 +5,10 @@ public final class RemoteEmailDataSourceImpl: BaseRemoteDataSource<EmailAPI>, Re
         try await request(.sendEmailCertificationLink(req: req))
     }
 
-    public func fetchEmailVerificationStatus(email: String) async throws -> EmailVerificationStatusEntity {
+    public func fetchEmailVerificationStatus(email: String) async throws -> Bool {
         try await request(
             .fetchEmailVerificationStatus(email: email),
             dto: FetchEmailVerificationStatusResponseDTO.self
-        ).toDomain()
+        ).isAuthentication
     }
 }
