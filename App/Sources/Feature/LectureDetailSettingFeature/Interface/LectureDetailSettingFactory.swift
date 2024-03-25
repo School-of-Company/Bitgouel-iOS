@@ -1,9 +1,6 @@
-//
-//  LectureDetailSettingFactory.swift
-//  Bitgouel
-//
-//  Created by Mac on 3/25/24.
-//  Copyright © 2024 team.msg. All rights reserved.
-//
+import SwiftUI
 
-import Foundation
+public protocol LectureDetailSettingFactory {
+    associatedtype SomeView: View
+    func makeView() -> SomeView
+}
