@@ -60,6 +60,9 @@ struct MainView: View {
                 .padding(.bottom, 64)
                 
                 GovernmentView()
+                
+                FAQView(faqList: .init())
+                    .padding(.horizontal, 28)
                     .padding(.bottom, 40)
             }
         }
