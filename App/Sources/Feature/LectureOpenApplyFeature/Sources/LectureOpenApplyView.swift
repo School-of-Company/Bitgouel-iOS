@@ -1,15 +1,25 @@
 import SwiftUI
 
-struct LectureOpeningApplyView: View {
-    @StateObject var viewModel: LectureOpeningApplyViewModel
-        
+struct LectureOpenApplyView: View {
+    @StateObject var viewModel: LectureOpenApplyViewModel
+    
+    private let lectureOpenApplyFactory: any LectureOpenApplyFactory
+    
+    init(
+        viewModel: LectureOpenApplyViewModel,
+        lectureOpenApplyFactory: any LectureOpenApplyFactory
+    ) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+        self.lectureOpenApplyFactory = lectureOpenApplyFactory
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             InputFormView(
                 epic: "강의",
                 state: "개설 신청",
                 settingButtonAction: {
-                    viewModel.isPresentedDetailSetting(state: true)
+                    viewModel.updateIsPresentedLectureDetailSettingAppend(state: true)
                 },
                 finalButtonAction: {
                     
@@ -27,10 +37,12 @@ struct LectureOpeningApplyView: View {
         .fullScreenCover(
             isPresented: Binding(
                 get: { viewModel.isPresentedLectureDetailSettingAppend },
-                set: { _ in viewModel.isPresentedDetailSetting(state: false) }
+                set: { _ in viewModel.updateIsPresentedLectureDetailSettingAppend(state: false) }
             )
         ) {
-            LectureDetailSettingsView(viewModel: LectureOpeningApplyViewModel())
+//            DeferView {
+//                lectureOpenApplyFactory.makeView(
+//                )
         }
     }
 }
