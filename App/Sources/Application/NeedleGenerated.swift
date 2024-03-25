@@ -288,15 +288,20 @@ private func factory4545df5fcd42aaf8ed60f47b58f8f304c97af4d5(_ component: Needle
     return InputNoticeDependency7b594803ad882c7e25c9Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class MainDependency7c6a5b4738b211b8e155Provider: MainDependency {
-
-
-    init() {
-
+    var fetchFAQListUseCase: any FetchFAQListUseCase {
+        return appComponent.fetchFAQListUseCase
+    }
+    var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
+        return appComponent.loadUserAuthorityUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->MainComponent
-private func factoryc9274e46e78e70f29c54e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return MainDependency7c6a5b4738b211b8e155Provider()
+private func factoryc9274e46e78e70f29c54f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return MainDependency7c6a5b4738b211b8e155Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class RootDependency3944cc797a4a88956fb5Provider: RootDependency {
     var loginFactory: any LoginFactory {
@@ -855,7 +860,8 @@ extension InputNoticeComponent: Registration {
 }
 extension MainComponent: Registration {
     public func registerItems() {
-
+        keyPathToName[\MainDependency.fetchFAQListUseCase] = "fetchFAQListUseCase-any FetchFAQListUseCase"
+        keyPathToName[\MainDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
     }
 }
 extension RootComponent: Registration {
@@ -1178,7 +1184,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->MyPageComponent", factory0f6f456ebf157d02dfb3f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InquiryDetailComponent", factory2d6736bd037393a86ae3f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputNoticeComponent", factory4545df5fcd42aaf8ed60f47b58f8f304c97af4d5)
-    registerProviderFactory("^->AppComponent->MainComponent", factoryc9274e46e78e70f29c54e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->MainComponent", factoryc9274e46e78e70f29c54f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->RootComponent", factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->PostListComponent", factory0c89e2bbcc02dbcac018f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ChangePasswordComponent", factoryab7c4d87dab53e0a51b9f47b58f8f304c97af4d5)

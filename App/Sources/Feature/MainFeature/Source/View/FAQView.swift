@@ -2,8 +2,8 @@ import SwiftUI
 import Service
 
 struct FAQView: View {
-    let faqList: [FAQInfoEntity]
-    
+    var faqList: [FAQInfoEntity]
+
     var body: some View {
         VStack(spacing: 24) {
             IntroduceView(
@@ -21,7 +21,7 @@ struct FAQView: View {
             }
         }
     }
-    
+
     @ViewBuilder
     func faqRow(
         question: String,
