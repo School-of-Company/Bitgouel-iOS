@@ -14,8 +14,4 @@ public struct FAQRepositoryImpl: FAQRepository {
     public func fetchFAQList() async throws -> [FAQInfoEntity] {
         try await remoteFAQDataSource.fetchFAQList()
     }
-    
-    public func fetchFAQDetail(faqID: String) async throws -> FAQDetailInfoEntity {
-        try await remoteFAQDataSource.fetchFAQDetail(faqID: faqID)
-    }
 }

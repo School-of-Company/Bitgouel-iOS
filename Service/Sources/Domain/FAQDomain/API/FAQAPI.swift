@@ -4,7 +4,6 @@ import Moya
 public enum FAQAPI {
     case inputFAQ(req: InputFAQRequestDTO)
     case fetchFAQList
-    case fetchFAQDetail(faqID: String)
 }
 
 extension FAQAPI: BitgouelAPI {
@@ -19,9 +18,6 @@ extension FAQAPI: BitgouelAPI {
         case .inputFAQ,
              .fetchFAQList:
             return ""
-
-        case let .fetchFAQDetail(faqID):
-            return "/\(faqID)"
         }
     }
 
@@ -30,8 +26,7 @@ extension FAQAPI: BitgouelAPI {
         case .inputFAQ:
             return .post
 
-        case .fetchFAQList,
-             .fetchFAQDetail:
+        case .fetchFAQList:
             return .get
         }
     }
@@ -41,16 +36,18 @@ extension FAQAPI: BitgouelAPI {
         case let .inputFAQ(req):
             return .requestJSONEncodable(req)
 
-        case .fetchFAQList,
-             .fetchFAQDetail:
+        case .fetchFAQList:
             return .requestPlain
         }
     }
 
     public var jwtTokenType: JwtTokenType {
         switch self {
-        default:
+        case .inputFAQ:
             return .accessToken
+            
+        case .fetchFAQList:
+            return .none
         }
     }
 
@@ -69,14 +66,6 @@ extension FAQAPI: BitgouelAPI {
             return [
                 400: .internalServerError,
                 401: .internalServerError,
-                429: .internalServerError
-            ]
-
-        case .fetchFAQDetail:
-            return [
-                400: .internalServerError,
-                401: .internalServerError,
-                404: .internalServerError,
                 429: .internalServerError
             ]
         }

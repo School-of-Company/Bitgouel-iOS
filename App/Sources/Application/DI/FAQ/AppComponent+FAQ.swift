@@ -25,10 +25,4 @@ extension AppComponent {
             FetchFAQListUseCaseImpl(faqRepository: faqRepository)
         }
     }
-    
-    var fetchFAQDetailUseCase: any FetchFAQDetailUseCase {
-        shared {
-            FetchFAQDetailUseCaseImpl(faqRepository: faqRepository)
-        }
-    }
 }

@@ -8,8 +8,4 @@ public final class RemoteFAQDataSourceImpl: BaseRemoteDataSource<FAQAPI>, Remote
     public func fetchFAQList() async throws -> [FAQInfoEntity] {
         try await request(.fetchFAQList, dto: FetchFAQListResponseDTO.self).toDomain()
     }
-
-    public func fetchFAQDetail(faqID: String) async throws -> FAQDetailInfoEntity {
-        try await request(.fetchFAQDetail(faqID: faqID), dto: FetchFAQDetailResponseDTO.self).toDomain()
-    }
 }

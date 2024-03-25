@@ -10,18 +10,22 @@ public struct FetchFAQListResponseDTO: Decodable {
     public struct FAQInfo: Decodable {
         public let questionID: String
         public let question: String
+        public let answer: String
 
         public init(
             questionID: String,
-            question: String
+            question: String,
+            answer: String
         ) {
             self.questionID = questionID
             self.question = question
+            self.answer = answer
         }
 
         public enum CodingKeys: String, CodingKey {
             case questionID = "id"
             case question
+            case answer
         }
     }
 }
@@ -36,7 +40,8 @@ extension FetchFAQListResponseDTO.FAQInfo {
     func toDomain() -> FAQInfoEntity {
         FAQInfoEntity(
             questionID: questionID,
-            question: question
+            question: question,
+            answer: answer
         )
     }
 }
