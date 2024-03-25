@@ -2,7 +2,7 @@ import SwiftUI
 
 struct MainView: View {
     @StateObject var viewModel: MainViewModel
-
+    
     init(viewModel: MainViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
@@ -66,9 +66,25 @@ struct MainView: View {
                 
                 GovernmentView()
                 
-                FAQView(faqList: viewModel.faqList)
-                    .padding(.horizontal, 28)
-                    .padding(.bottom, 40)
+                FAQView(
+                    faqList: viewModel.faqList,
+                    authority: viewModel.authority
+                )
+                .padding(.horizontal, 28)
+                
+                InputFAQView(
+                    addFAQButtonDidTap: Binding(
+                        get: { viewModel.inputFAQButtonDidTap },
+                        set: { state in
+                            viewModel.updateInputFAQButtonDidTap(state: state)
+                        }
+                    ),
+                    inputFAQAction: { question,answer in 
+                        viewModel.updateFAQ(question: question, answer: answer)
+                    }
+                )
+                .padding(.horizontal, 28)
+                .padding(.bottom, 40)
             }
         }
         .onAppear {

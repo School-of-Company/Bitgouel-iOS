@@ -2,7 +2,11 @@ import SwiftUI
 import Service
 
 struct FAQView: View {
+    @State var question: String = ""
+    @State var answer: String = ""
+    
     var faqList: [FAQInfoEntity]
+    let authority: UserAuthorityType
 
     var body: some View {
         VStack(spacing: 24) {
@@ -28,7 +32,7 @@ struct FAQView: View {
         answer: String
     ) -> some View {
         VStack(spacing: 12) {
-            HStack(spacing: 0) {
+            HStack(spacing: 4) {
                 Text("Q.")
                     .bitgouelFont(.text3, color: .primary(.p5))
                 
@@ -41,7 +45,7 @@ struct FAQView: View {
             if !answer.isEmpty {
                 Divider()
                 
-                HStack(spacing: 0) {
+                HStack(spacing: 4) {
                     Text("A.")
                         .bitgouelFont(.text3, color: .primary(.p5))
                     

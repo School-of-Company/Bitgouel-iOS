@@ -3,7 +3,10 @@ import Service
 
 final class MainViewModel: BaseViewModel {
     @Published var faqList: [FAQInfoEntity] = []
-    var authority: UserAuthorityType = .user
+    @Published var authority: UserAuthorityType = .user
+    @Published var question: String = ""
+    @Published var answer: String = ""
+    @Published var inputFAQButtonDidTap: Bool = false
 
     private let fetchFAQListUseCase: any FetchFAQListUseCase
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
@@ -14,6 +17,15 @@ final class MainViewModel: BaseViewModel {
     ) {
         self.fetchFAQListUseCase = fetchFAQListUseCase
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
+    }
+
+    func updateFAQ(question: String, answer: String) {
+        self.question = question
+        self.answer = answer
+    }
+
+    func updateInputFAQButtonDidTap(state: Bool) {
+        inputFAQButtonDidTap = state
     }
 
     @MainActor
