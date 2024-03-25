@@ -4,6 +4,10 @@ import Service
 struct LectureListRow: View {
     let name: String
     let content: String
+    let semester: SemesterType
+    let division: DivisionType
+    let department: String
+    let line: String
     let startDate: String
     let endDate: String
     let lectureType: LectureType
@@ -14,9 +18,14 @@ struct LectureListRow: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            HStack(spacing: 8) {
+            HStack {
                 Text(lecturer)
                     .bitgouelFont(.text3, color: .greyscale(.g0))
+                
+                Spacer()
+                
+                Text(lectureType.display())
+                    .bitgouelFont(.caption, color: .greyscale(.g4))
             }
 
             Text(name)
@@ -26,25 +35,39 @@ struct LectureListRow: View {
             .bitgouelFont(.text3, color: .greyscale(.g4))
             .lineLimit(2)
 
-            HStack(spacing: 8) {
-                Text("\(startDate) ~ \(endDate)")
-
-                Text("•")
-
-                Text("\(headCount)/\(maxRegisteredUser)명")
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(spacing: 8) {
+                    Text("\(startDate) ~ \(endDate)")
+                    
+                    Text("•")
+                    
+                    Text("\(semester.display())")
+                }
+                .bitgouelFont(.caption, color: .greyscale(.g4))
+                
+                BitgouelText(
+                    text: "\(headCount)/\(maxRegisteredUser)명",
+                    font: .caption
+                )
+                .foregroundColor(.bitgouel(.greyscale(.g7)))
             }
-            .bitgouelFont(.caption, color: .greyscale(.g7))
-
+            
             HStack(spacing: 8) {
-                Text(lectureType.display())
-                    .bitgouelFont(.caption, color: .greyscale(.g4))
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                    .background(
-                        Color.bitgouel(.greyscale(.g9))
-                    )
-                    .cornerRadius(18)
+                Text(department)
+                
+                Divider()
+                
+                Text(division.display())
+                
+                Divider()
+                
+                Text(line)
             }
+            .padding(.horizontal, 8)
+            .padding(.vertical, 4)
+            .bitgouelFont(.caption, color: .greyscale(.g4))
+            .background(Color.bitgouel(.greyscale(.g9)))
+            .cornerRadius(18)
         }
         .padding(.vertical, 20)
     }

@@ -26,6 +26,10 @@ struct LectureListView: View {
                                 LectureListRow(
                                     name: item.name,
                                     content: item.content,
+                                    semester: item.semester,
+                                    division: item.division,
+                                    department: item.department,
+                                    line: item.line,
                                     startDate: item.startDate.toStringCustomFormat(format: "yyyy.M.d"),
                                     endDate: item.endDate.toStringCustomFormat(format: "yyyy.M.d"),
                                     lectureType: item.lectureType,
@@ -50,14 +54,21 @@ struct LectureListView: View {
                 .navigationTitle("강의 목록")
                 .toolbar {
                     ToolbarItemGroup(placement: .navigationBarTrailing) {
-                        Button {
-                            isShowingFilter.toggle()
-                        } label: {
-                            HStack(spacing: 8) {
-                                BitgouelAsset.Icons.filterStroke.swiftUIImage
-                                
-                                Text("필터")
-                                    .bitgouelFont(.text3, color: .greyscale(.g7))
+                        HStack(spacing: 24) {
+                            if viewModel.authority == .admin {
+                                Button {
+                                    #warning("어드민 강의 개설 페이지 이동")
+                                } label: {
+                                    BitgouelAsset.Icons.add.swiftUIImage
+                                }
+                            }
+                            
+                            Button {
+                                isShowingFilter.toggle()
+                            } label: {
+                                HStack(spacing: 8) {
+                                    BitgouelAsset.Icons.filterStroke.swiftUIImage
+                                }
                             }
                         }
                     }
