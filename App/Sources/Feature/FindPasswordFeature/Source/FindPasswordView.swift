@@ -71,7 +71,7 @@ struct FindPasswordView: View {
                 )
             )
             .navigate(
-                to: newPasswordFactory.makeView().eraseToAnyView(),
+                to: newPasswordFactory.makeView(email: viewModel.email).eraseToAnyView(),
                 when: Binding(
                     get: { viewModel.isPresentedNewPasswordPage },
                     set: { isPresented in

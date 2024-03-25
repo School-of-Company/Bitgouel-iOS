@@ -12,7 +12,7 @@ public enum AuthAPI {
     case professorSignup(req: ProfessorSignupRequestDTO)
     case governmentSignup(req: GovernmentSignupRequestDTO)
     case companyInstructorSignup(req: CompanyInstructorSignupRequestDTO)
-    case findPassword(email: String, newPassword: String)
+    case findPassword(req: FindPasswordRequestDTO)
 }
 
 extension AuthAPI: BitgouelAPI {
@@ -99,11 +99,8 @@ extension AuthAPI: BitgouelAPI {
         case let .companyInstructorSignup(req):
             return .requestJSONEncodable(req)
             
-        case let .findPassword(email, newPassword):
-            return .requestParameters(parameters: [
-                "email": email,
-                "newPassword": newPassword
-            ], encoding: URLEncoding.httpBody)
+        case let .findPassword(req):
+            return .requestJSONEncodable(req)
 
         default:
             return .requestPlain
@@ -118,9 +115,6 @@ extension AuthAPI: BitgouelAPI {
                 "RefreshToken" : "Bearer \(refreshToken)",
                 "Content-Type": "application/json"
             ]
-
-        case .findPassword:
-            return .none
 
         default:
             return ["Content-Type": "application/json"]

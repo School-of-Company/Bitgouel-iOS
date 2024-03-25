@@ -536,15 +536,17 @@ private func factoryde3552d9e0f793ec8b8df47b58f8f304c97af4d5(_ component: Needle
     return SuccessChangePasswordDependency05dde412f91beb4c3b8dProvider(appComponent: parent1(component) as! AppComponent)
 }
 private class NewPasswordDependency3320cbf6e40b8cd8a8eaProvider: NewPasswordDependency {
-
-
-    init() {
-
+    var findPasswordUseCase: any FindPasswordUseCase {
+        return appComponent.findPasswordUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->NewPasswordComponent
-private func factory52985a6d5ec65d75bd97e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return NewPasswordDependency3320cbf6e40b8cd8a8eaProvider()
+private func factory52985a6d5ec65d75bd97f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return NewPasswordDependency3320cbf6e40b8cd8a8eaProvider(appComponent: parent1(component) as! AppComponent)
 }
 private class InquiryListDependencyec75a7335a50ded93b28Provider: InquiryListDependency {
     var inputInquiryFactory: any InputInquiryFactory {
@@ -945,7 +947,7 @@ extension SuccessChangePasswordComponent: Registration {
 }
 extension NewPasswordComponent: Registration {
     public func registerItems() {
-
+        keyPathToName[\NewPasswordDependency.findPasswordUseCase] = "findPasswordUseCase-any FindPasswordUseCase"
     }
 }
 extension InquiryListComponent: Registration {
@@ -1189,7 +1191,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->WriteInquiryAnswerComponent", factory3d4cadf14cd9a3336981f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->PostDetailComponent", factorybc555a73df3767a26999f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->SuccessChangePasswordComponent", factoryde3552d9e0f793ec8b8df47b58f8f304c97af4d5)
-    registerProviderFactory("^->AppComponent->NewPasswordComponent", factory52985a6d5ec65d75bd97e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->NewPasswordComponent", factory52985a6d5ec65d75bd97f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InquiryListComponent", factorydd7e28250a180554c7a0f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->EditPostComponent", factoryf55a9d7f6c1ed8d0f0aef47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ActivityListComponent", factory7177e6769ee69064a61bf47b58f8f304c97af4d5)

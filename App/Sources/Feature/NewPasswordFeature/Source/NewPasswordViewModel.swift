@@ -1,4 +1,5 @@
 import Foundation
+import Service
 
 final class NewPasswordViewModel: BaseViewModel {
     @Published var newPassword: String = ""
@@ -7,6 +8,17 @@ final class NewPasswordViewModel: BaseViewModel {
 
     var isPasswordEmpty: Bool {
         newPassword.isEmpty || checkNewPassword.isEmpty
+    }
+    var email: String = ""
+
+    private let findPasswordUseCase: any FindPasswordUseCase
+
+    init(
+        email: String,
+        findPasswordUseCase: any FindPasswordUseCase
+    ) {
+        self.email = email
+        self.findPasswordUseCase = findPasswordUseCase
     }
 
     func updateNewPassword(password: String) {
@@ -19,5 +31,20 @@ final class NewPasswordViewModel: BaseViewModel {
 
     func updateIsPresentedSuccessFindPasswordPage(isPresented: Bool) {
         isPresentedSuccessFindPasswordPage = isPresented
+    }
+
+    @MainActor
+    func nextToButtonDidTap() {
+        guard newPassword == checkNewPassword else { return }
+
+        Task {
+            do {
+                try await findPasswordUseCase(req: FindPasswordRequestDTO(email: email, newPassword: newPassword))
+                
+                updateIsPresentedSuccessFindPasswordPage(isPresented: true)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
 }

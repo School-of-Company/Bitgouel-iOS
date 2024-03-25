@@ -7,7 +7,7 @@ public struct FindPasswordUseCaseImpl: FindPasswordUseCase {
         self.authRepository = authRepository
     }
 
-    public func callAsFunction(email: String, newPassword: String) async throws {
-        try await authRepository.findPassword(email: email, newPassword: newPassword)
+    public func callAsFunction(req: FindPasswordRequestDTO) async throws {
+        try await authRepository.findPassword(req: req)
     }
 }

@@ -53,7 +53,7 @@ public final class RemoteAuthDataSourceImpl: BaseRemoteDataSource<AuthAPI>, Remo
         try await request(.companyInstructorSignup(req: req))
     }
 
-    public func findPassword(email: String, newPassword: String) async throws {
-        try await request(.findPassword(email: email, newPassword: newPassword))
+    public func findPassword(req: FindPasswordRequestDTO) async throws {
+        try await request(.findPassword(req: req))
     }
 }
