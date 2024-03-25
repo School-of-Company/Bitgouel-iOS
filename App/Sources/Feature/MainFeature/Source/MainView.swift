@@ -72,18 +72,20 @@ struct MainView: View {
                         authority: viewModel.authority
                     )
                     
-                    InputFAQView(
-                        addFAQButtonDidTap: Binding(
-                            get: { viewModel.inputFAQButtonDidTap },
-                            set: { state in
-                                viewModel.updateInputFAQButtonDidTap(state: state)
+                    if viewModel.authority == .admin {
+                        InputFAQView(
+                            addFAQButtonDidTap: Binding(
+                                get: { viewModel.inputFAQButtonDidTap },
+                                set: { state in
+                                    viewModel.updateInputFAQButtonDidTap(state: state)
+                                }
+                            ),
+                            inputFAQAction: { question,answer in
+                                viewModel.updateFAQ(question: question, answer: answer)
+                                viewModel.inputFAQ()
                             }
-                        ),
-                        inputFAQAction: { question,answer in
-                            viewModel.updateFAQ(question: question, answer: answer)
-                            viewModel.inputFAQ()
-                        }
-                    )
+                        )
+                    }
                 }
                 .padding(.horizontal, 28)
                 .padding(.bottom, 40)
