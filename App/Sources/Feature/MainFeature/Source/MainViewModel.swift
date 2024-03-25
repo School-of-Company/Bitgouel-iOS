@@ -10,13 +10,16 @@ final class MainViewModel: BaseViewModel {
 
     private let fetchFAQListUseCase: any FetchFAQListUseCase
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
+    private let inputFAQUseCase: any InputFAQUseCase
 
     init(
         fetchFAQListUseCase: any FetchFAQListUseCase,
-        loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
+        loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
+        inputFAQUseCase: any InputFAQUseCase
     ) {
         self.fetchFAQListUseCase = fetchFAQListUseCase
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
+        self.inputFAQUseCase = inputFAQUseCase
     }
 
     func updateFAQ(question: String, answer: String) {
@@ -35,6 +38,19 @@ final class MainViewModel: BaseViewModel {
         Task {
             do {
                 faqList = try await fetchFAQListUseCase()
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+
+    @MainActor
+    func inputFAQ() {
+        Task {
+            do {
+                try await inputFAQUseCase(req: InputFAQRequestDTO(question: question, answer: answer))
+                
+                updateInputFAQButtonDidTap(state: false)
             } catch {
                 print(error.localizedDescription)
             }

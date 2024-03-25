@@ -294,6 +294,9 @@ private class MainDependency7c6a5b4738b211b8e155Provider: MainDependency {
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
         return appComponent.loadUserAuthorityUseCase
     }
+    var inputFAQUseCase: any InputFAQUseCase {
+        return appComponent.inputFAQUseCase
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -862,6 +865,7 @@ extension MainComponent: Registration {
     public func registerItems() {
         keyPathToName[\MainDependency.fetchFAQListUseCase] = "fetchFAQListUseCase-any FetchFAQListUseCase"
         keyPathToName[\MainDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
+        keyPathToName[\MainDependency.inputFAQUseCase] = "inputFAQUseCase-any InputFAQUseCase"
     }
 }
 extension RootComponent: Registration {
