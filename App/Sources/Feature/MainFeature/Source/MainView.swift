@@ -1,6 +1,12 @@
 import SwiftUI
 
 struct MainView: View {
+    @StateObject var viewModel: MainViewModel
+    
+    init(viewModel: MainViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
+    
     var body: some View {
         ScrollView(showsIndicators: false) {
             Image("mainpage_image_1")
@@ -8,7 +14,6 @@ struct MainView: View {
                 .padding(.bottom, 16)
             
             VStack(spacing: 64) {
-                
                 VStack(spacing: 64) {
                     BitgouelPromotionView()
                     
@@ -61,10 +66,33 @@ struct MainView: View {
                 
                 GovernmentView()
                 
-                FAQView(faqList: .init())
-                    .padding(.horizontal, 28)
-                    .padding(.bottom, 40)
+                VStack(spacing: 16) {
+                    FAQView(
+                        faqList: viewModel.faqList,
+                        authority: viewModel.authority
+                    )
+                    
+                    if viewModel.authority == .admin {
+                        InputFAQView(
+                            addFAQButtonDidTap: Binding(
+                                get: { viewModel.inputFAQButtonDidTap },
+                                set: { state in
+                                    viewModel.updateInputFAQButtonDidTap(state: state)
+                                }
+                            ),
+                            inputFAQAction: { question,answer in
+                                viewModel.updateFAQ(question: question, answer: answer)
+                                viewModel.inputFAQ()
+                            }
+                        )
+                    }
+                }
+                .padding(.horizontal, 28)
+                .padding(.bottom, 40)
             }
+        }
+        .onAppear {
+            viewModel.onAppear()
         }
     }
 }

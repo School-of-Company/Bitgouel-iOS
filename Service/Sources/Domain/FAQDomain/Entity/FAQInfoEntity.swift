@@ -1,12 +1,12 @@
 import Foundation
 
 public struct FAQInfoEntity: Equatable {
-    public let questionID: String
+    public let questionID: Int
     public let question: String
     public let answer: String
 
     public init(
-        questionID: String,
+        questionID: Int,
         question: String,
         answer: String
     ) {
