@@ -7,7 +7,7 @@ public struct FetchEmailVerificationStatusUseCaseImpl: FetchEmailVertificationSt
         self.emailRepository = emailRepository
     }
 
-    public func callAsFunction(email: String) async throws -> EmailVerificationStatusEntity {
+    public func callAsFunction(email: String) async throws -> Bool {
         try await emailRepository.fetchEmailVerificationStatus(email: email)
     }
 }

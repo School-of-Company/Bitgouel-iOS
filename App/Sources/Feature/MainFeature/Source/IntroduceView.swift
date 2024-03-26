@@ -5,19 +5,20 @@ struct IntroduceView: View {
     var introduceText: String
 
     var body: some View {
-        HStack {
-            Text(introduceTitle)
-                .bitgouelFont(.title2)
-
-            Spacer()
+        VStack(spacing: 0) {
+            HStack {
+                Text(introduceTitle)
+                    .bitgouelFont(.title2)
+                
+                Spacer()
+            }
+            
+            HStack {
+                Text(introduceText)
+                    .bitgouelFont(.caption, color: .greyscale(.g7))
+                
+                Spacer()
+            }
         }
-
-        HStack {
-            Text(introduceText)
-                .bitgouelFont(.caption, color: .greyscale(.g7))
-
-            Spacer()
-        }
-        .padding(.bottom, 16)
     }
 }

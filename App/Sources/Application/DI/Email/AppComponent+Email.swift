@@ -20,7 +20,7 @@ public extension AppComponent {
         }
     }
     
-    var fetchEmailVerificationStatusUseCase: any FetchEmailVertificationStatusUseCase {
+    var fetchEmailVertificationStatusUseCase: any FetchEmailVertificationStatusUseCase {
         shared {
             FetchEmailVerificationStatusUseCaseImpl(emailRepository: emailRepository)
         }
