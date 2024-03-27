@@ -27,8 +27,8 @@ final class InquiryListViewModel: BaseViewModel {
         self.fetchInquiryByAdminUseCase = fetchInquiryByAdminUseCase
     }
 
-    func updateInquiryID(ID: String) {
-        inquiryID = ID
+    func updateInquiryID(inquiryID: String) {
+        self.inquiryID = inquiryID
     }
 
     func updateIsPresentedInquiryDetailView(isPresented: Bool) {
