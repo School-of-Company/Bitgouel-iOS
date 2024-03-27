@@ -3,7 +3,7 @@ import Foundation
 public struct ClubListResponseDTO: Decodable {
     public let clubs: [Club]
 
-    init(clubs: [Club]) {
+    public init(clubs: [Club]) {
         self.clubs = clubs
     }
 }

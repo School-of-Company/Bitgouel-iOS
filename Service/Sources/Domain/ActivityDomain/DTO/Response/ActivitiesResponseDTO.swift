@@ -8,27 +8,27 @@ public struct ActivitiesResponseDTO: Decodable {
     }
 
     public struct Content: Decodable {
-        public let content: [ActivityInfo]
+        public let content: [ActivityInfoResponseDTO]
 
-        public init(content: [ActivityInfo]) {
+        public init(content: [ActivityInfoResponseDTO]) {
             self.content = content
         }
     }
+}
 
-    public struct ActivityInfo: Decodable {
-        public let activityID: String
-        public let title: String
-        public let activityDate: String
-        public let userID: String
-        public let username: String
+public struct ActivityInfoResponseDTO: Decodable {
+    public let activityID: String
+    public let title: String
+    public let activityDate: String
+    public let userID: String
+    public let username: String
 
-        enum CodingKeys: String, CodingKey {
-            case activityID = "activityId"
-            case title
-            case activityDate
-            case userID = "userId"
-            case username
-        }
+    enum CodingKeys: String, CodingKey {
+        case activityID = "activityId"
+        case title
+        case activityDate
+        case userID = "userId"
+        case username
     }
 }
 
@@ -46,7 +46,7 @@ extension ActivitiesResponseDTO.Content {
     }
 }
 
-extension ActivitiesResponseDTO.ActivityInfo {
+extension ActivityInfoResponseDTO {
     func toDomain() -> ActivityEntity {
         ActivityEntity(
             activityID: activityID,

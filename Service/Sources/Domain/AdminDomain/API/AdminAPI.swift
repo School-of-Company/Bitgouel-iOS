@@ -28,7 +28,7 @@ extension AdminAPI: BitgouelAPI {
         case .withdrawUserSignup:
             return "/withdraw"
 
-        case let .rejectUserSignup(userID):
+        case .rejectUserSignup:
             return "/reject"
         }
     }
@@ -76,7 +76,7 @@ extension AdminAPI: BitgouelAPI {
         }
     }
 
-    public var errorMap: [Int : AdminDomainError] {
+    public var errorMap: [Int: AdminDomainError] {
         switch self {
         case .fetchUserList:
             return [

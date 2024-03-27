@@ -67,7 +67,7 @@ extension PostAPI: BitgouelAPI {
         }
     }
 
-    public var errorMap: [Int : PostDomainError] {
+    public var errorMap: [Int: PostDomainError] {
         switch self {
         case .writePost,
              .updatePost,

@@ -4,15 +4,15 @@ public struct ClubDetailEntity: Equatable {
     public let clubID: Int
     public let clubName: String
     public let highSchoolName: String
-    public let students: [memberInfoEntity]
-    public let teacher: memberInfoEntity
+    public let students: [MemberInfoEntity]
+    public let teacher: MemberInfoEntity
 
     public init(
         clubID: Int,
         clubName: String,
         highSchoolName: String,
-        students: [memberInfoEntity],
-        teacher: memberInfoEntity
+        students: [MemberInfoEntity],
+        teacher: MemberInfoEntity
     ) {
         self.clubID = clubID
         self.clubName = clubName
@@ -23,12 +23,12 @@ public struct ClubDetailEntity: Equatable {
 }
 
 public extension ClubDetailEntity {
-    struct memberInfoEntity: Equatable {
-        public let id: String
+    struct MemberInfoEntity: Equatable {
+        public let studentID: String
         public let name: String
 
-        public init(id: String, name: String) {
-            self.id = id
+        public init(studentID: String, name: String) {
+            self.studentID = studentID
             self.name = name
         }
     }

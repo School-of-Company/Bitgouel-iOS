@@ -10,5 +10,5 @@ let project = Project.dynamicFramwork(
         ]
     ),
     deploymentTarget: .iOS(targetVersion: "15.0", devices: [.iphone]),
-    scripts: [.SwiftLintString, .NeedleShell]
+    scripts: [.SwiftLintShell, .NeedleShell]
 )

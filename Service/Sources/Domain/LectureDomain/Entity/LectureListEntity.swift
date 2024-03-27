@@ -51,7 +51,7 @@ public struct LectureListEntity: Equatable {
 
 public struct LectureContentEntity: Equatable {
     public let content: [LectureListEntity]
-    
+
     public init(content: [LectureListEntity]) {
         self.content = content
     }
