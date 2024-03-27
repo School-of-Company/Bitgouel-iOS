@@ -26,7 +26,7 @@ final class InquiryListViewModel: BaseViewModel {
         self.fetchMyInquiryListUseCase = fetchMyInquiryListUseCase
         self.fetchInquiryByAdminUseCase = fetchInquiryByAdminUseCase
     }
-    
+
     func updateInquiryID(ID: String) {
         inquiryID = ID
     }
@@ -38,7 +38,7 @@ final class InquiryListViewModel: BaseViewModel {
     func updateIsPresentedInputInquiryView(isPresented: Bool) {
         isPresentedInputInquiryView = isPresented
     }
-    
+
     func updateIsPresentedFilter(isPresented: Bool) {
         isPresentedFilter = isPresented
     }
@@ -77,7 +77,7 @@ final class InquiryListViewModel: BaseViewModel {
     @MainActor
     func updateKeyword(text: String) {
         keyword = text
-        
+
         Task {
             do {
                 let response = try await onAppearInquiryByAdmin()

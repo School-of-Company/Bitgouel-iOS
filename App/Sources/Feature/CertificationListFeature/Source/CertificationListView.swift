@@ -132,7 +132,7 @@ struct CertificationListView: View {
                 inputCertificationFactory.makeView(
                     epic: viewModel.selectedEpic,
                     certificationID: viewModel.selectedCertificationID,
-                    certificationName: viewModel.selectedCertificationName, 
+                    certificationName: viewModel.selectedCertificationName,
                     acquisitionDate: viewModel.selectedAcquisitionDate
                 ).eraseToAnyView()
             }

@@ -23,12 +23,12 @@ struct RootView: View {
                 loginFactory.makeView()
                     .eraseToAnyView()
                     .environmentObject(sceneState)
-                
+
             case .main:
                 mainTabFactory.makeView()
                     .eraseToAnyView()
                     .environmentObject(sceneState)
-                
+
             case .findPassword:
                 findPasswordFactory.makeView()
                     .eraseToAnyView()

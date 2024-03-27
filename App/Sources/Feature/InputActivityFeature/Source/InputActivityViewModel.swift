@@ -50,7 +50,7 @@ final class InputActivityViewModel: BaseViewModel {
         Task {
             do {
                 let response = try await fetchActivityDetailUseCase(activityID: activityID)
-                
+
                 updateActivityDetail(entity: response)
             } catch {
                 print(error.localizedDescription)
@@ -75,7 +75,7 @@ final class InputActivityViewModel: BaseViewModel {
         }
     }
 
-    func addActivity() async throws{
+    func addActivity() async throws {
         try await inputActivityUseCase(
             req: InputActivityRequestDTO(
                 title: activityTitle,
@@ -85,7 +85,7 @@ final class InputActivityViewModel: BaseViewModel {
             )
         )
     }
-    
+
     func modifyActivity() async throws {
         try await modifyActivityUseCase(
             activityID: activityID,

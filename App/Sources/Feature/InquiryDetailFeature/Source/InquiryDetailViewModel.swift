@@ -1,5 +1,5 @@
-import SwiftUI
 import Service
+import SwiftUI
 
 final class InquiryDetailViewModel: BaseViewModel {
     @Published var inquiryDetail: InquiryDetailEntity?
@@ -47,7 +47,7 @@ final class InquiryDetailViewModel: BaseViewModel {
     func updateIsPresentedInputInquiryView(isPresented: Bool) {
         isPresentedInputInquiryView = isPresented
     }
-    
+
     func updateIsDeleteInquiry(isDelete: Bool) {
         isDeleteInquiry = isDelete
     }
@@ -83,11 +83,11 @@ final class InquiryDetailViewModel: BaseViewModel {
             }
         }
     }
-    
+
     func deleteInquiryByAdmin() async throws {
         return try await deleteInquiryByAdminUseCase(inquiryID: inquiryID)
     }
-    
+
     func deleteMyInquiry() async throws {
         return try await deleteMyInquiryUseCase(inquiryID: inquiryID)
     }

@@ -17,7 +17,7 @@ public final class InputActivityComponent: Component<InputActivityDependency>, I
         InputActivityView(
             viewModel: .init(
                 state: state,
-                activityID: activityID, 
+                activityID: activityID,
                 fetchActivityDetailUseCase: dependency.fetchActivityDetailUseCase,
                 inputActivityUseCase: dependency.inputActivityUseCase,
                 modifyActivityUseCase: dependency.modifyActivityUseCase

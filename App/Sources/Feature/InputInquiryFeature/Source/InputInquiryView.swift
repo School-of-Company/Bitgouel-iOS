@@ -3,11 +3,11 @@ import SwiftUI
 struct InputInquiryView: View {
     @StateObject var viewModel: InputInquiryViewModel
     @Environment(\.dismiss) var dismiss
-    
+
     init(viewModel: InputInquiryViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
-    
+
     var body: some View {
         VStack(spacing: 0) {
             VStack {
@@ -32,9 +32,9 @@ struct InputInquiryView: View {
                 }
             }
             .frame(minHeight: 40, maxHeight: 120)
-            
+
             Divider()
-            
+
             ScrollView {
                 TextEditor(text: Binding(
                     get: { viewModel.questionDetail },
@@ -58,10 +58,10 @@ struct InputInquiryView: View {
             }
             .padding(.top, 16)
             .frame(height: 460)
-            
+
             Divider()
                 .padding(.bottom, 24)
-            
+
             CTAButton(
                 text: "문의사항 \(viewModel.state)",
                 style: .default

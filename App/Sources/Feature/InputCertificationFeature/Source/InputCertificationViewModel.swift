@@ -9,7 +9,7 @@ final class InputCertificationViewModel: BaseViewModel {
 
     private let inputCertificationUseCase: any InputCertificationUseCase
     private let updateCertificationUseCase: any UpdateCertificationUseCase
-    
+
     init(
         inputCertificationUseCase: any InputCertificationUseCase,
         updateCertificationUseCase: any UpdateCertificationUseCase,
@@ -36,10 +36,10 @@ final class InputCertificationViewModel: BaseViewModel {
                 switch epic {
                 case "등록":
                     return try await inputCertification()
-                    
+
                 case "수정":
                     return try await updateCertification()
-                    
+
                 default:
                     return
                 }
@@ -48,15 +48,16 @@ final class InputCertificationViewModel: BaseViewModel {
             }
         }
     }
-    
+
     func inputCertification() async throws {
         try await inputCertificationUseCase(
             req: InputCertificationRequestDTO(
                 name: certificationName,
                 acquisitionDate: acquisitionDate.toStringCustomFormat(format: "yyyy-MM-dd")
-            ))
+            )
+        )
     }
-    
+
     func updateCertification() async throws {
         try await updateCertificationUseCase(
             certificationID: certificationID,

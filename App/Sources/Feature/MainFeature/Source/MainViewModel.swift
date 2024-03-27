@@ -49,7 +49,7 @@ final class MainViewModel: BaseViewModel {
         Task {
             do {
                 try await inputFAQUseCase(req: InputFAQRequestDTO(question: question, answer: answer))
-                
+
                 updateInputFAQButtonDidTap(state: false)
             } catch {
                 print(error.localizedDescription)

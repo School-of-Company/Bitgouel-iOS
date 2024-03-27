@@ -17,7 +17,7 @@ struct MyPageView: View {
         self.changePasswordFactory = changePasswordFactory
         self.adminUserListFactory = adminUserListFactory
     }
-    
+
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 40) {
@@ -121,9 +121,9 @@ struct MyPageView: View {
                                     font: .text3
                                 )
                             }
-                            
+
                             Divider()
-                            
+
                             Button {
                                 viewModel.updateIsShowingWithdrawAlert(isShowing: true)
                             } label: {
@@ -134,11 +134,11 @@ struct MyPageView: View {
                                 .foregroundColor(.bitgouel(.error(.e5)))
                             }
                         }
-                        
+
                         Spacer()
                     }
                     .padding(.top, 60)
-                    
+
                     Spacer()
                 }
             }
@@ -230,8 +230,8 @@ struct MyPageView: View {
             viewModel.updateIsPresentedAdminUserListView(isPresented: true)
         } label: {
             BitgouelText(
-               text: "사용자 명단 관리하기",
-               font: .text3
+                text: "사용자 명단 관리하기",
+                font: .text3
             )
             .foregroundColor(.bitgouel(.error(.e5)))
         }

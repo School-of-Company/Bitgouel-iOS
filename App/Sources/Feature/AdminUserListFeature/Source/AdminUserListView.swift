@@ -3,10 +3,10 @@ import SwiftUI
 struct AdminUserListView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: AdminUserListViewModel
-    
+
     private let adminWithdrawUserListFactory: any AdminWithdrawUserListFactory
     private let adminRequestUserSignupFactory: any AdminRequestUserSignupFactory
-    
+
     init(
         viewModel: AdminUserListViewModel,
         adminWithdrawUserListFactory: any AdminWithdrawUserListFactory,
@@ -16,7 +16,7 @@ struct AdminUserListView: View {
         self.adminWithdrawUserListFactory = adminWithdrawUserListFactory
         self.adminRequestUserSignupFactory = adminRequestUserSignupFactory
     }
-    
+
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
@@ -27,7 +27,7 @@ struct AdminUserListView: View {
                     .onChange(of: viewModel.keyword) { _ in
                         viewModel.onAppear()
                     }
-                    
+
                     BitgouelAsset.Icons.filterStroke.swiftUIImage
                         .padding(.horizontal, 10)
                         .padding(.vertical, 15)
@@ -40,7 +40,7 @@ struct AdminUserListView: View {
                         }
                 }
                 .padding(.top, 24)
-                
+
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 0) {
                         ForEach(viewModel.userList, id: \.userID) { userInfo in
@@ -49,14 +49,14 @@ struct AdminUserListView: View {
                                     text: userInfo.name,
                                     font: .text1
                                 )
-                                
+
                                 BitgouelText(
                                     text: userInfo.authority.display(),
                                     font: .text1
                                 )
                                 .foregroundColor(.bitgouel(.greyscale(.g6)))
                             }
-                            
+
                             Divider()
                                 .frame(height: 1)
                                 .padding(.vertical, 14)
@@ -74,7 +74,7 @@ struct AdminUserListView: View {
                         .onTapGesture {
                             viewModel.isPresentedUserTypeFilter = false
                         }
-                    
+
                     UserTypeFilterPopup(
                         userAuthorityType: viewModel.userAuthorityType,
                         selectedAuthority: viewModel.selectedAuthority
@@ -85,7 +85,6 @@ struct AdminUserListView: View {
                         viewModel.updateIsPresentedUserTypeFilter(isPresented: cancel)
                     }
                     .padding(.horizontal, 28)
-                    
                 }
             }
             .zIndex(1)
@@ -107,7 +106,7 @@ struct AdminUserListView: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 24, height: 24)
                 }
-                
+
                 Button {
                     viewModel.isNavigateWithdrawListDidTap = true
                 } label: {

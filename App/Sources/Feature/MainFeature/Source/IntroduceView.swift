@@ -9,14 +9,14 @@ struct IntroduceView: View {
             HStack {
                 Text(introduceTitle)
                     .bitgouelFont(.title2)
-                
+
                 Spacer()
             }
-            
+
             HStack {
                 Text(introduceText)
                     .bitgouelFont(.caption, color: .greyscale(.g7))
-                
+
                 Spacer()
             }
         }

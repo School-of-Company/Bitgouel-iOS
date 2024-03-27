@@ -73,12 +73,12 @@ struct AnswerFilterPopup: View {
                     }
                 )
             )
-            
+
             BitgouelText(
                 text: answer.rawValue,
                 font: .text3
             )
-            
+
             Spacer()
         }
         .id(answer)

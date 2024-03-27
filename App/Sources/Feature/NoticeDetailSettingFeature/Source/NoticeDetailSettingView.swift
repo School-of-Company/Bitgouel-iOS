@@ -3,11 +3,11 @@ import SwiftUI
 struct NoticeDetailSettingView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: NoticeDetailSettingViewModel
-    
+
     init(viewModel: NoticeDetailSettingViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
-    
+
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {

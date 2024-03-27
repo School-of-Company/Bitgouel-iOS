@@ -37,7 +37,6 @@ final class AdminWithdrawUserListViewModel: BaseViewModel {
         selectedWithdrawUserList.removeAll()
     }
 
-
     func insertUserList(userID: String) {
         selectedWithdrawUserList.insert(userID)
     }
@@ -75,7 +74,7 @@ final class AdminWithdrawUserListViewModel: BaseViewModel {
     func userListPageDismissed() {
         isNavigateUserListDidTap = false
     }
-    
+
     @MainActor
     func requestSignUpPageDismissed() {
         isNavigateRequestSignUpDidTap = false

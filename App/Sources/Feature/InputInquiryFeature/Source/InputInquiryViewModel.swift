@@ -12,7 +12,7 @@ final class InputInquiryViewModel: BaseViewModel {
     private let inputInquiryUseCase: any InputInquiryUseCase
     private let modifyMyInquiryUseCase: any ModifyMyInquiryUseCase
     private let fetchInquiryDetailUseCase: any FetchInquiryDetailUseCase
-    
+
     init(
         state: String,
         inquiryID: String,
@@ -35,7 +35,7 @@ final class InputInquiryViewModel: BaseViewModel {
         Task {
             do {
                 let response = try await fetchInquiryDetailUseCase(inquiryID: inquiryID)
-                
+
                 question = response.question
                 questionDetail = response.questionDetail
             } catch {
@@ -60,12 +60,15 @@ final class InputInquiryViewModel: BaseViewModel {
             }
         }
     }
-    
+
     func addInquiry() async throws {
         try await inputInquiryUseCase(req: .init(question: question, questionDetail: questionDetail))
     }
-    
+
     func updateInquiry() async throws {
-        try await modifyMyInquiryUseCase(inquiryID: inquiryID, req: .init(question: question, questionDetail: questionDetail))
+        try await modifyMyInquiryUseCase(
+            inquiryID: inquiryID,
+            req: .init(question: question, questionDetail: questionDetail)
+        )
     }
 }

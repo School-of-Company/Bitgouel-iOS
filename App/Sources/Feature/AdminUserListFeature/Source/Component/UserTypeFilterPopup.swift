@@ -1,12 +1,12 @@
-import SwiftUI
 import Service
+import SwiftUI
 
 struct UserTypeFilterPopup: View {
     let userAuthorityType: [AdminUserListAuthorityType]
     var selectedAuthority: AdminUserListAuthorityType?
     let onAuthoritySelect: (AdminUserListAuthorityType) -> Void
     let cancel: (Bool) -> Void
-    
+
     var body: some View {
         RoundedRectangle(cornerRadius: 8)
             .fill(Color.white)
@@ -18,9 +18,9 @@ struct UserTypeFilterPopup: View {
                             text: "직업",
                             font: .title3
                         )
-                        
+
                         Spacer()
-                        
+
                         Button {
                             cancel(false)
                         } label: {
@@ -28,9 +28,9 @@ struct UserTypeFilterPopup: View {
                         }
                     }
                     .padding(.top, 24)
-                    
+
                     Spacer()
-                    
+
                     VStack(spacing: 16) {
                         ForEach(userAuthorityType, id: \.self) { authority in
                             userAuthorityTypeRow(
@@ -39,7 +39,7 @@ struct UserTypeFilterPopup: View {
                                 onAuthoritySelect: onAuthoritySelect
                             )
                         }
-                        
+
                         Spacer()
                     }
                     .padding(.top, 32)
@@ -47,7 +47,7 @@ struct UserTypeFilterPopup: View {
                 .padding(.horizontal, 24)
             }
     }
-    
+
     @ViewBuilder
     func userAuthorityTypeRow(
         authority: AdminUserListAuthorityType,
@@ -65,12 +65,12 @@ struct UserTypeFilterPopup: View {
                     }
                 )
             )
-            
+
             BitgouelText(
                 text: authority.adminUserListValue(),
                 font: .text3
             )
-            
+
             Spacer()
         }
     }
