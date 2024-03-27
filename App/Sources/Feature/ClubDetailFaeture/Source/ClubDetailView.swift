@@ -66,19 +66,19 @@ struct ClubDetailView: View {
 
                 LazyVStack(spacing: 20) {
                     ClubMemberListRow(
-                        id: viewModel.teacher?.id ?? "",
+                        id: viewModel.teacher?.studentID ?? "",
                         name: viewModel.teacher?.name ?? "",
                         autority: .teacher
                     )
 
-                    ForEach(viewModel.students, id: \.id) { student in
+                    ForEach(viewModel.students, id: \.studentID) { student in
                         ClubMemberListRow(
-                            id: student.id,
+                            id: student.studentID,
                             name: student.name,
                             autority: .student
                         )
                         .onTapGesture {
-                            viewModel.studentID = student.id
+                            viewModel.studentID = student.studentID
                             viewModel.updateIsPresentedCertificationView(isPresented: true)
                         }
                     }

@@ -1,7 +1,7 @@
 import Foundation
 import Service
 
-// swiftLint: disable type_body_length
+// swiftlint: disable type_body_length
 final class SignUpViewModel: BaseViewModel {
     // MARK: presentation
     @Published var isPresentedAssociationSheet = false
@@ -33,9 +33,9 @@ final class SignUpViewModel: BaseViewModel {
     @Published var selectedUserRole: UserAuthorityType?
 
     // MARK: computed property
-//    var clubsForSelectedHighSchool: [String] {
-//        selectedSchool?.getClubsForSelectedHighSchool() ?? []
-//    }
+    var clubsForSelectedHighSchool: [String] {
+        selectedSchool?.getClubsForSelectedHighSchool() ?? []
+    }
 
     // MARK: validation
     var nameIsValid: Bool {
@@ -97,13 +97,13 @@ final class SignUpViewModel: BaseViewModel {
         }
     }
 
-//    var searchedClubList: [String] {
-//        if clubSearch.isEmpty {
-//            return clubsForSelectedHighSchool
-//        } else {
-//            return clubsForSelectedHighSchool.filter { $0.lowercased().contains(clubSearch.lowercased()) }
-//        }
-//    }
+    var searchedClubList: [String] {
+        if clubSearch.isEmpty {
+            return clubsForSelectedHighSchool
+        } else {
+            return clubsForSelectedHighSchool.filter { $0.lowercased().contains(clubSearch.lowercased()) }
+        }
+    }
 
     var titleMessage: String {
         if selectedAssociation == nil {
@@ -273,7 +273,7 @@ final class SignUpViewModel: BaseViewModel {
         return password == checkPassword
     }
 
-    // swiftLint: disable cyclomatic_complexity
+    // swiftlint: disable cyclomatic_complexity
     func signup() {
         guard let yearOfAdmission else { return }
         guard let selectedSchool else { return }
@@ -305,8 +305,9 @@ final class SignUpViewModel: BaseViewModel {
             return
         }
     }
+    // swiftlint: enable cyclomatic_complexity
 
-    // swiftLint: disable cyclomatic_complexity
+    // swiftlint: disable function_parameter_count
     func studentSignup(
         grade: Int,
         classRoom: Int,
@@ -338,6 +339,7 @@ final class SignUpViewModel: BaseViewModel {
             }
         }
     }
+    // swiftlint: enable function_parameter_count
 
     func teacherSignup(
         selectedSchool: HighSchoolType,

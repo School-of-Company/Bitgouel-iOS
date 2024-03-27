@@ -13,12 +13,12 @@ struct UniversityView: View {
                 universityDepartment: "철도운전관제시스템과, 철도차량전기시스템과,\n미용예술학과, 철도운전경영과, 사회복지학과,\n간호학과, 건축공학과"
             )
 
+            // swiftlint: disable line_length
             universityRow(
                 universityName: "호남대학교",
-                universityDepartment: """
-                로봇드론공학과, 전기공학과, 정보통신공학과,\n뷰티미용학과, 토목환경공학과, 외식조리학과,\n건축학과, 조경학과, 작업치료학과(수의사),\n경영학과
-            """
+                universityDepartment: "로봇드론공학과, 전기공학과, 정보통신공학과,\n뷰티미용학과, 토목환경공학과, 외식조리학과,\n건축학과, 조경학과, 작업치료학과(수의사),\n경영학과"
             )
+            // swiftlint: enable line_length
 
             universityRow(
                 universityName: "조선이공대학교",

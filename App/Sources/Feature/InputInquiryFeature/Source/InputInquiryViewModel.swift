@@ -1,7 +1,6 @@
 import Foundation
 import Service
 
-@MainActor
 final class InputInquiryViewModel: BaseViewModel {
     @Published var question: String = ""
     @Published var questionDetail: String = ""
@@ -31,6 +30,7 @@ final class InputInquiryViewModel: BaseViewModel {
         isShowingAlert = isShowing
     }
 
+    @MainActor
     func onAppear() {
         Task {
             do {

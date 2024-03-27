@@ -10,8 +10,8 @@ final class ClubDetailViewModel: BaseViewModel {
     var clubID: Int = 0
     @Published var clubName: String = ""
     @Published var highSchoolName: String = ""
-    @Published var students: [ClubDetailEntity.memberInfoEntity] = []
-    @Published var teacher: ClubDetailEntity.memberInfoEntity?
+    @Published var students: [ClubDetailEntity.MemberInfoEntity] = []
+    @Published var teacher: ClubDetailEntity.MemberInfoEntity?
 
     // MARK: UseCase
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
