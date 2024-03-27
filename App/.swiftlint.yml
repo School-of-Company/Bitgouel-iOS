@@ -1,3 +1,6 @@
+included:
+  - Bitgouel
+
 excluded:
   - "**/*/NeedleGenerated.swift"
   - "Tuist"
