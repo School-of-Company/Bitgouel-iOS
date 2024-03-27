@@ -66,7 +66,7 @@ struct LoginView: View {
 
                 Spacer()
 
-                VStack(spacing: 0) {
+                VStack(spacing: 8) {
                     BitgouelButton(
                         text: "로그인",
                         action: {
@@ -76,44 +76,54 @@ struct LoginView: View {
                     .cornerRadius(8)
                     .disabled(viewModel.isFormEmpty)
                     .padding(.horizontal, 28)
-
+                    
                     Text("또는")
                         .bitgouelFont(.caption, color: .greyscale(.g7))
-                        .padding(.top, 8)
-
-                    Button {
-                        viewModel.signupPageIsRequired()
-                    } label: {
-                        Text("회원가입")
-                            .bitgouelFont(.text3, color: .primary(.p5))
-                            .padding(.top, 2)
+                    
+                    HStack(spacing: 12) {
+                        Button {
+                            viewModel.signupPageIsRequired()
+                        } label: {
+                            Text("회원가입")
+                                .bitgouelFont(.text3, color: .primary(.p5))
+                        }
+                        
+                        Divider()
+                            .frame(height: 20)
+                        
+                        Button {
+                            sceneState.sceneFlow = .main
+                        } label: {
+                            Text("게스트 보기")
+                                .bitgouelFont(.text3, color: .greyscale(.g4))
+                        }
                     }
                 }
-                .padding(.bottom, 46)
-                .navigate(
-                    to: signupFactory.makeView().eraseToAnyView(),
-                    when: Binding(
-                        get: { viewModel.isPresentedSignupPage },
-                        set: { _ in viewModel.signupPageDismissed() }
-                    )
+                .padding(.bottom, 52)
+            }
+            .navigate(
+                to: signupFactory.makeView().eraseToAnyView(),
+                when: Binding(
+                    get: { viewModel.isPresentedSignupPage },
+                    set: { _ in viewModel.signupPageDismissed() }
                 )
-                .onChange(of: viewModel.isSuccessSignin) { newValue in
-                    guard newValue else { return }
-                    sceneState.sceneFlow = .main
-                }
-                .navigate(
-                    to: findPasswordFactory.makeView().eraseToAnyView(),
-                    when: Binding(
-                        get: { viewModel.isPresentedFindPasswordPage },
-                        set: { isPresented in
-                            viewModel.updateIsPresentedFindPasswordPage(isPresented: isPresented)
-                        }
-                    )
+            )
+            .onChange(of: viewModel.isSuccessSignin) { newValue in
+                guard newValue else { return }
+                sceneState.sceneFlow = .main
+            }
+            .navigate(
+                to: findPasswordFactory.makeView().eraseToAnyView(),
+                when: Binding(
+                    get: { viewModel.isPresentedFindPasswordPage },
+                    set: { isPresented in
+                        viewModel.updateIsPresentedFindPasswordPage(isPresented: isPresented)
+                    }
                 )
-                .onChange(of: viewModel.isPresentedFindPasswordPage) { newValue in
-                    sceneState.sceneFlow = .findPassword
-                    tabbarHidden.wrappedValue = newValue
-                }
+            )
+            .onChange(of: viewModel.isPresentedFindPasswordPage) { newValue in
+                sceneState.sceneFlow = .findPassword
+                tabbarHidden.wrappedValue = newValue
             }
         }
         .navigationBarBackButtonHidden(true)
