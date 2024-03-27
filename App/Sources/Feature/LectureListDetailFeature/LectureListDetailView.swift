@@ -13,19 +13,21 @@ struct LectureListDetailView: View {
                 if let lectureDetail = viewModel.lectureDetail {
                     VStack(alignment: .leading, spacing: 24) {
                         VStack(alignment: .leading, spacing: 4) {
-                            HStack {
-                                Text("# \(lectureDetail.lectureType.display())")
-                                
-                                Text("# \(lectureDetail.division.display())")
-                            }
-                            .bitgouelFont(.caption, color: .primary(.p3))
+                            Text("# \(lectureDetail.lectureType.display())")
+                                .bitgouelFont(.caption, color: .primary(.p3))
                             
-                            HStack {
+                            HStack(spacing: 8) {
+                                Text(lectureDetail.division.display())
+                                
+                                Divider()
+                                
                                 Text(lectureDetail.line)
+                                
+                                Divider()
                                 
                                 Text(lectureDetail.department)
                             }
-                            .bitgouelFont(.caption, color: .primary(.p3))
+                            .bitgouelFont(.caption, color: .greyscale(.g4))
                             
                             Text("\(lectureDetail.name)")
                                 .bitgouelFont(.text1, color: .greyscale(.g0))
@@ -66,6 +68,8 @@ struct LectureListDetailView: View {
                             .lineSpacing(10)
                             .padding(.top, 20)
                         
+                        Divider()
+
                         VStack(alignment: .leading, spacing: 16) {
                             BitgouelText(text: "수강 신청 기간", font: .text1)
                             
