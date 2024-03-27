@@ -22,7 +22,8 @@ public extension TargetScript {
     static let SwiftLintShell = TargetScript.pre(
         path: Path.relativeToRoot("Scripts/SwiftLintRunScript.sh"),
         name: "SwiftLintShell",
-        basedOnDependencyAnalysis: false
+        basedOnDependencyAnalysis: true,
+        runForInstallBuildsOnly: true
     )
 
     static let NeedleRunScript = TargetScript.pre(
