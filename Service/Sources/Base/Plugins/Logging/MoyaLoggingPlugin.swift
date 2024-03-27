@@ -65,3 +65,4 @@ public final class MoyaLoggingPlugin: PluginType {
 }
 
 #endif
+// swiftlint: enable line_length

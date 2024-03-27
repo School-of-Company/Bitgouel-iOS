@@ -42,7 +42,7 @@ extension WithdrawAPI: BitgouelAPI {
         }
     }
 
-    public var errorMap: [Int : WithdrawDomainError] {
+    public var errorMap: [Int: WithdrawDomainError] {
         switch self {
         case .fetchWithdrawUserList:
             return [

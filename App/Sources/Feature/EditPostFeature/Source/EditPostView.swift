@@ -48,8 +48,7 @@ struct EditPostView: View {
             )
         ) {
             DeferView {
-                postDetailSettingFactory.makeView(links: viewModel.modifiedLinks) {
-                    links in
+                postDetailSettingFactory.makeView(links: viewModel.modifiedLinks) { links in
                     viewModel.updateLinks(links: links)
                 }.eraseToAnyView()
             }

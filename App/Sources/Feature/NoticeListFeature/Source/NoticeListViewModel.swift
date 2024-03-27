@@ -13,9 +13,11 @@ final class NoticeListViewModel: BaseViewModel {
         } set { _noticeContent = newValue }
     }
 
+    // swiftlint: disable identifier_name
     @Published var _noticeContent: PostContentEntity?
     @Published var noticeID: String = ""
     var authority: UserAuthorityType = .user
+    // swiftlint: enable identifier_name
 
     private let queryPostListUseCase: any QueryPostListUseCase
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase

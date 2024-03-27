@@ -42,7 +42,6 @@ struct LinkDetailSettingView: View {
                     .cornerRadius(8, corners: .allCorners)
                 }
                 .padding(.top, 8)
-
             }
             Spacer()
 

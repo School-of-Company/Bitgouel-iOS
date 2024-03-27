@@ -1,5 +1,6 @@
 import Foundation
 
+// swiftlint: disable identifier_name
 public enum HighSchoolType: String, CaseIterable, Decodable, Encodable {
     case gwangjuTechnicalHighSchool = "GWANGJU_TECHNICAL_HIGH_SCHOOL"
     case kumpaTechnicalHighSchool = "KUMPA_TECHNICAL_HIGH_SCHOOL"
@@ -15,8 +16,10 @@ public enum HighSchoolType: String, CaseIterable, Decodable, Encodable {
     case gwangjuAutomaticEquipmentTechnicalHighSchool = "GWANGJU_AUTOMATIC_EQUIPMENT_TECHNICAL_HIGH_SCHOOL"
     case gwangjuSoftwareMeisterHighSchool = "GWANGJU_SOFTWARE_MEISTER_HIGH_SCHOOL"
 }
+// swiftlint: enable identifier_name
 
 public extension HighSchoolType {
+    // swiftlint:disable cyclomatic_complexity
     func display() -> String {
         switch self {
         case .gwangjuTechnicalHighSchool: return "광주공업고등학교"
@@ -36,7 +39,7 @@ public extension HighSchoolType {
     }
 }
 
-public extension HighSchoolType {
+ public extension HighSchoolType {
     func getClubsForSelectedHighSchool() -> [String] {
         switch self {
         case .gwangjuTechnicalHighSchool:
@@ -68,3 +71,4 @@ public extension HighSchoolType {
         }
     }
 }
+// swiftlint: enable cyclomatic_complexity

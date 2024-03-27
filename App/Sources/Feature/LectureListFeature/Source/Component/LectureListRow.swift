@@ -1,5 +1,5 @@
-import SwiftUI
 import Service
+import SwiftUI
 
 struct LectureListRow: View {
     let name: String
@@ -15,15 +15,15 @@ struct LectureListRow: View {
     let headCount: Int
     let maxRegisteredUser: Int
     let lecturer: String
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 Text(lecturer)
                     .bitgouelFont(.text3, color: .greyscale(.g0))
-                
+
                 Spacer()
-                
+
                 Text(lectureType.display())
                     .bitgouelFont(.caption, color: .greyscale(.g4))
             }
@@ -32,35 +32,35 @@ struct LectureListRow: View {
                 .bitgouelFont(.text1, color: .greyscale(.g0))
 
             Text(content)
-            .bitgouelFont(.text3, color: .greyscale(.g4))
-            .lineLimit(2)
+                .bitgouelFont(.text3, color: .greyscale(.g4))
+                .lineLimit(2)
 
             VStack(alignment: .leading, spacing: 4) {
                 HStack(spacing: 8) {
                     Text("\(startDate) ~ \(endDate)")
-                    
+
                     Text("•")
-                    
+
                     Text("\(semester.display())")
                 }
                 .bitgouelFont(.caption, color: .greyscale(.g4))
-                
+
                 BitgouelText(
                     text: "\(headCount)/\(maxRegisteredUser)명",
                     font: .caption
                 )
                 .foregroundColor(.bitgouel(.greyscale(.g7)))
             }
-            
+
             HStack(spacing: 8) {
                 Text(department)
-                
+
                 Divider()
-                
+
                 Text(division.display())
-                
+
                 Divider()
-                
+
                 Text(line)
             }
             .padding(.horizontal, 8)

@@ -1,6 +1,6 @@
 import NeedleFoundation
-import SwiftUI
 import Service
+import SwiftUI
 
 public protocol FindPasswordDependency: Dependency {
     var sendEmailCertificationLinkUseCase: any SendEmailCertificationLinkUseCase { get }

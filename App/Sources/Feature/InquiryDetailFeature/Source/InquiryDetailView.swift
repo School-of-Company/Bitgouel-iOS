@@ -3,10 +3,10 @@ import SwiftUI
 struct InquiryDetailView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: InquiryDetailViewModel
-    
+
     private let inputInquiryFactory: any InputInquiryFactory
     private let writeInquiryAnswerFactory: any WriteInquiryAnswerFactory
-    
+
     init(
         viewModel: InquiryDetailViewModel,
         inputInquiryFactory: any InputInquiryFactory,
@@ -16,7 +16,7 @@ struct InquiryDetailView: View {
         self.inputInquiryFactory = inputInquiryFactory
         self.writeInquiryAnswerFactory = writeInquiryAnswerFactory
     }
-    
+
     var body: some View {
         VStack(spacing: 0) {
             if let inquiryInfo = viewModel.inquiryDetail {
@@ -24,24 +24,24 @@ struct InquiryDetailView: View {
                     HStack {
                         Text(inquiryInfo.answerStatus.display())
                             .foregroundColor(viewModel.statusColor)
-                        
+
                         Spacer()
-                        
+
                         HStack(spacing: 0) {
                             Text(inquiryInfo.answeredDate?.toStringCustomFormat(format: "yyyy.M.dd") ?? "")
-                            
+
                             Text("에 답변됨")
                         }
                         .foregroundColor(.bitgouel(.greyscale(.g7)))
                     }
                     .font(.bitgouel(.caption))
-                    
+
                     BitgouelText(
                         text: inquiryInfo.question,
                         font: .text1
                     )
                     .padding(.top, 4)
-                    
+
                     HStack {
                         BitgouelText(
                             text: inquiryInfo.questionDate.toStringCustomFormat(format: "yyyy.M.dd"),
@@ -51,12 +51,12 @@ struct InquiryDetailView: View {
                             text: "작성",
                             font: .text3
                         )
-                        
+
                         Spacer()
-                        
+
                         HStack(spacing: 0) {
                             BitgouelText(text: "게시자", font: .text3)
-                            
+
                             BitgouelText(
                                 text: inquiryInfo.questioner,
                                 font: .text3
@@ -67,12 +67,12 @@ struct InquiryDetailView: View {
                     .foregroundColor(.bitgouel(.greyscale(.g4)))
                     .padding(.top, 4)
                 }
-                
+
                 ScrollView {
                     Text(inquiryInfo.questionDetail)
                 }
                 .padding(.top, 24)
-                
+
                 if viewModel.authority == .admin {
                     popupButtonByAdmin()
                 } else {
@@ -117,9 +117,9 @@ struct InquiryDetailView: View {
                     style: .cancel,
                     action: {
                         viewModel.updateIsDeleteInquiry(isDelete: false)
-                    })
-                ,
-                
+                    }
+                ),
+
                 .init(
                     text: "삭제",
                     style: .error,
@@ -157,7 +157,7 @@ struct InquiryDetailView: View {
             ]
         )
     }
-    
+
     @ViewBuilder
     func popupButtonByAdmin() -> some View {
         HStack {
@@ -168,9 +168,9 @@ struct InquiryDetailView: View {
                     viewModel.updateIsDeleteInquiry(isDelete: true)
                 }
             )
-            
+
             Spacer()
-            
+
             CTAButton(
                 text: "문의 답변",
                 style: .default,
@@ -180,7 +180,7 @@ struct InquiryDetailView: View {
             )
         }
     }
-    
+
     @ViewBuilder
     func popupButtonByWriter() -> some View {
         HStack {
@@ -191,9 +191,9 @@ struct InquiryDetailView: View {
                     viewModel.updateIsPresentedInputInquiryView(isPresented: true)
                 }
             )
-            
+
             Spacer()
-            
+
             CTAButton(
                 text: "문의 삭제",
                 style: .error,

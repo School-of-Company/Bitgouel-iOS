@@ -7,19 +7,19 @@ public extension AppComponent {
             RemoteEmailDataSourceImpl(keychain: keychain)
         }
     }
-    
+
     var emailRepository: any EmailRepository {
         shared {
             EmailRepositoryImpl(remoteEmailDataSource: remoteEmailDataSource)
         }
     }
-    
+
     var sendEmailCertificationLinkUseCase: any SendEmailCertificationLinkUseCase {
         shared {
             SendEmailCertificationLinkUseCaseImpl(emailRepository: emailRepository)
         }
     }
-    
+
     var fetchEmailVertificationStatusUseCase: any FetchEmailVertificationStatusUseCase {
         shared {
             FetchEmailVerificationStatusUseCaseImpl(emailRepository: emailRepository)

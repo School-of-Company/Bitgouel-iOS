@@ -7,7 +7,7 @@ struct InquiryListView: View {
 
     private let inputInquiryFactory: any InputInquiryFactory
     private let inquiryDetailFactory: any InquiryDetailFactory
-    
+
     init(
         viewModel: InquiryListViewModel,
         inputInquiryFactory: any InputInquiryFactory,
@@ -17,7 +17,7 @@ struct InquiryListView: View {
         self.inputInquiryFactory = inputInquiryFactory
         self.inquiryDetailFactory = inquiryDetailFactory
     }
-    
+
     var body: some View {
         ZStack {
             VStack {
@@ -27,13 +27,14 @@ struct InquiryListView: View {
                             get: { viewModel.keyword },
                             set: { text in viewModel.updateKeyword(text: text) }
                         ),
-                        prompt: "키워드로 검색...") {
-                            viewModel.updateIsPresentedFilter(isPresented: true)
-                        }
+                        prompt: "키워드로 검색..."
+                    ) {
+                        viewModel.updateIsPresentedFilter(isPresented: true)
+                    }
                 }
-                
+
                 Spacer()
-                
+
                 ScrollView {
                     VStack(spacing: 12) {
                         ForEach(viewModel.inquiryList, id: \.inquiryID) { inquiry in
@@ -47,7 +48,7 @@ struct InquiryListView: View {
                                 authority: viewModel.authority
                             )
                             .onTapGesture {
-                                viewModel.updateInquiryID(ID: inquiry.inquiryID)
+                                viewModel.updateInquiryID(inquiryID: inquiry.inquiryID)
                                 viewModel.updateIsPresentedInquiryDetailView(isPresented: true)
                             }
                         }

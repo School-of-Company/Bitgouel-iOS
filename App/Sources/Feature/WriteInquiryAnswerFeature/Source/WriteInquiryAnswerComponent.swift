@@ -1,6 +1,6 @@
 import NeedleFoundation
-import SwiftUI
 import Service
+import SwiftUI
 
 public protocol WriteInquiryAnswerDependency: Dependency {
     var replyInquiryUseCase: any ReplyInquiryUseCase { get }

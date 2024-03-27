@@ -14,7 +14,7 @@ final class AdminRequestUserSignupViewModel: BaseViewModel {
     private let fetchUserListUseCase: any FetchUserListUseCase
     private let approveUserSignupUseCase: any ApproveUserSignupUseCase
     private let rejectUserSignupUseCase: any RejectUserSignupUseCase
-    
+
     init(
         fetchUserListUseCase: any FetchUserListUseCase,
         approveUserSignupUseCase: any ApproveUserSignupUseCase,
@@ -74,12 +74,12 @@ final class AdminRequestUserSignupViewModel: BaseViewModel {
             }
         }
     }
-    
+
     @MainActor
     func userListPageDismissed() {
         isNavigateUserListDidTap = false
     }
-    
+
     @MainActor
     func withdrawListPageDismissed() {
         isNavigateWithdrawListDidTap = false

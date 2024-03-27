@@ -28,7 +28,7 @@ open class BaseRemoteDataSource<API: BitgouelAPI> {
     public func request(_ api: API) async throws {
         _ = try await defaultRequest(api)
     }
-    
+
     private func defaultRequest(_ api: API) async throws -> Response {
         if checkIsApiNeedsAuthorization(api) {
             return try await authorizedRequest(api)
@@ -78,21 +78,21 @@ private extension BaseRemoteDataSource {
             }
         }
     }
-    
+
     func checkIsApiNeedsAuthorization(_ api: API) -> Bool {
         let result = api.jwtTokenType == .accessToken
         return result
     }
-    
+
     func checkTokenIsExpired() -> Bool {
         let expired = keychain.load(type: .accessExpiredAt).toBitgouelDate()
         return Date() > expired
     }
-    
+
     func tokenReissue() async throws {
         let provider = MoyaProvider<RefreshAPI>(plugins: [JwtPlugin(keychain: keychain)])
         do {
-            let response = try await provider.request(api: .reissueToken)
+            _ = try await provider.request(api: .reissueToken)
         } catch {
             throw error
         }

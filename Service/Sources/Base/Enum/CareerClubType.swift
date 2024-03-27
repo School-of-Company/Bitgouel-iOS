@@ -1,5 +1,6 @@
 import Foundation
 
+// swiftlint: disable identifier_name
 public enum CareerClubType {
     public enum GwangjuTechnicalHighSchool: String, CaseIterable, Decodable, Encodable {
         case smartJobProject = "SMART JOB PROJECT"
@@ -23,6 +24,7 @@ public enum CareerClubType {
         case 금호로80베이커리 = "금호로80 베이커리"
     }
 
+    // swiftlint: disable redundant_string_enum_value
     public enum JeonnamTechnicalHighSchool: String, CaseIterable, Decodable, Encodable {
         case 진짜기계 = "진짜기계"
         case 핫앤쿨 = "핫앤쿨"
@@ -59,6 +61,7 @@ public enum CareerClubType {
         case 메이커연구소 = "M lab"
     }
 
+    // swiftlint: disable type_name
     public enum DongilHighSchoolOfFutureScienceHighSchool: String, CaseIterable, Decodable, Encodable {
         case 놀고잡고 = "놀고잡고"
         case 믿고잡고 = "믿고잡고"
@@ -102,3 +105,6 @@ public enum CareerClubType {
         case devGSM = "dev GSM"
     }
 }
+// swiftlint: enable identifier_name
+// swiftlint: enable type_name
+// swiftlint: enable redundant_string_enum_value

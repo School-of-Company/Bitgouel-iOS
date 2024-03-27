@@ -8,7 +8,7 @@ public final class RemoteAdminDataSourceImpl: BaseRemoteDataSource<AdminAPI>, Re
     ) async throws -> [UserInfoEntity] {
         try await request(
             .fetchUserList(keyword: keyword, authority: authority, approveStatus: approveStatus),
-            dto: UserInfoResponseDTO.self
+            dto: FetchUserInfoResponseDTO.self
         ).toDomain()
     }
 

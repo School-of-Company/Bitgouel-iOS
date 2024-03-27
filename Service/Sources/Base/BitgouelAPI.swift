@@ -19,7 +19,7 @@ public extension BitgouelAPI {
         domain.asURLString + urlPath
     }
 
-    var headers: [String : String]? {
+    var headers: [String: String]? {
         ["Content-Type": "application/json"]
     }
 

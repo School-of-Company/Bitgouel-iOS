@@ -24,10 +24,10 @@ final class ClubListViewModel: BaseViewModel {
     func updateClubID(clubID: Int) {
         self.clubID = clubID
     }
-    
+
     func onAppear() {
         authority = loadUserAuthorityUseCase()
-        
+
         switch authority {
         case .admin:
             isPresentedSelectedSchoolPopup = true
