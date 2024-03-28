@@ -47,6 +47,11 @@ final class LectureListViewModel: BaseViewModel {
     }
 
     @MainActor
+    func isShowingLoginAlertDismissed() {
+        isShowingLoginAlert = false
+    }
+
+    @MainActor
     func onAppear() {
         authority = loadUserAuthorityUseCase()
         

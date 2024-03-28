@@ -27,11 +27,16 @@ public struct LocalAuthDataSourceImpl: LocalAuthDataSource {
         } else { return .user }
     }
 
+    public func removeUserAuthority() {
+        userDefaults.removeObject(forKey: UserDefaultsKey.userAuthority)
+    }
+
     public func logout() {
         keychain.delete(type: .accessToken)
         keychain.delete(type: .accessExpiredAt)
         keychain.delete(type: .refreshToken)
         keychain.delete(type: .refreshExpiredAt)
+        removeUserAuthority()
     }
 
     public func withdraw() {
@@ -39,5 +44,6 @@ public struct LocalAuthDataSourceImpl: LocalAuthDataSource {
         keychain.delete(type: .accessExpiredAt)
         keychain.delete(type: .refreshToken)
         keychain.delete(type: .refreshExpiredAt)
+        removeUserAuthority()
     }
 }
