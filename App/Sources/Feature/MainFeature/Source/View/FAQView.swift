@@ -1,10 +1,10 @@
-import SwiftUI
 import Service
+import SwiftUI
 
 struct FAQView: View {
     @State var question: String = ""
     @State var answer: String = ""
-    
+
     var faqList: [FAQInfoEntity]
     let authority: UserAuthorityType
 
@@ -14,7 +14,7 @@ struct FAQView: View {
                 introduceTitle: "자주묻는 질문",
                 introduceText: "FAQ"
             )
-            
+
             LazyVStack(spacing: 16) {
                 ForEach(faqList, id: \.questionID) { faq in
                     faqRow(
@@ -35,20 +35,20 @@ struct FAQView: View {
             HStack(spacing: 4) {
                 Text("Q.")
                     .bitgouelFont(.text3, color: .primary(.p5))
-                
+
                 BitgouelText(
                     text: question,
                     font: .text3
                 )
             }
-            
+
             if !answer.isEmpty {
                 Divider()
-                
+
                 HStack(spacing: 4) {
                     Text("A.")
                         .bitgouelFont(.text3, color: .primary(.p5))
-                    
+
                     Text(answer)
                         .foregroundColor(.bitgouel(.greyscale(.g4)))
                 }

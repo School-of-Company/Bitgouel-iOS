@@ -6,7 +6,7 @@ public struct StudentDetailByClubResponseDTO: Decodable {
     public let email: String
     public let credit: Int
 
-    init(
+    public init(
         name: String,
         phoneNumber: String,
         email: String,

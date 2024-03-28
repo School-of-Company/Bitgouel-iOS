@@ -12,17 +12,17 @@ public struct PostListsResponseDTO: Decodable {
     public struct PostContent: Decodable {
         public let content: [PostInfo]
     }
+}
 
-    public struct PostInfo: Decodable {
-        public let postID: String
-        public let title: String
-        public let modifiedAt: String
+public struct PostInfo: Decodable {
+    public let postID: String
+    public let title: String
+    public let modifiedAt: String
 
-        enum CodingKeys: String, CodingKey {
-            case postID = "id"
-            case title
-            case modifiedAt
-        }
+    enum CodingKeys: String, CodingKey {
+        case postID = "id"
+        case title
+        case modifiedAt
     }
 }
 
@@ -38,7 +38,7 @@ extension PostListsResponseDTO.PostContent {
     }
 }
 
-extension PostListsResponseDTO.PostInfo {
+extension PostInfo {
     func toDomain() -> PostEntity {
         PostEntity(
             postID: postID,

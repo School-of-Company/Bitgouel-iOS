@@ -1,17 +1,17 @@
-import SwiftUI
 import Service
+import SwiftUI
 
 final class LectureListDetailViewModel: BaseViewModel {
     @Published var lectureDetail: LectureDetailEntity?
     @Published var isSuccessEnrolment = false
     @Published var isApply = false
     @Published var isCancel = false
-    
+
     private let lectureID: String
     private let fetchLectureDetailUseCase: any FetchLectureDetailUseCase
     private let applyLectureUseCase: any ApplyLectureUseCase
     private let cancelLectureUseCase: any CancelLectureUseCase
-    
+
     init(
         lectureID: String,
         fetchLectureDetailUseCase: any FetchLectureDetailUseCase,
@@ -34,7 +34,7 @@ final class LectureListDetailViewModel: BaseViewModel {
             }
         }
     }
-    
+
     func applyLecture() {
         Task {
             do {
@@ -44,7 +44,7 @@ final class LectureListDetailViewModel: BaseViewModel {
             }
         }
     }
-    
+
     func cancelLecture() {
         Task {
             do {

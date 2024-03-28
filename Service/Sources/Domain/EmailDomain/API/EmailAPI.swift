@@ -37,7 +37,7 @@ extension EmailAPI: BitgouelAPI {
 
         case let .fetchEmailVerificationStatus(email):
             return .requestParameters(parameters: [
-                "email" : email
+                "email": email
             ], encoding: URLEncoding.queryString)
         }
     }
@@ -49,7 +49,7 @@ extension EmailAPI: BitgouelAPI {
         }
     }
 
-    public var errorMap: [Int : ActivityDomainError] {
+    public var errorMap: [Int: ActivityDomainError] {
         switch self {
         case .sendEmailCertificationLink:
             return [

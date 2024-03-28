@@ -1,7 +1,6 @@
 import Foundation
 import Service
 
-@MainActor
 final class CertificationListViewModel: BaseViewModel {
     @Published var isPresentedActivityListView: Bool = false
     @Published var studentInfo: StudentDetailByClubEntity?
@@ -54,6 +53,7 @@ final class CertificationListViewModel: BaseViewModel {
         selectedAcquisitionDate = acquisitionDate.toDateCustomFormat(format: "yyyy-M-d")
     }
 
+    @MainActor
     func onAppear() {
         authority = loadUserAuthorityUseCase()
 

@@ -1,32 +1,32 @@
 import Foundation
 
 public struct FetchWithdrawUserListResponseDTO: Decodable {
-    public let students: [WithdrawUserInfo]
+    public let students: [WithdrawUserInfoResponseDTO]
 
-    public init(students: [WithdrawUserInfo]) {
+    public init(students: [WithdrawUserInfoResponseDTO]) {
         self.students = students
     }
+}
 
-    public struct WithdrawUserInfo: Decodable {
-        public let withdrawID: Int
-        public let userID: String
-        public let name: String
+public struct WithdrawUserInfoResponseDTO: Decodable {
+    public let withdrawID: Int
+    public let userID: String
+    public let name: String
 
-        public init(
-            withdrawID: Int,
-            userID: String,
-            name: String
-        ) {
-            self.withdrawID = withdrawID
-            self.userID = userID
-            self.name = name
-        }
+    public init(
+        withdrawID: Int,
+        userID: String,
+        name: String
+    ) {
+        self.withdrawID = withdrawID
+        self.userID = userID
+        self.name = name
+    }
 
-        enum CodingKeys: String, CodingKey {
-            case withdrawID = "withdrawId"
-            case userID = "userId"
-            case name = "studentName"
-        }
+    enum CodingKeys: String, CodingKey {
+        case withdrawID = "withdrawId"
+        case userID = "userId"
+        case name = "studentName"
     }
 }
 
@@ -36,7 +36,7 @@ extension FetchWithdrawUserListResponseDTO {
     }
 }
 
-extension FetchWithdrawUserListResponseDTO.WithdrawUserInfo {
+extension WithdrawUserInfoResponseDTO {
     func toDomain() -> WithdrawUserInfoEntity {
         WithdrawUserInfoEntity(
             withdrawID: withdrawID,

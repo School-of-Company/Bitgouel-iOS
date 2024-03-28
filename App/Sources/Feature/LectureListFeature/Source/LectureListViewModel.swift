@@ -16,7 +16,7 @@ final class LectureListViewModel: BaseViewModel {
     private let fetchLectureListUseCase: any FetchLectureListUseCase
     let lectureType: [LectureType] = LectureType.allCases
     let approveStatusType: [ApproveStatusType] = ApproveStatusType.allCases
-    
+
     init(
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
         lectureListDetailFactory: any LectureListDetailFactory,
@@ -29,7 +29,7 @@ final class LectureListViewModel: BaseViewModel {
 
     func updateType(lectureType: String) {
         switch lectureType {
-        case "상호학점인정교육과정": 
+        case "상호학점인정교육과정":
             return type = .mutualCreditRecognitionProgram
         case "대학탐방프로그램":
             return type = .universityExplorationProgram
@@ -41,7 +41,7 @@ final class LectureListViewModel: BaseViewModel {
     func updateContent(entity: LectureContentEntity) {
         self.lectureList = entity
     }
-    
+
     func updateSelectedLectureID(lectureID: String) {
         self.selectedLectureID = lectureID
     }
@@ -49,7 +49,7 @@ final class LectureListViewModel: BaseViewModel {
     @MainActor
     func onAppear() {
         authority = loadUserAuthorityUseCase()
-        
+
         Task {
             do {
                 let response = try await fetchLectureListUseCase(type: type?.rawValue ?? "")

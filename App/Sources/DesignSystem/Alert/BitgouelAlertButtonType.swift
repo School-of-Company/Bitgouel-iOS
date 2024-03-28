@@ -1,6 +1,6 @@
 import Foundation
 
-public struct bitgouelAlertButtonType: Identifiable {
+public struct BitgouelAlertButtonType: Identifiable {
     public let id: String = UUID().uuidString
     let text: String
     let style: CTAButton.CTAStyle

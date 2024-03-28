@@ -66,7 +66,7 @@ extension InquiryAPI: BitgouelAPI {
         case let .inputInquiry(req),
              let .modifyMyInquiry(_, req):
             return .requestJSONEncodable(req)
-        
+
         case let .replyInquiry(_, req):
             return .requestJSONEncodable(req)
 
@@ -88,7 +88,7 @@ extension InquiryAPI: BitgouelAPI {
         }
     }
 
-    public var errorMap: [Int : InquiryDomainError] {
+    public var errorMap: [Int: InquiryDomainError] {
         switch self {
         case .inputInquiry,
              .modifyMyInquiry:

@@ -10,7 +10,9 @@ public protocol AdminRequestUserSignupDependency: Dependency {
     var rejectUserSignupUseCase: any RejectUserSignupUseCase { get }
 }
 
-public final class AdminRequestUserSignupComponent: Component<AdminRequestUserSignupDependency>, AdminRequestUserSignupFactory {
+// swiftLint: disable line_length
+public final class AdminRequestUserSignupComponent:
+    Component<AdminRequestUserSignupDependency>, AdminRequestUserSignupFactory {
     @MainActor
     public func makeView() -> some View {
         AdminRequestUserSignupView(

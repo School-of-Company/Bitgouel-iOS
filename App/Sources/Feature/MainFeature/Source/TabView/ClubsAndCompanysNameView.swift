@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ClubsAndCompanysNameView: View {
     var name: String
-    
+
     var body: some View {
         Text(name)
             .bitgouelFont(.text3, color: .primary(.p9))

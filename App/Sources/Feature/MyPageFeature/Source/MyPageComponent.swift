@@ -1,6 +1,6 @@
 import NeedleFoundation
-import SwiftUI
 import Service
+import SwiftUI
 
 public protocol MyPageDependency: Dependency {
     var changePasswordFactory: any ChangePasswordFactory { get }

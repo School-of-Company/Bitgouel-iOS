@@ -27,7 +27,12 @@ final class ChangePasswordViewModel: BaseViewModel {
 
         Task {
             do {
-                try await changePasswordUseCase(req: ChangePasswordRequestDTO(currentPassword: currentPassword, newPassword: newPassword))
+                try await changePasswordUseCase(
+                    req: ChangePasswordRequestDTO(
+                        currentPassword: currentPassword,
+                        newPassword: newPassword
+                    )
+                )
                 updateIsPresentedSuccessView(isPresented: true)
             } catch {
                 print(error.localizedDescription)

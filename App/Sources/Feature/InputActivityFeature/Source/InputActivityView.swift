@@ -39,10 +39,9 @@ struct InputActivityView: View {
             ) {
                 DeferView {
                     activityDetailSettingFactory.makeView(
-                        activityDate: viewModel.activityDate, 
+                        activityDate: viewModel.activityDate,
                         activityCredit: viewModel.activityCredit
-                    ) {
-                        activityDate, activityCredit in
+                    ) { activityDate, activityCredit in
                         viewModel.updateActivityDetail(
                             date: activityDate,
                             credit: activityCredit

@@ -22,7 +22,7 @@ struct FindPasswordView: View {
                         text: "비밀번호 찾기",
                         font: .title2
                     )
-                    
+
                     BitgouelText(
                         text: "이메일 인증을 진행합니다.",
                         font: .text3
@@ -30,7 +30,7 @@ struct FindPasswordView: View {
                     .foregroundColor(.bitgouel(.greyscale(.g4)))
                 }
                 .padding(.top, 24)
-                
+
                 BitgouelTextField(
                     "이메일",
                     text: Binding(
@@ -41,9 +41,9 @@ struct FindPasswordView: View {
                     )
                 )
                 .padding(.top, 32)
-                
+
                 Spacer()
-                
+
                 BitgouelButton(
                     text: "다음으로",
                     action: {

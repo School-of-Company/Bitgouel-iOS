@@ -13,13 +13,13 @@ final class AdminUserListViewModel: BaseViewModel {
     private let fetchUserListUseCase: any FetchUserListUseCase
 
     var userAuthorityType: [AdminUserListAuthorityType] = AdminUserListAuthorityType.allCases
-    
+
     init(
         fetchUserListUseCase: any FetchUserListUseCase
     ) {
         self.fetchUserListUseCase = fetchUserListUseCase
     }
-    
+
     func updateIsPresentedUserTypeFilter(isPresented: Bool) {
         isPresentedUserTypeFilter = isPresented
     }
@@ -43,7 +43,7 @@ final class AdminUserListViewModel: BaseViewModel {
     func requestSignUpPageDismissed() {
         isNavigateRequestSignUpDidTap = false
     }
-    
+
     @MainActor
     func withdrawListPageDismissed() {
         isNavigateWithdrawListDidTap = false
