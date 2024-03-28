@@ -7,12 +7,10 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     @Published var lectureName: String = ""
     @Published var subjectName: String = ""
     @Published var maximumAttendance: String = ""
-
     @Published var startPicker = Date()
     @Published var endPicker = Date()
     @Published var openPicker = Date()
     @Published var openPicker2 = Date()
-    
     @Published var lectureType1: Bool = false
     @Published var lectureType2: Bool = false
     @Published var professor: Bool = false
@@ -29,7 +27,6 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     @Published var gradeThreeSemesterOne: Bool = false
     @Published var scoreOne: Bool = false
     @Published var scoreTwo: Bool = false
-    
     @Published var openDate: [Date] = []
     @Published var startTime: [Date] = []
     @Published var endTime: [Date] = []

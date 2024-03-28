@@ -3,7 +3,17 @@ import Service
 
 struct LectureDetailSettingView: View {
     @StateObject var viewModel: LectureDetailSettingViewModel
-//    @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) var dismiss
+
+    private let lectureOpenApplyFactory: any LectureOpenApplyFactory
+    
+    init(
+        viewModel: LectureDetailSettingViewModel,
+        lectureOpenApplyFactory: any LectureOpenApplyFactory
+    ) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+        self.lectureOpenApplyFactory = lectureOpenApplyFactory
+    }
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -13,14 +23,14 @@ struct LectureDetailSettingView: View {
                         text: "강의 세부 설정",
                         font: .title3
                     )
-                    
+
                     Spacer()
-                    
+
                     BitgouelAsset.Icons.cancel.swiftUIImage
-//                        .buttonWrapper { dismiss() }
+                        .buttonWrapper { dismiss() }
                 }
                 .padding(.vertical, 24)
-                
+
                 ScrollView(showsIndicators: false) {
                     VStack(alignment: .leading, spacing: 28) {
                         VStack(alignment: .leading, spacing: 0) {
@@ -29,7 +39,7 @@ struct LectureDetailSettingView: View {
                                 font: .text1
                             )
                             .padding(.bottom, 8)
-                            
+
                             selectButton(
                                 text: "상호학점인정교육과정",
                                 select: viewModel.lectureType1
@@ -39,7 +49,7 @@ struct LectureDetailSettingView: View {
                                 viewModel.lectureType2 = false
                             }
                             .padding(.bottom, 16)
-                            
+
                             selectButton(
                                 text: "대학탐방프로그램",
                                 select: viewModel.lectureType2
@@ -49,13 +59,13 @@ struct LectureDetailSettingView: View {
                                 viewModel.lectureType1 = false
                             }
                             .padding(.bottom, 28)
-                            
+
                             BitgouelText(
                                 text: "수강 학기",
                                 font: .text1
                             )
                             .padding(.bottom, 8)
-                            
+
                             HStack(spacing: 16) {
                                 selectButton(
                                     text: "1학년 2학기",
@@ -67,7 +77,7 @@ struct LectureDetailSettingView: View {
                                     viewModel.gradeTwoSemesterOne = false
                                     viewModel.gradeTwoSemesterTwo = false
                                 }
-                                
+
                                 selectButton(
                                     text: "2학년 1학기",
                                     select: viewModel.gradeTwoSemesterOne
@@ -80,7 +90,7 @@ struct LectureDetailSettingView: View {
                                 }
                             }
                             .padding(.bottom, 16)
-                            
+
                             HStack(spacing: 16) {
                                 selectButton(
                                     text: "2학년 2학기",
@@ -92,7 +102,7 @@ struct LectureDetailSettingView: View {
                                     viewModel.gradeThreeSemesterOne = false
                                     viewModel.gradeTwoSemesterOne = false
                                 }
-                                
+
                                 selectButton(
                                     text: "3학년 1학기",
                                     select: viewModel.gradeThreeSemesterOne
@@ -105,13 +115,13 @@ struct LectureDetailSettingView: View {
                                 }
                             }
                             .padding(.bottom, 28)
-                            
+
                             BitgouelText(
                                 text: "강의 구분",
                                 font: .text1
                             )
                             .padding(.bottom, 8)
-                            
+
                             HStack(spacing: 16) {
                                 selectButton(
                                     text: "자동차 산업",
@@ -124,7 +134,7 @@ struct LectureDetailSettingView: View {
                                     viewModel.aiFusionComplex = false
                                     viewModel.medicalHealth = false
                                 }
-                                
+
                                 selectButton(
                                     text: "에너지 산업",
                                     select: viewModel.energy
@@ -138,7 +148,7 @@ struct LectureDetailSettingView: View {
                                 }
                             }
                             .padding(.bottom, 16)
-                            
+
                             HStack(spacing: 16) {
                                 selectButton(
                                     text: "의료•헬스",
@@ -151,7 +161,7 @@ struct LectureDetailSettingView: View {
                                     viewModel.energy = false
                                     viewModel.aiFusionComplex = false
                                 }
-                                
+
                                 selectButton(
                                     text: "AI 융•복합",
                                     select: viewModel.aiFusionComplex
@@ -165,7 +175,7 @@ struct LectureDetailSettingView: View {
                                 }
                             }
                             .padding(.bottom, 16)
-                            
+
                             selectButton(
                                 text: "문화 산업",
                                 select: viewModel.culture
@@ -178,13 +188,13 @@ struct LectureDetailSettingView: View {
                                 viewModel.medicalHealth = false
                             }
                             .padding(.bottom, 28)
-                            
+
                             BitgouelText(
                                 text: "학점",
                                 font: .text1
                             )
                             .padding(.bottom, 8)
-                            
+
                             HStack(spacing: 16) {
                                 selectButton(
                                     text: "1점",
@@ -194,7 +204,7 @@ struct LectureDetailSettingView: View {
                                     viewModel.scoreOne.toggle()
                                     viewModel.scoreTwo = false
                                 }
-                                
+
                                 selectButton(
                                     text: "2점",
                                     select: viewModel.scoreTwo
@@ -205,14 +215,14 @@ struct LectureDetailSettingView: View {
                                 }
                             }
                         }
-                        
+
                         VStack(alignment: .leading, spacing: 0) {
                             BitgouelText(
                                 text: "강의 계열",
                                 font: .text1
                             )
                             .padding(.bottom, 8)
-                            
+
                             HStack {
                                 PickerButton(
                                     text: viewModel.select(
@@ -227,13 +237,13 @@ struct LectureDetailSettingView: View {
                                 .padding(.trailing, 5.5)
                             }
                             .padding(.bottom, 28)
-                            
+
                             BitgouelText(
                                 text: "학과",
                                 font: .text1
                             )
                             .padding(.bottom, 8)
-                            
+
                             HStack {
                                 PickerButton(
                                     text: viewModel.select(
@@ -248,13 +258,13 @@ struct LectureDetailSettingView: View {
                                 .padding(.trailing, 5.5)
                             }
                             .padding(.bottom, 28)
-                            
+
                             BitgouelText(
                                 text: "담당 교수",
                                 font: .text1
                             )
                             .padding(.bottom, 8)
-                            
+
                             HStack {
                                 PickerButton(
                                     text: viewModel.select(
@@ -269,14 +279,14 @@ struct LectureDetailSettingView: View {
                                 .padding(.trailing, 5.5)
                             }
                         }
-                        
+
                         VStack(alignment: .leading, spacing: 0) {
                             BitgouelText(
                                 text: "신청 시작일",
                                 font: .text1
                             )
                             .padding(.bottom, 8)
-                            
+
                             DatePicker(
                                 "신청 시작일",
                                 selection: Binding(get: {
@@ -293,7 +303,7 @@ struct LectureDetailSettingView: View {
                             .background(Color.bitgouel(.greyscale(.g9)))
                             .cornerRadius(8, corners: .allCorners)
                             .padding(.bottom, 12)
-                                
+
                             DatePicker(
                                 "시작 시간",
                                 selection: Binding(get: {
@@ -309,14 +319,14 @@ struct LectureDetailSettingView: View {
                             .background(Color.bitgouel(.greyscale(.g9)))
                             .cornerRadius(8, corners: .allCorners)
                         }
-                        
+
                         VStack(alignment: .leading, spacing: 0) {
                             BitgouelText(
                                 text: "신청 마감일",
                                 font: .text1
                             )
                             .padding(.bottom, 8)
-                            
+
                             DatePicker(
                                 "신청 마감일",
                                 selection: Binding(get: {
@@ -333,7 +343,7 @@ struct LectureDetailSettingView: View {
                             .background(Color.bitgouel(.greyscale(.g9)))
                             .cornerRadius(8, corners: .allCorners)
                             .padding(.bottom, 12)
-                            
+
                             DatePicker(
                                 "마감 시간",
                                 selection: Binding(get: {
@@ -349,14 +359,14 @@ struct LectureDetailSettingView: View {
                             .background(Color.bitgouel(.greyscale(.g9)))
                             .cornerRadius(8, corners: .allCorners)
                         }
-                        
+
                         VStack(alignment: .leading, spacing: 0) {
                             BitgouelText(
                                 text: "강의 수강일",
                                 font: .text1
                             )
                             .padding(.bottom, 8)
-                            
+
                             DatePicker(
                                 "강의 수강일",
                                 selection: Binding(get: {
@@ -373,7 +383,7 @@ struct LectureDetailSettingView: View {
                             .background(Color.bitgouel(.greyscale(.g9)))
                             .cornerRadius(8, corners: .allCorners)
                             .padding(.bottom, 12)
-                            
+
                             DatePicker(
                                 "시작 시간",
                                 selection: Binding(get: {
@@ -389,7 +399,7 @@ struct LectureDetailSettingView: View {
                             .background(Color.bitgouel(.greyscale(.g9)))
                             .cornerRadius(8, corners: .allCorners)
                             .padding(.bottom, 12)
-                            
+
                             DatePicker(
                                 "종료 시간",
                                 selection: Binding(get: {
@@ -405,7 +415,7 @@ struct LectureDetailSettingView: View {
                             .background(Color.bitgouel(.greyscale(.g9)))
                             .cornerRadius(8, corners: .allCorners)
                             .padding(.bottom, 20)
-                            
+
                             VStack(spacing: 12) {
                                 ForEach(0..<viewModel.datePickerCount, id: \.self) { index in
                                     HStack(spacing: 12) {
@@ -431,6 +441,7 @@ struct LectureDetailSettingView: View {
                                                 }
                                             }
                                     }
+
                                     DatePicker(
                                         selection: self.viewModel.binding(
                                             for: index,
@@ -444,7 +455,7 @@ struct LectureDetailSettingView: View {
                                     .padding(.horizontal, 20)
                                     .background(Color.bitgouel(.greyscale(.g9)))
                                     .cornerRadius(8, corners: .allCorners)
-                                    
+
                                     DatePicker(
                                         selection: self.viewModel.binding(
                                             for: index,
@@ -461,7 +472,7 @@ struct LectureDetailSettingView: View {
                                     .padding(.bottom, 8)
                                 }
                             }
-                            
+
                             Text("+ 날짜 추가하기")
                                 .bitgouelFont(.text2, color: .greyscale(.g4))
                                 .padding(.vertical, 4)
@@ -473,13 +484,13 @@ struct LectureDetailSettingView: View {
                                     viewModel.endTime.append(currentDate)
                                 }
                         }
-                        
+
                         VStack(alignment: .leading, spacing: 8) {
                             BitgouelText(
                                 text: "최대 수강 인원",
                                 font: .text1
                             )
-                            
+
                             BitgouelTextField(
                                 "최대 수강 인원 입력",
                                 text: $viewModel.maximumAttendance
@@ -489,14 +500,14 @@ struct LectureDetailSettingView: View {
                 }
             }
             .padding(.horizontal, 28)
-            
+
             if viewModel.lecture == true {
                 ZStack {
                     Color.black
                         .opacity(0.35)
                         .ignoresSafeArea()
                         .transition(.opacity)
-                    
+
                     ZStack {
                         VStack(alignment: .leading) {
                             HStack {
@@ -504,20 +515,20 @@ struct LectureDetailSettingView: View {
                                     text: "강의 계열"
                                     , font: .title2
                                 )
-                                
+
                                 Spacer()
-                                
+
                                 BitgouelAsset.Icons.cancel.swiftUIImage
                                     .buttonWrapper { viewModel.lecture = false }
                             }
                             .padding(.vertical, 24)
-                            
+
                             SearchTextField(
                                 text: $viewModel.lectureName,
                                 "계열 검색 또는 임의로 추가..."
                             )
                             .padding(.bottom, 16)
-                            
+
                             Divider()
                                 .padding(.bottom, 8)
                         }
@@ -529,14 +540,14 @@ struct LectureDetailSettingView: View {
                     .padding(.horizontal, 28)
                 }
             }
-            
+
             if viewModel.subject == true {
                 ZStack {
                     Color.black
                         .opacity(0.35)
                         .ignoresSafeArea()
                         .transition(.opacity)
-                    
+
                     ZStack {
                         VStack(alignment: .leading) {
                             HStack {
@@ -544,20 +555,20 @@ struct LectureDetailSettingView: View {
                                     text: "학과 선택",
                                     font: .title2
                                 )
-                                
+
                                 Spacer()
-                                
+
                                 BitgouelAsset.Icons.cancel.swiftUIImage
                                     .buttonWrapper { viewModel.subject = false }
                             }
                             .padding(.vertical, 24)
-                            
+
                             SearchTextField(
                                 text: $viewModel.subjectName,
                                 "학과 이름으로 검색..."
                             )
                             .padding(.bottom, 16)
-                            
+
                             Divider()
                                 .padding(.bottom, 8)
                         }
@@ -569,14 +580,14 @@ struct LectureDetailSettingView: View {
                     .padding(.horizontal, 28)
                 }
             }
-            
+
             if viewModel.professor == true {
                 ZStack {
                     Color.black
                         .opacity(0.35)
                         .ignoresSafeArea()
                         .transition(.opacity)
-                    
+
                     ZStack {
                         VStack(alignment: .leading) {
                             HStack {
@@ -584,20 +595,20 @@ struct LectureDetailSettingView: View {
                                     text: "담당 교수 선택",
                                     font: .title2
                                 )
-                                
+
                                 Spacer()
-                                
+
                                 BitgouelAsset.Icons.cancel.swiftUIImage
                                     .buttonWrapper { viewModel.professor = false }
                             }
                             .padding(.vertical, 24)
-                            
+
                             SearchTextField(
                                 text: $viewModel.professorName,
                                 "이름 또는 학교명으로 검색..."
                             )
                             .padding(.bottom, 16)
-                            
+
                             Divider()
                                 .padding(.bottom, 8)
                         }
@@ -610,19 +621,17 @@ struct LectureDetailSettingView: View {
                 }
             }
         }
-        
+
         if viewModel.lecture == false && viewModel.subject == false
             && viewModel.professor == false {
             BitgouelButton(
                 text: "적용하기"
-            ) {
-//                dismiss()
-            }
+            ) { dismiss() }
             .cornerRadius(8)
             .padding(EdgeInsets(top: 16, leading: 28, bottom: 14, trailing: 28))
         }
     }
-    
+
     @ViewBuilder
     func selectButton(text: String, select: Bool) -> some View {
         Text(text)
@@ -636,8 +645,4 @@ struct LectureDetailSettingView: View {
             .background(viewModel.lectureBackgroundColor(parameter: select))
             .cornerRadius(99)
     }
-}
-
-#Preview {
-    LectureDetailSettingView(viewModel: LectureDetailSettingViewModel())
 }

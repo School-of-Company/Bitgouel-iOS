@@ -4,13 +4,16 @@ struct LectureOpenApplyView: View {
     @StateObject var viewModel: LectureOpenApplyViewModel
     
     private let lectureOpenApplyFactory: any LectureOpenApplyFactory
+    private let lectureDetailSettingFactory: any LectureDetailSettingFactory
     
     init(
         viewModel: LectureOpenApplyViewModel,
-        lectureOpenApplyFactory: any LectureOpenApplyFactory
+        lectureOpenApplyFactory: any LectureOpenApplyFactory,
+        lectureDetailSettingFactory: any LectureDetailSettingFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.lectureOpenApplyFactory = lectureOpenApplyFactory
+        self.lectureDetailSettingFactory = lectureDetailSettingFactory
     }
     
     var body: some View {
@@ -40,9 +43,9 @@ struct LectureOpenApplyView: View {
                 set: { _ in viewModel.updateIsPresentedLectureDetailSettingAppend(state: false) }
             )
         ) {
-//            DeferView {
-//                lectureOpenApplyFactory.makeView(
-//                )
+            DeferView {
+                lectureOpenApplyFactory.makeView().eraseToAnyView()
+            }
         }
     }
 }

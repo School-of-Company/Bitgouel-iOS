@@ -62,6 +62,14 @@ public extension AppComponent {
     var lectureListDetailFactory: any LectureListDetailFactory {
         LectureListDetailComponent(parent: self)
     }
+    
+    var lectureOpenApplyFactory: any LectureOpenApplyFactory {
+        LectureOpenApplyComponent(parent: self)
+    }
+    
+    var lectureDetailSettingFactory: any LectureDetailSettingFactory {
+        LectureDetailSettingComponent(parent: self)
+    }
 
     var postListFactory: any PostListFactory {
         PostListComponent(parent: self)
