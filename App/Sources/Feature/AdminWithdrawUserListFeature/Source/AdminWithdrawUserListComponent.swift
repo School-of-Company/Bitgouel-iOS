@@ -9,7 +9,8 @@ public protocol AdminWithdrawUserListDependency: Dependency {
     var withdrawUserUseCase: any WithdrawUserUseCase { get }
 }
 
-public final class AdminWithdrawUserListComponent: Component<AdminWithdrawUserListDependency>, AdminWithdrawUserListFactory {
+public final class AdminWithdrawUserListComponent:
+    Component<AdminWithdrawUserListDependency>, AdminWithdrawUserListFactory {
     @MainActor
     public func makeView() -> some View {
         AdminWithdrawUserListView(

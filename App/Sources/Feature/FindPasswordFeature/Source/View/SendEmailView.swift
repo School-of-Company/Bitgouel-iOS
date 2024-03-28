@@ -12,7 +12,7 @@ struct SendEmailView: View {
                 font: .caption
             )
             .foregroundColor(.bitgouel(.greyscale(.g4)))
-            
+
             BitgouelText(
                 text: "확인 이메일 발송됨",
                 font: .title2

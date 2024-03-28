@@ -9,5 +9,5 @@ let project = Project.dynamicFramwork(
         .SPM.Moya,
         .SPM.NeedleFoundation
     ],
-    scripts: [.SwiftLintString]
+    scripts: [.SwiftLintShell]
 )

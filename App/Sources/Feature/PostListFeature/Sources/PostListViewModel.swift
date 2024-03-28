@@ -1,6 +1,7 @@
 import Foundation
 import Service
 
+// swiftlint: disable identifier_name
 final class PostListViewModel: BaseViewModel {
     @MainActor
     var postContent: PostContentEntity? {
@@ -22,6 +23,7 @@ final class PostListViewModel: BaseViewModel {
 
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
     private let queryPostListUseCase: any QueryPostListUseCase
+    // swiftlint: enable identifier_name
 
     init(
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,

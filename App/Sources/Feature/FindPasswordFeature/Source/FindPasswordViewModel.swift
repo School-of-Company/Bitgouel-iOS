@@ -48,7 +48,7 @@ final class FindPasswordViewModel: BaseViewModel {
         Task {
             do {
                 isAuthentication = try await fetchEmailVertificationStatusUseCase(email: email)
-                
+
                 if isAuthentication { updateIsPresentedNewPasswordPage(isPresented: true) }
             } catch {
                 print(error.localizedDescription)

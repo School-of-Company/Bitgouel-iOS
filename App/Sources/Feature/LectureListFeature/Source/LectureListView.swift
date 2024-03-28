@@ -1,5 +1,5 @@
-import SwiftUI
 import Service
+import SwiftUI
 
 struct LectureListView: View {
     @Environment(\.tabbarHidden) var tabbarHidden
@@ -62,7 +62,7 @@ struct LectureListView: View {
                                     BitgouelAsset.Icons.add.swiftUIImage
                                 }
                             }
-                            
+
                             Button {
                                 isShowingFilter.toggle()
                             } label: {
@@ -97,7 +97,7 @@ struct LectureListView: View {
                 )
             )
         }
-        .onAppear{
+        .onAppear {
             viewModel.onAppear()
         }
         .onChange(of: viewModel.selectedLectureType) { newValue in

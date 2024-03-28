@@ -2,10 +2,10 @@ import SwiftUI
 
 struct AdminRequestUserSignupView: View {
     @StateObject var viewModel: AdminRequestUserSignupViewModel
-    
+
     private let adminUserListFactory: any AdminUserListFactory
     private let adminWithdrawUserListFactory: any AdminWithdrawUserListFactory
-    
+
     init(
         viewModel: AdminRequestUserSignupViewModel,
         adminUserListFactory: any AdminUserListFactory,
@@ -15,15 +15,15 @@ struct AdminRequestUserSignupView: View {
         self.adminUserListFactory = adminUserListFactory
         self.adminWithdrawUserListFactory = adminWithdrawUserListFactory
     }
-    
+
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
                 HStack(spacing: 10) {
-                    OptionButton(
+                    optionButton(
                         buttonText: "전체 선택",
                         foregroundColor: .bitgouel(.greyscale(.g6))
-                    ){
+                    ) {
                         if viewModel.isSelectedUserList {
                             viewModel.removeAllUserList()
                             viewModel.isSelectedUserList = false
@@ -32,15 +32,15 @@ struct AdminRequestUserSignupView: View {
                             viewModel.isSelectedUserList = true
                         }
                     }
-                    
-                    OptionButton(
+
+                    optionButton(
                         buttonText: "선택 수락",
                         foregroundColor: .bitgouel(.primary(.p5))
                     ) {
                         viewModel.isShowingApproveAlert = true
                     }
-                    
-                    OptionButton(
+
+                    optionButton(
                         buttonText: "선택 거절",
                         foregroundColor: .bitgouel(.error(.e5))
                     ) {
@@ -48,26 +48,28 @@ struct AdminRequestUserSignupView: View {
                     }
                 }
                 .padding(.top, 24)
-                
+
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 0) {
                         ForEach(viewModel.userList, id: \.userID) { userInfo in
                             HStack(spacing: 8) {
-                                CheckButton(isSelected: Binding(
-                                    get: { viewModel.selectedUserList.contains(userInfo.userID) },
-                                    set: { isSelected in
-                                        viewModel.insertUserList(userID: userInfo.userID)
-                                        if !isSelected {
-                                            viewModel.removeUserList(userID: userInfo.userID)
+                                CheckButton(
+                                    isSelected: Binding(
+                                        get: { viewModel.selectedUserList.contains(userInfo.userID) },
+                                        set: { isSelected in
+                                            viewModel.insertUserList(userID: userInfo.userID)
+                                            if !isSelected {
+                                                viewModel.removeUserList(userID: userInfo.userID)
+                                            }
                                         }
-                                    })
+                                    )
                                 )
-                                
+
                                 BitgouelText(
                                     text: userInfo.name,
                                     font: .text1
                                 )
-                                
+
                                 BitgouelText(
                                     text: userInfo.authority.display(),
                                     font: .text1
@@ -82,7 +84,7 @@ struct AdminRequestUserSignupView: View {
                     }
                 }
                 .padding(.top, 24)
-                
+
                 Spacer()
             }
             .onAppear {
@@ -103,7 +105,7 @@ struct AdminRequestUserSignupView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 24, height: 24)
                     }
-                    
+
                     Button {
                         viewModel.isNavigateWithdrawListDidTap = true
                     } label: {
@@ -158,9 +160,9 @@ struct AdminRequestUserSignupView: View {
             )
         )
     }
-    
+
     @ViewBuilder
-    func OptionButton(
+    func optionButton(
         buttonText: String,
         foregroundColor: Color,
         action: @escaping () -> Void = {}

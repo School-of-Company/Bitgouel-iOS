@@ -9,6 +9,7 @@ final class NewPasswordViewModel: BaseViewModel {
     var isPasswordEmpty: Bool {
         newPassword.isEmpty || checkNewPassword.isEmpty
     }
+
     var email: String = ""
 
     private let findPasswordUseCase: any FindPasswordUseCase
@@ -40,7 +41,7 @@ final class NewPasswordViewModel: BaseViewModel {
         Task {
             do {
                 try await findPasswordUseCase(req: FindPasswordRequestDTO(email: email, newPassword: newPassword))
-                
+
                 updateIsPresentedSuccessFindPasswordPage(isPresented: true)
             } catch {
                 print(error.localizedDescription)

@@ -47,7 +47,7 @@ extension UserAPI: BitgouelAPI {
         }
     }
 
-    public var errorMap: [Int : UserDomainError] {
+    public var errorMap: [Int: UserDomainError] {
         switch self {
         case .changePassword:
             return [

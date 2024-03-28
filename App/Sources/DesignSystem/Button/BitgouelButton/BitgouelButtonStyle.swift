@@ -22,7 +22,7 @@ public struct BitgouelButtonStyle: ButtonStyle {
 
         case .error:
             ErrorButton(configuration: configuration)
-            
+
         case .cancel:
             CancelButton(configuration: configuration)
         }
@@ -134,15 +134,15 @@ private extension BitgouelButtonStyle {
         var foregroundColor: Color {
             .bitgouel(.error(.e5))
         }
-        
+
         var backgroundColor: Color {
             .white
         }
-        
+
         var strokeColor: Color {
             .bitgouel(.error(.e5))
         }
-        
+
         var body: some View {
             configuration.label
                 .bitgouelFont(.text1)

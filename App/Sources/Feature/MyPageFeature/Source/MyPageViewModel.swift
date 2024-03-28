@@ -1,5 +1,5 @@
-import SwiftUI
 import Service
+import SwiftUI
 
 final class MyPageViewModel: BaseViewModel {
     @Published var myInfo: MyInfoEntity?
@@ -65,7 +65,7 @@ final class MyPageViewModel: BaseViewModel {
         Task {
             do {
                 myInfo = try await fetchMyInfoUseCase()
-                
+
                 updateOrganization(organization: myInfo?.organization ?? "")
             } catch {
                 print(String(describing: error))
@@ -82,7 +82,7 @@ final class MyPageViewModel: BaseViewModel {
             }
         }
     }
-    
+
     func withdraw() {
         Task {
             do {

@@ -3,10 +3,10 @@ import SwiftUI
 struct AdminWithdrawUserListView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: AdminWithdrawUserListViewModel
-    
+
     private let adminUserListFactory: any AdminUserListFactory
     private let adminRequestUserSignupFactory: any AdminRequestUserSignupFactory
-    
+
     init(
         viewModel: AdminWithdrawUserListViewModel,
         adminUserListFactory: any AdminUserListFactory,
@@ -16,12 +16,12 @@ struct AdminWithdrawUserListView: View {
         self.adminUserListFactory = adminUserListFactory
         self.adminRequestUserSignupFactory = adminRequestUserSignupFactory
     }
-    
+
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
                 HStack(spacing: 10) {
-                    OptionButton(
+                    optionButton(
                         buttonText: "선택 탈퇴",
                         textColor: .bitgouel(.error(.e5)),
                         strokeColor: .bitgouel(.error(.e5)),
@@ -29,8 +29,8 @@ struct AdminWithdrawUserListView: View {
                     ) {
                         viewModel.isShowingWithdrawAlert = true
                     }
-                    
-                    OptionButton(
+
+                    optionButton(
                         buttonText: "전체 탈퇴",
                         textColor: .bitgouel(.greyscale(.g10)),
                         strokeColor: .bitgouel(.error(.e5)),
@@ -43,10 +43,10 @@ struct AdminWithdrawUserListView: View {
                             viewModel.insertAllUserList()
                         }
                     }
-                    
+
                     HStack {
                         BitgouelAsset.Icons.filter.swiftUIImage
-                        
+
                         BitgouelText(
                             text: "필터",
                             font: .text3
@@ -64,7 +64,7 @@ struct AdminWithdrawUserListView: View {
                     }
                 }
                 .padding(.top, 24)
-                
+
                 LazyVStack(alignment: .leading, spacing: 0) {
                     ForEach(viewModel.userList, id: \.userID) { userInfo in
                         HStack(spacing: 8) {
@@ -79,24 +79,24 @@ struct AdminWithdrawUserListView: View {
                                     }
                                 )
                             )
-                            
+
                             BitgouelText(
                                 text: userInfo.name,
                                 font: .text1
                             )
                         }
-                        
+
                         Divider()
                             .frame(height: 1)
                             .padding(.vertical, 14)
                     }
                 }
                 .padding(.top, 24)
-                
+
                 Spacer()
             }
             .padding(.horizontal, 28)
-            
+
             ZStack(alignment: .center) {
                 if viewModel.isPresentedUserCohortFilter {
                     Color.black.opacity(0.4)
@@ -104,7 +104,7 @@ struct AdminWithdrawUserListView: View {
                         .onTapGesture {
                             viewModel.updateIsPresentedCohortFilter(isPresented: false)
                         }
-                    
+
                     UserCohortFilterPopup(
                         currentYear: viewModel.currentYear,
                         selectedCohort: viewModel.selectedCohort,
@@ -135,7 +135,7 @@ struct AdminWithdrawUserListView: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 24, height: 24)
                 }
-                
+
                 Button {
                     viewModel.isNavigateRequestSignUpDidTap = true
                 } label: {
@@ -176,8 +176,9 @@ struct AdminWithdrawUserListView: View {
             )
         )
     }
+
     @ViewBuilder
-    func OptionButton(
+    func optionButton(
         buttonText: String,
         textColor: Color,
         strokeColor: Color,

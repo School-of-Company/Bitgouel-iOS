@@ -89,7 +89,7 @@ public extension AppComponent {
         }
     }
 
-    var companyInstructorSignupUseCase : any CompanyInstructorSignupUseCase {
+    var companyInstructorSignupUseCase: any CompanyInstructorSignupUseCase {
         shared {
             CompanyInstructorSignupUseCaseImpl(authRepository: authRepository)
         }

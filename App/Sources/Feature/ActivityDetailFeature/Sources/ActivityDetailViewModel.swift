@@ -2,7 +2,6 @@ import Foundation
 import Service
 import SwiftUI
 
-@MainActor
 final class ActivityDetailViewModel: BaseViewModel {
     @Published var authority: UserAuthorityType = .user
     @Published var isDelete: Bool = false
@@ -34,6 +33,7 @@ final class ActivityDetailViewModel: BaseViewModel {
         isPresentedInputActivityView = isPresented
     }
 
+    @MainActor
     func onAppear() {
         authority = loadUserAuthorityUseCase()
 

@@ -1,12 +1,12 @@
-import SwiftUI
 import Service
+import SwiftUI
 
 struct UserCohortFilterPopup: View {
     let currentYear: Int
     var selectedCohort: Int
     let onCohortSelect: (Int) -> Void
     let cancel: (Bool) -> Void
-    
+
     var body: some View {
         RoundedRectangle(cornerRadius: 8)
             .fill(Color.white)
@@ -18,9 +18,9 @@ struct UserCohortFilterPopup: View {
                             text: "기수",
                             font: .title3
                         )
-                        
+
                         Spacer()
-                        
+
                         Button {
                             cancel(false)
                         } label: {
@@ -28,28 +28,28 @@ struct UserCohortFilterPopup: View {
                         }
                     }
                     .padding(.top, 24)
-                    
+
                     Spacer()
-                    
+
                     ScrollView {
                         VStack(spacing: 16) {
                             ForEach(2022...currentYear, id: \.self) { cohort in
                                 userCohortTypeRow(
                                     cohort: cohort - 2021,
                                     selectedCohort: selectedCohort,
-                                    onCohortSelect: onCohortSelect)
+                                    onCohortSelect: onCohortSelect
+                                )
                             }
-                            
+
                             Spacer()
                         }
                     }
                     .padding(.top, 32)
-
                 }
                 .padding(.horizontal, 24)
             }
     }
-    
+
     @ViewBuilder
     func userCohortTypeRow(
         cohort: Int,
@@ -67,12 +67,12 @@ struct UserCohortFilterPopup: View {
                     }
                 )
             )
-            
+
             BitgouelText(
                 text: "\(cohort)기",
                 font: .text3
             )
-            
+
             Spacer()
         }
     }

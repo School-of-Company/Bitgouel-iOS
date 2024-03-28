@@ -57,7 +57,7 @@ struct ActivityDetailSettingView: View {
                         HStack {
                             HStack(spacing: 0) {
                                 BitgouelText(
-                                    text: String(viewModel.selectedCredit ?? 1) ,
+                                    text: String(viewModel.selectedCredit ?? 1),
                                     font: .text3
                                 )
 

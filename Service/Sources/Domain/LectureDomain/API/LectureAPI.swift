@@ -93,7 +93,7 @@ extension LectureAPI: BitgouelAPI {
         }
     }
 
-    public var errorMap: [Int : LectureDomainError] {
+    public var errorMap: [Int: LectureDomainError] {
         switch self {
         case .openLecture:
             return [
@@ -110,7 +110,7 @@ extension LectureAPI: BitgouelAPI {
             return [
                 400: .badRequest,
                 401: .unauthorized,
-                403 : .forbidden
+                403: .forbidden
             ]
 
         case .fetchLectureDetail:

@@ -45,13 +45,13 @@ extension FAQAPI: BitgouelAPI {
         switch self {
         case .inputFAQ:
             return .accessToken
-            
+
         case .fetchFAQList:
             return .none
         }
     }
 
-    public var errorMap: [Int : FAQDomainError] {
+    public var errorMap: [Int: FAQDomainError] {
         switch self {
         case .inputFAQ:
             return [

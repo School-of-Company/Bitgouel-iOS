@@ -14,7 +14,7 @@ struct NewPasswordView: View {
                     text: "비밀번호 변경",
                     font: .title2
                 )
-                
+
                 BitgouelText(
                     text: "새 비밀번호를 설정합니다",
                     font: .text3
@@ -22,7 +22,7 @@ struct NewPasswordView: View {
                 .foregroundColor(.bitgouel(.greyscale(.g4)))
             }
             .padding(.top, 24)
-            
+
             VStack(alignment: .leading, spacing: 16) {
                 BitgouelTextField(
                     "8~24자 이내 영문, 숫자, 특수문자 1개 이상",
@@ -33,7 +33,7 @@ struct NewPasswordView: View {
                         }
                     )
                 )
-                
+
                 BitgouelTextField(
                     "비밀번호 확인",
                     text: Binding(
@@ -45,9 +45,9 @@ struct NewPasswordView: View {
                 )
             }
             .padding(.top, 32)
-            
+
             Spacer()
-            
+
             BitgouelButton(
                 text: "다음으로",
                 action: {

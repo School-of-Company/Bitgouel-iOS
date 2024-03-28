@@ -98,7 +98,7 @@ extension AuthAPI: BitgouelAPI {
 
         case let .companyInstructorSignup(req):
             return .requestJSONEncodable(req)
-            
+
         case let .findPassword(req):
             return .requestJSONEncodable(req)
 
@@ -107,12 +107,12 @@ extension AuthAPI: BitgouelAPI {
         }
     }
 
-    public var headers: [String : String]? {
+    public var headers: [String: String]? {
         switch self {
         case let .logout(accessToken, refreshToken):
             return [
-                "Authorization" : "Bearer \(accessToken)",
-                "RefreshToken" : "Bearer \(refreshToken)",
+                "Authorization": "Bearer \(accessToken)",
+                "RefreshToken": "Bearer \(refreshToken)",
                 "Content-Type": "application/json"
             ]
 
@@ -134,7 +134,7 @@ extension AuthAPI: BitgouelAPI {
         }
     }
 
-    public var errorMap: [Int : ErrorType] {
+    public var errorMap: [Int: ErrorType] {
         switch self {
         case .studentSignup:
             return [
@@ -146,7 +146,7 @@ extension AuthAPI: BitgouelAPI {
                 429: .tooManyRequest
             ]
 
-        default :
+        default:
             return [
                 400: .badRequest,
                 401: .unauthorized,

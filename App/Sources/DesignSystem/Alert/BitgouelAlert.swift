@@ -5,7 +5,7 @@ public extension View {
         title: String,
         description: String,
         isShowing: Binding<Bool>,
-        alertActions: [bitgouelAlertButtonType]
+        alertActions: [BitgouelAlertButtonType]
     ) -> some View {
         modifier(
             BitgouelAlertModifier(
@@ -22,13 +22,13 @@ struct BitgouelAlertModifier: ViewModifier {
     var title: String
     var description: String
     @Binding var isShowing: Bool
-    var alertActions: [bitgouelAlertButtonType]
+    var alertActions: [BitgouelAlertButtonType]
 
     public init(
         title: String,
         description: String,
         isShowing: Binding<Bool>,
-        alertActions: [bitgouelAlertButtonType]
+        alertActions: [BitgouelAlertButtonType]
     ) {
         self.title = title
         self.description = description

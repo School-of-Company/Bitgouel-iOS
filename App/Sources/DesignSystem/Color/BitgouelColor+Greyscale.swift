@@ -1,6 +1,7 @@
 import SwiftUI
 
 public extension Color.BitgouelColorSystem {
+    // swiftlint: disable identifier_name
     enum Greyscale: BitgouelColorable {
         case g0
         case g1
@@ -14,6 +15,7 @@ public extension Color.BitgouelColorSystem {
         case g9
         case g10
     }
+    // swiftlint: enable identifier_name
 }
 
 public extension Color.BitgouelColorSystem.Greyscale {

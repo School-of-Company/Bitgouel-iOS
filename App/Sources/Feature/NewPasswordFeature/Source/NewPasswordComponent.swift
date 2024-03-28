@@ -1,6 +1,6 @@
 import NeedleFoundation
-import SwiftUI
 import Service
+import SwiftUI
 
 public protocol NewPasswordDependency: Dependency {
     var findPasswordUseCase: any FindPasswordUseCase { get }

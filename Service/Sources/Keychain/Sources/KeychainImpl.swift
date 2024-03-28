@@ -7,7 +7,7 @@ public struct KeychainImpl: Keychain {
         let query: NSDictionary = [
             kSecClass: kSecClassGenericPassword,
             kSecAttrAccount: type.rawValue,
-            kSecValueData: value.data(using: .utf8, allowLossyConversion: false) ?? .init(),
+            kSecValueData: value.data(using: .utf8, allowLossyConversion: false) ?? .init()
         ]
         SecItemDelete(query)
         SecItemAdd(query, nil)
@@ -18,7 +18,7 @@ public struct KeychainImpl: Keychain {
             kSecClass: kSecClassGenericPassword,
             kSecAttrAccount: type.rawValue,
             kSecReturnData: kCFBooleanTrue!,
-            kSecMatchLimit: kSecMatchLimitOne,
+            kSecMatchLimit: kSecMatchLimitOne
         ]
         var dataTypeRef: AnyObject?
         let status = SecItemCopyMatching(query as CFDictionary, &dataTypeRef)
@@ -32,7 +32,7 @@ public struct KeychainImpl: Keychain {
     public func delete(type: KeychainType) {
         let query: NSDictionary = [
             kSecClass: kSecClassGenericPassword,
-            kSecAttrAccount: type.rawValue,
+            kSecAttrAccount: type.rawValue
         ]
         SecItemDelete(query)
     }

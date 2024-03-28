@@ -90,7 +90,7 @@ public extension AppComponent {
     var inquiryListFactory: any InquiryListFactory {
         InquiryListComponent(parent: self)
     }
-    
+
     var noticeDetailFactory: any NoticeDetailFactory {
         NoticeDetailViewComponent(parent: self)
     }
@@ -102,7 +102,7 @@ public extension AppComponent {
     var inputCertificationFactory: any InputCertificationFactory {
         InputCertificationComponent(parent: self)
     }
-    
+
     var mainFactory: any MainFactory {
         MainComponent(parent: self)
     }
@@ -110,7 +110,7 @@ public extension AppComponent {
     var myPageFactory: any MyPageFactory {
         MyPageComponent(parent: self)
     }
-    
+
     var mainTabFactory: any MainTabFactory {
         MainTabComponent(parent: self)
     }
@@ -146,11 +146,11 @@ public extension AppComponent {
     var adminUserListFactory: any AdminUserListFactory {
         AdminUserListComponent(parent: self)
     }
-    
+
     var adminRequestUserSignupFactory: any AdminRequestUserSignupFactory {
         AdminRequestUserSignupComponent(parent: self)
     }
-    
+
     var adminWithdrawUserListFactory: any AdminWithdrawUserListFactory {
         AdminWithdrawUserListComponent(parent: self)
     }

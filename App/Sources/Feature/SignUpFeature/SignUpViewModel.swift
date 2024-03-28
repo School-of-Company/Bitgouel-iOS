@@ -1,6 +1,7 @@
 import Foundation
 import Service
 
+// swiftlint: disable type_body_length
 final class SignUpViewModel: BaseViewModel {
     // MARK: presentation
     @Published var isPresentedAssociationSheet = false
@@ -272,6 +273,7 @@ final class SignUpViewModel: BaseViewModel {
         return password == checkPassword
     }
 
+    // swiftlint: disable cyclomatic_complexity
     func signup() {
         guard let yearOfAdmission else { return }
         guard let selectedSchool else { return }
@@ -303,7 +305,9 @@ final class SignUpViewModel: BaseViewModel {
             return
         }
     }
+    // swiftlint: enable cyclomatic_complexity
 
+    // swiftlint: disable function_parameter_count
     func studentSignup(
         grade: Int,
         classRoom: Int,
@@ -335,6 +339,7 @@ final class SignUpViewModel: BaseViewModel {
             }
         }
     }
+    // swiftlint: enable function_parameter_count
 
     func teacherSignup(
         selectedSchool: HighSchoolType,
@@ -459,3 +464,4 @@ final class SignUpViewModel: BaseViewModel {
         }
     }
 }
+// swiftlint: enable type_body_length

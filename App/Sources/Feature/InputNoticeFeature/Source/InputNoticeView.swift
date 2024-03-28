@@ -3,9 +3,9 @@ import SwiftUI
 struct InputNoticeView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: InputNoticeViewModel
-    
+
     private let noticeDetailSettingFactory: any NoticeDetailSettingFactory
-    
+
     init(
         viewModel: InputNoticeViewModel,
         noticeDetailSettingFactory: any NoticeDetailSettingFactory
@@ -13,7 +13,7 @@ struct InputNoticeView: View {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.noticeDetailSettingFactory = noticeDetailSettingFactory
     }
-    
+
     var body: some View {
         InputFormView(
             epic: "공지사항",
@@ -48,8 +48,7 @@ struct InputNoticeView: View {
             )
         ) {
             DeferView {
-                noticeDetailSettingFactory.makeView(noticeLinks: viewModel.noticeLinks) {
-                    links in
+                noticeDetailSettingFactory.makeView(noticeLinks: viewModel.noticeLinks) { links in
                     viewModel.updateNoticeLinks(links: links)
                 }.eraseToAnyView()
             }
