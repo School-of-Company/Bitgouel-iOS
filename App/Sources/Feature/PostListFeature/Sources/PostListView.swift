@@ -120,6 +120,12 @@ struct PostListView: View {
                     }
                 }
             }
+            .loginAlert(
+                isShowing: Binding(
+                    get: { viewModel.authority == .user },
+                    set: { _ in viewModel.isShowingLoginAlertDismissed() }
+                )
+            )
             .refreshable {
                 viewModel.onAppear()
             }

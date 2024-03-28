@@ -90,6 +90,12 @@ struct LectureListView: View {
             .onChange(of: isShowingFilter) { newValue in
                 tabbarHidden.wrappedValue = newValue
             }
+            .loginAlert(
+                isShowing: Binding(
+                    get: { viewModel.authority == .user },
+                    set: { _ in viewModel.isShowingLoginAlertDismissed() }
+                )
+            )
         }
         .onAppear{
             viewModel.onAppear()

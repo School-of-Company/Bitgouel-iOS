@@ -196,6 +196,12 @@ struct MyPageView: View {
                     }
                 ]
             )
+            .loginAlert(
+                isShowing: Binding(
+                    get: { viewModel.authority == .user },
+                    set: { _ in viewModel.isShowingLoginAlertDismissed() }
+                )
+            )
             .bitgouelAlert(
                 title: "로그아웃 하시겠습니까?",
                 description: "  로그아웃 시 로그인을 통해서 \n다시 계정에 접속할 수 있습니다.",

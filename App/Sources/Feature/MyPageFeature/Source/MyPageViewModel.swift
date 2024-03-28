@@ -7,6 +7,7 @@ final class MyPageViewModel: BaseViewModel {
     @Published var isShowingLogoutAlert: Bool = false
     @Published var isPresentedChangePasswordView: Bool = false
     @Published var isPresentedAdminUserListView: Bool = false
+    @Published var isShowingLoginAlert: Bool = false
     
     var authority: UserAuthorityType = .user
     var userInfo: [String] = []
@@ -51,7 +52,12 @@ final class MyPageViewModel: BaseViewModel {
     func updateIsShowingLogoutAlert(isShowing: Bool) {
         isShowingLogoutAlert = isShowing
     }
-    
+
+    @MainActor
+    func isShowingLoginAlertDismissed() {
+        isShowingLoginAlert = false
+    }
+
     @MainActor
     func onAppear() {
         authority = loadUserAuthorityUseCase()

@@ -17,6 +17,7 @@ final class PostListViewModel: BaseViewModel {
     @Published var isPresentedInquiryView: Bool = false
     @Published var isPresentedInputPostView: Bool = false
     @Published var isPresentedPostDetailView: Bool = false
+    @Published var isShowingLoginAlert: Bool = false
     @Published var seletedPostID: String = ""
 
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
@@ -28,6 +29,11 @@ final class PostListViewModel: BaseViewModel {
     ) {
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
         self.queryPostListUseCase = queryPostListUseCase
+    }
+
+    @MainActor
+    func isShowingLoginAlertDismissed() {
+        isShowingLoginAlert = false
     }
 
     @MainActor
