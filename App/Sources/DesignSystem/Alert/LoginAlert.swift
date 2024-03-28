@@ -14,7 +14,6 @@ public extension View {
 
 struct LoginAlertModifier: ViewModifier {
     @Binding var isShowing: Bool
-    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var sceneState: SceneState
 
     public init(

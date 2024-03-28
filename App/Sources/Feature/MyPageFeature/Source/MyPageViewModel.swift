@@ -8,7 +8,7 @@ final class MyPageViewModel: BaseViewModel {
     @Published var isPresentedChangePasswordView: Bool = false
     @Published var isPresentedAdminUserListView: Bool = false
     @Published var isShowingLoginAlert: Bool = false
-    
+
     var authority: UserAuthorityType = .user
     var userInfo: [String] = []
     var userOrganization: String = ""

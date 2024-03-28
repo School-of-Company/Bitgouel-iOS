@@ -77,10 +77,10 @@ struct LoginView: View {
                     .cornerRadius(8)
                     .disabled(viewModel.isFormEmpty)
                     .padding(.horizontal, 28)
-                    
+
                     Text("또는")
                         .bitgouelFont(.caption, color: .greyscale(.g7))
-                    
+
                     HStack(spacing: 12) {
                         Button {
                             viewModel.signupPageIsRequired()
@@ -88,10 +88,10 @@ struct LoginView: View {
                             Text("회원가입")
                                 .bitgouelFont(.text3, color: .primary(.p5))
                         }
-                        
+
                         Divider()
                             .frame(height: 20)
-                        
+
                         Button {
                             sceneState.sceneFlow = .main
                         } label: {
