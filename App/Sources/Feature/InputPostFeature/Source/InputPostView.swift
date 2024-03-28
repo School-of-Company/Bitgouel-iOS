@@ -45,8 +45,7 @@ struct InputPostView: View {
             )
         ) {
             DeferView {
-                postDetailSettingFactory.makeView(links: viewModel.postRelatedLink) {
-                    links in
+                postDetailSettingFactory.makeView(links: viewModel.postRelatedLink) { links in
                     viewModel.postRelatedLink = links
                 }.eraseToAnyView()
             }

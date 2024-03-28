@@ -1,7 +1,7 @@
 import SwiftUI
 
 public extension Color.BitgouelColorSystem {
-    // swiftlint:disable identifier_name
+    // swiftlint: disable identifier_name
     enum Error: BitgouelColorable {
         case e1
         case e2
@@ -13,6 +13,7 @@ public extension Color.BitgouelColorSystem {
         case e8
         case e9
     }
+    // swiftlint: enable identifier_name
 }
 
 public extension Color.BitgouelColorSystem.Error {

@@ -41,7 +41,7 @@ public extension Project {
                     infoPlist: .file(path: Path("Support/Info.plist")),
                     sources: ["Sources/**"],
                     resources: ["Resources/**"],
-                    scripts: [.SwiftLintString, .NeedleShell],
+                    scripts: [.SwiftLintShell, .NeedleShell],
                     dependencies: [
                         .project(
                             target: "ThirdPartyLib",

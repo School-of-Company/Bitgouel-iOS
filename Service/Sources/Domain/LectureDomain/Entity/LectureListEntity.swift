@@ -1,12 +1,15 @@
 import Foundation
 
 public struct LectureListEntity: Equatable {
-    public var id: String
+    public var lectureID: String
     public let name: String
     public let content: String
-    public let startDate: String
-    public let endDate: String
-    public let completeDate: String
+    public let semester: SemesterType
+    public let division: DivisionType
+    public let department: String
+    public let line: String
+    public let startDate: Date
+    public let endDate: Date
     public let lectureType: LectureType
     public let lectureStatus: LectureStatusType
     public let headCount: Int
@@ -14,28 +17,42 @@ public struct LectureListEntity: Equatable {
     public let lecturer: String
 
     public init(
-        id: String,
+        lectureID: String,
         name: String,
         content: String,
-        startDate: String,
-        endDate: String,
-        completeDate: String,
+        semester: SemesterType,
+        division: DivisionType,
+        department: String,
+        line: String,
+        startDate: Date,
+        endDate: Date,
         lectureType: LectureType,
         lectureStatus: LectureStatusType,
         headCount: Int,
         maxRegisteredUser: Int,
         lecturer: String
     ) {
-        self.id = id
+        self.lectureID = lectureID
         self.name = name
         self.content = content
+        self.semester = semester
+        self.division = division
+        self.department = department
+        self.line = line
         self.startDate = startDate
         self.endDate = endDate
-        self.completeDate = completeDate
         self.lectureType = lectureType
         self.lectureStatus = lectureStatus
         self.headCount = headCount
         self.maxRegisteredUser = maxRegisteredUser
         self.lecturer = lecturer
+    }
+}
+
+public struct LectureContentEntity: Equatable {
+    public let content: [LectureListEntity]
+
+    public init(content: [LectureListEntity]) {
+        self.content = content
     }
 }

@@ -5,7 +5,7 @@ public final class RemoteUserDataSourceImpl: BaseRemoteDataSource<UserAPI>, Remo
         try await request(.changePassword(req))
     }
 
-    public func queryMyInfo() async throws -> MyInfoEntity {
-        try await request(.queryMyInfo, dto: QueryMyInfoResponseDTO.self).toDomain()
+    public func fetchMyInfo() async throws -> MyInfoEntity {
+        try await request(.fetchMyInfo, dto: FetchMyInfoResponseDTO.self).toDomain()
     }
 }

@@ -11,7 +11,7 @@ public struct UserRepositoryImpl: UserRepository {
         try await remoteUserDataSource.changePassword(req: req)
     }
 
-    public func queryMyInfo() async throws -> MyInfoEntity {
-        try await remoteUserDataSource.queryMyInfo()
+    public func fetchMyInfo() async throws -> MyInfoEntity {
+        try await remoteUserDataSource.fetchMyInfo()
     }
 }

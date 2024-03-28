@@ -36,7 +36,7 @@ struct SuccessSignUpView: View {
             to: loginFactory.makeView().eraseToAnyView(),
             when: Binding(
                 get: { isBackLoginPage },
-                set: { _ in isBackLoginPage = false}
+                set: { _ in isBackLoginPage = false }
             )
         )
         .navigationBarBackButtonHidden(true)

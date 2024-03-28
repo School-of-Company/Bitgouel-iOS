@@ -4,9 +4,9 @@ import Moya
 public enum AdminAPI {
     case fetchUserList(keyword: String, authority: String, approveStatus: String)
     case fetchUserDetail(userID: String)
-    case approveUserSignup(userID: [String])
-    case rejectUserSignup(userID: [String])
-    case withdrawUserSignup(userID: [String])
+    case approveUserSignup(userID: String)
+    case rejectUserSignup(userID: String)
+    case withdrawUserSignup(userID: String)
 }
 
 extension AdminAPI: BitgouelAPI {
@@ -25,10 +25,10 @@ extension AdminAPI: BitgouelAPI {
         case let .fetchUserDetail(userID):
             return "/\(userID)"
 
-        case let .withdrawUserSignup(userID):
-            return "/\(userID)"
+        case .withdrawUserSignup:
+            return "/withdraw"
 
-        case let .rejectUserSignup(userID):
+        case .rejectUserSignup:
             return "/reject"
         }
     }
@@ -58,13 +58,13 @@ extension AdminAPI: BitgouelAPI {
             ], encoding: URLEncoding.queryString)
 
         case let .approveUserSignup(userID),
-             let .rejectUserSignup(userID):
+             let .rejectUserSignup(userID),
+             let .withdrawUserSignup(userID):
             return .requestParameters(parameters: [
                 "userIds": userID
             ], encoding: URLEncoding.queryString)
 
-        case .fetchUserDetail,
-             .withdrawUserSignup:
+        case .fetchUserDetail:
             return .requestPlain
         }
     }
@@ -76,7 +76,7 @@ extension AdminAPI: BitgouelAPI {
         }
     }
 
-    public var errorMap: [Int : AdminDomainError] {
+    public var errorMap: [Int: AdminDomainError] {
         switch self {
         case .fetchUserList:
             return [

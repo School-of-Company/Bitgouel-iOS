@@ -8,7 +8,7 @@ public final class RemoteAdminDataSourceImpl: BaseRemoteDataSource<AdminAPI>, Re
     ) async throws -> [UserInfoEntity] {
         try await request(
             .fetchUserList(keyword: keyword, authority: authority, approveStatus: approveStatus),
-            dto: UserInfoResponseDTO.self
+            dto: FetchUserInfoResponseDTO.self
         ).toDomain()
     }
 
@@ -19,15 +19,15 @@ public final class RemoteAdminDataSourceImpl: BaseRemoteDataSource<AdminAPI>, Re
         ).toDomain()
     }
 
-    public func approveUserSignup(userID: [String]) async throws {
+    public func approveUserSignup(userID: String) async throws {
         try await request(.approveUserSignup(userID: userID))
     }
 
-    public func rejectUserSignup(userID: [String]) async throws {
+    public func rejectUserSignup(userID: String) async throws {
         try await request(.rejectUserSignup(userID: userID))
     }
 
-    public func withdrawUserSignup(userID: [String]) async throws {
+    public func withdrawUserSignup(userID: String) async throws {
         try await request(.withdrawUserSignup(userID: userID))
     }
 }

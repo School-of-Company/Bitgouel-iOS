@@ -61,7 +61,7 @@ extension ClubAPI: BitgouelAPI {
         }
     }
 
-    public var errorMap: [Int : ClubDomainError] {
+    public var errorMap: [Int: ClubDomainError] {
         switch self {
         case .queryClubList,
              .queryClubDetail,

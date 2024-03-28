@@ -1,22 +1,22 @@
-import SwiftUI
 import NeedleFoundation
 import Service
+import SwiftUI
 
 public protocol LectureListDetailDependency: Dependency {
-    var queryLectureDetailUseCase: any QueryLectureDetailUseCase { get }
-    var lectureApplyUseCase: any LectureApplyUseCase { get }
-    var lectureCancelUseCase: any LectureCancelUseCase { get }
+    var fetchLectureDetailUseCase: any FetchLectureDetailUseCase { get }
+    var applyLectureUseCase: any ApplyLectureUseCase { get }
+    var cancelLectureUseCase: any CancelLectureUseCase { get }
 }
 
 public final class LectureListDetailComponent: Component<LectureListDetailDependency>, LectureListDetailFactory {
     @MainActor
-    public func makeView(userID: String) -> some View {
+    public func makeView(lectureID: String) -> some View {
         LectureListDetailView(
             viewModel: .init(
-                userID: userID,
-                queryLectureDetailUseCase: self.dependency.queryLectureDetailUseCase,
-                lectureApplyUseCase: self.dependency.lectureApplyUseCase,
-                lectureCancelUseCase: self.dependency.lectureCancelUseCase
+                lectureID: lectureID,
+                fetchLectureDetailUseCase: dependency.fetchLectureDetailUseCase,
+                applyLectureUseCase: dependency.applyLectureUseCase,
+                cancelLectureUseCase: dependency.cancelLectureUseCase
             )
         )
     }

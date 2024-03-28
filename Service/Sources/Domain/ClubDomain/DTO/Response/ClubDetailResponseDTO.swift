@@ -4,15 +4,15 @@ public struct ClubDetailResponseDTO: Decodable {
     public let clubID: Int
     public let clubName: String
     public let highSchoolName: String
-    public let students: [memberInfoResponseDTO]
-    public let teacher: memberInfoResponseDTO
+    public let students: [MemberInfoResponseDTO]
+    public let teacher: MemberInfoResponseDTO
 
-    init(
+    public init(
         clubID: Int,
         clubName: String,
         highSchoolName: String,
-        students: [memberInfoResponseDTO],
-        teacher: memberInfoResponseDTO
+        students: [MemberInfoResponseDTO],
+        teacher: MemberInfoResponseDTO
     ) {
         self.clubID = clubID
         self.clubName = clubName
@@ -28,16 +28,6 @@ public struct ClubDetailResponseDTO: Decodable {
         case students
         case teacher
     }
-
-    public struct memberInfoResponseDTO: Decodable {
-        public let id: String
-        public let name: String
-
-        init(id: String, name: String) {
-            self.id = id
-            self.name = name
-        }
-    }
 }
 
 extension ClubDetailResponseDTO {
@@ -52,8 +42,26 @@ extension ClubDetailResponseDTO {
     }
 }
 
-extension ClubDetailResponseDTO.memberInfoResponseDTO {
-    func toDomain() -> ClubDetailEntity.memberInfoEntity {
-        ClubDetailEntity.memberInfoEntity(id: id, name: name)
+public struct MemberInfoResponseDTO: Decodable {
+    public let studentID: String
+    public let name: String
+
+    public init(studentID: String, name: String) {
+        self.studentID = studentID
+        self.name = name
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case studentID = "id"
+        case name
+    }
+}
+
+extension MemberInfoResponseDTO {
+    func toDomain() -> ClubDetailEntity.MemberInfoEntity {
+        ClubDetailEntity.MemberInfoEntity(
+            studentID: studentID,
+            name: name
+        )
     }
 }

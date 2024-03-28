@@ -57,7 +57,7 @@ struct ActivityDetailSettingView: View {
                         HStack {
                             HStack(spacing: 0) {
                                 BitgouelText(
-                                    text: String(viewModel.selectedCredit ?? 1) ,
+                                    text: String(viewModel.selectedCredit ?? 1),
                                     font: .text3
                                 )
 
@@ -88,14 +88,13 @@ struct ActivityDetailSettingView: View {
                     viewModel.applyButtonDidTap()
                     dismiss()
                 }
-
-                .bitgouelBottomSheet(
-                    isShowing: $viewModel.isPresentedCreditSheet
-                ) {
-                    setCreditBottomSheet()
-                }
             }
             .padding(.horizontal, 28)
+            .bitgouelBottomSheet(
+                isShowing: $viewModel.isPresentedCreditSheet
+            ) {
+                setCreditBottomSheet()
+            }
             .navigationTitle("활동 세부 설정")
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -142,5 +141,6 @@ struct ActivityDetailSettingView: View {
             }
             .padding(.vertical, 24)
         }
+        .padding(.horizontal, 28)
     }
 }

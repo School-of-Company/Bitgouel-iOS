@@ -3,7 +3,7 @@ import Moya
 
 public enum UserAPI {
     case changePassword(ChangePasswordRequestDTO)
-    case queryMyInfo
+    case fetchMyInfo
 }
 
 extension UserAPI: BitgouelAPI {
@@ -15,7 +15,8 @@ extension UserAPI: BitgouelAPI {
 
     public var urlPath: String {
         switch self {
-        case .changePassword, .queryMyInfo:
+        case .changePassword,
+             .fetchMyInfo:
             return ""
         }
     }
@@ -24,7 +25,7 @@ extension UserAPI: BitgouelAPI {
         switch self {
         case .changePassword:
             return .patch
-        case .queryMyInfo:
+        case .fetchMyInfo:
             return .get
         }
     }
@@ -33,19 +34,20 @@ extension UserAPI: BitgouelAPI {
         switch self {
         case let .changePassword(req):
             return .requestJSONEncodable(req)
-        case .queryMyInfo:
+        case .fetchMyInfo:
             return .requestPlain
         }
     }
 
     public var jwtTokenType: JwtTokenType {
         switch self {
-        case .changePassword, .queryMyInfo:
+        case .changePassword,
+             .fetchMyInfo:
             return .accessToken
         }
     }
 
-    public var errorMap: [Int : UserDomainError] {
+    public var errorMap: [Int: UserDomainError] {
         switch self {
         case .changePassword:
             return [
@@ -55,7 +57,7 @@ extension UserAPI: BitgouelAPI {
                 409: .conflict,
                 429: .tooManyRequest
             ]
-        case .queryMyInfo:
+        case .fetchMyInfo:
             return [
                 400: .badRequest,
                 401: .unauthorized,

@@ -20,9 +20,9 @@ public extension AppComponent {
         }
     }
 
-    var queryMyInfoUseCase: any QueryMyInfoUseCase {
+    var fetchMyInfoUseCase: any FetchMyInfoUseCase {
         shared {
-            QueryMyInfoUseCaseImpl(userRepository: userRepository)
+            FetchMyInfoUseCaseImpl(userRepository: userRepository)
         }
     }
 }

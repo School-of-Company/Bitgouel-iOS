@@ -1,42 +1,47 @@
 import Foundation
 
 public struct FetchFAQListResponseDTO: Decodable {
-    public let faqList: [FAQInfo]
+    public let faqs: [FAQInfoResponseDTO]
 
-    public init(faqList: [FAQInfo]) {
-        self.faqList = faqList
+    public init(faqs: [FAQInfoResponseDTO]) {
+        self.faqs = faqs
+    }
+}
+
+public struct FAQInfoResponseDTO: Decodable {
+    public let questionID: Int
+    public let question: String
+    public let answer: String
+
+    public init(
+        questionID: Int,
+        question: String,
+        answer: String
+    ) {
+        self.questionID = questionID
+        self.question = question
+        self.answer = answer
     }
 
-    public struct FAQInfo: Decodable {
-        public let questionID: String
-        public let question: String
-
-        public init(
-            questionID: String,
-            question: String
-        ) {
-            self.questionID = questionID
-            self.question = question
-        }
-
-        public enum CodingKeys: String, CodingKey {
-            case questionID = "id"
-            case question
-        }
+    public enum CodingKeys: String, CodingKey {
+        case questionID = "id"
+        case question
+        case answer
     }
 }
 
 extension FetchFAQListResponseDTO {
     func toDomain() -> [FAQInfoEntity] {
-        faqList.map { $0.toDomain() }
+        faqs.map { $0.toDomain() }
     }
 }
 
-extension FetchFAQListResponseDTO.FAQInfo {
+extension FAQInfoResponseDTO {
     func toDomain() -> FAQInfoEntity {
         FAQInfoEntity(
             questionID: questionID,
-            question: question
+            question: question,
+            answer: answer
         )
     }
 }

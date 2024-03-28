@@ -3,11 +3,10 @@ import Service
 import SwiftUI
 
 public protocol ActivityDetailDependency: Dependency {
+    var inputActivityFactory: any InputActivityFactory { get }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase { get }
-    var queryStudentActivityDetailsUseCase: any QueryStudentActivityDetailsUseCase { get }
-    var approveStudentActivityUseCase: any ApproveStudentActivityUseCase { get }
-    var rejectStudentActivityUseCase: any RejectStudentActivityUseCase { get }
-    var deleteStudentActivityUseCase: any DeleteStudentActivityUseCase { get }
+    var fetchActivityDetailUseCase: any FetchActivityDetailUseCase { get }
+    var deleteActivityUseCase: any DeleteActivityUseCase { get }
 }
 
 public final class ActivityDetailComponent: Component<ActivityDetailDependency>, ActivityDetailFactory {
@@ -17,11 +16,10 @@ public final class ActivityDetailComponent: Component<ActivityDetailDependency>,
             viewModel: .init(
                 activityID: activityID,
                 loadUserAuthorityUseCase: self.dependency.loadUserAuthorityUseCase,
-                queryStudentActivityDetailsUseCase: self.dependency.queryStudentActivityDetailsUseCase,
-                approveStudentActivityUseCase: self.dependency.approveStudentActivityUseCase,
-                rejectStudentActivityUseCase: self.dependency.rejectStudentActivityUseCase,
-                deleteStudentActivityUseCase: self.dependency.deleteStudentActivityUseCase
-            )
+                fetchActivityDetailUseCase: self.dependency.fetchActivityDetailUseCase,
+                deleteActivityUseCase: self.dependency.deleteActivityUseCase
+            ),
+            inputActivityFactory: dependency.inputActivityFactory
         )
     }
 }

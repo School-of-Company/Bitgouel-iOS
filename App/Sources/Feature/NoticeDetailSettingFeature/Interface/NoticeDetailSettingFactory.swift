@@ -1,5 +1,5 @@
-import SwiftUI
 import Service
+import SwiftUI
 
 public protocol NoticeDetailSettingFactory {
     associatedtype SomeView: View

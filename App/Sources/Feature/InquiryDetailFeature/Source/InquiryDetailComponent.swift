@@ -1,9 +1,10 @@
 import NeedleFoundation
-import SwiftUI
 import Service
+import SwiftUI
 
 public protocol InquiryDetailDependency: Dependency {
     var inputInquiryFactory: any InputInquiryFactory { get }
+    var writeInquiryAnswerFactory: any WriteInquiryAnswerFactory { get }
     var fetchInquiryDetailUseCase: any FetchInquiryDetailUseCase { get }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase { get }
     var deleteMyInquiryUseCase: any DeleteMyInquiryUseCase { get }
@@ -20,7 +21,8 @@ final class InquiryDetailComponent: Component<InquiryDetailDependency>, InquiryD
                 deleteMyInquiryUseCase: dependency.deleteMyInquiryUseCase,
                 deleteInquiryByAdminUseCase: dependency.deleteInquiryByAdminUseCase
             ),
-            inputInquiryFactory: dependency.inputInquiryFactory
+            inputInquiryFactory: dependency.inputInquiryFactory,
+            writeInquiryAnswerFactory: dependency.writeInquiryAnswerFactory
         )
     }
 }

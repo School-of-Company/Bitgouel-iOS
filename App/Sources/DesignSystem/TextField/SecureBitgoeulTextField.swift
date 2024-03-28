@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 public struct SecureBitgouelTextField: View {
@@ -10,6 +9,7 @@ public struct SecureBitgouelTextField: View {
     @State var isSecure = true
     var onSubmit: () -> Void
     var onLink: () -> Void
+    var linkAction: () -> Void
     @Binding var text: String
     @FocusState var isFocused: Bool
     @Environment(\.isEnabled) var isEnabled
@@ -42,7 +42,8 @@ public struct SecureBitgouelTextField: View {
         isError: Bool = false,
         isEmpty: Bool = false,
         onSubmit: @escaping () -> Void = {},
-        onLink: @escaping () -> Void = {}
+        onLink: @escaping () -> Void = {},
+        linkAction: @escaping () -> Void = {}
     ) {
         self.placeholder = placeholder
         self._text = text
@@ -51,6 +52,7 @@ public struct SecureBitgouelTextField: View {
         self.isError = isError
         self.onSubmit = onSubmit
         self.onLink = onLink
+        self.linkAction = linkAction
     }
 
     public var body: some View {
@@ -100,6 +102,9 @@ public struct SecureBitgouelTextField: View {
                     .bitgouelFont(.caption, color: isEnabled ? .primary(.p5) : .greyscale(.g4))
                     .padding(.trailing, 4)
                     .onSubmit(onLink)
+                    .buttonWrapper {
+                        linkAction()
+                    }
             }
             .padding(.top, 4)
         }

@@ -2,16 +2,17 @@ import Foundation
 import Moya
 
 public enum AuthAPI {
-    case login(LoginRequestDTO)
+    case login(req: LoginRequestDTO)
     case reissueToken
-    case logout
+    case logout(accessToken: String, refreshToken: String)
     case withdraw
-    case studentSignup(StudentSignupRequestDTO)
-    case teacherSignup(TeacherSignupRequestDTO)
-    case bbozzakSignup(BbozzakSignupRequestDTO)
-    case professorSignup(ProfessorSignupRequestDTO)
-    case governmentSignup(GovernmentSignupRequestDTO)
-    case companyInstructorSignup(CompanyInstructorSignupRequestDTO)
+    case studentSignup(req: StudentSignupRequestDTO)
+    case teacherSignup(req: TeacherSignupRequestDTO)
+    case bbozzakSignup(req: BbozzakSignupRequestDTO)
+    case professorSignup(req: ProfessorSignupRequestDTO)
+    case governmentSignup(req: GovernmentSignupRequestDTO)
+    case companyInstructorSignup(req: CompanyInstructorSignupRequestDTO)
+    case findPassword(req: FindPasswordRequestDTO)
 }
 
 extension AuthAPI: BitgouelAPI {
@@ -49,6 +50,9 @@ extension AuthAPI: BitgouelAPI {
 
         case .companyInstructorSignup:
             return "/company-instructor"
+
+        case .findPassword:
+            return "/password"
         }
     }
 
@@ -63,7 +67,8 @@ extension AuthAPI: BitgouelAPI {
              .bbozzakSignup:
             return .post
 
-        case .reissueToken:
+        case .reissueToken,
+             .findPassword:
             return .patch
 
         case .logout, .withdraw:
@@ -94,14 +99,31 @@ extension AuthAPI: BitgouelAPI {
         case let .companyInstructorSignup(req):
             return .requestJSONEncodable(req)
 
+        case let .findPassword(req):
+            return .requestJSONEncodable(req)
+
         default:
             return .requestPlain
         }
     }
 
+    public var headers: [String: String]? {
+        switch self {
+        case let .logout(accessToken, refreshToken):
+            return [
+                "Authorization": "Bearer \(accessToken)",
+                "RefreshToken": "Bearer \(refreshToken)",
+                "Content-Type": "application/json"
+            ]
+
+        default:
+            return ["Content-Type": "application/json"]
+        }
+    }
+
     public var jwtTokenType: JwtTokenType {
         switch self {
-        case .logout, .withdraw:
+        case .withdraw:
             return .accessToken
 
         case .reissueToken:
@@ -112,7 +134,7 @@ extension AuthAPI: BitgouelAPI {
         }
     }
 
-    public var errorMap: [Int : ErrorType] {
+    public var errorMap: [Int: ErrorType] {
         switch self {
         case .studentSignup:
             return [
@@ -124,7 +146,7 @@ extension AuthAPI: BitgouelAPI {
                 429: .tooManyRequest
             ]
 
-        default :
+        default:
             return [
                 400: .badRequest,
                 401: .unauthorized,

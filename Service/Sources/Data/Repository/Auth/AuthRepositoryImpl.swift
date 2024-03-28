@@ -29,7 +29,7 @@ public struct AuthRepositoryImpl: AuthRepository {
     }
 
     public func logout() async throws {
-        try await remoteAuthDataSource.logout()
+        try await remoteAuthDataSource.logout(accessToken: "", refreshToken: "")
         try await localAuthDataSource.logout()
     }
 
@@ -60,5 +60,9 @@ public struct AuthRepositoryImpl: AuthRepository {
 
     public func companyInstructorSignup(req: CompanyInstructorSignupRequestDTO) async throws {
         try await remoteAuthDataSource.companyInstructorSignup(req: req)
+    }
+
+    public func findPassword(req: FindPasswordRequestDTO) async throws {
+        try await remoteAuthDataSource.findPassword(req: req)
     }
 }

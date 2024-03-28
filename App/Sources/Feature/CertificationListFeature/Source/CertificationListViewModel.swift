@@ -1,7 +1,6 @@
 import Foundation
 import Service
 
-@MainActor
 final class CertificationListViewModel: BaseViewModel {
     @Published var isPresentedActivityListView: Bool = false
     @Published var studentInfo: StudentDetailByClubEntity?
@@ -9,7 +8,9 @@ final class CertificationListViewModel: BaseViewModel {
     @Published var authority: UserAuthorityType = .user
     @Published var isPresentedInputCertificationView: Bool = false
     @Published var selectedEpic: String = ""
-    @Published var certificationID: String = ""
+    @Published var selectedCertificationID: String = ""
+    @Published var selectedCertificationName: String = ""
+    @Published var selectedAcquisitionDate = Date()
     var studentID: String = ""
     var clubID: Int = 0
 
@@ -46,6 +47,13 @@ final class CertificationListViewModel: BaseViewModel {
         selectedEpic = epic
     }
 
+    func selectedCertification(certificationID: String, certificationName: String, acquisitionDate: String) {
+        selectedCertificationID = certificationID
+        selectedCertificationName = certificationName
+        selectedAcquisitionDate = acquisitionDate.toDateCustomFormat(format: "yyyy-M-d")
+    }
+
+    @MainActor
     func onAppear() {
         authority = loadUserAuthorityUseCase()
 

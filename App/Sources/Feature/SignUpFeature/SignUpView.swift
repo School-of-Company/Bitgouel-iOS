@@ -1,6 +1,7 @@
 import Service
 import SwiftUI
 
+// swiftlint: disable type_body_length
 struct SignUpView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: SignUpViewModel
@@ -202,7 +203,6 @@ struct SignUpView: View {
                         helpMessage: viewModel.emailHelpMessage,
                         isError: !viewModel.emailIsValid
                     )
-                    .onChange(of: viewModel.emailHelpMessage) { newValue in }
                     .textContentType(.emailAddress)
                 }
             }
@@ -391,3 +391,4 @@ struct SignUpView: View {
         }
     }
 }
+// swiftlint: enable type_body_length

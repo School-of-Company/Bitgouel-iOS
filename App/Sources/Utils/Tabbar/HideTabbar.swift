@@ -22,22 +22,22 @@ public extension UITabBar {
     static func hideTabBar(animated: Bool = false) {
         DispatchQueue.main.async {
             let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-            windowScene?.windows.first(where: { $0.isKeyWindow })?.allSubviews().forEach({ (view) in
+            windowScene?.windows.first(where: { $0.isKeyWindow })?.allSubviews().forEach { view in
                 if let view = view as? UITabBar {
                     view.setIsHidden(true, animated: animated)
                 }
-            })
+            }
         }
     }
 
     static func showTabBar(animated: Bool = true) {
         DispatchQueue.main.async {
             let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-            windowScene?.windows.first(where: { $0.isKeyWindow })?.allSubviews().forEach({ (view) in
+            windowScene?.windows.first(where: { $0.isKeyWindow })?.allSubviews().forEach { view in
                 if let view = view as? UITabBar {
                     view.setIsHidden(false, animated: animated)
                 }
-            })
+            }
         }
     }
 

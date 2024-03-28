@@ -7,7 +7,7 @@ public enum InquiryAPI {
     case fetchInquiryDetail(inquiryID: String)
     case deleteMyInquiry(inquiryID: String)
     case modifyMyInquiry(inquiryID: String, req: InputInquiryRequestDTO)
-    case replyInquiry(inquiryID: String, answer: String)
+    case replyInquiry(inquiryID: String, req: InquiryAnswerRequestDTO)
     case fetchInquiryListByAdmin(answerStatus: String, keyword: String)
     case deleteInquiryByAdmin(inquiryID: String)
 }
@@ -31,7 +31,7 @@ extension InquiryAPI: BitgouelAPI {
             return "/\(inquiryID)"
 
         case let .replyInquiry(inquiryID, _):
-            return "/\(inquiryID)/reply"
+            return "/\(inquiryID)/answer"
 
         case .fetchInquiryListByAdmin:
             return "/all"
@@ -67,10 +67,8 @@ extension InquiryAPI: BitgouelAPI {
              let .modifyMyInquiry(_, req):
             return .requestJSONEncodable(req)
 
-        case let .replyInquiry(_, answer):
-            return .requestParameters(parameters: [
-                "answer": answer
-            ], encoding: URLEncoding.httpBody)
+        case let .replyInquiry(_, req):
+            return .requestJSONEncodable(req)
 
         case let .fetchInquiryListByAdmin(answerStatus, keyword):
             return .requestParameters(parameters: [
@@ -90,7 +88,7 @@ extension InquiryAPI: BitgouelAPI {
         }
     }
 
-    public var errorMap: [Int : InquiryDomainError] {
+    public var errorMap: [Int: InquiryDomainError] {
         switch self {
         case .inputInquiry,
              .modifyMyInquiry:

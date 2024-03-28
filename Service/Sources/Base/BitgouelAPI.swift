@@ -19,7 +19,7 @@ public extension BitgouelAPI {
         domain.asURLString + urlPath
     }
 
-    var headers: [String : String]? {
+    var headers: [String: String]? {
         ["Content-Type": "application/json"]
     }
 
@@ -40,6 +40,7 @@ public enum BitgouelDomain: String {
     case admin
     case certification
     case club
+    case email
 }
 
 extension BitgouelDomain {

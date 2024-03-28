@@ -98,7 +98,7 @@ public extension AppComponent {
     var inquiryListFactory: any InquiryListFactory {
         InquiryListComponent(parent: self)
     }
-    
+
     var noticeDetailFactory: any NoticeDetailFactory {
         NoticeDetailViewComponent(parent: self)
     }
@@ -110,7 +110,7 @@ public extension AppComponent {
     var inputCertificationFactory: any InputCertificationFactory {
         InputCertificationComponent(parent: self)
     }
-    
+
     var mainFactory: any MainFactory {
         MainComponent(parent: self)
     }
@@ -118,7 +118,7 @@ public extension AppComponent {
     var myPageFactory: any MyPageFactory {
         MyPageComponent(parent: self)
     }
-    
+
     var mainTabFactory: any MainTabFactory {
         MainTabComponent(parent: self)
     }
@@ -137,5 +137,37 @@ public extension AppComponent {
 
     var inquiryDetailFactory: any InquiryDetailFactory {
         InquiryDetailComponent(parent: self)
+    }
+
+    var writeInquiryAnswerFactory: any WriteInquiryAnswerFactory {
+        WriteInquiryAnswerComponent(parent: self)
+    }
+
+    var changePasswordFactory: any ChangePasswordFactory {
+        ChangePasswordComponent(parent: self)
+    }
+
+    var successChangePasswordFactory: any SuccessChangePasswordFactory {
+        SuccessChangePasswordComponent(parent: self)
+    }
+
+    var adminUserListFactory: any AdminUserListFactory {
+        AdminUserListComponent(parent: self)
+    }
+
+    var adminRequestUserSignupFactory: any AdminRequestUserSignupFactory {
+        AdminRequestUserSignupComponent(parent: self)
+    }
+
+    var adminWithdrawUserListFactory: any AdminWithdrawUserListFactory {
+        AdminWithdrawUserListComponent(parent: self)
+    }
+
+    var findPasswordFactory: any FindPasswordFactory {
+        FindPasswordComponent(parent: self)
+    }
+
+    var newPasswordFactory: any NewPasswordFactory {
+        NewPasswordComponent(parent: self)
     }
 }

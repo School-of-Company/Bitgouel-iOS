@@ -2,5 +2,5 @@ import SwiftUI
 
 public protocol LectureListDetailFactory {
     associatedtype SomeView: View
-    func makeView(userID: String) -> SomeView
+    func makeView(lectureID: String) -> SomeView
 }

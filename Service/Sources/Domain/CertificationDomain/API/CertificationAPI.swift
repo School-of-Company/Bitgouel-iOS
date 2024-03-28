@@ -57,7 +57,7 @@ extension CertificationAPI: BitgouelAPI {
         }
     }
 
-    public var errorMap: [Int : CertificationDomainError] {
+    public var errorMap: [Int: CertificationDomainError] {
         switch self {
         case .queryCertificationListByTeacher,
              .queryCertificationListByStudent:
