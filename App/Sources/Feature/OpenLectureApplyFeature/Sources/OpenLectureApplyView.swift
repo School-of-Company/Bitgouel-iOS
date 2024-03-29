@@ -2,10 +2,10 @@ import SwiftUI
 
 struct OpenLectureApplyView: View {
     @StateObject var viewModel: OpenLectureApplyViewModel
-    
+
     private let openLectureApplyFactory: any OpenLectureApplyFactory
     private let lectureDetailSettingFactory: any LectureDetailSettingFactory
-    
+
     init(
         viewModel: OpenLectureApplyViewModel,
         openLectureApplyFactory: any OpenLectureApplyFactory,
@@ -15,7 +15,7 @@ struct OpenLectureApplyView: View {
         self.openLectureApplyFactory = openLectureApplyFactory
         self.lectureDetailSettingFactory = lectureDetailSettingFactory
     }
-    
+
     var body: some View {
         VStack(spacing: 0) {
             InputFormView(
@@ -44,7 +44,7 @@ struct OpenLectureApplyView: View {
             )
         ) {
             DeferView {
-                openLectureApplyFactory.makeView().eraseToAnyView()
+                lectureDetailSettingFactory.makeView().eraseToAnyView()
             }
         }
     }
