@@ -42,63 +42,86 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     @Published var endTime: [Date] = []
     @Published var datePickerCount = 0
     
-    func lectureTextColor(varState: Bool) -> Color.BitgouelColorSystem {
-        if varState == false {
+    func lectureTextColor(
+        selectedState: Bool
+    ) -> Color.BitgouelColorSystem {
+        if selectedState == false {
             return Color.BitgouelColorSystem.greyscale(.g2)
         } else {
             return Color.BitgouelColorSystem.greyscale(.g10)
         }
     }
     
-    func lectureStrokeColor(varState: Bool) -> Color {
-        if varState == false {
+    func lectureStrokeColor(
+        selectedState: Bool
+    ) -> Color {
+        if selectedState == false {
             return Color.bitgouel(.greyscale(.g2))
         } else {
             return Color.bitgouel(.primary(.p5))
         }
     }
     
-    func lectureBackgroundColor(varState: Bool) -> Color {
-        if varState == false {
+    func lectureBackgroundColor(
+        selectedState: Bool
+    ) -> Color {
+        if selectedState == false {
             return Color.bitgouel(.greyscale(.g10))
         } else {
             return Color.bitgouel(.primary(.p5))
         }
     }
     
-    func chevronChange(varState: Bool) -> String {
-        if varState == false {
+    func chevronChange(
+        selectedState: Bool
+    ) -> String {
+        if selectedState == false {
             return "chevron_down"
         } else {
             return "chevron_up"
         }
     }
     
-    func select(varState: Bool, selectText: String, selectedName: String) -> String {
-        if varState == false {
+    func select(
+        selectedState: Bool,
+        selectText: String,
+        selectedName: String
+    ) -> String {
+        if selectedState == false {
             return selectText
         } else {
             return selectedName
         }
     }
     
-    func updateStartDate(date: Date) {
+    func updateStartDate(
+        date: Date
+    ) {
         startDatePicker = date
     }
     
-    func updateEndDate(date: Date) {
+    func updateEndDate
+    (date: Date
+    ) {
         endDatePicker = date
     }
     
-    func updateOpenDate(date: Date) {
+    func updateOpenDate(
+        date: Date
+    ) {
         openDatePicker = date
     }
     
-    func updateEndTime(date: Date) {
+    func updateEndTime(
+        date: Date
+    ) {
         endTimePicker = date
     }
     
-    func newDateSet(for index: Int, type: PickerType) -> Binding<Date> {
+    func newDateSet(
+        for index: Int,
+        type: PickerType
+    ) -> Binding<Date> {
         switch type {
         case .date:
             return Binding<Date>(

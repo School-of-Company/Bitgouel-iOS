@@ -228,11 +228,11 @@ struct LectureDetailSettingView: View {
                             HStack {
                                 PickerButton(
                                     text: viewModel.select(
-                                        varState: viewModel.lecture,
+                                        selectedState: viewModel.lecture,
                                         selectText: "강의 선택",
                                         selectedName: viewModel.lectureName
                                     ),
-                                    image: viewModel.chevronChange(varState: viewModel.lecture)
+                                    image: viewModel.chevronChange(selectedState: viewModel.lecture)
                                 ) {
                                     viewModel.lecture = true
                                 }
@@ -249,11 +249,11 @@ struct LectureDetailSettingView: View {
                             HStack {
                                 PickerButton(
                                     text: viewModel.select(
-                                        varState: viewModel.subject,
+                                        selectedState: viewModel.subject,
                                         selectText: "학과 선택",
                                         selectedName: viewModel.subjectName
                                     ),
-                                    image: viewModel.chevronChange(varState: viewModel.subject)
+                                    image: viewModel.chevronChange(selectedState: viewModel.subject)
                                 ) {
                                     viewModel.subject = true
                                 }
@@ -270,11 +270,11 @@ struct LectureDetailSettingView: View {
                             HStack {
                                 PickerButton(
                                     text: viewModel.select(
-                                        varState: viewModel.professor,
+                                        selectedState: viewModel.professor,
                                         selectText: "담당 교수 선택",
                                         selectedName: viewModel.professorName
                                     ),
-                                    image: viewModel.chevronChange(varState: viewModel.professor)
+                                    image: viewModel.chevronChange(selectedState: viewModel.professor)
                                 ) {
                                     viewModel.professor = true
                                 }
@@ -637,14 +637,14 @@ struct LectureDetailSettingView: View {
     @ViewBuilder
     func selectButton(text: String, select: Bool) -> some View {
         Text(text)
-            .bitgouelFont(.text2, color: viewModel.lectureTextColor(varState: select))
+            .bitgouelFont(.text2, color: viewModel.lectureTextColor(selectedState: select))
             .padding(.horizontal, 16)
             .padding(.vertical, 8)
             .overlay {
                 RoundedRectangle(cornerRadius: 99)
-                    .stroke(viewModel.lectureStrokeColor(varState: select))
+                    .stroke(viewModel.lectureStrokeColor(selectedState: select))
             }
-            .background(viewModel.lectureBackgroundColor(varState: select))
+            .background(viewModel.lectureBackgroundColor(selectedState: select))
             .cornerRadius(99)
     }
 }
