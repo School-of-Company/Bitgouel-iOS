@@ -5,14 +5,14 @@ struct LectureDetailSettingView: View {
     @StateObject var viewModel: LectureDetailSettingViewModel
     @Environment(\.dismiss) var dismiss
 
-    private let lectureOpenApplyFactory: any LectureOpenApplyFactory
+    private let openLectureApplyFactory: any OpenLectureApplyFactory
     
     init(
         viewModel: LectureDetailSettingViewModel,
-        lectureOpenApplyFactory: any LectureOpenApplyFactory
+        openLectureApplyFactory: any OpenLectureApplyFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
-        self.lectureOpenApplyFactory = lectureOpenApplyFactory
+        self.openLectureApplyFactory = openLectureApplyFactory
     }
     
     var body: some View {
@@ -434,7 +434,7 @@ struct LectureDetailSettingView: View {
                                         .cornerRadius(8, corners: .allCorners)
                                         .environment(\.locale, Locale(identifier: "ko_KR"))
                                         
-                                        BitgouelAsset.Icons.redCancelFill.swiftUIImage
+                                        Image("redcancel_fill")
                                             .buttonWrapper {
                                                 if viewModel.datePickerCount > 0 {
                                                     viewModel.datePickerCount -= 1

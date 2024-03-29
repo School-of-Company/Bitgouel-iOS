@@ -1,18 +1,18 @@
 import SwiftUI
 
-struct LectureOpenApplyView: View {
-    @StateObject var viewModel: LectureOpenApplyViewModel
+struct OpenLectureApplyView: View {
+    @StateObject var viewModel: OpenLectureApplyViewModel
     
-    private let lectureOpenApplyFactory: any LectureOpenApplyFactory
+    private let openLectureApplyFactory: any OpenLectureApplyFactory
     private let lectureDetailSettingFactory: any LectureDetailSettingFactory
     
     init(
-        viewModel: LectureOpenApplyViewModel,
-        lectureOpenApplyFactory: any LectureOpenApplyFactory,
+        viewModel: OpenLectureApplyViewModel,
+        openLectureApplyFactory: any OpenLectureApplyFactory,
         lectureDetailSettingFactory: any LectureDetailSettingFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
-        self.lectureOpenApplyFactory = lectureOpenApplyFactory
+        self.openLectureApplyFactory = openLectureApplyFactory
         self.lectureDetailSettingFactory = lectureDetailSettingFactory
     }
     
@@ -44,7 +44,7 @@ struct LectureOpenApplyView: View {
             )
         ) {
             DeferView {
-                lectureOpenApplyFactory.makeView().eraseToAnyView()
+                openLectureApplyFactory.makeView().eraseToAnyView()
             }
         }
     }

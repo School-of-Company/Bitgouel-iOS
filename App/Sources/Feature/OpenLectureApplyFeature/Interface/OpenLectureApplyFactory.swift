@@ -1,6 +1,6 @@
 import SwiftUI
 
-public protocol LectureOpenApplyFactory {
+public protocol OpenLectureApplyFactory {
     associatedtype SomeView: View
     func makeView() -> SomeView
 }

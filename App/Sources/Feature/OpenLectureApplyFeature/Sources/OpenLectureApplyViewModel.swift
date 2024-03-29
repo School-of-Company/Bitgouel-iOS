@@ -2,17 +2,17 @@ import Foundation
 import SwiftUI
 import Service
 
-final class LectureOpenApplyViewModel: ObservableObject {
+final class OpenLectureApplyViewModel: ObservableObject {
     @Published var lectureTitle: String = ""
     @Published var lectureText: String = ""
     @Published var isPresentedLectureDetailSettingAppend = false
     
-    public let lectureOpenUseCase: any LectureOpenUseCase
+    public let openLectureUseCase: any OpenLectureUseCase
     
     init(
-        lectureOpenUseCase: any LectureOpenUseCase
+        openLectureUseCase: any OpenLectureUseCase
     ) {
-        self.lectureOpenUseCase = lectureOpenUseCase
+        self.openLectureUseCase = openLectureUseCase
     }
     
     func updateIsPresentedLectureDetailSettingAppend(state: Bool) {
