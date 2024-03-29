@@ -16,20 +16,20 @@ public struct SearchTextField: View {
     }
 
     public var body: some View {
-            HStack {
-                TextField(placeHolder , text: $text)
-                    .onSubmit(onSubmit)
-                    .bitgouelFont(.text3)
-                    .foregroundColor(.bitgouel(.greyscale(.g0)))
+        HStack {
+            TextField(placeHolder , text: $text)
+                .onSubmit(onSubmit)
+                .bitgouelFont(.text3)
+                .foregroundColor(.bitgouel(.greyscale(.g0)))
 
-                BitgouelAsset.Icons.cancel.swiftUIImage
-            }
-            .frame(height: 54)
-            .padding(.horizontal, 20)
-            .cornerRadius(8)
-            .overlay {
-                RoundedRectangle(cornerRadius: 8)
-                    .strokeBorder(Color.bitgouel(.greyscale(.g7)))
-            }
+            BitgouelAsset.Icons.cancel.swiftUIImage
+        }
+        .frame(height: 54)
+        .padding(.horizontal, 20)
+        .cornerRadius(8)
+        .overlay {
+            RoundedRectangle(cornerRadius: 8)
+                .strokeBorder(Color.bitgouel(.greyscale(.g7)))
+        }
     }
 }

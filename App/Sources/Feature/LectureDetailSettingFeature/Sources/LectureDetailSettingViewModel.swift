@@ -19,32 +19,32 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     @Published var openDatePicker = Date()
     @Published var endTimePicker = Date()
 
-    @Published var mutualCreditRecognitionProgram: Bool = false
-    @Published var universityExplorationProgram: Bool = false
+    @Published var isSelectedMutualCreditRecognitionProgram: Bool = false
+    @Published var isSelectedUniversityExplorationProgram: Bool = false
 
-    @Published var isProfessorSelected: Bool = false
-    @Published var isLectureSelected: Bool = false
-    @Published var isSubjectSelected: Bool = false
-    
-    @Published var isAiFusionComplexSelected: Bool = false
-    @Published var isAutomobileIndustrySelected: Bool = false
-    @Published var isCultureSelected: Bool = false
-    @Published var isMedicalHealthSelected: Bool = false
-    @Published var isEnergySelected: Bool = false
-    
-    @Published var isGradeOneSemesterTwoSelected: Bool = false
-    @Published var isGradeTwoSemesterOneSelected: Bool = false
-    @Published var isGradeTwoSemesterTwoSelected: Bool = false
-    @Published var isGradeThreeSemesterOneSelected: Bool = false
-    
-    @Published var isScoreOneSelected: Bool = false
-    @Published var isScoreTwoSelected: Bool = false
-    
+    @Published var isSelectedProfessor: Bool = false
+    @Published var isSelectedLecture: Bool = false
+    @Published var isSelectedSubject: Bool = false
+
+    @Published var isSelectedAiFusionComplex: Bool = false
+    @Published var isSelectedAutomobileIndustry: Bool = false
+    @Published var isSelectedCulture: Bool = false
+    @Published var isSelectedMedicalHealth: Bool = false
+    @Published var isSelectedEnergy: Bool = false
+
+    @Published var isSelectedGradeOneSemesterTwo: Bool = false
+    @Published var isSelectedGradeTwoSemesterOne: Bool = false
+    @Published var isSelectedGradeTwoSemesterTwo: Bool = false
+    @Published var isSelectedGradeThreeSemesterOne: Bool = false
+
+    @Published var isSelectedScoreOne: Bool = false
+    @Published var isSelectedScoreTwo: Bool = false
+
     @Published var openDate: [Date] = []
     @Published var startTime: [Date] = []
     @Published var endTime: [Date] = []
     @Published var datePickerCount = 0
-    
+
     func lectureTextColor(
         selectedState: Bool
     ) -> Color.BitgouelColorSystem {
@@ -54,7 +54,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
             return Color.BitgouelColorSystem.greyscale(.g10)
         }
     }
-    
+
     func lectureStrokeColor(
         selectedState: Bool
     ) -> Color {
@@ -64,7 +64,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
             return Color.bitgouel(.primary(.p5))
         }
     }
-    
+
     func lectureBackgroundColor(
         selectedState: Bool
     ) -> Color {
@@ -74,7 +74,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
             return Color.bitgouel(.primary(.p5))
         }
     }
-    
+
     func chevronChange(
         selectedState: Bool
     ) -> String {
@@ -84,7 +84,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
             return "chevron_up"
         }
     }
-    
+
     func select(
         selectedState: Bool,
         selectText: String,
@@ -96,31 +96,31 @@ final class LectureDetailSettingViewModel: BaseViewModel {
             return selectedName
         }
     }
-    
+
     func updateStartDate(
         date: Date
     ) {
         startDatePicker = date
     }
-    
+
     func updateEndDate
     (date: Date
     ) {
         endDatePicker = date
     }
-    
+
     func updateOpenDate(
         date: Date
     ) {
         openDatePicker = date
     }
-    
+
     func updateEndTime(
         date: Date
     ) {
         endTimePicker = date
     }
-    
+
     func newDateSet(
         for index: Int,
         type: PickerType
