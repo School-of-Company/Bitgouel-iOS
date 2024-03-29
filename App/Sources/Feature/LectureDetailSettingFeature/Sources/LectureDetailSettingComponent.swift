@@ -9,7 +9,8 @@ public protocol LectureDetailSettingDependency: Dependency {
 public final class LectureDetailSettingComponent: Component<LectureDetailSettingDependency>, LectureDetailSettingFactory {
     public func makeView() -> some View {
         LectureDetailSettingView(
-            viewModel: .init(), openLectureApplyFactory: dependency.openLectureApplyFactory
+            viewModel: .init(),
+            openLectureApplyFactory: dependency.openLectureApplyFactory
         )
     }
 }
