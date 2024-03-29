@@ -34,160 +34,162 @@ struct LectureDetailSettingView: View {
                 ScrollView(showsIndicators: false) {
                     VStack(alignment: .leading, spacing: 28) {
                         VStack(alignment: .leading, spacing: 0) {
-                            BitgouelText(
-                                text: "강의 유형",
-                                font: .text1
-                            )
-                            .padding(.bottom, 8)
-
-                            selectButton(
-                                text: "상호학점인정교육과정",
-                                select: viewModel.lectureType1
-                            )
-                            .buttonWrapper {
-                                viewModel.lectureType1.toggle()
-                                viewModel.lectureType2 = false
-                            }
-                            .padding(.bottom, 16)
-
-                            selectButton(
-                                text: "대학탐방프로그램",
-                                select: viewModel.lectureType2
-                            )
-                            .buttonWrapper {
-                                viewModel.lectureType2.toggle()
-                                viewModel.lectureType1 = false
-                            }
-                            .padding(.bottom, 28)
-
-                            BitgouelText(
-                                text: "수강 학기",
-                                font: .text1
-                            )
-                            .padding(.bottom, 8)
-
-                            HStack(spacing: 16) {
+                            Group {
+                                BitgouelText(
+                                    text: "강의 유형",
+                                    font: .text1
+                                )
+                                .padding(.bottom, 8)
+                                
                                 selectButton(
-                                    text: "1학년 2학기",
-                                    select: viewModel.gradeOneSemesterTwo
+                                    text: "상호학점인정교육과정",
+                                    select: viewModel.lectureType1
                                 )
                                 .buttonWrapper {
-                                    viewModel.gradeOneSemesterTwo.toggle()
-                                    viewModel.gradeThreeSemesterOne = false
-                                    viewModel.gradeTwoSemesterOne = false
-                                    viewModel.gradeTwoSemesterTwo = false
+                                    viewModel.lectureType1.toggle()
+                                    viewModel.lectureType2 = false
                                 }
-
+                                .padding(.bottom, 16)
+                                
                                 selectButton(
-                                    text: "2학년 1학기",
-                                    select: viewModel.gradeTwoSemesterOne
+                                    text: "대학탐방프로그램",
+                                    select: viewModel.lectureType2
                                 )
                                 .buttonWrapper {
-                                    viewModel.gradeTwoSemesterOne.toggle()
-                                    viewModel.gradeOneSemesterTwo = false
-                                    viewModel.gradeThreeSemesterOne = false
-                                    viewModel.gradeTwoSemesterTwo = false
+                                    viewModel.lectureType2.toggle()
+                                    viewModel.lectureType1 = false
                                 }
-                            }
-                            .padding(.bottom, 16)
-
-                            HStack(spacing: 16) {
-                                selectButton(
-                                    text: "2학년 2학기",
-                                    select: viewModel.gradeTwoSemesterTwo
+                                .padding(.bottom, 28)
+                                
+                                BitgouelText(
+                                    text: "수강 학기",
+                                    font: .text1
                                 )
-                                .buttonWrapper {
-                                    viewModel.gradeTwoSemesterTwo.toggle()
-                                    viewModel.gradeOneSemesterTwo = false
-                                    viewModel.gradeThreeSemesterOne = false
-                                    viewModel.gradeTwoSemesterOne = false
+                                .padding(.bottom, 8)
+                                
+                                HStack(spacing: 16) {
+                                    selectButton(
+                                        text: "1학년 2학기",
+                                        select: viewModel.gradeOneSemesterTwo
+                                    )
+                                    .buttonWrapper {
+                                        viewModel.gradeOneSemesterTwo.toggle()
+                                        viewModel.gradeThreeSemesterOne = false
+                                        viewModel.gradeTwoSemesterOne = false
+                                        viewModel.gradeTwoSemesterTwo = false
+                                    }
+                                    
+                                    selectButton(
+                                        text: "2학년 1학기",
+                                        select: viewModel.gradeTwoSemesterOne
+                                    )
+                                    .buttonWrapper {
+                                        viewModel.gradeTwoSemesterOne.toggle()
+                                        viewModel.gradeOneSemesterTwo = false
+                                        viewModel.gradeThreeSemesterOne = false
+                                        viewModel.gradeTwoSemesterTwo = false
+                                    }
                                 }
-
-                                selectButton(
-                                    text: "3학년 1학기",
-                                    select: viewModel.gradeThreeSemesterOne
-                                )
-                                .buttonWrapper {
-                                    viewModel.gradeThreeSemesterOne.toggle()
-                                    viewModel.gradeOneSemesterTwo = false
-                                    viewModel.gradeTwoSemesterOne = false
-                                    viewModel.gradeTwoSemesterTwo = false
+                                .padding(.bottom, 16)
+                                
+                                HStack(spacing: 16) {
+                                    selectButton(
+                                        text: "2학년 2학기",
+                                        select: viewModel.gradeTwoSemesterTwo
+                                    )
+                                    .buttonWrapper {
+                                        viewModel.gradeTwoSemesterTwo.toggle()
+                                        viewModel.gradeOneSemesterTwo = false
+                                        viewModel.gradeThreeSemesterOne = false
+                                        viewModel.gradeTwoSemesterOne = false
+                                    }
+                                    
+                                    selectButton(
+                                        text: "3학년 1학기",
+                                        select: viewModel.gradeThreeSemesterOne
+                                    )
+                                    .buttonWrapper {
+                                        viewModel.gradeThreeSemesterOne.toggle()
+                                        viewModel.gradeOneSemesterTwo = false
+                                        viewModel.gradeTwoSemesterOne = false
+                                        viewModel.gradeTwoSemesterTwo = false
+                                    }
                                 }
-                            }
-                            .padding(.bottom, 28)
-
-                            BitgouelText(
-                                text: "강의 구분",
-                                font: .text1
-                            )
-                            .padding(.bottom, 8)
-
-                            HStack(spacing: 16) {
+                                .padding(.bottom, 28)
+                                
+                                BitgouelText(
+                                    text: "강의 구분",
+                                    font: .text1
+                                )
+                                .padding(.bottom, 8)
+                                
+                                HStack(spacing: 16) {
+                                    selectButton(
+                                        text: "자동차 산업",
+                                        select: viewModel.automobile
+                                    )
+                                    .buttonWrapper {
+                                        viewModel.automobile.toggle()
+                                        viewModel.culture = false
+                                        viewModel.energy = false
+                                        viewModel.aiFusionComplex = false
+                                        viewModel.medicalHealth = false
+                                    }
+                                    
+                                    selectButton(
+                                        text: "에너지 산업",
+                                        select: viewModel.energy
+                                    )
+                                    .buttonWrapper {
+                                        viewModel.energy.toggle()
+                                        viewModel.automobile = false
+                                        viewModel.culture = false
+                                        viewModel.aiFusionComplex = false
+                                        viewModel.medicalHealth = false
+                                    }
+                                }
+                                .padding(.bottom, 16)
+                                
+                                HStack(spacing: 16) {
+                                    selectButton(
+                                        text: "의료•헬스",
+                                        select: viewModel.medicalHealth
+                                    )
+                                    .buttonWrapper {
+                                        viewModel.medicalHealth.toggle()
+                                        viewModel.automobile = false
+                                        viewModel.culture = false
+                                        viewModel.energy = false
+                                        viewModel.aiFusionComplex = false
+                                    }
+                                    
+                                    selectButton(
+                                        text: "AI 융•복합",
+                                        select: viewModel.aiFusionComplex
+                                    )
+                                    .buttonWrapper {
+                                        viewModel.aiFusionComplex.toggle()
+                                        viewModel.automobile = false
+                                        viewModel.culture = false
+                                        viewModel.energy = false
+                                        viewModel.medicalHealth = false
+                                    }
+                                }
+                                .padding(.bottom, 16)
+                                
                                 selectButton(
-                                    text: "자동차 산업",
-                                    select: viewModel.automobile
+                                    text: "문화 산업",
+                                    select: viewModel.culture
                                 )
                                 .buttonWrapper {
-                                    viewModel.automobile.toggle()
-                                    viewModel.culture = false
+                                    viewModel.culture.toggle()
+                                    viewModel.automobile = false
                                     viewModel.energy = false
                                     viewModel.aiFusionComplex = false
                                     viewModel.medicalHealth = false
                                 }
-
-                                selectButton(
-                                    text: "에너지 산업",
-                                    select: viewModel.energy
-                                )
-                                .buttonWrapper {
-                                    viewModel.energy.toggle()
-                                    viewModel.automobile = false
-                                    viewModel.culture = false
-                                    viewModel.aiFusionComplex = false
-                                    viewModel.medicalHealth = false
-                                }
+                                .padding(.bottom, 28)
                             }
-                            .padding(.bottom, 16)
-
-                            HStack(spacing: 16) {
-                                selectButton(
-                                    text: "의료•헬스",
-                                    select: viewModel.medicalHealth
-                                )
-                                .buttonWrapper {
-                                    viewModel.medicalHealth.toggle()
-                                    viewModel.automobile = false
-                                    viewModel.culture = false
-                                    viewModel.energy = false
-                                    viewModel.aiFusionComplex = false
-                                }
-
-                                selectButton(
-                                    text: "AI 융•복합",
-                                    select: viewModel.aiFusionComplex
-                                )
-                                .buttonWrapper {
-                                    viewModel.aiFusionComplex.toggle()
-                                    viewModel.automobile = false
-                                    viewModel.culture = false
-                                    viewModel.energy = false
-                                    viewModel.medicalHealth = false
-                                }
-                            }
-                            .padding(.bottom, 16)
-
-                            selectButton(
-                                text: "문화 산업",
-                                select: viewModel.culture
-                            )
-                            .buttonWrapper {
-                                viewModel.culture.toggle()
-                                viewModel.automobile = false
-                                viewModel.energy = false
-                                viewModel.aiFusionComplex = false
-                                viewModel.medicalHealth = false
-                            }
-                            .padding(.bottom, 28)
 
                             BitgouelText(
                                 text: "학점",
