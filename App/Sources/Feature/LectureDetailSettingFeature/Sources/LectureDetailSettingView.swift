@@ -43,21 +43,21 @@ struct LectureDetailSettingView: View {
                                 
                                 selectButton(
                                     text: "상호학점인정교육과정",
-                                    select: viewModel.lectureType1
+                                    select: viewModel.mutualCreditRecognitionProgram
                                 )
                                 .buttonWrapper {
-                                    viewModel.lectureType1.toggle()
-                                    viewModel.lectureType2 = false
+                                    viewModel.mutualCreditRecognitionProgram.toggle()
+                                    viewModel.universityExplorationProgram = false
                                 }
                                 .padding(.bottom, 16)
                                 
                                 selectButton(
                                     text: "대학탐방프로그램",
-                                    select: viewModel.lectureType2
+                                    select: viewModel.universityExplorationProgram
                                 )
                                 .buttonWrapper {
-                                    viewModel.lectureType2.toggle()
-                                    viewModel.lectureType1 = false
+                                    viewModel.universityExplorationProgram.toggle()
+                                    viewModel.mutualCreditRecognitionProgram = false
                                 }
                                 .padding(.bottom, 28)
                                 
@@ -228,11 +228,11 @@ struct LectureDetailSettingView: View {
                             HStack {
                                 PickerButton(
                                     text: viewModel.select(
-                                        parameter: viewModel.lecture,
-                                        parameterChoice: "강의 선택",
-                                        parameterName: viewModel.lectureName
+                                        varState: viewModel.lecture,
+                                        selectText: "강의 선택",
+                                        selectedName: viewModel.lectureName
                                     ),
-                                    image: viewModel.chevronChange(parameter: viewModel.lecture)
+                                    image: viewModel.chevronChange(varState: viewModel.lecture)
                                 ) {
                                     viewModel.lecture = true
                                 }
@@ -249,11 +249,11 @@ struct LectureDetailSettingView: View {
                             HStack {
                                 PickerButton(
                                     text: viewModel.select(
-                                        parameter: viewModel.subject,
-                                        parameterChoice: "학과 선택",
-                                        parameterName: viewModel.subjectName
+                                        varState: viewModel.subject,
+                                        selectText: "학과 선택",
+                                        selectedName: viewModel.subjectName
                                     ),
-                                    image: viewModel.chevronChange(parameter: viewModel.subject)
+                                    image: viewModel.chevronChange(varState: viewModel.subject)
                                 ) {
                                     viewModel.subject = true
                                 }
@@ -270,11 +270,11 @@ struct LectureDetailSettingView: View {
                             HStack {
                                 PickerButton(
                                     text: viewModel.select(
-                                        parameter: viewModel.professor,
-                                        parameterChoice: "담당 교수 선택",
-                                        parameterName: viewModel.professorName
+                                        varState: viewModel.professor,
+                                        selectText: "담당 교수 선택",
+                                        selectedName: viewModel.professorName
                                     ),
-                                    image: viewModel.chevronChange(parameter: viewModel.professor)
+                                    image: viewModel.chevronChange(varState: viewModel.professor)
                                 ) {
                                     viewModel.professor = true
                                 }
@@ -292,9 +292,9 @@ struct LectureDetailSettingView: View {
                             DatePicker(
                                 "신청 시작일",
                                 selection: Binding(get: {
-                                    viewModel.startPicker
+                                    viewModel.startDatePicker
                                 }, set: { newValue in
-                                    viewModel.startUpdateDate(date: newValue)
+                                    viewModel.updateStartDate(date: newValue)
                                 }),
                                 displayedComponents: [.date]
                             )
@@ -309,9 +309,9 @@ struct LectureDetailSettingView: View {
                             DatePicker(
                                 "시작 시간",
                                 selection: Binding(get: {
-                                    viewModel.startPicker
+                                    viewModel.startDatePicker
                                 }, set: { newValue in
-                                    viewModel.startUpdateDate(date: newValue)
+                                    viewModel.updateStartDate(date: newValue)
                                 }),
                                 displayedComponents: [.hourAndMinute]
                             )
@@ -332,9 +332,9 @@ struct LectureDetailSettingView: View {
                             DatePicker(
                                 "신청 마감일",
                                 selection: Binding(get: {
-                                    viewModel.endPicker
+                                    viewModel.endDatePicker
                                 }, set: { newValue in
-                                    viewModel.endUpdateDate(date: newValue)
+                                    viewModel.updateEndDate(date: newValue)
                                 }),
                                 displayedComponents: [.date]
                             )
@@ -349,9 +349,9 @@ struct LectureDetailSettingView: View {
                             DatePicker(
                                 "마감 시간",
                                 selection: Binding(get: {
-                                    viewModel.endPicker
+                                    viewModel.endDatePicker
                                 }, set: { newValue in
-                                    viewModel.endUpdateDate(date: newValue)
+                                    viewModel.updateEndDate(date: newValue)
                                 }),
                                 displayedComponents: [.hourAndMinute]
                             )
@@ -372,9 +372,9 @@ struct LectureDetailSettingView: View {
                             DatePicker(
                                 "강의 수강일",
                                 selection: Binding(get: {
-                                    viewModel.openPicker
+                                    viewModel.openDatePicker
                                 }, set: { newValue in
-                                    viewModel.openUpdateDate(date: newValue)
+                                    viewModel.updateOpenDate(date: newValue)
                                 }),
                                 displayedComponents: [.date]
                             )
@@ -389,9 +389,9 @@ struct LectureDetailSettingView: View {
                             DatePicker(
                                 "시작 시간",
                                 selection: Binding(get: {
-                                    viewModel.openPicker
+                                    viewModel.openDatePicker
                                 }, set: { newValue in
-                                    viewModel.openUpdateDate(date: newValue)
+                                    viewModel.updateOpenDate(date: newValue)
                                 }),
                                 displayedComponents: [.hourAndMinute]
                             )
@@ -405,9 +405,9 @@ struct LectureDetailSettingView: View {
                             DatePicker(
                                 "종료 시간",
                                 selection: Binding(get: {
-                                    viewModel.openPicker2
+                                    viewModel.endTimePicker
                                 }, set: { newValue in
-                                    viewModel.openUpdateDate2(date: newValue)
+                                    viewModel.updateEndTime(date: newValue)
                                 }),
                                 displayedComponents: [.hourAndMinute]
                             )
@@ -422,7 +422,7 @@ struct LectureDetailSettingView: View {
                                 ForEach(0..<viewModel.datePickerCount, id: \.self) { index in
                                     HStack(spacing: 12) {
                                         DatePicker(
-                                            selection: self.viewModel.binding(
+                                            selection: self.viewModel.newDateSet(
                                                 for: index,
                                                 type: .date
                                             ),
@@ -445,9 +445,9 @@ struct LectureDetailSettingView: View {
                                     }
 
                                     DatePicker(
-                                        selection: self.viewModel.binding(
+                                        selection: self.viewModel.newDateSet(
                                             for: index,
-                                            type: .time1
+                                            type: .startTime
                                         ),
                                         displayedComponents: .hourAndMinute
                                     ) {
@@ -459,9 +459,9 @@ struct LectureDetailSettingView: View {
                                     .cornerRadius(8, corners: .allCorners)
 
                                     DatePicker(
-                                        selection: self.viewModel.binding(
+                                        selection: self.viewModel.newDateSet(
                                             for: index,
-                                            type: .time2
+                                            type: .endTime
                                         ),
                                         displayedComponents: .hourAndMinute
                                     ) {
@@ -637,14 +637,14 @@ struct LectureDetailSettingView: View {
     @ViewBuilder
     func selectButton(text: String, select: Bool) -> some View {
         Text(text)
-            .bitgouelFont(.text2, color: viewModel.lectureTextColor(parameter: select))
+            .bitgouelFont(.text2, color: viewModel.lectureTextColor(varState: select))
             .padding(.horizontal, 16)
             .padding(.vertical, 8)
             .overlay {
                 RoundedRectangle(cornerRadius: 99)
-                    .stroke(viewModel.lectureStrokeColor(parameter: select))
+                    .stroke(viewModel.lectureStrokeColor(varState: select))
             }
-            .background(viewModel.lectureBackgroundColor(parameter: select))
+            .background(viewModel.lectureBackgroundColor(varState: select))
             .cornerRadius(99)
     }
 }

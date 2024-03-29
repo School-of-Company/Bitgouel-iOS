@@ -2,17 +2,26 @@ import Foundation
 import SwiftUI
 import Service
 
+enum PickerType {
+    case date
+    case startTime
+    case endTime
+}
+
 final class LectureDetailSettingViewModel: BaseViewModel {
     @Published var professorName: String = ""
     @Published var lectureName: String = ""
     @Published var subjectName: String = ""
     @Published var maximumAttendance: String = ""
-    @Published var startPicker = Date()
-    @Published var endPicker = Date()
-    @Published var openPicker = Date()
-    @Published var openPicker2 = Date()
-    @Published var lectureType1: Bool = false
-    @Published var lectureType2: Bool = false
+
+    @Published var startDatePicker = Date()
+    @Published var endDatePicker = Date()
+    @Published var openDatePicker = Date()
+    @Published var endTimePicker = Date()
+
+    @Published var mutualCreditRecognitionProgram: Bool = false
+    @Published var universityExplorationProgram: Bool = false
+
     @Published var professor: Bool = false
     @Published var lecture: Bool = false
     @Published var subject: Bool = false
@@ -27,90 +36,85 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     @Published var gradeThreeSemesterOne: Bool = false
     @Published var scoreOne: Bool = false
     @Published var scoreTwo: Bool = false
+    
     @Published var openDate: [Date] = []
     @Published var startTime: [Date] = []
     @Published var endTime: [Date] = []
     @Published var datePickerCount = 0
     
-    func lectureTextColor(parameter: Bool) -> Color.BitgouelColorSystem {
-        if parameter == false {
+    func lectureTextColor(varState: Bool) -> Color.BitgouelColorSystem {
+        if varState == false {
             return Color.BitgouelColorSystem.greyscale(.g2)
         } else {
             return Color.BitgouelColorSystem.greyscale(.g10)
         }
     }
     
-    func lectureStrokeColor(parameter: Bool) -> Color {
-        if parameter == false {
+    func lectureStrokeColor(varState: Bool) -> Color {
+        if varState == false {
             return Color.bitgouel(.greyscale(.g2))
         } else {
             return Color.bitgouel(.primary(.p5))
         }
     }
     
-    func lectureBackgroundColor(parameter: Bool) -> Color {
-        if parameter == false {
+    func lectureBackgroundColor(varState: Bool) -> Color {
+        if varState == false {
             return Color.bitgouel(.greyscale(.g10))
         } else {
             return Color.bitgouel(.primary(.p5))
         }
     }
     
-    func chevronChange(parameter: Bool) -> String {
-        if parameter == false {
+    func chevronChange(varState: Bool) -> String {
+        if varState == false {
             return "chevron_down"
         } else {
             return "chevron_up"
         }
     }
     
-    func select(parameter: Bool, parameterChoice: String, parameterName: String) -> String {
-        if parameter == false {
-            return parameterChoice
+    func select(varState: Bool, selectText: String, selectedName: String) -> String {
+        if varState == false {
+            return selectText
         } else {
-            return parameterName
+            return selectedName
         }
     }
     
-    func startUpdateDate(date: Date) {
-        startPicker = date
+    func updateStartDate(date: Date) {
+        startDatePicker = date
     }
     
-    func endUpdateDate(date: Date) {
-        endPicker = date
+    func updateEndDate(date: Date) {
+        endDatePicker = date
     }
     
-    func openUpdateDate(date: Date) {
-        openPicker = date
+    func updateOpenDate(date: Date) {
+        openDatePicker = date
     }
     
-    func openUpdateDate2(date: Date) {
-        openPicker2 = date
+    func updateEndTime(date: Date) {
+        endTimePicker = date
     }
     
-    func binding(for index: Int, type: PickerType) -> Binding<Date> {
+    func newDateSet(for index: Int, type: PickerType) -> Binding<Date> {
         switch type {
         case .date:
             return Binding<Date>(
                 get: { self.openDate[index] },
                 set: { self.openDate[index] = $0 }
             )
-        case .time1:
+        case .startTime:
             return Binding<Date>(
                 get: { self.startTime[index] },
                 set: { self.startTime[index] = $0 }
             )
-        case .time2:
+        case .endTime:
             return Binding<Date>(
                 get: { self.endTime[index] },
                 set: { self.endTime[index] = $0 }
             )
         }
     }
-}
-
-enum PickerType {
-    case date
-    case time1
-    case time2
 }
