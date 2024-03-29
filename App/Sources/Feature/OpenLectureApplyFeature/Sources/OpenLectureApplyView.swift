@@ -3,16 +3,13 @@ import SwiftUI
 struct OpenLectureApplyView: View {
     @StateObject var viewModel: OpenLectureApplyViewModel
 
-    private let openLectureApplyFactory: any OpenLectureApplyFactory
     private let lectureDetailSettingFactory: any LectureDetailSettingFactory
 
     init(
         viewModel: OpenLectureApplyViewModel,
-        openLectureApplyFactory: any OpenLectureApplyFactory,
         lectureDetailSettingFactory: any LectureDetailSettingFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
-        self.openLectureApplyFactory = openLectureApplyFactory
         self.lectureDetailSettingFactory = lectureDetailSettingFactory
     }
 
