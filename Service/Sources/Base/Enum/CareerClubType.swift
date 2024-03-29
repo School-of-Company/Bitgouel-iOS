@@ -105,6 +105,7 @@ public enum CareerClubType {
         case devGSM = "dev GSM"
     }
 }
+
 // swiftlint: enable identifier_name
 // swiftlint: enable type_name
 // swiftlint: enable redundant_string_enum_value

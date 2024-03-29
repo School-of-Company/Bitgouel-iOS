@@ -3,7 +3,9 @@ import SwiftUI
 struct MainView: View {
     @StateObject var viewModel: MainViewModel
 
-    init(viewModel: MainViewModel) {
+    init(
+        viewModel: MainViewModel
+    ) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
 

@@ -4,7 +4,6 @@ import SwiftUI
 final class ClubDetailViewModel: BaseViewModel {
     @Published var authority: UserAuthorityType = .user
     @Published var isPresentedCertificationView: Bool = false
-    @Published var isShowingLoginAlert: Bool = false
     @Published var studentID: String = ""
 
     // MARK: ClubInfo
@@ -29,11 +28,6 @@ final class ClubDetailViewModel: BaseViewModel {
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
         self.queryClubDetailUseCase = queryClubDetailUseCase
         self.queryStudentListByClubUseCase = queryStudentListByClubUseCase
-    }
-
-    @MainActor
-    func isShowingLoginAlertDismissed() {
-        isShowingLoginAlert = false
     }
 
     @MainActor

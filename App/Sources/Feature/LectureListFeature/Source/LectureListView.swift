@@ -5,15 +5,18 @@ struct LectureListView: View {
     @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var viewModel: LectureListViewModel
     @State var isShowingFilter = false
+    @Binding var selection: TabFlow
 
     private let lectureListDetailFactory: any LectureListDetailFactory
 
     init(
         lectureListDetailFactory: any LectureListDetailFactory,
-        viewModel: LectureListViewModel
+        viewModel: LectureListViewModel,
+        selection: Binding<TabFlow>
     ) {
         self.lectureListDetailFactory = lectureListDetailFactory
         _viewModel = StateObject(wrappedValue: viewModel)
+        _selection = selection
     }
 
     var body: some View {
@@ -92,10 +95,14 @@ struct LectureListView: View {
             }
             .loginAlert(
                 isShowing: Binding(
-                    get: { viewModel.authority == .user },
-                    set: { _ in viewModel.isShowingLoginAlertDismissed() }
+                    get: { viewModel.isShowingLoginAlert },
+                    set: { isShowing in
+                        viewModel.updateIsShowingLoginAlert(isShowing: isShowing)
+                    }
                 )
-            )
+            ) {
+                $selection.wrappedValue = .home
+            }
         }
         .onAppear {
             viewModel.onAppear()

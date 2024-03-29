@@ -47,21 +47,26 @@ final class LectureListViewModel: BaseViewModel {
         self.selectedLectureID = lectureID
     }
 
-    @MainActor
-    func isShowingLoginAlertDismissed() {
-        isShowingLoginAlert = false
+    func updateIsShowingLoginAlert(isShowing: Bool) {
+        isShowingLoginAlert = isShowing
     }
 
     @MainActor
     func onAppear() {
         authority = loadUserAuthorityUseCase()
 
-        Task {
-            do {
-                let response = try await fetchLectureListUseCase(type: type?.rawValue ?? "")
-                updateContent(entity: response)
-            } catch {
-                print(String(describing: error))
+        switch authority {
+        case .user:
+            updateIsShowingLoginAlert(isShowing: true)
+
+        default:
+            Task {
+                do {
+                    let response = try await fetchLectureListUseCase(type: type?.rawValue ?? "")
+                    updateContent(entity: response)
+                } catch {
+                    print(String(describing: error))
+                }
             }
         }
     }

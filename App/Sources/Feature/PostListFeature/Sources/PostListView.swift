@@ -3,6 +3,7 @@ import SwiftUI
 struct PostListView: View {
     @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var viewModel: PostListViewModel
+    @Binding var selection: TabFlow
 
     private let noticeListFactory: any NoticeListFactory
     private let inquiryListFactory: any InquiryListFactory
@@ -14,13 +15,15 @@ struct PostListView: View {
         noticeListFactory: any NoticeListFactory,
         inquiryListFactory: any InquiryListFactory,
         inputPostFactory: any InputPostFactory,
-        postDetailFactory: any PostDetailFactory
+        postDetailFactory: any PostDetailFactory,
+        selection: Binding<TabFlow>
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.noticeListFactory = noticeListFactory
         self.inquiryListFactory = inquiryListFactory
         self.inputPostFactory = inputPostFactory
         self.postDetailFactory = postDetailFactory
+        _selection = selection
     }
 
     var body: some View {
@@ -122,12 +125,13 @@ struct PostListView: View {
             }
             .loginAlert(
                 isShowing: Binding(
-                    get: { viewModel.authority == .user },
-                    set: { _ in viewModel.isShowingLoginAlertDismissed() }
+                    get: { viewModel.isShowingLoginAlert },
+                    set: { isShowing in
+                        viewModel.updateIsShowingLoginAlert(isShowing: isShowing)
+                    }
                 )
-            )
-            .refreshable {
-                viewModel.onAppear()
+            ) {
+                $selection.wrappedValue = .home
             }
         }
     }

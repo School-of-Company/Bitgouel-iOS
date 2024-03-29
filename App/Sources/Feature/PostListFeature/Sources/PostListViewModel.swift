@@ -34,19 +34,25 @@ final class PostListViewModel: BaseViewModel {
     }
 
     @MainActor
-    func isShowingLoginAlertDismissed() {
-        isShowingLoginAlert = false
+    func updateIsShowingLoginAlert(isShowing: Bool) {
+        isShowingLoginAlert = isShowing
     }
 
     @MainActor
     func onAppear() {
         authority = loadUserAuthorityUseCase()
 
-        Task {
-            do {
-                postContent = try await queryPostListUseCase(postType: .employment)
-            } catch {
-                print(String(describing: error))
+        switch authority {
+        case .user:
+            updateIsShowingLoginAlert(isShowing: true)
+
+        default:
+            Task {
+                do {
+                    postContent = try await queryPostListUseCase(postType: .employment)
+                } catch {
+                    print(String(describing: error))
+                }
             }
         }
     }

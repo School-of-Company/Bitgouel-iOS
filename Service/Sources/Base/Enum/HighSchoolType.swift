@@ -16,6 +16,7 @@ public enum HighSchoolType: String, CaseIterable, Decodable, Encodable {
     case gwangjuAutomaticEquipmentTechnicalHighSchool = "GWANGJU_AUTOMATIC_EQUIPMENT_TECHNICAL_HIGH_SCHOOL"
     case gwangjuSoftwareMeisterHighSchool = "GWANGJU_SOFTWARE_MEISTER_HIGH_SCHOOL"
 }
+
 // swiftlint: enable identifier_name
 
 public extension HighSchoolType {
@@ -39,7 +40,7 @@ public extension HighSchoolType {
     }
 }
 
- public extension HighSchoolType {
+public extension HighSchoolType {
     func getClubsForSelectedHighSchool() -> [String] {
         switch self {
         case .gwangjuTechnicalHighSchool:
@@ -71,4 +72,5 @@ public extension HighSchoolType {
         }
     }
 }
+
 // swiftlint: enable cyclomatic_complexity

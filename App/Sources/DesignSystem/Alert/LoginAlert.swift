@@ -2,11 +2,13 @@ import SwiftUI
 
 public extension View {
     func loginAlert(
-        isShowing: Binding<Bool>
+        isShowing: Binding<Bool>,
+        cancelAction: @escaping () -> Void
     ) -> some View {
         modifier(
             LoginAlertModifier(
-                isShowing: isShowing
+                isShowing: isShowing,
+                cancelAction: cancelAction
             )
         )
     }
@@ -15,11 +17,14 @@ public extension View {
 struct LoginAlertModifier: ViewModifier {
     @Binding var isShowing: Bool
     @EnvironmentObject var sceneState: SceneState
+    let cancelAction: () -> Void
 
     public init(
-        isShowing: Binding<Bool>
+        isShowing: Binding<Bool>,
+        cancelAction: @escaping () -> Void
     ) {
         _isShowing = isShowing
+        self.cancelAction = cancelAction
     }
 
     func body(content: Content) -> some View {
@@ -65,7 +70,7 @@ struct LoginAlertModifier: ViewModifier {
                     text: "취소",
                     style: .cancel,
                     action: {
-                        sceneState.sceneFlow = .login
+                        cancelAction()
                     }
                 )
 

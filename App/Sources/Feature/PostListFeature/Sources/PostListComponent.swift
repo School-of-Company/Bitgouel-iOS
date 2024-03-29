@@ -12,7 +12,7 @@ public protocol PostListDependency: Dependency {
 }
 
 public final class PostListComponent: Component<PostListDependency>, PostListFactory {
-    public func makeView() -> some View {
+    public func makeView(selection: Binding<TabFlow>) -> some View {
         PostListView(
             viewModel: .init(
                 loadUserAuthorityUseCase: dependency.loadUserAuthorityUseCase,
@@ -21,7 +21,8 @@ public final class PostListComponent: Component<PostListDependency>, PostListFac
             noticeListFactory: dependency.noticeListFactory,
             inquiryListFactory: dependency.inquiryListFactory,
             inputPostFactory: dependency.inputPostFactory,
-            postDetailFactory: dependency.postDetailFactory
+            postDetailFactory: dependency.postDetailFactory,
+            selection: selection
         )
     }
 }

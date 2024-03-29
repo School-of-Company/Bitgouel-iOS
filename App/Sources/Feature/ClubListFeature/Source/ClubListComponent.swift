@@ -9,13 +9,14 @@ public protocol ClubListDependency: Dependency {
 }
 
 public final class ClubListComponent: Component<ClubListDependency>, ClubListFactory {
-    public func makeView() -> some View {
+    public func makeView(selection: Binding<TabFlow>) -> some View {
         ClubListView(
             viewModel: .init(
                 queryClubListUseCase: dependency.queryClubListUseCase,
                 loadUserAuthorityUseCase: dependency.loadUserAuthorityUseCase
             ),
-            clubDetailFactory: dependency.clubDetailFactory
+            clubDetailFactory: dependency.clubDetailFactory,
+            selection: selection
         )
     }
 }

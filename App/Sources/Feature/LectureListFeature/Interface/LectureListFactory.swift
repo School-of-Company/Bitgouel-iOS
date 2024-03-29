@@ -2,5 +2,5 @@ import SwiftUI
 
 public protocol LectureListFactory {
     associatedtype SomeView: View
-    func makeView() -> SomeView
+    func makeView(selection: Binding<TabFlow>) -> SomeView
 }

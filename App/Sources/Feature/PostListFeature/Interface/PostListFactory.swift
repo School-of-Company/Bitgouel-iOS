@@ -2,5 +2,5 @@ import SwiftUI
 
 public protocol PostListFactory {
     associatedtype SomView: View
-    func makeView() -> SomView
+    func makeView(selection: Binding<TabFlow>) -> SomView
 }

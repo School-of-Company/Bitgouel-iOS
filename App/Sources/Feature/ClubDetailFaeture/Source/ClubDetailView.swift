@@ -104,11 +104,5 @@ struct ClubDetailView: View {
         .onAppear {
             viewModel.onAppear()
         }
-        .loginAlert(
-            isShowing: Binding(
-                get: { viewModel.authority == .user },
-                set: { _ in viewModel.isShowingLoginAlertDismissed() }
-            )
-        )
     }
 }
