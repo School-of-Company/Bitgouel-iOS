@@ -81,10 +81,10 @@ struct LectureDetailSettingView: View {
                                     
                                     selectButton(
                                         text: "2학년 1학기",
-                                        select: viewModel.isSelectedGradeTwoSemesterOneSelected
+                                        select: viewModel.isSelectedGradeTwoSemesterOne
                                     )
                                     .buttonWrapper {
-                                        viewModel.isSelectedGradeTwoSemesterOneSelected.toggle()
+                                        viewModel.isSelectedGradeTwoSemesterOne.toggle()
                                         viewModel.isSelectedGradeOneSemesterTwo = false
                                         viewModel.isSelectedGradeThreeSemesterOne = false
                                         viewModel.isSelectedGradeTwoSemesterTwo = false
@@ -101,7 +101,7 @@ struct LectureDetailSettingView: View {
                                         viewModel.isSelectedGradeTwoSemesterTwo.toggle()
                                         viewModel.isSelectedGradeOneSemesterTwo = false
                                         viewModel.isSelectedGradeThreeSemesterOne = false
-                                        viewModel.isSelectedGradeTwoSemesterOneSelected = false
+                                        viewModel.isSelectedGradeTwoSemesterOne = false
                                     }
                                     
                                     selectButton(
@@ -111,7 +111,7 @@ struct LectureDetailSettingView: View {
                                     .buttonWrapper {
                                         viewModel.isSelectedGradeThreeSemesterOne.toggle()
                                         viewModel.isSelectedGradeOneSemesterTwo = false
-                                        viewModel.isSelectedGradeTwoSemesterOneSelected = false
+                                        viewModel.isSelectedGradeTwoSemesterOne = false
                                         viewModel.isSelectedGradeTwoSemesterTwo = false
                                     }
                                 }
