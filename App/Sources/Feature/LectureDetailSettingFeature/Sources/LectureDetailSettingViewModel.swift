@@ -22,20 +22,23 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     @Published var mutualCreditRecognitionProgram: Bool = false
     @Published var universityExplorationProgram: Bool = false
 
-    @Published var professor: Bool = false
-    @Published var lecture: Bool = false
-    @Published var subject: Bool = false
-    @Published var aiFusionComplex: Bool = false
-    @Published var automobile: Bool = false
-    @Published var culture: Bool = false
-    @Published var medicalHealth: Bool = false
-    @Published var energy: Bool = false
-    @Published var gradeOneSemesterTwo: Bool = false
-    @Published var gradeTwoSemesterOne: Bool = false
-    @Published var gradeTwoSemesterTwo: Bool = false
-    @Published var gradeThreeSemesterOne: Bool = false
-    @Published var scoreOne: Bool = false
-    @Published var scoreTwo: Bool = false
+    @Published var isProfessorSelected: Bool = false
+    @Published var isLectureSelected: Bool = false
+    @Published var isSubjectSelected: Bool = false
+    
+    @Published var isAiFusionComplexSelected: Bool = false
+    @Published var isAutomobileIndustrySelected: Bool = false
+    @Published var isCultureSelected: Bool = false
+    @Published var isMedicalHealthSelected: Bool = false
+    @Published var isEnergySelected: Bool = false
+    
+    @Published var isGradeOneSemesterTwoSelected: Bool = false
+    @Published var isGradeTwoSemesterOneSelected: Bool = false
+    @Published var isGradeTwoSemesterTwoSelected: Bool = false
+    @Published var isGradeThreeSemesterOneSelected: Bool = false
+    
+    @Published var isScoreOneSelected: Bool = false
+    @Published var isScoreTwoSelected: Bool = false
     
     @Published var openDate: [Date] = []
     @Published var startTime: [Date] = []

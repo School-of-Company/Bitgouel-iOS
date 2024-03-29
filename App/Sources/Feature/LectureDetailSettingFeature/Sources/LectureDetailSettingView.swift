@@ -70,24 +70,24 @@ struct LectureDetailSettingView: View {
                                 HStack(spacing: 16) {
                                     selectButton(
                                         text: "1학년 2학기",
-                                        select: viewModel.gradeOneSemesterTwo
+                                        select: viewModel.isGradeOneSemesterTwoSelected
                                     )
                                     .buttonWrapper {
-                                        viewModel.gradeOneSemesterTwo.toggle()
-                                        viewModel.gradeThreeSemesterOne = false
-                                        viewModel.gradeTwoSemesterOne = false
-                                        viewModel.gradeTwoSemesterTwo = false
+                                        viewModel.isGradeOneSemesterTwoSelected.toggle()
+                                        viewModel.isGradeThreeSemesterOneSelected = false
+                                        viewModel.isGradeTwoSemesterOneSelected = false
+                                        viewModel.isGradeTwoSemesterTwoSelected = false
                                     }
                                     
                                     selectButton(
                                         text: "2학년 1학기",
-                                        select: viewModel.gradeTwoSemesterOne
+                                        select: viewModel.isGradeTwoSemesterOneSelected
                                     )
                                     .buttonWrapper {
-                                        viewModel.gradeTwoSemesterOne.toggle()
-                                        viewModel.gradeOneSemesterTwo = false
-                                        viewModel.gradeThreeSemesterOne = false
-                                        viewModel.gradeTwoSemesterTwo = false
+                                        viewModel.isGradeTwoSemesterOneSelected.toggle()
+                                        viewModel.isGradeOneSemesterTwoSelected = false
+                                        viewModel.isGradeThreeSemesterOneSelected = false
+                                        viewModel.isGradeTwoSemesterTwoSelected = false
                                     }
                                 }
                                 .padding(.bottom, 16)
@@ -95,24 +95,24 @@ struct LectureDetailSettingView: View {
                                 HStack(spacing: 16) {
                                     selectButton(
                                         text: "2학년 2학기",
-                                        select: viewModel.gradeTwoSemesterTwo
+                                        select: viewModel.isGradeTwoSemesterTwoSelected
                                     )
                                     .buttonWrapper {
-                                        viewModel.gradeTwoSemesterTwo.toggle()
-                                        viewModel.gradeOneSemesterTwo = false
-                                        viewModel.gradeThreeSemesterOne = false
-                                        viewModel.gradeTwoSemesterOne = false
+                                        viewModel.isGradeTwoSemesterTwoSelected.toggle()
+                                        viewModel.isGradeOneSemesterTwoSelected = false
+                                        viewModel.isGradeThreeSemesterOneSelected = false
+                                        viewModel.isGradeTwoSemesterOneSelected = false
                                     }
                                     
                                     selectButton(
                                         text: "3학년 1학기",
-                                        select: viewModel.gradeThreeSemesterOne
+                                        select: viewModel.isGradeThreeSemesterOneSelected
                                     )
                                     .buttonWrapper {
-                                        viewModel.gradeThreeSemesterOne.toggle()
-                                        viewModel.gradeOneSemesterTwo = false
-                                        viewModel.gradeTwoSemesterOne = false
-                                        viewModel.gradeTwoSemesterTwo = false
+                                        viewModel.isGradeThreeSemesterOneSelected.toggle()
+                                        viewModel.isGradeOneSemesterTwoSelected = false
+                                        viewModel.isGradeTwoSemesterOneSelected = false
+                                        viewModel.isGradeTwoSemesterTwoSelected = false
                                     }
                                 }
                                 .padding(.bottom, 28)
@@ -126,26 +126,26 @@ struct LectureDetailSettingView: View {
                                 HStack(spacing: 16) {
                                     selectButton(
                                         text: "자동차 산업",
-                                        select: viewModel.automobile
+                                        select: viewModel.isAutomobileIndustrySelected
                                     )
                                     .buttonWrapper {
-                                        viewModel.automobile.toggle()
-                                        viewModel.culture = false
-                                        viewModel.energy = false
-                                        viewModel.aiFusionComplex = false
-                                        viewModel.medicalHealth = false
+                                        viewModel.isAutomobileIndustrySelected.toggle()
+                                        viewModel.isCultureSelected = false
+                                        viewModel.isEnergySelected = false
+                                        viewModel.isAiFusionComplexSelected = false
+                                        viewModel.isMedicalHealthSelected = false
                                     }
                                     
                                     selectButton(
                                         text: "에너지 산업",
-                                        select: viewModel.energy
+                                        select: viewModel.isEnergySelected
                                     )
                                     .buttonWrapper {
-                                        viewModel.energy.toggle()
-                                        viewModel.automobile = false
-                                        viewModel.culture = false
-                                        viewModel.aiFusionComplex = false
-                                        viewModel.medicalHealth = false
+                                        viewModel.isEnergySelected.toggle()
+                                        viewModel.isAutomobileIndustrySelected = false
+                                        viewModel.isCultureSelected = false
+                                        viewModel.isAiFusionComplexSelected = false
+                                        viewModel.isMedicalHealthSelected = false
                                     }
                                 }
                                 .padding(.bottom, 16)
@@ -153,40 +153,40 @@ struct LectureDetailSettingView: View {
                                 HStack(spacing: 16) {
                                     selectButton(
                                         text: "의료•헬스",
-                                        select: viewModel.medicalHealth
+                                        select: viewModel.isMedicalHealthSelected
                                     )
                                     .buttonWrapper {
-                                        viewModel.medicalHealth.toggle()
-                                        viewModel.automobile = false
-                                        viewModel.culture = false
-                                        viewModel.energy = false
-                                        viewModel.aiFusionComplex = false
+                                        viewModel.isMedicalHealthSelected.toggle()
+                                        viewModel.isAutomobileIndustrySelected = false
+                                        viewModel.isCultureSelected = false
+                                        viewModel.isEnergySelected = false
+                                        viewModel.isAiFusionComplexSelected = false
                                     }
                                     
                                     selectButton(
                                         text: "AI 융•복합",
-                                        select: viewModel.aiFusionComplex
+                                        select: viewModel.isAiFusionComplexSelected
                                     )
                                     .buttonWrapper {
-                                        viewModel.aiFusionComplex.toggle()
-                                        viewModel.automobile = false
-                                        viewModel.culture = false
-                                        viewModel.energy = false
-                                        viewModel.medicalHealth = false
+                                        viewModel.isAiFusionComplexSelected.toggle()
+                                        viewModel.isAutomobileIndustrySelected = false
+                                        viewModel.isCultureSelected = false
+                                        viewModel.isEnergySelected = false
+                                        viewModel.isMedicalHealthSelected = false
                                     }
                                 }
                                 .padding(.bottom, 16)
                                 
                                 selectButton(
                                     text: "문화 산업",
-                                    select: viewModel.culture
+                                    select: viewModel.isCultureSelected
                                 )
                                 .buttonWrapper {
-                                    viewModel.culture.toggle()
-                                    viewModel.automobile = false
-                                    viewModel.energy = false
-                                    viewModel.aiFusionComplex = false
-                                    viewModel.medicalHealth = false
+                                    viewModel.isCultureSelected.toggle()
+                                    viewModel.isAutomobileIndustrySelected = false
+                                    viewModel.isEnergySelected = false
+                                    viewModel.isAiFusionComplexSelected = false
+                                    viewModel.isMedicalHealthSelected = false
                                 }
                                 .padding(.bottom, 28)
                             }
@@ -200,20 +200,20 @@ struct LectureDetailSettingView: View {
                             HStack(spacing: 16) {
                                 selectButton(
                                     text: "1점",
-                                    select: viewModel.scoreOne
+                                    select: viewModel.isScoreOneSelected
                                 )
                                 .buttonWrapper {
-                                    viewModel.scoreOne.toggle()
-                                    viewModel.scoreTwo = false
+                                    viewModel.isScoreOneSelected.toggle()
+                                    viewModel.isScoreTwoSelected = false
                                 }
 
                                 selectButton(
                                     text: "2점",
-                                    select: viewModel.scoreTwo
+                                    select: viewModel.isScoreTwoSelected
                                 )
                                 .buttonWrapper {
-                                    viewModel.scoreTwo.toggle()
-                                    viewModel.scoreOne = false
+                                    viewModel.isScoreTwoSelected.toggle()
+                                    viewModel.isScoreOneSelected = false
                                 }
                             }
                         }
@@ -228,13 +228,13 @@ struct LectureDetailSettingView: View {
                             HStack {
                                 PickerButton(
                                     text: viewModel.select(
-                                        selectedState: viewModel.lecture,
+                                        selectedState: viewModel.isLectureSelected,
                                         selectText: "강의 선택",
                                         selectedName: viewModel.lectureName
                                     ),
-                                    image: viewModel.chevronChange(selectedState: viewModel.lecture)
+                                    image: viewModel.chevronChange(selectedState: viewModel.isLectureSelected)
                                 ) {
-                                    viewModel.lecture = true
+                                    viewModel.isLectureSelected = true
                                 }
                                 .padding(.trailing, 5.5)
                             }
@@ -249,13 +249,13 @@ struct LectureDetailSettingView: View {
                             HStack {
                                 PickerButton(
                                     text: viewModel.select(
-                                        selectedState: viewModel.subject,
+                                        selectedState: viewModel.isSubjectSelected,
                                         selectText: "학과 선택",
                                         selectedName: viewModel.subjectName
                                     ),
-                                    image: viewModel.chevronChange(selectedState: viewModel.subject)
+                                    image: viewModel.chevronChange(selectedState: viewModel.isSubjectSelected)
                                 ) {
-                                    viewModel.subject = true
+                                    viewModel.isSubjectSelected = true
                                 }
                                 .padding(.trailing, 5.5)
                             }
@@ -270,13 +270,13 @@ struct LectureDetailSettingView: View {
                             HStack {
                                 PickerButton(
                                     text: viewModel.select(
-                                        selectedState: viewModel.professor,
+                                        selectedState: viewModel.isProfessorSelected,
                                         selectText: "담당 교수 선택",
                                         selectedName: viewModel.professorName
                                     ),
-                                    image: viewModel.chevronChange(selectedState: viewModel.professor)
+                                    image: viewModel.chevronChange(selectedState: viewModel.isProfessorSelected)
                                 ) {
-                                    viewModel.professor = true
+                                    viewModel.isProfessorSelected = true
                                 }
                                 .padding(.trailing, 5.5)
                             }
@@ -503,7 +503,7 @@ struct LectureDetailSettingView: View {
             }
             .padding(.horizontal, 28)
 
-            if viewModel.lecture == true {
+            if viewModel.isLectureSelected == true {
                 ZStack {
                     Color.black
                         .opacity(0.35)
@@ -521,7 +521,7 @@ struct LectureDetailSettingView: View {
                                 Spacer()
 
                                 BitgouelAsset.Icons.cancel.swiftUIImage
-                                    .buttonWrapper { viewModel.lecture = false }
+                                    .buttonWrapper { viewModel.isLectureSelected = false }
                             }
                             .padding(.vertical, 24)
 
@@ -543,7 +543,7 @@ struct LectureDetailSettingView: View {
                 }
             }
 
-            if viewModel.subject == true {
+            if viewModel.isSubjectSelected == true {
                 ZStack {
                     Color.black
                         .opacity(0.35)
@@ -561,7 +561,7 @@ struct LectureDetailSettingView: View {
                                 Spacer()
 
                                 BitgouelAsset.Icons.cancel.swiftUIImage
-                                    .buttonWrapper { viewModel.subject = false }
+                                    .buttonWrapper { viewModel.isSubjectSelected = false }
                             }
                             .padding(.vertical, 24)
 
@@ -583,7 +583,7 @@ struct LectureDetailSettingView: View {
                 }
             }
 
-            if viewModel.professor == true {
+            if viewModel.isProfessorSelected == true {
                 ZStack {
                     Color.black
                         .opacity(0.35)
@@ -601,7 +601,7 @@ struct LectureDetailSettingView: View {
                                 Spacer()
 
                                 BitgouelAsset.Icons.cancel.swiftUIImage
-                                    .buttonWrapper { viewModel.professor = false }
+                                    .buttonWrapper { viewModel.isProfessorSelected = false }
                             }
                             .padding(.vertical, 24)
 
@@ -624,8 +624,8 @@ struct LectureDetailSettingView: View {
             }
         }
 
-        if viewModel.lecture == false && viewModel.subject == false
-            && viewModel.professor == false {
+        if viewModel.isLectureSelected == false && viewModel.isSubjectSelected == false
+            && viewModel.isProfessorSelected == false {
             BitgouelButton(
                 text: "적용하기"
             ) { dismiss() }
