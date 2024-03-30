@@ -26,11 +26,11 @@ struct OpenLectureApplyView: View {
                 },
                 title: Binding(
                     get: { viewModel.lectureTitle },
-                    set: { title in viewModel.lectureTitle = title }
+                    set: { title in viewModel.updateLectureTitle(title: title) }
                 ),
                 text: Binding(
                     get: { viewModel.lectureText },
-                    set: { text in viewModel.lectureText = text }
+                    set: { text in viewModel.updateLectureText(text: text) }
                 )
             )
         }

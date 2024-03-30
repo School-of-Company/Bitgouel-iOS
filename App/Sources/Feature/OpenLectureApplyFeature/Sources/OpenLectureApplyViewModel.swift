@@ -18,4 +18,12 @@ final class OpenLectureApplyViewModel: ObservableObject {
     func updateIsPresentedLectureDetailSettingAppend(state: Bool) {
         isPresentedLectureDetailSettingAppend = state
     }
+    
+    func updateLectureTitle(title: String) {
+        lectureTitle = title
+    }
+    
+    func updateLectureText(text: String) {
+        lectureText = text
+    }
 }
