@@ -74,14 +74,17 @@ final class CertificationListViewModel: BaseViewModel {
         }
     }
 
+    @MainActor
     func updateStudentInfo() async throws {
         studentInfo = try await queryStudentDetailByClubUseCase(clubID: clubID, studentID: studentID)
     }
 
+    @MainActor
     func updateCertificationListByStudent() async throws {
         certificationList = try await queryCertificationListByStudent()
     }
 
+    @MainActor
     func updateCertificationListByTeacher() async throws {
         certificationList = try await queryCertificationListByTeacher(studentID: studentID)
     }
