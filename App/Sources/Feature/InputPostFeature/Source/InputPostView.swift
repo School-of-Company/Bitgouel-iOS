@@ -21,32 +21,37 @@ struct InputPostView: View {
                     epic: "게시글",
                     state: "추가",
                     settingButtonAction: {
-                        viewModel.isPresentedDetailSetting(state: true)
+                        viewModel.updateIsPresentedPostDetailSettingAppend(isPresented: true)
                     },
                     finalButtonAction: {
-                        viewModel.addPost()
+                        viewModel.applyButtonDidTap()
                         dismiss()
                     },
                     title: Binding(
                         get: { viewModel.postTitle },
-                        set: { title in viewModel.postTitle = title }
+                        set: { title in viewModel.updatePostTitle(title: title) }
                     ),
                     text: Binding(
-                        get: { viewModel.postText },
-                        set: { text in viewModel.postText = text }
+                        get: { viewModel.postContent },
+                        set: { content in viewModel.updatePostContent(content: content) }
                     )
                 )
+            }
+        }
+        .onAppear {
+            if viewModel.state == "수정" {
+                viewModel.onAppear()
             }
         }
         .fullScreenCover(
             isPresented: Binding(
                 get: { viewModel.isPresentedPostDetailSettingAppend },
-                set: { _ in viewModel.isPresentedDetailSetting(state: false) }
+                set: { isPresented in viewModel.updateIsPresentedPostDetailSettingAppend(isPresented: isPresented) }
             )
         ) {
             DeferView {
                 postDetailSettingFactory.makeView(links: viewModel.postRelatedLink) { links in
-                    viewModel.postRelatedLink = links
+                    viewModel.updateLinks(links: links)
                 }.eraseToAnyView()
             }
         }
