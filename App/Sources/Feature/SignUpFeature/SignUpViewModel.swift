@@ -305,6 +305,7 @@ final class SignUpViewModel: BaseViewModel {
             return
         }
     }
+
     // swiftlint: enable cyclomatic_complexity
 
     // swiftlint: disable function_parameter_count
@@ -339,6 +340,7 @@ final class SignUpViewModel: BaseViewModel {
             }
         }
     }
+
     // swiftlint: enable function_parameter_count
 
     func teacherSignup(
@@ -464,4 +466,5 @@ final class SignUpViewModel: BaseViewModel {
         }
     }
 }
+
 // swiftlint: enable type_body_length

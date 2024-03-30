@@ -12,4 +12,5 @@ public struct QueryCertificationListByStudentUseCaseImpl: QueryCertificationList
         try await certificationRepository.queryCertificationListByStudent()
     }
 }
+
 // swiftlint: enable type_name

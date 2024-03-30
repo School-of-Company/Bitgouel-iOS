@@ -4,6 +4,7 @@ struct MyPageView: View {
     @StateObject var viewModel: MyPageViewModel
     @EnvironmentObject var sceneState: SceneState
     @Environment(\.tabbarHidden) var tabbarHidden
+    @Binding var selection: TabFlow
 
     private let changePasswordFactory: any ChangePasswordFactory
     private let adminUserListFactory: any AdminUserListFactory
@@ -11,11 +12,13 @@ struct MyPageView: View {
     init(
         viewModel: MyPageViewModel,
         changePasswordFactory: any ChangePasswordFactory,
-        adminUserListFactory: any AdminUserListFactory
+        adminUserListFactory: any AdminUserListFactory,
+        selection: Binding<TabFlow>
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.changePasswordFactory = changePasswordFactory
         self.adminUserListFactory = adminUserListFactory
+        _selection = selection
     }
 
     var body: some View {
@@ -196,6 +199,16 @@ struct MyPageView: View {
                     }
                 ]
             )
+            .loginAlert(
+                isShowing: Binding(
+                    get: { viewModel.isShowingLoginAlert },
+                    set: { isShowing in
+                        viewModel.updateIsShowingLoginAlert(isShowing: isShowing)
+                    }
+                )
+            ) {
+                $selection.wrappedValue = .home
+            }
             .bitgouelAlert(
                 title: "로그아웃 하시겠습니까?",
                 description: "  로그아웃 시 로그인을 통해서 \n다시 계정에 접속할 수 있습니다.",
