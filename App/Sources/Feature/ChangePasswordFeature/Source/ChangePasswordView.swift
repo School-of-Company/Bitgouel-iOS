@@ -79,5 +79,8 @@ struct ChangePasswordView: View {
                 set: { newValue in viewModel.isShowingToast = newValue }
             )
         )
+        .onTapGesture {
+            hideKeyboard()
+        }
     }
 }

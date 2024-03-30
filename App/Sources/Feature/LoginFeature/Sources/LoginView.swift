@@ -117,6 +117,8 @@ struct LoginView: View {
                 }
             }
         }
-        .navigationBarBackButtonHidden(true)
+        .onTapGesture {
+            hideKeyboard()
+        }
     }
 }
