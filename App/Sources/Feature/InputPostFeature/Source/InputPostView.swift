@@ -16,27 +16,25 @@ struct InputPostView: View {
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 0) {
-                InputFormView(
-                    epic: "게시글",
-                    state: "추가",
-                    settingButtonAction: {
-                        viewModel.isPresentedDetailSetting(state: true)
-                    },
-                    finalButtonAction: {
-                        viewModel.addPost()
-                        dismiss()
-                    },
-                    title: Binding(
-                        get: { viewModel.postTitle },
-                        set: { title in viewModel.postTitle = title }
-                    ),
-                    text: Binding(
-                        get: { viewModel.postText },
-                        set: { text in viewModel.postText = text }
-                    )
+            InputFormView(
+                epic: "게시글",
+                state: "추가",
+                settingButtonAction: {
+                    viewModel.isPresentedDetailSetting(state: true)
+                },
+                finalButtonAction: {
+                    viewModel.addPost()
+                    dismiss()
+                },
+                title: Binding(
+                    get: { viewModel.postTitle },
+                    set: { title in viewModel.postTitle = title }
+                ),
+                text: Binding(
+                    get: { viewModel.postText },
+                    set: { text in viewModel.postText = text }
                 )
-            }
+            )
         }
         .fullScreenCover(
             isPresented: Binding(
