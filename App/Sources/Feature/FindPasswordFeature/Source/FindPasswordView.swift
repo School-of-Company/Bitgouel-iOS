@@ -2,6 +2,7 @@ import SwiftUI
 
 struct FindPasswordView: View {
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var sceneState: SceneState
     @StateObject var viewModel: FindPasswordViewModel
 
     private let newPasswordFactory: any NewPasswordFactory
@@ -54,7 +55,9 @@ struct FindPasswordView: View {
                 .disabled(viewModel.isEmailEmpty)
                 .padding(.bottom, 20)
             }
-            .bitgouelBackButton(dismiss: dismiss)
+            .bitgouelBackButton(dismiss: dismiss) {
+                sceneState.sceneFlow = .login
+            }
             .padding(.horizontal, 28)
             .navigate(
                 to: SendEmailView(
@@ -79,6 +82,9 @@ struct FindPasswordView: View {
                     }
                 )
             )
+        }
+        .onTapGesture {
+            hideKeyboard()
         }
     }
 }
