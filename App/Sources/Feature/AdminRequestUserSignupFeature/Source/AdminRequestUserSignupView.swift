@@ -22,7 +22,7 @@ struct AdminRequestUserSignupView: View {
                 HStack(spacing: 10) {
                     optionButton(
                         buttonText: "전체 선택",
-                        foregroundColor: .bitgouel(.greyscale(.g6))
+                        foregroundColor: .bitgouel(.greyscale(.g4))
                     ) {
                         if viewModel.isSelectedUserList {
                             viewModel.removeAllUserList()
@@ -172,8 +172,8 @@ struct AdminRequestUserSignupView: View {
             font: .text3
         )
         .foregroundColor(foregroundColor)
-        .padding(.horizontal, 23)
-        .padding(.vertical, 12)
+        .padding(.horizontal, 20)
+        .padding(.vertical, 9)
         .overlay {
             RoundedRectangle(cornerRadius: 8)
                 .strokeBorder(foregroundColor)
