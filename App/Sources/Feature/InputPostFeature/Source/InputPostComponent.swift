@@ -10,11 +10,15 @@ public protocol InputPostDependency: Dependency {
 }
 
 public final class InputPostComponent: Component<InputPostDependency>, InputPostFactory {
-    public func makeView(postID: String) -> some View {
+    public func makeView(
+        state: String,
+        postID: String
+    ) -> some View {
         InputPostView(
             viewModel: .init(
+                state: state, 
                 postID: postID,
-                writePostUseCase: dependency.writePostUseCase
+                writePostUseCase: dependency.writePostUseCase,
                 updatePostUseCase: dependency.updatePostUseCase,
                 queryPostDetailUseCase: dependency.queryPostDetailUseCase
             ),

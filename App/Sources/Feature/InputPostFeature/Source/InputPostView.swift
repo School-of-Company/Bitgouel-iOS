@@ -16,10 +16,15 @@ struct InputPostView: View {
 
     var body: some View {
         ScrollView {
+            if viewModel.isLoading {
+                ProgressView()
+                    .progressViewStyle(.circular)
+            }
+            
             VStack(spacing: 0) {
                 InputFormView(
                     epic: "게시글",
-                    state: "추가",
+                    state: viewModel.state,
                     settingButtonAction: {
                         viewModel.updateIsPresentedPostDetailSettingAppend(isPresented: true)
                     },
@@ -51,7 +56,7 @@ struct InputPostView: View {
         ) {
             DeferView {
                 postDetailSettingFactory.makeView(links: viewModel.postRelatedLink) { links in
-                    viewModel.updateLinks(links: links)
+                    viewModel.updatePostLinks(links: links)
                 }.eraseToAnyView()
             }
         }

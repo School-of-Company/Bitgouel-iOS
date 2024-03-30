@@ -5,6 +5,7 @@ final class InputPostViewModel: BaseViewModel {
     @Published var postTitle: String = ""
     @Published var postContent: String = ""
     @Published var postRelatedLink: [String] = []
+    @Published var postDetail: PostDetailEntity?
     @Published var isPresentedPostDetailSettingAppend: Bool = false
     var state: String = ""
     var postID: String = ""
@@ -35,7 +36,7 @@ final class InputPostViewModel: BaseViewModel {
         postContent = content
     }
 
-    func updateLinks(links: [String]) {
+    func updatePostLinks(links: [String]) {
         postRelatedLink = links
     }
 
@@ -43,17 +44,26 @@ final class InputPostViewModel: BaseViewModel {
         isPresentedPostDetailSettingAppend = isPresented
     }
 
+    func updatePostDetail(postDetail: PostDetailEntity) {
+        updatePostTitle(title: postDetail.title)
+        updatePostContent(content: postDetail.content)
+        updatePostLinks(links: postDetail.links)
+    }
+
     @MainActor
     func onAppear() {
+        self.isLoading = true
+
         Task {
             do {
-                let postDetail = try await queryPostDetailUseCase(postID: postID)
-                updatePostTitle(title: postDetail.title)
-                updatePostContent(content: postDetail.content)
-                updateLinks(links: postDetail.links)
+                postDetail = try await queryPostDetailUseCase(postID: postID)
+                
+                guard let postDetail else { return }
+                updatePostDetail(postDetail: postDetail)
             } catch {
                 print(error.localizedDescription)
             }
+            self.isLoading = false
         }
     }
 
