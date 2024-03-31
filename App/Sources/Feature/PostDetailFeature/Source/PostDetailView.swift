@@ -4,14 +4,14 @@ struct PostDetailView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: PostDetailViewModel
 
-    private let editPostFactory: any EditPostFactory
+    private let inputPostFactory: any InputPostFactory
 
     init(
         viewModel: PostDetailViewModel,
-        editPostFactory: any EditPostFactory
+        inputPostFactory: any InputPostFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
-        self.editPostFactory = editPostFactory
+        self.inputPostFactory = inputPostFactory
     }
 
     var body: some View {
@@ -25,7 +25,7 @@ struct PostDetailView: View {
                 dismiss()
             },
             editAction: {
-                viewModel.editAction()
+                viewModel.updateIsPresentedInputPostView(isPresented: true)
             },
             isDelete: Binding(
                 get: { viewModel.isPostDelete },
@@ -36,11 +36,11 @@ struct PostDetailView: View {
             viewModel.onAppear()
         }
         .navigate(
-            to: editPostFactory.makeView(postID: viewModel.postID).eraseToAnyView(),
+            to: inputPostFactory.makeView(state: "수정", postID: viewModel.postID).eraseToAnyView(),
             when: Binding(
-                get: { viewModel.isPresentedEditView },
-                set: { _ in
-                    viewModel.isPresentedEditView = false
+                get: { viewModel.isPresentedInputPostView },
+                set: { isPresented in
+                    viewModel.updateIsPresentedInputPostView(isPresented: isPresented)
                 }
             )
         )

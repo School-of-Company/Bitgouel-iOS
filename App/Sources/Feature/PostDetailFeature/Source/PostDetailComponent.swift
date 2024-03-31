@@ -3,7 +3,7 @@ import Service
 import SwiftUI
 
 public protocol PostDetailDependency: Dependency {
-    var editPostFactory: any EditPostFactory { get }
+    var inputPostFactory: any InputPostFactory { get }
     var queryPostDetailUseCase: any QueryPostDetailUseCase { get }
     var deletePostUseCase: any DeletePostUseCase { get }
 }
@@ -18,7 +18,7 @@ public final class PostDetailComponent: Component<PostDetailDependency>, PostDet
                 queryPostDetailUseCase: dependency.queryPostDetailUseCase,
                 deletePostUseCase: dependency.deletePostUseCase
             ),
-            editPostFactory: dependency.editPostFactory
+            inputPostFactory: dependency.inputPostFactory
         )
     }
 }

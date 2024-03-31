@@ -22,6 +22,7 @@ struct MainTabView: View {
         self.postListFactory = postListFactory
         self.clubListFactory = clubListFactory
         self.myPageFactory = myPageFactory
+        UITabBar.appearance().scrollEdgeAppearance = .init()
     }
 
     var body: some View {

@@ -78,7 +78,7 @@ struct PostListView: View {
                     )
                 )
                 .navigate(
-                    to: inputPostFactory.makeView().eraseToAnyView(),
+                    to: inputPostFactory.makeView(state: "등록", postID: "").eraseToAnyView(),
                     when: Binding(
                         get: { viewModel.isPresentedInputPostView },
                         set: { _ in viewModel.isPresentedInputPostView = false }

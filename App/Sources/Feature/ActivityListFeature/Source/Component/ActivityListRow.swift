@@ -15,7 +15,7 @@ struct ActivityListRow: View {
                 VStack(alignment: .leading) {
                     BitgouelText(
                         text: title,
-                        font: .title3
+                        font: .text1
                     )
                     .foregroundColor(.bitgouel(.greyscale(.g0)))
 

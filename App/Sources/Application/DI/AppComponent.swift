@@ -87,10 +87,6 @@ public extension AppComponent {
         PostDetailComponent(parent: self)
     }
 
-    var editPostFactory: any EditPostFactory {
-        EditPostComponent(parent: self)
-    }
-
     var noticeListFactory: any NoticeListFactory {
         NoticeListComponent(parent: self)
     }

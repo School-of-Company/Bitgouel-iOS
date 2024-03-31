@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct NewPasswordView: View {
+    @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: NewPasswordViewModel
 
     init(viewModel: NewPasswordViewModel) {
@@ -57,6 +58,7 @@ struct NewPasswordView: View {
             .disabled(viewModel.isPasswordEmpty)
             .padding(.bottom, 20)
         }
+        .bitgouelBackButton(dismiss: dismiss)
         .padding(.horizontal, 28)
         .navigate(
             to: SuccessFindPasswordChangeView(),
