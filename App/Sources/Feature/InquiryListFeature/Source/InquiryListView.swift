@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct InquiryListView: View {
-    @Environment(\.dismiss) var dismiss
     @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var viewModel: InquiryListViewModel
 

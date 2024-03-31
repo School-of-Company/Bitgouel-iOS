@@ -46,7 +46,7 @@ final class ActivityDetailViewModel: BaseViewModel {
         }
     }
 
-    func deleteActivity() {
+    func deleteActivity(_ success: () -> Void) {
         Task {
             do {
                 try await deleteActivityUseCase(activityID: activityID)
@@ -54,5 +54,7 @@ final class ActivityDetailViewModel: BaseViewModel {
                 print(error.localizedDescription)
             }
         }
+        
+        success()
     }
 }

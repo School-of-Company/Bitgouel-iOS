@@ -124,8 +124,9 @@ struct InquiryDetailView: View {
                     text: "삭제",
                     style: .error,
                     action: {
-                        viewModel.deleteAction()
-                        dismiss()
+                        viewModel.deleteAction {
+                            dismiss()
+                        }
                     }
                 )
             ]

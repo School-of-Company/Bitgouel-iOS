@@ -23,8 +23,9 @@ struct InputNoticeView: View {
                     viewModel.updateIsPresentedNoticeSettingAppend(isPresented: true)
                 },
                 finalButtonAction: {
-                    viewModel.applyButtonDidTap()
-                    dismiss()
+                    viewModel.applyButtonDidTap {
+                        dismiss()
+                    }
                 },
                 title: Binding(
                     get: { viewModel.noticeTitle },

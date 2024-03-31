@@ -39,11 +39,12 @@ final class NoticeDetailViewModel: BaseViewModel {
         }
     }
 
-    func deleteNotice() {
+    func deleteNotice(_ success: @escaping () -> Void) {
         Task {
             do {
                 try await deletePostUseCase(postID: noticeID)
-                print("공지사항 삭제 완료")
+
+                success()
             } catch {
                 print(error.localizedDescription)
             }

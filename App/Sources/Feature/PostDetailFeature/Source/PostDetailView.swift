@@ -21,8 +21,9 @@ struct PostDetailView: View {
             links: viewModel.postDetail?.links ?? [""],
             writtenBy: viewModel.postDetail?.writtenBy ?? false,
             deleteAction: {
-                viewModel.postDelete()
-                dismiss()
+                viewModel.postDelete {
+                    dismiss()
+                }
             },
             editAction: {
                 viewModel.updateIsPresentedInputPostView(isPresented: true)

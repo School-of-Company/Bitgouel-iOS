@@ -38,8 +38,9 @@ struct WriteInquiryAnswerView: View {
                     text: "답변하기",
                     style: .default
                 ) {
-                    viewModel.applyButtonDidTap()
-                    dismiss()
+                    viewModel.applyButtonDidTap {
+                        dismiss()
+                    }
                 }
             }
         }

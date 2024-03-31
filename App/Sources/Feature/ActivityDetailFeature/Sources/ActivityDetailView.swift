@@ -99,8 +99,9 @@ struct ActivityDetailView: View {
                     viewModel.updateIsDelete(state: false)
                 },
                 .init(text: "삭제", style: .error) {
-                    viewModel.deleteActivity()
-                    dismiss()
+                    viewModel.deleteActivity {
+                        dismiss()
+                    }
                 }
             ]
         )

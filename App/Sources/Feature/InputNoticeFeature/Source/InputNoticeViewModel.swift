@@ -57,17 +57,19 @@ final class InputNoticeViewModel: BaseViewModel {
         }
     }
 
-    func applyButtonDidTap() {
+    func applyButtonDidTap(_ success: @escaping () -> Void) {
         Task {
             do {
                 switch state {
                 case "추가":
-                    return try await addNotice()
+                    try await addNotice()
                 case "수정":
-                    return try await updateNotice()
+                    try await updateNotice()
                 default:
                     return
                 }
+
+                success()
             } catch {
                 print(String(describing: error))
             }

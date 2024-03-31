@@ -27,7 +27,9 @@ struct LectureDetailSettingView: View {
                     Spacer()
 
                     BitgouelAsset.Icons.cancel.swiftUIImage
-                        .buttonWrapper { dismiss() }
+                        .buttonWrapper {
+                            dismiss()
+                        }
                 }
                 .padding(.vertical, 24)
 
@@ -628,7 +630,9 @@ struct LectureDetailSettingView: View {
             && viewModel.isSelectedProfessor == false {
             BitgouelButton(
                 text: "적용하기"
-            ) { dismiss() }
+            ) {
+                dismiss()
+            }
             .cornerRadius(8)
             .padding(EdgeInsets(top: 16, leading: 28, bottom: 14, trailing: 28))
         }

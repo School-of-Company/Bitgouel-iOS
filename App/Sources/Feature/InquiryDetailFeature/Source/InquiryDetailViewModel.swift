@@ -69,7 +69,7 @@ final class InquiryDetailViewModel: BaseViewModel {
         }
     }
 
-    func deleteAction() {
+    func deleteAction(_ success: @escaping () -> Void) {
         Task {
             do {
                 switch authority {
@@ -78,6 +78,8 @@ final class InquiryDetailViewModel: BaseViewModel {
                 default:
                     try await deleteMyInquiry()
                 }
+
+                success()
             } catch {
                 print(error.localizedDescription)
             }

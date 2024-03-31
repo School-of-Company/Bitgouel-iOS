@@ -56,8 +56,9 @@ struct InputCertificationView: View {
                     text: "\(viewModel.epic)하기",
                     style: .default
                 ) {
-                    viewModel.applyButtonDidTap()
-                    dismiss()
+                    viewModel.applyButtonDidTap {
+                        dismiss()
+                    }
                 }
             }
             .padding(.horizontal, 28)

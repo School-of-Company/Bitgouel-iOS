@@ -44,17 +44,21 @@ final class InputInquiryViewModel: BaseViewModel {
         }
     }
 
-    func applyButtonDidTap() {
+    func applyButtonDidTap(_ success: @escaping () -> Void) {
         Task {
             do {
                 switch state {
                 case "추가":
-                    return try await addInquiry()
+                    try await addInquiry()
+
                 case "수정":
-                    return try await updateInquiry()
+                    try await updateInquiry()
+
                 default:
                     return
                 }
+
+                success()
             } catch {
                 print(String(describing: error))
             }

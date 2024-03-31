@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct ClubListView: View {
-    @Environment(\.dismiss) var dismiss
     @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var viewModel: ClubListViewModel
     @Binding var selection: TabFlow

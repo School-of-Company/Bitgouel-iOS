@@ -90,8 +90,9 @@ struct InputInquiryView: View {
                         viewModel.updateIsShowingAlert(isShowing: false)
                     },
                     .init(text: viewModel.state, style: .default) {
-                        viewModel.applyButtonDidTap()
-                        dismiss()
+                        viewModel.applyButtonDidTap {
+                            dismiss()
+                        }
                     }
                 ]
             )
