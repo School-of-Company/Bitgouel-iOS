@@ -46,7 +46,7 @@ final class ActivityDetailViewModel: BaseViewModel {
         }
     }
 
-    func deleteActivity(_ success: () -> Void) {
+    func deleteActivity(_ success: @escaping () -> Void) {
         Task {
             do {
                 try await deleteActivityUseCase(activityID: activityID)
