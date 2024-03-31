@@ -127,6 +127,8 @@ struct LoginView: View {
                 tabbarHidden.wrappedValue = newValue
             }
         }
-        .navigationBarBackButtonHidden(true)
+        .onTapGesture {
+            hideKeyboard()
+        }
     }
 }
