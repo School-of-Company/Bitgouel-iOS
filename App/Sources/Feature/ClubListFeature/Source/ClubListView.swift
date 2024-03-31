@@ -4,15 +4,18 @@ struct ClubListView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var viewModel: ClubListViewModel
+    @Binding var selection: TabFlow
 
     private let clubDetailFactory: any ClubDetailFactory
 
     init(
         viewModel: ClubListViewModel,
-        clubDetailFactory: any ClubDetailFactory
+        clubDetailFactory: any ClubDetailFactory,
+        selection: Binding<TabFlow>
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.clubDetailFactory = clubDetailFactory
+        _selection = selection
     }
 
     var body: some View {
@@ -102,6 +105,16 @@ struct ClubListView: View {
             )
             .onChange(of: viewModel.isPresentedClubDetailView) { newValue in
                 tabbarHidden.wrappedValue = newValue
+            }
+            .loginAlert(
+                isShowing: Binding(
+                    get: { viewModel.isShowingLoginAlert },
+                    set: { isShowing in
+                        viewModel.updateIsShowingLoginAlert(isShowing: isShowing)
+                    }
+                )
+            ) {
+                $selection.wrappedValue = .home
             }
         }
     }

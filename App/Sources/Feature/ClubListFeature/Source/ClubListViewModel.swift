@@ -5,6 +5,7 @@ final class ClubListViewModel: BaseViewModel {
     @Published var selectedSchool: HighSchoolType?
     @Published var isPresentedSelectedSchoolPopup: Bool = false
     @Published var isPresentedClubDetailView: Bool = false
+    @Published var isShowingLoginAlert: Bool = false
     @Published var clubList: [ClubEntity] = []
     @Published var clubID: Int = 0
     var schoolList: [HighSchoolType] = HighSchoolType.allCases
@@ -25,12 +26,20 @@ final class ClubListViewModel: BaseViewModel {
         self.clubID = clubID
     }
 
+    func updateIsShowingLoginAlert(isShowing: Bool) {
+        isShowingLoginAlert = isShowing
+    }
+
     func onAppear() {
         authority = loadUserAuthorityUseCase()
 
         switch authority {
         case .admin:
             isPresentedSelectedSchoolPopup = true
+
+        case .user:
+            updateIsShowingLoginAlert(isShowing: true)
+
         default:
             isPresentedClubDetailView = true
         }

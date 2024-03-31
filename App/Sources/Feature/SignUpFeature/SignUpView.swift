@@ -391,4 +391,5 @@ struct SignUpView: View {
         }
     }
 }
+
 // swiftlint: enable type_body_length

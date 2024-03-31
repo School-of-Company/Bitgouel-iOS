@@ -37,7 +37,7 @@ struct MainTabView: View {
                     Text("홈")
                 }
 
-            lectureListFactory.makeView()
+            lectureListFactory.makeView(selection: $selection)
                 .eraseToAnyView()
                 .tag(TabFlow.lecture)
                 .tabItem {
@@ -47,7 +47,7 @@ struct MainTabView: View {
                     Text("강의")
                 }
 
-            postListFactory.makeView()
+            postListFactory.makeView(selection: $selection)
                 .eraseToAnyView()
                 .tag(TabFlow.post)
                 .tabItem {
@@ -56,7 +56,7 @@ struct MainTabView: View {
                     Text("게시글")
                 }
 
-            clubListFactory.makeView()
+            clubListFactory.makeView(selection: $selection)
                 .eraseToAnyView()
                 .tag(TabFlow.club)
                 .tabItem {
@@ -65,7 +65,7 @@ struct MainTabView: View {
                     Text("동아리")
                 }
 
-            myPageFactory.makeView()
+            myPageFactory.makeView(selection: $selection)
                 .eraseToAnyView()
                 .tag(TabFlow.userInfo)
                 .tabItem {

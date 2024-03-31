@@ -18,6 +18,7 @@ final class PostListViewModel: BaseViewModel {
     @Published var isPresentedInquiryView: Bool = false
     @Published var isPresentedInputPostView: Bool = false
     @Published var isPresentedPostDetailView: Bool = false
+    @Published var isShowingLoginAlert: Bool = false
     @Published var seletedPostID: String = ""
 
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
@@ -33,14 +34,25 @@ final class PostListViewModel: BaseViewModel {
     }
 
     @MainActor
+    func updateIsShowingLoginAlert(isShowing: Bool) {
+        isShowingLoginAlert = isShowing
+    }
+
+    @MainActor
     func onAppear() {
         authority = loadUserAuthorityUseCase()
 
-        Task {
-            do {
-                postContent = try await queryPostListUseCase(postType: .employment)
-            } catch {
-                print(String(describing: error))
+        switch authority {
+        case .user:
+            updateIsShowingLoginAlert(isShowing: true)
+
+        default:
+            Task {
+                do {
+                    postContent = try await queryPostListUseCase(postType: .employment)
+                } catch {
+                    print(String(describing: error))
+                }
             }
         }
     }

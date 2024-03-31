@@ -7,6 +7,7 @@ final class MyPageViewModel: BaseViewModel {
     @Published var isShowingLogoutAlert: Bool = false
     @Published var isPresentedChangePasswordView: Bool = false
     @Published var isPresentedAdminUserListView: Bool = false
+    @Published var isShowingLoginAlert: Bool = false
 
     var authority: UserAuthorityType = .user
     var userInfo: [String] = []
@@ -52,17 +53,27 @@ final class MyPageViewModel: BaseViewModel {
         isShowingLogoutAlert = isShowing
     }
 
+    func updateIsShowingLoginAlert(isShowing: Bool) {
+        isShowingLoginAlert = isShowing
+    }
+
     @MainActor
     func onAppear() {
         authority = loadUserAuthorityUseCase()
 
-        Task {
-            do {
-                myInfo = try await fetchMyInfoUseCase()
+        switch authority {
+        case .user:
+            updateIsShowingLoginAlert(isShowing: true)
 
-                updateOrganization(organization: myInfo?.organization ?? "")
-            } catch {
-                print(String(describing: error))
+        default:
+            Task {
+                do {
+                    myInfo = try await fetchMyInfoUseCase()
+
+                    updateOrganization(organization: myInfo?.organization ?? "")
+                } catch {
+                    print(String(describing: error))
+                }
             }
         }
     }

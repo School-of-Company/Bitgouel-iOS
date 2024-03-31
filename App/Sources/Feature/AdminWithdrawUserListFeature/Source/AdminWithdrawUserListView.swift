@@ -52,12 +52,12 @@ struct AdminWithdrawUserListView: View {
                             font: .text3
                         )
                     }
-                    .foregroundColor(.bitgouel(.greyscale(.g6)))
-                    .padding(.horizontal, 23)
-                    .padding(.vertical, 12)
+                    .foregroundColor(.bitgouel(.greyscale(.g4)))
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 9)
                     .overlay {
                         RoundedRectangle(cornerRadius: 8)
-                            .strokeBorder(Color.bitgouel(.greyscale(.g6)))
+                            .strokeBorder(Color.bitgouel(.greyscale(.g4)))
                     }
                     .onTapGesture {
                         viewModel.isPresentedUserCohortFilter = true
@@ -190,8 +190,8 @@ struct AdminWithdrawUserListView: View {
             font: .text3
         )
         .foregroundColor(textColor)
-        .padding(.horizontal, 23)
-        .padding(.vertical, 12)
+        .padding(.horizontal, 20)
+        .padding(.vertical, 9)
         .overlay {
             RoundedRectangle(cornerRadius: 8)
                 .strokeBorder(strokeColor)

@@ -12,7 +12,7 @@ public protocol MyPageDependency: Dependency {
 }
 
 public final class MyPageComponent: Component<MyPageDependency>, MyPageFactory {
-    public func makeView() -> some View {
+    public func makeView(selection: Binding<TabFlow>) -> some View {
         MyPageView(
             viewModel: .init(
                 loadUserAuthorityUseCase: dependency.loadUserAuthorityUseCase,
@@ -21,7 +21,8 @@ public final class MyPageComponent: Component<MyPageDependency>, MyPageFactory {
                 withdrawalUseCase: dependency.withdrawalUseCase
             ),
             changePasswordFactory: dependency.changePasswordFactory,
-            adminUserListFactory: dependency.adminUserListFactory
+            adminUserListFactory: dependency.adminUserListFactory,
+            selection: selection
         )
     }
 }

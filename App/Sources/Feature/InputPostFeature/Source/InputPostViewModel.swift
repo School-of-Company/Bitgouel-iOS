@@ -67,21 +67,24 @@ final class InputPostViewModel: BaseViewModel {
         }
     }
 
-    func applyButtonDidTap() {
+    @MainActor
+    func applyButtonDidTap(_ success: @escaping () -> Void) {
         Task {
             do {
                 switch state {
                 case "추가":
-                    return try await addPost()
+                    try await addPost()
                     
                 case "수정":
-                    return try await updatePost()
+                    try await updatePost()
                     
                 default:
                     return
                 }
+
+                success()
             } catch {
-                print(String(describing: error))
+                print(error.localizedDescription)
             }
         }
     }

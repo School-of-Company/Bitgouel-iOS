@@ -29,8 +29,9 @@ struct InputPostView: View {
                         viewModel.updateIsPresentedPostDetailSettingAppend(isPresented: true)
                     },
                     finalButtonAction: {
-                        viewModel.applyButtonDidTap()
-                        dismiss()
+                        viewModel.applyButtonDidTap {
+                            dismiss()
+                        }
                     },
                     title: Binding(
                         get: { viewModel.postTitle },
