@@ -5,7 +5,7 @@ public struct PickerButton: View {
     var image: String
     var style: BitgouelPickerStyleType
     var action: () -> Void
-    
+
     public init(
         text: String,
         image: String,
@@ -17,13 +17,13 @@ public struct PickerButton: View {
         self.style = style
         self.action = action
     }
-    
+
     public var body: some View {
         HStack {
             Text(text)
-            
+
             Spacer()
-            
+
             Image(image)
         }
         .padding(.horizontal, 20)

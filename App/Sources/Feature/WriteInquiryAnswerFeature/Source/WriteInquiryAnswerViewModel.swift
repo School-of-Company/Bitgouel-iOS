@@ -15,13 +15,16 @@ final class WriteInquiryAnswerViewModel: BaseViewModel {
         self.replyInquiryUseCase = replyInquiryUseCase
     }
 
-    func applyButtonDidTap() {
+    @MainActor
+    func applyButtonDidTap(_ success: @escaping () -> Void) {
         Task {
             do {
                 try await replyInquiryUseCase(
                     inquiryID: inquiryID,
                     req: InquiryAnswerRequestDTO(answer: answer)
                 )
+
+                success()
             } catch {
                 print(String(describing: error))
             }

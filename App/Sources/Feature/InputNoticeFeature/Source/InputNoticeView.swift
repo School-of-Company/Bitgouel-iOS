@@ -23,8 +23,9 @@ struct InputNoticeView: View {
                     viewModel.updateIsPresentedNoticeSettingAppend(isPresented: true)
                 },
                 finalButtonAction: {
-                    viewModel.applyButtonDidTap()
-                    dismiss()
+                    viewModel.applyButtonDidTap {
+                        dismiss()
+                    }
                 },
                 title: Binding(
                     get: { viewModel.noticeTitle },
@@ -35,11 +36,14 @@ struct InputNoticeView: View {
                     set: { content in viewModel.updateNoticeContent(content: content) }
                 )
             )
-        }
-        .onAppear {
-            if viewModel.state == "수정" {
-                viewModel.onAppear()
+            .onAppear {
+                if viewModel.state == "수정" {
+                    viewModel.onAppear()
+                }
             }
+        }
+        .onTapGesture {
+            hideKeyboard()
         }
         .fullScreenCover(
             isPresented: Binding(

@@ -35,11 +35,13 @@ final class PostDetailViewModel: BaseViewModel {
         }
     }
 
-    func postDelete() {
+    @MainActor
+    func postDelete(_ success: @escaping () -> Void) {
         Task {
             do {
                 try await deletePostUseCase(postID: postID)
-                print("게시글 삭제 완료")
+
+                success()
             } catch {
                 print(error.localizedDescription)
             }

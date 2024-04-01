@@ -20,7 +20,7 @@ struct InputPostView: View {
                 ProgressView()
                     .progressViewStyle(.circular)
             }
-            
+
             VStack(spacing: 0) {
                 InputFormView(
                     epic: "게시글",

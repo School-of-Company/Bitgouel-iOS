@@ -21,9 +21,7 @@ struct OpenLectureApplyView: View {
                 settingButtonAction: {
                     viewModel.updateIsPresentedLectureDetailSettingAppend(state: true)
                 },
-                finalButtonAction: {
-                    
-                },
+                finalButtonAction: {},
                 title: Binding(
                     get: { viewModel.lectureTitle },
                     set: { title in viewModel.updateLectureTitle(title: title) }

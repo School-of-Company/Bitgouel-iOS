@@ -57,7 +57,7 @@ final class InputPostViewModel: BaseViewModel {
         Task {
             do {
                 postDetail = try await queryPostDetailUseCase(postID: postID)
-                
+
                 guard let postDetail else { return }
                 updatePostDetail(postDetail: postDetail)
             } catch {
@@ -74,10 +74,10 @@ final class InputPostViewModel: BaseViewModel {
                 switch state {
                 case "추가":
                     try await addPost()
-                    
+
                 case "수정":
                     try await updatePost()
-                    
+
                 default:
                     return
                 }

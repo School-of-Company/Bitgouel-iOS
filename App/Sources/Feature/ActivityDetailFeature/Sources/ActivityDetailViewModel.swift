@@ -46,10 +46,13 @@ final class ActivityDetailViewModel: BaseViewModel {
         }
     }
 
-    func deleteActivity() {
+    @MainActor
+    func deleteActivity(_ success: @escaping () -> Void) {
         Task {
             do {
                 try await deleteActivityUseCase(activityID: activityID)
+
+                success()
             } catch {
                 print(error.localizedDescription)
             }

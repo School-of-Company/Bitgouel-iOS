@@ -57,17 +57,20 @@ final class InputNoticeViewModel: BaseViewModel {
         }
     }
 
-    func applyButtonDidTap() {
+    @MainActor
+    func applyButtonDidTap(_ success: @escaping () -> Void) {
         Task {
             do {
                 switch state {
                 case "추가":
-                    return try await addNotice()
+                    try await addNotice()
                 case "수정":
-                    return try await updateNotice()
+                    try await updateNotice()
                 default:
                     return
                 }
+
+                success()
             } catch {
                 print(String(describing: error))
             }
@@ -75,7 +78,7 @@ final class InputNoticeViewModel: BaseViewModel {
     }
 
     func addNotice() async throws {
-        return try await writePostUseCase(
+        try await writePostUseCase(
             req: InputPostRequestDTO(
                 title: noticeTitle,
                 content: noticeContent,
@@ -86,7 +89,7 @@ final class InputNoticeViewModel: BaseViewModel {
     }
 
     func updateNotice() async throws {
-        return try await updatePostUseCase(
+        try await updatePostUseCase(
             postID: noticeID,
             req: UpdatePostRequestDTO(
                 title: noticeTitle,

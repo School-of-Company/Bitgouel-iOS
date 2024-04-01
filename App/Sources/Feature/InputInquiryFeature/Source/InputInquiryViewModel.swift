@@ -5,6 +5,7 @@ final class InputInquiryViewModel: BaseViewModel {
     @Published var question: String = ""
     @Published var questionDetail: String = ""
     @Published var isShowingAlert: Bool = false
+    @Published var inquiryDetail: InquiryDetailEntity?
     var state: String = ""
     var inquiryID: String = ""
 
@@ -30,31 +31,49 @@ final class InputInquiryViewModel: BaseViewModel {
         isShowingAlert = isShowing
     }
 
+    func updateQuestion(question: String) {
+        self.question = question
+    }
+
+    func updateQuestionDetail(content: String) {
+        questionDetail = content
+    }
+
+    func updateQuestion(question: InquiryDetailEntity) {
+        updateQuestion(question: question.question)
+        updateQuestionDetail(content: question.questionDetail)
+    }
+
     @MainActor
     func onAppear() {
         Task {
             do {
-                let response = try await fetchInquiryDetailUseCase(inquiryID: inquiryID)
+                inquiryDetail = try await fetchInquiryDetailUseCase(inquiryID: inquiryID)
 
-                question = response.question
-                questionDetail = response.questionDetail
+                guard let inquiryDetail else { return }
+                updateQuestion(question: inquiryDetail)
             } catch {
                 print(String(describing: error))
             }
         }
     }
 
-    func applyButtonDidTap() {
+    @MainActor
+    func applyButtonDidTap(_ success: @escaping () -> Void) {
         Task {
             do {
                 switch state {
                 case "추가":
-                    return try await addInquiry()
+                    try await addInquiry()
+
                 case "수정":
-                    return try await updateInquiry()
+                    try await updateInquiry()
+
                 default:
                     return
                 }
+
+                success()
             } catch {
                 print(String(describing: error))
             }

@@ -69,7 +69,8 @@ final class InquiryDetailViewModel: BaseViewModel {
         }
     }
 
-    func deleteAction() {
+    @MainActor
+    func deleteAction(_ success: @escaping () -> Void) {
         Task {
             do {
                 switch authority {
@@ -78,6 +79,8 @@ final class InquiryDetailViewModel: BaseViewModel {
                 default:
                     try await deleteMyInquiry()
                 }
+
+                success()
             } catch {
                 print(error.localizedDescription)
             }
@@ -85,10 +88,10 @@ final class InquiryDetailViewModel: BaseViewModel {
     }
 
     func deleteInquiryByAdmin() async throws {
-        return try await deleteInquiryByAdminUseCase(inquiryID: inquiryID)
+        try await deleteInquiryByAdminUseCase(inquiryID: inquiryID)
     }
 
     func deleteMyInquiry() async throws {
-        return try await deleteMyInquiryUseCase(inquiryID: inquiryID)
+        try await deleteMyInquiryUseCase(inquiryID: inquiryID)
     }
 }

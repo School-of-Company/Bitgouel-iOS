@@ -99,8 +99,9 @@ struct ActivityDetailView: View {
                     viewModel.updateIsDelete(state: false)
                 },
                 .init(text: "삭제", style: .error) {
-                    viewModel.deleteActivity()
-                    dismiss()
+                    viewModel.deleteActivity {
+                        dismiss()
+                    }
                 }
             ]
         )
@@ -109,23 +110,25 @@ struct ActivityDetailView: View {
     @ViewBuilder
     func popupButtonByWriter() -> some View {
         HStack {
-            CTAButton(
+            BitgouelButton(
                 text: "활동 수정",
-                style: .default,
+                style: .primary,
                 action: {
                     viewModel.updateIsPresentedInputActivityView(isPresented: true)
                 }
             )
+            .cornerRadius(8)
 
             Spacer()
 
-            CTAButton(
+            BitgouelButton(
                 text: "활동 삭제",
                 style: .error,
                 action: {
                     viewModel.updateIsDelete(state: true)
                 }
             )
+            .cornerRadius(8)
         }
     }
 }

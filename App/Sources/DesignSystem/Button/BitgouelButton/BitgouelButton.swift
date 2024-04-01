@@ -22,11 +22,12 @@ public struct BitgouelButton: View {
 
             Text(text)
                 .padding(.horizontal, 32)
-                .padding(.vertical, 13.5)
+                .padding(.vertical, 13)
 
             Spacer()
         }
         .buttonWrapper(action)
         .buttonStyle(BitgouelButtonStyle(style: style))
+        .cornerRadius(8)
     }
 }

@@ -1,6 +1,6 @@
 import Foundation
-import SwiftUI
 import Service
+import SwiftUI
 
 enum PickerType {
     case date
@@ -104,7 +104,8 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     }
 
     func updateEndDate
-    (date: Date
+    (
+        date: Date
     ) {
         endDatePicker = date
     }

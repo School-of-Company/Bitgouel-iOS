@@ -8,7 +8,7 @@ public extension PickerButton {
 
 public struct BitgouelPickerStyle: ButtonStyle {
     var style: PickerButton.BitgouelPickerStyleType
-    
+
     public func makeBody(configuration: Configuration) -> some View {
         switch style {
         case .picked:
@@ -23,11 +23,11 @@ private extension BitgouelPickerStyle {
         var foregroundColor: Color {
             configuration.isPressed ? .white : .bitgouel(.greyscale(.g4))
         }
-        
+
         var backgroundColor: Color {
             configuration.isPressed ? .bitgouel(.primary(.p5)) : .bitgouel(.greyscale(.g9))
         }
-        
+
         var body: some View {
             configuration.label
                 .bitgouelFont(.text3)

@@ -85,9 +85,9 @@ struct DetailView: View {
     @ViewBuilder
     func popupButton() -> some View {
         HStack {
-            CTAButton(
+            BitgouelButton(
                 text: "수정하기",
-                style: .default,
+                style: .primary,
                 action: {
                     editAction()
                 }
@@ -95,7 +95,7 @@ struct DetailView: View {
 
             Spacer()
 
-            CTAButton(
+            BitgouelButton(
                 text: "삭제하기",
                 style: .error,
                 action: {

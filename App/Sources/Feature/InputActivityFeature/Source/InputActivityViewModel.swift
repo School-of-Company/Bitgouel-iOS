@@ -58,17 +58,22 @@ final class InputActivityViewModel: BaseViewModel {
         }
     }
 
-    func applyButtonDidTap() {
+    @MainActor
+    func applyButtonDidTap(_ success: @escaping () -> Void) {
         Task {
             do {
                 switch state {
                 case "추가":
                     try await addActivity()
+
                 case "수정":
                     try await modifyActivity()
+
                 default:
-                    break
+                    return
                 }
+
+                success()
             } catch {
                 print(error.localizedDescription)
             }

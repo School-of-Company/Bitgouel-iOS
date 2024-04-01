@@ -24,8 +24,9 @@ struct InputActivityView: View {
                         viewModel.isPresentedDetailSettingAppend = true
                     },
                     finalButtonAction: {
-                        viewModel.applyButtonDidTap()
-                        dismiss()
+                        viewModel.applyButtonDidTap {
+                            dismiss()
+                        }
                     },
                     title: $viewModel.activityTitle,
                     text: $viewModel.activityText

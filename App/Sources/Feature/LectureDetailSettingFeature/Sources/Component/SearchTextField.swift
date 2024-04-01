@@ -4,7 +4,7 @@ public struct SearchTextField: View {
     var onSubmit: () -> Void
     @Binding var text: String
     var placeHolder: String
-    
+
     public init(
         text: Binding<String>,
         onSubmit: @escaping () -> Void = {},

@@ -30,19 +30,22 @@ final class InputCertificationViewModel: BaseViewModel {
         acquisitionDate = date
     }
 
-    func applyButtonDidTap() {
+    @MainActor
+    func applyButtonDidTap(_ success: @escaping () -> Void) {
         Task {
             do {
                 switch epic {
                 case "등록":
-                    return try await inputCertification()
+                    try await inputCertification()
 
                 case "수정":
-                    return try await updateCertification()
+                    try await updateCertification()
 
                 default:
                     return
                 }
+
+                success()
             } catch {
                 print(error.localizedDescription)
             }

@@ -21,8 +21,9 @@ struct NoticeDetailView: View {
             links: viewModel.noticeDetail?.links ?? [""],
             writtenBy: viewModel.noticeDetail?.writtenBy ?? false,
             deleteAction: {
-                viewModel.deleteNotice()
-                dismiss()
+                viewModel.deleteNotice {
+                    dismiss()
+                }
             },
             editAction: {
                 viewModel.updateIsPresentedInputNoticeView(isPresented: true)
