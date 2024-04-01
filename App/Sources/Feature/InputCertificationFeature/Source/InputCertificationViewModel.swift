@@ -30,6 +30,7 @@ final class InputCertificationViewModel: BaseViewModel {
         acquisitionDate = date
     }
 
+    @MainActor
     func applyButtonDidTap(_ success: @escaping () -> Void) {
         Task {
             do {

@@ -57,6 +57,7 @@ final class InputNoticeViewModel: BaseViewModel {
         }
     }
 
+    @MainActor
     func applyButtonDidTap(_ success: @escaping () -> Void) {
         Task {
             do {
@@ -77,7 +78,7 @@ final class InputNoticeViewModel: BaseViewModel {
     }
 
     func addNotice() async throws {
-        return try await writePostUseCase(
+        try await writePostUseCase(
             req: InputPostRequestDTO(
                 title: noticeTitle,
                 content: noticeContent,
@@ -88,7 +89,7 @@ final class InputNoticeViewModel: BaseViewModel {
     }
 
     func updateNotice() async throws {
-        return try await updatePostUseCase(
+        try await updatePostUseCase(
             postID: noticeID,
             req: UpdatePostRequestDTO(
                 title: noticeTitle,

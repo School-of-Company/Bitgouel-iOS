@@ -58,6 +58,7 @@ final class InputActivityViewModel: BaseViewModel {
         }
     }
 
+    @MainActor
     func applyButtonDidTap(_ success: @escaping () -> Void) {
         Task {
             do {

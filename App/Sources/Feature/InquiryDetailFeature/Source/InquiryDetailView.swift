@@ -69,7 +69,30 @@ struct InquiryDetailView: View {
                 }
 
                 ScrollView {
-                    Text(inquiryInfo.questionDetail)
+                    VStack(alignment: .leading, spacing: 24) {
+                        Text(inquiryInfo.questionDetail)
+
+                        Divider()
+
+                        if let answer = inquiryInfo.answer {
+                            VStack(alignment: .leading, spacing: 16) {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    BitgouelText(
+                                        text: "문의에 대한 답변",
+                                        font: .title3
+                                    )
+
+                                    Text(
+                                        "\(inquiryInfo.questionDate.toStringCustomFormat(format: "yyyy년 M월 d일 hh:ss"))에 작성됨"
+                                    )
+                                    .bitgouelFont(.caption, color: .greyscale(.g7))
+                                }
+
+                                Text(answer)
+                                    .bitgouelFont(.text3)
+                            }
+                        }
+                    }
                 }
                 .padding(.top, 24)
 
@@ -162,7 +185,7 @@ struct InquiryDetailView: View {
     @ViewBuilder
     func popupButtonByAdmin() -> some View {
         HStack {
-            CTAButton(
+            BitgouelButton(
                 text: "문의 삭제",
                 style: .error,
                 action: {
@@ -172,9 +195,9 @@ struct InquiryDetailView: View {
 
             Spacer()
 
-            CTAButton(
+            BitgouelButton(
                 text: "문의 답변",
-                style: .default,
+                style: .primary,
                 action: {
                     viewModel.updateIsWriteInquiryAnswer(isWrite: true)
                 }
@@ -185,9 +208,9 @@ struct InquiryDetailView: View {
     @ViewBuilder
     func popupButtonByWriter() -> some View {
         HStack {
-            CTAButton(
+            BitgouelButton(
                 text: "문의 수정",
-                style: .default,
+                style: .primary,
                 action: {
                     viewModel.updateIsPresentedInputInquiryView(isPresented: true)
                 }
@@ -195,7 +218,7 @@ struct InquiryDetailView: View {
 
             Spacer()
 
-            CTAButton(
+            BitgouelButton(
                 text: "문의 삭제",
                 style: .error,
                 action: {

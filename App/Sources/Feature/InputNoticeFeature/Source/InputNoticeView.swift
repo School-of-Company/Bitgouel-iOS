@@ -36,11 +36,14 @@ struct InputNoticeView: View {
                     set: { content in viewModel.updateNoticeContent(content: content) }
                 )
             )
-        }
-        .onAppear {
-            if viewModel.state == "수정" {
-                viewModel.onAppear()
+            .onAppear {
+                if viewModel.state == "수정" {
+                    viewModel.onAppear()
+                }
             }
+        }
+        .onTapGesture {
+            hideKeyboard()
         }
         .fullScreenCover(
             isPresented: Binding(

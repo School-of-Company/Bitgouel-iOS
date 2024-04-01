@@ -15,6 +15,7 @@ final class WriteInquiryAnswerViewModel: BaseViewModel {
         self.replyInquiryUseCase = replyInquiryUseCase
     }
 
+    @MainActor
     func applyButtonDidTap(_ success: @escaping () -> Void) {
         Task {
             do {

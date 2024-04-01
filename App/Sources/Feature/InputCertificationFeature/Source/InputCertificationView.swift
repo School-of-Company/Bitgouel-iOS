@@ -52,9 +52,9 @@ struct InputCertificationView: View {
 
                 Spacer()
 
-                CTAButton(
+                BitgouelButton(
                     text: "\(viewModel.epic)하기",
-                    style: .default
+                    style: .primary
                 ) {
                     viewModel.applyButtonDidTap {
                         dismiss()

@@ -69,6 +69,7 @@ final class InquiryDetailViewModel: BaseViewModel {
         }
     }
 
+    @MainActor
     func deleteAction(_ success: @escaping () -> Void) {
         Task {
             do {
@@ -87,10 +88,10 @@ final class InquiryDetailViewModel: BaseViewModel {
     }
 
     func deleteInquiryByAdmin() async throws {
-        return try await deleteInquiryByAdminUseCase(inquiryID: inquiryID)
+        try await deleteInquiryByAdminUseCase(inquiryID: inquiryID)
     }
 
     func deleteMyInquiry() async throws {
-        return try await deleteMyInquiryUseCase(inquiryID: inquiryID)
+        try await deleteMyInquiryUseCase(inquiryID: inquiryID)
     }
 }

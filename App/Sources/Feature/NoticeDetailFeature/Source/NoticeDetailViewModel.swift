@@ -39,6 +39,7 @@ final class NoticeDetailViewModel: BaseViewModel {
         }
     }
 
+    @MainActor
     func deleteNotice(_ success: @escaping () -> Void) {
         Task {
             do {

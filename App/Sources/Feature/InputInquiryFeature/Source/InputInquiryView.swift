@@ -14,9 +14,9 @@ struct InputInquiryView: View {
                 VStack {
                     TextEditor(text: Binding(
                         get: { viewModel.question },
-                        set: { newValue in
-                            guard newValue.count <= 100 else { return }
-                            viewModel.question = newValue
+                        set: { question in
+                            guard question.count <= 100 else { return }
+                            viewModel.updateQuestion(question: question)
                         }
                     ))
                     .bitgouelFont(.title3)
@@ -39,9 +39,9 @@ struct InputInquiryView: View {
                 ScrollView {
                     TextEditor(text: Binding(
                         get: { viewModel.questionDetail },
-                        set: { newValue in
-                            guard newValue.count <= 1000 else { return }
-                            viewModel.questionDetail = newValue
+                        set: { content in
+                            guard content.count <= 1000 else { return }
+                            viewModel.updateQuestionDetail(content: content)
                         }
                     ))
                     .bitgouelFont(.text3)
@@ -58,17 +58,18 @@ struct InputInquiryView: View {
                     }
                 }
                 .padding(.top, 16)
-                .frame(height: 460)
+                .frame(height: 520)
 
                 Divider()
                     .padding(.bottom, 24)
 
-                CTAButton(
+                BitgouelButton(
                     text: "문의사항 \(viewModel.state)",
-                    style: .default
+                    style: .primary
                 ) {
                     viewModel.updateIsShowingAlert(isShowing: true)
                 }
+                .cornerRadius(8)
             }
             .onAppear {
                 if viewModel.state == "수정" {
@@ -76,26 +77,29 @@ struct InputInquiryView: View {
                 }
             }
             .padding(.horizontal, 24)
-            .bitgouelAlert(
-                title: "문의사항을 \(viewModel.state)하시겠습니까?",
-                description: viewModel.question,
-                isShowing: Binding(
-                    get: { viewModel.isShowingAlert },
-                    set: { isShowing in
-                        viewModel.updateIsShowingAlert(isShowing: isShowing)
-                    }
-                ),
-                alertActions: [
-                    .init(text: "취소", style: .cancel) {
-                        viewModel.updateIsShowingAlert(isShowing: false)
-                    },
-                    .init(text: viewModel.state, style: .default) {
-                        viewModel.applyButtonDidTap {
-                            dismiss()
-                        }
-                    }
-                ]
-            )
         }
+        .onTapGesture {
+            hideKeyboard()
+        }
+        .bitgouelAlert(
+            title: "문의사항을 \(viewModel.state)하시겠습니까?",
+            description: viewModel.question,
+            isShowing: Binding(
+                get: { viewModel.isShowingAlert },
+                set: { isShowing in
+                    viewModel.updateIsShowingAlert(isShowing: isShowing)
+                }
+            ),
+            alertActions: [
+                .init(text: "취소", style: .cancel) {
+                    viewModel.updateIsShowingAlert(isShowing: false)
+                },
+                .init(text: viewModel.state, style: .default) {
+                    viewModel.applyButtonDidTap {
+                        dismiss()
+                    }
+                }
+            ]
+        )
     }
 }

@@ -35,6 +35,7 @@ final class PostDetailViewModel: BaseViewModel {
         }
     }
 
+    @MainActor
     func postDelete(_ success: @escaping () -> Void) {
         Task {
             do {

@@ -16,7 +16,7 @@ public final class InputPostComponent: Component<InputPostDependency>, InputPost
     ) -> some View {
         InputPostView(
             viewModel: .init(
-                state: state, 
+                state: state,
                 postID: postID,
                 writePostUseCase: dependency.writePostUseCase,
                 updatePostUseCase: dependency.updatePostUseCase,
