@@ -8,13 +8,16 @@ struct LectureListView: View {
     @Binding var selection: TabFlow
 
     private let lectureListDetailFactory: any LectureListDetailFactory
+    private let openLectureApplyFactory: any OpenLectureApplyFactory
 
     init(
         lectureListDetailFactory: any LectureListDetailFactory,
+        openLectureApplyFactory: any OpenLectureApplyFactory,
         viewModel: LectureListViewModel,
         selection: Binding<TabFlow>
     ) {
         self.lectureListDetailFactory = lectureListDetailFactory
+        self.openLectureApplyFactory = openLectureApplyFactory
         _viewModel = StateObject(wrappedValue: viewModel)
         _selection = selection
     }
@@ -60,7 +63,7 @@ struct LectureListView: View {
                         HStack(spacing: 24) {
                             if viewModel.authority == .admin {
                                 Button {
-                                    #warning("어드민 강의 개설 페이지 이동")
+                                    viewModel.updateIsPresentedOpenLectureView(isPresented: true)
                                 } label: {
                                     BitgouelAsset.Icons.add.swiftUIImage
                                 }
@@ -76,6 +79,18 @@ struct LectureListView: View {
                         }
                     }
                 }
+            }
+            .navigate(
+                to: openLectureApplyFactory.makeView().eraseToAnyView(),
+                when: Binding(
+                    get: { viewModel.isPresentedOpenLectureView },
+                    set: { isPresented in
+                        viewModel.updateIsPresentedOpenLectureView(isPresented: isPresented)
+                    }
+                )
+            )
+            .onChange(of: viewModel.isPresentedOpenLectureView) { newValue in
+                tabbarHidden.wrappedValue = newValue
             }
             .navigate(
                 to: lectureListDetailFactory.makeView(lectureID: viewModel.selectedLectureID ?? "").eraseToAnyView(),
