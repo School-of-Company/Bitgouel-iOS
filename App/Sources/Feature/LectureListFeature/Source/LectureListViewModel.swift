@@ -9,6 +9,7 @@ final class LectureListViewModel: BaseViewModel {
     @Published var lectureList: LectureContentEntity?
     @Published var selectedLectureID: String?
     @Published var isPresentedLectureDetailView: Bool = false
+    @Published var isPresentedOpenLectureView: Bool = false
     @Published var type: LectureType?
     @Published var isShowingLoginAlert: Bool = false
 
@@ -37,6 +38,10 @@ final class LectureListViewModel: BaseViewModel {
         default:
             return type = nil
         }
+    }
+
+    func updateIsPresentedOpenLectureView(isPresented: Bool) {
+        isPresentedOpenLectureView = isPresented
     }
 
     func updateContent(entity: LectureContentEntity) {
