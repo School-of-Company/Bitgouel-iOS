@@ -7,7 +7,7 @@ public struct SearchDepartmentListUseCaseImpl: SearchDepartmentListUseCase {
         self.lectureRepository = lectureRepository
     }
 
-    public func callAsFunction(keyword: String) async throws -> DepartmentListEntity {
+    public func callAsFunction(keyword: String) async throws -> [String] {
         try await lectureRepository.fetchDepartmentList(keyword: keyword)
     }
 }

@@ -7,9 +7,3 @@ public struct FetchDivisionListResponseDTO: Decodable {
         self.lines = lines
     }
 }
-
-extension FetchDivisionListResponseDTO {
-    func toDomain() -> DivisionListEntity {
-        DivisionListEntity(lines: lines)
-    }
-}
