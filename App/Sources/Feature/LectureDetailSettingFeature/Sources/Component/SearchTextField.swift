@@ -22,7 +22,7 @@ public struct SearchTextField: View {
                 .bitgouelFont(.text3)
                 .foregroundColor(.bitgouel(.greyscale(.g0)))
 
-            BitgouelAsset.Icons.cancel.swiftUIImage
+            BitgouelAsset.Icons.search.swiftUIImage
         }
         .frame(height: 54)
         .padding(.horizontal, 20)
