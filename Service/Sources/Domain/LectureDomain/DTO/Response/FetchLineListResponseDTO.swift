@@ -1,6 +1,6 @@
 import Foundation
 
-public struct FetchDivisionListResponseDTO: Decodable {
+public struct FetchLineListResponseDTO: Decodable {
     public let lines: [String]
 
     public init(lines: [String]) {

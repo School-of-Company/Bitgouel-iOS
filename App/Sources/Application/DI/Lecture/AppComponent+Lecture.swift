@@ -50,9 +50,9 @@ public extension AppComponent {
         }
     }
 
-    var searchDivisionListUseCase: any SearchDivisionListUseCase {
+    var searchLineListUseCase: any SearchLineListUseCase {
         shared {
-            SearchDivisionListUseCaseImpl(lectureRepository: lectureRepository)
+            SearchLineListUseCaseImpl(lectureRepository: lectureRepository)
         }
     }
 

@@ -1,6 +1,6 @@
 import Foundation
 
-public struct SearchDivisionListUseCaseImpl: SearchLineListUseCase {
+public struct SearchLineListUseCaseImpl: SearchLineListUseCase {
     private let lectureRepository: any LectureRepository
 
     public init(lectureRepository: any LectureRepository) {

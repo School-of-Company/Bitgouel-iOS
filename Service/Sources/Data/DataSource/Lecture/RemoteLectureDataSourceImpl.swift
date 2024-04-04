@@ -25,8 +25,8 @@ public final class RemoteLectureDataSourceImpl: BaseRemoteDataSource<LectureAPI>
         try await request(.fetchInstructorList(keyword: keyword), dto: FetchInstructorListResponseDTO.self).toDomain()
     }
 
-    public func fetchDivisionList(keyword: String, division: String) async throws -> [String] {
-        try await request(.fetchLineList(keyword: keyword, division: division), dto: FetchDivisionListResponseDTO.self).lines
+    public func fetchLineList(keyword: String, line: String) async throws -> [String] {
+        try await request(.fetchLineList(keyword: keyword, line: line), dto: FetchLineListResponseDTO.self).lines
     }
 
     public func fetchDepartmentList(keyword: String) async throws -> [String] {

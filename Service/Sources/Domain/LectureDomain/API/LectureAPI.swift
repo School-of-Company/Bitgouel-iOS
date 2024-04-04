@@ -8,7 +8,7 @@ public enum LectureAPI {
     case applyLecture(lectureID: String)
     case cancelLecture(lectureID: String)
     case fetchInstructorList(keyword: String)
-    case fetchLineList(keyword: String, division: String)
+    case fetchLineList(keyword: String, line: String)
     case fetchDepartmentList(keyword: String)
 }
 
