@@ -9,9 +9,7 @@ final class OpenLectureApplyViewModel: ObservableObject {
 
     public let openLectureUseCase: any OpenLectureUseCase
 
-    init(
-        openLectureUseCase: any OpenLectureUseCase
-    ) {
+    init(openLectureUseCase: any OpenLectureUseCase) {
         self.openLectureUseCase = openLectureUseCase
     }
 
