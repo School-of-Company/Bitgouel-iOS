@@ -1,146 +1,170 @@
 import Foundation
-import SwiftUI
 import Service
-
-enum PickerType {
-    case date
-    case startTime
-    case endTime
-}
+import SwiftUI
 
 final class LectureDetailSettingViewModel: BaseViewModel {
-    @Published var professorName: String = ""
-    @Published var lectureName: String = ""
-    @Published var subjectName: String = ""
-    @Published var maximumAttendance: String = ""
+    // MARK: Lecture
+    @Published var lectureType: [LectureType] = LectureType.allCases
+    @Published var selectedLectureType: LectureType = .mutualCreditRecognitionProgram
 
-    @Published var startDatePicker = Date()
-    @Published var endDatePicker = Date()
-    @Published var openDatePicker = Date()
-    @Published var endTimePicker = Date()
+    // MARK: Semester
+    @Published var springSemesterType: [SpringSemesterType] = SpringSemesterType.allCases
+    @Published var fallSemesterType: [FallSemesterType] = FallSemesterType.allCases
+    @Published var selectedSemester: SemesterType = .firstYearFallSemester
 
-    @Published var isSelectedMutualCreditRecognitionProgram: Bool = false
-    @Published var isSelectedUniversityExplorationProgram: Bool = false
+    // MARK: Division
+    @Published var industryDivisionType: [IndustryDivisionType] = IndustryDivisionType.allCases
+    @Published var otherDivisionType: [OtherDivisionType] = OtherDivisionType.allCases
+    @Published var selectedDivision: DivisionType = .automobileIndustry
 
-    @Published var isSelectedProfessor: Bool = false
-    @Published var isSelectedLecture: Bool = false
-    @Published var isSelectedSubject: Bool = false
+    // MARK: credit
+    let creditValue: [Int] = [1, 2]
+    @Published var selectedCredit: Int = 1
 
-    @Published var isSelectedAiFusionComplex: Bool = false
-    @Published var isSelectedAutomobileIndustry: Bool = false
-    @Published var isSelectedCulture: Bool = false
-    @Published var isSelectedMedicalHealth: Bool = false
-    @Published var isSelectedEnergy: Bool = false
+    // MARK: Line
+    @Published var lineList: [String] = []
+    @Published var selectedLine: String = ""
 
-    @Published var isSelectedGradeOneSemesterTwo: Bool = false
-    @Published var isSelectedGradeTwoSemesterOne: Bool = false
-    @Published var isSelectedGradeTwoSemesterTwo: Bool = false
-    @Published var isSelectedGradeThreeSemesterOne: Bool = false
+    // MARK: Department
+    @Published var departmentList: [String] = []
+    @Published var selectedDepartment: String = ""
 
-    @Published var isSelectedScoreOne: Bool = false
-    @Published var isSelectedScoreTwo: Bool = false
+    // MARK: Instructor
+    @Published var instructorList: [InstructorInfoEntity] = []
+    @Published var instructorID: String = ""
+    @Published var instructorName: String = ""
 
-    @Published var openDate: [Date] = []
-    @Published var startTime: [Date] = []
-    @Published var endTime: [Date] = []
-    @Published var datePickerCount = 0
+    // MARK: Date
+    @Published var selectedStartDate = Date()
+    @Published var selectedEndDate = Date()
+    @Published var lectureDatesList: [LectureDatesModel] = [
+        .init(completeDate: "", startTime: "", endTime: "")
+    ]
 
-    func lectureTextColor(
-        selectedState: Bool
-    ) -> Color.BitgouelColorSystem {
-        if selectedState == false {
-            return Color.BitgouelColorSystem.greyscale(.g2)
-        } else {
-            return Color.BitgouelColorSystem.greyscale(.g10)
+    @Published var isShowingLinePopup: Bool = false
+    @Published var isShowingDepartmentPopup: Bool = false
+    @Published var isShowingLecturerPopup: Bool = false
+    @Published var keyword: String = ""
+    @Published var maxRegisteredUser: Int = 0
+
+    func updateLectureType(lectureType: LectureType) {
+        selectedLectureType = lectureType
+    }
+
+    func updateSemester(semester: String) {
+        switch semester {
+        case "SECOND_YEAR_SPRING_SEMESTER":
+            selectedSemester = .secondYearSpringSemester
+
+        case "SECOND_YEAR_FALL_SEMESTER":
+            selectedSemester = .secondYearFallSemester
+
+        case "THIRD_YEAR_SPRING_SEMESTER":
+            selectedSemester = .thirdYearSpringSemester
+
+        default:
+            selectedSemester = .firstYearFallSemester
         }
     }
 
-    func lectureStrokeColor(
-        selectedState: Bool
-    ) -> Color {
-        if selectedState == false {
-            return Color.bitgouel(.greyscale(.g2))
-        } else {
-            return Color.bitgouel(.primary(.p5))
+    func updateDivision(division: String) {
+        switch division {
+        case "ENERGY_INDUSTRY":
+            selectedDivision = .energyIndustry
+
+        case "MEDICAL_HEALTHCARE":
+            selectedDivision = .medicalHealthcare
+
+        case "AI_CONVERGENCE":
+            selectedDivision = .AIConvergence
+
+        case "CULTURAL_INDUSTRY":
+            selectedDivision = .cultureIndustry
+
+        default:
+            selectedDivision = .automobileIndustry
         }
     }
 
-    func lectureBackgroundColor(
-        selectedState: Bool
-    ) -> Color {
-        if selectedState == false {
-            return Color.bitgouel(.greyscale(.g10))
-        } else {
-            return Color.bitgouel(.primary(.p5))
-        }
+    func updateCredit(credit: Int) {
+        selectedCredit = credit
     }
 
-    func chevronChange(
-        selectedState: Bool
-    ) -> String {
-        if selectedState == false {
-            return "chevron_down"
-        } else {
-            return "chevron_up"
-        }
+    func updateIsShowingLinePopup(isShowing: Bool) {
+        isShowingLinePopup = isShowing
     }
 
-    func select(
-        selectedState: Bool,
-        selectText: String,
-        selectedName: String
-    ) -> String {
-        if selectedState == false {
-            return selectText
-        } else {
-            return selectedName
-        }
+    func updateIsShowingDepartmentPopup(isShowing: Bool) {
+        isShowingDepartmentPopup = isShowing
     }
 
-    func updateStartDate(
-        date: Date
-    ) {
-        startDatePicker = date
+    func updateIsShowingInstructorPopup(isShowing: Bool) {
+        isShowingLecturerPopup = isShowing
     }
 
-    func updateEndDate
-    (date: Date
-    ) {
-        endDatePicker = date
+    func updateSelectedLine(line: String) {
+        selectedLine = line
     }
 
-    func updateOpenDate(
-        date: Date
-    ) {
-        openDatePicker = date
+    func updateSelectedDepartment(department: String) {
+        selectedDepartment = department
     }
 
-    func updateEndTime(
-        date: Date
-    ) {
-        endTimePicker = date
+    func updateInstructorInfo(name: String, id: String) {
+        instructorName = name
+        instructorID = id
     }
 
-    func newDateSet(
-        for index: Int,
-        type: PickerType
-    ) -> Binding<Date> {
-        switch type {
-        case .date:
-            return Binding<Date>(
-                get: { self.openDate[index] },
-                set: { self.openDate[index] = $0 }
-            )
-        case .startTime:
-            return Binding<Date>(
-                get: { self.startTime[index] },
-                set: { self.startTime[index] = $0 }
-            )
-        case .endTime:
-            return Binding<Date>(
-                get: { self.endTime[index] },
-                set: { self.endTime[index] = $0 }
-            )
-        }
+    func updateSelectedStartDate(date: Date) {
+        selectedStartDate = date
+    }
+
+    func updateSelectedEndDate(date: Date) {
+        selectedEndDate = date
+    }
+
+    func updateCompleteDate(completedate: Date, at index: Int) {
+        let indexedDate = self.lectureDatesList[index]
+        let newLectureDatesModel = LectureDatesModel(
+            completeDate: completedate.toStringCustomFormat(format: "yyyy-MM-dd"),
+            startTime: indexedDate.startTime,
+            endTime: indexedDate.endTime
+        )
+        lectureDatesList[index] = newLectureDatesModel
+    }
+
+    func updateStartTime(startTime: Date, at index: Int) {
+        let indexedDate = self.lectureDatesList[index]
+        let newLectureDatesModel = LectureDatesModel(
+            completeDate: indexedDate.completeDate,
+            startTime: startTime.toStringCustomFormat(format: "hh:ss:mm"),
+            endTime: indexedDate.endTime
+        )
+        lectureDatesList[index] = newLectureDatesModel
+    }
+
+    func updateEndTime(endTime: Date, at index: Int) {
+        let indexedDate = self.lectureDatesList[index]
+        let newLectureDatesModel = LectureDatesModel(
+            completeDate: indexedDate.completeDate,
+            startTime: indexedDate.startTime,
+            endTime: endTime.toStringCustomFormat(format: "hh:mm:ss")
+        )
+        lectureDatesList[index] = newLectureDatesModel
+    }
+
+    func deleteLectureDate(at index: Int) {
+        lectureDatesList.remove(at: index)
+    }
+
+    func appendLectureDate() {
+        lectureDatesList.append(
+            .init(completeDate: "", startTime: "", endTime: "")
+        )
+    }
+
+    func updateMaxRegisteredUser(userCount: Int?) {
+        guard let userCount else { return }
+        maxRegisteredUser = userCount
     }
 }

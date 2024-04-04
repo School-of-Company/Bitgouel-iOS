@@ -6,7 +6,8 @@ public protocol LectureDetailSettingDependency: Dependency {
     var openLectureApplyFactory: any OpenLectureApplyFactory { get }
 }
 
-public final class LectureDetailSettingComponent: Component<LectureDetailSettingDependency>, LectureDetailSettingFactory {
+public final class LectureDetailSettingComponent: Component<LectureDetailSettingDependency>,
+    LectureDetailSettingFactory {
     public func makeView() -> some View {
         LectureDetailSettingView(
             viewModel: .init(),
