@@ -19,6 +19,7 @@ struct PickerTextField: View {
         HStack {
             Text(text)
                 .bitgouelFont(.text3)
+                .foregroundColor(Color.bitgouel(.greyscale(.g0)))
 
             Spacer()
 

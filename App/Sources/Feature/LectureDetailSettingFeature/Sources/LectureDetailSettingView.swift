@@ -22,7 +22,7 @@ struct LectureDetailSettingView: View {
                     lectureLinePopup()
                 } else if viewModel.isShowingDepartmentPopup {
                     lectureDepartmentPopup()
-                } else if viewModel.isShowingLecturerPopup {
+                } else if viewModel.isShowingInstructorPopup {
                     instructorPopup()
                 }
             }
@@ -126,10 +126,41 @@ struct LectureDetailSettingView: View {
                             viewModel.updateMaxRegisteredUser(userCount: userCount)
                         }
                     }
+                    .padding(.bottom, 24)
                 }
-                .padding(.bottom, 24)
+                BitgouelButton(
+                    text: "적용 하기",
+                    style: .primary
+                ) {
+                    viewModel.applyButtonDidTap()
+                    dismiss()
+                }
             }
             .padding(.horizontal, 28)
+        }
+        .onChange(of: viewModel.isShowingLinePopup) { newValue in
+            if newValue {
+                viewModel.fetchLineList()
+            }
+        }
+        .onChange(of: viewModel.isShowingDepartmentPopup) { newValue in
+            if newValue {
+                viewModel.fetchDepartmentList()
+            }
+        }
+        .onChange(of: viewModel.isShowingInstructorPopup) { newValue in
+            if newValue {
+                viewModel.fetchInstructorList()
+            }
+        }
+        .onChange(of: viewModel.keyword) { newValue in
+            if viewModel.isShowingLinePopup {
+                viewModel.fetchLineList()
+            } else if viewModel.isShowingDepartmentPopup {
+                viewModel.fetchDepartmentList()
+            } else if viewModel.isShowingInstructorPopup {
+                viewModel.fetchInstructorList()
+            }
         }
     }
 
@@ -148,6 +179,7 @@ struct LectureDetailSettingView: View {
             division: viewModel.selectedDivision,
             onLineSelect: { line in
                 viewModel.updateSelectedLine(line: line)
+                viewModel.updateIsShowingLinePopup(isShowing: false)
             },
             cancel: { isShowing in
                 viewModel.keyword = ""
@@ -170,6 +202,7 @@ struct LectureDetailSettingView: View {
             keyword: $viewModel.keyword,
             onDepartmentSelect: { department in
                 viewModel.updateSelectedDepartment(department: department)
+                viewModel.updateIsShowingDepartmentPopup(isShowing: false)
             },
             cancel: { isShowing in
                 viewModel.keyword = ""
@@ -195,6 +228,7 @@ struct LectureDetailSettingView: View {
                     name: instructorName,
                     id: instructorID
                 )
+                viewModel.updateIsShowingInstructorPopup(isShowing: false)
             },
             cancel: { isShowing in
                 viewModel.keyword = ""
