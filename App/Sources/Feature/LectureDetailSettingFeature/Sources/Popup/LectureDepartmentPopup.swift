@@ -39,17 +39,22 @@ struct LectureDepartmentPopup: View {
                         .padding(.top, 16)
 
                     ScrollView(showsIndicators: false) {
-                        LazyVStack(spacing: 16) {
-                            ForEach(departmentList, id: \.self) { department in
-                                departmentRow(
-                                    department: department,
-                                    onDepartmentSelect: onDepartmentSelect
-                                )
-
-                                Divider()
+                        if departmentList.isEmpty {
+                            NoInfoView()
+                        } else {
+                            LazyVStack(alignment: .leading, spacing: 16) {
+                                ForEach(departmentList, id: \.self) { department in
+                                    departmentRow(
+                                        department: department,
+                                        onDepartmentSelect: onDepartmentSelect
+                                    )
+                                    
+                                    Divider()
+                                }
                             }
                         }
                     }
+                    .padding(.top, 24)
                 }
                 .padding(.horizontal, 24)
             }
