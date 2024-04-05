@@ -20,9 +20,9 @@ struct LectureLinePopup: View {
                             text: "강의 계열",
                             font: .title3
                         )
-
+                        
                         Spacer()
-
+                        
                         Button {
                             cancel(false)
                         } label: {
@@ -30,33 +30,44 @@ struct LectureLinePopup: View {
                         }
                     }
                     .padding(.top, 24)
-
+                    
                     SearchTextField(
                         text: $keyword,
                         "계열 검색 또는 임의로 추가..."
                     )
                     .padding(.top, 24)
-
+                    
                     Divider()
                         .padding(.top, 16)
-
+                    
                     ScrollView(showsIndicators: false) {
-                        LazyVStack(spacing: 16) {
-                            ForEach(lineList, id: \.self) { line in
+                        LazyVStack(alignment: .leading, spacing: 16) {
+                            if lineList.isEmpty {
                                 lectureLineRow(
-                                    line: line,
+                                    line: keyword,
                                     division: division,
                                     onLineSelect: onLineSelect
                                 )
-
+                                
                                 Divider()
+                            } else {
+                                ForEach(lineList, id: \.self) { line in
+                                    lectureLineRow(
+                                        line: line,
+                                        division: division,
+                                        onLineSelect: onLineSelect
+                                    )
+                                    
+                                    Divider()
+                                }
                             }
                         }
                     }
+                    .padding(.top, 24)
                 }
                 .padding(.horizontal, 24)
             }
-            .padding(.horizontal, 40)
+            .padding(.horizontal, 28)
     }
 
     @ViewBuilder
@@ -70,9 +81,6 @@ struct LectureLinePopup: View {
                 text: line,
                 font: .text1
             )
-
-            Text("\(division.display())에 추가하기...")
-                .bitgouelFont(.text2, color: .greyscale(.g7))
         }
         .padding(.leading, 16)
         .onTapGesture {
