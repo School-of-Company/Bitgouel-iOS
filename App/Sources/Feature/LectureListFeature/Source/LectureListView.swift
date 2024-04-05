@@ -125,6 +125,9 @@ struct LectureListView: View {
         .onChange(of: viewModel.selectedLectureType) { newValue in
             viewModel.updateType(lectureType: newValue)
         }
+        .refreshable {
+            viewModel.onAppear()
+        }
     }
 
     @ViewBuilder
