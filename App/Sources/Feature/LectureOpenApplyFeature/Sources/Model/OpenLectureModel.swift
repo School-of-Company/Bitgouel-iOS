@@ -1,9 +1,16 @@
-//
-//  OpenLectureModel.swift
-//  Bitgouel
-//
-//  Created by 정윤서 on 4/4/24.
-//  Copyright © 2024 team.msg. All rights reserved.
-//
-
 import Foundation
+import Service
+
+public struct OpenLectureModel: Equatable {
+    let semester: SemesterType
+    let division: DivisionType
+    let department: String
+    let line: String
+    let instructorID: String
+    let startDate: Date
+    let endDate: Date
+    let lectureDates: [LectureDatesModel]
+    let lectureType: LectureType
+    let credit: Int
+    let maxRegisteredUser: Int
+}
