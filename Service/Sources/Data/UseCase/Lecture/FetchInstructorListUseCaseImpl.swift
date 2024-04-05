@@ -1,6 +1,6 @@
 import Foundation
 
-public struct SearchInstructorListUseCaseImpl: SearchInstructorListUseCase {
+public struct FetchInstructorListUseCaseImpl: FetchInstructorListUseCase {
     private let lectureRepository: any LectureRepository
 
     public init(lectureRepository: any LectureRepository) {
