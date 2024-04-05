@@ -9,7 +9,7 @@ public struct OpenLectureRequestDTO: Encodable {
     public let line: String
     public let userID: String
     public let startDate: String
-    public let endData: String
+    public let endDate: String
     public let lectureDates: [LectureDateInfo]
     public let lectureType: LectureType
     public let credit: Int
@@ -24,7 +24,7 @@ public struct OpenLectureRequestDTO: Encodable {
         line: String,
         userID: String,
         startDate: String,
-        endData: String,
+        endDate: String,
         lectureDates: [LectureDateInfo],
         lectureType: LectureType,
         credit: Int,
@@ -38,7 +38,7 @@ public struct OpenLectureRequestDTO: Encodable {
         self.line = line
         self.userID = userID
         self.startDate = startDate
-        self.endData = endData
+        self.endDate = endDate
         self.lectureDates = lectureDates
         self.lectureType = lectureType
         self.credit = credit
@@ -54,7 +54,7 @@ public struct OpenLectureRequestDTO: Encodable {
         case line
         case userID = "userId"
         case startDate
-        case endData
+        case endDate
         case lectureDates
         case lectureType
         case credit
@@ -62,14 +62,14 @@ public struct OpenLectureRequestDTO: Encodable {
     }
 
     public struct LectureDateInfo: Encodable {
-        public let completeDate: Date
-        public let startTime: Date
-        public let endTime: Date
+        public let completeDate: String
+        public let startTime: String
+        public let endTime: String
 
         public init(
-            completeDate: Date,
-            startTime: Date,
-            endTime: Date
+            completeDate: String,
+            startTime: String,
+            endTime: String
         ) {
             self.completeDate = completeDate
             self.startTime = startTime
