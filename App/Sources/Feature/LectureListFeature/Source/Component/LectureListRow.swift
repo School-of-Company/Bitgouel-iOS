@@ -14,12 +14,12 @@ struct LectureListRow: View {
     let lectureStatus: LectureStatusType
     let headCount: Int
     let maxRegisteredUser: Int
-    let lecturer: String
+    let instructor: String
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text(lecturer)
+                Text(instructor)
                     .bitgouelFont(.text3, color: .greyscale(.g0))
 
                 Spacer()

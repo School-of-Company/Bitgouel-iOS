@@ -56,7 +56,7 @@ struct LectureListDetailView: View {
 
                                 Spacer()
 
-                                Text(lectureDetail.lecturer)
+                                Text(lectureDetail.instructor)
 
                                 Text("교수님")
                             }

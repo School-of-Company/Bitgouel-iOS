@@ -42,7 +42,7 @@ struct LectureListView: View {
                                     lectureStatus: item.lectureStatus,
                                     headCount: item.headCount,
                                     maxRegisteredUser: item.maxRegisteredUser,
-                                    lecturer: item.lecturer
+                                    instructor: item.instructor
                                 )
                                 .buttonWrapper {
                                     withAnimation {

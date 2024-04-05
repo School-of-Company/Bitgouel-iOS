@@ -1,9 +1,9 @@
 import Service
 import SwiftUI
 
-struct LecturerPopup: View {
+struct InstructorPopup: View {
     var instructorList: [InstructorInfoEntity]
-    var selectedLecturerID: String
+    var selectedInstructorID: String
     @Binding var keyword: String
     let onInstructorSelect: (_ instructorName: String, _ instructorID: String) -> Void
     let cancel: (Bool) -> Void

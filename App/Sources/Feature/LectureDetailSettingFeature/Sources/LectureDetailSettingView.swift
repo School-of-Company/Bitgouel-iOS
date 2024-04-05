@@ -219,9 +219,9 @@ struct LectureDetailSettingView: View {
                 viewModel.updateIsShowingInstructorPopup(isShowing: false)
             }
 
-        LecturerPopup(
+        InstructorPopup(
             instructorList: viewModel.instructorList,
-            selectedLecturerID: viewModel.instructorID,
+            selectedInstructorID: viewModel.instructorID,
             keyword: $viewModel.keyword,
             onInstructorSelect: { instructorName, instructorID in
                 viewModel.updateInstructorInfo(
