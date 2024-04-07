@@ -38,14 +38,34 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     @Published var selectedStartDate = Date()
     @Published var selectedEndDate = Date()
     @Published var lectureDatesList: [LectureDatesModel] = [
-        .init(completeDate: "", startTime: "", endTime: "")
+        .init(completeDate: Date(), startTime: Date(), endTime: Date())
     ]
 
     @Published var isShowingLinePopup: Bool = false
     @Published var isShowingDepartmentPopup: Bool = false
-    @Published var isShowingLecturerPopup: Bool = false
+    @Published var isShowingInstructorPopup: Bool = false
     @Published var keyword: String = ""
     @Published var maxRegisteredUser: Int = 0
+    var detailInfo: OpenLectureModel
+    let completion: (OpenLectureModel) -> Void
+
+    private let fetchInstructorListUseCase: any FetchInstructorListUseCase
+    private let fetchLineListUseCase: any FetchLineListUseCase
+    private let fetchDepartmentListUseCase: any FetchDepartmentListUseCase
+
+    init(
+        detailInfo: OpenLectureModel,
+        completion: @escaping (OpenLectureModel) -> Void,
+        fetchInstructorListUseCase: any FetchInstructorListUseCase,
+        fetchLineListUseCase: any FetchLineListUseCase,
+        fetchDepartmentListUseCase: any FetchDepartmentListUseCase
+    ) {
+        self.detailInfo = detailInfo
+        self.completion = completion
+        self.fetchInstructorListUseCase = fetchInstructorListUseCase
+        self.fetchLineListUseCase = fetchLineListUseCase
+        self.fetchDepartmentListUseCase = fetchDepartmentListUseCase
+    }
 
     func updateLectureType(lectureType: LectureType) {
         selectedLectureType = lectureType
@@ -99,7 +119,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     }
 
     func updateIsShowingInstructorPopup(isShowing: Bool) {
-        isShowingLecturerPopup = isShowing
+        isShowingInstructorPopup = isShowing
     }
 
     func updateSelectedLine(line: String) {
@@ -126,7 +146,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     func updateCompleteDate(completedate: Date, at index: Int) {
         let indexedDate = self.lectureDatesList[index]
         let newLectureDatesModel = LectureDatesModel(
-            completeDate: completedate.toStringCustomFormat(format: "yyyy-MM-dd"),
+            completeDate: completedate,
             startTime: indexedDate.startTime,
             endTime: indexedDate.endTime
         )
@@ -137,7 +157,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         let indexedDate = self.lectureDatesList[index]
         let newLectureDatesModel = LectureDatesModel(
             completeDate: indexedDate.completeDate,
-            startTime: startTime.toStringCustomFormat(format: "hh:ss:mm"),
+            startTime: startTime,
             endTime: indexedDate.endTime
         )
         lectureDatesList[index] = newLectureDatesModel
@@ -148,7 +168,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         let newLectureDatesModel = LectureDatesModel(
             completeDate: indexedDate.completeDate,
             startTime: indexedDate.startTime,
-            endTime: endTime.toStringCustomFormat(format: "hh:mm:ss")
+            endTime: endTime
         )
         lectureDatesList[index] = newLectureDatesModel
     }
@@ -159,12 +179,63 @@ final class LectureDetailSettingViewModel: BaseViewModel {
 
     func appendLectureDate() {
         lectureDatesList.append(
-            .init(completeDate: "", startTime: "", endTime: "")
+            .init(completeDate: Date(), startTime: Date(), endTime: Date())
         )
     }
 
     func updateMaxRegisteredUser(userCount: Int?) {
         guard let userCount else { return }
         maxRegisteredUser = userCount
+    }
+
+    func applyButtonDidTap() {
+        detailInfo = .init(
+            semester: selectedSemester,
+            division: selectedDivision,
+            department: selectedDepartment,
+            line: selectedLine,
+            instructorID: instructorID,
+            startDate: selectedStartDate,
+            endDate: selectedEndDate,
+            lectureDates: lectureDatesList,
+            lectureType: selectedLectureType,
+            credit: selectedCredit,
+            maxRegisteredUser: maxRegisteredUser
+        )
+
+        completion(detailInfo)
+    }
+
+    @MainActor
+    func fetchLineList() {
+        Task {
+            do {
+                lineList = try await fetchLineListUseCase(keyword: keyword, division: selectedDivision.rawValue)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+
+    @MainActor
+    func fetchDepartmentList() {
+        Task {
+            do {
+                departmentList = try await fetchDepartmentListUseCase(keyword: keyword)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+
+    @MainActor
+    func fetchInstructorList() {
+        Task {
+            do {
+                instructorList = try await fetchInstructorListUseCase(keyword: keyword)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
 }

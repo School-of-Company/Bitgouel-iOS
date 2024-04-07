@@ -42,7 +42,7 @@ struct LectureListView: View {
                                     lectureStatus: item.lectureStatus,
                                     headCount: item.headCount,
                                     maxRegisteredUser: item.maxRegisteredUser,
-                                    lecturer: item.lecturer
+                                    instructor: item.instructor
                                 )
                                 .buttonWrapper {
                                     withAnimation {
@@ -124,6 +124,9 @@ struct LectureListView: View {
         }
         .onChange(of: viewModel.selectedLectureType) { newValue in
             viewModel.updateType(lectureType: newValue)
+        }
+        .refreshable {
+            viewModel.onAppear()
         }
     }
 

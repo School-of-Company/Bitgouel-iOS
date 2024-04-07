@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct LectureDatesModel: Equatable {
-    let completeDate: String
-    let startTime: String
-    let endTime: String
+    let completeDate: Date
+    let startTime: Date
+    let endTime: Date
 }
 
 struct SelectedLectureDatesView: View {
@@ -26,7 +26,7 @@ struct SelectedLectureDatesView: View {
                         DatePicker(
                             "수강 날짜",
                             selection: Binding(
-                                get: { lectureDatesList[index].completeDate.toDateCustomFormat(format: "yyyy.MM.dd") },
+                                get: { lectureDatesList[index].completeDate },
                                 set: { onSelectCompleteDate($0, index) }
                             ),
                             displayedComponents: .date
@@ -47,7 +47,7 @@ struct SelectedLectureDatesView: View {
                         DatePicker(
                             "시작",
                             selection: Binding(
-                                get: { lectureDatesList[index].startTime.toDateCustomFormat(format: "hh:mm;ss") },
+                                get: { lectureDatesList[index].startTime },
                                 set: { onSelectStartTime($0, index) }
                             ),
                             displayedComponents: .hourAndMinute
@@ -61,7 +61,7 @@ struct SelectedLectureDatesView: View {
                         DatePicker(
                             "종료",
                             selection: Binding(
-                                get: { lectureDatesList[index].endTime.toDateCustomFormat(format: "hh:ss:mm") },
+                                get: { lectureDatesList[index].endTime },
                                 set: { onSelectEndTime($0, index) }
                             ),
                             displayedComponents: .hourAndMinute

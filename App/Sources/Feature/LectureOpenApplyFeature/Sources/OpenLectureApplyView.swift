@@ -21,7 +21,9 @@ struct OpenLectureApplyView: View {
                 settingButtonAction: {
                     viewModel.updateIsPresentedLectureDetailSettingAppend(state: true)
                 },
-                finalButtonAction: {},
+                finalButtonAction: {
+                    viewModel.openLectureButtonDidTap()
+                },
                 title: Binding(
                     get: { viewModel.lectureTitle },
                     set: { title in viewModel.updateLectureTitle(title: title) }
@@ -35,11 +37,14 @@ struct OpenLectureApplyView: View {
         .fullScreenCover(
             isPresented: Binding(
                 get: { viewModel.isPresentedLectureDetailSettingAppend },
-                set: { _ in viewModel.updateIsPresentedLectureDetailSettingAppend(state: false) }
+                set: { state in viewModel.updateIsPresentedLectureDetailSettingAppend(state: state) }
             )
         ) {
             DeferView {
-                lectureDetailSettingFactory.makeView().eraseToAnyView()
+                lectureDetailSettingFactory.makeView(detailInfo: viewModel.openLectureInfo) { detailInfo in
+                    viewModel.updateOpenLectureInfo(detailInfo: detailInfo)
+                }
+                .eraseToAnyView()
             }
         }
     }

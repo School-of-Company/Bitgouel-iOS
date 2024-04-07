@@ -7,9 +7,3 @@ public struct FetchDepartmentResponseDTO: Decodable {
         self.departments = departments
     }
 }
-
-extension FetchDepartmentResponseDTO {
-    func toDomain() -> DepartmentListEntity {
-        DepartmentListEntity(departments: departments)
-    }
-}

@@ -16,7 +16,7 @@ public struct FetchLectureDetailResponseDTO: Decodable {
     public let headCount: Int
     public let maxRegisteredUser: Int
     public let isRegistered: Bool
-    public let lecturer: String
+    public let instructor: String
     public let credit: Int
 
     public init(
@@ -35,7 +35,7 @@ public struct FetchLectureDetailResponseDTO: Decodable {
         headCount: Int,
         maxRegisteredUser: Int,
         isRegistered: Bool,
-        lecturer: String,
+        instructor: String,
         credit: Int
     ) {
         self.name = name
@@ -53,7 +53,7 @@ public struct FetchLectureDetailResponseDTO: Decodable {
         self.headCount = headCount
         self.maxRegisteredUser = maxRegisteredUser
         self.isRegistered = isRegistered
-        self.lecturer = lecturer
+        self.instructor = instructor
         self.credit = credit
     }
 
@@ -92,7 +92,7 @@ extension FetchLectureDetailResponseDTO {
             headCount: headCount,
             maxRegisteredUser: maxRegisteredUser,
             isRegistered: isRegistered,
-            lecturer: lecturer,
+            instructor: instructor,
             credit: credit
         )
     }

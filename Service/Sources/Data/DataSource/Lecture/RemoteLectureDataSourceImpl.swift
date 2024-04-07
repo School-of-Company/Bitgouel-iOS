@@ -25,14 +25,12 @@ public final class RemoteLectureDataSourceImpl: BaseRemoteDataSource<LectureAPI>
         try await request(.fetchInstructorList(keyword: keyword), dto: FetchInstructorListResponseDTO.self).toDomain()
     }
 
-    public func fetchDivisionList(keyword: String, division: String) async throws -> DivisionListEntity {
-        try await request(
-            .fetchDivisionList(keyword: keyword, division: division),
-            dto: FetchDivisionListResponseDTO.self
-        ).toDomain()
+    public func fetchLineList(keyword: String, division: String) async throws -> [String] {
+        try await request(.fetchLineList(keyword: keyword, division: division), dto: FetchLineListResponseDTO.self)
+            .lines
     }
 
-    public func fetchDepartmentList(keyword: String) async throws -> DepartmentListEntity {
-        try await request(.fetchDepartmentList(keyword: keyword), dto: FetchDepartmentResponseDTO.self).toDomain()
+    public func fetchDepartmentList(keyword: String) async throws -> [String] {
+        try await request(.fetchDepartmentList(keyword: keyword), dto: FetchDepartmentResponseDTO.self).departments
     }
 }

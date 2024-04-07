@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol SearchInstructorListUseCase {
+public protocol FetchInstructorListUseCase {
     func callAsFunction(keyword: String) async throws -> [InstructorInfoEntity]
 }

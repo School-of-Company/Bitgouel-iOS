@@ -1,9 +1,9 @@
 import Service
 import SwiftUI
 
-struct LecturerPopup: View {
+struct InstructorPopup: View {
     var instructorList: [InstructorInfoEntity]
-    var selectedLecturerID: String
+    var selectedInstructorID: String
     @Binding var keyword: String
     let onInstructorSelect: (_ instructorName: String, _ instructorID: String) -> Void
     let cancel: (Bool) -> Void
@@ -13,7 +13,7 @@ struct LecturerPopup: View {
             .fill(Color.white)
             .frame(height: 480)
             .overlay {
-                VStack(spacing: 0) {
+                VStack(spacing: 24) {
                     HStack {
                         BitgouelText(
                             text: "담당 교수 선택",
@@ -34,22 +34,25 @@ struct LecturerPopup: View {
                         text: $keyword,
                         "이름 또는 학교명으로 검색..."
                     )
-                    .padding(.top, 24)
 
                     Divider()
                         .padding(.top, 16)
 
                     ScrollView(showsIndicators: false) {
-                        LazyVStack(spacing: 16) {
-                            ForEach(instructorList, id: \.instructorID) { instructor in
-                                instructorRow(
-                                    instructorName: instructor.name,
-                                    instructorOrganization: instructor.organization,
-                                    instructorID: instructor.instructorID,
-                                    onInstructorSelect: onInstructorSelect
-                                )
+                        if instructorList.isEmpty {
+                            NoInfoView()
+                        } else {
+                            LazyVStack(alignment: .leading, spacing: 16) {
+                                ForEach(instructorList, id: \.instructorID) { instructor in
+                                    instructorRow(
+                                        instructorName: instructor.name,
+                                        instructorOrganization: instructor.organization,
+                                        instructorID: instructor.instructorID,
+                                        onInstructorSelect: onInstructorSelect
+                                    )
 
-                                Divider()
+                                    Divider()
+                                }
                             }
                         }
                     }

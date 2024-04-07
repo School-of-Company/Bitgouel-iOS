@@ -44,21 +44,21 @@ public extension AppComponent {
         }
     }
 
-    var searchInstructorListUseCase: any SearchInstructorListUseCase {
+    var fetchInstructorListUseCase: any FetchInstructorListUseCase {
         shared {
-            SearchInstructorListUseCaseImpl(lectureRepository: lectureRepository)
+            FetchInstructorListUseCaseImpl(lectureRepository: lectureRepository)
         }
     }
 
-    var searchDivisionListUseCase: any SearchDivisionListUseCase {
+    var fetchLineListUseCase: any FetchLineListUseCase {
         shared {
-            SearchDivisionListUseCaseImpl(lectureRepository: lectureRepository)
+            FetchLineListUseCaseImpl(lectureRepository: lectureRepository)
         }
     }
 
-    var searchDepartmentListUseCase: any SearchDepartmentListUseCase {
+    var fetchDepartmentListUseCase: any FetchDepartmentListUseCase {
         shared {
-            SearchDepartmentListUseCaseImpl(lectureRepository: lectureRepository)
+            FetchDepartmentListUseCaseImpl(lectureRepository: lectureRepository)
         }
     }
 }

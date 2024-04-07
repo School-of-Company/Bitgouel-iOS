@@ -31,11 +31,11 @@ public struct LectureRepositoryImpl: LectureRepository {
         try await remoteLectureDataSource.fetchInstructorList(keyword: keyword)
     }
 
-    public func fetchDivisionList(keyword: String, division: String) async throws -> DivisionListEntity {
-        try await remoteLectureDataSource.fetchDivisionList(keyword: keyword, division: division)
+    public func fetchLineList(keyword: String, division: String) async throws -> [String] {
+        try await remoteLectureDataSource.fetchLineList(keyword: keyword, division: division)
     }
 
-    public func fetchDepartmentList(keyword: String) async throws -> DepartmentListEntity {
+    public func fetchDepartmentList(keyword: String) async throws -> [String] {
         try await remoteLectureDataSource.fetchDepartmentList(keyword: keyword)
     }
 }
