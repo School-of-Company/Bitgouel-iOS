@@ -33,7 +33,7 @@ public extension DivisionType {
 
 public extension IndustryDivisionType {
     func display() -> String {
-        switch self{
+        switch self {
         case .automobileIndustry: return "자동차 산업"
         case .energyIndustry: return "에너지 산업"
         case .cultureIndustry: return "문화산업"

@@ -20,9 +20,9 @@ struct LectureLinePopup: View {
                             text: "강의 계열",
                             font: .title3
                         )
-                        
+
                         Spacer()
-                        
+
                         Button {
                             cancel(false)
                         } label: {
@@ -30,16 +30,16 @@ struct LectureLinePopup: View {
                         }
                     }
                     .padding(.top, 24)
-                    
+
                     SearchTextField(
                         text: $keyword,
                         "계열 검색 또는 임의로 추가..."
                     )
                     .padding(.top, 24)
-                    
+
                     Divider()
                         .padding(.top, 16)
-                    
+
                     ScrollView(showsIndicators: false) {
                         LazyVStack(alignment: .leading, spacing: 16) {
                             if lineList.isEmpty {
@@ -48,7 +48,7 @@ struct LectureLinePopup: View {
                                     division: division,
                                     onLineSelect: onLineSelect
                                 )
-                                
+
                                 Divider()
                             } else {
                                 ForEach(lineList, id: \.self) { line in
@@ -57,7 +57,7 @@ struct LectureLinePopup: View {
                                         division: division,
                                         onLineSelect: onLineSelect
                                     )
-                                    
+
                                     Divider()
                                 }
                             }

@@ -48,7 +48,7 @@ struct LectureDepartmentPopup: View {
                                         department: department,
                                         onDepartmentSelect: onDepartmentSelect
                                     )
-                                    
+
                                     Divider()
                                 }
                             }

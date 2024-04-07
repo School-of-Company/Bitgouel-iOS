@@ -50,7 +50,7 @@ struct InstructorPopup: View {
                                         instructorID: instructor.instructorID,
                                         onInstructorSelect: onInstructorSelect
                                     )
-                                    
+
                                     Divider()
                                 }
                             }
