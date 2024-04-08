@@ -59,6 +59,7 @@ final class LectureListViewModel: BaseViewModel {
     @MainActor
     func onAppear() {
         authority = loadUserAuthorityUseCase()
+        isLoading = true
 
         switch authority {
         case .user:
@@ -68,7 +69,9 @@ final class LectureListViewModel: BaseViewModel {
             Task {
                 do {
                     let response = try await fetchLectureListUseCase(type: type?.rawValue ?? "")
+
                     updateContent(entity: response)
+                    isLoading = false
                 } catch {
                     print(String(describing: error))
                 }

@@ -57,6 +57,7 @@ final class InquiryListViewModel: BaseViewModel {
     @MainActor
     func onAppear() {
         authority = loadUserAuthorityUseCase()
+        isLoading = true
 
         Task {
             do {
@@ -68,6 +69,7 @@ final class InquiryListViewModel: BaseViewModel {
                 }()
 
                 updateContent(entity: inquiryInfo)
+                isLoading = false
             } catch {
                 print(String(describing: error))
             }

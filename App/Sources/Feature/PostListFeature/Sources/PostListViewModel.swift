@@ -3,22 +3,15 @@ import Service
 
 // swiftlint: disable identifier_name
 final class PostListViewModel: BaseViewModel {
-    @MainActor
-    var postContent: PostContentEntity? {
-        get {
-            _postContent.map {
-                PostContentEntity(content: $0.content)
-            }
-        } set { _postContent = newValue }
-    }
-
-    @Published var _postContent: PostContentEntity?
+    @Published var postContent: PostContentEntity?
     @Published var authority: UserAuthorityType = .user
+
     @Published var isPresentedNoticeListView: Bool = false
     @Published var isPresentedInquiryView: Bool = false
     @Published var isPresentedInputPostView: Bool = false
     @Published var isPresentedPostDetailView: Bool = false
     @Published var isShowingLoginAlert: Bool = false
+
     @Published var seletedPostID: String = ""
 
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase

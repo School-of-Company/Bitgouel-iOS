@@ -48,6 +48,7 @@ final class ActivityListViewModel: BaseViewModel {
     @MainActor
     func onAppear() {
         authority = loadUserAuthorityUseCase()
+        isLoading = true
 
         Task {
             do {
@@ -65,6 +66,7 @@ final class ActivityListViewModel: BaseViewModel {
                 }()
 
                 updateContent(entity: studentActivityList)
+                isLoading = false
             } catch {
                 if let activityDomainError = error as? ActivityDomainError {
                     errorMessage = activityDomainError.errorDescription ?? "알 수 없는 오류가 발생했습니다."

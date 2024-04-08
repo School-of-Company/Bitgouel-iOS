@@ -28,97 +28,103 @@ struct PostListView: View {
 
     var body: some View {
         NavigationView {
-            ScrollView {
-                VStack(spacing: 0) {
-                    if let postInfo = viewModel.postContent {
-                        LazyVStack(spacing: 0) {
-                            ForEach(postInfo.content, id: \.postID) { item in
-                                ListRow(
-                                    id: item.postID,
-                                    title: item.title,
-                                    modifiedAt: item.modifiedAt.toDateCustomFormat(format: "yyyy-MM-dd'T'HH:mm:ss.SSS")
-                                )
-                                .onTapGesture {
-                                    viewModel.seletePost(postID: item.postID)
-                                    viewModel.isPresentedPostDetailView = true
-                                }
+            VStack {
+                if let postInfo = viewModel.postContent {
+                    if postInfo.content.isEmpty {
+                        NoInfoView()
+                    } else {
+                        ScrollView {
+                            LazyVStack(spacing: 0) {
+                                ForEach(postInfo.content, id: \.postID) { item in
+                                    ListRow(
+                                        id: item.postID,
+                                        title: item.title,
+                                        modifiedAt: item.modifiedAt
+                                            .toDateCustomFormat(format: "yyyy-MM-dd'T'HH:mm:ss.SSS")
+                                    )
+                                    .onTapGesture {
+                                        viewModel.seletePost(postID: item.postID)
+                                        viewModel.isPresentedPostDetailView = true
+                                    }
 
-                                Divider()
+                                    Divider()
+                                }
                             }
                         }
                     }
+                }
+            }
+            .onAppear {
+                viewModel.onAppear()
+            }
+            .refreshable {
+                viewModel.onAppear()
+            }
+            .navigate(
+                to: postDetailFactory.makeView(postID: viewModel.seletedPostID).eraseToAnyView(),
+                when: Binding(
+                    get: { viewModel.isPresentedPostDetailView },
+                    set: { _ in viewModel.isPresentedPostDetailView = false }
+                )
+            )
+            .onChange(of: viewModel.isPresentedPostDetailView) { newValue in
+                tabbarHidden.wrappedValue = newValue
+            }
+            .navigate(
+                to: noticeListFactory.makeview().eraseToAnyView(),
+                when: Binding(
+                    get: { viewModel.isPresentedNoticeListView },
+                    set: { _ in viewModel.isPresentedNoticeListView = false }
+                )
+            )
+            .navigate(
+                to: inquiryListFactory.makeView().eraseToAnyView(),
+                when: Binding(
+                    get: { viewModel.isPresentedInquiryView },
+                    set: { _ in viewModel.isPresentedInquiryView = false }
+                )
+            )
+            .navigate(
+                to: inputPostFactory.makeView(state: "등록", postID: "").eraseToAnyView(),
+                when: Binding(
+                    get: { viewModel.isPresentedInputPostView },
+                    set: { _ in viewModel.isPresentedInputPostView = false }
+                )
+            )
+            .onChange(of: viewModel.isPresentedInputPostView) { newValue in
+                tabbarHidden.wrappedValue = newValue
+            }
+            .padding(.horizontal, 28)
+            .navigationTitle("게시글 목록")
+            .toolbar {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Button {
+                        viewModel.isPresentedNoticeListView = true
+                    } label: {
+                        BitgouelAsset.Icons.megaphone.swiftUIImage
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 24, height: 24)
+                    }
 
-                    Spacer()
-                }
-                .onAppear {
-                    viewModel.onAppear()
-                }
-                .navigate(
-                    to: postDetailFactory.makeView(postID: viewModel.seletedPostID).eraseToAnyView(),
-                    when: Binding(
-                        get: { viewModel.isPresentedPostDetailView },
-                        set: { _ in viewModel.isPresentedPostDetailView = false }
-                    )
-                )
-                .onChange(of: viewModel.isPresentedPostDetailView) { newValue in
-                    tabbarHidden.wrappedValue = newValue
-                }
-                .navigate(
-                    to: noticeListFactory.makeview().eraseToAnyView(),
-                    when: Binding(
-                        get: { viewModel.isPresentedNoticeListView },
-                        set: { _ in viewModel.isPresentedNoticeListView = false }
-                    )
-                )
-                .navigate(
-                    to: inquiryListFactory.makeView().eraseToAnyView(),
-                    when: Binding(
-                        get: { viewModel.isPresentedInquiryView },
-                        set: { _ in viewModel.isPresentedInquiryView = false }
-                    )
-                )
-                .navigate(
-                    to: inputPostFactory.makeView(state: "등록", postID: "").eraseToAnyView(),
-                    when: Binding(
-                        get: { viewModel.isPresentedInputPostView },
-                        set: { _ in viewModel.isPresentedInputPostView = false }
-                    )
-                )
-                .onChange(of: viewModel.isPresentedInputPostView) { newValue in
-                    tabbarHidden.wrappedValue = newValue
-                }
-                .padding(.horizontal, 28)
-                .navigationTitle("게시글 목록")
-                .toolbar {
-                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Button {
+                        viewModel.isPresentedInquiryView = true
+                    } label: {
+                        BitgouelAsset.Icons.questionmark.swiftUIImage
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 24, height: 24)
+                    }
+
+                    if viewModel.authority != .student && viewModel.authority != .teacher {
                         Button {
-                            viewModel.isPresentedNoticeListView = true
+                            viewModel.isPresentedInputPostView = true
                         } label: {
-                            BitgouelAsset.Icons.megaphone.swiftUIImage
+                            Image(systemName: "plus")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 24, height: 24)
-                        }
-
-                        Button {
-                            viewModel.isPresentedInquiryView = true
-                        } label: {
-                            BitgouelAsset.Icons.questionmark.swiftUIImage
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 24, height: 24)
-                        }
-
-                        if viewModel.authority != .student && viewModel.authority != .teacher {
-                            Button {
-                                viewModel.isPresentedInputPostView = true
-                            } label: {
-                                Image(systemName: "plus")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 24, height: 24)
-                                    .foregroundColor(.bitgouel(.greyscale(.g8)))
-                            }
+                                .foregroundColor(.bitgouel(.greyscale(.g8)))
                         }
                     }
                 }

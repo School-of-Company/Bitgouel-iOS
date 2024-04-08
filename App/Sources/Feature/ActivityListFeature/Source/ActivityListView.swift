@@ -20,29 +20,38 @@ struct ActivityListView: View {
     }
 
     var body: some View {
-        ScrollView {
-            VStack {
-                LazyVStack(spacing: 12) {
-                    if let activityList = viewModel.activityList {
-                        ForEach(activityList.content, id: \.activityID) { item in
-                            ActivityListRow(
-                                id: item.activityID,
-                                title: item.title,
-                                date: item.activityDate,
-                                userID: item.userID,
-                                name: item.userName,
-                                authority: viewModel.authority
-                            )
-                            .buttonWrapper {
-                                withAnimation {
-                                    viewModel.updateActivityID(activityID: item.activityID)
-                                    viewModel.updateIsPresentedActivityDetailView(isPresented: true)
+        VStack {
+            if !viewModel.isLoading {
+                if let activityList = viewModel.activityList {
+                    if activityList.content.isEmpty {
+                        NoInfoView()
+                    } else {
+                        ScrollView {
+                            LazyVStack(spacing: 12) {
+                                ForEach(activityList.content, id: \.activityID) { item in
+                                    ActivityListRow(
+                                        id: item.activityID,
+                                        title: item.title,
+                                        date: item.activityDate,
+                                        userID: item.userID,
+                                        name: item.userName,
+                                        authority: viewModel.authority
+                                    )
+                                    .buttonWrapper {
+                                        withAnimation {
+                                            viewModel.updateActivityID(activityID: item.activityID)
+                                            viewModel.updateIsPresentedActivityDetailView(isPresented: true)
+                                        }
+                                    }
                                 }
                             }
+                            .padding(.top, 8)
                         }
                     }
                 }
-                .padding(.top, 8)
+            } else {
+                ProgressView()
+                    .progressViewStyle(.circular)
             }
         }
         .bitgouelToast(
