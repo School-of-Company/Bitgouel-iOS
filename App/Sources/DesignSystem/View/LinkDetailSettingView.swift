@@ -45,7 +45,10 @@ struct LinkDetailSettingView: View {
             }
             Spacer()
 
-            CTAButton(text: "적용하기") {
+            BitgouelButton(
+                text: "적용하기",
+                style: .primary
+            ) {
                 applyButtonTapAction(links)
                 dismiss()
             }

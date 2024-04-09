@@ -14,17 +14,20 @@ final class MyPageViewModel: BaseViewModel {
     var userOrganization: String = ""
 
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
+    private let saveUserIDUseCase: any SaveUserIDUseCase
     private let fetchMyInfoUseCase: any FetchMyInfoUseCase
     private let logoutUseCase: any LogoutUseCase
     private let withdrawalUseCase: any WithdrawalUseCase
 
     init(
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
+        saveUserIDUseCase: any SaveUserIDUseCase,
         fetchMyInfoUseCase: any FetchMyInfoUseCase,
         logoutUseCase: any LogoutUseCase,
         withdrawalUseCase: any WithdrawalUseCase
     ) {
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
+        self.saveUserIDUseCase = saveUserIDUseCase
         self.fetchMyInfoUseCase = fetchMyInfoUseCase
         self.logoutUseCase = logoutUseCase
         self.withdrawalUseCase = withdrawalUseCase
@@ -71,6 +74,7 @@ final class MyPageViewModel: BaseViewModel {
                     myInfo = try await fetchMyInfoUseCase()
 
                     updateOrganization(organization: myInfo?.organization ?? "")
+                    saveUserIDUseCase(id: myInfo?.userID ?? "")
                 } catch {
                     print(String(describing: error))
                 }

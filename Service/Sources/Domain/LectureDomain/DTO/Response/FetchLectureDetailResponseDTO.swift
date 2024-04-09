@@ -72,6 +72,26 @@ public struct FetchLectureDetailResponseDTO: Decodable {
             self.endTime = endTime
         }
     }
+
+    enum CodingKeys: String, CodingKey {
+        case name
+        case content
+        case semester
+        case division
+        case department
+        case line
+        case createAt
+        case startDate
+        case endDate
+        case lectureDates
+        case lectureType
+        case lectureStatus
+        case headCount
+        case maxRegisteredUser
+        case isRegistered
+        case instructor = "lecturer"
+        case credit
+    }
 }
 
 extension FetchLectureDetailResponseDTO {

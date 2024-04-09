@@ -65,4 +65,12 @@ public struct AuthRepositoryImpl: AuthRepository {
     public func findPassword(req: FindPasswordRequestDTO) async throws {
         try await remoteAuthDataSource.findPassword(req: req)
     }
+
+    public func saveUserID(id: String) {
+        localAuthDataSource.saveUserID(id: id)
+    }
+
+    public func loadUserID() -> String {
+        localAuthDataSource.loadUserID()
+    }
 }
