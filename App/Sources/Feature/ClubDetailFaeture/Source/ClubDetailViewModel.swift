@@ -33,7 +33,6 @@ final class ClubDetailViewModel: BaseViewModel {
     @MainActor
     func onAppear() {
         self.authority = loadUserAuthorityUseCase()
-        print("authority: \(authority)")
 
         Task {
             do {
@@ -43,7 +42,6 @@ final class ClubDetailViewModel: BaseViewModel {
                     default: return try await onAppearClubDetail()
                     }
                 }()
-                print("정보 \(clubDetail)")
 
                 updateClubDetail(clubInfo: clubDetail)
             } catch {

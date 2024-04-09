@@ -25,56 +25,65 @@ struct LectureListView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                ScrollView {
+                if !viewModel.isLoading {
                     if let lectureList = viewModel.lectureList {
-                        LazyVStack(alignment: .leading) {
-                            ForEach(lectureList.content, id: \.lectureID) { item in
-                                LectureListRow(
-                                    name: item.name,
-                                    content: item.content,
-                                    semester: item.semester,
-                                    division: item.division,
-                                    department: item.department,
-                                    line: item.line,
-                                    startDate: item.startDate.toStringCustomFormat(format: "yyyy.M.d"),
-                                    endDate: item.endDate.toStringCustomFormat(format: "yyyy.M.d"),
-                                    lectureType: item.lectureType,
-                                    lectureStatus: item.lectureStatus,
-                                    headCount: item.headCount,
-                                    maxRegisteredUser: item.maxRegisteredUser,
-                                    instructor: item.instructor
-                                )
-                                .buttonWrapper {
-                                    withAnimation {
-                                        viewModel.updateSelectedLectureID(lectureID: item.lectureID)
-                                        viewModel.updateIsPresentedLectureDetailView(isPresented: true)
-                                    }
-                                }
+                        if lectureList.content.isEmpty {
+                            NoInfoView()
+                        } else {
+                            ScrollView {
+                                LazyVStack(alignment: .leading) {
+                                    ForEach(lectureList.content, id: \.lectureID) { item in
+                                        LectureListRow(
+                                            name: item.name,
+                                            content: item.content,
+                                            semester: item.semester,
+                                            division: item.division,
+                                            department: item.department,
+                                            line: item.line,
+                                            startDate: item.startDate.toStringCustomFormat(format: "yyyy.M.d"),
+                                            endDate: item.endDate.toStringCustomFormat(format: "yyyy.M.d"),
+                                            lectureType: item.lectureType,
+                                            lectureStatus: item.lectureStatus,
+                                            headCount: item.headCount,
+                                            maxRegisteredUser: item.maxRegisteredUser,
+                                            instructor: item.instructor
+                                        )
+                                        .buttonWrapper {
+                                            withAnimation {
+                                                viewModel.updateSelectedLectureID(lectureID: item.lectureID)
+                                                viewModel.updateIsPresentedLectureDetailView(isPresented: true)
+                                            }
+                                        }
 
-                                Divider()
+                                        Divider()
+                                    }
+                                    .padding(.horizontal, 28)
+                                }
                             }
-                            .padding(.horizontal, 28)
                         }
                     }
+                } else {
+                    ProgressView()
+                        .progressViewStyle(.circular)
                 }
-                .navigationTitle("강의 목록")
-                .toolbar {
-                    ToolbarItemGroup(placement: .navigationBarTrailing) {
-                        HStack(spacing: 24) {
-                            if viewModel.authority == .admin {
-                                Button {
-                                    viewModel.updateIsPresentedOpenLectureView(isPresented: true)
-                                } label: {
-                                    BitgouelAsset.Icons.add.swiftUIImage
-                                }
-                            }
-
+            }
+            .navigationTitle("강의 목록")
+            .toolbar {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    HStack(spacing: 24) {
+                        if viewModel.authority == .admin {
                             Button {
-                                isShowingFilter.toggle()
+                                viewModel.updateIsPresentedOpenLectureView(isPresented: true)
                             } label: {
-                                HStack(spacing: 8) {
-                                    BitgouelAsset.Icons.filterStroke.swiftUIImage
-                                }
+                                BitgouelAsset.Icons.add.swiftUIImage
+                            }
+                        }
+
+                        Button {
+                            isShowingFilter.toggle()
+                        } label: {
+                            HStack(spacing: 8) {
+                                BitgouelAsset.Icons.filterStroke.swiftUIImage
                             }
                         }
                     }
