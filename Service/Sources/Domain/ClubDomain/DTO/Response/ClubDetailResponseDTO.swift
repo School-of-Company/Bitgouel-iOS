@@ -67,7 +67,7 @@ public struct MemberInfoResponseDTO: Decodable {
 public struct TeacherInfoResponseDTO: Decodable {
     public let teacherID: String
     public let name: String
-    
+
     public init(
         teacherID: String,
         name: String

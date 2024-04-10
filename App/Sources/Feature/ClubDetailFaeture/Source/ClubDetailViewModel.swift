@@ -3,6 +3,7 @@ import SwiftUI
 
 final class ClubDetailViewModel: BaseViewModel {
     @Published var authority: UserAuthorityType = .user
+    @Published var userID: String = ""
     @Published var isPresentedCertificationView: Bool = false
     @Published var studentID: String = ""
 
@@ -11,51 +12,60 @@ final class ClubDetailViewModel: BaseViewModel {
     @Published var clubName: String = ""
     @Published var highSchoolName: String = ""
     @Published var students: [ClubDetailEntity.MemberInfoEntity] = []
-    @Published var teacher: ClubDetailEntity.MemberInfoEntity?
+    @Published var teacher: ClubDetailEntity.TeacherInfoEntity?
 
     // MARK: UseCase
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
     private let queryClubDetailUseCase: any QueryClubDetailUseCase
     private let queryStudentListByClubUseCase: any QueryStudentListByClubUseCase
+    private let saveUserIDUseCase: any SaveUserIDUseCase
+    private let fetchMyInfoUseCase: any FetchMyInfoUseCase
 
     init(
         clubID: Int,
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
         queryClubDetailUseCase: any QueryClubDetailUseCase,
-        queryStudentListByClubUseCase: any QueryStudentListByClubUseCase
+        queryStudentListByClubUseCase: any QueryStudentListByClubUseCase,
+        saveUserIDUseCase: any SaveUserIDUseCase,
+        fetchMyInfoUseCase: any FetchMyInfoUseCase
     ) {
         self.clubID = clubID
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
         self.queryClubDetailUseCase = queryClubDetailUseCase
         self.queryStudentListByClubUseCase = queryStudentListByClubUseCase
+        self.saveUserIDUseCase = saveUserIDUseCase
+        self.fetchMyInfoUseCase = fetchMyInfoUseCase
     }
 
     @MainActor
     func onAppear() {
-        self.authority = loadUserAuthorityUseCase()
+        authority = loadUserAuthorityUseCase()
+        isLoading = true
 
         Task {
             do {
-                let clubDetail: ClubDetailEntity = try await { () async throws -> ClubDetailEntity in
-                    switch authority {
-                    case .admin: return try await onAppearClubDetailByAdmin(clubID: clubID)
-                    default: return try await onAppearClubDetail()
-                    }
-                }()
-
+                let clubDetail = try await fetchClubDetail(authority: authority)
                 updateClubDetail(clubInfo: clubDetail)
+
+                let response = try await fetchMyInfoUseCase()
+                userID = response.userID
+                saveUserIDUseCase(id: userID)
+
+                isLoading = false
             } catch {
                 print(error.localizedDescription)
             }
         }
     }
 
-    func onAppearClubDetailByAdmin(clubID: Int) async throws -> ClubDetailEntity {
-        return try await queryClubDetailUseCase(clubID: clubID)
-    }
+    func fetchClubDetail(authority: UserAuthorityType) async throws -> ClubDetailEntity {
+        switch authority {
+        case .admin:
+            return try await queryClubDetailUseCase(clubID: clubID)
 
-    func onAppearClubDetail() async throws -> ClubDetailEntity {
-        return try await queryStudentListByClubUseCase()
+        default:
+            return try await queryStudentListByClubUseCase()
+        }
     }
 
     func updateClubDetail(clubInfo: ClubDetailEntity) {
@@ -68,5 +78,10 @@ final class ClubDetailViewModel: BaseViewModel {
 
     func updateIsPresentedCertificationView(isPresented: Bool) {
         isPresentedCertificationView = isPresented
+    }
+
+    func studentInfoRowDidTap(selectedStudentID: String) {
+        studentID = selectedStudentID
+        updateIsPresentedCertificationView(isPresented: true)
     }
 }
