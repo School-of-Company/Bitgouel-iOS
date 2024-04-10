@@ -18,7 +18,6 @@ final class ClubDetailViewModel: BaseViewModel {
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
     private let queryClubDetailUseCase: any QueryClubDetailUseCase
     private let queryStudentListByClubUseCase: any QueryStudentListByClubUseCase
-    private let saveUserIDUseCase: any SaveUserIDUseCase
     private let fetchMyInfoUseCase: any FetchMyInfoUseCase
 
     init(
@@ -26,14 +25,12 @@ final class ClubDetailViewModel: BaseViewModel {
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
         queryClubDetailUseCase: any QueryClubDetailUseCase,
         queryStudentListByClubUseCase: any QueryStudentListByClubUseCase,
-        saveUserIDUseCase: any SaveUserIDUseCase,
         fetchMyInfoUseCase: any FetchMyInfoUseCase
     ) {
         self.clubID = clubID
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
         self.queryClubDetailUseCase = queryClubDetailUseCase
         self.queryStudentListByClubUseCase = queryStudentListByClubUseCase
-        self.saveUserIDUseCase = saveUserIDUseCase
         self.fetchMyInfoUseCase = fetchMyInfoUseCase
     }
 
@@ -49,7 +46,6 @@ final class ClubDetailViewModel: BaseViewModel {
 
                 let response = try await fetchMyInfoUseCase()
                 userID = response.userID
-                saveUserIDUseCase(id: userID)
 
                 isLoading = false
             } catch {

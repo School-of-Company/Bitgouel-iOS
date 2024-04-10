@@ -5,6 +5,4 @@ public protocol LocalAuthDataSource {
     func withdraw() async throws
     func saveUserAuthority(authority: UserAuthorityType)
     func loadUserAuthority() -> UserAuthorityType
-    func saveUserID(id: String)
-    func loadUserID() -> String
 }

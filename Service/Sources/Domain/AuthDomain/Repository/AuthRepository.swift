@@ -14,6 +14,4 @@ public protocol AuthRepository {
     func governmentSignup(req: GovernmentSignupRequestDTO) async throws
     func companyInstructorSignup(req: CompanyInstructorSignupRequestDTO) async throws
     func findPassword(req: FindPasswordRequestDTO) async throws
-    func saveUserID(id: String)
-    func loadUserID() -> String
 }

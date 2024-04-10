@@ -100,16 +100,4 @@ public extension AppComponent {
             FindPasswordUseCaseImpl(authRepository: authRepository)
         }
     }
-
-    var saveUserIDUseCase: any SaveUserIDUseCase {
-        shared {
-            SaveUserIDUseCaseImpl(authRepository: authRepository)
-        }
-    }
-
-    var loadUserIDUseCase: any LoadUserIDUseCase {
-        shared {
-            LoadUserIDUseCaseImpl(authRepository: authRepository)
-        }
-    }
 }

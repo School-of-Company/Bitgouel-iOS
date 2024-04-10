@@ -6,7 +6,6 @@ public protocol MyPageDependency: Dependency {
     var changePasswordFactory: any ChangePasswordFactory { get }
     var adminUserListFactory: any AdminUserListFactory { get }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase { get }
-    var saveUserIDUseCase: any SaveUserIDUseCase { get }
     var fetchMyInfoUseCase: any FetchMyInfoUseCase { get }
     var logoutUseCase: any LogoutUseCase { get }
     var withdrawalUseCase: any WithdrawalUseCase { get }
@@ -17,7 +16,6 @@ public final class MyPageComponent: Component<MyPageDependency>, MyPageFactory {
         MyPageView(
             viewModel: .init(
                 loadUserAuthorityUseCase: dependency.loadUserAuthorityUseCase,
-                saveUserIDUseCase: dependency.saveUserIDUseCase,
                 fetchMyInfoUseCase: dependency.fetchMyInfoUseCase,
                 logoutUseCase: dependency.logoutUseCase,
                 withdrawalUseCase: dependency.withdrawalUseCase
