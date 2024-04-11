@@ -16,76 +16,82 @@ struct ClubDetailView: View {
 
     var body: some View {
         VStack(spacing: 24) {
-            VStack(alignment: .leading, spacing: 4) {
-                BitgouelText(
-                    text: viewModel.clubName,
-                    font: .title2
-                )
-
-                HStack {
+            if viewModel.isLoading {
+                ProgressView()
+                    .progressViewStyle(.circular)
+            } else {
+                VStack(alignment: .leading, spacing: 4) {
                     BitgouelText(
-                        text: "소속 학교",
-                        font: .text3
+                        text: viewModel.clubName,
+                        font: .title2
                     )
 
-                    Spacer()
-
-                    BitgouelText(
-                        text: viewModel.highSchoolName,
-                        font: .text3
-                    )
-                }
-                .foregroundColor(.bitgouel(.primary(.p5)))
-
-                HStack {
-                    BitgouelText(
-                        text: "담당 선생님",
-                        font: .text3
-                    )
-
-                    Spacer()
-
-                    BitgouelText(
-                        text: viewModel.teacher?.name ?? "",
-                        font: .text3
-                    )
-                }
-                .foregroundColor(.bitgouel(.greyscale(.g4)))
-            }
-            .padding(.top, -40)
-
-            VStack(alignment: .leading, spacing: 0) {
-                BitgouelText(
-                    text: "동아리 인원",
-                    font: .text1
-                )
-
-                Divider()
-                    .padding(.top, 12)
-
-                LazyVStack(spacing: 20) {
-                    ClubMemberListRow(
-                        id: viewModel.teacher?.studentID ?? "",
-                        name: viewModel.teacher?.name ?? "",
-                        autority: .teacher
-                    )
-
-                    ForEach(viewModel.students, id: \.studentID) { student in
-                        ClubMemberListRow(
-                            id: student.studentID,
-                            name: student.name,
-                            autority: .student
+                    HStack {
+                        BitgouelText(
+                            text: "소속 학교",
+                            font: .text3
                         )
-                        .onTapGesture {
-                            viewModel.studentID = student.studentID
-                            viewModel.updateIsPresentedCertificationView(isPresented: true)
+
+                        Spacer()
+
+                        BitgouelText(
+                            text: viewModel.highSchoolName,
+                            font: .text3
+                        )
+                    }
+                    .foregroundColor(.bitgouel(.primary(.p5)))
+
+                    HStack {
+                        BitgouelText(
+                            text: "담당 선생님",
+                            font: .text3
+                        )
+
+                        Spacer()
+
+                        BitgouelText(
+                            text: viewModel.teacher?.name ?? "",
+                            font: .text3
+                        )
+                    }
+                    .foregroundColor(.bitgouel(.greyscale(.g4)))
+                }
+                .padding(.top, -40)
+
+                VStack(alignment: .leading, spacing: 0) {
+                    BitgouelText(
+                        text: "동아리 인원",
+                        font: .text1
+                    )
+
+                    Divider()
+                        .padding(.top, 12)
+
+                    ScrollView {
+                        LazyVStack(spacing: 20) {
+                            ClubMemberListRow(
+                                id: viewModel.teacher?.teacherID ?? "",
+                                name: viewModel.teacher?.name ?? "",
+                                autority: .teacher
+                            )
+
+                            ForEach(viewModel.students, id: \.studentID) { student in
+                                ClubMemberListRow(
+                                    id: student.studentID,
+                                    name: student.name,
+                                    autority: .student
+                                )
+                                .onTapGesture {
+                                    if viewModel.authority != .student || viewModel.userID == student.userID {
+                                        viewModel.studentInfoRowDidTap(selectedStudentID: student.studentID)
+                                    }
+                                }
+                            }
                         }
                     }
+                    .padding(.top, 20)
                 }
-                .padding(.top, 20)
             }
-
-            Spacer()
         }
         .navigate(
             to: certificationListFactory.makeView(

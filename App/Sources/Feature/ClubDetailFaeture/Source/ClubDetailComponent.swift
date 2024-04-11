@@ -7,6 +7,7 @@ public protocol ClubdetailDependency: Dependency {
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase { get }
     var queryClubDetailUseCase: any QueryClubDetailUseCase { get }
     var queryStudentListByClubUseCase: any QueryStudentListByClubUseCase { get }
+    var fetchMyInfoUseCase: any FetchMyInfoUseCase { get }
 }
 
 public final class ClubDetailComponent: Component<ClubdetailDependency>, ClubDetailFactory {
@@ -16,7 +17,8 @@ public final class ClubDetailComponent: Component<ClubdetailDependency>, ClubDet
                 clubID: clubID,
                 loadUserAuthorityUseCase: dependency.loadUserAuthorityUseCase,
                 queryClubDetailUseCase: dependency.queryClubDetailUseCase,
-                queryStudentListByClubUseCase: dependency.queryStudentListByClubUseCase
+                queryStudentListByClubUseCase: dependency.queryStudentListByClubUseCase,
+                fetchMyInfoUseCase: dependency.fetchMyInfoUseCase
             ),
             certificationListFactory: dependency.certificationListFactory
         )

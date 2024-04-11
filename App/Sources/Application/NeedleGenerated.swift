@@ -410,6 +410,9 @@ private class ClubdetailDependency09c03e1ee67d1fbecba1Provider: ClubdetailDepend
     var queryStudentListByClubUseCase: any QueryStudentListByClubUseCase {
         return appComponent.queryStudentListByClubUseCase
     }
+    var fetchMyInfoUseCase: any FetchMyInfoUseCase {
+        return appComponent.fetchMyInfoUseCase
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -935,6 +938,7 @@ extension ClubDetailComponent: Registration {
         keyPathToName[\ClubdetailDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
         keyPathToName[\ClubdetailDependency.queryClubDetailUseCase] = "queryClubDetailUseCase-any QueryClubDetailUseCase"
         keyPathToName[\ClubdetailDependency.queryStudentListByClubUseCase] = "queryStudentListByClubUseCase-any QueryStudentListByClubUseCase"
+        keyPathToName[\ClubdetailDependency.fetchMyInfoUseCase] = "fetchMyInfoUseCase-any FetchMyInfoUseCase"
     }
 }
 extension SuccessSignUpComponent: Registration {
