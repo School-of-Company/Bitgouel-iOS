@@ -24,6 +24,10 @@ final class LectureListDetailViewModel: BaseViewModel {
         self.cancelLectureUseCase = cancelLectureUseCase
     }
 
+    func updateIsErrorOccurred(state: Bool) {
+        isErrorOccurred = state
+    }
+
     @MainActor
     func onAppear() {
         Task {
@@ -40,6 +44,13 @@ final class LectureListDetailViewModel: BaseViewModel {
             do {
                 try await applyLectureUseCase(lectureID: lectureID)
             } catch {
+                if let lectureDomainError = error as? LectureDomainError {
+                    errorMessage = lectureDomainError.errorDescription ?? "알 수 없는 오류가 발생했습니다."
+                } else {
+                    errorMessage = "알 수 없는 오류가 발생했습니다."
+                }
+                updateIsErrorOccurred(state: true)
+
                 print(error.localizedDescription)
             }
         }
