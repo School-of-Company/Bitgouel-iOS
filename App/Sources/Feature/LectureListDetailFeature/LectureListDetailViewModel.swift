@@ -30,15 +30,19 @@ final class LectureListDetailViewModel: BaseViewModel {
 
     @MainActor
     func onAppear() {
+        isLoading = true
         Task {
             do {
                 lectureDetail = try await fetchLectureDetailUseCase(lectureID: lectureID)
+
+                isLoading = false
             } catch {
                 print(error.localizedDescription)
             }
         }
     }
 
+    @MainActor
     func applyLecture() {
         Task {
             do {
@@ -50,6 +54,7 @@ final class LectureListDetailViewModel: BaseViewModel {
                     errorMessage = "알 수 없는 오류가 발생했습니다."
                 }
                 updateIsErrorOccurred(state: true)
+                isApply = false
 
                 print(error.localizedDescription)
             }
