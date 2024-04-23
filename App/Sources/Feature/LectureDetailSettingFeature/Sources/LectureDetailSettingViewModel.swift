@@ -8,8 +8,8 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     @Published var selectedLectureType: LectureType = .mutualCreditRecognitionProgram
 
     // MARK: Semester
-    @Published var springSemesterType: [SpringSemesterType] = SpringSemesterType.allCases
-    @Published var fallSemesterType: [FallSemesterType] = FallSemesterType.allCases
+    @Published var isShowingSemesterBottomSheet = false
+    @Published var semesterList: [SemesterType] = SemesterType.allCases
     @Published var selectedSemester: SemesterType = .firstYearFallSemester
 
     // MARK: Division
@@ -71,20 +71,12 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         selectedLectureType = lectureType
     }
 
-    func updateSemester(semester: String) {
-        switch semester {
-        case "SECOND_YEAR_SPRING_SEMESTER":
-            selectedSemester = .secondYearSpringSemester
+    func updateIsShowingSemesterBottomSheet(isShowing: Bool) {
+        isShowingSemesterBottomSheet = isShowing
+    }
 
-        case "SECOND_YEAR_FALL_SEMESTER":
-            selectedSemester = .secondYearFallSemester
-
-        case "THIRD_YEAR_SPRING_SEMESTER":
-            selectedSemester = .thirdYearSpringSemester
-
-        default:
-            selectedSemester = .firstYearFallSemester
-        }
+    func updateSemester(semester: SemesterType) {
+        selectedSemester = semester
     }
 
     func updateDivision(division: String) {

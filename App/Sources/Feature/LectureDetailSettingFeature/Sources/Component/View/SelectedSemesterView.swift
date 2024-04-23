@@ -2,10 +2,9 @@ import Service
 import SwiftUI
 
 struct SelectedSemesterView: View {
-    let springSemesterList: [SpringSemesterType]
-    let fallSemesterList: [FallSemesterType]
-    var selectedSemester: SemesterType
-    let onSelectSemester: (String) -> Void
+    let selectedSemester: SemesterType
+    @State var isShowingSemesterBottomSheet: Bool = false
+    let onSelectSemester: (Bool) -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -14,39 +13,15 @@ struct SelectedSemesterView: View {
                 font: .text1
             )
 
-            HStack(spacing: 16) {
-                VStack(alignment: .leading, spacing: 16) {
-                    ForEach(fallSemesterList, id: \.self) { semester in
-                        SelectedLectureDetailButton(
-                            text: semester.display(),
-                            isSelected: Binding(
-                                get: { selectedSemester.rawValue == semester.rawValue },
-                                set: { isSelected in
-                                    if isSelected {
-                                        onSelectSemester(semester.rawValue)
-                                    }
-                                }
-                            )
-                        )
+            PickerTextField(
+                "학기 선택",
+                text: selectedSemester.display()) {
+                    if isShowingSemesterBottomSheet {
+                        onSelectSemester(false)
+                    } else {
+                        onSelectSemester(true)
                     }
                 }
-
-                VStack(alignment: .leading, spacing: 16) {
-                    ForEach(springSemesterList, id: \.self) { semester in
-                        SelectedLectureDetailButton(
-                            text: semester.display(),
-                            isSelected: Binding(
-                                get: { selectedSemester.rawValue == semester.rawValue },
-                                set: { isSelected in
-                                    if isSelected {
-                                        onSelectSemester(semester.rawValue)
-                                    }
-                                }
-                            )
-                        )
-                    }
-                }
-            }
         }
     }
 }

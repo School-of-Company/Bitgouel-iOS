@@ -30,8 +30,6 @@ struct SelectedLectureTypeView: View {
                     }
                 }
             }
-
-            Spacer()
         }
     }
 }

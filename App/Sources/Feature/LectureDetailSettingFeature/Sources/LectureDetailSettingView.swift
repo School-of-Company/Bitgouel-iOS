@@ -54,11 +54,9 @@ struct LectureDetailSettingView: View {
                         }
 
                         SelectedSemesterView(
-                            springSemesterList: viewModel.springSemesterType,
-                            fallSemesterList: viewModel.fallSemesterType,
                             selectedSemester: viewModel.selectedSemester
-                        ) { semester in
-                            viewModel.updateSemester(semester: semester)
+                        ) { isShowing in
+                            viewModel.updateIsShowingSemesterBottomSheet(isShowing: isShowing)
                         }
 
                         SelectedDivisionView(
@@ -162,6 +160,16 @@ struct LectureDetailSettingView: View {
                 viewModel.fetchInstructorList()
             }
         }
+        .bitgouelBottomSheet(
+            isShowing: $viewModel.isShowingSemesterBottomSheet,
+            content: {
+                SemesterBottomSheet(
+                    semesterList: viewModel.semesterList,
+                    selectedSemester: viewModel.selectedSemester) { semester in
+                        viewModel.updateSemester(semester: semester)
+                    }
+            }
+        )
     }
 
     @ViewBuilder
