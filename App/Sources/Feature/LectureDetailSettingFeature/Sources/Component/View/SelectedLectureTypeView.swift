@@ -2,10 +2,12 @@ import Service
 import SwiftUI
 
 struct SelectedLectureTypeView: View {
-    var lectureTypeList: [LectureType]
     var selectedLectureType: LectureType
-    var onSelectLectureType: (LectureType) -> Void
-
+    var selectedLectureTypeString: String
+    @State var isShowingLectureTypeBottomSheet: Bool = false
+    let onSelectLectureType: (Bool) -> Void
+    let onChangeSelectedLectureType: (String) -> Void
+    
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 8) {
@@ -14,19 +16,30 @@ struct SelectedLectureTypeView: View {
                     font: .text1
                 )
 
-                VStack(alignment: .leading, spacing: 16) {
-                    ForEach(lectureTypeList, id: \.self) { lectureType in
-                        SelectedLectureDetailButton(
-                            text: lectureType.display(),
-                            isSelected: Binding(
-                                get: { selectedLectureType == lectureType },
-                                set: { isSelected in
-                                    if isSelected {
-                                        onSelectLectureType(lectureType)
-                                    }
-                                }
-                            )
+                PickerTextField(
+                    "유형 선택",
+                    text: selectedLectureType.rawValue) {
+                        if isShowingLectureTypeBottomSheet {
+                            onSelectLectureType(false)
+                        } else {
+                            onSelectLectureType(true)
+                        }
+                    }
+
+                if selectedLectureType == .etc {
+                    TextField("",
+                        text: Binding(
+                            get: { selectedLectureTypeString },
+                            set: { text in
+                                onChangeSelectedLectureType(text)
+                            }
                         )
+                    )
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 16)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 8)
+                            .strokeBorder(Color.bitgouel(.greyscale(.g7)))
                     }
                 }
             }

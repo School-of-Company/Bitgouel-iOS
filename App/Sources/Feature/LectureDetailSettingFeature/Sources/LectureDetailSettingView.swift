@@ -28,7 +28,7 @@ struct LectureDetailSettingView: View {
             }
             .zIndex(1)
 
-            VStack(spacing: 28) {
+            VStack(spacing: 24) {
                 HStack {
                     BitgouelText(
                         text: "강의 세부 설정",
@@ -47,10 +47,12 @@ struct LectureDetailSettingView: View {
                 ScrollView(showsIndicators: false) {
                     VStack(alignment: .leading, spacing: 28) {
                         SelectedLectureTypeView(
-                            lectureTypeList: viewModel.lectureType,
-                            selectedLectureType: viewModel.selectedLectureType
-                        ) { lectureType in
-                            viewModel.updateLectureType(lectureType: lectureType)
+                            selectedLectureType: viewModel.selectedLectureType,
+                            selectedLectureTypeString: viewModel.selectedLectureTypeString
+                        ) { isShowing in
+                            viewModel.updateIsShowingLectureTypeBottomSheet(isShowing: isShowing)
+                        } onChangeSelectedLectureType: { lectureType in
+                            viewModel.updateLectureTypeString(lectureType: lectureType)
                         }
 
                         SelectedSemesterView(
@@ -160,16 +162,21 @@ struct LectureDetailSettingView: View {
                 viewModel.fetchInstructorList()
             }
         }
-        .bitgouelBottomSheet(
-            isShowing: $viewModel.isShowingSemesterBottomSheet,
-            content: {
-                SemesterBottomSheet(
-                    semesterList: viewModel.semesterList,
-                    selectedSemester: viewModel.selectedSemester) { semester in
-                        viewModel.updateSemester(semester: semester)
-                    }
-            }
-        )
+        .bitgouelBottomSheet(isShowing: $viewModel.isShowingSemesterBottomSheet) {
+            SemesterBottomSheet(
+                semesterList: viewModel.semesterList,
+                selectedSemester: viewModel.selectedSemester) { semester in
+                    viewModel.updateSemester(semester: semester)
+                }
+        }
+        .bitgouelBottomSheet(isShowing: $viewModel.isShowingLectureTypeBottomSheet) {
+            LectureTypeBottomSheet(
+                lectureTypeList: viewModel.lectureTypeList,
+                selectedLectureType: viewModel.selectedLectureType) { lectureType in
+                    viewModel.updateLectrureType(lectureType: lectureType)
+                    viewModel.updateLectureTypeString(lectureType: lectureType.rawValue)
+                }
+        }
     }
 
     @ViewBuilder

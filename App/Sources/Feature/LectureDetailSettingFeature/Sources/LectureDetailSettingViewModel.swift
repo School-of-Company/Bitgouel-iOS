@@ -4,12 +4,14 @@ import SwiftUI
 
 final class LectureDetailSettingViewModel: BaseViewModel {
     // MARK: Lecture
-    @Published var lectureType: [LectureType] = LectureType.allCases
+    @Published var isShowingLectureTypeBottomSheet = false
     @Published var selectedLectureType: LectureType = .mutualCreditRecognitionProgram
+    @Published var selectedLectureTypeString: String = ""
+    let lectureTypeList: [LectureType] = LectureType.allCases
 
     // MARK: Semester
     @Published var isShowingSemesterBottomSheet = false
-    @Published var semesterList: [SemesterType] = SemesterType.allCases
+    let semesterList: [SemesterType] = SemesterType.allCases
     @Published var selectedSemester: SemesterType = .firstYearFallSemester
 
     // MARK: Division
@@ -67,12 +69,20 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         self.fetchDepartmentListUseCase = fetchDepartmentListUseCase
     }
 
-    func updateLectureType(lectureType: LectureType) {
+    func updateLectrureType(lectureType: LectureType) {
         selectedLectureType = lectureType
+    }
+
+    func updateLectureTypeString(lectureType: String) {
+        selectedLectureTypeString = lectureType
     }
 
     func updateIsShowingSemesterBottomSheet(isShowing: Bool) {
         isShowingSemesterBottomSheet = isShowing
+    }
+
+    func updateIsShowingLectureTypeBottomSheet(isShowing: Bool) {
+        isShowingLectureTypeBottomSheet = isShowing
     }
 
     func updateSemester(semester: SemesterType) {
@@ -190,7 +200,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
             startDate: selectedStartDate,
             endDate: selectedEndDate,
             lectureDates: lectureDatesList,
-            lectureType: selectedLectureType,
+            lectureType: selectedLectureTypeString,
             credit: selectedCredit,
             maxRegisteredUser: maxRegisteredUser
         )
