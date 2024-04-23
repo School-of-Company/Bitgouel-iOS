@@ -10,7 +10,7 @@ public struct OpenLectureModel: Equatable {
     let startDate: Date
     let endDate: Date
     let lectureDates: [LectureDatesModel]
-    let lectureType: LectureType
+    let lectureType: String
     let credit: Int
     let maxRegisteredUser: Int
 }

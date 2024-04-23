@@ -11,7 +11,7 @@ public struct OpenLectureRequestDTO: Encodable {
     public let startDate: String
     public let endDate: String
     public let lectureDates: [LectureDateInfo]
-    public let lectureType: LectureType
+    public let lectureType: String
     public let credit: Int
     public let maxRegisteredUser: Int
 
@@ -26,7 +26,7 @@ public struct OpenLectureRequestDTO: Encodable {
         startDate: String,
         endDate: String,
         lectureDates: [LectureDateInfo],
-        lectureType: LectureType,
+        lectureType: String,
         credit: Int,
         maxRegisteredUser: Int
     ) {

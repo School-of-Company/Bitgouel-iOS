@@ -176,16 +176,16 @@ struct LectureListView: View {
             HStack {
                 CheckButton(
                     isSelected: Binding(
-                        get: { viewModel.selectedLectureType == lectureType.display() },
+                        get: { viewModel.selectedLectureType == lectureType.rawValue },
                         set: { lecture in
                             if lecture {
-                                viewModel.selectedLectureType = lectureType.display()
+                                viewModel.selectedLectureType = lectureType.rawValue
                             }
                         }
                     )
                 )
 
-                Text(lectureType.display())
+                Text(lectureType.rawValue)
             }
         }
     }

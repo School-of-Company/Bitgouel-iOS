@@ -24,7 +24,7 @@ struct LectureListRow: View {
 
                 Spacer()
 
-                Text(lectureType.display())
+                Text(lectureType.rawValue)
                     .bitgouelFont(.caption, color: .greyscale(.g4))
             }
 

@@ -14,7 +14,7 @@ final class OpenLectureApplyViewModel: ObservableObject {
         startDate: Date(),
         endDate: Date(),
         lectureDates: [],
-        lectureType: .mutualCreditRecognitionProgram,
+        lectureType: "",
         credit: 0,
         maxRegisteredUser: 0
     )
