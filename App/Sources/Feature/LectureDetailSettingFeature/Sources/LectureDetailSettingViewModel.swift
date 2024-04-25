@@ -35,6 +35,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     @Published var selectedDepartment: String = ""
 
     // MARK: Instructor
+    @Published var isShowingInstructorBottomSheet: Bool = false
     @Published var instructorList: [InstructorInfoEntity] = []
     @Published var instructorID: String = ""
     @Published var instructorName: String = ""
@@ -46,7 +47,6 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         .init(completeDate: Date(), startTime: Date(), endTime: Date())
     ]
 
-    @Published var isShowingInstructorPopup: Bool = false
     @Published var keyword: String = ""
     @Published var maxRegisteredUser: Int = 0
     var detailInfo: OpenLectureModel
@@ -118,8 +118,8 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         isShowingDepartmentBottomSheet = isShowing
     }
 
-    func updateIsShowingInstructorPopup(isShowing: Bool) {
-        isShowingInstructorPopup = isShowing
+    func updateIsShowingInstructorBottomSheet(isShowing: Bool) {
+        isShowingInstructorBottomSheet = isShowing
     }
 
     func updateLine(line: String) {

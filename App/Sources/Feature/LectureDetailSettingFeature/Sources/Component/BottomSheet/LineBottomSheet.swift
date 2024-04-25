@@ -62,6 +62,7 @@ struct LineBottomSheet: View {
                 }
             }
         }
+        .frame(height: 400)
         .padding(.horizontal, 28)
     }
 

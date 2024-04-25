@@ -60,6 +60,7 @@ struct DepartmentBottomSheet: View {
             }
         }
         .padding(.horizontal, 28)
+        .frame(height: 400)
     }
 
     @ViewBuilder

@@ -4,9 +4,9 @@ import SwiftUI
 struct LectureDetailSettingView: View {
     @StateObject var viewModel: LectureDetailSettingViewModel
     @Environment(\.dismiss) var dismiss
-
+    
     private let openLectureApplyFactory: any OpenLectureApplyFactory
-
+    
     init(
         viewModel: LectureDetailSettingViewModel,
         openLectureApplyFactory: any OpenLectureApplyFactory
@@ -14,123 +14,114 @@ struct LectureDetailSettingView: View {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.openLectureApplyFactory = openLectureApplyFactory
     }
-
+    
     var body: some View {
-        ZStack(alignment: .bottom) {
-            ZStack(alignment: .center) {
-                if viewModel.isShowingInstructorPopup {
-                    instructorPopup()
-                }
-            }
-            .zIndex(1)
-
-            VStack(spacing: 24) {
-                HStack {
-                    BitgouelText(
-                        text: "강의 세부 설정",
-                        font: .title3
-                    )
-
-                    Spacer()
-
-                    BitgouelAsset.Icons.cancel.swiftUIImage
-                        .buttonWrapper {
-                            dismiss()
-                        }
-                }
-                .padding(.top, 24)
-
-                ScrollView(showsIndicators: false) {
-                    VStack(alignment: .leading, spacing: 28) {
-                        SelectedLectureTypeView(
-                            selectedLectureType: viewModel.selectedLectureType,
-                            selectedLectureTypeString: viewModel.selectedLectureTypeString
-                        ) { isShowing in
-                            viewModel.updateIsShowingLectureTypeBottomSheet(isShowing: isShowing)
-                        } onChangeSelectedLectureType: { lectureType in
-                            viewModel.updateLectureTypeString(lectureType: lectureType)
-                        }
-
-                        SelectedSemesterView(
-                            selectedSemester: viewModel.selectedSemester
-                        ) { isShowing in
-                            viewModel.updateIsShowingSemesterBottomSheet(isShowing: isShowing)
-                        }
-
-                        SelectedDivisionView(
-                            selectedDivision: viewModel.selectedDivision
-                        ) { isShowing in
-                            viewModel.updateIsShowingDivisionBottomSheet(isShowing: isShowing)
-                        }
-
-                        SelectedCreditView(
-                            selectedCredit: viewModel.selectedCredit
-                        ) { isShowing in
-                            viewModel.updateIsShowingCreditBottomSheet(isShowing: isShowing)
-                        }
-
-                        SelectedPickerView(
-                            selectedLine: viewModel.selectedLine,
-                            selectedDepartment: viewModel.selectedDepartment,
-                            selectedInstructorName: viewModel.instructorName
-                        ) {
-                            viewModel.updateIsShowingLineBottomSheet(isShowing: true)
-                        } onSelectDepartment: {
-                            viewModel.updateIsShowingDepartmentBottomSheet(isShowing: true)
-                        } onSelectInstructor: {
-                            viewModel.updateIsShowingInstructorPopup(isShowing: true)
-                        }
-
-                        SelectedApplicationPeriodView(
-                            selectedStartDate: viewModel.selectedStartDate,
-                            selectedEndDate: viewModel.selectedEndDate
-                        ) { date in
-                            viewModel.updateSelectedStartDate(date: date)
-                        } onSelectEndDate: { date in
-                            viewModel.updateSelectedEndDate(date: date)
-                        }
-
-                        SelectedLectureDatesView(
-                            lectureDatesList: viewModel.lectureDatesList
-                        ) { completeDate, index in
-                            viewModel.updateCompleteDate(
-                                completedate: completeDate,
-                                at: index
-                            )
-                        } onSelectStartTime: { startTime, index in
-                            viewModel.updateStartTime(
-                                startTime: startTime,
-                                at: index
-                            )
-                        } onSelectEndTime: { endTime, index in
-                            viewModel.updateEndTime(
-                                endTime: endTime,
-                                at: index
-                            )
-                        } addLectureDates: {
-                            viewModel.appendLectureDate()
-                        } deleteLectureDates: { index in
-                            viewModel.deleteLectureDate(at: index)
-                        }
-
-                        SelectedMaxRegisteredUser(
-                            maxRegisteredUser: viewModel.maxRegisteredUser
-                        ) { userCount in
-                            viewModel.updateMaxRegisteredUser(userCount: userCount)
-                        }
+        VStack(spacing: 24) {
+            HStack {
+                BitgouelText(
+                    text: "강의 세부 설정",
+                    font: .title3
+                )
+                
+                Spacer()
+                
+                BitgouelAsset.Icons.cancel.swiftUIImage
+                    .buttonWrapper {
+                        dismiss()
                     }
-                    .padding(.bottom, 24)
-                }
-                BitgouelButton(
-                    text: "적용 하기",
-                    style: .primary
-                ) {
-                    viewModel.applyButtonDidTap()
-                    dismiss()
-                }
             }
-            .padding(.horizontal, 28)
+            .padding(.top, 24)
+            
+            ScrollView(showsIndicators: false) {
+                VStack(alignment: .leading, spacing: 28) {
+                    SelectedLectureTypeView(
+                        selectedLectureType: viewModel.selectedLectureType,
+                        selectedLectureTypeString: viewModel.selectedLectureTypeString
+                    ) { isShowing in
+                        viewModel.updateIsShowingLectureTypeBottomSheet(isShowing: isShowing)
+                    } onChangeSelectedLectureType: { lectureType in
+                        viewModel.updateLectureTypeString(lectureType: lectureType)
+                    }
+                    
+                    SelectedSemesterView(
+                        selectedSemester: viewModel.selectedSemester
+                    ) { isShowing in
+                        viewModel.updateIsShowingSemesterBottomSheet(isShowing: isShowing)
+                    }
+                    
+                    SelectedDivisionView(
+                        selectedDivision: viewModel.selectedDivision
+                    ) { isShowing in
+                        viewModel.updateIsShowingDivisionBottomSheet(isShowing: isShowing)
+                    }
+                    
+                    SelectedCreditView(
+                        selectedCredit: viewModel.selectedCredit
+                    ) { isShowing in
+                        viewModel.updateIsShowingCreditBottomSheet(isShowing: isShowing)
+                    }
+                    
+                    SelectedPickerView(
+                        selectedLine: viewModel.selectedLine,
+                        selectedDepartment: viewModel.selectedDepartment,
+                        selectedInstructorName: viewModel.instructorName
+                    ) {
+                        viewModel.updateIsShowingLineBottomSheet(isShowing: true)
+                    } onSelectDepartment: {
+                        viewModel.updateIsShowingDepartmentBottomSheet(isShowing: true)
+                    } onSelectInstructor: {
+                        viewModel.updateIsShowingInstructorBottomSheet(isShowing: true)
+                    }
+                    
+                    SelectedApplicationPeriodView(
+                        selectedStartDate: viewModel.selectedStartDate,
+                        selectedEndDate: viewModel.selectedEndDate
+                    ) { date in
+                        viewModel.updateSelectedStartDate(date: date)
+                    } onSelectEndDate: { date in
+                        viewModel.updateSelectedEndDate(date: date)
+                    }
+                    
+                    SelectedLectureDatesView(
+                        lectureDatesList: viewModel.lectureDatesList
+                    ) { completeDate, index in
+                        viewModel.updateCompleteDate(
+                            completedate: completeDate,
+                            at: index
+                        )
+                    } onSelectStartTime: { startTime, index in
+                        viewModel.updateStartTime(
+                            startTime: startTime,
+                            at: index
+                        )
+                    } onSelectEndTime: { endTime, index in
+                        viewModel.updateEndTime(
+                            endTime: endTime,
+                            at: index
+                        )
+                    } addLectureDates: {
+                        viewModel.appendLectureDate()
+                    } deleteLectureDates: { index in
+                        viewModel.deleteLectureDate(at: index)
+                    }
+                    
+                    SelectedMaxRegisteredUser(
+                        maxRegisteredUser: viewModel.maxRegisteredUser
+                    ) { userCount in
+                        viewModel.updateMaxRegisteredUser(userCount: userCount)
+                    }
+                }
+                .padding(.bottom, 24)
+            }
+            BitgouelButton(
+                text: "적용 하기",
+                style: .primary
+            ) {
+                viewModel.applyButtonDidTap()
+                dismiss()
+            }
         }
+        .padding(.horizontal, 28)
         .onChange(of: viewModel.isShowingLineBottomSheet) { newValue in
             if newValue {
                 viewModel.fetchLineList()
@@ -141,7 +132,7 @@ struct LectureDetailSettingView: View {
                 viewModel.fetchDepartmentList()
             }
         }
-        .onChange(of: viewModel.isShowingInstructorPopup) { newValue in
+        .onChange(of: viewModel.isShowingInstructorBottomSheet) { newValue in
             if newValue {
                 viewModel.fetchInstructorList()
             }
@@ -151,7 +142,7 @@ struct LectureDetailSettingView: View {
                 viewModel.fetchLineList()
             } else if viewModel.isShowingDepartmentBottomSheet {
                 viewModel.fetchDepartmentList()
-            } else if viewModel.isShowingInstructorPopup {
+            } else if viewModel.isShowingInstructorBottomSheet {
                 viewModel.fetchInstructorList()
             }
         }
@@ -210,31 +201,15 @@ struct LectureDetailSettingView: View {
                 viewModel.resetKeyword()
             }
         }
-    }
-
-    @ViewBuilder
-    func instructorPopup() -> some View {
-        Color.black.opacity(0.4)
-            .edgesIgnoringSafeArea(.all)
-            .onTapGesture {
-                viewModel.updateIsShowingInstructorPopup(isShowing: false)
+        .bitgouelBottomSheet(isShowing: $viewModel.isShowingInstructorBottomSheet) {
+            InstructorBottomSheet(
+                instructorList: viewModel.instructorList,
+                selectedInstructorID: viewModel.instructorID,
+                keyword: $viewModel.keyword
+            ) { name, id in
+                viewModel.updateInstructorInfo(name: name, id: id)
+                viewModel.resetKeyword()
             }
-
-        InstructorPopup(
-            instructorList: viewModel.instructorList,
-            selectedInstructorID: viewModel.instructorID,
-            keyword: $viewModel.keyword,
-            onInstructorSelect: { instructorName, instructorID in
-                viewModel.updateInstructorInfo(
-                    name: instructorName,
-                    id: instructorID
-                )
-                viewModel.updateIsShowingInstructorPopup(isShowing: false)
-            },
-            cancel: { isShowing in
-                viewModel.keyword = ""
-                viewModel.updateIsShowingInstructorPopup(isShowing: false)
-            }
-        )
+        }
     }
 }

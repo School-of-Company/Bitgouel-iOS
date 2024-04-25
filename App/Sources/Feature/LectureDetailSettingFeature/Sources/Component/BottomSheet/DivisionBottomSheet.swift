@@ -44,23 +44,24 @@ struct DivisionBottomSheet: View {
                         )
                     }
                     .padding(.vertical, 24)
-                }
-
-                LazyVStack {
-                    ForEach(divisionList, id: \.self) { division in
-                        divisionListRow(
-                            division: division,
-                            isSelected: Binding(
-                                get: { division == selectedDivision },
-                                set: { _ in
-                                    print(division)
-                                }
+                } else {
+                    LazyVStack {
+                        ForEach(divisionList, id: \.self) { division in
+                            divisionListRow(
+                                division: division,
+                                isSelected: Binding(
+                                    get: { division == selectedDivision },
+                                    set: { _ in
+                                        print(division)
+                                    }
+                                )
                             )
-                        )
+                        }
                     }
                 }
             }
         }
+        .frame(height: 400)
         .padding(.horizontal, 28)
     }
 
