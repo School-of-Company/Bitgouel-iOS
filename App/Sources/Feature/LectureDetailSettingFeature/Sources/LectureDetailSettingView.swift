@@ -191,7 +191,6 @@ struct LectureDetailSettingView: View {
             lineList: viewModel.lineList,
             selectedLine: viewModel.selectedLine,
             keyword: $viewModel.keyword,
-            division: viewModel.selectedDivision,
             onLineSelect: { line in
                 viewModel.updateSelectedLine(line: line)
                 viewModel.updateIsShowingLinePopup(isShowing: false)

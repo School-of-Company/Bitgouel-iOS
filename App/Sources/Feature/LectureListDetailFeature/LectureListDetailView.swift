@@ -21,7 +21,7 @@ struct LectureListDetailView: View {
                                     .bitgouelFont(.caption, color: .primary(.p3))
 
                                 HStack(spacing: 8) {
-                                    Text(lectureDetail.division.display())
+                                    Text(lectureDetail.division)
 
                                     Divider()
 

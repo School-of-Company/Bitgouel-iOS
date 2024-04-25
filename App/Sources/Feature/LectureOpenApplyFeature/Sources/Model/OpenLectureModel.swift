@@ -3,7 +3,7 @@ import Service
 
 public struct OpenLectureModel: Equatable {
     let semester: SemesterType
-    let division: DivisionType
+    let division: String
     let department: String
     let line: String
     let instructorID: String
