@@ -25,6 +25,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     let creditValue: [Int] = [1, 2]
 
     // MARK: Line
+    @Published var isShowingLineBottomSheet: Bool = false
     @Published var lineList: [String] = []
     @Published var selectedLine: String = ""
 
@@ -45,8 +46,6 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         .init(completeDate: Date(), startTime: Date(), endTime: Date())
     ]
 
-    @Published var isShowingLinePopup: Bool = false
-    
     @Published var isShowingInstructorPopup: Bool = false
     @Published var keyword: String = ""
     @Published var maxRegisteredUser: Int = 0
@@ -111,8 +110,8 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         isShowingCreditBottomSheet = isShowing
     }
 
-    func updateIsShowingLinePopup(isShowing: Bool) {
-        isShowingLinePopup = isShowing
+    func updateIsShowingLineBottomSheet(isShowing: Bool) {
+        isShowingLineBottomSheet = isShowing
     }
 
     func updateIsShowingDepartmentBottomSheet(isShowing: Bool) {
@@ -123,7 +122,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         isShowingInstructorPopup = isShowing
     }
 
-    func updateSelectedLine(line: String) {
+    func updateLine(line: String) {
         selectedLine = line
     }
 

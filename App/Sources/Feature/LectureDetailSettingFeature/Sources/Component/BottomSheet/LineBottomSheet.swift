@@ -1,21 +1,22 @@
+import Service
 import SwiftUI
 
-struct DepartmentBottomSheet: View {
-    var selectedDepartment: String
+struct LineBottomSheet: View {
+    var selectedLine: String
     @Binding var keyword: String
     @State var isSelected: Bool = false
-    let departmentList: [String]
-    let departmentSelect: (String) -> Void
+    let lineList: [String]
+    let lineSelect: (String) -> Void
 
     var body: some View {
         VStack(spacing: 8) {
             SearchTextField(
                 text: $keyword,
-                "강의 학과 검색"
+                "계열 검색 또는 임의로 추가..."
             )
-            
+    
             ScrollView(showsIndicators: false) {
-                if departmentList.isEmpty {
+                if lineList.isEmpty {
                     HStack {
                         VStack(alignment: .leading) {
                             BitgouelText(
@@ -23,19 +24,19 @@ struct DepartmentBottomSheet: View {
                                 font: .text2
                             )
                             
-                            Text("새 학과 추가하기")
+                            Text("새 계열 추가하기")
                                 .bitgouelFont(.caption, color: .greyscale(.g4))
                         }
-
+                        
                         Spacer()
-
+                        
                         BitgouelRadioButton(
                             isSelected: Binding(
                                 get: { isSelected },
                                 set: { selected in
                                     if selected {
                                         isSelected = selected
-                                        departmentSelect(keyword)
+                                        lineSelect(keyword)
                                     } else {
                                         isSelected = selected
                                     }
@@ -46,14 +47,16 @@ struct DepartmentBottomSheet: View {
                     .padding(.vertical, 24)
                 } else {
                     LazyVStack(alignment: .leading) {
-                        ForEach(departmentList, id: \.self) { department in
-                            departmentRow(
-                                department: department,
+                        ForEach(lineList, id: \.self) { line in
+                            lectureLineRow(
+                                line: line,
                                 isSelected: Binding(
-                                    get: { department == selectedDepartment},
-                                    set: { _ in departmentSelect(department) }
+                                    get: { line == selectedLine },
+                                    set: { _ in lineSelect(line) }
                                 )
                             )
+                            
+                            Divider()
                         }
                     }
                 }
@@ -63,13 +66,13 @@ struct DepartmentBottomSheet: View {
     }
 
     @ViewBuilder
-    func departmentRow(
-        department: String,
+    func lectureLineRow(
+        line: String,
         isSelected: Binding<Bool>
     ) -> some View {
         HStack {
             BitgouelText(
-                text: department,
+                text: line,
                 font: .text1
             )
 
@@ -77,7 +80,7 @@ struct DepartmentBottomSheet: View {
 
             BitgouelRadioButton(isSelected: isSelected)
         }
-        .id(department)
+        .id(line)
         .padding(.vertical, 24)
     }
 }
