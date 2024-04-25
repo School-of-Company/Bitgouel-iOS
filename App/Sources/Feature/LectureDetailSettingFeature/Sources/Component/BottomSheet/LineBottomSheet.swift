@@ -14,7 +14,7 @@ struct LineBottomSheet: View {
                 text: $keyword,
                 "계열 검색 또는 임의로 추가..."
             )
-    
+
             ScrollView(showsIndicators: false) {
                 if lineList.isEmpty {
                     HStack {
@@ -23,13 +23,13 @@ struct LineBottomSheet: View {
                                 text: keyword,
                                 font: .text2
                             )
-                            
+
                             Text("새 계열 추가하기")
                                 .bitgouelFont(.caption, color: .greyscale(.g4))
                         }
-                        
+
                         Spacer()
-                        
+
                         BitgouelRadioButton(
                             isSelected: Binding(
                                 get: { isSelected },
@@ -55,8 +55,6 @@ struct LineBottomSheet: View {
                                     set: { _ in lineSelect(line) }
                                 )
                             )
-                            
-                            Divider()
                         }
                     }
                 }

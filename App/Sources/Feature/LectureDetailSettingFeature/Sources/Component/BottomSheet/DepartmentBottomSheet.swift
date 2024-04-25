@@ -13,7 +13,7 @@ struct DepartmentBottomSheet: View {
                 text: $keyword,
                 "강의 학과 검색"
             )
-            
+
             ScrollView(showsIndicators: false) {
                 if departmentList.isEmpty {
                     HStack {
@@ -22,7 +22,7 @@ struct DepartmentBottomSheet: View {
                                 text: keyword,
                                 font: .text2
                             )
-                            
+
                             Text("새 학과 추가하기")
                                 .bitgouelFont(.caption, color: .greyscale(.g4))
                         }
@@ -50,7 +50,7 @@ struct DepartmentBottomSheet: View {
                             departmentRow(
                                 department: department,
                                 isSelected: Binding(
-                                    get: { department == selectedDepartment},
+                                    get: { department == selectedDepartment },
                                     set: { _ in departmentSelect(department) }
                                 )
                             )

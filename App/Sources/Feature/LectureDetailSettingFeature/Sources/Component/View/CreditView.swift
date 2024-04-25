@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct SelectedCreditView: View {
+struct CreditView: View {
     var selectedCredit: Int
     @State var isShowingCreditBottomSheet: Bool = false
     let onSelectCredit: (Bool) -> Void
@@ -14,13 +14,14 @@ struct SelectedCreditView: View {
 
             PickerTextField(
                 "학점 선택",
-                text: "\(selectedCredit)") {
-                    if isShowingCreditBottomSheet {
-                        onSelectCredit(false)
-                    } else {
-                        onSelectCredit(true)
-                    }
+                text: "\(selectedCredit)"
+            ) {
+                if isShowingCreditBottomSheet {
+                    onSelectCredit(false)
+                } else {
+                    onSelectCredit(true)
                 }
+            }
         }
     }
 }

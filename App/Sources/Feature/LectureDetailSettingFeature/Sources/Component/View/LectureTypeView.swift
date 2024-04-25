@@ -1,7 +1,7 @@
 import Service
 import SwiftUI
 
-struct SelectedLectureTypeView: View {
+struct LectureTypeView: View {
     var selectedLectureType: LectureType
     var selectedLectureTypeString: String
     @State var isShowingLectureTypeBottomSheet: Bool = false

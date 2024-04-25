@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct SelectedApplicationPeriodView: View {
+struct ApplicationPeriodView: View {
     var selectedStartDate: Date
     var selectedEndDate: Date
     let onSelectStartDate: (Date) -> Void

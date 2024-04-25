@@ -4,9 +4,9 @@ import SwiftUI
 struct LectureDetailSettingView: View {
     @StateObject var viewModel: LectureDetailSettingViewModel
     @Environment(\.dismiss) var dismiss
-    
+
     private let openLectureApplyFactory: any OpenLectureApplyFactory
-    
+
     init(
         viewModel: LectureDetailSettingViewModel,
         openLectureApplyFactory: any OpenLectureApplyFactory
@@ -14,7 +14,7 @@ struct LectureDetailSettingView: View {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.openLectureApplyFactory = openLectureApplyFactory
     }
-    
+
     var body: some View {
         VStack(spacing: 24) {
             HStack {
@@ -22,19 +22,19 @@ struct LectureDetailSettingView: View {
                     text: "강의 세부 설정",
                     font: .title3
                 )
-                
+
                 Spacer()
-                
+
                 BitgouelAsset.Icons.cancel.swiftUIImage
                     .buttonWrapper {
                         dismiss()
                     }
             }
             .padding(.top, 24)
-            
+
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 28) {
-                    SelectedLectureTypeView(
+                    LectureTypeView(
                         selectedLectureType: viewModel.selectedLectureType,
                         selectedLectureTypeString: viewModel.selectedLectureTypeString
                     ) { isShowing in
@@ -42,26 +42,26 @@ struct LectureDetailSettingView: View {
                     } onChangeSelectedLectureType: { lectureType in
                         viewModel.updateLectureTypeString(lectureType: lectureType)
                     }
-                    
-                    SelectedSemesterView(
+
+                    SemesterView(
                         selectedSemester: viewModel.selectedSemester
                     ) { isShowing in
                         viewModel.updateIsShowingSemesterBottomSheet(isShowing: isShowing)
                     }
-                    
-                    SelectedDivisionView(
+
+                    DivisionView(
                         selectedDivision: viewModel.selectedDivision
                     ) { isShowing in
                         viewModel.updateIsShowingDivisionBottomSheet(isShowing: isShowing)
                     }
-                    
-                    SelectedCreditView(
+
+                    CreditView(
                         selectedCredit: viewModel.selectedCredit
                     ) { isShowing in
                         viewModel.updateIsShowingCreditBottomSheet(isShowing: isShowing)
                     }
-                    
-                    SelectedPickerView(
+
+                    PickerView(
                         selectedLine: viewModel.selectedLine,
                         selectedDepartment: viewModel.selectedDepartment,
                         selectedInstructorName: viewModel.instructorName
@@ -72,8 +72,8 @@ struct LectureDetailSettingView: View {
                     } onSelectInstructor: {
                         viewModel.updateIsShowingInstructorBottomSheet(isShowing: true)
                     }
-                    
-                    SelectedApplicationPeriodView(
+
+                    ApplicationPeriodView(
                         selectedStartDate: viewModel.selectedStartDate,
                         selectedEndDate: viewModel.selectedEndDate
                     ) { date in
@@ -81,8 +81,8 @@ struct LectureDetailSettingView: View {
                     } onSelectEndDate: { date in
                         viewModel.updateSelectedEndDate(date: date)
                     }
-                    
-                    SelectedLectureDatesView(
+
+                    LectureDatesView(
                         lectureDatesList: viewModel.lectureDatesList
                     ) { completeDate, index in
                         viewModel.updateCompleteDate(
@@ -104,8 +104,8 @@ struct LectureDetailSettingView: View {
                     } deleteLectureDates: { index in
                         viewModel.deleteLectureDate(at: index)
                     }
-                    
-                    SelectedMaxRegisteredUser(
+
+                    MaxRegisteredUser(
                         maxRegisteredUser: viewModel.maxRegisteredUser
                     ) { userCount in
                         viewModel.updateMaxRegisteredUser(userCount: userCount)

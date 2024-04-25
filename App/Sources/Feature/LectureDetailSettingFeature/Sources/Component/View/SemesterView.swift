@@ -1,7 +1,7 @@
 import Service
 import SwiftUI
 
-struct SelectedSemesterView: View {
+struct SemesterView: View {
     let selectedSemester: SemesterType
     @State var isShowingSemesterBottomSheet: Bool = false
     let onSelectSemester: (Bool) -> Void

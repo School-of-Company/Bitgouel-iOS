@@ -5,7 +5,6 @@ struct InstructorBottomSheet: View {
     var instructorList: [InstructorInfoEntity]
     var selectedInstructorID: String
     @Binding var keyword: String
-    @State var isSelected: Bool = false
     let onInstructorSelect: (_ instructorName: String, _ instructorID: String) -> Void
 
     var body: some View {
@@ -27,14 +26,9 @@ struct InstructorBottomSheet: View {
                                 instructorOrganization: instructor.organization,
                                 instructorID: instructor.instructorID,
                                 isSelected: Binding(
-                                    get: { isSelected },
-                                    set: { select in
-                                        if select {
-                                            isSelected = select
-                                            onInstructorSelect(instructor.name, instructor.instructorID)
-                                        } else {
-                                            isSelected = select
-                                        }
+                                    get: { instructor.instructorID == selectedInstructorID },
+                                    set: { _ in
+                                        onInstructorSelect(instructor.name, instructor.instructorID)
                                     }
                                 )
                             )
@@ -60,7 +54,7 @@ struct InstructorBottomSheet: View {
                     text: instructorName,
                     font: .text1
                 )
-                
+
                 BitgouelText(
                     text: instructorOrganization,
                     font: .text2

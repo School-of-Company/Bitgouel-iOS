@@ -1,7 +1,7 @@
 import Service
 import SwiftUI
 
-struct SelectedDivisionView: View {
+struct DivisionView: View {
     var selectedDivision: String
     @State var isShowingDivisionBottomSheet: Bool = false
     let onSelectDivision: (Bool) -> Void

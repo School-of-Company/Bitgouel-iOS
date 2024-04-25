@@ -74,6 +74,12 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         keyword = ""
     }
 
+    func updateMaxRegisteredUser(userCount: Int?) {
+        guard let userCount else { return }
+        maxRegisteredUser = userCount
+    }
+
+    // MARK: LectureType Func
     func updateLectrureType(lectureType: LectureType) {
         selectedLectureType = lectureType
     }
@@ -86,6 +92,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         isShowingLectureTypeBottomSheet = isShowing
     }
 
+    // MARK: Semester Func
     func updateSemester(semester: SemesterType) {
         selectedSemester = semester
     }
@@ -94,6 +101,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         isShowingSemesterBottomSheet = isShowing
     }
 
+    // MARK: Division Func
     func updateDivision(division: String) {
         selectedDivision = division
     }
@@ -102,6 +110,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         isShowingDivisionBottomSheet = isShowing
     }
 
+    // MARK: Credit Func
     func updateCredit(credit: Int) {
         selectedCredit = credit
     }
@@ -110,31 +119,35 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         isShowingCreditBottomSheet = isShowing
     }
 
+    // MARK: Line Func
+    func updateLine(line: String) {
+        selectedLine = line
+    }
+
     func updateIsShowingLineBottomSheet(isShowing: Bool) {
         isShowingLineBottomSheet = isShowing
+    }
+
+    // MARK: Department Func
+    func updateSelectedDepartment(department: String) {
+        selectedDepartment = department
     }
 
     func updateIsShowingDepartmentBottomSheet(isShowing: Bool) {
         isShowingDepartmentBottomSheet = isShowing
     }
 
-    func updateIsShowingInstructorBottomSheet(isShowing: Bool) {
-        isShowingInstructorBottomSheet = isShowing
-    }
-
-    func updateLine(line: String) {
-        selectedLine = line
-    }
-
-    func updateSelectedDepartment(department: String) {
-        selectedDepartment = department
-    }
-
+    // MARK: Instructor Func
     func updateInstructorInfo(name: String, id: String) {
         instructorName = name
         instructorID = id
     }
 
+    func updateIsShowingInstructorBottomSheet(isShowing: Bool) {
+        isShowingInstructorBottomSheet = isShowing
+    }
+
+    // MARK: Date
     func updateSelectedStartDate(date: Date) {
         selectedStartDate = date
     }
@@ -181,11 +194,6 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         lectureDatesList.append(
             .init(completeDate: Date(), startTime: Date(), endTime: Date())
         )
-    }
-
-    func updateMaxRegisteredUser(userCount: Int?) {
-        guard let userCount else { return }
-        maxRegisteredUser = userCount
     }
 
     func applyButtonDidTap() {

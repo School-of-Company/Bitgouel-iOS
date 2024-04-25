@@ -6,7 +6,7 @@ struct LectureDatesModel: Equatable {
     let endTime: Date
 }
 
-struct SelectedLectureDatesView: View {
+struct LectureDatesView: View {
     var lectureDatesList: [LectureDatesModel]
     let onSelectCompleteDate: (Date, Int) -> Void
     let onSelectStartTime: (Date, Int) -> Void
