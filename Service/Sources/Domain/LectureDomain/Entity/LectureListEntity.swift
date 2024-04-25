@@ -5,7 +5,7 @@ public struct LectureListEntity: Equatable {
     public let name: String
     public let content: String
     public let semester: SemesterType
-    public let division: DivisionType
+    public let division: String
     public let department: String
     public let line: String
     public let startDate: Date
@@ -21,7 +21,7 @@ public struct LectureListEntity: Equatable {
         name: String,
         content: String,
         semester: SemesterType,
-        division: DivisionType,
+        division: String,
         department: String,
         line: String,
         startDate: Date,

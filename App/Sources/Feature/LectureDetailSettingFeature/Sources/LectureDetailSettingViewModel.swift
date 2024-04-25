@@ -3,33 +3,39 @@ import Service
 import SwiftUI
 
 final class LectureDetailSettingViewModel: BaseViewModel {
-    // MARK: Lecture
-    @Published var lectureType: [LectureType] = LectureType.allCases
+    // MARK: LectureType
+    @Published var isShowingLectureTypeBottomSheet: Bool = false
     @Published var selectedLectureType: LectureType = .mutualCreditRecognitionProgram
+    @Published var selectedLectureTypeString: String = ""
+    let lectureTypeList: [LectureType] = LectureType.allCases
 
     // MARK: Semester
-    @Published var springSemesterType: [SpringSemesterType] = SpringSemesterType.allCases
-    @Published var fallSemesterType: [FallSemesterType] = FallSemesterType.allCases
+    @Published var isShowingSemesterBottomSheet: Bool = false
     @Published var selectedSemester: SemesterType = .firstYearFallSemester
+    let semesterList: [SemesterType] = SemesterType.allCases
 
     // MARK: Division
-    @Published var industryDivisionType: [IndustryDivisionType] = IndustryDivisionType.allCases
-    @Published var otherDivisionType: [OtherDivisionType] = OtherDivisionType.allCases
-    @Published var selectedDivision: DivisionType = .automobileIndustry
+    @Published var isShowingDivisionBottomSheet: Bool = false
+    @Published var divisionList: [String] = []
+    @Published var selectedDivision: String = ""
 
     // MARK: credit
-    let creditValue: [Int] = [1, 2]
+    @Published var isShowingCreditBottomSheet: Bool = false
     @Published var selectedCredit: Int = 1
+    let creditValue: [Int] = [1, 2]
 
     // MARK: Line
+    @Published var isShowingLineBottomSheet: Bool = false
     @Published var lineList: [String] = []
     @Published var selectedLine: String = ""
 
     // MARK: Department
+    @Published var isShowingDepartmentBottomSheet: Bool = false
     @Published var departmentList: [String] = []
     @Published var selectedDepartment: String = ""
 
     // MARK: Instructor
+    @Published var isShowingInstructorBottomSheet: Bool = false
     @Published var instructorList: [InstructorInfoEntity] = []
     @Published var instructorID: String = ""
     @Published var instructorName: String = ""
@@ -41,9 +47,6 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         .init(completeDate: Date(), startTime: Date(), endTime: Date())
     ]
 
-    @Published var isShowingLinePopup: Bool = false
-    @Published var isShowingDepartmentPopup: Bool = false
-    @Published var isShowingInstructorPopup: Bool = false
     @Published var keyword: String = ""
     @Published var maxRegisteredUser: Int = 0
     var detailInfo: OpenLectureModel
@@ -67,74 +70,84 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         self.fetchDepartmentListUseCase = fetchDepartmentListUseCase
     }
 
-    func updateLectureType(lectureType: LectureType) {
+    func resetKeyword() {
+        keyword = ""
+    }
+
+    func updateMaxRegisteredUser(userCount: Int?) {
+        guard let userCount else { return }
+        maxRegisteredUser = userCount
+    }
+
+    // MARK: LectureType Func
+    func updateLectrureType(lectureType: LectureType) {
         selectedLectureType = lectureType
     }
 
-    func updateSemester(semester: String) {
-        switch semester {
-        case "SECOND_YEAR_SPRING_SEMESTER":
-            selectedSemester = .secondYearSpringSemester
-
-        case "SECOND_YEAR_FALL_SEMESTER":
-            selectedSemester = .secondYearFallSemester
-
-        case "THIRD_YEAR_SPRING_SEMESTER":
-            selectedSemester = .thirdYearSpringSemester
-
-        default:
-            selectedSemester = .firstYearFallSemester
-        }
+    func updateLectureTypeString(lectureType: String) {
+        selectedLectureTypeString = lectureType
     }
 
+    func updateIsShowingLectureTypeBottomSheet(isShowing: Bool) {
+        isShowingLectureTypeBottomSheet = isShowing
+    }
+
+    // MARK: Semester Func
+    func updateSemester(semester: SemesterType) {
+        selectedSemester = semester
+    }
+
+    func updateIsShowingSemesterBottomSheet(isShowing: Bool) {
+        isShowingSemesterBottomSheet = isShowing
+    }
+
+    // MARK: Division Func
     func updateDivision(division: String) {
-        switch division {
-        case "ENERGY_INDUSTRY":
-            selectedDivision = .energyIndustry
-
-        case "MEDICAL_HEALTHCARE":
-            selectedDivision = .medicalHealthcare
-
-        case "AI_CONVERGENCE":
-            selectedDivision = .AIConvergence
-
-        case "CULTURAL_INDUSTRY":
-            selectedDivision = .cultureIndustry
-
-        default:
-            selectedDivision = .automobileIndustry
-        }
+        selectedDivision = division
     }
 
+    func updateIsShowingDivisionBottomSheet(isShowing: Bool) {
+        isShowingDivisionBottomSheet = isShowing
+    }
+
+    // MARK: Credit Func
     func updateCredit(credit: Int) {
         selectedCredit = credit
     }
 
-    func updateIsShowingLinePopup(isShowing: Bool) {
-        isShowingLinePopup = isShowing
+    func updateIsShowingCreditBottomSheet(isShowing: Bool) {
+        isShowingCreditBottomSheet = isShowing
     }
 
-    func updateIsShowingDepartmentPopup(isShowing: Bool) {
-        isShowingDepartmentPopup = isShowing
-    }
-
-    func updateIsShowingInstructorPopup(isShowing: Bool) {
-        isShowingInstructorPopup = isShowing
-    }
-
-    func updateSelectedLine(line: String) {
+    // MARK: Line Func
+    func updateLine(line: String) {
         selectedLine = line
     }
 
+    func updateIsShowingLineBottomSheet(isShowing: Bool) {
+        isShowingLineBottomSheet = isShowing
+    }
+
+    // MARK: Department Func
     func updateSelectedDepartment(department: String) {
         selectedDepartment = department
     }
 
+    func updateIsShowingDepartmentBottomSheet(isShowing: Bool) {
+        isShowingDepartmentBottomSheet = isShowing
+    }
+
+    // MARK: Instructor Func
     func updateInstructorInfo(name: String, id: String) {
         instructorName = name
         instructorID = id
     }
 
+    func updateIsShowingInstructorBottomSheet(isShowing: Bool) {
+        isShowingInstructorBottomSheet = isShowing
+    }
+
+    // MARK: Date
     func updateSelectedStartDate(date: Date) {
         selectedStartDate = date
     }
@@ -183,11 +196,6 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         )
     }
 
-    func updateMaxRegisteredUser(userCount: Int?) {
-        guard let userCount else { return }
-        maxRegisteredUser = userCount
-    }
-
     func applyButtonDidTap() {
         detailInfo = .init(
             semester: selectedSemester,
@@ -198,7 +206,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
             startDate: selectedStartDate,
             endDate: selectedEndDate,
             lectureDates: lectureDatesList,
-            lectureType: selectedLectureType,
+            lectureType: selectedLectureTypeString,
             credit: selectedCredit,
             maxRegisteredUser: maxRegisteredUser
         )
@@ -210,7 +218,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     func fetchLineList() {
         Task {
             do {
-                lineList = try await fetchLineListUseCase(keyword: keyword, division: selectedDivision.rawValue)
+                lineList = try await fetchLineListUseCase(keyword: keyword, division: selectedDivision)
             } catch {
                 print(error.localizedDescription)
             }

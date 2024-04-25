@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct SelectedPickerView: View {
+struct PickerView: View {
     var selectedLine: String
     var selectedDepartment: String
     var selectedInstructorName: String

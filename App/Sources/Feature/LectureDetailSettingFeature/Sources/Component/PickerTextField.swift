@@ -20,24 +20,24 @@ struct PickerTextField: View {
             Text(text)
                 .bitgouelFont(.text3)
                 .foregroundColor(Color.bitgouel(.greyscale(.g0)))
+                .padding(.horizontal, 20)
 
             Spacer()
-
-            BitgouelAsset.Icons.chevronDown.swiftUIImage
         }
         .padding(.vertical, 16)
-        .padding(.horizontal, 20)
-        .background(Color.bitgouel(.greyscale(.g9)))
-        .cornerRadius(8)
         .overlay {
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(Color.bitgouel(.greyscale(.g7)))
             if text.isEmpty {
                 HStack {
                     Text(placeholder)
+                        .bitgouelFont(.text3)
                         .foregroundColor(.bitgouel(.greyscale(.g4)))
-                        .padding(.leading, 20)
+                        .padding(.horizontal, 20)
 
                     Spacer()
                 }
+                .padding(.vertical, 16)
             }
         }
         .buttonWrapper(action)

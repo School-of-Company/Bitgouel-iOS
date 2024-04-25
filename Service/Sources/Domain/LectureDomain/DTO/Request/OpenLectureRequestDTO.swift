@@ -4,14 +4,14 @@ public struct OpenLectureRequestDTO: Encodable {
     public let name: String
     public let content: String
     public let semester: SemesterType
-    public let division: DivisionType
+    public let division: String
     public let department: String
     public let line: String
     public let userID: String
     public let startDate: String
     public let endDate: String
     public let lectureDates: [LectureDateInfo]
-    public let lectureType: LectureType
+    public let lectureType: String
     public let credit: Int
     public let maxRegisteredUser: Int
 
@@ -19,14 +19,14 @@ public struct OpenLectureRequestDTO: Encodable {
         name: String,
         content: String,
         semester: SemesterType,
-        division: DivisionType,
+        division: String,
         department: String,
         line: String,
         userID: String,
         startDate: String,
         endDate: String,
         lectureDates: [LectureDateInfo],
-        lectureType: LectureType,
+        lectureType: String,
         credit: Int,
         maxRegisteredUser: Int
     ) {

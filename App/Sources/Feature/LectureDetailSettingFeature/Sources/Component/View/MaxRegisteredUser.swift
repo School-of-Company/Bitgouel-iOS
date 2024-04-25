@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct SelectedMaxRegisteredUser: View {
+struct MaxRegisteredUser: View {
     let maxRegisteredUser: Int
     let onSelectMaxRegisteredUser: (Int?) -> Void
 

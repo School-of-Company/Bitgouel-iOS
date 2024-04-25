@@ -85,7 +85,7 @@ final class LectureListViewModel: BaseViewModel {
 
     func filteredLectureType(_ filterType: LectureType) {
         filteredLectureList = lectureType.filter { lecture in
-            return lecture.display() == selectedLectureType
+            return lecture.rawValue == selectedLectureType
         }
     }
 }

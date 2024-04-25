@@ -1,15 +1,9 @@
 import Foundation
 
 public enum LectureType: String, CaseIterable, Decodable, Encodable {
-    case mutualCreditRecognitionProgram = "MUTUAL_CREDIT_RECOGNITION_PROGRAM"
-    case universityExplorationProgram = "UNIVERSITY_EXPLORATION_PROGRAM"
-}
-
-public extension LectureType {
-    func display() -> String {
-        switch self {
-        case .mutualCreditRecognitionProgram: return "상호학점인정교육과정"
-        case .universityExplorationProgram: return "대학탐방프로그램"
-        }
-    }
+    case mutualCreditRecognitionProgram = "상호학점인정교육과정"
+    case universityExplorationProgram = "대학탐방프로그램"
+    case governmentProgram = "유관기관프로그램"
+    case companyIndustryLinkingJobExperienceProgram = "기업산학연계직업체험프로그램"
+    case etc = "기타"
 }

@@ -7,14 +7,14 @@ final class OpenLectureApplyViewModel: ObservableObject {
     @Published var isPresentedLectureDetailSettingAppend = false
     @Published var openLectureInfo: OpenLectureModel = .init(
         semester: .firstYearFallSemester,
-        division: .automobileIndustry,
+        division: "",
         department: "",
         line: "",
         instructorID: "",
         startDate: Date(),
         endDate: Date(),
         lectureDates: [],
-        lectureType: .mutualCreditRecognitionProgram,
+        lectureType: "",
         credit: 0,
         maxRegisteredUser: 0
     )

@@ -16,224 +16,200 @@ struct LectureDetailSettingView: View {
     }
 
     var body: some View {
-        ZStack(alignment: .bottom) {
-            ZStack(alignment: .center) {
-                if viewModel.isShowingLinePopup {
-                    lectureLinePopup()
-                } else if viewModel.isShowingDepartmentPopup {
-                    lectureDepartmentPopup()
-                } else if viewModel.isShowingInstructorPopup {
-                    instructorPopup()
-                }
-            }
-            .zIndex(1)
+        VStack(spacing: 24) {
+            HStack {
+                BitgouelText(
+                    text: "강의 세부 설정",
+                    font: .title3
+                )
 
-            VStack(spacing: 28) {
-                HStack {
-                    BitgouelText(
-                        text: "강의 세부 설정",
-                        font: .title3
-                    )
+                Spacer()
 
-                    Spacer()
-
-                    BitgouelAsset.Icons.cancel.swiftUIImage
-                        .buttonWrapper {
-                            dismiss()
-                        }
-                }
-                .padding(.top, 24)
-
-                ScrollView(showsIndicators: false) {
-                    VStack(alignment: .leading, spacing: 28) {
-                        SelectedLectureTypeView(
-                            lectureTypeList: viewModel.lectureType,
-                            selectedLectureType: viewModel.selectedLectureType
-                        ) { lectureType in
-                            viewModel.updateLectureType(lectureType: lectureType)
-                        }
-
-                        SelectedSemesterView(
-                            springSemesterList: viewModel.springSemesterType,
-                            fallSemesterList: viewModel.fallSemesterType,
-                            selectedSemester: viewModel.selectedSemester
-                        ) { semester in
-                            viewModel.updateSemester(semester: semester)
-                        }
-
-                        SelectedDivisionView(
-                            industryDivisionList: viewModel.industryDivisionType,
-                            otherDivisionList: viewModel.otherDivisionType,
-                            selectedDivision: viewModel.selectedDivision
-                        ) { division in
-                            viewModel.updateDivision(division: division)
-                        }
-
-                        SelectedCreditView(
-                            creditList: viewModel.creditValue,
-                            selectedCredit: viewModel.selectedCredit
-                        ) { credit in
-                            viewModel.updateCredit(credit: credit)
-                        }
-
-                        SelectedPickerView(
-                            selectedLine: viewModel.selectedLine,
-                            selectedDepartment: viewModel.selectedDepartment,
-                            selectedInstructorName: viewModel.instructorName
-                        ) {
-                            viewModel.updateIsShowingLinePopup(isShowing: true)
-                        } onSelectDepartment: {
-                            viewModel.updateIsShowingDepartmentPopup(isShowing: true)
-                        } onSelectInstructor: {
-                            viewModel.updateIsShowingInstructorPopup(isShowing: true)
-                        }
-
-                        SelectedApplicationPeriodView(
-                            selectedStartDate: viewModel.selectedStartDate,
-                            selectedEndDate: viewModel.selectedEndDate
-                        ) { date in
-                            viewModel.updateSelectedStartDate(date: date)
-                        } onSelectEndDate: { date in
-                            viewModel.updateSelectedEndDate(date: date)
-                        }
-
-                        SelectedLectureDatesView(
-                            lectureDatesList: viewModel.lectureDatesList
-                        ) { completeDate, index in
-                            viewModel.updateCompleteDate(
-                                completedate: completeDate,
-                                at: index
-                            )
-                        } onSelectStartTime: { startTime, index in
-                            viewModel.updateStartTime(
-                                startTime: startTime,
-                                at: index
-                            )
-                        } onSelectEndTime: { endTime, index in
-                            viewModel.updateEndTime(
-                                endTime: endTime,
-                                at: index
-                            )
-                        } addLectureDates: {
-                            viewModel.appendLectureDate()
-                        } deleteLectureDates: { index in
-                            viewModel.deleteLectureDate(at: index)
-                        }
-
-                        SelectedMaxRegisteredUser(
-                            maxRegisteredUser: viewModel.maxRegisteredUser
-                        ) { userCount in
-                            viewModel.updateMaxRegisteredUser(userCount: userCount)
-                        }
+                BitgouelAsset.Icons.cancel.swiftUIImage
+                    .buttonWrapper {
+                        dismiss()
                     }
-                    .padding(.bottom, 24)
-                }
-                BitgouelButton(
-                    text: "적용 하기",
-                    style: .primary
-                ) {
-                    viewModel.applyButtonDidTap()
-                    dismiss()
-                }
             }
-            .padding(.horizontal, 28)
+            .padding(.top, 24)
+
+            ScrollView(showsIndicators: false) {
+                VStack(alignment: .leading, spacing: 28) {
+                    LectureTypeView(
+                        selectedLectureType: viewModel.selectedLectureType,
+                        selectedLectureTypeString: viewModel.selectedLectureTypeString
+                    ) { isShowing in
+                        viewModel.updateIsShowingLectureTypeBottomSheet(isShowing: isShowing)
+                    } onChangeSelectedLectureType: { lectureType in
+                        viewModel.updateLectureTypeString(lectureType: lectureType)
+                    }
+
+                    SemesterView(
+                        selectedSemester: viewModel.selectedSemester
+                    ) { isShowing in
+                        viewModel.updateIsShowingSemesterBottomSheet(isShowing: isShowing)
+                    }
+
+                    DivisionView(
+                        selectedDivision: viewModel.selectedDivision
+                    ) { isShowing in
+                        viewModel.updateIsShowingDivisionBottomSheet(isShowing: isShowing)
+                    }
+
+                    CreditView(
+                        selectedCredit: viewModel.selectedCredit
+                    ) { isShowing in
+                        viewModel.updateIsShowingCreditBottomSheet(isShowing: isShowing)
+                    }
+
+                    PickerView(
+                        selectedLine: viewModel.selectedLine,
+                        selectedDepartment: viewModel.selectedDepartment,
+                        selectedInstructorName: viewModel.instructorName
+                    ) {
+                        viewModel.updateIsShowingLineBottomSheet(isShowing: true)
+                    } onSelectDepartment: {
+                        viewModel.updateIsShowingDepartmentBottomSheet(isShowing: true)
+                    } onSelectInstructor: {
+                        viewModel.updateIsShowingInstructorBottomSheet(isShowing: true)
+                    }
+
+                    ApplicationPeriodView(
+                        selectedStartDate: viewModel.selectedStartDate,
+                        selectedEndDate: viewModel.selectedEndDate
+                    ) { date in
+                        viewModel.updateSelectedStartDate(date: date)
+                    } onSelectEndDate: { date in
+                        viewModel.updateSelectedEndDate(date: date)
+                    }
+
+                    LectureDatesView(
+                        lectureDatesList: viewModel.lectureDatesList
+                    ) { completeDate, index in
+                        viewModel.updateCompleteDate(
+                            completedate: completeDate,
+                            at: index
+                        )
+                    } onSelectStartTime: { startTime, index in
+                        viewModel.updateStartTime(
+                            startTime: startTime,
+                            at: index
+                        )
+                    } onSelectEndTime: { endTime, index in
+                        viewModel.updateEndTime(
+                            endTime: endTime,
+                            at: index
+                        )
+                    } addLectureDates: {
+                        viewModel.appendLectureDate()
+                    } deleteLectureDates: { index in
+                        viewModel.deleteLectureDate(at: index)
+                    }
+
+                    MaxRegisteredUser(
+                        maxRegisteredUser: viewModel.maxRegisteredUser
+                    ) { userCount in
+                        viewModel.updateMaxRegisteredUser(userCount: userCount)
+                    }
+                }
+                .padding(.bottom, 24)
+            }
+            BitgouelButton(
+                text: "적용 하기",
+                style: .primary
+            ) {
+                viewModel.applyButtonDidTap()
+                dismiss()
+            }
         }
-        .onChange(of: viewModel.isShowingLinePopup) { newValue in
+        .padding(.horizontal, 28)
+        .onChange(of: viewModel.isShowingLineBottomSheet) { newValue in
             if newValue {
                 viewModel.fetchLineList()
             }
         }
-        .onChange(of: viewModel.isShowingDepartmentPopup) { newValue in
+        .onChange(of: viewModel.isShowingDepartmentBottomSheet) { newValue in
             if newValue {
                 viewModel.fetchDepartmentList()
             }
         }
-        .onChange(of: viewModel.isShowingInstructorPopup) { newValue in
+        .onChange(of: viewModel.isShowingInstructorBottomSheet) { newValue in
             if newValue {
                 viewModel.fetchInstructorList()
             }
         }
         .onChange(of: viewModel.keyword) { newValue in
-            if viewModel.isShowingLinePopup {
+            if viewModel.isShowingLineBottomSheet {
                 viewModel.fetchLineList()
-            } else if viewModel.isShowingDepartmentPopup {
+            } else if viewModel.isShowingDepartmentBottomSheet {
                 viewModel.fetchDepartmentList()
-            } else if viewModel.isShowingInstructorPopup {
+            } else if viewModel.isShowingInstructorBottomSheet {
                 viewModel.fetchInstructorList()
             }
         }
-    }
-
-    @ViewBuilder
-    func lectureLinePopup() -> some View {
-        Color.black.opacity(0.4)
-            .edgesIgnoringSafeArea(.all)
-            .onTapGesture {
-                viewModel.updateIsShowingLinePopup(isShowing: false)
+        .bitgouelBottomSheet(isShowing: $viewModel.isShowingSemesterBottomSheet) {
+            SemesterBottomSheet(
+                semesterList: viewModel.semesterList,
+                selectedSemester: viewModel.selectedSemester
+            ) { semester in
+                viewModel.updateSemester(semester: semester)
             }
-
-        LectureLinePopup(
-            lineList: viewModel.lineList,
-            selectedLine: viewModel.selectedLine,
-            keyword: $viewModel.keyword,
-            division: viewModel.selectedDivision,
-            onLineSelect: { line in
-                viewModel.updateSelectedLine(line: line)
-                viewModel.updateIsShowingLinePopup(isShowing: false)
-            },
-            cancel: { isShowing in
-                viewModel.keyword = ""
-                viewModel.updateIsShowingLinePopup(isShowing: isShowing)
+        }
+        .bitgouelBottomSheet(isShowing: $viewModel.isShowingLectureTypeBottomSheet) {
+            LectureTypeBottomSheet(
+                selectedLectureType: viewModel.selectedLectureType,
+                lectureTypeList: viewModel.lectureTypeList
+            ) { lectureType in
+                viewModel.updateLectrureType(lectureType: lectureType)
+                viewModel.updateLectureTypeString(lectureType: lectureType.rawValue)
             }
-        )
-    }
-
-    @ViewBuilder
-    func lectureDepartmentPopup() -> some View {
-        Color.black.opacity(0.4)
-            .edgesIgnoringSafeArea(.all)
-            .onTapGesture {
-                viewModel.updateIsShowingDepartmentPopup(isShowing: false)
+        }
+        .bitgouelBottomSheet(isShowing: $viewModel.isShowingDivisionBottomSheet) {
+            DivisionBottomSheet(
+                selectedDivision: viewModel.selectedDivision,
+                keyword: $viewModel.keyword,
+                divisionList: viewModel.divisionList
+            ) { division in
+                viewModel.updateDivision(division: division)
+                viewModel.resetKeyword()
             }
-
-        LectureDepartmentPopup(
-            departmentList: viewModel.departmentList,
-            selectedDepartment: viewModel.selectedDepartment,
-            keyword: $viewModel.keyword,
-            onDepartmentSelect: { department in
+        }
+        .bitgouelBottomSheet(isShowing: $viewModel.isShowingCreditBottomSheet) {
+            CreditBottomSheet(
+                selectedCredit: viewModel.selectedCredit,
+                creditList: viewModel.creditValue
+            ) { credit in
+                viewModel.updateCredit(credit: credit)
+            }
+        }
+        .bitgouelBottomSheet(isShowing: $viewModel.isShowingLineBottomSheet) {
+            LineBottomSheet(
+                selectedLine: viewModel.selectedLine,
+                keyword: $viewModel.keyword,
+                lineList: viewModel.lineList
+            ) { line in
+                viewModel.updateLine(line: line)
+                viewModel.resetKeyword()
+            }
+        }
+        .bitgouelBottomSheet(isShowing: $viewModel.isShowingDepartmentBottomSheet) {
+            DepartmentBottomSheet(
+                selectedDepartment: viewModel.selectedDepartment,
+                keyword: $viewModel.keyword,
+                departmentList: viewModel.departmentList
+            ) { department in
                 viewModel.updateSelectedDepartment(department: department)
-                viewModel.updateIsShowingDepartmentPopup(isShowing: false)
-            },
-            cancel: { isShowing in
-                viewModel.keyword = ""
-                viewModel.updateIsShowingDepartmentPopup(isShowing: isShowing)
+                viewModel.resetKeyword()
             }
-        )
-    }
-
-    @ViewBuilder
-    func instructorPopup() -> some View {
-        Color.black.opacity(0.4)
-            .edgesIgnoringSafeArea(.all)
-            .onTapGesture {
-                viewModel.updateIsShowingInstructorPopup(isShowing: false)
+        }
+        .bitgouelBottomSheet(isShowing: $viewModel.isShowingInstructorBottomSheet) {
+            InstructorBottomSheet(
+                instructorList: viewModel.instructorList,
+                selectedInstructorID: viewModel.instructorID,
+                keyword: $viewModel.keyword
+            ) { name, id in
+                viewModel.updateInstructorInfo(name: name, id: id)
+                viewModel.resetKeyword()
             }
-
-        InstructorPopup(
-            instructorList: viewModel.instructorList,
-            selectedInstructorID: viewModel.instructorID,
-            keyword: $viewModel.keyword,
-            onInstructorSelect: { instructorName, instructorID in
-                viewModel.updateInstructorInfo(
-                    name: instructorName,
-                    id: instructorID
-                )
-                viewModel.updateIsShowingInstructorPopup(isShowing: false)
-            },
-            cancel: { isShowing in
-                viewModel.keyword = ""
-                viewModel.updateIsShowingInstructorPopup(isShowing: false)
-            }
-        )
+        }
     }
 }

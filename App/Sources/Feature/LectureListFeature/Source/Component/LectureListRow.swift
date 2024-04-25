@@ -5,7 +5,7 @@ struct LectureListRow: View {
     let name: String
     let content: String
     let semester: SemesterType
-    let division: DivisionType
+    let division: String
     let department: String
     let line: String
     let startDate: String
@@ -24,7 +24,7 @@ struct LectureListRow: View {
 
                 Spacer()
 
-                Text(lectureType.display())
+                Text(lectureType.rawValue)
                     .bitgouelFont(.caption, color: .greyscale(.g4))
             }
 
@@ -57,7 +57,7 @@ struct LectureListRow: View {
 
                 Divider()
 
-                Text(division.display())
+                Text(division)
 
                 Divider()
 
