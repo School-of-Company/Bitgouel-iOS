@@ -29,6 +29,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     @Published var selectedLine: String = ""
 
     // MARK: Department
+    @Published var isShowingDepartmentBottomSheet: Bool = false
     @Published var departmentList: [String] = []
     @Published var selectedDepartment: String = ""
 
@@ -45,7 +46,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     ]
 
     @Published var isShowingLinePopup: Bool = false
-    @Published var isShowingDepartmentPopup: Bool = false
+    
     @Published var isShowingInstructorPopup: Bool = false
     @Published var keyword: String = ""
     @Published var maxRegisteredUser: Int = 0
@@ -114,8 +115,8 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         isShowingLinePopup = isShowing
     }
 
-    func updateIsShowingDepartmentPopup(isShowing: Bool) {
-        isShowingDepartmentPopup = isShowing
+    func updateIsShowingDepartmentBottomSheet(isShowing: Bool) {
+        isShowingDepartmentBottomSheet = isShowing
     }
 
     func updateIsShowingInstructorPopup(isShowing: Bool) {

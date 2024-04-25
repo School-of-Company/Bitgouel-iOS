@@ -20,8 +20,6 @@ struct LectureDetailSettingView: View {
             ZStack(alignment: .center) {
                 if viewModel.isShowingLinePopup {
                     lectureLinePopup()
-                } else if viewModel.isShowingDepartmentPopup {
-                    lectureDepartmentPopup()
                 } else if viewModel.isShowingInstructorPopup {
                     instructorPopup()
                 }
@@ -80,7 +78,7 @@ struct LectureDetailSettingView: View {
                         ) {
                             viewModel.updateIsShowingLinePopup(isShowing: true)
                         } onSelectDepartment: {
-                            viewModel.updateIsShowingDepartmentPopup(isShowing: true)
+                            viewModel.updateIsShowingDepartmentBottomSheet(isShowing: true)
                         } onSelectInstructor: {
                             viewModel.updateIsShowingInstructorPopup(isShowing: true)
                         }
@@ -140,7 +138,7 @@ struct LectureDetailSettingView: View {
                 viewModel.fetchLineList()
             }
         }
-        .onChange(of: viewModel.isShowingDepartmentPopup) { newValue in
+        .onChange(of: viewModel.isShowingDepartmentBottomSheet) { newValue in
             if newValue {
                 viewModel.fetchDepartmentList()
             }
@@ -153,7 +151,7 @@ struct LectureDetailSettingView: View {
         .onChange(of: viewModel.keyword) { newValue in
             if viewModel.isShowingLinePopup {
                 viewModel.fetchLineList()
-            } else if viewModel.isShowingDepartmentPopup {
+            } else if viewModel.isShowingDepartmentBottomSheet {
                 viewModel.fetchDepartmentList()
             } else if viewModel.isShowingInstructorPopup {
                 viewModel.fetchInstructorList()
@@ -194,6 +192,16 @@ struct LectureDetailSettingView: View {
                 viewModel.updateCredit(credit: credit)
             }
         }
+        .bitgouelBottomSheet(isShowing: $viewModel.isShowingDepartmentBottomSheet) {
+            DepartmentBottomSheet(
+                selectedDepartment: viewModel.selectedDepartment,
+                keyword: $viewModel.keyword,
+                departmentList: viewModel.departmentList
+            ) { department in
+                viewModel.updateSelectedDepartment(department: department)
+                viewModel.resetKeyword()
+            }
+        }
     }
 
     @ViewBuilder
@@ -203,7 +211,7 @@ struct LectureDetailSettingView: View {
             .onTapGesture {
                 viewModel.updateIsShowingLinePopup(isShowing: false)
             }
-
+        
         LectureLinePopup(
             lineList: viewModel.lineList,
             selectedLine: viewModel.selectedLine,
@@ -215,29 +223,6 @@ struct LectureDetailSettingView: View {
             cancel: { isShowing in
                 viewModel.keyword = ""
                 viewModel.updateIsShowingLinePopup(isShowing: isShowing)
-            }
-        )
-    }
-
-    @ViewBuilder
-    func lectureDepartmentPopup() -> some View {
-        Color.black.opacity(0.4)
-            .edgesIgnoringSafeArea(.all)
-            .onTapGesture {
-                viewModel.updateIsShowingDepartmentPopup(isShowing: false)
-            }
-
-        LectureDepartmentPopup(
-            departmentList: viewModel.departmentList,
-            selectedDepartment: viewModel.selectedDepartment,
-            keyword: $viewModel.keyword,
-            onDepartmentSelect: { department in
-                viewModel.updateSelectedDepartment(department: department)
-                viewModel.updateIsShowingDepartmentPopup(isShowing: false)
-            },
-            cancel: { isShowing in
-                viewModel.keyword = ""
-                viewModel.updateIsShowingDepartmentPopup(isShowing: isShowing)
             }
         )
     }

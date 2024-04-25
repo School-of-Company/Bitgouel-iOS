@@ -21,8 +21,6 @@ public struct SearchTextField: View {
                 .onSubmit(onSubmit)
                 .bitgouelFont(.text3)
                 .foregroundColor(.bitgouel(.greyscale(.g0)))
-
-            BitgouelAsset.Icons.search.swiftUIImage
         }
         .frame(height: 54)
         .padding(.horizontal, 20)
