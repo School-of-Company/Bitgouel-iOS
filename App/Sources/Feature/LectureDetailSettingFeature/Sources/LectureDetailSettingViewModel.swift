@@ -4,20 +4,20 @@ import SwiftUI
 
 final class LectureDetailSettingViewModel: BaseViewModel {
     // MARK: LectureType
-    @Published var isShowingLectureTypeBottomSheet = false
+    @Published var isShowingLectureTypeBottomSheet: Bool = false
     @Published var selectedLectureType: LectureType = .mutualCreditRecognitionProgram
     @Published var selectedLectureTypeString: String = ""
     let lectureTypeList: [LectureType] = LectureType.allCases
 
     // MARK: Semester
-    @Published var isShowingSemesterBottomSheet = false
+    @Published var isShowingSemesterBottomSheet: Bool = false
     let semesterList: [SemesterType] = SemesterType.allCases
     @Published var selectedSemester: SemesterType = .firstYearFallSemester
 
     // MARK: Division
-    @Published var industryDivisionType: [IndustryDivisionType] = IndustryDivisionType.allCases
-    @Published var otherDivisionType: [OtherDivisionType] = OtherDivisionType.allCases
-    @Published var selectedDivision: DivisionType = .automobileIndustry
+    @Published var isShowingDivisionBottomSheet: Bool = false
+    @Published var divisionList: [String] = []
+    @Published var selectedDivision: String = ""
 
     // MARK: credit
     let creditValue: [Int] = [1, 2]
@@ -77,10 +77,6 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         selectedLectureTypeString = lectureType
     }
 
-    func updateIsShowingSemesterBottomSheet(isShowing: Bool) {
-        isShowingSemesterBottomSheet = isShowing
-    }
-
     func updateIsShowingLectureTypeBottomSheet(isShowing: Bool) {
         isShowingLectureTypeBottomSheet = isShowing
     }
@@ -89,23 +85,20 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         selectedSemester = semester
     }
 
+    func resetKeyword() {
+        keyword = ""
+    }
+
+    func updateIsShowingSemesterBottomSheet(isShowing: Bool) {
+        isShowingSemesterBottomSheet = isShowing
+    }
+
     func updateDivision(division: String) {
-        switch division {
-        case "ENERGY_INDUSTRY":
-            selectedDivision = .energyIndustry
+        selectedDivision = division
+    }
 
-        case "MEDICAL_HEALTHCARE":
-            selectedDivision = .medicalHealthcare
-
-        case "AI_CONVERGENCE":
-            selectedDivision = .AIConvergence
-
-        case "CULTURAL_INDUSTRY":
-            selectedDivision = .cultureIndustry
-
-        default:
-            selectedDivision = .automobileIndustry
-        }
+    func updateIsShowingDivisionBottomSheet(isShowing: Bool) {
+        isShowingDivisionBottomSheet = isShowing
     }
 
     func updateCredit(credit: Int) {
@@ -212,7 +205,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     func fetchLineList() {
         Task {
             do {
-                lineList = try await fetchLineListUseCase(keyword: keyword, division: selectedDivision.rawValue)
+                lineList = try await fetchLineListUseCase(keyword: keyword, division: selectedDivision)
             } catch {
                 print(error.localizedDescription)
             }

@@ -7,7 +7,7 @@ struct SelectedLectureTypeView: View {
     @State var isShowingLectureTypeBottomSheet: Bool = false
     let onSelectLectureType: (Bool) -> Void
     let onChangeSelectedLectureType: (String) -> Void
-    
+
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 8) {
@@ -18,16 +18,18 @@ struct SelectedLectureTypeView: View {
 
                 PickerTextField(
                     "유형 선택",
-                    text: selectedLectureType.rawValue) {
-                        if isShowingLectureTypeBottomSheet {
-                            onSelectLectureType(false)
-                        } else {
-                            onSelectLectureType(true)
-                        }
+                    text: selectedLectureType.rawValue
+                ) {
+                    if isShowingLectureTypeBottomSheet {
+                        onSelectLectureType(false)
+                    } else {
+                        onSelectLectureType(true)
                     }
+                }
 
                 if selectedLectureType == .etc {
-                    TextField("",
+                    TextField(
+                        "",
                         text: Binding(
                             get: { selectedLectureTypeString },
                             set: { text in

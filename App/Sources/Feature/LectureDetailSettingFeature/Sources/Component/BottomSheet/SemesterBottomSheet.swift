@@ -1,11 +1,11 @@
-import SwiftUI
 import Service
+import SwiftUI
 
 struct SemesterBottomSheet: View {
     let semesterList: SemesterType.AllCases
     let selectedSemester: SemesterType
     let semesterDidSelect: (SemesterType) -> Void
-    
+
     var body: some View {
         ScrollView {
             LazyVStack {
@@ -21,7 +21,7 @@ struct SemesterBottomSheet: View {
             }
         }
     }
-    
+
     @ViewBuilder
     func semesterListRow(
         semester: String,

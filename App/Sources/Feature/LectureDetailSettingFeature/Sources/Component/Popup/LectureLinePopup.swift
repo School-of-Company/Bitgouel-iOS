@@ -5,7 +5,6 @@ struct LectureLinePopup: View {
     var lineList: [String]
     var selectedLine: String
     @Binding var keyword: String
-    let division: DivisionType
     let onLineSelect: (String) -> Void
     let cancel: (Bool) -> Void
 
@@ -45,7 +44,6 @@ struct LectureLinePopup: View {
                             if lineList.isEmpty {
                                 lectureLineRow(
                                     line: keyword,
-                                    division: division,
                                     onLineSelect: onLineSelect
                                 )
 
@@ -54,7 +52,6 @@ struct LectureLinePopup: View {
                                 ForEach(lineList, id: \.self) { line in
                                     lectureLineRow(
                                         line: line,
-                                        division: division,
                                         onLineSelect: onLineSelect
                                     )
 
@@ -73,7 +70,6 @@ struct LectureLinePopup: View {
     @ViewBuilder
     func lectureLineRow(
         line: String,
-        division: DivisionType,
         onLineSelect: @escaping (String) -> Void
     ) -> some View {
         VStack(alignment: .leading, spacing: 4) {

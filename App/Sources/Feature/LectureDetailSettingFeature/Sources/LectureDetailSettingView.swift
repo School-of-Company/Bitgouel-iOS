@@ -62,11 +62,9 @@ struct LectureDetailSettingView: View {
                         }
 
                         SelectedDivisionView(
-                            industryDivisionList: viewModel.industryDivisionType,
-                            otherDivisionList: viewModel.otherDivisionType,
                             selectedDivision: viewModel.selectedDivision
-                        ) { division in
-                            viewModel.updateDivision(division: division)
+                        ) { isShowing in
+                            viewModel.updateIsShowingDivisionBottomSheet(isShowing: isShowing)
                         }
 
                         SelectedCreditView(
@@ -165,17 +163,29 @@ struct LectureDetailSettingView: View {
         .bitgouelBottomSheet(isShowing: $viewModel.isShowingSemesterBottomSheet) {
             SemesterBottomSheet(
                 semesterList: viewModel.semesterList,
-                selectedSemester: viewModel.selectedSemester) { semester in
-                    viewModel.updateSemester(semester: semester)
-                }
+                selectedSemester: viewModel.selectedSemester
+            ) { semester in
+                viewModel.updateSemester(semester: semester)
+            }
         }
         .bitgouelBottomSheet(isShowing: $viewModel.isShowingLectureTypeBottomSheet) {
             LectureTypeBottomSheet(
-                lectureTypeList: viewModel.lectureTypeList,
-                selectedLectureType: viewModel.selectedLectureType) { lectureType in
-                    viewModel.updateLectrureType(lectureType: lectureType)
-                    viewModel.updateLectureTypeString(lectureType: lectureType.rawValue)
-                }
+                selectedLectureType: viewModel.selectedLectureType,
+                lectureTypeList: viewModel.lectureTypeList
+            ) { lectureType in
+                viewModel.updateLectrureType(lectureType: lectureType)
+                viewModel.updateLectureTypeString(lectureType: lectureType.rawValue)
+            }
+        }
+        .bitgouelBottomSheet(isShowing: $viewModel.isShowingDivisionBottomSheet) {
+            DivisionBottomSheet(
+                selectedDivision: viewModel.selectedDivision,
+                keyword: $viewModel.keyword,
+                divisionList: viewModel.divisionList
+            ) { division in
+                viewModel.updateDivision(division: division)
+                viewModel.resetKeyword()
+            }
         }
     }
 

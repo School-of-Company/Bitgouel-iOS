@@ -15,13 +15,14 @@ struct SelectedSemesterView: View {
 
             PickerTextField(
                 "학기 선택",
-                text: selectedSemester.display()) {
-                    if isShowingSemesterBottomSheet {
-                        onSelectSemester(false)
-                    } else {
-                        onSelectSemester(true)
-                    }
+                text: selectedSemester.display()
+            ) {
+                if isShowingSemesterBottomSheet {
+                    onSelectSemester(false)
+                } else {
+                    onSelectSemester(true)
                 }
+            }
         }
     }
 }

@@ -1,9 +1,9 @@
-import SwiftUI
 import Service
+import SwiftUI
 
 struct LectureTypeBottomSheet: View {
-    let lectureTypeList: LectureType.AllCases
     var selectedLectureType: LectureType
+    let lectureTypeList: LectureType.AllCases
     let lectureTypeDidSelect: (LectureType) -> Void
 
     var body: some View {
@@ -35,7 +35,7 @@ struct LectureTypeBottomSheet: View {
                     text: lectureType,
                     font: .text2
                 )
-                
+
                 if lectureType == "기타" {
                     Text("직접 작성하기")
                         .bitgouelFont(.caption, color: .greyscale(.g4))
