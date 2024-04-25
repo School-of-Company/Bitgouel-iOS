@@ -23,7 +23,7 @@ public struct LectureInfoResponseDTO: Decodable {
     public let name: String
     public let content: String
     public let semester: SemesterType
-    public let division: DivisionType
+    public let division: String
     public let department: String
     public let line: String
     public let startDate: String
@@ -39,7 +39,7 @@ public struct LectureInfoResponseDTO: Decodable {
         name: String,
         content: String,
         semester: SemesterType,
-        division: DivisionType,
+        division: String,
         department: String,
         line: String,
         startDate: String,
