@@ -3,7 +3,7 @@ import Service
 import SwiftUI
 
 final class LectureDetailSettingViewModel: BaseViewModel {
-    // MARK: Lecture
+    // MARK: LectureType
     @Published var isShowingLectureTypeBottomSheet = false
     @Published var selectedLectureType: LectureType = .mutualCreditRecognitionProgram
     @Published var selectedLectureTypeString: String = ""
