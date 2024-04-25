@@ -68,10 +68,9 @@ struct LectureDetailSettingView: View {
                         }
 
                         SelectedCreditView(
-                            creditList: viewModel.creditValue,
                             selectedCredit: viewModel.selectedCredit
-                        ) { credit in
-                            viewModel.updateCredit(credit: credit)
+                        ) { isShowing in
+                            viewModel.updateIsShowingCreditBottomSheet(isShowing: isShowing)
                         }
 
                         SelectedPickerView(
@@ -185,6 +184,14 @@ struct LectureDetailSettingView: View {
             ) { division in
                 viewModel.updateDivision(division: division)
                 viewModel.resetKeyword()
+            }
+        }
+        .bitgouelBottomSheet(isShowing: $viewModel.isShowingCreditBottomSheet) {
+            CreditBottomSheet(
+                selectedCredit: viewModel.selectedCredit,
+                creditList: viewModel.creditValue
+            ) { credit in
+                viewModel.updateCredit(credit: credit)
             }
         }
     }

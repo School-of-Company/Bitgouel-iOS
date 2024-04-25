@@ -14,9 +14,7 @@ struct LectureTypeBottomSheet: View {
                         lectureType: type.rawValue,
                         isSelected: Binding(
                             get: { type.rawValue == selectedLectureType.rawValue },
-                            set: { _ in
-                                lectureTypeDidSelect(type)
-                            }
+                            set: { _ in lectureTypeDidSelect(type) }
                         )
                     )
                 }

@@ -11,8 +11,8 @@ final class LectureDetailSettingViewModel: BaseViewModel {
 
     // MARK: Semester
     @Published var isShowingSemesterBottomSheet: Bool = false
-    let semesterList: [SemesterType] = SemesterType.allCases
     @Published var selectedSemester: SemesterType = .firstYearFallSemester
+    let semesterList: [SemesterType] = SemesterType.allCases
 
     // MARK: Division
     @Published var isShowingDivisionBottomSheet: Bool = false
@@ -20,8 +20,9 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     @Published var selectedDivision: String = ""
 
     // MARK: credit
-    let creditValue: [Int] = [1, 2]
+    @Published var isShowingCreditBottomSheet: Bool = false
     @Published var selectedCredit: Int = 1
+    let creditValue: [Int] = [1, 2]
 
     // MARK: Line
     @Published var lineList: [String] = []
@@ -69,6 +70,10 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         self.fetchDepartmentListUseCase = fetchDepartmentListUseCase
     }
 
+    func resetKeyword() {
+        keyword = ""
+    }
+
     func updateLectrureType(lectureType: LectureType) {
         selectedLectureType = lectureType
     }
@@ -85,10 +90,6 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         selectedSemester = semester
     }
 
-    func resetKeyword() {
-        keyword = ""
-    }
-
     func updateIsShowingSemesterBottomSheet(isShowing: Bool) {
         isShowingSemesterBottomSheet = isShowing
     }
@@ -103,6 +104,10 @@ final class LectureDetailSettingViewModel: BaseViewModel {
 
     func updateCredit(credit: Int) {
         selectedCredit = credit
+    }
+
+    func updateIsShowingCreditBottomSheet(isShowing: Bool) {
+        isShowingCreditBottomSheet = isShowing
     }
 
     func updateIsShowingLinePopup(isShowing: Bool) {
