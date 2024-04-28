@@ -6,6 +6,8 @@ public protocol LectureListDetailDependency: Dependency {
     var fetchLectureDetailUseCase: any FetchLectureDetailUseCase { get }
     var applyLectureUseCase: any ApplyLectureUseCase { get }
     var cancelLectureUseCase: any CancelLectureUseCase { get }
+    var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase { get }
+    var lectureApplicantListFactory: any LectureApplicantListFactory { get }
 }
 
 public final class LectureListDetailComponent: Component<LectureListDetailDependency>, LectureListDetailFactory {
@@ -16,8 +18,10 @@ public final class LectureListDetailComponent: Component<LectureListDetailDepend
                 lectureID: lectureID,
                 fetchLectureDetailUseCase: dependency.fetchLectureDetailUseCase,
                 applyLectureUseCase: dependency.applyLectureUseCase,
-                cancelLectureUseCase: dependency.cancelLectureUseCase
-            )
+                cancelLectureUseCase: dependency.cancelLectureUseCase,
+                loadUserAuthorityUseCase: dependency.loadUserAuthorityUseCase
+            ),
+            lectureApplicantListFactory: dependency.lectureApplicantListFactory
         )
     }
 }

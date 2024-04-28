@@ -166,4 +166,8 @@ public extension AppComponent {
     var newPasswordFactory: any NewPasswordFactory {
         NewPasswordComponent(parent: self)
     }
+
+    var lectureApplicantListFactory: any LectureApplicantListFactory {
+        LectureApplicantListComponent(parent: self)
+    }
 }
