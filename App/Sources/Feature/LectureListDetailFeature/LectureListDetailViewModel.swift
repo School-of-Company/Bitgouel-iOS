@@ -9,7 +9,7 @@ final class LectureListDetailViewModel: BaseViewModel {
     @Published var isPresentedLectureApplicantListView: Bool = false
     @Published var userAuthority: UserAuthorityType = .user
 
-    private let lectureID: String
+    let lectureID: String
     private let fetchLectureDetailUseCase: any FetchLectureDetailUseCase
     private let applyLectureUseCase: any ApplyLectureUseCase
     private let cancelLectureUseCase: any CancelLectureUseCase

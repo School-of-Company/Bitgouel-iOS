@@ -6,7 +6,7 @@ public protocol LectureApplicantListDependency: Dependency {}
 
 public final class LectureApplicantListComponent: Component<LectureApplicantListDependency>,
     LectureApplicantListFactory {
-    public func makeView() -> some View {
+    public func makeView(lectureID: String) -> some View {
         LectureApplicantListView()
     }
 }

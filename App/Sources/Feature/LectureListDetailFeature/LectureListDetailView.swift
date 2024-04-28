@@ -169,7 +169,7 @@ struct LectureListDetailView: View {
             viewModel.onAppear()
         }
         .navigate(
-            to: lectureApplicantListFactory.makeView().eraseToAnyView(),
+            to: lectureApplicantListFactory.makeView(lectureID: viewModel.lectureID).eraseToAnyView(),
             when: Binding(
                 get: { viewModel.isPresentedLectureApplicantListView },
                 set: { isPresented in
