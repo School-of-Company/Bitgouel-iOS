@@ -10,4 +10,5 @@ public protocol RemoteLectureDataSource: BaseRemoteDataSource<LectureAPI> {
     func fetchLineList(keyword: String, division: String) async throws -> [String]
     func fetchDepartmentList(keyword: String) async throws -> [String]
     func fetchDivisionList(keyword: String) async throws -> [String]
+    func fetchAppliedLectureList(studentID: String) async throws -> [AppliedLectureEntity]
 }
