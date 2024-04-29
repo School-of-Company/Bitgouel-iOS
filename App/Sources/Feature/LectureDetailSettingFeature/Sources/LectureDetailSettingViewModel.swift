@@ -6,7 +6,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     // MARK: LectureType
     @Published var isShowingLectureTypeBottomSheet: Bool = false
     @Published var selectedLectureType: LectureType = .mutualCreditRecognitionProgram
-    @Published var selectedLectureTypeString: String = ""
+    @Published var selectedLectureTypeString: String = "상호학점인정교육과정"
     let lectureTypeList: [LectureType] = LectureType.allCases
 
     // MARK: Semester

@@ -39,6 +39,7 @@ public final class RemoteLectureDataSourceImpl: BaseRemoteDataSource<LectureAPI>
     }
 
     public func fetchAppliedLectureList(studentID: String) async throws -> [AppliedLectureEntity] {
-        try await request(.fetchAppliedLectureList(studentID: studentID), dto: FetchAppliedLectureListResponseDTO.self).toDomain()
+        try await request(.fetchAppliedLectureList(studentID: studentID), dto: FetchAppliedLectureListResponseDTO.self)
+            .toDomain()
     }
 }

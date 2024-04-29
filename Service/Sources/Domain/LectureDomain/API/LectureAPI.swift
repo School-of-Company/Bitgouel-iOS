@@ -126,7 +126,7 @@ extension LectureAPI: BitgouelAPI {
             ]
 
         case .fetchLectureDetail,
-            .fetchAppliedLectureList:
+             .fetchAppliedLectureList:
             return [
                 400: .badRequest,
                 401: .unauthorized,
