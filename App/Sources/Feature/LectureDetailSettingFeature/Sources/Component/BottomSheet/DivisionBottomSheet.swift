@@ -51,9 +51,7 @@ struct DivisionBottomSheet: View {
                                 division: division,
                                 isSelected: Binding(
                                     get: { division == selectedDivision },
-                                    set: { _ in
-                                        print(division)
-                                    }
+                                    set: { _ in divisionDidSelect(division) }
                                 )
                             )
                         }
