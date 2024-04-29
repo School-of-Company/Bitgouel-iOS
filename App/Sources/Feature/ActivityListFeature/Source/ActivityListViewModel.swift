@@ -75,7 +75,7 @@ final class ActivityListViewModel: BaseViewModel {
                 }
                 updateIsErrorOccurred(state: true)
 
-                print(String(describing: error))
+                print(error.localizedDescription)
             }
         }
     }

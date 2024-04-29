@@ -71,12 +71,15 @@ struct LectureListView: View {
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     HStack(spacing: 24) {
-                        if viewModel.authority == .admin {
-                            Button {
-                                viewModel.updateIsPresentedOpenLectureView(isPresented: true)
-                            } label: {
-                                BitgouelAsset.Icons.add.swiftUIImage
-                            }
+                        switch viewModel.authority {
+                        case .admin,
+                             .professor,
+                             .companyInstructor,
+                             .government:
+                            addLectureButton()
+
+                        default:
+                            EmptyView()
                         }
 
                         Button {
@@ -136,6 +139,15 @@ struct LectureListView: View {
         }
         .refreshable {
             viewModel.onAppear()
+        }
+    }
+
+    @ViewBuilder
+    func addLectureButton() -> some View {
+        Button {
+            viewModel.updateIsPresentedOpenLectureView(isPresented: true)
+        } label: {
+            BitgouelAsset.Icons.add.swiftUIImage
         }
     }
 
