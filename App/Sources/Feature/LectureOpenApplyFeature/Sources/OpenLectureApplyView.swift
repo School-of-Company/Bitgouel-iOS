@@ -34,6 +34,13 @@ struct OpenLectureApplyView: View {
                 )
             )
         }
+        .bitgouelToast(
+            text: viewModel.errorMessage,
+            isShowing: Binding(
+                get: { viewModel.isErrorOccurred },
+                set: { state in viewModel.updateIsErrorOccurred(state: state) }
+            )
+        )
         .fullScreenCover(
             isPresented: Binding(
                 get: { viewModel.isPresentedLectureDetailSettingAppend },
