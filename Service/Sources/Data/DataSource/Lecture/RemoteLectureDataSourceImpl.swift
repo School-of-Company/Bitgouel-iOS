@@ -33,4 +33,8 @@ public final class RemoteLectureDataSourceImpl: BaseRemoteDataSource<LectureAPI>
     public func fetchDepartmentList(keyword: String) async throws -> [String] {
         try await request(.fetchDepartmentList(keyword: keyword), dto: FetchDepartmentResponseDTO.self).departments
     }
+
+    public func fetchDivisionList(keyword: String) async throws -> [String] {
+        try await request(.fetchDivisionList(keyword: keyword), dto: FetchDivisionListResponseDTO.self).divisions
+    }
 }
