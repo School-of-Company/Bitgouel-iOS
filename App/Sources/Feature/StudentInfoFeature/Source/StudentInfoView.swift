@@ -1,13 +1,13 @@
 import SwiftUI
 
-struct CertificationListView: View {
-    @StateObject var viewModel: CertificationListViewModel
+struct StudentInfoView: View {
+    @StateObject var viewModel: StudentInfoViewModel
 
     private let activityListFactory: any ActivityListFactory
     private let inputCertificationFactory: any InputCertificationFactory
 
     init(
-        viewModel: CertificationListViewModel,
+        viewModel: StudentInfoViewModel,
         activityListFactory: any ActivityListFactory,
         inputCertificationFactory: any InputCertificationFactory
     ) {
@@ -109,6 +109,16 @@ struct CertificationListView: View {
                         Divider()
                     }
                 }
+
+                switch viewModel.authority {
+                case .admin,
+                     .teacher:
+                    appliedLectureList()
+                        .padding(.top, 24)
+
+                default:
+                    EmptyView()
+                }
             }
         }
         .padding(.horizontal, 28)
@@ -149,6 +159,30 @@ struct CertificationListView: View {
         }
         .onAppear {
             viewModel.onAppear()
+        }
+    }
+
+    @ViewBuilder
+    func appliedLectureList() -> some View {
+        VStack(alignment: .leading, spacing: 24) {
+            BitgouelText(
+                text: "신청한 강의 목록",
+                font: .title3
+            )
+
+            LazyVStack(alignment: .leading, spacing: 24) {
+                ForEach(1...3, id: \.self) { lecture in
+                    AppliedLectureListRow(
+                        name: "그날 학교는 어쩌구",
+                        lectureType: "상호학점인증",
+                        currentCompletedDate: .init(),
+                        instructor: "1231231",
+                        isComplete: true
+                    )
+
+                    Divider()
+                }
+            }
         }
     }
 }

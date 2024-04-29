@@ -99,8 +99,8 @@ public extension AppComponent {
         NoticeDetailViewComponent(parent: self)
     }
 
-    var certificationListFactory: any CertificationListFactory {
-        CertificationListComponent(parent: self)
+    var studentInfoFactory: any StudentInfoFactory {
+        StudentInfoComponent(parent: self)
     }
 
     var inputCertificationFactory: any InputCertificationFactory {

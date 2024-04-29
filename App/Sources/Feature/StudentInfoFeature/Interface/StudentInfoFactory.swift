@@ -1,6 +1,6 @@
 import SwiftUI
 
-public protocol CertificationListFactory {
+public protocol StudentInfoFactory {
     associatedtype SomeView: View
     func makeView(
         clubID: Int,

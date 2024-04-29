@@ -1,7 +1,7 @@
 import Foundation
 import Service
 
-final class CertificationListViewModel: BaseViewModel {
+final class StudentInfoViewModel: BaseViewModel {
     @Published var isPresentedActivityListView: Bool = false
     @Published var studentInfo: StudentDetailByClubEntity?
     @Published var certificationList: [CertificationInfoEntity] = []
