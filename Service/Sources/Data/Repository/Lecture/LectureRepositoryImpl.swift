@@ -46,4 +46,8 @@ public struct LectureRepositoryImpl: LectureRepository {
     public func fetchAppliedLectureList(studentID: String) async throws -> [AppliedLectureEntity] {
         try await remoteLectureDataSource.fetchAppliedLectureList(studentID: studentID)
     }
+
+    public func fetchApplicantList(lectureID: String) async throws -> [ApplicantInfoEntity] {
+        try await remoteLectureDataSource.fetchApplicantList(lectureID: lectureID)
+    }
 }
