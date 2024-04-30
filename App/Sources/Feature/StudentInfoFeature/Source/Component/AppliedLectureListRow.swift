@@ -23,9 +23,9 @@ struct AppliedLectureListRow: View {
                 Divider()
 
                 if isComplete {
-                    if let currentCompletedDate = currentCompletedDate {
+                    if let currentCompletedDate {
                         Text("\(currentCompletedDate.toStringCustomFormat(format: "yyyy년 MM월 dd일")) 이수")
-                    } else { }
+                    } else {}
                 } else {
                     Text("미이수")
                 }

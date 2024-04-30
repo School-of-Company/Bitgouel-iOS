@@ -171,13 +171,13 @@ struct StudentInfoView: View {
             )
 
             LazyVStack(alignment: .leading, spacing: 24) {
-                ForEach(1...3, id: \.self) { lecture in
+                ForEach(viewModel.appliedLectureList, id: \.lectureID) { lecture in
                     AppliedLectureListRow(
-                        name: "그날 학교는 어쩌구",
-                        lectureType: "상호학점인증",
-                        currentCompletedDate: .init(),
-                        instructor: "1231231",
-                        isComplete: true
+                        name: lecture.name,
+                        lectureType: lecture.lectureType,
+                        currentCompletedDate: lecture.currentCompletedDate,
+                        instructor: lecture.instructor,
+                        isComplete: lecture.isComplete
                     )
 
                     Divider()
