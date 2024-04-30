@@ -2,7 +2,7 @@ import NeedleFoundation
 import Service
 import SwiftUI
 
-public protocol CertificationListDependency: Dependency {
+public protocol StudentInfoDependency: Dependency {
     var activityListFactory: any ActivityListFactory { get }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase { get }
     var queryStudentDetailByClubUseCase: any QueryStudentDetailByClubUseCase { get }
@@ -11,13 +11,13 @@ public protocol CertificationListDependency: Dependency {
     var inputCertificationFactory: any InputCertificationFactory { get }
 }
 
-public final class CertificationListComponent: Component<CertificationListDependency>, CertificationListFactory {
+public final class StudentInfoComponent: Component<StudentInfoDependency>, StudentInfoFactory {
     @MainActor
     public func makeView(
         clubID: Int,
         studentID: String
     ) -> some View {
-        CertificationListView(
+        StudentInfoView(
             viewModel: .init(
                 clubID: clubID,
                 studentID: studentID,
