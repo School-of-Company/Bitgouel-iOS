@@ -312,6 +312,9 @@ private class LectureDetailSettingDependencyd72c0b79ce6406870a95Provider: Lectur
     var fetchDepartmentListUseCase: any FetchDepartmentListUseCase {
         return appComponent.fetchDepartmentListUseCase
     }
+    var fetchDivisionListUseCase: any FetchDivisionListUseCase {
+        return appComponent.fetchDivisionListUseCase
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -919,6 +922,7 @@ extension LectureDetailSettingComponent: Registration {
         keyPathToName[\LectureDetailSettingDependency.fetchInstructorListUseCase] = "fetchInstructorListUseCase-any FetchInstructorListUseCase"
         keyPathToName[\LectureDetailSettingDependency.fetchLineListUseCase] = "fetchLineListUseCase-any FetchLineListUseCase"
         keyPathToName[\LectureDetailSettingDependency.fetchDepartmentListUseCase] = "fetchDepartmentListUseCase-any FetchDepartmentListUseCase"
+        keyPathToName[\LectureDetailSettingDependency.fetchDivisionListUseCase] = "fetchDivisionListUseCase-any FetchDivisionListUseCase"
     }
 }
 extension MainComponent: Registration {
@@ -1115,6 +1119,7 @@ extension AppComponent: Registration {
         localTable["fetchInstructorListUseCase-any FetchInstructorListUseCase"] = { [unowned self] in self.fetchInstructorListUseCase as Any }
         localTable["fetchLineListUseCase-any FetchLineListUseCase"] = { [unowned self] in self.fetchLineListUseCase as Any }
         localTable["fetchDepartmentListUseCase-any FetchDepartmentListUseCase"] = { [unowned self] in self.fetchDepartmentListUseCase as Any }
+        localTable["fetchDivisionListUseCase-any FetchDivisionListUseCase"] = { [unowned self] in self.fetchDivisionListUseCase as Any }
         localTable["remoteClubDataSource-any RemoteClubDataSource"] = { [unowned self] in self.remoteClubDataSource as Any }
         localTable["clubRepository-any ClubRepository"] = { [unowned self] in self.clubRepository as Any }
         localTable["queryClubListUseCase-any QueryClubListUseCase"] = { [unowned self] in self.queryClubListUseCase as Any }

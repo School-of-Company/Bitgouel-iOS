@@ -61,4 +61,10 @@ public extension AppComponent {
             FetchDepartmentListUseCaseImpl(lectureRepository: lectureRepository)
         }
     }
+
+    var fetchDivisionListUseCase: any FetchDivisionListUseCase {
+        shared {
+            FetchDivisionListUseCaseImpl(lectureRepository: lectureRepository)
+        }
+    }
 }

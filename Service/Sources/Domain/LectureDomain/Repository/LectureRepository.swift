@@ -9,4 +9,5 @@ public protocol LectureRepository {
     func fetchInstructorList(keyword: String) async throws -> [InstructorInfoEntity]
     func fetchLineList(keyword: String, division: String) async throws -> [String]
     func fetchDepartmentList(keyword: String) async throws -> [String]
+    func fetchDivisionList(keyword: String) async throws -> [String]
 }

@@ -137,6 +137,11 @@ struct LectureDetailSettingView: View {
                 viewModel.fetchInstructorList()
             }
         }
+        .onChange(of: viewModel.isShowingDivisionBottomSheet) { newValue in
+            if newValue {
+                viewModel.fetchDivisionList()
+            }
+        }
         .onChange(of: viewModel.keyword) { newValue in
             if viewModel.isShowingLineBottomSheet {
                 viewModel.fetchLineList()
@@ -144,6 +149,8 @@ struct LectureDetailSettingView: View {
                 viewModel.fetchDepartmentList()
             } else if viewModel.isShowingInstructorBottomSheet {
                 viewModel.fetchInstructorList()
+            } else if viewModel.isShowingDivisionBottomSheet {
+                viewModel.fetchDivisionList()
             }
         }
         .bitgouelBottomSheet(isShowing: $viewModel.isShowingSemesterBottomSheet) {

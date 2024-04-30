@@ -55,19 +55,22 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     private let fetchInstructorListUseCase: any FetchInstructorListUseCase
     private let fetchLineListUseCase: any FetchLineListUseCase
     private let fetchDepartmentListUseCase: any FetchDepartmentListUseCase
+    private let fetchDivisionListUseCase: any FetchDivisionListUseCase
 
     init(
         detailInfo: OpenLectureModel,
         completion: @escaping (OpenLectureModel) -> Void,
         fetchInstructorListUseCase: any FetchInstructorListUseCase,
         fetchLineListUseCase: any FetchLineListUseCase,
-        fetchDepartmentListUseCase: any FetchDepartmentListUseCase
+        fetchDepartmentListUseCase: any FetchDepartmentListUseCase,
+        fetchDivisionListUseCase: any FetchDivisionListUseCase
     ) {
         self.detailInfo = detailInfo
         self.completion = completion
         self.fetchInstructorListUseCase = fetchInstructorListUseCase
         self.fetchLineListUseCase = fetchLineListUseCase
         self.fetchDepartmentListUseCase = fetchDepartmentListUseCase
+        self.fetchDivisionListUseCase = fetchDivisionListUseCase
     }
 
     func resetKeyword() {
@@ -241,6 +244,17 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         Task {
             do {
                 instructorList = try await fetchInstructorListUseCase(keyword: keyword)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+
+    @MainActor
+    func fetchDivisionList() {
+        Task {
+            do {
+                divisionList = try await fetchDivisionListUseCase(keyword: keyword)
             } catch {
                 print(error.localizedDescription)
             }

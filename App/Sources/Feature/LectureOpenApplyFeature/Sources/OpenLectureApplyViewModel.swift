@@ -1,7 +1,7 @@
 import Foundation
 import Service
 
-final class OpenLectureApplyViewModel: ObservableObject {
+final class OpenLectureApplyViewModel: BaseViewModel {
     @Published var lectureTitle: String = ""
     @Published var lectureText: String = ""
     @Published var isPresentedLectureDetailSettingAppend = false
@@ -37,6 +37,10 @@ final class OpenLectureApplyViewModel: ObservableObject {
         lectureText = text
     }
 
+    func updateIsErrorOccurred(state: Bool) {
+        isErrorOccurred = state
+    }
+
     func updateOpenLectureInfo(detailInfo: OpenLectureModel) {
         openLectureInfo = .init(
             semester: detailInfo.semester,
@@ -54,6 +58,7 @@ final class OpenLectureApplyViewModel: ObservableObject {
         print(openLectureInfo)
     }
 
+    @MainActor
     func openLectureButtonDidTap() {
         Task {
             do {
@@ -81,6 +86,13 @@ final class OpenLectureApplyViewModel: ObservableObject {
                     )
                 )
             } catch {
+                if let lectureDomainError = error as? LectureDomainError {
+                    errorMessage = lectureDomainError.errorDescription ?? "알 수 없는 오류가 발생했습니다."
+                } else {
+                    errorMessage = "알 수 없는 오류가 발생했습니다."
+                }
+                updateIsErrorOccurred(state: true)
+
                 print(error.localizedDescription)
             }
         }
