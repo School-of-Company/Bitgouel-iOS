@@ -42,4 +42,8 @@ public struct LectureRepositoryImpl: LectureRepository {
     public func fetchDivisionList(keyword: String) async throws -> [String] {
         try await remoteLectureDataSource.fetchDivisionList(keyword: keyword)
     }
+
+    public func fetchAppliedLectureList(studentID: String) async throws -> [AppliedLectureEntity] {
+        try await remoteLectureDataSource.fetchAppliedLectureList(studentID: studentID)
+    }
 }

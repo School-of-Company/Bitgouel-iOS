@@ -3,7 +3,7 @@ import Service
 import SwiftUI
 
 public protocol ClubdetailDependency: Dependency {
-    var certificationListFactory: any CertificationListFactory { get }
+    var studentInfoFactory: any StudentInfoFactory { get }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase { get }
     var queryClubDetailUseCase: any QueryClubDetailUseCase { get }
     var queryStudentListByClubUseCase: any QueryStudentListByClubUseCase { get }
@@ -20,7 +20,7 @@ public final class ClubDetailComponent: Component<ClubdetailDependency>, ClubDet
                 queryStudentListByClubUseCase: dependency.queryStudentListByClubUseCase,
                 fetchMyInfoUseCase: dependency.fetchMyInfoUseCase
             ),
-            certificationListFactory: dependency.certificationListFactory
+            studentInfoFactory: dependency.studentInfoFactory
         )
     }
 }

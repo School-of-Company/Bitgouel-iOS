@@ -1,12 +1,14 @@
 import Foundation
 import Service
 
-final class CertificationListViewModel: BaseViewModel {
+final class StudentInfoViewModel: BaseViewModel {
     @Published var isPresentedActivityListView: Bool = false
+    @Published var isPresentedInputCertificationView: Bool = false
     @Published var studentInfo: StudentDetailByClubEntity?
     @Published var certificationList: [CertificationInfoEntity] = []
+    @Published var appliedLectureList: [AppliedLectureEntity] = []
     @Published var authority: UserAuthorityType = .user
-    @Published var isPresentedInputCertificationView: Bool = false
+
     @Published var selectedEpic: String = ""
     @Published var selectedCertificationID: String = ""
     @Published var selectedCertificationName: String = ""
@@ -18,6 +20,7 @@ final class CertificationListViewModel: BaseViewModel {
     private let queryStudentDetailByClubUseCase: any QueryStudentDetailByClubUseCase
     private let queryCertificationListByStudent: any QueryCertificationListByStudentUseCase
     private let queryCertificationListByTeacher: any QueryCertificationListByTeacherUseCase
+    private let fetchAppliedLectureListUseCase: any FetchAppliedLectureListUseCase
 
     init(
         clubID: Int,
@@ -25,7 +28,8 @@ final class CertificationListViewModel: BaseViewModel {
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
         queryStudentDetailByClubUseCase: any QueryStudentDetailByClubUseCase,
         queryCertificationListByStudent: any QueryCertificationListByStudentUseCase,
-        queryCertificationListByTeacher: any QueryCertificationListByTeacherUseCase
+        queryCertificationListByTeacher: any QueryCertificationListByTeacherUseCase,
+        fetchAppliedLectureListUseCase: any FetchAppliedLectureListUseCase
     ) {
         self.clubID = clubID
         self.studentID = studentID
@@ -33,6 +37,7 @@ final class CertificationListViewModel: BaseViewModel {
         self.queryStudentDetailByClubUseCase = queryStudentDetailByClubUseCase
         self.queryCertificationListByStudent = queryCertificationListByStudent
         self.queryCertificationListByTeacher = queryCertificationListByTeacher
+        self.fetchAppliedLectureListUseCase = fetchAppliedLectureListUseCase
     }
 
     func updateIsPresentedActivityListView(isPresented: Bool) {
@@ -63,11 +68,16 @@ final class CertificationListViewModel: BaseViewModel {
 
                 switch authority {
                 case .student:
-                    return try await updateCertificationListByStudent()
-                default:
-                    return try await updateCertificationListByTeacher()
-                }
+                    try await updateCertificationListByStudent()
 
+                case .admin,
+                     .teacher:
+                    try await updateCertificationListByTeacher()
+                    try await updateAppliedLectureList()
+
+                default:
+                    try await updateCertificationListByTeacher()
+                }
             } catch {
                 print(error.localizedDescription)
             }
@@ -87,5 +97,10 @@ final class CertificationListViewModel: BaseViewModel {
     @MainActor
     func updateCertificationListByTeacher() async throws {
         certificationList = try await queryCertificationListByTeacher(studentID: studentID)
+    }
+
+    @MainActor
+    func updateAppliedLectureList() async throws {
+        appliedLectureList = try await fetchAppliedLectureListUseCase(studentID: studentID)
     }
 }

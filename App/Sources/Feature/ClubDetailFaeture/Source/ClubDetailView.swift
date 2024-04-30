@@ -4,14 +4,14 @@ struct ClubDetailView: View {
     @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var viewModel: ClubDetailViewModel
 
-    private let certificationListFactory: any CertificationListFactory
+    private let studentInfoFactory: any StudentInfoFactory
 
     init(
         viewModel: ClubDetailViewModel,
-        certificationListFactory: any CertificationListFactory
+        studentInfoFactory: any StudentInfoFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
-        self.certificationListFactory = certificationListFactory
+        self.studentInfoFactory = studentInfoFactory
     }
 
     var body: some View {
@@ -94,7 +94,7 @@ struct ClubDetailView: View {
             }
         }
         .navigate(
-            to: certificationListFactory.makeView(
+            to: studentInfoFactory.makeView(
                 clubID: viewModel.clubID,
                 studentID: viewModel.studentID
             ).eraseToAnyView(),
