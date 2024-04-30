@@ -489,15 +489,17 @@ private func factory2c6c6f3f10221ceac3a8f47b58f8f304c97af4d5(_ component: Needle
     return AdminRequestUserSignupDependency260e3843e854d6971798Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class LectureApplicantListDependency5bfdb7310dde792c0738Provider: LectureApplicantListDependency {
-
-
-    init() {
-
+    var fetchApplicantListUseCase: any FetchApplicantListUseCase {
+        return appComponent.fetchApplicantListUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->LectureApplicantListComponent
-private func factory78a87c10d14f7bbaaa9de3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return LectureApplicantListDependency5bfdb7310dde792c0738Provider()
+private func factory78a87c10d14f7bbaaa9df47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return LectureApplicantListDependency5bfdb7310dde792c0738Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class StudentInfoDependency5d1163a5288c79c06dffProvider: StudentInfoDependency {
     var activityListFactory: any ActivityListFactory {
@@ -990,7 +992,7 @@ extension AdminRequestUserSignupComponent: Registration {
 }
 extension LectureApplicantListComponent: Registration {
     public func registerItems() {
-
+        keyPathToName[\LectureApplicantListDependency.fetchApplicantListUseCase] = "fetchApplicantListUseCase-any FetchApplicantListUseCase"
     }
 }
 extension StudentInfoComponent: Registration {
@@ -1276,7 +1278,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->SuccessSignUpComponent", factorybf219b153b668170161df47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->FindPasswordComponent", factory15775d8436b06b9741d1f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->AdminRequestUserSignupComponent", factory2c6c6f3f10221ceac3a8f47b58f8f304c97af4d5)
-    registerProviderFactory("^->AppComponent->LectureApplicantListComponent", factory78a87c10d14f7bbaaa9de3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->LectureApplicantListComponent", factory78a87c10d14f7bbaaa9df47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->StudentInfoComponent", factory5ce0f173abbf535f654ff47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->AdminWithdrawUserListComponent", factory1ef284da45544ee52e3ef47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->WriteInquiryAnswerComponent", factory3d4cadf14cd9a3336981f47b58f8f304c97af4d5)

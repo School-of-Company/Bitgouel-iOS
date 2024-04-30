@@ -2,6 +2,7 @@ import SwiftUI
 
 struct LectureApplicantListRow: View {
     let studentID: String
+    @State var selectedStudentID: String
     let email: String
     let name: String
     let grade: Int
@@ -11,26 +12,23 @@ struct LectureApplicantListRow: View {
     let phoneNumber: String
     let schoolName: String
     let clubName: String
-    @State var isSelected: Bool = false
-    let checkStudent: (String) -> Void
     
     var body: some View {
         HStack(alignment: .top, spacing: 24) {
             CheckButton(
                 isSelected: Binding(
-                    get: { isSelected },
-                    set: { selected in
-                        if selected {
-                            isSelected = selected
-                            checkStudent(studentID)
+                    get: { studentID == selectedStudentID },
+                    set: { isSelected in
+                        if isSelected {
+                            selectedStudentID = studentID
                         } else {
-                            isSelected = selected
+                            selectedStudentID = ""
                         }
                     }
                 )
             )
 
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: 8) {
                 BitgouelText(
                     text: "\(grade)학년 \(classNumber)반 \(number)번 \(cohort)기 \(name)",
                     font: .text1
