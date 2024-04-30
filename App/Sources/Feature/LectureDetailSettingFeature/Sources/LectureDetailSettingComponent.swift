@@ -7,6 +7,7 @@ public protocol LectureDetailSettingDependency: Dependency {
     var fetchInstructorListUseCase: any FetchInstructorListUseCase { get }
     var fetchLineListUseCase: any FetchLineListUseCase { get }
     var fetchDepartmentListUseCase: any FetchDepartmentListUseCase { get }
+    var fetchDivisionListUseCase: any FetchDivisionListUseCase { get }
 }
 
 public final class LectureDetailSettingComponent: Component<LectureDetailSettingDependency>,
@@ -21,7 +22,8 @@ public final class LectureDetailSettingComponent: Component<LectureDetailSetting
                 completion: completion,
                 fetchInstructorListUseCase: dependency.fetchInstructorListUseCase,
                 fetchLineListUseCase: dependency.fetchLineListUseCase,
-                fetchDepartmentListUseCase: dependency.fetchDepartmentListUseCase
+                fetchDepartmentListUseCase: dependency.fetchDepartmentListUseCase,
+                fetchDivisionListUseCase: dependency.fetchDivisionListUseCase
             ),
             openLectureApplyFactory: dependency.openLectureApplyFactory
         )

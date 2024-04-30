@@ -10,6 +10,7 @@ public enum LectureAPI {
     case fetchInstructorList(keyword: String)
     case fetchLineList(keyword: String, division: String)
     case fetchDepartmentList(keyword: String)
+    case fetchDivisionList(keyword: String)
 }
 
 extension LectureAPI: BitgouelAPI {
@@ -38,6 +39,9 @@ extension LectureAPI: BitgouelAPI {
 
         case .fetchDepartmentList:
             return "/department"
+
+        case .fetchDivisionList:
+            return "/division"
         }
     }
 
@@ -51,7 +55,8 @@ extension LectureAPI: BitgouelAPI {
              .fetchLectureDetail,
              .fetchInstructorList,
              .fetchLineList,
-             .fetchDepartmentList:
+             .fetchDepartmentList,
+             .fetchDivisionList:
             return .get
 
         case .cancelLecture:
@@ -70,7 +75,8 @@ extension LectureAPI: BitgouelAPI {
             ], encoding: URLEncoding.queryString)
 
         case let .fetchInstructorList(keyword),
-             let .fetchDepartmentList(keyword):
+             let .fetchDepartmentList(keyword),
+             let .fetchDivisionList(keyword):
             return .requestParameters(parameters: [
                 "keyword": keyword
             ], encoding: URLEncoding.queryString)
@@ -106,7 +112,8 @@ extension LectureAPI: BitgouelAPI {
         case .fetchLectureList,
              .fetchInstructorList,
              .fetchLineList,
-             .fetchDepartmentList:
+             .fetchDepartmentList,
+             .fetchDivisionList:
             return [
                 400: .badRequest,
                 401: .unauthorized,
