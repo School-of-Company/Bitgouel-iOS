@@ -2,7 +2,7 @@ import SwiftUI
 
 struct LectureApplicantListRow: View {
     let studentID: String
-    @State var selectedStudentID: String
+    @State var isComplete: Bool
     let email: String
     let name: String
     let grade: Int
@@ -12,17 +12,20 @@ struct LectureApplicantListRow: View {
     let phoneNumber: String
     let schoolName: String
     let clubName: String
+    let onSelectedStudent: (Bool, String) -> Void
     
     var body: some View {
         HStack(alignment: .top, spacing: 24) {
             CheckButton(
                 isSelected: Binding(
-                    get: { studentID == selectedStudentID },
+                    get: { isComplete },
                     set: { isSelected in
                         if isSelected {
-                            selectedStudentID = studentID
+                            isComplete = isSelected
+                            onSelectedStudent(isSelected, studentID)
                         } else {
-                            selectedStudentID = ""
+                            isComplete = isSelected
+                            onSelectedStudent(isSelected, studentID)
                         }
                     }
                 )

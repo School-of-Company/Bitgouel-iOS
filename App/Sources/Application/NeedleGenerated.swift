@@ -492,6 +492,9 @@ private class LectureApplicantListDependency5bfdb7310dde792c0738Provider: Lectur
     var fetchApplicantListUseCase: any FetchApplicantListUseCase {
         return appComponent.fetchApplicantListUseCase
     }
+    var modifyApplicantWhetherUseCase: any ModifyApplicantWhetherUseCase {
+        return appComponent.modifyApplicantWhetherUseCase
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -993,6 +996,7 @@ extension AdminRequestUserSignupComponent: Registration {
 extension LectureApplicantListComponent: Registration {
     public func registerItems() {
         keyPathToName[\LectureApplicantListDependency.fetchApplicantListUseCase] = "fetchApplicantListUseCase-any FetchApplicantListUseCase"
+        keyPathToName[\LectureApplicantListDependency.modifyApplicantWhetherUseCase] = "modifyApplicantWhetherUseCase-any ModifyApplicantWhetherUseCase"
     }
 }
 extension StudentInfoComponent: Registration {

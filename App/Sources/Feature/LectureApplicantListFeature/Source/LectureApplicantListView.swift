@@ -17,8 +17,8 @@ struct LectureApplicantListView: View {
                 LazyVStack(alignment: .leading, spacing: 12) {
                     ForEach(viewModel.applicantList, id: \.studentID) { student in
                         LectureApplicantListRow(
-                            studentID: student.studentID, 
-                            selectedStudentID: viewModel.selectedStudentID,
+                            studentID: student.studentID,
+                            isComplete: student.isComplete, 
                             email: student.email,
                             name: student.name,
                             grade: student.grade,
@@ -27,8 +27,10 @@ struct LectureApplicantListView: View {
                             cohort: student.cohort,
                             phoneNumber: student.phoneNumber,
                             schoolName: student.school.display(),
-                            clubName: student.clubName
-                        )
+                            clubName: student.clubName) { isSelected, studentID in
+                                viewModel.updateApplicantInfo(isSelected: isSelected, studentID: studentID)
+                                viewModel.modifyApplicantWhether()
+                            }
 
                         Divider()
                     }
@@ -40,6 +42,9 @@ struct LectureApplicantListView: View {
         }
         .padding(.horizontal, 28)
         .onAppear {
+            viewModel.onAppear()
+        }
+        .refreshable {
             viewModel.onAppear()
         }
         .navigationTitle("강의 신청자 명단")
