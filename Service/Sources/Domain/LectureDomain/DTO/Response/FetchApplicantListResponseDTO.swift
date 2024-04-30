@@ -19,6 +19,7 @@ public struct ApplicantInfoResponseDTO: Decodable {
     public let school: HighSchoolType
     public let clubName: String
     public let cohort: Int
+    public let isComplete: Bool
 
     public init(
         studentID: String,
@@ -30,7 +31,8 @@ public struct ApplicantInfoResponseDTO: Decodable {
         phoneNumber: String,
         school: HighSchoolType,
         clubName: String,
-        cohort: Int
+        cohort: Int,
+        isComplete: Bool
     ) {
         self.studentID = studentID
         self.email = email
@@ -42,6 +44,7 @@ public struct ApplicantInfoResponseDTO: Decodable {
         self.school = school
         self.clubName = clubName
         self.cohort = cohort
+        self.isComplete = isComplete
     }
 
     enum CodingKeys: String, CodingKey {
@@ -55,6 +58,7 @@ public struct ApplicantInfoResponseDTO: Decodable {
         case school
         case clubName
         case cohort
+        case isComplete
     }
 }
 
@@ -76,7 +80,8 @@ extension ApplicantInfoResponseDTO {
             phoneNumber: phoneNumber,
             school: school,
             clubName: clubName,
-            cohort: cohort
+            cohort: cohort,
+            isComplete: isComplete
         )
     }
 }

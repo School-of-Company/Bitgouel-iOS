@@ -11,6 +11,7 @@ public struct ApplicantInfoEntity: Equatable {
     public let school: HighSchoolType
     public let clubName: String
     public let cohort: Int
+    public let isComplete: Bool
 
     public init(
         studentID: String,
@@ -22,7 +23,8 @@ public struct ApplicantInfoEntity: Equatable {
         phoneNumber: String,
         school: HighSchoolType,
         clubName: String,
-        cohort: Int
+        cohort: Int,
+        isComplete: Bool
     ) {
         self.studentID = studentID
         self.email = email
@@ -34,5 +36,6 @@ public struct ApplicantInfoEntity: Equatable {
         self.school = school
         self.clubName = clubName
         self.cohort = cohort
+        self.isComplete = isComplete
     }
 }
