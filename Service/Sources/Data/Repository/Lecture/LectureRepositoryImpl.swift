@@ -50,4 +50,8 @@ public struct LectureRepositoryImpl: LectureRepository {
     public func fetchApplicantList(lectureID: String) async throws -> [ApplicantInfoEntity] {
         try await remoteLectureDataSource.fetchApplicantList(lectureID: lectureID)
     }
+
+    public func modifyApplicantWhether(lectureID: String, studentID: String, isComplete: Bool) async throws {
+        try await remoteLectureDataSource.modifyApplicantWhether(lectureID: lectureID, studentID: studentID, isComplete: isComplete)
+    }
 }

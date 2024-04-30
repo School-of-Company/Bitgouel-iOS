@@ -79,4 +79,10 @@ public extension AppComponent {
             FetchApplicantListUseCaseImpl(lectureRepository: lectureRepository)
         }
     }
+
+    var modifyApplicantWhetherUseCase: any ModifyApplicantWhetherUseCase {
+        shared {
+            ModifyApplicantWhetherUseCaseImpl(lectureRepository: lectureRepository)
+        }
+    }
 }

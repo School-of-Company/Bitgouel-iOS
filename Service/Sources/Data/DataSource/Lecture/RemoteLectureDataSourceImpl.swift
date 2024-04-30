@@ -46,4 +46,8 @@ public final class RemoteLectureDataSourceImpl: BaseRemoteDataSource<LectureAPI>
     public func fetchApplicantList(lectureID: String) async throws -> [ApplicantInfoEntity] {
         try await request(.fetchApplicantList(lectureID: lectureID), dto: FetchApplicantListResponseDTO.self).toDomain()
     }
+
+    public func modifyApplicantWhether(lectureID: String, studentID: String, isComplete: Bool) async throws {
+        try await request(.modifyApplicantWhether(lectureID: lectureID, studentID: studentID, isComplete: isComplete))
+    }
 }
