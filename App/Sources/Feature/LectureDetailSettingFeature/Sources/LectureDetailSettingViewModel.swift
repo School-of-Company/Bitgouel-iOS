@@ -206,7 +206,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     func applyButtonDidTap() {
         guard let credit = selectedCredit else { return }
         guard let maxRegisteredUser = selectedMaxRegisteredUser else { return }
-        
+
         detailInfo = .init(
             semester: selectedSemester,
             division: selectedDivision,

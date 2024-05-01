@@ -3,7 +3,7 @@ import SwiftUI
 struct EssentialCompleteView: View {
     @Binding var isComplete: Bool
     let onSelectButton: (Bool) -> Void
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             BitgouelText(
@@ -33,7 +33,8 @@ struct EssentialCompleteView: View {
                         set: { isSelected in
                             if isSelected {
                                 isComplete = false
-                                onSelectButton(false
+                                onSelectButton(
+                                    false
                                 )
                             } else {
                                 isComplete = true
@@ -45,5 +46,3 @@ struct EssentialCompleteView: View {
         }
     }
 }
-
-

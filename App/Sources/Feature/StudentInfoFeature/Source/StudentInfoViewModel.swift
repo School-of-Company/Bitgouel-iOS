@@ -69,6 +69,7 @@ final class StudentInfoViewModel: BaseViewModel {
                 switch authority {
                 case .student:
                     try await updateCertificationListByStudent()
+                    try await updateAppliedLectureList()
 
                 case .admin,
                      .teacher:
