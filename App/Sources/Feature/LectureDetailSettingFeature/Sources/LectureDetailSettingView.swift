@@ -210,5 +210,8 @@ struct LectureDetailSettingView: View {
                 viewModel.resetKeyword()
             }
         }
+        .onTapGesture {
+            hideKeyboard()
+        }
     }
 }

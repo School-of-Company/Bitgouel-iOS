@@ -12,7 +12,7 @@ struct MaxRegisteredUser: View {
             )
 
             BitgouelTextField(
-                "최대 수강 인원 입력",
+                "최대 수강 인원 입력 (5~10명)",
                 text: Binding(
                     get: { maxRegisteredUser },
                     set: { selectedMaxRegisteredUser in
@@ -20,6 +20,7 @@ struct MaxRegisteredUser: View {
                     }
                 )
             )
+            .keyboardType(.phonePad)
         }
     }
 }
