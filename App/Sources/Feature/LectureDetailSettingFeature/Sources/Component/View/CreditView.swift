@@ -1,9 +1,8 @@
 import SwiftUI
 
 struct CreditView: View {
-    var selectedCredit: Int
-    @State var isShowingCreditBottomSheet: Bool = false
-    let onSelectCredit: (Bool) -> Void
+    @Binding var credit: String
+    let onSelectedCrdit: (Int?) -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -12,16 +11,15 @@ struct CreditView: View {
                 font: .text1
             )
 
-            PickerTextField(
-                "학점 선택",
-                text: "\(selectedCredit)"
-            ) {
-                if isShowingCreditBottomSheet {
-                    onSelectCredit(false)
-                } else {
-                    onSelectCredit(true)
-                }
-            }
+            BitgouelTextField(
+                "학점 입력",
+                text: Binding(
+                    get: { credit },
+                    set: { credit in
+                        onSelectedCrdit(Int(credit))
+                    }
+                )
+            )
         }
     }
 }

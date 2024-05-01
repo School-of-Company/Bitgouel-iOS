@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct MaxRegisteredUser: View {
-    let maxRegisteredUser: Int
+    @Binding var maxRegisteredUser: String
     let onSelectMaxRegisteredUser: (Int?) -> Void
 
     var body: some View {
@@ -14,9 +14,9 @@ struct MaxRegisteredUser: View {
             BitgouelTextField(
                 "최대 수강 인원 입력",
                 text: Binding(
-                    get: { String(maxRegisteredUser) },
-                    set: { maxRegisteredUser in
-                        onSelectMaxRegisteredUser(Int(maxRegisteredUser))
+                    get: { maxRegisteredUser },
+                    set: { selectedMaxRegisteredUser in
+                        onSelectMaxRegisteredUser(Int(selectedMaxRegisteredUser))
                     }
                 )
             )

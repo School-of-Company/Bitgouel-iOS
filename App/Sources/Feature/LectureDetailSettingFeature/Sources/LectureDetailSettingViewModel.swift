@@ -20,9 +20,8 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     @Published var selectedDivision: String = ""
 
     // MARK: credit
-    @Published var isShowingCreditBottomSheet: Bool = false
-    @Published var selectedCredit: Int = 1
-    let creditValue: [Int] = [1, 2]
+    @Published var credit: String = ""
+    var selectedCredit: Int?
 
     // MARK: Line
     @Published var isShowingLineBottomSheet: Bool = false
@@ -47,8 +46,12 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         .init(completeDate: Date(), startTime: Date(), endTime: Date())
     ]
 
+    // MARK: isComplete
+    @Published var isComplete: Bool = true
+
     @Published var keyword: String = ""
-    @Published var maxRegisteredUser: Int = 0
+    @Published var maxRegisteredUser: String = ""
+    var selectedMaxRegisteredUser: Int?
     var detailInfo: OpenLectureModel
     let completion: (OpenLectureModel) -> Void
 
@@ -73,13 +76,17 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         self.fetchDivisionListUseCase = fetchDivisionListUseCase
     }
 
+    func updateIsComplete(isComplete: Bool) {
+        self.isComplete = isComplete
+    }
+
     func resetKeyword() {
         keyword = ""
     }
 
     func updateMaxRegisteredUser(userCount: Int?) {
         guard let userCount else { return }
-        maxRegisteredUser = userCount
+        selectedMaxRegisteredUser = userCount
     }
 
     // MARK: LectureType Func
@@ -114,12 +121,9 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     }
 
     // MARK: Credit Func
-    func updateCredit(credit: Int) {
+    func updateCredit(credit: Int?) {
+        guard let credit else { return }
         selectedCredit = credit
-    }
-
-    func updateIsShowingCreditBottomSheet(isShowing: Bool) {
-        isShowingCreditBottomSheet = isShowing
     }
 
     // MARK: Line Func
@@ -200,6 +204,9 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     }
 
     func applyButtonDidTap() {
+        guard let credit = selectedCredit else { return }
+        guard let maxRegisteredUser = selectedMaxRegisteredUser else { return }
+        
         detailInfo = .init(
             semester: selectedSemester,
             division: selectedDivision,
@@ -210,7 +217,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
             endDate: selectedEndDate,
             lectureDates: lectureDatesList,
             lectureType: selectedLectureTypeString,
-            credit: selectedCredit,
+            credit: credit,
             maxRegisteredUser: maxRegisteredUser
         )
 
