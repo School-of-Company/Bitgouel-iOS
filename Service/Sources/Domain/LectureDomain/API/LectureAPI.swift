@@ -12,6 +12,8 @@ public enum LectureAPI {
     case fetchDepartmentList(keyword: String)
     case fetchDivisionList(keyword: String)
     case fetchAppliedLectureList(studentID: String)
+    case fetchApplicantList(lectureID: String)
+    case modifyApplicantWhether(lectureID: String, studentID: String, isComplete: Bool)
 }
 
 extension LectureAPI: BitgouelAPI {
@@ -46,6 +48,12 @@ extension LectureAPI: BitgouelAPI {
 
         case let .fetchAppliedLectureList(studentID):
             return "/\(studentID)/signup"
+
+        case let .fetchApplicantList(lectureID):
+            return "/student/\(lectureID)"
+        
+        case let .modifyApplicantWhether(lectureID, studentID, _):
+            return "/\(lectureID)/\(studentID)"
         }
     }
 
@@ -61,11 +69,15 @@ extension LectureAPI: BitgouelAPI {
              .fetchLineList,
              .fetchDepartmentList,
              .fetchDivisionList,
-             .fetchAppliedLectureList:
+             .fetchAppliedLectureList,
+             .fetchApplicantList:
             return .get
 
         case .cancelLecture:
             return .delete
+
+        case .modifyApplicantWhether:
+            return .patch
         }
     }
 
@@ -90,6 +102,11 @@ extension LectureAPI: BitgouelAPI {
             return .requestParameters(parameters: [
                 "keyword": keyword,
                 "division": division
+            ], encoding: URLEncoding.queryString)
+
+        case let .modifyApplicantWhether(_, _, isComplete):
+            return .requestParameters(parameters: [
+                "isComplete": isComplete
             ], encoding: URLEncoding.queryString)
 
         default:
@@ -118,7 +135,8 @@ extension LectureAPI: BitgouelAPI {
              .fetchInstructorList,
              .fetchLineList,
              .fetchDepartmentList,
-             .fetchDivisionList:
+             .fetchDivisionList,
+             .fetchApplicantList:
             return [
                 400: .badRequest,
                 401: .unauthorized,
@@ -135,7 +153,8 @@ extension LectureAPI: BitgouelAPI {
             ]
 
         case .applyLecture,
-             .cancelLecture:
+             .cancelLecture,
+             .modifyApplicantWhether:
             return [
                 400: .badRequest,
                 401: .unauthorized,

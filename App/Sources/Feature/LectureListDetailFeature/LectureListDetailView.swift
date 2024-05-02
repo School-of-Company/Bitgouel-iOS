@@ -117,14 +117,24 @@ struct LectureListDetailView: View {
                     }
                 }
                 .overlay(alignment: .bottom) {
-                    if viewModel.userAuthority == .student {
+                    switch viewModel.userAuthority {
+                    case .student:
                         if viewModel.lectureDetail?.isRegistered ?? true {
                             cancelPopupButton()
                         } else {
                             applyPopupButton()
                         }
-                    } else if viewModel.userAuthority == .teacher || viewModel.userAuthority == .admin {
+
+                    case .admin,
+                         .teacher,
+                         .professor,
+                         .companyInstructor,
+                         .government,
+                         .bbozzack:
                         checkApplicantListButton()
+
+                    default:
+                        EmptyView()
                     }
                 }
                 .bitgouelAlert(
