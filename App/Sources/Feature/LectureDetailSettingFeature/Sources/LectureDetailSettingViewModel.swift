@@ -20,8 +20,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     @Published var selectedDivision: String = ""
 
     // MARK: credit
-    @Published var credit: String = ""
-    var selectedCredit: Int?
+    @Published var selectedCredit: Int = 1
 
     // MARK: Line
     @Published var isShowingLineBottomSheet: Bool = false
@@ -121,8 +120,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     }
 
     // MARK: Credit Func
-    func updateCredit(credit: Int?) {
-        guard let credit else { return }
+    func updateCredit(credit: Int) {
         selectedCredit = credit
     }
 
@@ -204,7 +202,6 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     }
 
     func applyButtonDidTap() {
-        guard let credit = selectedCredit else { return }
         guard let maxRegisteredUser = selectedMaxRegisteredUser else { return }
 
         detailInfo = .init(
@@ -217,7 +214,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
             endDate: selectedEndDate,
             lectureDates: lectureDatesList,
             lectureType: selectedLectureTypeString,
-            credit: credit,
+            credit: selectedCredit,
             maxRegisteredUser: maxRegisteredUser
         )
 

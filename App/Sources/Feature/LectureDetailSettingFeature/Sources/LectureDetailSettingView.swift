@@ -103,9 +103,10 @@ struct LectureDetailSettingView: View {
                         viewModel.deleteLectureDate(at: index)
                     }
 
-                    CreditView(credit: $viewModel.credit) { credit in
-                        viewModel.updateCredit(credit: credit)
-                    }
+                    CreditView(
+                        selectedCredit: $viewModel.selectedCredit) { credit in
+                            viewModel.updateCredit(credit: credit)
+                        }
 
                     MaxRegisteredUser(maxRegisteredUser: $viewModel.maxRegisteredUser) { userCount in
                         viewModel.updateMaxRegisteredUser(userCount: userCount)
