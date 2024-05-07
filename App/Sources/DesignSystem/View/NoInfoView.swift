@@ -1,11 +1,13 @@
 import SwiftUI
 
 struct NoInfoView: View {
+    var text: String
+
     var body: some View {
         VStack {
             BitgouelAsset.Icons.emptyBox.swiftUIImage
 
-            Text("검색 결과가 없습니다")
+            Text(text)
                 .bitgouelFont(.text3, color: .greyscale(.g4))
         }
     }
