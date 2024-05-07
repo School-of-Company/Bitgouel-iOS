@@ -3,8 +3,14 @@ import SwiftUI
 struct LectureListDetailView: View {
     @StateObject var viewModel: LectureListDetailViewModel
 
-    init(viewModel: LectureListDetailViewModel) {
+    private let lectureApplicantListFactory: any LectureApplicantListFactory
+
+    init(
+        viewModel: LectureListDetailViewModel,
+        lectureApplicantListFactory: any LectureApplicantListFactory
+    ) {
         _viewModel = StateObject(wrappedValue: viewModel)
+        self.lectureApplicantListFactory = lectureApplicantListFactory
     }
 
     var body: some View {
@@ -108,14 +114,27 @@ struct LectureListDetailView: View {
                                 .foregroundColor(.bitgouel(.greyscale(.g4)))
                             }
                         }
-                        .padding(.horizontal, 28)
                     }
                 }
                 .overlay(alignment: .bottom) {
-                    if viewModel.lectureDetail?.isRegistered ?? true {
-                        cancelPopupButton()
-                    } else {
-                        applyPopupButton()
+                    switch viewModel.userAuthority {
+                    case .student:
+                        if viewModel.lectureDetail?.isRegistered ?? true {
+                            cancelPopupButton()
+                        } else {
+                            applyPopupButton()
+                        }
+
+                    case .admin,
+                         .teacher,
+                         .professor,
+                         .companyInstructor,
+                         .government,
+                         .bbozzack:
+                        checkApplicantListButton()
+
+                    default:
+                        EmptyView()
                     }
                 }
                 .bitgouelAlert(
@@ -155,9 +174,19 @@ struct LectureListDetailView: View {
                 )
             }
         }
+        .padding(.horizontal, 28)
         .onAppear {
             viewModel.onAppear()
         }
+        .navigate(
+            to: lectureApplicantListFactory.makeView(lectureID: viewModel.lectureID).eraseToAnyView(),
+            when: Binding(
+                get: { viewModel.isPresentedLectureApplicantListView },
+                set: { isPresented in
+                    viewModel.updateIsPresentedLectureApplicantView(isPresented: isPresented)
+                }
+            )
+        )
     }
 
     @ViewBuilder
@@ -168,8 +197,6 @@ struct LectureListDetailView: View {
         ) {
             viewModel.isApply = true
         }
-        .cornerRadius(8)
-        .padding(.horizontal, 28)
     }
 
     @ViewBuilder
@@ -180,7 +207,15 @@ struct LectureListDetailView: View {
         ) {
             viewModel.isCancel = true
         }
-        .cornerRadius(8)
-        .padding(.horizontal, 28)
+    }
+
+    @ViewBuilder
+    func checkApplicantListButton() -> some View {
+        BitgouelButton(
+            text: "수강 명단 확인",
+            style: .primary
+        ) {
+            viewModel.updateIsPresentedLectureApplicantView(isPresented: true)
+        }
     }
 }
