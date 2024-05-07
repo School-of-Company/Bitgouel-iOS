@@ -63,8 +63,8 @@ public extension AppComponent {
         LectureListDetailComponent(parent: self)
     }
 
-    var openLectureApplyFactory: any OpenLectureApplyFactory {
-        OpenLectureApplyComponent(parent: self)
+    var openedLectureFactory: any OpenedLectureFactory {
+        OpenedLectureComponent(parent: self)
     }
 
     var lectureDetailSettingFactory: any LectureDetailSettingFactory {

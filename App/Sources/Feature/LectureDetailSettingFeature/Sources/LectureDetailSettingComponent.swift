@@ -3,7 +3,7 @@ import Service
 import SwiftUI
 
 public protocol LectureDetailSettingDependency: Dependency {
-    var openLectureApplyFactory: any OpenLectureApplyFactory { get }
+    var openedLectureFactory: any OpenedLectureFactory { get }
     var fetchInstructorListUseCase: any FetchInstructorListUseCase { get }
     var fetchLineListUseCase: any FetchLineListUseCase { get }
     var fetchDepartmentListUseCase: any FetchDepartmentListUseCase { get }
@@ -13,8 +13,8 @@ public protocol LectureDetailSettingDependency: Dependency {
 public final class LectureDetailSettingComponent: Component<LectureDetailSettingDependency>,
     LectureDetailSettingFactory {
     public func makeView(
-        detailInfo: OpenLectureModel,
-        completion: @escaping (OpenLectureModel) -> Void
+        detailInfo: OpenedLectureModel,
+        completion: @escaping (OpenedLectureModel) -> Void
     ) -> some View {
         LectureDetailSettingView(
             viewModel: .init(
@@ -25,7 +25,7 @@ public final class LectureDetailSettingComponent: Component<LectureDetailSetting
                 fetchDepartmentListUseCase: dependency.fetchDepartmentListUseCase,
                 fetchDivisionListUseCase: dependency.fetchDivisionListUseCase
             ),
-            openLectureApplyFactory: dependency.openLectureApplyFactory
+            openedLectureFactory: dependency.openedLectureFactory
         )
     }
 }

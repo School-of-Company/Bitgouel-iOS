@@ -1,7 +1,7 @@
 import Foundation
 import Service
 
-public struct OpenLectureModel: Equatable {
+public struct OpenedLectureModel: Equatable {
     let semester: SemesterType
     let division: String
     let department: String

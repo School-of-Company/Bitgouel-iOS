@@ -1,12 +1,13 @@
 import SwiftUI
 
-struct OpenLectureApplyView: View {
-    @StateObject var viewModel: OpenLectureApplyViewModel
+struct OpenedLectureView: View {
+    @Environment(\.dismiss) var dismiss
+    @StateObject var viewModel: OpenedLectureViewModel
 
     private let lectureDetailSettingFactory: any LectureDetailSettingFactory
 
     init(
-        viewModel: OpenLectureApplyViewModel,
+        viewModel: OpenedLectureViewModel,
         lectureDetailSettingFactory: any LectureDetailSettingFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -17,12 +18,14 @@ struct OpenLectureApplyView: View {
         VStack(spacing: 0) {
             InputFormView(
                 epic: "강의",
-                state: "개설 신청",
+                state: "개설",
                 settingButtonAction: {
                     viewModel.updateIsPresentedLectureDetailSettingAppend(state: true)
                 },
                 finalButtonAction: {
-                    viewModel.openLectureButtonDidTap()
+                    viewModel.openLectureButtonDidTap {
+                        dismiss()
+                    }
                 },
                 title: Binding(
                     get: { viewModel.lectureTitle },
