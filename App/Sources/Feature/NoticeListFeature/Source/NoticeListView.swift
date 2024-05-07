@@ -25,7 +25,7 @@ struct NoticeListView: View {
         VStack {
             if let noticeInfo = viewModel.noticeContent {
                 if noticeInfo.content.isEmpty {
-                    NoInfoView()
+                    NoInfoView(text: "공지사항이 없어요")
                 } else {
                     ScrollView {
                         LazyVStack(spacing: 0) {

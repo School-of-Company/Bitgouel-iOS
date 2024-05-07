@@ -28,7 +28,7 @@ struct LectureListView: View {
                 if !viewModel.isLoading {
                     if let lectureList = viewModel.lectureList {
                         if lectureList.content.isEmpty {
-                            NoInfoView()
+                            NoInfoView(text: "강의가 없어요")
                         } else {
                             ScrollView {
                                 LazyVStack(alignment: .leading) {

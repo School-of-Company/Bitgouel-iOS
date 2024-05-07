@@ -36,7 +36,7 @@ struct InquiryListView: View {
                     }
 
                     if viewModel.inquiryList.isEmpty {
-                        NoInfoView()
+                        NoInfoView(text: "문의사항이 없어요")
                     } else {
                         ScrollView {
                             VStack(spacing: 12) {

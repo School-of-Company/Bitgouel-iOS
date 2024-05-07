@@ -65,30 +65,36 @@ struct AdminWithdrawUserListView: View {
                 }
                 .padding(.top, 24)
 
-                LazyVStack(alignment: .leading, spacing: 0) {
-                    ForEach(viewModel.userList, id: \.userID) { userInfo in
-                        HStack(spacing: 8) {
-                            CheckButton(
-                                isSelected: Binding(
-                                    get: { viewModel.selectedWithdrawUserList.contains(userInfo.userID) },
-                                    set: { isSelected in
-                                        viewModel.insertUserList(userID: userInfo.userID)
-                                        if !isSelected {
-                                            viewModel.removeUserList(userID: userInfo.userID)
-                                        }
-                                    }
-                                )
-                            )
-
-                            BitgouelText(
-                                text: userInfo.name,
-                                font: .text1
-                            )
+                ScrollView {
+                    if viewModel.userList.isEmpty {
+                        NoInfoView(text: "탈퇴 예정자가 없어요")
+                    } else {
+                        LazyVStack(alignment: .leading, spacing: 0) {
+                            ForEach(viewModel.userList, id: \.userID) { userInfo in
+                                HStack(spacing: 8) {
+                                    CheckButton(
+                                        isSelected: Binding(
+                                            get: { viewModel.selectedWithdrawUserList.contains(userInfo.userID) },
+                                            set: { isSelected in
+                                                viewModel.insertUserList(userID: userInfo.userID)
+                                                if !isSelected {
+                                                    viewModel.removeUserList(userID: userInfo.userID)
+                                                }
+                                            }
+                                        )
+                                    )
+                                    
+                                    BitgouelText(
+                                        text: userInfo.name,
+                                        font: .text1
+                                    )
+                                }
+                                
+                                Divider()
+                                    .frame(height: 1)
+                                    .padding(.vertical, 14)
+                            }
                         }
-
-                        Divider()
-                            .frame(height: 1)
-                            .padding(.vertical, 14)
                     }
                 }
                 .padding(.top, 24)

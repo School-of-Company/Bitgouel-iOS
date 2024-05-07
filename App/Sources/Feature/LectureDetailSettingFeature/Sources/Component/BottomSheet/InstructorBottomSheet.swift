@@ -16,7 +16,7 @@ struct InstructorBottomSheet: View {
 
             ScrollView(showsIndicators: false) {
                 if instructorList.isEmpty {
-                    NoInfoView()
+                    NoInfoView(text: "담당 교수가 없어요")
                         .padding(.top, 24)
                 } else {
                     LazyVStack(alignment: .leading, spacing: 16) {

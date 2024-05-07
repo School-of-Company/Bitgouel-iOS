@@ -7,6 +7,7 @@ struct HighSchoolPromotionView: View {
                 introduceTitle: "직업계고 소개",
                 introduceText: "직업계고 계열별 학교현황 및 진로"
             )
+            .padding(.horizontal, 28)
 
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 24) {
