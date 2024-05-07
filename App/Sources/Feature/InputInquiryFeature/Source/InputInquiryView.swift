@@ -9,74 +9,65 @@ struct InputInquiryView: View {
     }
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 0) {
-                VStack {
-                    TextEditor(text: Binding(
-                        get: { viewModel.question },
-                        set: { question in
-                            guard question.count <= 100 else { return }
-                            viewModel.updateQuestion(question: question)
-                        }
-                    ))
-                    .bitgouelFont(.title3)
-                    .overlay(alignment: .topLeading) {
-                        if viewModel.question.isEmpty {
-                            BitgouelText(
-                                text: "문의 제목 (100자 이내)",
-                                font: .title3
-                            )
-                            .padding(.top, 8)
-                            .padding(.leading, 4)
-                            .foregroundColor(.bitgouel(.greyscale(.g7)))
-                        }
-                    }
+        VStack(spacing: 0) {
+            TextEditor(text: Binding(
+                get: { viewModel.question },
+                set: { question in
+                    guard question.count <= 100 else { return }
+                    viewModel.updateQuestion(question: question)
                 }
-                .frame(minHeight: 40, maxHeight: 120)
-
-                Divider()
-
-                ScrollView {
-                    TextEditor(text: Binding(
-                        get: { viewModel.questionDetail },
-                        set: { content in
-                            guard content.count <= 1000 else { return }
-                            viewModel.updateQuestionDetail(content: content)
-                        }
-                    ))
-                    .bitgouelFont(.text3)
-                    .overlay(alignment: .topLeading) {
-                        if viewModel.questionDetail.isEmpty {
-                            BitgouelText(
-                                text: "본문 입력 (1000자 이내)",
-                                font: .text3
-                            )
-                            .padding(.top, 8)
-                            .padding(.leading, 4)
-                            .foregroundColor(.bitgouel(.greyscale(.g7)))
-                        }
-                    }
-                }
-                .padding(.top, 16)
-                .frame(height: 520)
-
-                Divider()
-                    .padding(.bottom, 24)
-
-                BitgouelButton(
-                    text: "문의사항 \(viewModel.state)",
-                    style: .primary
-                ) {
-                    viewModel.updateIsShowingAlert(isShowing: true)
-                }
-                .cornerRadius(8)
-            }
-            .onAppear {
-                if viewModel.state == "수정" {
-                    viewModel.onAppear()
+            ))
+            .bitgouelFont(.title3)
+            .overlay(alignment: .topLeading) {
+                if viewModel.question.isEmpty {
+                    BitgouelText(
+                        text: "문의 제목 (100자 이내)",
+                        font: .title3
+                    )
+                    .padding(.top, 8)
+                    .padding(.leading, 4)
+                    .foregroundColor(.bitgouel(.greyscale(.g7)))
                 }
             }
-            .padding(.horizontal, 24)
+            .frame(minHeight: 40, maxHeight: 120)
+
+            Divider()
+
+            TextEditor(text: Binding(
+                get: { viewModel.questionDetail },
+                set: { content in
+                    guard content.count <= 1000 else { return }
+                    viewModel.updateQuestionDetail(content: content)
+                }
+            ))
+            .bitgouelFont(.text3)
+            .overlay(alignment: .topLeading) {
+                if viewModel.questionDetail.isEmpty {
+                    BitgouelText(
+                        text: "본문 입력 (1000자 이내)",
+                        font: .text3
+                    )
+                    .padding(.top, 8)
+                    .padding(.leading, 4)
+                    .foregroundColor(.bitgouel(.greyscale(.g7)))
+                }
+            }
+            .padding(.top, 16)
+            
+            Divider()
+                .padding(.bottom, 24)
+
+            BitgouelButton(
+                text: "문의사항 \(viewModel.state)"
+            ) {
+                viewModel.updateIsShowingAlert(isShowing: true)
+            }
+        }
+        .padding(.horizontal, 24)
+        .onAppear {
+            if viewModel.state == "수정" {
+                viewModel.onAppear()
+            }
         }
         .onTapGesture {
             hideKeyboard()

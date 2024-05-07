@@ -37,6 +37,9 @@ struct OpenedLectureView: View {
                 )
             )
         }
+        .onTapGesture {
+            hideKeyboard()
+        }
         .bitgouelToast(
             text: viewModel.errorMessage,
             isShowing: Binding(

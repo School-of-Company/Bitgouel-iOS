@@ -15,7 +15,7 @@ struct InputNoticeView: View {
     }
 
     var body: some View {
-        ScrollView {
+        VStack(spacing: 0) {
             InputFormView(
                 epic: "공지사항",
                 state: viewModel.state,
