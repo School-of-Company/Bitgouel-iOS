@@ -30,9 +30,10 @@ struct InputFormView: View {
                     .foregroundColor(.bitgouel(.greyscale(.g7)))
                 }
             }
-            .frame(minHeight: 40, maxHeight: 120)
+            .frame(height: 40)
 
             Divider()
+                .padding(.top, 16)
 
             TextEditor(text: Binding(
                 get: { text },
