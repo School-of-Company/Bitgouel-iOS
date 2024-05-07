@@ -81,9 +81,8 @@ struct ActivityDetailSettingView: View {
 
                 Spacer()
 
-                CTAButton(
-                    text: "적용하기",
-                    style: .default
+                BitgouelButton(
+                    text: "적용하기"
                 ) {
                     viewModel.applyButtonDidTap()
                     dismiss()

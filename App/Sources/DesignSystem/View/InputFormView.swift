@@ -11,54 +11,50 @@ struct InputFormView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            VStack {
-                TextEditor(text: Binding(
-                    get: { title },
-                    set: { newValue in
-                        guard newValue.count <= 100 else { return }
-                        title = newValue
-                    }
-                ))
-                .bitgouelFont(.title3)
-                .overlay(alignment: .topLeading) {
-                    if title.isEmpty {
-                        BitgouelText(
-                            text: "\(epic) 제목 (100자 이내)",
-                            font: .title3
-                        )
-                        .padding(.top, 8)
-                        .padding(.leading, 4)
-                        .foregroundColor(.bitgouel(.greyscale(.g7)))
-                    }
+            TextEditor(text: Binding(
+                get: { title },
+                set: { newValue in
+                    guard newValue.count <= 100 else { return }
+                    title = newValue
+                }
+            ))
+            .bitgouelFont(.title3)
+            .overlay(alignment: .topLeading) {
+                if title.isEmpty {
+                    BitgouelText(
+                        text: "\(epic) 제목 (100자 이내)",
+                        font: .title3
+                    )
+                    .padding(.top, 8)
+                    .padding(.leading, 4)
+                    .foregroundColor(.bitgouel(.greyscale(.g7)))
                 }
             }
-            .frame(minHeight: 40, maxHeight: 120)
+            .frame(height: 40)
 
             Divider()
+                .padding(.top, 16)
 
-            VStack {
-                TextEditor(text: Binding(
-                    get: { text },
-                    set: { newValue in
-                        guard newValue.count <= 1000 else { return }
-                        text = newValue
-                    }
-                ))
-                .bitgouelFont(.text3)
-                .overlay(alignment: .topLeading) {
-                    if text.isEmpty {
-                        BitgouelText(
-                            text: "본문 입력 (1000자 이내)",
-                            font: .text3
-                        )
-                        .padding(.top, 8)
-                        .padding(.leading, 4)
-                        .foregroundColor(.bitgouel(.greyscale(.g7)))
-                    }
+            TextEditor(text: Binding(
+                get: { text },
+                set: { newValue in
+                    guard newValue.count <= 1000 else { return }
+                    text = newValue
+                }
+            ))
+            .bitgouelFont(.text3)
+            .overlay(alignment: .topLeading) {
+                if text.isEmpty {
+                    BitgouelText(
+                        text: "본문 입력 (1000자 이내)",
+                        font: .text3
+                    )
+                    .padding(.top, 8)
+                    .padding(.leading, 4)
+                    .foregroundColor(.bitgouel(.greyscale(.g7)))
                 }
             }
             .padding(.top, 16)
-            .frame(height: 460)
 
             Divider()
 
@@ -88,7 +84,6 @@ struct InputFormView: View {
                 ) {
                     finalButtonAction()
                 }
-                .cornerRadius(8)
             }
             .padding(.top, 24)
             .padding(.bottom, 12)
