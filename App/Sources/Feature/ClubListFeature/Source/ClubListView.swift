@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct ClubListView: View {
-    @Environment(\.tabbarHidden) var tabbarHidden
     @StateObject var viewModel: ClubListViewModel
     @Binding var selection: TabFlow
 
@@ -102,9 +101,6 @@ struct ClubListView: View {
                     set: { state in viewModel.isPresentedClubDetailView = state }
                 )
             )
-            .onChange(of: viewModel.isPresentedClubDetailView) { newValue in
-                tabbarHidden.wrappedValue = newValue
-            }
             .loginAlert(
                 isShowing: Binding(
                     get: { viewModel.isShowingLoginAlert },
