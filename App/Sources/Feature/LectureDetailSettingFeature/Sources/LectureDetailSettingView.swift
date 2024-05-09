@@ -5,14 +5,14 @@ struct LectureDetailSettingView: View {
     @StateObject var viewModel: LectureDetailSettingViewModel
     @Environment(\.dismiss) var dismiss
 
-    private let openLectureApplyFactory: any OpenLectureApplyFactory
+    private let openedLectureFactory: any OpenedLectureFactory
 
     init(
         viewModel: LectureDetailSettingViewModel,
-        openLectureApplyFactory: any OpenLectureApplyFactory
+        openedLectureFactory: any OpenedLectureFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
-        self.openLectureApplyFactory = openLectureApplyFactory
+        self.openedLectureFactory = openedLectureFactory
     }
 
     var body: some View {

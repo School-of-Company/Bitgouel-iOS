@@ -143,6 +143,22 @@ private class NoticeListDependency0e93eb53be8626c408e4Provider: NoticeListDepend
 private func factorye14e687c08985bdffcd0f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return NoticeListDependency0e93eb53be8626c408e4Provider(appComponent: parent1(component) as! AppComponent)
 }
+private class OpenedLectureDependencyf5f55fb6c2a2daeac985Provider: OpenedLectureDependency {
+    var openLectureUseCase: any OpenLectureUseCase {
+        return appComponent.openLectureUseCase
+    }
+    var lectureDetailSettingFactory: any LectureDetailSettingFactory {
+        return appComponent.lectureDetailSettingFactory
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->OpenedLectureComponent
+private func factory6636d97d1a9f0c8216d2f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return OpenedLectureDependencyf5f55fb6c2a2daeac985Provider(appComponent: parent1(component) as! AppComponent)
+}
 private class SignUpDependencyf83ac0c64026320e6dc2Provider: SignUpDependency {
     var studentSignupUseCase: any StudentSignupUseCase {
         return appComponent.studentSignupUseCase
@@ -300,8 +316,8 @@ private func factory4545df5fcd42aaf8ed60f47b58f8f304c97af4d5(_ component: Needle
     return InputNoticeDependency7b594803ad882c7e25c9Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class LectureDetailSettingDependencyd72c0b79ce6406870a95Provider: LectureDetailSettingDependency {
-    var openLectureApplyFactory: any OpenLectureApplyFactory {
-        return appComponent.openLectureApplyFactory
+    var openedLectureFactory: any OpenedLectureFactory {
+        return appComponent.openedLectureFactory
     }
     var fetchInstructorListUseCase: any FetchInstructorListUseCase {
         return appComponent.fetchInstructorListUseCase
@@ -691,8 +707,8 @@ private class LectureListDependencyf05b805b4d41a7643bcdProvider: LectureListDepe
     var lectureListDetailFactory: any LectureListDetailFactory {
         return appComponent.lectureListDetailFactory
     }
-    var openLectureApplyFactory: any OpenLectureApplyFactory {
-        return appComponent.openLectureApplyFactory
+    var openedLectureFactory: any OpenedLectureFactory {
+        return appComponent.openedLectureFactory
     }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
         return appComponent.loadUserAuthorityUseCase
@@ -760,22 +776,6 @@ private class NoticeDetailDependency3e09bbd26d7f6105e665Provider: NoticeDetailDe
 /// ^->AppComponent->NoticeDetailViewComponent
 private func factory0798e0f01e95aeaff56ff47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return NoticeDetailDependency3e09bbd26d7f6105e665Provider(appComponent: parent1(component) as! AppComponent)
-}
-private class OpenLectureApplyDependency12ab35c625f7f21914baProvider: OpenLectureApplyDependency {
-    var openLectureUseCase: any OpenLectureUseCase {
-        return appComponent.openLectureUseCase
-    }
-    var lectureDetailSettingFactory: any LectureDetailSettingFactory {
-        return appComponent.lectureDetailSettingFactory
-    }
-    private let appComponent: AppComponent
-    init(appComponent: AppComponent) {
-        self.appComponent = appComponent
-    }
-}
-/// ^->AppComponent->OpenLectureApplyComponent
-private func factory0e26cbbc0f01f86f2b04f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return OpenLectureApplyDependency12ab35c625f7f21914baProvider(appComponent: parent1(component) as! AppComponent)
 }
 private class InputInquiryDependency0f59954f6ae75e794799Provider: InputInquiryDependency {
     var inputInquiryUseCase: any InputInquiryUseCase {
@@ -866,6 +866,12 @@ extension NoticeListComponent: Registration {
         keyPathToName[\NoticeListDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
     }
 }
+extension OpenedLectureComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\OpenedLectureDependency.openLectureUseCase] = "openLectureUseCase-any OpenLectureUseCase"
+        keyPathToName[\OpenedLectureDependency.lectureDetailSettingFactory] = "lectureDetailSettingFactory-any LectureDetailSettingFactory"
+    }
+}
 extension SignUpComponent: Registration {
     public func registerItems() {
         keyPathToName[\SignUpDependency.studentSignupUseCase] = "studentSignupUseCase-any StudentSignupUseCase"
@@ -926,7 +932,7 @@ extension InputNoticeComponent: Registration {
 }
 extension LectureDetailSettingComponent: Registration {
     public func registerItems() {
-        keyPathToName[\LectureDetailSettingDependency.openLectureApplyFactory] = "openLectureApplyFactory-any OpenLectureApplyFactory"
+        keyPathToName[\LectureDetailSettingDependency.openedLectureFactory] = "openedLectureFactory-any OpenedLectureFactory"
         keyPathToName[\LectureDetailSettingDependency.fetchInstructorListUseCase] = "fetchInstructorListUseCase-any FetchInstructorListUseCase"
         keyPathToName[\LectureDetailSettingDependency.fetchLineListUseCase] = "fetchLineListUseCase-any FetchLineListUseCase"
         keyPathToName[\LectureDetailSettingDependency.fetchDepartmentListUseCase] = "fetchDepartmentListUseCase-any FetchDepartmentListUseCase"
@@ -1069,7 +1075,7 @@ extension LoginComponent: Registration {
 extension LectureListComponent: Registration {
     public func registerItems() {
         keyPathToName[\LectureListDependency.lectureListDetailFactory] = "lectureListDetailFactory-any LectureListDetailFactory"
-        keyPathToName[\LectureListDependency.openLectureApplyFactory] = "openLectureApplyFactory-any OpenLectureApplyFactory"
+        keyPathToName[\LectureListDependency.openedLectureFactory] = "openedLectureFactory-any OpenedLectureFactory"
         keyPathToName[\LectureListDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
         keyPathToName[\LectureListDependency.fetchLectureListUseCase] = "fetchLectureListUseCase-any FetchLectureListUseCase"
     }
@@ -1092,12 +1098,6 @@ extension NoticeDetailViewComponent: Registration {
         keyPathToName[\NoticeDetailDependency.inputNoticeFactory] = "inputNoticeFactory-any InputNoticeFactory"
         keyPathToName[\NoticeDetailDependency.queryPostDetailUseCase] = "queryPostDetailUseCase-any QueryPostDetailUseCase"
         keyPathToName[\NoticeDetailDependency.deletePostUseCase] = "deletePostUseCase-any DeletePostUseCase"
-    }
-}
-extension OpenLectureApplyComponent: Registration {
-    public func registerItems() {
-        keyPathToName[\OpenLectureApplyDependency.openLectureUseCase] = "openLectureUseCase-any OpenLectureUseCase"
-        keyPathToName[\OpenLectureApplyDependency.lectureDetailSettingFactory] = "lectureDetailSettingFactory-any LectureDetailSettingFactory"
     }
 }
 extension InputInquiryComponent: Registration {
@@ -1203,7 +1203,7 @@ extension AppComponent: Registration {
         localTable["clubListFactory-any ClubListFactory"] = { [unowned self] in self.clubListFactory as Any }
         localTable["lectureListFactory-any LectureListFactory"] = { [unowned self] in self.lectureListFactory as Any }
         localTable["lectureListDetailFactory-any LectureListDetailFactory"] = { [unowned self] in self.lectureListDetailFactory as Any }
-        localTable["openLectureApplyFactory-any OpenLectureApplyFactory"] = { [unowned self] in self.openLectureApplyFactory as Any }
+        localTable["openedLectureFactory-any OpenedLectureFactory"] = { [unowned self] in self.openedLectureFactory as Any }
         localTable["lectureDetailSettingFactory-any LectureDetailSettingFactory"] = { [unowned self] in self.lectureDetailSettingFactory as Any }
         localTable["postListFactory-any PostListFactory"] = { [unowned self] in self.postListFactory as Any }
         localTable["postDetailSettingFactory-any PostDetailSettingFactory"] = { [unowned self] in self.postDetailSettingFactory as Any }
@@ -1267,6 +1267,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->LectureListDetailComponent", factory22af859a70aa8ba0b346f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->AdminUserListComponent", factory55b3a27a2b6be9af9ba4f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->NoticeListComponent", factorye14e687c08985bdffcd0f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->OpenedLectureComponent", factory6636d97d1a9f0c8216d2f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->SignUpComponent", factory306e8ce5cfdf41304709f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ActivityDetailSettingComponent", factoryfd595280dea209e217b9e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->MainTabComponent", factory1ab5a747ddf21e1393f9f47b58f8f304c97af4d5)
@@ -1297,7 +1298,6 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->PostDetailSettingComponent", factoryaacb19523586bb790cade3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->ActivityDetailComponent", factory7c395808ac9dfb8fb229f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->NoticeDetailViewComponent", factory0798e0f01e95aeaff56ff47b58f8f304c97af4d5)
-    registerProviderFactory("^->AppComponent->OpenLectureApplyComponent", factory0e26cbbc0f01f86f2b04f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputInquiryComponent", factory818540ce7b5cc0ed9d3bf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputActivityComponent", factory3fc1a279eeb8c906e603f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)

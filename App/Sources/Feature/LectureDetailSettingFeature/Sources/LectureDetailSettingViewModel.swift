@@ -51,8 +51,8 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     @Published var keyword: String = ""
     @Published var maxRegisteredUser: String = ""
     var selectedMaxRegisteredUser: Int?
-    var detailInfo: OpenLectureModel
-    let completion: (OpenLectureModel) -> Void
+    var detailInfo: OpenedLectureModel
+    let completion: (OpenedLectureModel) -> Void
 
     private let fetchInstructorListUseCase: any FetchInstructorListUseCase
     private let fetchLineListUseCase: any FetchLineListUseCase
@@ -60,8 +60,8 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     private let fetchDivisionListUseCase: any FetchDivisionListUseCase
 
     init(
-        detailInfo: OpenLectureModel,
-        completion: @escaping (OpenLectureModel) -> Void,
+        detailInfo: OpenedLectureModel,
+        completion: @escaping (OpenedLectureModel) -> Void,
         fetchInstructorListUseCase: any FetchInstructorListUseCase,
         fetchLineListUseCase: any FetchLineListUseCase,
         fetchDepartmentListUseCase: any FetchDepartmentListUseCase,

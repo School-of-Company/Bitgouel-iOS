@@ -8,16 +8,16 @@ struct LectureListView: View {
     @Binding var selection: TabFlow
 
     private let lectureListDetailFactory: any LectureListDetailFactory
-    private let openLectureApplyFactory: any OpenLectureApplyFactory
+    private let openedLectureFactory: any OpenedLectureFactory
 
     init(
         lectureListDetailFactory: any LectureListDetailFactory,
-        openLectureApplyFactory: any OpenLectureApplyFactory,
+        openedLectureFactory: any OpenedLectureFactory,
         viewModel: LectureListViewModel,
         selection: Binding<TabFlow>
     ) {
         self.lectureListDetailFactory = lectureListDetailFactory
-        self.openLectureApplyFactory = openLectureApplyFactory
+        self.openedLectureFactory = openedLectureFactory
         _viewModel = StateObject(wrappedValue: viewModel)
         _selection = selection
     }
@@ -93,7 +93,7 @@ struct LectureListView: View {
                 }
             }
             .navigate(
-                to: openLectureApplyFactory.makeView().eraseToAnyView(),
+                to: openedLectureFactory.makeView().eraseToAnyView(),
                 when: Binding(
                     get: { viewModel.isPresentedOpenLectureView },
                     set: { isPresented in

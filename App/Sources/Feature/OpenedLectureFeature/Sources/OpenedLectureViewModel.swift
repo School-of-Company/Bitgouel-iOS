@@ -1,11 +1,11 @@
 import Foundation
 import Service
 
-final class OpenLectureApplyViewModel: BaseViewModel {
+final class OpenedLectureViewModel: BaseViewModel {
     @Published var lectureTitle: String = ""
     @Published var lectureText: String = ""
     @Published var isPresentedLectureDetailSettingAppend = false
-    @Published var openLectureInfo: OpenLectureModel = .init(
+    @Published var openLectureInfo: OpenedLectureModel = .init(
         semester: .firstYearFallSemester,
         division: "",
         department: "",
@@ -41,7 +41,7 @@ final class OpenLectureApplyViewModel: BaseViewModel {
         isErrorOccurred = state
     }
 
-    func updateOpenLectureInfo(detailInfo: OpenLectureModel) {
+    func updateOpenLectureInfo(detailInfo: OpenedLectureModel) {
         openLectureInfo = .init(
             semester: detailInfo.semester,
             division: detailInfo.division,
@@ -59,7 +59,7 @@ final class OpenLectureApplyViewModel: BaseViewModel {
     }
 
     @MainActor
-    func openLectureButtonDidTap() {
+    func openLectureButtonDidTap(_ success: @escaping () -> Void ) {
         Task {
             do {
                 try await openLectureUseCase(
@@ -85,6 +85,8 @@ final class OpenLectureApplyViewModel: BaseViewModel {
                         maxRegisteredUser: openLectureInfo.maxRegisteredUser
                     )
                 )
+
+                success()
             } catch {
                 if let lectureDomainError = error as? LectureDomainError {
                     errorMessage = lectureDomainError.errorDescription ?? "알 수 없는 오류가 발생했습니다."
