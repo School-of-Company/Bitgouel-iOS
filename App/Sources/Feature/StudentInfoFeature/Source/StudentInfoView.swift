@@ -64,7 +64,7 @@ struct StudentInfoView: View {
                         Spacer()
 
                         BitgouelText(
-                            text: studentInfo.phoneNumber,
+                            text: studentInfo.phoneNumber.withHypen,
                             font: .caption
                         )
                     }
