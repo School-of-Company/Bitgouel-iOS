@@ -50,36 +50,21 @@ struct AdminRequestUserSignupView: View {
                 .padding(.top, 24)
 
                 ScrollView {
-                    LazyVStack(alignment: .leading, spacing: 0) {
-                        ForEach(viewModel.userList, id: \.userID) { userInfo in
-                            HStack(spacing: 8) {
-                                CheckButton(
-                                    isSelected: Binding(
-                                        get: { viewModel.selectedUserList.contains(userInfo.userID) },
-                                        set: { isSelected in
-                                            viewModel.insertUserList(userID: userInfo.userID)
-                                            if !isSelected {
-                                                viewModel.removeUserList(userID: userInfo.userID)
-                                            }
-                                        }
-                                    )
+                    if viewModel.userList.isEmpty {
+                        NoInfoView(text: "가입 요청자가 없어요")
+                    } else {
+                        LazyVStack(alignment: .leading, spacing: 0) {
+                            ForEach(viewModel.userList, id: \.userID) { userInfo in
+                                requestUserListRow(
+                                    userID: userInfo.userID,
+                                    userName: userInfo.name,
+                                    userAuthority: userInfo.authority.display()
                                 )
 
-                                BitgouelText(
-                                    text: userInfo.name,
-                                    font: .text1
-                                )
-
-                                BitgouelText(
-                                    text: userInfo.authority.display(),
-                                    font: .text1
-                                )
-                                .foregroundColor(.bitgouel(.greyscale(.g6)))
+                                Divider()
+                                    .frame(height: 1)
+                                    .padding(.vertical, 14)
                             }
-
-                            Divider()
-                                .frame(height: 1)
-                                .padding(.vertical, 14)
                         }
                     }
                 }
@@ -159,6 +144,38 @@ struct AdminRequestUserSignupView: View {
                 set: { _ in viewModel.withdrawListPageDismissed() }
             )
         )
+    }
+
+    @ViewBuilder
+    func requestUserListRow(
+        userID: String,
+        userName: String,
+        userAuthority: String
+    ) -> some View {
+        HStack(spacing: 8) {
+            CheckButton(
+                isSelected: Binding(
+                    get: { viewModel.selectedUserList.contains(userID) },
+                    set: { isSelected in
+                        viewModel.insertUserList(userID: userID)
+                        if !isSelected {
+                            viewModel.removeUserList(userID: userID)
+                        }
+                    }
+                )
+            )
+
+            BitgouelText(
+                text: userName,
+                font: .text1
+            )
+
+            BitgouelText(
+                text: userAuthority,
+                font: .text1
+            )
+            .foregroundColor(.bitgouel(.greyscale(.g6)))
+        }
     }
 
     @ViewBuilder

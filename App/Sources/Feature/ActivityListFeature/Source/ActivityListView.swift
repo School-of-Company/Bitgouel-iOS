@@ -24,7 +24,7 @@ struct ActivityListView: View {
             if !viewModel.isLoading {
                 if let activityList = viewModel.activityList {
                     if activityList.content.isEmpty {
-                        NoInfoView()
+                        NoInfoView(text: "활동이 없어요")
                     } else {
                         ScrollView {
                             LazyVStack(spacing: 12) {

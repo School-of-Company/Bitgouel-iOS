@@ -18,12 +18,13 @@ struct MainView: View {
             VStack(spacing: 64) {
                 VStack(spacing: 64) {
                     BitgouelPromotionView()
+                        .padding(.horizontal, 28)
 
                     HighSchoolPromotionView()
 
                     ClubPromotionView()
+                        .padding(.horizontal, 28)
                 }
-                .padding(.horizontal, 28)
 
                 TabView {
                     FutureTransportClubView()

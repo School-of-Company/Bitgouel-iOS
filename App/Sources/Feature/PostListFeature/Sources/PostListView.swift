@@ -31,7 +31,7 @@ struct PostListView: View {
             VStack {
                 if let postInfo = viewModel.postContent {
                     if postInfo.content.isEmpty {
-                        NoInfoView()
+                        NoInfoView(text: "게시글이 없어요")
                     } else {
                         ScrollView {
                             LazyVStack(spacing: 0) {
