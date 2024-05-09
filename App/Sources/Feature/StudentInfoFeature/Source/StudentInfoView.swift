@@ -112,7 +112,8 @@ struct StudentInfoView: View {
 
                 switch viewModel.authority {
                 case .admin,
-                     .teacher:
+                     .teacher,
+                     .student:
                     appliedLectureList()
                         .padding(.top, 24)
 

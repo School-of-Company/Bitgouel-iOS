@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct CreditView: View {
-    var selectedCredit: Int
-    @State var isShowingCreditBottomSheet: Bool = false
-    let onSelectCredit: (Bool) -> Void
+    let creditValue: [Int] = [1, 2]
+    @Binding var selectedCredit: Int
+    let onSelectedCrdit: (Int) -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -12,14 +12,15 @@ struct CreditView: View {
                 font: .text1
             )
 
-            PickerTextField(
-                "학점 선택",
-                text: "\(selectedCredit)"
-            ) {
-                if isShowingCreditBottomSheet {
-                    onSelectCredit(false)
-                } else {
-                    onSelectCredit(true)
+            HStack(spacing: 16) {
+                ForEach(creditValue, id: \.self) { credit in
+                    TypeSelectedButton(
+                        text: "\(credit)점",
+                        isSelected: Binding(
+                            get: { credit == selectedCredit },
+                            set: { _ in onSelectedCrdit(credit) }
+                        )
+                    )
                 }
             }
         }

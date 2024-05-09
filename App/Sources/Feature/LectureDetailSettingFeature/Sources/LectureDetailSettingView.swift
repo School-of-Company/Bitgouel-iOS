@@ -34,6 +34,16 @@ struct LectureDetailSettingView: View {
 
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 28) {
+                    EssentialCompleteView(isComplete: $viewModel.isComplete) { isComplete in
+                        viewModel.updateIsComplete(isComplete: isComplete)
+                    }
+
+                    SemesterView(
+                        selectedSemester: viewModel.selectedSemester
+                    ) { isShowing in
+                        viewModel.updateIsShowingSemesterBottomSheet(isShowing: isShowing)
+                    }
+
                     LectureTypeView(
                         selectedLectureType: viewModel.selectedLectureType,
                         selectedLectureTypeString: viewModel.selectedLectureTypeString
@@ -43,22 +53,10 @@ struct LectureDetailSettingView: View {
                         viewModel.updateLectureTypeString(lectureType: lectureType)
                     }
 
-                    SemesterView(
-                        selectedSemester: viewModel.selectedSemester
-                    ) { isShowing in
-                        viewModel.updateIsShowingSemesterBottomSheet(isShowing: isShowing)
-                    }
-
                     DivisionView(
                         selectedDivision: viewModel.selectedDivision
                     ) { isShowing in
                         viewModel.updateIsShowingDivisionBottomSheet(isShowing: isShowing)
-                    }
-
-                    CreditView(
-                        selectedCredit: viewModel.selectedCredit
-                    ) { isShowing in
-                        viewModel.updateIsShowingCreditBottomSheet(isShowing: isShowing)
                     }
 
                     PickerView(
@@ -105,9 +103,12 @@ struct LectureDetailSettingView: View {
                         viewModel.deleteLectureDate(at: index)
                     }
 
-                    MaxRegisteredUser(
-                        maxRegisteredUser: viewModel.maxRegisteredUser
-                    ) { userCount in
+                    CreditView(
+                        selectedCredit: $viewModel.selectedCredit) { credit in
+                            viewModel.updateCredit(credit: credit)
+                        }
+
+                    MaxRegisteredUser(maxRegisteredUser: $viewModel.maxRegisteredUser) { userCount in
                         viewModel.updateMaxRegisteredUser(userCount: userCount)
                     }
                 }
@@ -180,14 +181,6 @@ struct LectureDetailSettingView: View {
                 viewModel.resetKeyword()
             }
         }
-        .bitgouelBottomSheet(isShowing: $viewModel.isShowingCreditBottomSheet) {
-            CreditBottomSheet(
-                selectedCredit: viewModel.selectedCredit,
-                creditList: viewModel.creditValue
-            ) { credit in
-                viewModel.updateCredit(credit: credit)
-            }
-        }
         .bitgouelBottomSheet(isShowing: $viewModel.isShowingLineBottomSheet) {
             LineBottomSheet(
                 selectedLine: viewModel.selectedLine,
@@ -217,6 +210,9 @@ struct LectureDetailSettingView: View {
                 viewModel.updateInstructorInfo(name: name, id: id)
                 viewModel.resetKeyword()
             }
+        }
+        .onTapGesture {
+            hideKeyboard()
         }
     }
 }
