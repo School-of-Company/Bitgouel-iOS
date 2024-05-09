@@ -27,12 +27,14 @@ struct InquiryDetailView: View {
 
                         Spacer()
 
-                        HStack(spacing: 0) {
-                            Text(inquiryInfo.answeredDate?.toStringCustomFormat(format: "yyyy.M.dd") ?? "")
-
-                            Text("에 답변됨")
+                        if inquiryInfo.answerStatus == .answered {
+                            HStack(spacing: 0) {
+                                Text(inquiryInfo.answeredDate?.toStringCustomFormat(format: "yyyy.MM.dd") ?? "")
+                                
+                                Text("에 답변됨")
+                            }
+                            .foregroundColor(.bitgouel(.greyscale(.g7)))
                         }
-                        .foregroundColor(.bitgouel(.greyscale(.g7)))
                     }
                     .font(.bitgouel(.caption))
 
@@ -44,7 +46,7 @@ struct InquiryDetailView: View {
 
                     HStack {
                         BitgouelText(
-                            text: inquiryInfo.questionDate.toStringCustomFormat(format: "yyyy.M.dd"),
+                            text: inquiryInfo.questionDate.toStringCustomFormat(format: "yyyy.MM.dd"),
                             font: .text3
                         )
                         BitgouelText(
