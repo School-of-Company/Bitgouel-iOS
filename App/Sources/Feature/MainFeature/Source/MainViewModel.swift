@@ -51,6 +51,7 @@ final class MainViewModel: BaseViewModel {
                 try await inputFAQUseCase(req: InputFAQRequestDTO(question: question, answer: answer))
 
                 updateInputFAQButtonDidTap(state: false)
+                onAppear()
             } catch {
                 print(error.localizedDescription)
             }
