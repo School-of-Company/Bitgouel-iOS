@@ -56,7 +56,6 @@ struct ClubDetailView: View {
                     }
                     .foregroundColor(.bitgouel(.greyscale(.g4)))
                 }
-                .padding(.top, -40)
 
                 VStack(alignment: .leading, spacing: 0) {
                     BitgouelText(
@@ -93,18 +92,24 @@ struct ClubDetailView: View {
                 }
             }
         }
+        .if(viewModel.authority != .admin) {
+            $0.navigationBarBackButtonHidden()
+        }
         .navigate(
             to: studentInfoFactory.makeView(
                 clubID: viewModel.clubID,
                 studentID: viewModel.studentID
             ).eraseToAnyView(),
             when: Binding(
-                get: { viewModel.isPresentedCertificationView },
+                get: { viewModel.isPresentedStudentInfoView },
                 set: { isPresented in
-                    viewModel.updateIsPresentedCertificationView(isPresented: isPresented)
+                    viewModel.updateIsPresentedStudentInfoView(isPresented: isPresented)
                 }
             )
         )
+        .onChange(of: viewModel.isPresentedStudentInfoView) { newValue in
+            tabbarHidden.wrappedValue = newValue
+        }
         .padding(.horizontal, 28)
         .onAppear {
             viewModel.onAppear()

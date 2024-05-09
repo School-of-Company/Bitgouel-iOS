@@ -4,7 +4,7 @@ import SwiftUI
 final class ClubDetailViewModel: BaseViewModel {
     @Published var authority: UserAuthorityType = .user
     @Published var userID: String = ""
-    @Published var isPresentedCertificationView: Bool = false
+    @Published var isPresentedStudentInfoView: Bool = false
     @Published var studentID: String = ""
 
     // MARK: ClubInfo
@@ -72,12 +72,12 @@ final class ClubDetailViewModel: BaseViewModel {
         self.teacher = clubInfo.teacher
     }
 
-    func updateIsPresentedCertificationView(isPresented: Bool) {
-        isPresentedCertificationView = isPresented
+    func updateIsPresentedStudentInfoView(isPresented: Bool) {
+        isPresentedStudentInfoView = isPresented
     }
 
     func studentInfoRowDidTap(selectedStudentID: String) {
         studentID = selectedStudentID
-        updateIsPresentedCertificationView(isPresented: true)
+        updateIsPresentedStudentInfoView(isPresented: true)
     }
 }

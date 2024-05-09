@@ -38,7 +38,7 @@ struct LectureApplicantListRow: View {
                 )
 
                 Group {
-                    Text("\(phoneNumber) | \(email)")
+                    Text("\(phoneNumber.withHypen) | \(email)")
 
                     Text(schoolName)
 
