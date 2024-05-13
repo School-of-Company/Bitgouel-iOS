@@ -17,6 +17,9 @@ struct SemesterBottomSheet: View {
                             set: { _ in semesterDidSelect(semester) }
                         )
                     )
+                    .onTapGesture {
+                        semesterDidSelect(semester)
+                    }
                 }
             }
         }

@@ -43,6 +43,9 @@ struct DivisionBottomSheet: View {
                             )
                         )
                     }
+                    .onTapGesture {
+                        divisionDidSelect(keyword)
+                    }
                     .padding(.vertical, 24)
                 } else {
                     LazyVStack {
@@ -54,6 +57,9 @@ struct DivisionBottomSheet: View {
                                     set: { _ in divisionDidSelect(division) }
                                 )
                             )
+                            .onTapGesture {
+                                divisionDidSelect(division)
+                            }
                         }
                     }
                 }

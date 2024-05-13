@@ -45,12 +45,14 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         .init(completeDate: Date(), startTime: Date(), endTime: Date())
     ]
 
+    // MARK: MaxRegisteredUser
+    @Published var selectedMaxRegisteredUser: Int = 5
+    @Published var isShowingMaxRegisteredUserBottomSheet: Bool = false
+
     // MARK: isComplete
     @Published var isComplete: Bool = true
 
     @Published var keyword: String = ""
-    @Published var maxRegisteredUser: String = ""
-    var selectedMaxRegisteredUser: Int?
     var detailInfo: OpenedLectureModel
     let completion: (OpenedLectureModel) -> Void
 
@@ -83,9 +85,9 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         keyword = ""
     }
 
-    func updateMaxRegisteredUser(userCount: Int?) {
-        guard let userCount else { return }
-        selectedMaxRegisteredUser = userCount
+    // MARK: MaxRegisteredUser Func
+    func updateIsShowingMaxRegisteredUserBottomSheet(isShowing: Bool) {
+        isShowingMaxRegisteredUserBottomSheet = isShowing
     }
 
     // MARK: LectureType Func
@@ -153,14 +155,6 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     }
 
     // MARK: Date
-    func updateSelectedStartDate(date: Date) {
-        selectedStartDate = date
-    }
-
-    func updateSelectedEndDate(date: Date) {
-        selectedEndDate = date
-    }
-
     func updateCompleteDate(completedate: Date, at index: Int) {
         let indexedDate = self.lectureDatesList[index]
         let newLectureDatesModel = LectureDatesModel(
@@ -202,8 +196,6 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     }
 
     func applyButtonDidTap() {
-        guard let maxRegisteredUser = selectedMaxRegisteredUser else { return }
-
         detailInfo = .init(
             semester: selectedSemester,
             division: selectedDivision,
@@ -215,7 +207,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
             lectureDates: lectureDatesList,
             lectureType: selectedLectureTypeString,
             credit: selectedCredit,
-            maxRegisteredUser: maxRegisteredUser
+            maxRegisteredUser: selectedMaxRegisteredUser
         )
 
         completion(detailInfo)

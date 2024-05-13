@@ -43,6 +43,9 @@ struct DepartmentBottomSheet: View {
                             )
                         )
                     }
+                    .onTapGesture {
+                        departmentSelect(keyword)
+                    }
                     .padding(.vertical, 24)
                 } else {
                     LazyVStack(alignment: .leading) {
@@ -54,6 +57,9 @@ struct DepartmentBottomSheet: View {
                                     set: { _ in departmentSelect(department) }
                                 )
                             )
+                            .onTapGesture {
+                                departmentSelect(department)
+                            }
                         }
                     }
                 }

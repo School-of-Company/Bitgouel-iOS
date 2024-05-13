@@ -72,13 +72,9 @@ struct LectureDetailSettingView: View {
                     }
 
                     ApplicationPeriodView(
-                        selectedStartDate: viewModel.selectedStartDate,
-                        selectedEndDate: viewModel.selectedEndDate
-                    ) { date in
-                        viewModel.updateSelectedStartDate(date: date)
-                    } onSelectEndDate: { date in
-                        viewModel.updateSelectedEndDate(date: date)
-                    }
+                        selectedStartDate: $viewModel.selectedStartDate,
+                        selectedEndDate: $viewModel.selectedEndDate
+                    )
 
                     LectureDatesView(
                         lectureDatesList: viewModel.lectureDatesList
@@ -103,17 +99,17 @@ struct LectureDetailSettingView: View {
                         viewModel.deleteLectureDate(at: index)
                     }
 
-                    CreditView(
-                        selectedCredit: $viewModel.selectedCredit) { credit in
-                            viewModel.updateCredit(credit: credit)
-                        }
+                    CreditView(selectedCredit: $viewModel.selectedCredit) { credit in
+                        viewModel.updateCredit(credit: credit)
+                    }
 
-                    MaxRegisteredUser(maxRegisteredUser: $viewModel.maxRegisteredUser) { userCount in
-                        viewModel.updateMaxRegisteredUser(userCount: userCount)
+                    MaxRegisteredUserView(maxRegisteredUser: $viewModel.selectedMaxRegisteredUser) { isShowing in
+                        viewModel.updateIsShowingMaxRegisteredUserBottomSheet(isShowing: isShowing)
                     }
                 }
                 .padding(.bottom, 24)
             }
+
             BitgouelButton(
                 text: "적용 하기",
                 style: .primary
@@ -210,6 +206,9 @@ struct LectureDetailSettingView: View {
                 viewModel.updateInstructorInfo(name: name, id: id)
                 viewModel.resetKeyword()
             }
+        }
+        .bitgouelBottomSheet(isShowing: $viewModel.isShowingMaxRegisteredUserBottomSheet) {
+            MaxRegisteredUserBottomSheet(selectedMaxRegisteredUser: $viewModel.selectedMaxRegisteredUser)
         }
         .onTapGesture {
             hideKeyboard()

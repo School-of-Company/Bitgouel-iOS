@@ -44,6 +44,9 @@ struct LineBottomSheet: View {
                             )
                         )
                     }
+                    .onTapGesture {
+                        lineSelect(keyword)
+                    }
                     .padding(.vertical, 24)
                 } else {
                     LazyVStack(alignment: .leading) {
@@ -55,6 +58,9 @@ struct LineBottomSheet: View {
                                     set: { _ in lineSelect(line) }
                                 )
                             )
+                            .onTapGesture {
+                                lineSelect(line)
+                            }
                         }
                     }
                 }
