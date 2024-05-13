@@ -1,5 +1,4 @@
 import SwiftUI
-import Combine
 
 struct MaxRegisteredUserView: View {
     @Binding var maxRegisteredUser: Int
