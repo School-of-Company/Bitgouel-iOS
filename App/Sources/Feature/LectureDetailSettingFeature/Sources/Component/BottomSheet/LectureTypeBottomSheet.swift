@@ -17,6 +17,9 @@ struct LectureTypeBottomSheet: View {
                             set: { _ in lectureTypeDidSelect(type) }
                         )
                     )
+                    .onTapGesture {
+                        lectureTypeDidSelect(type)
+                    }
                 }
             }
         }

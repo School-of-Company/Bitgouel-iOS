@@ -32,6 +32,9 @@ struct InstructorBottomSheet: View {
                                     }
                                 )
                             )
+                            .onTapGesture {
+                                onInstructorSelect(instructor.name, instructor.instructorID)
+                            }
                         }
                     }
                 }
