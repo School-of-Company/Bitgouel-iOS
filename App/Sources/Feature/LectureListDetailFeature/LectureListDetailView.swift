@@ -23,7 +23,7 @@ struct LectureListDetailView: View {
                     if let lectureDetail = viewModel.lectureDetail {
                         VStack(alignment: .leading, spacing: 24) {
                             VStack(alignment: .leading, spacing: 4) {
-                                Text("# \(lectureDetail.lectureType.rawValue)")
+                                Text("# \(lectureDetail.lectureType)")
                                     .bitgouelFont(.caption, color: .primary(.p3))
 
                                 HStack(spacing: 8) {

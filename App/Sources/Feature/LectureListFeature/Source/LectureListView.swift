@@ -192,6 +192,8 @@ struct LectureListView: View {
                         set: { lecture in
                             if lecture {
                                 viewModel.selectedLectureType = lectureType.rawValue
+                            } else {
+                                viewModel.selectedLectureType = ""
                             }
                         }
                     )
