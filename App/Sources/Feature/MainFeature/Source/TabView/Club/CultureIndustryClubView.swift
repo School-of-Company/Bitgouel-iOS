@@ -117,6 +117,8 @@ struct CultureIndustryClubView: View {
         }
         .background(
             Image("mainpage_image_6")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
                 .blur(radius: 6, opaque: true)
         )
     }

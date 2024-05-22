@@ -51,6 +51,8 @@ struct AiFusionAndCompositeCompanyView: View {
         }
         .background(
             Image("mainpage_image_10")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
                 .blur(radius: 6, opaque: true)
         )
     }
