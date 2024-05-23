@@ -10,7 +10,7 @@ public struct LectureListEntity: Equatable {
     public let line: String
     public let startDate: Date
     public let endDate: Date
-    public let lectureType: LectureType
+    public let lectureType: String
     public let lectureStatus: LectureStatusType
     public let headCount: Int
     public let maxRegisteredUser: Int
@@ -26,7 +26,7 @@ public struct LectureListEntity: Equatable {
         line: String,
         startDate: Date,
         endDate: Date,
-        lectureType: LectureType,
+        lectureType: String,
         lectureStatus: LectureStatusType,
         headCount: Int,
         maxRegisteredUser: Int,

@@ -72,6 +72,8 @@ struct EnergyIndustryCompanyView: View {
         }
         .background(
             Image("mainpage_image_8")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
                 .blur(radius: 6, opaque: true)
         )
     }

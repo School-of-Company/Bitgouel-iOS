@@ -87,6 +87,8 @@ struct MedicalHealthClubView: View {
         }
         .background(
             Image("mainpage_image_5")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
                 .blur(radius: 6, opaque: true)
         )
     }

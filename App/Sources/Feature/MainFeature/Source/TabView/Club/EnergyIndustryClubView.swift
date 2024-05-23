@@ -123,6 +123,8 @@ struct EnergyIndustryClubView: View {
         }
         .background(
             Image("mainpage_image_4")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
                 .blur(radius: 6, opaque: true)
         )
     }

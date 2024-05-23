@@ -99,6 +99,8 @@ struct FutureTransportClubView: View {
         }
         .background(
             Image("mainpage_image_2")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
                 .blur(radius: 6, opaque: true)
         )
     }

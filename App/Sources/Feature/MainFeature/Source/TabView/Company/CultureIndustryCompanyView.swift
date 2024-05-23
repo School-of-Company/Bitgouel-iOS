@@ -85,6 +85,8 @@ struct CultureIndustryCompanyView: View {
         }
         .background(
             Image("mainpage_image_11")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
                 .blur(radius: 6, opaque: true)
         )
     }

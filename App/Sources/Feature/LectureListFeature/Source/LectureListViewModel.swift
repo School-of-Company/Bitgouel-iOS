@@ -33,14 +33,19 @@ final class LectureListViewModel: BaseViewModel {
         switch lectureType {
         case "상호학점인정교육과정":
             return type = .mutualCreditRecognitionProgram
+
         case "대학탐방프로그램":
             return type = .universityExplorationProgram
+
         case "유관기관프로그램":
             return type = .governmentProgram
+
         case "기업산학연계직업체험프로그램":
             return type = .companyIndustryLinkingJobExperienceProgram
+
         case "기타":
             return type = .etc
+
         default:
             return type = nil
         }

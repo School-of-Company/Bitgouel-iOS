@@ -11,7 +11,7 @@ public struct FetchLectureDetailResponseDTO: Decodable {
     public let startDate: String
     public let endDate: String
     public let lectureDates: [LectureDate]
-    public let lectureType: LectureType
+    public let lectureType: String
     public let lectureStatus: LectureStatusType
     public let headCount: Int
     public let maxRegisteredUser: Int
@@ -30,7 +30,7 @@ public struct FetchLectureDetailResponseDTO: Decodable {
         startDate: String,
         endDate: String,
         lectureDates: [LectureDate],
-        lectureType: LectureType,
+        lectureType: String,
         lectureStatus: LectureStatusType,
         headCount: Int,
         maxRegisteredUser: Int,

@@ -10,7 +10,7 @@ struct LectureListRow: View {
     let line: String
     let startDate: String
     let endDate: String
-    let lectureType: LectureType
+    let lectureType: String
     let lectureStatus: LectureStatusType
     let headCount: Int
     let maxRegisteredUser: Int
@@ -24,7 +24,7 @@ struct LectureListRow: View {
 
                 Spacer()
 
-                Text(lectureType.rawValue)
+                Text(lectureType)
                     .bitgouelFont(.caption, color: .greyscale(.g4))
             }
 
@@ -34,6 +34,7 @@ struct LectureListRow: View {
             Text(content)
                 .bitgouelFont(.text3, color: .greyscale(.g4))
                 .lineLimit(2)
+                .multilineTextAlignment(.leading)
 
             VStack(alignment: .leading, spacing: 4) {
                 HStack(spacing: 8) {
