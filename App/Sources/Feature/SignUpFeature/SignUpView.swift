@@ -104,6 +104,10 @@ struct SignUpView: View {
                 .padding(.top, 32)
             }
         }
+        .bitgouelToast(
+            text: viewModel.errorMessage,
+            isShowing: $viewModel.isErrorOccurred
+        )
         .bitgouelBottomSheet(
             isShowing: $viewModel.isPresentedSchoolSheet
         ) {
@@ -271,12 +275,9 @@ struct SignUpView: View {
                     text: Binding(
                         get: { viewModel.studentID },
                         set: { newValue in
-                            viewModel.studentID = newValue
+                            viewModel.updateStudentID(id: newValue)
                         }
-                    ),
-                    onSubmit: {
-                        viewModel.parseStudentID()
-                    }
+                    )
                 )
                 .padding(.bottom, -20)
             }

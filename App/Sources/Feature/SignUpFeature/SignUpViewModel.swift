@@ -273,44 +273,71 @@ final class SignUpViewModel: BaseViewModel {
         return password == checkPassword
     }
 
+    func updateStudentID(id: String) {
+        studentID = id
+        parseStudentID()
+    }
+
     // swiftlint: disable cyclomatic_complexity
+    @MainActor
     func signup() {
         guard let selectedSchool else { return }
         guard let selectedClub else { return }
 
-        switch selectedUserRole {
-        case .student:
-            guard let grade else { return }
-            guard let classRoom else { return }
-            guard let number else { return }
-            guard let yearOfAdmission else { return }
+        Task {
+            do {
+                switch selectedUserRole {
+                case .student:
+                    try await studentSignup(
+                        selectedSchool: selectedSchool,
+                        selectedClub: selectedClub
+                    )
 
-            studentSignup(
-                grade: grade,
-                classRoom: classRoom,
-                number: number,
-                yearOfAdmission: yearOfAdmission,
-                selectedSchool: selectedSchool,
-                selectedClub: selectedClub
-            )
+                case .teacher:
+                    try await teacherSignup(
+                        selectedSchool: selectedSchool,
+                        selectedClub: selectedClub
+                    )
 
-        case .teacher:
-            teacherSignup(selectedSchool: selectedSchool, selectedClub: selectedClub)
+                case .companyInstructor:
+                    try await companyInstructorSignup(
+                        selectedSchool: selectedSchool,
+                        selectedClub: selectedClub
+                    )
+                    
+                case .professor:
+                    try await professorSignup(
+                        selectedSchool: selectedSchool,
+                        selectedClub: selectedClub
+                    )
 
-        case .bbozzack:
-            bbozzakSignup(selectedSchool: selectedSchool, selectedClub: selectedClub)
+                case .bbozzack:
+                    try await bbozzakSignup(
+                        selectedSchool: selectedSchool,
+                        selectedClub: selectedClub
+                    )
 
-        case .professor:
-            professorSignup(selectedSchool: selectedSchool, selectedClub: selectedClub)
+                case .government:
+                    try await governmentSignup(
+                        selectedSchool: selectedSchool,
+                        selectedClub: selectedClub
+                    )
 
-        case .government:
-            governmentSignup(selectedSchool: selectedSchool, selectedClub: selectedClub)
+                default:
+                    return
+                }
 
-        case .companyInstructor:
-            companyInstructorSignup(selectedSchool: selectedSchool, selectedClub: selectedClub)
-
-        default:
-            return
+                isShowingSuccessView = true
+                print("\(selectedUserRole.debugDescription) 회원가입 성공")
+            } catch {
+                if let authDomainError = error as? AuthDomainError {
+                    errorMessage = authDomainError.localizedDescription
+                    isErrorOccurred = true
+                } else {
+                    errorMessage = "알 수 없는 오류가 발생했습니다."
+                    isErrorOccurred = true
+                }
+            }
         }
     }
 
@@ -318,35 +345,28 @@ final class SignUpViewModel: BaseViewModel {
 
     // swiftlint: disable function_parameter_count
     func studentSignup(
-        grade: Int,
-        classRoom: Int,
-        number: Int,
-        yearOfAdmission: Int,
         selectedSchool: HighSchoolType,
         selectedClub: String
-    ) {
-        Task {
-            do {
-                try await studentSignupUseCase(
-                    req: StudentSignupRequestDTO(
-                        email: email,
-                        name: name,
-                        phoneNumber: phoneNumber,
-                        password: password,
-                        highSchool: selectedSchool,
-                        clubName: selectedClub,
-                        grade: grade,
-                        classRoom: classRoom,
-                        number: number,
-                        admissionNumber: yearOfAdmission
-                    )
-                )
-                isShowingSuccessView = true
-                print("학생 회원가입 성공")
-            } catch {
-                print("학생 회원가입 실패")
-            }
-        }
+    ) async throws {
+        guard let grade else { return }
+        guard let classRoom else { return }
+        guard let number else { return }
+        guard let yearOfAdmission else { return }
+
+        try await studentSignupUseCase(
+            req: StudentSignupRequestDTO(
+                email: email,
+                name: name,
+                phoneNumber: phoneNumber,
+                password: password,
+                highSchool: selectedSchool,
+                clubName: selectedClub,
+                grade: grade,
+                classRoom: classRoom,
+                number: number,
+                admissionNumber: yearOfAdmission
+            )
+        )
     }
 
     // swiftlint: enable function_parameter_count
@@ -354,124 +374,84 @@ final class SignUpViewModel: BaseViewModel {
     func teacherSignup(
         selectedSchool: HighSchoolType,
         selectedClub: String
-    ) {
-        Task {
-            do {
-                try await teacherSignupUseCase(
-                    req: TeacherSignupRequestDTO(
-                        email: email,
-                        name: name,
-                        phoneNumber: phoneNumber,
-                        password: password,
-                        highSchool: selectedSchool,
-                        clubName: selectedClub
-                    )
-                )
-                isShowingSuccessView = true
-                print("취동쌤 회원가입 성공")
-            } catch {
-                print("취동쌤 회원가입 실패")
-            }
-        }
+    ) async throws {
+        try await teacherSignupUseCase(
+            req: TeacherSignupRequestDTO(
+                email: email,
+                name: name,
+                phoneNumber: phoneNumber,
+                password: password,
+                highSchool: selectedSchool,
+                clubName: selectedClub
+            )
+        )
     }
 
     func bbozzakSignup(
         selectedSchool: HighSchoolType,
         selectedClub: String
-    ) {
-        Task {
-            do {
-                try await bbozzakSignupUseCase(
-                    req: BbozzakSignupRequestDTO(
-                        email: email,
-                        name: name,
-                        phoneNumber: phoneNumber,
-                        password: password,
-                        highSchool: selectedSchool,
-                        clubName: selectedClub
-                    )
-                )
-                isShowingSuccessView = true
-                print("뽀짝쌤 회원가입 성공")
-            } catch {
-                print("뽀짝쌤 회원가입 실패")
-            }
-        }
+    ) async throws{
+        try await bbozzakSignupUseCase(
+            req: BbozzakSignupRequestDTO(
+                email: email,
+                name: name,
+                phoneNumber: phoneNumber,
+                password: password,
+                highSchool: selectedSchool,
+                clubName: selectedClub
+            )
+        )
     }
 
     func professorSignup(
         selectedSchool: HighSchoolType,
         selectedClub: String
-    ) {
-        Task {
-            do {
-                try await professorSignupUseCase(
-                    req: ProfessorSignupRequestDTO(
-                        email: email,
-                        name: name,
-                        phoneNumber: phoneNumber,
-                        password: password,
-                        highSchool: selectedSchool,
-                        clubName: selectedClub,
-                        university: selectedUniversity
-                    )
-                )
-                isShowingSuccessView = true
-                print("대학교수 회원가입 성공")
-            } catch {
-                print("대학교수 회원가입 실패")
-            }
-        }
+    ) async throws {
+        try await professorSignupUseCase(
+            req: ProfessorSignupRequestDTO(
+                email: email,
+                name: name,
+                phoneNumber: phoneNumber,
+                password: password,
+                highSchool: selectedSchool,
+                clubName: selectedClub,
+                university: selectedUniversity
+            )
+        )
     }
 
     func governmentSignup(
         selectedSchool: HighSchoolType,
         selectedClub: String
-    ) {
-        Task {
-            do {
-                try await governmentSignupUseCase(
-                    req: GovernmentSignupRequestDTO(
-                        email: email,
-                        name: name,
-                        phoneNumber: phoneNumber,
-                        password: password,
-                        highSchool: selectedSchool,
-                        clubName: selectedClub,
-                        governmentName: selectedGovernment
-                    )
-                )
-                isShowingSuccessView = true
-                print("유관기관 회원가입 성공")
-            } catch {
-                print("유관기관 회원가입 실패")
-            }
-        }
+    ) async throws {
+        try await governmentSignupUseCase(
+            req: GovernmentSignupRequestDTO(
+                email: email,
+                name: name,
+                phoneNumber: phoneNumber,
+                password: password,
+                highSchool: selectedSchool,
+                clubName: selectedClub,
+                governmentName: selectedGovernment
+            )
+        )
     }
 
     func companyInstructorSignup(
         selectedSchool: HighSchoolType,
         selectedClub: String
-    ) {
-        Task {
-            do {
-                try await companyInstructorSignupUseCase(
-                    req: CompanyInstructorSignupRequestDTO(
-                        email: email,
-                        name: name,
-                        phoneNumber: phoneNumber,
-                        password: password,
-                        highSchool: selectedSchool,
-                        clubName: selectedClub,
-                        company: selectedCompany
-                    )
-                )
-                isShowingSuccessView = true
-                print("기업강사 회원가입 성공")
-            } catch {
-                print("기업강사 회원가입 실패")
-            }
-        }
+    ) async throws {
+        try await companyInstructorSignupUseCase(
+            req: CompanyInstructorSignupRequestDTO(
+                email: email,
+                name: name,
+                phoneNumber: phoneNumber,
+                password: password,
+                highSchool: selectedSchool,
+                clubName: selectedClub,
+                company: selectedCompany
+            )
+        )
     }
 }
 
