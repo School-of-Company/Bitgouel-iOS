@@ -275,14 +275,16 @@ final class SignUpViewModel: BaseViewModel {
 
     // swiftlint: disable cyclomatic_complexity
     func signup() {
-        guard let yearOfAdmission else { return }
         guard let selectedSchool else { return }
-        guard let grade else { return }
-        guard let classRoom else { return }
-        guard let number else { return }
         guard let selectedClub else { return }
+
         switch selectedUserRole {
         case .student:
+            guard let grade else { return }
+            guard let classRoom else { return }
+            guard let number else { return }
+            guard let yearOfAdmission else { return }
+
             studentSignup(
                 grade: grade,
                 classRoom: classRoom,
@@ -291,16 +293,22 @@ final class SignUpViewModel: BaseViewModel {
                 selectedSchool: selectedSchool,
                 selectedClub: selectedClub
             )
+
         case .teacher:
             teacherSignup(selectedSchool: selectedSchool, selectedClub: selectedClub)
+
         case .bbozzack:
             bbozzakSignup(selectedSchool: selectedSchool, selectedClub: selectedClub)
+
         case .professor:
             professorSignup(selectedSchool: selectedSchool, selectedClub: selectedClub)
+
         case .government:
             governmentSignup(selectedSchool: selectedSchool, selectedClub: selectedClub)
+
         case .companyInstructor:
             companyInstructorSignup(selectedSchool: selectedSchool, selectedClub: selectedClub)
+
         default:
             return
         }
