@@ -244,13 +244,13 @@ final class SignUpViewModel: BaseViewModel {
         }
 
         if !phoneNumberIsValid {
-            return "전화번호를 입력해 주세요!"
+            return "전화번호를 입력해주세요!"
         } else if !emailIsValid {
-            return "이메일을 입력해 주세요!"
+            return "이메일을 입력해주세요!"
         } else if !passwordIsValid {
             return "8~24자 이내의 영문 / 숫자, 특수문자 1개 이상"
         } else {
-            return "비밀번호를 다시 입력해 주세요!"
+            return "비밀번호를 다시 입력해주세요!"
         }
     }
 

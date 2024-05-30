@@ -20,7 +20,6 @@ struct SuccessSignUpView: View {
             BitgouelButton(
                 text: "돌아가기"
             ) {
-                print(sceneState.sceneFlow)
                 sceneState.sceneFlow = .login
             }
             .cornerRadius(8)
