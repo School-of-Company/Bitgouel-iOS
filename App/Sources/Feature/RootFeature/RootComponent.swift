@@ -5,6 +5,7 @@ public protocol RootDependency: Dependency {
     var loginFactory: any LoginFactory { get }
     var mainTabFactory: any MainTabFactory { get }
     var findPasswordFactory: any FindPasswordFactory { get }
+    var successSignUpFactory: any SuccessSignUpFactory { get }
 }
 
 public final class RootComponent: Component<RootDependency> {
@@ -12,7 +13,8 @@ public final class RootComponent: Component<RootDependency> {
         RootView(
             loginFactory: self.dependency.loginFactory,
             mainTabFactory: self.dependency.mainTabFactory,
-            findPasswordFactory: self.dependency.findPasswordFactory
+            findPasswordFactory: self.dependency.findPasswordFactory,
+            successSignUpFactory: self.dependency.successSignUpFactory
         )
     }
 }

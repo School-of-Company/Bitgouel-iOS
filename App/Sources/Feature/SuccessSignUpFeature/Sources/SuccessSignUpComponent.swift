@@ -2,14 +2,10 @@ import NeedleFoundation
 import Service
 import SwiftUI
 
-public protocol SuccessSignUpDependency: Dependency {
-    var loginFactory: any LoginFactory { get }
-}
+public protocol SuccessSignUpDependency: Dependency {}
 
 public final class SuccessSignUpComponent: Component<SuccessSignUpDependency>, SuccessSignUpFactory {
     public func makeView() -> some View {
-        SuccessSignUpView(
-            loginFactory: self.dependency.loginFactory
-        )
+        SuccessSignUpView()
     }
 }

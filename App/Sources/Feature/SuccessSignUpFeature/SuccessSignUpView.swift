@@ -1,13 +1,7 @@
 import SwiftUI
 
 struct SuccessSignUpView: View {
-    @State var isBackLoginPage = false
-
-    private let loginFactory: any LoginFactory
-
-    init(loginFactory: any LoginFactory) {
-        self.loginFactory = loginFactory
-    }
+    @EnvironmentObject var sceneState: SceneState
 
     var body: some View {
         VStack {
@@ -26,19 +20,13 @@ struct SuccessSignUpView: View {
             BitgouelButton(
                 text: "돌아가기"
             ) {
-                isBackLoginPage = true
+                print(sceneState.sceneFlow)
+                sceneState.sceneFlow = .login
             }
             .cornerRadius(8)
             .padding(.horizontal, 28)
             .padding(.bottom, 46)
         }
-        .navigate(
-            to: loginFactory.makeView().eraseToAnyView(),
-            when: Binding(
-                get: { isBackLoginPage },
-                set: { _ in isBackLoginPage = false }
-            )
-        )
         .navigationBarBackButtonHidden(true)
     }
 }

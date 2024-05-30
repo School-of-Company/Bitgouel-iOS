@@ -83,7 +83,7 @@ struct LoginView: View {
 
                     HStack(spacing: 12) {
                         Button {
-                            viewModel.signupPageIsRequired()
+                            viewModel.updateIsPresentedSignupPage(isPresented: true)
                         } label: {
                             Text("회원가입")
                                 .bitgouelFont(.text3, color: .primary(.p5))
@@ -102,17 +102,17 @@ struct LoginView: View {
                 }
                 .padding(.bottom, 52)
             }
+            .onChange(of: viewModel.isSuccessSignin) { _ in
+                sceneState.sceneFlow = .main
+            }
             .navigate(
                 to: signupFactory.makeView().eraseToAnyView(),
                 when: Binding(
                     get: { viewModel.isPresentedSignupPage },
-                    set: { _ in viewModel.signupPageDismissed() }
+                    set: { isPresented in viewModel.updateIsPresentedSignupPage(isPresented: isPresented)
+                    }
                 )
             )
-            .onChange(of: viewModel.isSuccessSignin) { newValue in
-                guard newValue else { return }
-                sceneState.sceneFlow = .main
-            }
             .navigate(
                 to: findPasswordFactory.makeView().eraseToAnyView(),
                 when: Binding(
