@@ -177,46 +177,45 @@ struct SignUpView: View {
 
     @ViewBuilder
     func inputAuthorizationInfoSection() -> some View {
-        VStack(spacing: 16) {
-            Group {
-                if viewModel.passwordIsValid {
-                    SecureBitgouelTextField(
-                        "비밀번호",
-                        text: $viewModel.checkPassword
-                    )
-                    .padding(.bottom, -20)
-                    .onSubmit {
-                        viewModel.signup()
-                    }
-                }
-
-                if viewModel.emailIsValid {
-                    SecureBitgouelTextField(
-                        "비밀번호",
-                        text: $viewModel.password
-                    )
-                    .padding(.bottom, -20)
-                }
-            }
-
-            Group {
-                if viewModel.phoneNumberIsValid {
-                    BitgouelTextField(
-                        "이메일",
-                        text: $viewModel.email,
-                        helpMessage: viewModel.emailHelpMessage,
-                        isError: !viewModel.emailIsValid
-                    )
-                    .textContentType(.emailAddress)
-                }
-            }
-            Group {
-                BitgouelTextField(
-                    "전화번호",
-                    text: $viewModel.phoneNumber
+        VStack(spacing: 4) {
+            if viewModel.passwordIsValid {
+                SecureBitgouelTextField(
+                    "비밀번호",
+                    text: $viewModel.checkPassword,
+                    helpMessage: viewModel.checkPasswordHelpMessage,
+                    isError: !viewModel.checkedPassword
                 )
-                .padding(.bottom, -20)
+                .textContentType(.password)
+                .onSubmit {
+                    viewModel.signup()
+                }
             }
+
+            if viewModel.emailIsValid {
+                SecureBitgouelTextField(
+                    "비밀번호",
+                    text: $viewModel.password,
+                    helpMessage: viewModel.passwordHelpMessage,
+                    isError: !viewModel.passwordIsValid
+                )
+                .textContentType(.password)
+            }
+
+            if viewModel.phoneNumberIsValid {
+                BitgouelTextField(
+                    "이메일",
+                    text: $viewModel.email,
+                    helpMessage: viewModel.emailHelpMessage,
+                    isError: !viewModel.emailIsValid
+                )
+                .textContentType(.emailAddress)
+            }
+
+            BitgouelTextField(
+                "전화번호",
+                text: $viewModel.phoneNumber
+            )
+            .padding(.bottom, -20)
         }
     }
 
@@ -321,14 +320,14 @@ struct SignUpView: View {
                     text: $viewModel.position
                 )
             }
-            
+
             if !viewModel.selectedGovernment.isEmpty {
                 BitgouelTextField(
                     "소속 기관의 업종",
                     text: $viewModel.sectors
                 )
             }
-            
+
             BitgouelTextField(
                 "소속 기관명",
                 text: $viewModel.selectedGovernment

@@ -333,7 +333,7 @@ final class SignUpViewModel: BaseViewModel {
                         selectedSchool: selectedSchool,
                         selectedClub: selectedClub
                     )
-                    
+
                 case .professor:
                     try await professorSignup(
                         selectedSchool: selectedSchool,
@@ -419,7 +419,7 @@ final class SignUpViewModel: BaseViewModel {
     func bbozzakSignup(
         selectedSchool: HighSchoolType,
         selectedClub: String
-    ) async throws{
+    ) async throws {
         try await bbozzakSignupUseCase(
             req: BbozzakSignupRequestDTO(
                 email: email,
