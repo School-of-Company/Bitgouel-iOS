@@ -84,7 +84,7 @@ struct SignUpView: View {
                             inputClubSection()
                         }
                     case .government:
-                        ConditionView(!viewModel.selectedGovernment.isEmpty) {
+                        ConditionView(!viewModel.position.isEmpty) {
                             inputAuthorizationInfoSection()
                         }
 
@@ -315,6 +315,20 @@ struct SignUpView: View {
     @ViewBuilder
     func inputGovernmentInfoSection() -> some View {
         VStack(spacing: 0) {
+            if !viewModel.sectors.isEmpty {
+                BitgouelTextField(
+                    "본인의 직책",
+                    text: $viewModel.position
+                )
+            }
+            
+            if !viewModel.selectedGovernment.isEmpty {
+                BitgouelTextField(
+                    "소속 기관의 업종",
+                    text: $viewModel.sectors
+                )
+            }
+            
             BitgouelTextField(
                 "소속 기관명",
                 text: $viewModel.selectedGovernment

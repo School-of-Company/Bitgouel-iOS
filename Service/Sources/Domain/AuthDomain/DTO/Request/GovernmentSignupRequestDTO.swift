@@ -8,6 +8,8 @@ public struct GovernmentSignupRequestDTO: Encodable {
     public let highSchool: HighSchoolType
     public let clubName: String
     public let governmentName: String
+    public let position: String
+    public let sectors: String
 
     public init(
         email: String,
@@ -16,7 +18,9 @@ public struct GovernmentSignupRequestDTO: Encodable {
         password: String,
         highSchool: HighSchoolType,
         clubName: String,
-        governmentName: String
+        governmentName: String,
+        position: String,
+        sectors: String
     ) {
         self.email = email
         self.name = name
@@ -25,5 +29,7 @@ public struct GovernmentSignupRequestDTO: Encodable {
         self.highSchool = highSchool
         self.clubName = clubName
         self.governmentName = governmentName
+        self.position = position
+        self.sectors = sectors
     }
 }

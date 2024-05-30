@@ -31,6 +31,8 @@ final class SignUpViewModel: BaseViewModel {
     @Published var studentID: String = ""
     @Published var selectedAssociation: AssociationType?
     @Published var selectedUserRole: UserAuthorityType?
+    @Published var position: String = ""
+    @Published var sectors: String = ""
 
     // MARK: computed property
     var clubsForSelectedHighSchool: [String] {
@@ -115,6 +117,7 @@ final class SignUpViewModel: BaseViewModel {
         if selectedSchool == nil {
             return "학교 선택"
         }
+
         switch selectedUserRole {
         case .student:
             if selectedClub == nil {
@@ -156,7 +159,12 @@ final class SignUpViewModel: BaseViewModel {
                 return "이름 입력"
             } else if selectedGovernment.isEmpty {
                 return "기관 입력"
+            } else if sectors.isEmpty {
+                return "업종 입력"
+            } else if position.isEmpty {
+                return "직책 입력"
             }
+
         default:
             return ""
         }
@@ -176,58 +184,67 @@ final class SignUpViewModel: BaseViewModel {
         switch selectedUserRole {
         case .student:
             if selectedSchool == nil {
-                return "재학 중이신 학교를 선택해 주세요!"
+                return "재학 중이신 학교를 선택해주세요!"
             } else if selectedClub == "동아리" {
-                return "가입하신 동아리를 선택해 주세요!"
+                return "가입하신 동아리를 선택해주세요!"
             } else if !nameIsValid {
                 return "이름을 입력해 주세요!"
             } else if !yearOfAdmissionIsValid {
-                return "입학하신 연도를 입력해 주세요!"
+                return "입학하신 연도를 입력해주세요!"
             } else if !studentIDIsValid {
-                return "학년, 반, 번호를 입력해 주세요! (ex: 1101)"
+                return "학년, 반, 번호를 입력해주세요! (ex: 1101)"
             }
+
         case .teacher, .bbozzack:
             if selectedSchool == nil {
-                return "담당 중이신 학교를 선택해 주세요!"
+                return "담당 중이신 학교를 선택해주세요!"
             } else if selectedClub == "동아리" {
-                return "가입하신 동아리를 선택해 주세요!"
+                return "가입하신 동아리를 선택해주세요!"
             } else if !nameIsValid {
-                return "이름을 입력해 주세요!"
+                return "이름을 입력해주세요!"
             }
+
         case .companyInstructor:
             if selectedSchool == nil {
-                return "담당 중이신 학교를 선택해 주세요!"
+                return "담당 중이신 학교를 선택해주세요!"
             } else if selectedClub == "동아리" {
-                return "가입하신 동아리를 선택해 주세요!"
+                return "가입하신 동아리를 선택해주세요!"
             } else if !nameIsValid {
-                return "이름을 입력해 주세요!"
+                return "이름을 입력해주세요!"
             } else if selectedCompany.isEmpty {
                 return "소속하신 기업을 입력해주세요!"
             }
+
         case .professor:
             if selectedSchool == nil {
-                return "담당 중이신 학교를 선택해 주세요!"
+                return "담당 중이신 학교를 선택해주세요!"
             } else if selectedClub == "동아리" {
-                return "가입하신 동아리를 선택해 주세요!"
+                return "가입하신 동아리를 선택해주세요!"
             } else if !nameIsValid {
-                return "이름을 입력해 주세요!"
+                return "이름을 입력해주세요!"
             } else if selectedUniversity.isEmpty {
                 return "소속하신 대학을 입력해주세요!"
             }
+
         case .government:
             if selectedSchool == nil {
-                return "담당 중이신 학교를 선택해 주세요!"
+                return "담당 중이신 학교를 선택해주세요!"
             } else if !nameIsValid {
-                return "이름을 입력해 주세요!"
+                return "이름을 입력해주세요!"
             } else if selectedGovernment.isEmpty {
                 return "소속하신 기관을 입력해주세요!"
+            } else if sectors.isEmpty {
+                return "소속하신 기관의 업종을 입력해주세요!"
+            } else if position.isEmpty {
+                return "본인의 직책을 입력해주세요!"
             }
+
         default:
             return ""
         }
 
         if !phoneNumberIsValid {
-            return "인증을 위해 전화번호를 입력해 주세요!"
+            return "전화번호를 입력해 주세요!"
         } else if !emailIsValid {
             return "이메일을 입력해 주세요!"
         } else if !passwordIsValid {
@@ -257,10 +274,6 @@ final class SignUpViewModel: BaseViewModel {
         selectedClub != nil
     }
 
-    var isPasswordMatching: Bool {
-        checkPassword(password, checkPassword)
-    }
-
     var emailHelpMessage: String {
         if !emailIsValid {
             return "이메일 형식이 유효하지 않습니다"
@@ -269,8 +282,24 @@ final class SignUpViewModel: BaseViewModel {
         }
     }
 
-    func checkPassword(_ password: String, _ checkPassword: String) -> Bool {
-        return password == checkPassword
+    var passwordHelpMessage: String {
+        if !passwordIsValid {
+            return "비밀번호는 (정규식)으로 해주세요"
+        } else {
+            return ""
+        }
+    }
+
+    var checkPasswordHelpMessage: String {
+        if !checkedPassword {
+            return "비밀번호가 일치하지 않습니다"
+        } else {
+            return ""
+        }
+    }
+
+    var checkedPassword: Bool {
+        password == checkPassword
     }
 
     func updateStudentID(id: String) {
@@ -432,7 +461,9 @@ final class SignUpViewModel: BaseViewModel {
                 password: password,
                 highSchool: selectedSchool,
                 clubName: selectedClub,
-                governmentName: selectedGovernment
+                governmentName: selectedGovernment,
+                position: position,
+                sectors: sectors
             )
         )
     }
