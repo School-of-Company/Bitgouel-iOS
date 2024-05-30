@@ -13,7 +13,7 @@ extension AuthDomainError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .badRequest:
-            return "잘못된 요청입니다. 작성하지 않은 부분이 있는 지 확인해주세요."
+            return "잘못된 요청입니다. 작성하지 않은 부분이 있는지 확인해주세요."
         case .notFound:
             return "대상을 찾을 수 없습니다."
         case .unauthorized:
