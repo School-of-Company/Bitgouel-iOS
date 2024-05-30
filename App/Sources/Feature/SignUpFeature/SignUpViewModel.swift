@@ -185,7 +185,7 @@ final class SignUpViewModel: BaseViewModel {
         case .student:
             if selectedSchool == nil {
                 return "재학 중이신 학교를 선택해주세요!"
-            } else if selectedClub == "동아리" {
+            } else if selectedClub == nil {
                 return "가입하신 동아리를 선택해주세요!"
             } else if !nameIsValid {
                 return "이름을 입력해 주세요!"
@@ -198,7 +198,7 @@ final class SignUpViewModel: BaseViewModel {
         case .teacher, .bbozzack:
             if selectedSchool == nil {
                 return "담당 중이신 학교를 선택해주세요!"
-            } else if selectedClub == "동아리" {
+            } else if selectedClub == nil {
                 return "가입하신 동아리를 선택해주세요!"
             } else if !nameIsValid {
                 return "이름을 입력해주세요!"
@@ -207,7 +207,7 @@ final class SignUpViewModel: BaseViewModel {
         case .companyInstructor:
             if selectedSchool == nil {
                 return "담당 중이신 학교를 선택해주세요!"
-            } else if selectedClub == "동아리" {
+            } else if selectedClub == nil {
                 return "가입하신 동아리를 선택해주세요!"
             } else if !nameIsValid {
                 return "이름을 입력해주세요!"
@@ -218,7 +218,7 @@ final class SignUpViewModel: BaseViewModel {
         case .professor:
             if selectedSchool == nil {
                 return "담당 중이신 학교를 선택해주세요!"
-            } else if selectedClub == "동아리" {
+            } else if selectedClub == nil {
                 return "가입하신 동아리를 선택해주세요!"
             } else if !nameIsValid {
                 return "이름을 입력해주세요!"
@@ -299,7 +299,8 @@ final class SignUpViewModel: BaseViewModel {
     }
 
     var checkedPassword: Bool {
-        password == checkPassword
+        guard !password.isEmpty && !checkPassword.isEmpty else { return false }
+        return password == checkPassword
     }
 
     func updateStudentID(id: String) {
@@ -307,9 +308,13 @@ final class SignUpViewModel: BaseViewModel {
         parseStudentID()
     }
 
+    func updateIsShowingSuccessView(isShowing: Bool) {
+        isShowingSuccessView = isShowing
+    }
+
     // swiftlint: disable cyclomatic_complexity
     @MainActor
-    func signup() {
+    func signup(_ success: @escaping () -> Void) {
         guard let selectedSchool else { return }
         guard let selectedClub else { return }
 
@@ -356,8 +361,8 @@ final class SignUpViewModel: BaseViewModel {
                     return
                 }
 
-                isShowingSuccessView = true
                 print("\(selectedUserRole.debugDescription) 회원가입 성공")
+                success()
             } catch {
                 if let authDomainError = error as? AuthDomainError {
                     errorMessage = authDomainError.localizedDescription

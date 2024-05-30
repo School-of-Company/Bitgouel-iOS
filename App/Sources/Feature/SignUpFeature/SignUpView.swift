@@ -4,6 +4,7 @@ import SwiftUI
 // swiftlint: disable type_body_length
 struct SignUpView: View {
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var scenceState: SceneState
     @StateObject var viewModel: SignUpViewModel
 
     private let successSignUpFactory: any SuccessSignUpFactory
@@ -39,6 +40,7 @@ struct SignUpView: View {
                         ConditionView(viewModel.selectedSchool != nil) {
                             inputClubSection()
                         }
+
                     case .teacher, .bbozzack:
                         ConditionView(viewModel.nameIsValid) {
                             inputAuthorizationInfoSection()
@@ -51,6 +53,7 @@ struct SignUpView: View {
                         ConditionView(viewModel.selectedSchool != nil) {
                             inputClubSection()
                         }
+
                     case .companyInstructor:
                         ConditionView(!viewModel.selectedCompany.isEmpty) {
                             inputAuthorizationInfoSection()
@@ -67,6 +70,7 @@ struct SignUpView: View {
                         ConditionView(viewModel.selectedSchool != nil) {
                             inputClubSection()
                         }
+
                     case .professor:
                         ConditionView(!viewModel.selectedUniversity.isEmpty) {
                             inputAuthorizationInfoSection()
@@ -83,6 +87,7 @@ struct SignUpView: View {
                         ConditionView(viewModel.selectedSchool != nil) {
                             inputClubSection()
                         }
+
                     case .government:
                         ConditionView(!viewModel.position.isEmpty) {
                             inputAuthorizationInfoSection()
@@ -95,22 +100,27 @@ struct SignUpView: View {
                         ConditionView(viewModel.selectedSchool != nil) {
                             inputNameSection()
                         }
+
                     default:
                         EmptyView()
                     }
+
                     inputSchoolInfoSection()
                 }
-                .padding(.horizontal, 28)
                 .padding(.top, 32)
             }
+            .overlay(alignment: .bottom) {
+                if viewModel.checkedPassword {
+                    signupApplyButton()
+                }
+            }
+            .padding(.horizontal, 28)
         }
         .bitgouelToast(
             text: viewModel.errorMessage,
             isShowing: $viewModel.isErrorOccurred
         )
-        .bitgouelBottomSheet(
-            isShowing: $viewModel.isPresentedSchoolSheet
-        ) {
+        .bitgouelBottomSheet(isShowing: $viewModel.isPresentedSchoolSheet) {
             SchoolListView(
                 searchKeyword: $viewModel.schoolSearch,
                 schoolList: viewModel.searchedSchoolList,
@@ -121,9 +131,7 @@ struct SignUpView: View {
             }
             .frame(height: 415)
         }
-        .bitgouelBottomSheet(
-            isShowing: $viewModel.isPresentedClubSheet
-        ) {
+        .bitgouelBottomSheet(isShowing: $viewModel.isPresentedClubSheet) {
             SearchClubListView(
                 searchText: $viewModel.clubSearch,
                 searchedClubList: viewModel.searchedClubList,
@@ -135,14 +143,10 @@ struct SignUpView: View {
             )
             .frame(height: 415)
         }
-        .bitgouelBottomSheet(
-            isShowing: $viewModel.isPresentedAssociationSheet
-        ) {
+        .bitgouelBottomSheet(isShowing: $viewModel.isPresentedAssociationSheet) {
             associationTypeView()
         }
-        .bitgouelBottomSheet(
-            isShowing: $viewModel.isPresentedUserRoleSheet
-        ) {
+        .bitgouelBottomSheet(isShowing: $viewModel.isPresentedUserRoleSheet) {
             userRoleTypeView()
         }
         .animation(.default, value: viewModel.selectedAssociation)
@@ -150,7 +154,9 @@ struct SignUpView: View {
             to: successSignUpFactory.makeView().eraseToAnyView(),
             when: Binding(
                 get: { viewModel.isShowingSuccessView },
-                set: { _ in viewModel.isShowingSuccessView = false }
+                set: { isShowing in
+                    viewModel.updateIsShowingSuccessView(isShowing: isShowing)
+                }
             )
         )
         .bitgouelBackButton(dismiss: dismiss)
@@ -170,7 +176,6 @@ struct SignUpView: View {
 
                 Spacer()
             }
-            .padding(.leading, 28)
             .padding(.top, 24)
         }
     }
@@ -186,9 +191,6 @@ struct SignUpView: View {
                     isError: !viewModel.checkedPassword
                 )
                 .textContentType(.password)
-                .onSubmit {
-                    viewModel.signup()
-                }
             }
 
             if viewModel.emailIsValid {
@@ -401,6 +403,19 @@ struct SignUpView: View {
                 }
                 .padding(.horizontal, 28)
                 .padding(.vertical, 24)
+            }
+        }
+    }
+
+    @ViewBuilder
+    func signupApplyButton() -> some View {
+        BitgouelButton(
+            text: "회원가입 신청하기",
+            style: .primary
+        ) {
+            viewModel.signup {
+                scenceState.sceneFlow = .signup
+                viewModel.updateIsShowingSuccessView(isShowing: true)
             }
         }
     }
