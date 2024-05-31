@@ -1,7 +1,7 @@
 import Foundation
 
 public enum AdminDomainError: Error {
-    case forbidden
+    case badRequest
     case conflict
     case internalServerError
 }
@@ -9,12 +9,14 @@ public enum AdminDomainError: Error {
 extension AdminDomainError: LocalizedError {
     public var errorDescription: String? {
         switch self {
-        case .forbidden:
-            return "권한이 없습니다."
+        case .badRequest:
+            return "대상을 찾을 수 없습니다."
+
         case .conflict:
-            return "이미 완료된 유저입니다."
+            return "이미 승인된 유저입니다."
+
         case .internalServerError:
-            return "알 수 없는 에러가 발생했습니다. 지속될 시 문의 주세요."
+            return "서버 에러가 발생했습니다. 지속될 시 문의 주세요."
         }
     }
 }
