@@ -123,45 +123,11 @@ extension LectureAPI: BitgouelAPI {
 
     public var errorMap: [Int: LectureDomainError] {
         switch self {
-        case .openLecture:
+        default:
             return [
-                400: .badRequest,
-                401: .unauthorized,
-                403: .forbidden,
-                409: .conflict
-            ]
-
-        case .fetchLectureList,
-             .fetchInstructorList,
-             .fetchLineList,
-             .fetchDepartmentList,
-             .fetchDivisionList,
-             .fetchApplicantList:
-            return [
-                400: .badRequest,
-                401: .unauthorized,
-                403: .forbidden
-            ]
-
-        case .fetchLectureDetail,
-             .fetchAppliedLectureList:
-            return [
-                400: .badRequest,
-                401: .unauthorized,
-                403: .forbidden,
-                404: .notFound
-            ]
-
-        case .applyLecture,
-             .cancelLecture,
-             .modifyApplicantWhether:
-            return [
-                400: .badRequest,
-                401: .unauthorized,
                 403: .forbidden,
                 404: .notFound,
-                409: .conflict,
-                429: .tooManyRequest
+                409: .conflict
             ]
         }
     }
