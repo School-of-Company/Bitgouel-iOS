@@ -5,15 +5,18 @@ struct RootView: View {
     private let loginFactory: any LoginFactory
     private let mainTabFactory: any MainTabFactory
     private let findPasswordFactory: any FindPasswordFactory
+    private let successSignUpFactory: any SuccessSignUpFactory
 
     public init(
         loginFactory: any LoginFactory,
         mainTabFactory: any MainTabFactory,
-        findPasswordFactory: any FindPasswordFactory
+        findPasswordFactory: any FindPasswordFactory,
+        successSignUpFactory: any SuccessSignUpFactory
     ) {
         self.loginFactory = loginFactory
         self.mainTabFactory = mainTabFactory
         self.findPasswordFactory = findPasswordFactory
+        self.successSignUpFactory = successSignUpFactory
     }
 
     var body: some View {
@@ -31,6 +34,11 @@ struct RootView: View {
 
             case .findPassword:
                 findPasswordFactory.makeView()
+                    .eraseToAnyView()
+                    .environmentObject(sceneState)
+
+            case .signup:
+                successSignUpFactory.makeView()
                     .eraseToAnyView()
                     .environmentObject(sceneState)
             }

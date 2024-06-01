@@ -82,14 +82,6 @@ final class LoginViewModel: BaseViewModel {
         self.isPresentedFindPasswordPage = isPresented
     }
 
-    func signupPageIsRequired() {
-        self.isPresentedSignupPage = true
-    }
-
-    func signupPageDismissed() {
-        self.isPresentedSignupPage = false
-    }
-
     @MainActor
     func login() {
         guard checkEmail(email) && checkPassword(password) else { return }

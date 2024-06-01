@@ -141,7 +141,7 @@ extension AuthAPI: BitgouelAPI {
                 401: .unauthorized,
                 403: .forbidden,
                 404: .notFound,
-                409: .conflict
+                409: .conflict,
             ]
         }
     }

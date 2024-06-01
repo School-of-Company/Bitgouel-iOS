@@ -369,6 +369,9 @@ private class RootDependency3944cc797a4a88956fb5Provider: RootDependency {
     var findPasswordFactory: any FindPasswordFactory {
         return appComponent.findPasswordFactory
     }
+    var successSignUpFactory: any SuccessSignUpFactory {
+        return appComponent.successSignUpFactory
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -448,17 +451,15 @@ private func factory1559652f8e80cfa88d06f47b58f8f304c97af4d5(_ component: Needle
     return ClubdetailDependency09c03e1ee67d1fbecba1Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class SuccessSignUpDependencydbc5dd5670791a0302f6Provider: SuccessSignUpDependency {
-    var loginFactory: any LoginFactory {
-        return appComponent.loginFactory
-    }
-    private let appComponent: AppComponent
-    init(appComponent: AppComponent) {
-        self.appComponent = appComponent
+
+
+    init() {
+
     }
 }
 /// ^->AppComponent->SuccessSignUpComponent
-private func factorybf219b153b668170161df47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return SuccessSignUpDependencydbc5dd5670791a0302f6Provider(appComponent: parent1(component) as! AppComponent)
+private func factorybf219b153b668170161de3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return SuccessSignUpDependencydbc5dd5670791a0302f6Provider()
 }
 private class FindPasswordDependency542eacce769b9dc25904Provider: FindPasswordDependency {
     var sendEmailCertificationLinkUseCase: any SendEmailCertificationLinkUseCase {
@@ -951,6 +952,7 @@ extension RootComponent: Registration {
         keyPathToName[\RootDependency.loginFactory] = "loginFactory-any LoginFactory"
         keyPathToName[\RootDependency.mainTabFactory] = "mainTabFactory-any MainTabFactory"
         keyPathToName[\RootDependency.findPasswordFactory] = "findPasswordFactory-any FindPasswordFactory"
+        keyPathToName[\RootDependency.successSignUpFactory] = "successSignUpFactory-any SuccessSignUpFactory"
     }
 }
 extension PostListComponent: Registration {
@@ -980,7 +982,7 @@ extension ClubDetailComponent: Registration {
 }
 extension SuccessSignUpComponent: Registration {
     public func registerItems() {
-        keyPathToName[\SuccessSignUpDependency.loginFactory] = "loginFactory-any LoginFactory"
+
     }
 }
 extension FindPasswordComponent: Registration {
@@ -1281,7 +1283,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->PostListComponent", factory0c89e2bbcc02dbcac018f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ChangePasswordComponent", factoryab7c4d87dab53e0a51b9f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ClubDetailComponent", factory1559652f8e80cfa88d06f47b58f8f304c97af4d5)
-    registerProviderFactory("^->AppComponent->SuccessSignUpComponent", factorybf219b153b668170161df47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->SuccessSignUpComponent", factorybf219b153b668170161de3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->FindPasswordComponent", factory15775d8436b06b9741d1f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->AdminRequestUserSignupComponent", factory2c6c6f3f10221ceac3a8f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->LectureApplicantListComponent", factory78a87c10d14f7bbaaa9df47b58f8f304c97af4d5)

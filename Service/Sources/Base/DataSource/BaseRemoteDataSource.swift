@@ -16,7 +16,7 @@ open class BaseRemoteDataSource<API: BitgouelAPI> {
         #if DEV || STAGE
         self.provider = provider ?? MoyaProvider(plugins: [JwtPlugin(keychain: keychain), MoyaLoggingPlugin()])
         #else
-        self.provider = provider ?? MoyaProvider(plugins: [JwtPlugin(keychain: keychain)])
+        self.provider = provider ?? MoyaProvider(plugins: [JwtPlugin(keychain: keychain), MoyaLoggingPlugin()])
         #endif
     }
 

@@ -4,6 +4,7 @@ import SwiftUI
 // swiftlint: disable type_body_length
 struct SignUpView: View {
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var scenceState: SceneState
     @StateObject var viewModel: SignUpViewModel
 
     private let successSignUpFactory: any SuccessSignUpFactory
@@ -39,6 +40,7 @@ struct SignUpView: View {
                         ConditionView(viewModel.selectedSchool != nil) {
                             inputClubSection()
                         }
+
                     case .teacher, .bbozzack:
                         ConditionView(viewModel.nameIsValid) {
                             inputAuthorizationInfoSection()
@@ -51,6 +53,7 @@ struct SignUpView: View {
                         ConditionView(viewModel.selectedSchool != nil) {
                             inputClubSection()
                         }
+
                     case .companyInstructor:
                         ConditionView(!viewModel.selectedCompany.isEmpty) {
                             inputAuthorizationInfoSection()
@@ -67,6 +70,7 @@ struct SignUpView: View {
                         ConditionView(viewModel.selectedSchool != nil) {
                             inputClubSection()
                         }
+
                     case .professor:
                         ConditionView(!viewModel.selectedUniversity.isEmpty) {
                             inputAuthorizationInfoSection()
@@ -83,8 +87,9 @@ struct SignUpView: View {
                         ConditionView(viewModel.selectedSchool != nil) {
                             inputClubSection()
                         }
+
                     case .government:
-                        ConditionView(!viewModel.selectedGovernment.isEmpty) {
+                        ConditionView(!viewModel.position.isEmpty) {
                             inputAuthorizationInfoSection()
                         }
 
@@ -95,18 +100,27 @@ struct SignUpView: View {
                         ConditionView(viewModel.selectedSchool != nil) {
                             inputNameSection()
                         }
+
                     default:
                         EmptyView()
                     }
+
                     inputSchoolInfoSection()
                 }
-                .padding(.horizontal, 28)
                 .padding(.top, 32)
             }
+            .overlay(alignment: .bottom) {
+                if viewModel.checkedPassword {
+                    signupApplyButton()
+                }
+            }
+            .padding(.horizontal, 28)
         }
-        .bitgouelBottomSheet(
-            isShowing: $viewModel.isPresentedSchoolSheet
-        ) {
+        .bitgouelToast(
+            text: viewModel.errorMessage,
+            isShowing: $viewModel.isErrorOccurred
+        )
+        .bitgouelBottomSheet(isShowing: $viewModel.isPresentedSchoolSheet) {
             SchoolListView(
                 searchKeyword: $viewModel.schoolSearch,
                 schoolList: viewModel.searchedSchoolList,
@@ -117,9 +131,7 @@ struct SignUpView: View {
             }
             .frame(height: 415)
         }
-        .bitgouelBottomSheet(
-            isShowing: $viewModel.isPresentedClubSheet
-        ) {
+        .bitgouelBottomSheet(isShowing: $viewModel.isPresentedClubSheet) {
             SearchClubListView(
                 searchText: $viewModel.clubSearch,
                 searchedClubList: viewModel.searchedClubList,
@@ -131,14 +143,10 @@ struct SignUpView: View {
             )
             .frame(height: 415)
         }
-        .bitgouelBottomSheet(
-            isShowing: $viewModel.isPresentedAssociationSheet
-        ) {
+        .bitgouelBottomSheet(isShowing: $viewModel.isPresentedAssociationSheet) {
             associationTypeView()
         }
-        .bitgouelBottomSheet(
-            isShowing: $viewModel.isPresentedUserRoleSheet
-        ) {
+        .bitgouelBottomSheet(isShowing: $viewModel.isPresentedUserRoleSheet) {
             userRoleTypeView()
         }
         .animation(.default, value: viewModel.selectedAssociation)
@@ -146,7 +154,9 @@ struct SignUpView: View {
             to: successSignUpFactory.makeView().eraseToAnyView(),
             when: Binding(
                 get: { viewModel.isShowingSuccessView },
-                set: { _ in viewModel.isShowingSuccessView = false }
+                set: { isShowing in
+                    viewModel.updateIsShowingSuccessView(isShowing: isShowing)
+                }
             )
         )
         .bitgouelBackButton(dismiss: dismiss)
@@ -166,53 +176,48 @@ struct SignUpView: View {
 
                 Spacer()
             }
-            .padding(.leading, 28)
             .padding(.top, 24)
         }
     }
 
     @ViewBuilder
     func inputAuthorizationInfoSection() -> some View {
-        VStack(spacing: 16) {
-            Group {
-                if viewModel.passwordIsValid {
-                    SecureBitgouelTextField(
-                        "비밀번호",
-                        text: $viewModel.checkPassword
-                    )
-                    .padding(.bottom, -20)
-                    .onSubmit {
-                        viewModel.signup()
-                    }
-                }
-
-                if viewModel.emailIsValid {
-                    SecureBitgouelTextField(
-                        "비밀번호",
-                        text: $viewModel.password
-                    )
-                    .padding(.bottom, -20)
-                }
-            }
-
-            Group {
-                if viewModel.phoneNumberIsValid {
-                    BitgouelTextField(
-                        "이메일",
-                        text: $viewModel.email,
-                        helpMessage: viewModel.emailHelpMessage,
-                        isError: !viewModel.emailIsValid
-                    )
-                    .textContentType(.emailAddress)
-                }
-            }
-            Group {
-                BitgouelTextField(
-                    "전화번호",
-                    text: $viewModel.phoneNumber
+        VStack(spacing: 4) {
+            if viewModel.passwordIsValid {
+                SecureBitgouelTextField(
+                    "비밀번호",
+                    text: $viewModel.checkPassword,
+                    helpMessage: viewModel.checkPasswordHelpMessage,
+                    isError: !viewModel.checkedPassword
                 )
-                .padding(.bottom, -20)
+                .textContentType(.password)
             }
+
+            if viewModel.emailIsValid {
+                SecureBitgouelTextField(
+                    "비밀번호",
+                    text: $viewModel.password,
+                    helpMessage: viewModel.passwordHelpMessage,
+                    isError: !viewModel.passwordIsValid
+                )
+                .textContentType(.password)
+            }
+
+            if viewModel.phoneNumberIsValid {
+                BitgouelTextField(
+                    "이메일",
+                    text: $viewModel.email,
+                    helpMessage: viewModel.emailHelpMessage,
+                    isError: !viewModel.emailIsValid
+                )
+                .textContentType(.emailAddress)
+            }
+
+            BitgouelTextField(
+                "전화번호",
+                text: $viewModel.phoneNumber
+            )
+            .padding(.bottom, -20)
         }
     }
 
@@ -271,12 +276,9 @@ struct SignUpView: View {
                     text: Binding(
                         get: { viewModel.studentID },
                         set: { newValue in
-                            viewModel.studentID = newValue
+                            viewModel.updateStudentID(id: newValue)
                         }
-                    ),
-                    onSubmit: {
-                        viewModel.parseStudentID()
-                    }
+                    )
                 )
                 .padding(.bottom, -20)
             }
@@ -314,6 +316,20 @@ struct SignUpView: View {
     @ViewBuilder
     func inputGovernmentInfoSection() -> some View {
         VStack(spacing: 0) {
+            if !viewModel.sectors.isEmpty {
+                BitgouelTextField(
+                    "본인의 직책",
+                    text: $viewModel.position
+                )
+            }
+
+            if !viewModel.selectedGovernment.isEmpty {
+                BitgouelTextField(
+                    "소속 기관의 업종",
+                    text: $viewModel.sectors
+                )
+            }
+
             BitgouelTextField(
                 "소속 기관명",
                 text: $viewModel.selectedGovernment
@@ -387,6 +403,19 @@ struct SignUpView: View {
                 }
                 .padding(.horizontal, 28)
                 .padding(.vertical, 24)
+            }
+        }
+    }
+
+    @ViewBuilder
+    func signupApplyButton() -> some View {
+        BitgouelButton(
+            text: "회원가입 신청하기",
+            style: .primary
+        ) {
+            viewModel.signup {
+                scenceState.sceneFlow = .signup
+                viewModel.updateIsShowingSuccessView(isShowing: true)
             }
         }
     }
