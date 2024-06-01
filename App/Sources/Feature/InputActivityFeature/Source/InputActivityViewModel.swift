@@ -53,7 +53,8 @@ final class InputActivityViewModel: BaseViewModel {
 
                 updateActivityDetail(entity: response)
             } catch {
-                print(error.localizedDescription)
+                errorMessage = error.activityDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }
@@ -75,7 +76,8 @@ final class InputActivityViewModel: BaseViewModel {
 
                 success()
             } catch {
-                print(error.localizedDescription)
+                errorMessage = error.activityDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }
