@@ -2,8 +2,8 @@ import Foundation
 
 public enum InquiryDomainError: Error {
     case forbidden
+    case notFound
     case conflict
-    case invalidRequest
 }
 
 extension InquiryDomainError: LocalizedError {
@@ -11,10 +11,12 @@ extension InquiryDomainError: LocalizedError {
         switch self {
         case .forbidden:
             return "권한이 없습니다."
+
+        case .notFound:
+            return "존재하지 않는 문의사항입니다."
+
         case .conflict:
-            return "같은 문의사항이 존재합니다."
-        case .invalidRequest:
-            return "알 수 없는 에러가 발생하였습니다."
+            return "이미 답변이 등록된 문의사항입니다."
         }
     }
 }

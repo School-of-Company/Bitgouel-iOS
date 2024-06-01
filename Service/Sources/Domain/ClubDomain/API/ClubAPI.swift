@@ -63,16 +63,10 @@ extension ClubAPI: BitgouelAPI {
 
     public var errorMap: [Int: ClubDomainError] {
         switch self {
-        case .queryClubList,
-             .queryClubDetail,
-             .queryStudentListByClub,
-             .queryStudentDetailByClub:
+        default:
             return [
-                400: .badRequest,
                 401: .unauthorized,
-                403: .forbidden,
-                404: .notFound,
-                429: .tooManyRequest
+                404: .notFound
             ]
         }
     }
