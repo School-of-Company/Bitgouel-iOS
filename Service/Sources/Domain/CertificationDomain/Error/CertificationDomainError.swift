@@ -2,8 +2,8 @@ import Foundation
 
 public enum CertificationDomainError: Error {
     case forbidden
+    case notFound
     case conflict
-    case invalidRequest
 }
 
 extension CertificationDomainError: LocalizedError {
@@ -11,10 +11,12 @@ extension CertificationDomainError: LocalizedError {
         switch self {
         case .forbidden:
             return "권한이 없습니다."
+
+        case .notFound:
+            return "대상을 찾을 수 없습니다."
+
         case .conflict:
-            return "이미 등록된 자격증입니다."
-        case .invalidRequest:
-            return "알 수 없는 에러가 발생하였습니다."
+            return "이미 취득한 자격증입니다."
         }
     }
 }

@@ -90,41 +90,11 @@ extension InquiryAPI: BitgouelAPI {
 
     public var errorMap: [Int: InquiryDomainError] {
         switch self {
-        case .inputInquiry,
-             .modifyMyInquiry:
+        default:
             return [
-                400: .invalidRequest,
-                401: .invalidRequest,
-                404: .invalidRequest,
-                409: .conflict,
-                429: .invalidRequest
-            ]
-
-        case .fetchMyInquiryList,
-             .deleteMyInquiry:
-            return [
-                400: .invalidRequest,
-                401: .invalidRequest,
-                429: .invalidRequest
-            ]
-
-        case .fetchInquiryDetail:
-            return [
-                400: .invalidRequest,
-                401: .invalidRequest,
-                404: .invalidRequest,
-                429: .invalidRequest
-            ]
-
-        case .replyInquiry,
-             .fetchInquiryListByAdmin,
-             .deleteInquiryByAdmin:
-            return [
-                400: .invalidRequest,
-                401: .invalidRequest,
                 403: .forbidden,
-                404: .invalidRequest,
-                429: .invalidRequest
+                404: .notFound,
+                409: .conflict
             ]
         }
     }

@@ -49,19 +49,9 @@ extension UserAPI: BitgouelAPI {
 
     public var errorMap: [Int: UserDomainError] {
         switch self {
-        case .changePassword:
+        default:
             return [
-                400: .badRequest,
-                401: .unauthorized,
-                404: .notFound,
-                409: .conflict,
-                429: .tooManyRequest
-            ]
-        case .fetchMyInfo:
-            return [
-                400: .badRequest,
-                401: .unauthorized,
-                404: .notFound
+                401: .unauthorized
             ]
         }
     }

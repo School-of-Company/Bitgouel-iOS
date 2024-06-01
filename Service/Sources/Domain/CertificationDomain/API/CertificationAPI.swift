@@ -59,18 +59,10 @@ extension CertificationAPI: BitgouelAPI {
 
     public var errorMap: [Int: CertificationDomainError] {
         switch self {
-        case .queryCertificationListByTeacher,
-             .queryCertificationListByStudent:
+        default:
             return [
                 403: .forbidden,
-                404: .invalidRequest
-            ]
-
-        case .inputCertification,
-             .updateCertification:
-            return [
-                403: .forbidden,
-                404: .invalidRequest,
+                404: .notFound,
                 409: .conflict
             ]
         }

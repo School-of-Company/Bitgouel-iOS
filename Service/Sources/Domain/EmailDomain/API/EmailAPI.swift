@@ -7,7 +7,7 @@ public enum EmailAPI {
 }
 
 extension EmailAPI: BitgouelAPI {
-    public typealias ErrorType = ActivityDomainError
+    public typealias ErrorType = AdminDomainError
 
     public var domain: BitgouelDomain {
         .email
@@ -49,18 +49,11 @@ extension EmailAPI: BitgouelAPI {
         }
     }
 
-    public var errorMap: [Int: ActivityDomainError] {
+    public var errorMap: [Int: AdminDomainError] {
         switch self {
-        case .sendEmailCertificationLink:
+        default:
             return [
-                400: .badRequest,
-                429: .tooManyRequest,
                 500: .internalServerError
-            ]
-        case .fetchEmailVerificationStatus:
-            return [
-                400: .badRequest,
-                401: .unauthorized
             ]
         }
     }

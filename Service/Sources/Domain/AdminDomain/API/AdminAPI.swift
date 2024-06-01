@@ -78,33 +78,11 @@ extension AdminAPI: BitgouelAPI {
 
     public var errorMap: [Int: AdminDomainError] {
         switch self {
-        case .fetchUserList:
+        default:
             return [
-                400: .internalServerError,
-                401: .internalServerError,
-                403: .forbidden,
-                429: .internalServerError
-            ]
-
-        case .fetchUserDetail:
-            return [
-                400: .internalServerError,
-                401: .internalServerError,
-                403: .forbidden,
-                404: .internalServerError,
-                429: .internalServerError
-            ]
-
-        case .approveUserSignup,
-             .rejectUserSignup,
-             .withdrawUserSignup:
-            return [
-                400: .internalServerError,
-                401: .internalServerError,
-                403: .forbidden,
-                404: .internalServerError,
+                400: .badRequest,
                 409: .conflict,
-                429: .internalServerError
+                500: .internalServerError
             ]
         }
     }

@@ -69,23 +69,10 @@ extension PostAPI: BitgouelAPI {
 
     public var errorMap: [Int: PostDomainError] {
         switch self {
-        case .writePost,
-             .updatePost,
-             .deletePost:
+        default:
             return [
-                400: .badRequest,
-                401: .unauthorized,
                 403: .forbidden,
-                404: .notFound,
-                429: .tooManyRequest
-            ]
-        case .queryPostList,
-             .queryPostDetail:
-            return [
-                400: .badRequest,
-                401: .unauthorized,
-                404: .notFound,
-                429: .tooManyRequest
+                404: .notFound
             ]
         }
     }

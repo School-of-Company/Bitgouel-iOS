@@ -53,20 +53,9 @@ extension FAQAPI: BitgouelAPI {
 
     public var errorMap: [Int: FAQDomainError] {
         switch self {
-        case .inputFAQ:
+        default:
             return [
-                400: .internalServerError,
-                401: .internalServerError,
-                403: .forbidden,
-                409: .conflict,
-                429: .internalServerError
-            ]
-
-        case .fetchFAQList:
-            return [
-                400: .internalServerError,
-                401: .internalServerError,
-                429: .internalServerError
+                404: .notFound
             ]
         }
     }

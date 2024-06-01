@@ -69,29 +69,10 @@ extension ActivityAPI: BitgouelAPI {
 
     public var errorMap: [Int: ErrorType] {
         switch self {
-        case .inputActivity,
-             .modifyActivity,
-             .deleteActivity,
-             .fetchActivityDetail:
+        default:
             return [
-                400: .badRequest,
-                401: .unauthorized,
                 403: .forbidden,
-                404: .notFound,
-                409: .conflict,
-                429: .tooManyRequest
-            ]
-        case .fetchMyActivity,
-             .fetchActivityByID,
-             .fetchActivityList:
-            return [
-                400: .badRequest,
-                401: .unauthorized,
-                403: .forbidden,
-                404: .notFound,
-                409: .conflict,
-                429: .tooManyRequest,
-                500: .internalServerError
+                404: .notFound
             ]
         }
     }

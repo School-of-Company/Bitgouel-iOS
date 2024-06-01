@@ -1,9 +1,14 @@
 import Foundation
 
 public enum UserDomainError: Error {
-    case badRequest
     case unauthorized
-    case notFound
-    case conflict
-    case tooManyRequest
+}
+
+extension UserDomainError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .unauthorized:
+            return "비밀번호가 일치하지 않습니다."
+        }
+    }
 }
