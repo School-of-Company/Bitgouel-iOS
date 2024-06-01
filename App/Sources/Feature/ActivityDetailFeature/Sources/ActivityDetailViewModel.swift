@@ -36,12 +36,16 @@ final class ActivityDetailViewModel: BaseViewModel {
     @MainActor
     func onAppear() {
         authority = loadUserAuthorityUseCase()
+        isLoading = true
 
         Task {
             do {
                 activityDetail = try await fetchActivityDetailUseCase(activityID: activityID)
+
+                isLoading = false
             } catch {
-                print(error.localizedDescription)
+                errorMessage = error.activityDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }
@@ -54,7 +58,8 @@ final class ActivityDetailViewModel: BaseViewModel {
 
                 success()
             } catch {
-                print(error.localizedDescription)
+                errorMessage = error.activityDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }
