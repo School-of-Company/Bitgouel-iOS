@@ -26,11 +26,7 @@ final class ActivityListViewModel: BaseViewModel {
     }
 
     func updateContent(entity: ActivityContentEntity) {
-        self.activityList = entity
-    }
-
-    func updateIsErrorOccurred(state: Bool) {
-        isErrorOccurred = state
+        activityList = entity
     }
 
     func updateActivityID(activityID: String) {
@@ -54,37 +50,28 @@ final class ActivityListViewModel: BaseViewModel {
             do {
                 let studentActivityList: ActivityContentEntity = try await { () async throws -> ActivityContentEntity in
                     switch authority {
-                    case .admin,
-                         .teacher:
-                        return try await onAppearActivityList()
-
-                    case .student: return try await onAppearActivityListByStudent()
+                    case .student:
+                        return try await fetchActivityListByStudent()
 
                     default:
-                        throw ActivityDomainError.forbidden
+                        return try await fetchActivityListByID()
                     }
                 }()
 
                 updateContent(entity: studentActivityList)
                 isLoading = false
             } catch {
-                if let activityDomainError = error as? ActivityDomainError {
-                    errorMessage = activityDomainError.errorDescription ?? "알 수 없는 오류가 발생했습니다."
-                } else {
-                    errorMessage = "알 수 없는 오류가 발생했습니다."
-                }
-                updateIsErrorOccurred(state: true)
-
-                print(error.localizedDescription)
+                errorMessage = error.activityDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }
 
-    func onAppearActivityListByStudent() async throws -> ActivityContentEntity {
+    func fetchActivityListByStudent() async throws -> ActivityContentEntity {
         return try await fetchMyActivityUseCase()
     }
 
-    func onAppearActivityList() async throws -> ActivityContentEntity {
+    func fetchActivityListByID() async throws -> ActivityContentEntity {
         return try await fetchActivityByIDUseCase(studentID: studentID)
     }
 }
