@@ -51,6 +51,9 @@ final class AdminRequestUserSignupViewModel: BaseViewModel {
                     authority: "",
                     approveStatus: approveStatus.rawValue
                 )
+            } catch {
+                errorMessage = error.adminDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }
@@ -60,7 +63,8 @@ final class AdminRequestUserSignupViewModel: BaseViewModel {
             do {
                 try await approveUserSignupUseCase(userID: Array(selectedUserList).joined(separator: ","))
             } catch {
-                print(error.localizedDescription)
+                errorMessage = error.adminDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }
@@ -70,7 +74,8 @@ final class AdminRequestUserSignupViewModel: BaseViewModel {
             do {
                 try await rejectUserSignupUseCase(userID: Array(selectedUserList).joined(separator: ","))
             } catch {
-                print(error.localizedDescription)
+                errorMessage = error.adminDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }
