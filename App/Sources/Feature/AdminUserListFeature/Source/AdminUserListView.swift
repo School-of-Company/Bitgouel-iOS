@@ -130,5 +130,9 @@ struct AdminUserListView: View {
                 set: { _ in viewModel.withdrawListPageDismissed() }
             )
         )
+        .bitgouelToast(
+            text: viewModel.errorMessage,
+            isShowing: $viewModel.isErrorOccurred
+        )
     }
 }
