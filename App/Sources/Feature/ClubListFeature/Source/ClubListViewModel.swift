@@ -53,7 +53,8 @@ final class ClubListViewModel: BaseViewModel {
 
                 clubList = try await queryClubListUseCase(highSchool: selectedSchool.rawValue)
             } catch {
-                print(String(describing: error))
+                errorMessage = error.clubDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }
