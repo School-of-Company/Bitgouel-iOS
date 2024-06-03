@@ -52,7 +52,7 @@ final class InputPostViewModel: BaseViewModel {
 
     @MainActor
     func onAppear() {
-        self.isLoading = true
+        isLoading = true
 
         Task {
             do {
@@ -60,10 +60,11 @@ final class InputPostViewModel: BaseViewModel {
 
                 guard let postDetail else { return }
                 updatePostDetail(postDetail: postDetail)
+                isLoading = false
             } catch {
-                print(error.localizedDescription)
+                errorMessage = error.postDomainErrorMessage()
+                isErrorOccurred = true
             }
-            self.isLoading = false
         }
     }
 
@@ -84,7 +85,8 @@ final class InputPostViewModel: BaseViewModel {
 
                 success()
             } catch {
-                print(error.localizedDescription)
+                errorMessage = error.postDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }
