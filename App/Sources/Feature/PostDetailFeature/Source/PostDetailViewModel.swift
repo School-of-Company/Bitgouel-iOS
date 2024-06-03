@@ -26,11 +26,16 @@ final class PostDetailViewModel: BaseViewModel {
 
     @MainActor
     func onAppear() {
+        isLoading = true
+
         Task {
             do {
                 postDetail = try await queryPostDetailUseCase(postID: postID)
+
+                isLoading = false
             } catch {
-                print(error.localizedDescription)
+                errorMessage = error.postDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }
@@ -43,7 +48,8 @@ final class PostDetailViewModel: BaseViewModel {
 
                 success()
             } catch {
-                print(error.localizedDescription)
+                errorMessage = error.postDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }

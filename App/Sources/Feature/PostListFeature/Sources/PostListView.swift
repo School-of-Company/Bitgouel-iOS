@@ -139,6 +139,10 @@ struct PostListView: View {
             ) {
                 $selection.wrappedValue = .home
             }
+            .bitgouelToast(
+                text: viewModel.errorMessage,
+                isShowing: $viewModel.isErrorOccurred
+            )
         }
     }
 }
