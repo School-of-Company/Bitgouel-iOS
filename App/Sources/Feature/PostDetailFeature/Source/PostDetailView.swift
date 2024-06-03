@@ -15,24 +15,31 @@ struct PostDetailView: View {
     }
 
     var body: some View {
-        DetailView(
-            title: viewModel.postDetail?.title ?? "",
-            content: viewModel.postDetail?.content ?? "",
-            links: viewModel.postDetail?.links ?? [""],
-            writtenBy: viewModel.postDetail?.writtenBy ?? false,
-            deleteAction: {
-                viewModel.postDelete {
-                    dismiss()
-                }
-            },
-            editAction: {
-                viewModel.updateIsPresentedInputPostView(isPresented: true)
-            },
-            isDelete: Binding(
-                get: { viewModel.isPostDelete },
-                set: { value in viewModel.isPostDelete = value }
-            )
-        )
+        VStack(alignment: .leading, spacing: 0) {
+            if viewModel.isLoading {
+                ProgressView()
+                    .progressViewStyle(.circular)
+            } else {
+                DetailView(
+                    title: viewModel.postDetail?.title ?? "",
+                    content: viewModel.postDetail?.content ?? "",
+                    links: viewModel.postDetail?.links ?? [""],
+                    writtenBy: viewModel.postDetail?.writtenBy ?? false,
+                    deleteAction: {
+                        viewModel.postDelete {
+                            dismiss()
+                        }
+                    },
+                    editAction: {
+                        viewModel.updateIsPresentedInputPostView(isPresented: true)
+                    },
+                    isDelete: Binding(
+                        get: { viewModel.isPostDelete },
+                        set: { value in viewModel.isPostDelete = value }
+                    )
+                )
+            }
+        }
         .onAppear {
             viewModel.onAppear()
         }
@@ -44,6 +51,10 @@ struct PostDetailView: View {
                     viewModel.updateIsPresentedInputPostView(isPresented: isPresented)
                 }
             )
+        )
+        .bitgouelToast(
+            text: viewModel.errorMessage,
+            isShowing: $viewModel.isErrorOccurred
         )
     }
 }
