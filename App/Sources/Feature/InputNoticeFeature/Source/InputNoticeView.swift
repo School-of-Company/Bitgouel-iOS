@@ -16,30 +16,35 @@ struct InputNoticeView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            InputFormView(
-                epic: "공지사항",
-                state: viewModel.state,
-                settingButtonAction: {
-                    viewModel.updateIsPresentedNoticeSettingAppend(isPresented: true)
-                },
-                finalButtonAction: {
-                    viewModel.applyButtonDidTap {
-                        dismiss()
-                    }
-                },
-                title: Binding(
-                    get: { viewModel.noticeTitle },
-                    set: { title in viewModel.updateNoticeTitle(title: title) }
-                ),
-                text: Binding(
-                    get: { viewModel.noticeContent },
-                    set: { content in viewModel.updateNoticeContent(content: content) }
+            if viewModel.isLoading {
+                ProgressView()
+                    .progressViewStyle(.circular)
+            } else {
+                InputFormView(
+                    epic: "공지사항",
+                    state: viewModel.state,
+                    settingButtonAction: {
+                        viewModel.updateIsPresentedNoticeSettingAppend(isPresented: true)
+                    },
+                    finalButtonAction: {
+                        viewModel.applyButtonDidTap {
+                            dismiss()
+                        }
+                    },
+                    title: Binding(
+                        get: { viewModel.noticeTitle },
+                        set: { title in viewModel.updateNoticeTitle(title: title) }
+                    ),
+                    text: Binding(
+                        get: { viewModel.noticeContent },
+                        set: { content in viewModel.updateNoticeContent(content: content) }
+                    )
                 )
-            )
-            .onAppear {
-                if viewModel.state == "수정" {
-                    viewModel.onAppear()
-                }
+            }
+        }
+        .onAppear {
+            if viewModel.state == "수정" {
+                viewModel.onAppear()
             }
         }
         .onTapGesture {
@@ -59,5 +64,9 @@ struct InputNoticeView: View {
                 }.eraseToAnyView()
             }
         }
+        .bitgouelToast(
+            text: viewModel.errorMessage,
+            isShowing: $viewModel.isErrorOccurred
+        )
     }
 }

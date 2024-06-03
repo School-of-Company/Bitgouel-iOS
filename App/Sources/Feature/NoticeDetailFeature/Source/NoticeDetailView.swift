@@ -15,24 +15,31 @@ struct NoticeDetailView: View {
     }
 
     var body: some View {
-        DetailView(
-            title: viewModel.noticeDetail?.title ?? "",
-            content: viewModel.noticeDetail?.content ?? "",
-            links: viewModel.noticeDetail?.links ?? [""],
-            writtenBy: viewModel.noticeDetail?.writtenBy ?? false,
-            deleteAction: {
-                viewModel.deleteNotice {
-                    dismiss()
-                }
-            },
-            editAction: {
-                viewModel.updateIsPresentedInputNoticeView(isPresented: true)
-            },
-            isDelete: Binding(
-                get: { viewModel.isDeleteNotice },
-                set: { isDelete in viewModel.updateIsDeleteNotice(isDelete: isDelete) }
-            )
-        )
+        VStack {
+            if viewModel.isLoading {
+                ProgressView()
+                    .progressViewStyle(.circular)
+            } else {
+                DetailView(
+                    title: viewModel.noticeDetail?.title ?? "",
+                    content: viewModel.noticeDetail?.content ?? "",
+                    links: viewModel.noticeDetail?.links ?? [""],
+                    writtenBy: viewModel.noticeDetail?.writtenBy ?? false,
+                    deleteAction: {
+                        viewModel.deleteNotice {
+                            dismiss()
+                        }
+                    },
+                    editAction: {
+                        viewModel.updateIsPresentedInputNoticeView(isPresented: true)
+                    },
+                    isDelete: Binding(
+                        get: { viewModel.isDeleteNotice },
+                        set: { isDelete in viewModel.updateIsDeleteNotice(isDelete: isDelete) }
+                    )
+                )
+            }
+        }
         .navigate(
             to: inputNoticeFactory.makeView(
                 state: "수정",
@@ -48,5 +55,9 @@ struct NoticeDetailView: View {
         .onAppear {
             viewModel.onAppear()
         }
+        .bitgouelToast(
+            text: viewModel.errorMessage,
+            isShowing: $viewModel.isErrorOccurred
+        )
     }
 }
