@@ -181,6 +181,10 @@ struct AdminWithdrawUserListView: View {
                 set: { _ in viewModel.requestSignUpPageDismissed() }
             )
         )
+        .bitgouelToast(
+            text: viewModel.errorMessage,
+            isShowing: $viewModel.isErrorOccurred
+        )
     }
 
     @ViewBuilder

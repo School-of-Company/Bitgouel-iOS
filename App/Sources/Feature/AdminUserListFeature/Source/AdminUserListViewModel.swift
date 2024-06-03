@@ -34,7 +34,8 @@ final class AdminUserListViewModel: BaseViewModel {
                     approveStatus: ""
                 )
             } catch {
-                print(String(describing: error))
+                errorMessage = error.adminDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }

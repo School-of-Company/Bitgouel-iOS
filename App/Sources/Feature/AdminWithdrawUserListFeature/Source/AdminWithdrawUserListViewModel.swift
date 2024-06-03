@@ -54,7 +54,8 @@ final class AdminWithdrawUserListViewModel: BaseViewModel {
             do {
                 try await withdrawUserUseCase(userID: selectedWithdrawUserList.joined(separator: ","))
             } catch {
-                print(String(describing: error))
+                errorMessage = error.adminDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }
@@ -65,7 +66,8 @@ final class AdminWithdrawUserListViewModel: BaseViewModel {
             do {
                 userList = try await fetchWithdrawUserListUseCase(cohort: selectedCohort.description)
             } catch {
-                print(String(describing: error))
+                errorMessage = error.adminDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }
