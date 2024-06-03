@@ -47,7 +47,8 @@ final class InputCertificationViewModel: BaseViewModel {
 
                 success()
             } catch {
-                print(error.localizedDescription)
+                errorMessage = "error.certificationDomainErrorMessage()"
+                isErrorOccurred = true
             }
         }
     }

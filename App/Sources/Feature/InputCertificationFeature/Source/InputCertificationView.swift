@@ -72,6 +72,10 @@ struct InputCertificationView: View {
                     }
                 }
             }
+            .bitgouelToast(
+                text: viewModel.errorMessage,
+                isShowing: $viewModel.isErrorOccurred
+            )
         }
     }
 }
