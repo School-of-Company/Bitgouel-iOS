@@ -43,9 +43,6 @@ final class LectureListViewModel: BaseViewModel {
         case "기업산학연계직업체험프로그램":
             return type = .companyIndustryLinkingJobExperienceProgram
 
-        case "기타":
-            return type = .etc
-
         default:
             return type = nil
         }
@@ -84,7 +81,8 @@ final class LectureListViewModel: BaseViewModel {
                     updateContent(entity: response)
                     isLoading = false
                 } catch {
-                    print(String(describing: error))
+                    errorMessage = error.lectureDomainErrorMessage()
+                    isErrorOccurred = true
                 }
             }
         }

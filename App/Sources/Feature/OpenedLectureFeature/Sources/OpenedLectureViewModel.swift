@@ -37,10 +37,6 @@ final class OpenedLectureViewModel: BaseViewModel {
         lectureText = text
     }
 
-    func updateIsErrorOccurred(state: Bool) {
-        isErrorOccurred = state
-    }
-
     func updateOpenLectureInfo(detailInfo: OpenedLectureModel) {
         openLectureInfo = .init(
             semester: detailInfo.semester,
@@ -55,7 +51,6 @@ final class OpenedLectureViewModel: BaseViewModel {
             credit: detailInfo.credit,
             maxRegisteredUser: detailInfo.maxRegisteredUser
         )
-        print(openLectureInfo)
     }
 
     @MainActor
@@ -88,14 +83,8 @@ final class OpenedLectureViewModel: BaseViewModel {
 
                 success()
             } catch {
-                if let lectureDomainError = error as? LectureDomainError {
-                    errorMessage = lectureDomainError.errorDescription ?? "알 수 없는 오류가 발생했습니다."
-                } else {
-                    errorMessage = "알 수 없는 오류가 발생했습니다."
-                }
-                updateIsErrorOccurred(state: true)
-
-                print(error.localizedDescription)
+                errorMessage = error.lectureDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }
