@@ -49,7 +49,10 @@ final class ClubDetailViewModel: BaseViewModel {
 
                 isLoading = false
             } catch {
-                print(error.localizedDescription)
+                errorMessage = error.clubDomainErrorMessage()
+
+                isErrorOccurred = true
+                isLoading = false
             }
         }
     }
