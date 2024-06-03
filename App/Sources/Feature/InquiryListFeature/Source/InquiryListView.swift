@@ -21,6 +21,7 @@ struct InquiryListView: View {
         ZStack {
             if viewModel.isLoading {
                 ProgressView()
+                    .progressViewStyle(.circular)
             } else {
                 VStack(spacing: 4) {
                     if viewModel.authority == .admin {
@@ -35,10 +36,10 @@ struct InquiryListView: View {
                         }
                     }
 
-                    if viewModel.inquiryList.isEmpty {
-                        NoInfoView(text: "문의사항이 없어요")
-                    } else {
-                        ScrollView {
+                    ScrollView {
+                        if viewModel.inquiryList.isEmpty {
+                            NoInfoView(text: "문의사항이 없어요")
+                        } else {
                             VStack(spacing: 12) {
                                 ForEach(viewModel.inquiryList, id: \.inquiryID) { inquiry in
                                     InquiryListRow(
@@ -127,5 +128,9 @@ struct InquiryListView: View {
         .onAppear {
             viewModel.onAppear()
         }
+        .bitgouelToast(
+            text: viewModel.errorMessage,
+            isShowing: $viewModel.isErrorOccurred
+        )
     }
 }
