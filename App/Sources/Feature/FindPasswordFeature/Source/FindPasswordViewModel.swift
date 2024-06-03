@@ -5,7 +5,6 @@ final class FindPasswordViewModel: BaseViewModel {
     @Published var email: String = ""
     @Published var isPresentedSendEmailPage: Bool = false
     @Published var isPresentedNewPasswordPage: Bool = false
-    var isAuthentication: Bool = false
     var isEmailEmpty: Bool {
         email.isEmpty
     }
@@ -21,10 +20,6 @@ final class FindPasswordViewModel: BaseViewModel {
         self.fetchEmailVertificationStatusUseCase = fetchEmailVertificationStatusUseCase
     }
 
-    func updateEmail(email: String) {
-        self.email = email
-    }
-
     func updateIsPresentedSendEmailPage(isPresented: Bool) {
         isPresentedSendEmailPage = isPresented
     }
@@ -33,12 +28,15 @@ final class FindPasswordViewModel: BaseViewModel {
         isPresentedNewPasswordPage = isPresented
     }
 
-    func nextToButtonDidTap() {
+    func nextToButtonDidTap(_ success: @escaping () -> Void) {
         Task {
             do {
                 try await sendEmailCertificationLinkUseCase(req: EmailRequestDTO(email: email))
+
+                success()
             } catch {
-                print(String(describing: error))
+                errorMessage = error.userDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }
@@ -47,11 +45,17 @@ final class FindPasswordViewModel: BaseViewModel {
     func nextToButtonAction() {
         Task {
             do {
-                isAuthentication = try await fetchEmailVertificationStatusUseCase(email: email)
+                let isAuthentication = try await fetchEmailVertificationStatusUseCase(email: email)
 
-                if isAuthentication { updateIsPresentedNewPasswordPage(isPresented: true) }
+                if isAuthentication {
+                    updateIsPresentedNewPasswordPage(isPresented: true)
+                } else {
+                    errorMessage = "다시 인증해주세요."
+                    isErrorOccurred = true
+                }
             } catch {
-                print(error.localizedDescription)
+                errorMessage = "다시 인증해주세요."
+                isErrorOccurred = true
             }
         }
     }

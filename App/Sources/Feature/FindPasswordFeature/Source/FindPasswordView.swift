@@ -34,12 +34,7 @@ struct FindPasswordView: View {
 
                 BitgouelTextField(
                     "이메일",
-                    text: Binding(
-                        get: { viewModel.email },
-                        set: { email in
-                            viewModel.updateEmail(email: email)
-                        }
-                    )
+                    text: $viewModel.email
                 )
                 .padding(.top, 32)
 
@@ -48,8 +43,9 @@ struct FindPasswordView: View {
                 BitgouelButton(
                     text: "다음으로",
                     action: {
-                        viewModel.updateIsPresentedSendEmailPage(isPresented: true)
-                        viewModel.nextToButtonDidTap()
+                        viewModel.nextToButtonDidTap {
+                            viewModel.updateIsPresentedSendEmailPage(isPresented: true)
+                        }
                     }
                 )
                 .disabled(viewModel.isEmailEmpty)
@@ -81,6 +77,10 @@ struct FindPasswordView: View {
                         viewModel.updateIsPresentedNewPasswordPage(isPresented: isPresented)
                     }
                 )
+            )
+            .bitgouelToast(
+                text: viewModel.errorMessage,
+                isShowing: $viewModel.isErrorOccurred
             )
         }
         .onTapGesture {
