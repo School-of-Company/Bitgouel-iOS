@@ -74,10 +74,7 @@ struct ChangePasswordView: View {
         )
         .bitgouelToast(
             text: viewModel.errorMessage,
-            isShowing: Binding(
-                get: { viewModel.isShowingToast },
-                set: { newValue in viewModel.isShowingToast = newValue }
-            )
+            isShowing: $viewModel.isErrorOccurred
         )
         .onTapGesture {
             hideKeyboard()

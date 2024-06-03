@@ -5,7 +5,6 @@ final class ChangePasswordViewModel: BaseViewModel {
     @Published var currentPassword: String = ""
     @Published var newPassword: String = ""
     @Published var checkNewPassword: String = ""
-    @Published var isShowingToast: Bool = false
     @Published var isPresentedSuccessView: Bool = false
 
     private let changePasswordUseCase: any ChangePasswordUseCase
@@ -22,7 +21,7 @@ final class ChangePasswordViewModel: BaseViewModel {
     func changePasswordButtonDidTap() {
         guard newPassword == checkNewPassword else {
             errorMessage = "비밀번호를 다시 입력해 주세요!"
-            return isShowingToast = true
+            return isErrorOccurred = true
         }
 
         Task {
@@ -33,9 +32,11 @@ final class ChangePasswordViewModel: BaseViewModel {
                         newPassword: newPassword
                     )
                 )
+
                 updateIsPresentedSuccessView(isPresented: true)
             } catch {
-                print(error.localizedDescription)
+                errorMessage = error.userDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }
