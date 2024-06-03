@@ -23,25 +23,30 @@ struct NoticeListView: View {
 
     var body: some View {
         VStack {
-            if let noticeInfo = viewModel.noticeContent {
-                if noticeInfo.content.isEmpty {
-                    NoInfoView(text: "공지사항이 없어요")
-                } else {
-                    ScrollView {
-                        LazyVStack(spacing: 0) {
-                            ForEach(noticeInfo.content, id: \.postID) { notice in
-                                ListRow(
-                                    id: notice.postID,
-                                    title: notice.title,
-                                    modifiedAt: notice.modifiedAt
-                                        .toDateCustomFormat(format: "yyyy-MM-dd'T'HH:mm:ss.SSS")
-                                )
-                                .onTapGesture {
-                                    viewModel.noticeID = notice.postID
-                                    viewModel.updateIsPresentedNoticeDetailView(isPresented: true)
+            if viewModel.isLoading {
+                ProgressView()
+                    .progressViewStyle(.circular)
+            } else {
+                if let noticeInfo = viewModel.noticeContent {
+                    if noticeInfo.content.isEmpty {
+                        NoInfoView(text: "공지사항이 없어요")
+                    } else {
+                        ScrollView {
+                            LazyVStack(spacing: 0) {
+                                ForEach(noticeInfo.content, id: \.postID) { notice in
+                                    ListRow(
+                                        id: notice.postID,
+                                        title: notice.title,
+                                        modifiedAt: notice.modifiedAt
+                                            .toDateCustomFormat(format: "yyyy-MM-dd'T'HH:mm:ss.SSS")
+                                    )
+                                    .onTapGesture {
+                                        viewModel.noticeID = notice.postID
+                                        viewModel.updateIsPresentedNoticeDetailView(isPresented: true)
+                                    }
+                                    
+                                    Divider()
                                 }
-
-                                Divider()
                             }
                         }
                     }
@@ -113,5 +118,9 @@ struct NoticeListView: View {
         .refreshable {
             viewModel.onAppear()
         }
+        .bitgouelToast(
+            text: viewModel.errorMessage,
+            isShowing: $viewModel.isErrorOccurred
+        )
     }
 }

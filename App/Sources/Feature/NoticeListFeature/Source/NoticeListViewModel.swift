@@ -45,12 +45,16 @@ final class NoticeListViewModel: BaseViewModel {
     @MainActor
     func onAppear() {
         authority = loadUserAuthorityUseCase()
+        isLoading = true
 
         Task {
             do {
                 noticeContent = try await queryPostListUseCase(postType: .notice)
+
+                isLoading = false
             } catch {
-                print(String(describing: error))
+                errorMessage = error.postDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }
