@@ -57,5 +57,9 @@ struct InputActivityView: View {
                 viewModel.onAppear()
             }
         }
+        .bitgouelToast(
+            text: viewModel.errorMessage,
+            isShowing: $viewModel.isErrorOccurred
+        )
     }
 }

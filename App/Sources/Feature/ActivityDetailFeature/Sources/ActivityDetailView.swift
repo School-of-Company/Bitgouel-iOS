@@ -105,6 +105,10 @@ struct ActivityDetailView: View {
                 }
             ]
         )
+        .bitgouelToast(
+            text: viewModel.errorMessage,
+            isShowing: $viewModel.isErrorOccurred
+        )
     }
 
     @ViewBuilder
@@ -117,7 +121,6 @@ struct ActivityDetailView: View {
                     viewModel.updateIsPresentedInputActivityView(isPresented: true)
                 }
             )
-            .cornerRadius(8)
 
             Spacer()
 
@@ -128,7 +131,6 @@ struct ActivityDetailView: View {
                     viewModel.updateIsDelete(state: true)
                 }
             )
-            .cornerRadius(8)
         }
     }
 }
