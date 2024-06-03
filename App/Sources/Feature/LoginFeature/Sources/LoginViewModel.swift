@@ -92,17 +92,20 @@ final class LoginViewModel: BaseViewModel {
 
     @MainActor
     func login() {
-        guard checkEmail(email) && checkPassword(password) else { return }
+        guard checkEmail(email) && checkPassword(password) else {
+            errorMessage = "이메일, 비밀번호를 제대로 작성했는지 확인해주세요."
+            return isErrorOccurred = true
+        }
 
         Task {
             do {
                 let userLoginInfo = try await self.loginUseCase(req: LoginRequestDTO(email: email, password: password))
+
                 saveUserAuthority(authority: userLoginInfo.authority)
                 isSuccessSignin = true
-                print("로그인 성공 \(userLoginInfo.authority)")
             } catch {
+                errorMessage = error.authDomainErrorMessage()
                 isErrorOccurred = true
-                print("로그인 실패: \(error)")
             }
         }
     }

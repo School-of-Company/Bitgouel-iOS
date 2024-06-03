@@ -126,6 +126,10 @@ struct LoginView: View {
                 sceneState.sceneFlow = .findPassword
                 tabbarHidden.wrappedValue = newValue
             }
+            .bitgouelToast(
+                text: viewModel.errorMessage,
+                isShowing: $viewModel.isErrorOccurred
+            )
         }
         .onTapGesture {
             hideKeyboard()
