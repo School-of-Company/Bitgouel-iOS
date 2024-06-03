@@ -29,10 +29,6 @@ final class LectureListDetailViewModel: BaseViewModel {
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
     }
 
-    func updateIsErrorOccurred(state: Bool) {
-        isErrorOccurred = state
-    }
-
     func updateIsPresentedLectureApplicantView(isPresented: Bool) {
         isPresentedLectureApplicantListView = isPresented
     }
@@ -40,7 +36,6 @@ final class LectureListDetailViewModel: BaseViewModel {
     @MainActor
     func onAppear() {
         isLoading = true
-
         userAuthority = loadUserAuthorityUseCase()
 
         Task {
@@ -49,7 +44,10 @@ final class LectureListDetailViewModel: BaseViewModel {
 
                 isLoading = false
             } catch {
-                print(error.localizedDescription)
+                errorMessage = error.lectureDomainErrorMessage()
+
+                isErrorOccurred = true
+                isLoading = false
             }
         }
     }
@@ -60,15 +58,10 @@ final class LectureListDetailViewModel: BaseViewModel {
             do {
                 try await applyLectureUseCase(lectureID: lectureID)
             } catch {
-                if let lectureDomainError = error as? LectureDomainError {
-                    errorMessage = lectureDomainError.errorDescription ?? "알 수 없는 오류가 발생했습니다."
-                } else {
-                    errorMessage = "알 수 없는 오류가 발생했습니다."
-                }
-                updateIsErrorOccurred(state: true)
-                isApply = false
+                errorMessage = error.lectureDomainErrorMessage()
 
-                print(error.localizedDescription)
+                isErrorOccurred = true
+                isApply = false
             }
         }
     }
@@ -78,7 +71,9 @@ final class LectureListDetailViewModel: BaseViewModel {
             do {
                 try await cancelLectureUseCase(lectureID: lectureID)
             } catch {
-                print(error.localizedDescription)
+                errorMessage = error.lectureDomainErrorMessage()
+
+                isErrorOccurred = true
             }
         }
     }

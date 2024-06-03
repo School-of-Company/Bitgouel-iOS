@@ -165,12 +165,7 @@ struct LectureListDetailView: View {
                 )
                 .bitgouelToast(
                     text: viewModel.errorMessage,
-                    isShowing: Binding(
-                        get: { viewModel.isErrorOccurred },
-                        set: { state in
-                            viewModel.updateIsErrorOccurred(state: state)
-                        }
-                    )
+                    isShowing: $viewModel.isErrorOccurred
                 )
             }
         }
