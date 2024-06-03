@@ -21,6 +21,7 @@ final class InquiryDetailViewModel: BaseViewModel {
         switch status {
         case .answered:
             return .bitgouel(.primary(.p5))
+
         case .unanswered:
             return .bitgouel(.error(.e5))
         }
@@ -64,7 +65,8 @@ final class InquiryDetailViewModel: BaseViewModel {
             do {
                 inquiryDetail = try await fetchInquiryDetailUseCase(inquiryID: inquiryID)
             } catch {
-                print(String(describing: error))
+                errorMessage = error.inquiryDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }
@@ -76,13 +78,15 @@ final class InquiryDetailViewModel: BaseViewModel {
                 switch authority {
                 case .admin:
                     try await deleteInquiryByAdmin()
+
                 default:
                     try await deleteMyInquiry()
                 }
 
                 success()
             } catch {
-                print(error.localizedDescription)
+                errorMessage = error.inquiryDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }

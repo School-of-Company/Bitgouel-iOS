@@ -51,9 +51,11 @@ final class InputInquiryViewModel: BaseViewModel {
                 inquiryDetail = try await fetchInquiryDetailUseCase(inquiryID: inquiryID)
 
                 guard let inquiryDetail else { return }
+
                 updateQuestion(question: inquiryDetail)
             } catch {
-                print(String(describing: error))
+                errorMessage = error.inquiryDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }
@@ -75,7 +77,8 @@ final class InputInquiryViewModel: BaseViewModel {
 
                 success()
             } catch {
-                print(String(describing: error))
+                errorMessage = error.inquiryDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }

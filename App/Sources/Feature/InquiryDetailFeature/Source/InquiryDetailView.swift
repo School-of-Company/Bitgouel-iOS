@@ -144,7 +144,6 @@ struct InquiryDetailView: View {
                         viewModel.updateIsDeleteInquiry(isDelete: false)
                     }
                 ),
-
                 .init(
                     text: "삭제",
                     style: .error,
@@ -178,9 +177,14 @@ struct InquiryDetailView: View {
                     style: .default,
                     action: {
                         viewModel.updateIsPresentedWriteInquiryAnswerView(isPresented: true)
+                        viewModel.updateIsWriteInquiryAnswer(isWrite: false)
                     }
                 )
             ]
+        )
+        .bitgouelToast(
+            text: viewModel.errorMessage,
+            isShowing: $viewModel.isErrorOccurred
         )
     }
 
@@ -197,13 +201,15 @@ struct InquiryDetailView: View {
 
             Spacer()
 
-            BitgouelButton(
-                text: "문의 답변",
-                style: .primary,
-                action: {
-                    viewModel.updateIsWriteInquiryAnswer(isWrite: true)
-                }
-            )
+            if viewModel.inquiryDetail?.answerStatus == .unanswered {
+                BitgouelButton(
+                    text: "문의 답변",
+                    style: .primary,
+                    action: {
+                        viewModel.updateIsWriteInquiryAnswer(isWrite: true)
+                    }
+                )
+            }
         }
     }
 

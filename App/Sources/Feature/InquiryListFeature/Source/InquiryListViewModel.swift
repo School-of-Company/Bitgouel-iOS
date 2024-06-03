@@ -47,8 +47,10 @@ final class InquiryListViewModel: BaseViewModel {
         switch answer {
         case .all:
             answerStatus = nil
+
         case .answer:
             answerStatus = .answered
+
         case .unanswer:
             answerStatus = .unanswered
         }
@@ -63,32 +65,27 @@ final class InquiryListViewModel: BaseViewModel {
             do {
                 let inquiryInfo: [InquiryInfoEntity] = try await { () async throws -> [InquiryInfoEntity] in
                     switch authority {
-                    case .admin: return try await onAppearInquiryByAdmin()
-                    default: return try await onAppearMyInquiry()
+                    case .admin: 
+                        return try await onAppearInquiryByAdmin()
+
+                    default: 
+                        return try await onAppearMyInquiry()
                     }
                 }()
 
                 updateContent(entity: inquiryInfo)
                 isLoading = false
             } catch {
-                print(String(describing: error))
+                errorMessage = error.inquiryDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }
 
-    @MainActor
+    @MainActor 
     func updateKeyword(text: String) {
         keyword = text
-
-        Task {
-            do {
-                let response = try await onAppearInquiryByAdmin()
-
-                updateContent(entity: response)
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
+        onAppear()
     }
 
     func updateContent(entity: [InquiryInfoEntity]) {
@@ -96,7 +93,10 @@ final class InquiryListViewModel: BaseViewModel {
     }
 
     func onAppearInquiryByAdmin() async throws -> [InquiryInfoEntity] {
-        return try await fetchInquiryByAdminUseCase(answerStatus: answerStatus?.rawValue ?? "", keyword: keyword)
+        return try await fetchInquiryByAdminUseCase(
+            answerStatus: answerStatus?.rawValue ?? "",
+            keyword: keyword
+        )
     }
 
     func onAppearMyInquiry() async throws -> [InquiryInfoEntity] {

@@ -24,8 +24,8 @@ struct WriteInquiryAnswerView: View {
                         text: "답변 내용 작성(최대 500자)",
                         font: .text3
                     )
-                    .padding(.top, 8)
-                    .padding(.leading, 4)
+                    .padding(.top, 12)
+                    .padding(.leading, 8)
                     .foregroundColor(.bitgouel(.greyscale(.g7)))
                 }
             }
@@ -43,5 +43,9 @@ struct WriteInquiryAnswerView: View {
             }
         }
         .padding(.horizontal, 28)
+        .bitgouelToast(
+            text: viewModel.errorMessage,
+            isShowing: $viewModel.isErrorOccurred
+        )
     }
 }

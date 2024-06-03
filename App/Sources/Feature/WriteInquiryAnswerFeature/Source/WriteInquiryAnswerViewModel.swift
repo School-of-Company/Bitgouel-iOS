@@ -26,7 +26,8 @@ final class WriteInquiryAnswerViewModel: BaseViewModel {
 
                 success()
             } catch {
-                print(String(describing: error))
+                errorMessage = error.inquiryDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }
