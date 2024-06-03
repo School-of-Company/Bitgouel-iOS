@@ -130,6 +130,10 @@ struct LectureListView: View {
             ) {
                 $selection.wrappedValue = .home
             }
+            .bitgouelToast(
+                text: viewModel.errorMessage,
+                isShowing: $viewModel.isErrorOccurred
+            )
         }
         .onAppear {
             viewModel.onAppear()
@@ -185,21 +189,25 @@ struct LectureListView: View {
     @ViewBuilder
     func lectureTypeList() -> some View {
         ForEach(viewModel.lectureType, id: \.self) { lectureType in
-            HStack {
-                CheckButton(
-                    isSelected: Binding(
-                        get: { viewModel.selectedLectureType == lectureType.rawValue },
-                        set: { lecture in
-                            if lecture {
-                                viewModel.selectedLectureType = lectureType.rawValue
-                            } else {
-                                viewModel.selectedLectureType = ""
+            if lectureType != .etc {
+                HStack {
+                    CheckButton(
+                        isSelected: Binding(
+                            get: { viewModel.selectedLectureType == lectureType.rawValue },
+                            set: { lecture in
+                                if lecture {
+                                    viewModel.selectedLectureType = lectureType.rawValue
+                                } else {
+                                    viewModel.selectedLectureType = ""
+                                }
                             }
-                        }
+                        )
                     )
-                )
-
-                Text(lectureType.rawValue)
+                    
+                    Text(lectureType.rawValue)
+                }
+            } else {
+                EmptyView()
             }
         }
     }
