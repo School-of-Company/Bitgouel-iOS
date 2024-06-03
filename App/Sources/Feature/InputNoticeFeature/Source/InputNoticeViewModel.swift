@@ -39,20 +39,29 @@ final class InputNoticeViewModel: BaseViewModel {
         noticeLinks = links
     }
 
+    func updateNoticeDetail(noticeDetail: PostDetailEntity) {
+        noticeTitle = noticeDetail.title
+        noticeContent = noticeDetail.content
+        noticeLinks = noticeDetail.links
+    }
+
     func updateIsPresentedNoticeSettingAppend(isPresented: Bool) {
         isPresentedNoticeDetailSettingAppend = isPresented
     }
 
     @MainActor
     func onAppear() {
+        isLoading = true
+
         Task {
             do {
                 let noticeDetail = try await queryPostDetailUseCase(postID: noticeID)
-                updateNoticeTitle(title: noticeDetail.title)
-                updateNoticeContent(content: noticeDetail.content)
-                updateNoticeLinks(links: noticeDetail.links)
+
+                updateNoticeDetail(noticeDetail: noticeDetail)
+                isLoading = false
             } catch {
-                print(error.localizedDescription)
+                errorMessage = error.postDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }
@@ -72,7 +81,8 @@ final class InputNoticeViewModel: BaseViewModel {
 
                 success()
             } catch {
-                print(String(describing: error))
+                errorMessage = error.postDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }
