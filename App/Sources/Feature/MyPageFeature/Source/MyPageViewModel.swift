@@ -72,28 +72,31 @@ final class MyPageViewModel: BaseViewModel {
 
                     updateOrganization(organization: myInfo?.organization ?? "")
                 } catch {
-                    print(String(describing: error))
+                    errorMessage = error.userDomainErrorMessage()
+                    isErrorOccurred = true
                 }
             }
         }
     }
 
-    func logout() {
+    func logout(_ success: () -> Void) {
         Task {
             do {
                 try await logoutUseCase()
             } catch {
-                print(error.localizedDescription)
+                errorMessage = error.authDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }
 
-    func withdraw() {
+    func withdraw(_ success: () -> Void) {
         Task {
             do {
                 try await withdrawalUseCase()
             } catch {
-                print(error.localizedDescription)
+                errorMessage = error.authDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }

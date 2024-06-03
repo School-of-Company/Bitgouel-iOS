@@ -61,6 +61,7 @@ final class StudentInfoViewModel: BaseViewModel {
     @MainActor
     func onAppear() {
         authority = loadUserAuthorityUseCase()
+        isLoading = true
 
         Task {
             do {
@@ -79,8 +80,11 @@ final class StudentInfoViewModel: BaseViewModel {
                 default:
                     try await updateCertificationListByTeacher()
                 }
+
+                isLoading = false
             } catch {
-                print(error.localizedDescription)
+                errorMessage = error.certificationDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }

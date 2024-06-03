@@ -52,7 +52,6 @@ final class ClubDetailViewModel: BaseViewModel {
                 errorMessage = error.clubDomainErrorMessage()
 
                 isErrorOccurred = true
-                isLoading = false
             }
         }
     }

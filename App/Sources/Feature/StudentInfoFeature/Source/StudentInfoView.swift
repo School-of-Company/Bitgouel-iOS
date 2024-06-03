@@ -18,107 +18,112 @@ struct StudentInfoView: View {
 
     var body: some View {
         VStack(spacing: 24) {
-            if let studentInfo = viewModel.studentInfo {
-                VStack(alignment: .leading, spacing: 4) {
-                    BitgouelText(
-                        text: studentInfo.name,
-                        font: .title2
-                    )
-
-                    HStack {
+            if viewModel.isLoading {
+                ProgressView()
+                    .progressViewStyle(.circular)
+            } else {
+                if let studentInfo = viewModel.studentInfo {
+                    VStack(alignment: .leading, spacing: 4) {
                         BitgouelText(
-                            text: "총 학점",
-                            font: .text3
+                            text: studentInfo.name,
+                            font: .title2
                         )
-
-                        Spacer()
-
-                        BitgouelText(
-                            text: "\(studentInfo.credit)",
-                            font: .text3
-                        )
-                    }
-                    .foregroundColor(.bitgouel(.primary(.p5)))
-
-                    HStack {
-                        BitgouelText(
-                            text: "이메일",
-                            font: .caption
-                        )
-
-                        Spacer()
-
-                        BitgouelText(
-                            text: studentInfo.email,
-                            font: .text2
-                        )
-                    }
-                    .foregroundColor(.bitgouel(.greyscale(.g4)))
-
-                    HStack {
-                        BitgouelText(
-                            text: "전화번호",
-                            font: .caption
-                        )
-
-                        Spacer()
-
-                        BitgouelText(
-                            text: studentInfo.phoneNumber.withHypen,
-                            font: .caption
-                        )
-                    }
-                }
-                .padding(.top, 24)
-            }
-
-            Divider()
-
-            HStack {
-                BitgouelText(
-                    text: "자격증",
-                    font: .title3
-                )
-
-                Spacer()
-
-                Button {
-                    viewModel.updateIsPresentedInputCertificationView(isPresented: true)
-                } label: {
-                    BitgouelAsset.Icons.add.swiftUIImage
-                }
-            }
-
-            ScrollView(showsIndicators: false) {
-                LazyVStack(spacing: 0) {
-                    ForEach(viewModel.certificationList, id: \.certificationID) { certification in
-                        CertificationListRow(
-                            id: certification.certificationID,
-                            title: certification.name,
-                            acquisitionDate: certification.acquisitionDate
-                        ) {
-                            viewModel.updateEpic(epic: "수정")
-                            viewModel.selectedCertification(
-                                certificationID: certification.certificationID,
-                                certificationName: certification.name,
-                                acquisitionDate: certification.acquisitionDate
+                        
+                        HStack {
+                            BitgouelText(
+                                text: "총 학점",
+                                font: .text3
                             )
-                            viewModel.updateIsPresentedInputCertificationView(isPresented: true)
+                            
+                            Spacer()
+                            
+                            BitgouelText(
+                                text: "\(studentInfo.credit)",
+                                font: .text3
+                            )
                         }
-
-                        Divider()
+                        .foregroundColor(.bitgouel(.primary(.p5)))
+                        
+                        HStack {
+                            BitgouelText(
+                                text: "이메일",
+                                font: .caption
+                            )
+                            
+                            Spacer()
+                            
+                            BitgouelText(
+                                text: studentInfo.email,
+                                font: .text2
+                            )
+                        }
+                        .foregroundColor(.bitgouel(.greyscale(.g4)))
+                        
+                        HStack {
+                            BitgouelText(
+                                text: "전화번호",
+                                font: .caption
+                            )
+                            
+                            Spacer()
+                            
+                            BitgouelText(
+                                text: studentInfo.phoneNumber.withHypen,
+                                font: .caption
+                            )
+                        }
+                    }
+                    .padding(.top, 24)
+                }
+                
+                Divider()
+                
+                HStack {
+                    BitgouelText(
+                        text: "자격증",
+                        font: .title3
+                    )
+                    
+                    Spacer()
+                    
+                    Button {
+                        viewModel.updateIsPresentedInputCertificationView(isPresented: true)
+                    } label: {
+                        BitgouelAsset.Icons.add.swiftUIImage
                     }
                 }
-
-                switch viewModel.authority {
-                case .admin,
-                     .teacher,
-                     .student:
-                    appliedLectureList()
-                        .padding(.top, 24)
-
-                default:
-                    EmptyView()
+                
+                ScrollView(showsIndicators: false) {
+                    LazyVStack(spacing: 0) {
+                        ForEach(viewModel.certificationList, id: \.certificationID) { certification in
+                            CertificationListRow(
+                                id: certification.certificationID,
+                                title: certification.name,
+                                acquisitionDate: certification.acquisitionDate
+                            ) {
+                                viewModel.updateEpic(epic: "수정")
+                                viewModel.selectedCertification(
+                                    certificationID: certification.certificationID,
+                                    certificationName: certification.name,
+                                    acquisitionDate: certification.acquisitionDate
+                                )
+                                viewModel.updateIsPresentedInputCertificationView(isPresented: true)
+                            }
+                            
+                            Divider()
+                        }
+                    }
+                    
+                    switch viewModel.authority {
+                    case .admin,
+                            .teacher,
+                            .student:
+                        appliedLectureList()
+                            .padding(.top, 24)
+                        
+                    default:
+                        EmptyView()
+                    }
                 }
             }
         }
@@ -161,6 +166,10 @@ struct StudentInfoView: View {
         .onAppear {
             viewModel.onAppear()
         }
+        .bitgouelToast(
+            text: viewModel.errorMessage,
+            isShowing: $viewModel.isErrorOccurred
+        )
     }
 
     @ViewBuilder
