@@ -57,9 +57,7 @@ struct InputInquiryView: View {
             Divider()
                 .padding(.bottom, 24)
 
-            BitgouelButton(
-                text: "문의사항 \(viewModel.state)"
-            ) {
+            BitgouelButton(text: "문의사항 \(viewModel.state)") {
                 viewModel.updateIsShowingAlert(isShowing: true)
             }
         }
@@ -91,6 +89,10 @@ struct InputInquiryView: View {
                     }
                 }
             ]
+        )
+        .bitgouelToast(
+            text: viewModel.errorMessage,
+            isShowing: $viewModel.isErrorOccurred
         )
     }
 }
