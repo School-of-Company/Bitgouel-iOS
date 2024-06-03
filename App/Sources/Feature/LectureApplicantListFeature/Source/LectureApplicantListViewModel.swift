@@ -31,7 +31,8 @@ final class LectureApplicantListViewModel: BaseViewModel {
             do {
                 applicantList = try await fetchApplicantListUseCase(lectureID: lectureID)
             } catch {
-                print(error.localizedDescription)
+                errorMessage = error.lectureDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }
@@ -41,7 +42,8 @@ final class LectureApplicantListViewModel: BaseViewModel {
             do {
                 try await modifyApplicantWhetherUseCase(lectureID: lectureID, studentID: selectedStudentID, isComplete: isComplete)
             } catch {
-                print(error.localizedDescription)
+                errorMessage = error.lectureDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
     }

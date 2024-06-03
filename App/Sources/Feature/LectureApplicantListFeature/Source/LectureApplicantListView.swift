@@ -48,5 +48,9 @@ struct LectureApplicantListView: View {
             viewModel.onAppear()
         }
         .navigationTitle("강의 신청자 명단")
+        .bitgouelToast(
+            text: viewModel.errorMessage,
+            isShowing: $viewModel.isErrorOccurred
+        )
     }
 }
