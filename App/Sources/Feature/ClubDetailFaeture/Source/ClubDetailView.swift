@@ -95,6 +95,10 @@ struct ClubDetailView: View {
         .if(viewModel.authority != .admin) {
             $0.navigationBarBackButtonHidden()
         }
+        .bitgouelToast(
+            text: viewModel.errorMessage,
+            isShowing: $viewModel.isErrorOccurred
+        )
         .navigate(
             to: studentInfoFactory.makeView(
                 clubID: viewModel.clubID,
