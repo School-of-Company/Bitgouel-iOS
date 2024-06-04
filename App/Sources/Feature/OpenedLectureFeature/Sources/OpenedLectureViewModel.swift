@@ -54,7 +54,7 @@ final class OpenedLectureViewModel: BaseViewModel {
     }
 
     @MainActor
-    func openLectureButtonDidTap(_ success: @escaping () -> Void ) {
+    func openLectureButtonDidTap(_ success: @escaping () -> Void) {
         Task {
             do {
                 try await openLectureUseCase(

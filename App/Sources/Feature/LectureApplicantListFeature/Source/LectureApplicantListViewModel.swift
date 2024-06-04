@@ -9,7 +9,7 @@ final class LectureApplicantListViewModel: BaseViewModel {
 
     private let fetchApplicantListUseCase: any FetchApplicantListUseCase
     private let modifyApplicantWhetherUseCase: any ModifyApplicantWhetherUseCase
-    
+
     init(
         lectureID: String,
         fetchApplicantListUseCase: any FetchApplicantListUseCase,
@@ -40,7 +40,11 @@ final class LectureApplicantListViewModel: BaseViewModel {
     func modifyApplicantWhether() {
         Task {
             do {
-                try await modifyApplicantWhetherUseCase(lectureID: lectureID, studentID: selectedStudentID, isComplete: isComplete)
+                try await modifyApplicantWhetherUseCase(
+                    lectureID: lectureID,
+                    studentID: selectedStudentID,
+                    isComplete: isComplete
+                )
             } catch {
                 errorMessage = error.lectureDomainErrorMessage()
                 isErrorOccurred = true

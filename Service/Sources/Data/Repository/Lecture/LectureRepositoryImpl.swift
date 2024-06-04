@@ -52,6 +52,10 @@ public struct LectureRepositoryImpl: LectureRepository {
     }
 
     public func modifyApplicantWhether(lectureID: String, studentID: String, isComplete: Bool) async throws {
-        try await remoteLectureDataSource.modifyApplicantWhether(lectureID: lectureID, studentID: studentID, isComplete: isComplete)
+        try await remoteLectureDataSource.modifyApplicantWhether(
+            lectureID: lectureID,
+            studentID: studentID,
+            isComplete: isComplete
+        )
     }
 }

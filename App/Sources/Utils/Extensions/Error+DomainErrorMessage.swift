@@ -17,11 +17,11 @@ extension Error {
             return activityDomainError.errorDescription ?? unknownErrorMessage
         } else { return unknownErrorMessage }
     }
-    
+
     func adminDomainErrorMessage() -> String {
         if let adminDomainError = self as? AdminDomainError {
             return adminDomainError.errorDescription ?? unknownErrorMessage
-        } else { return unknownErrorMessage}
+        } else { return unknownErrorMessage }
     }
 
     func certificationDomainErrorMessage() -> String {

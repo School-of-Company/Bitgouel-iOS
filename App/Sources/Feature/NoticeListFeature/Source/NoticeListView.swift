@@ -44,7 +44,7 @@ struct NoticeListView: View {
                                         viewModel.noticeID = notice.postID
                                         viewModel.updateIsPresentedNoticeDetailView(isPresented: true)
                                     }
-                                    
+
                                     Divider()
                                 }
                             }

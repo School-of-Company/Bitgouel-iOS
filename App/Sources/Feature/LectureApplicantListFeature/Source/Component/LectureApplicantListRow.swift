@@ -13,7 +13,7 @@ struct LectureApplicantListRow: View {
     let schoolName: String
     let clubName: String
     let onSelectedStudent: (Bool, String) -> Void
-    
+
     var body: some View {
         HStack(alignment: .top, spacing: 24) {
             CheckButton(

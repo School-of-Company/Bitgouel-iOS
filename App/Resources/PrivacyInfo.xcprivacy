@@ -96,7 +96,7 @@
 		</dict>
 	</array>
 	<key>NSPrivacyTracking</key>
-	<false/>
+	<true/>
 	<key>NSPrivacyTrackingDomains</key>
 	<array>
 		<string>https://bitgoeul-server.co.kr</string>

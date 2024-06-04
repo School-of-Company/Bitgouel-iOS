@@ -8,6 +8,10 @@ public struct ModifyApplicantWhetherUseCaseImpl: ModifyApplicantWhetherUseCase {
     }
 
     public func callAsFunction(lectureID: String, studentID: String, isComplete: Bool) async throws {
-        try await lectureRepository.modifyApplicantWhether(lectureID: lectureID, studentID: studentID, isComplete: isComplete)
+        try await lectureRepository.modifyApplicantWhether(
+            lectureID: lectureID,
+            studentID: studentID,
+            isComplete: isComplete
+        )
     }
 }

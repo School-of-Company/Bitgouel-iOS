@@ -65,10 +65,10 @@ final class InquiryListViewModel: BaseViewModel {
             do {
                 let inquiryInfo: [InquiryInfoEntity] = try await { () async throws -> [InquiryInfoEntity] in
                     switch authority {
-                    case .admin: 
+                    case .admin:
                         return try await onAppearInquiryByAdmin()
 
-                    default: 
+                    default:
                         return try await onAppearMyInquiry()
                     }
                 }()
@@ -82,7 +82,7 @@ final class InquiryListViewModel: BaseViewModel {
         }
     }
 
-    @MainActor 
+    @MainActor
     func updateKeyword(text: String) {
         keyword = text
         onAppear()

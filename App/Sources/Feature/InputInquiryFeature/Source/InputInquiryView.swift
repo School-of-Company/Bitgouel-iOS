@@ -53,7 +53,7 @@ struct InputInquiryView: View {
                 }
             }
             .padding(.top, 16)
-            
+
             Divider()
                 .padding(.bottom, 24)
 

@@ -51,7 +51,7 @@ extension LectureAPI: BitgouelAPI {
 
         case let .fetchApplicantList(lectureID):
             return "/student/\(lectureID)"
-        
+
         case let .modifyApplicantWhether(lectureID, studentID, _):
             return "/\(lectureID)/\(studentID)"
         }

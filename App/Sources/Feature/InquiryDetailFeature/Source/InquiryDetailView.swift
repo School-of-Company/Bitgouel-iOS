@@ -30,7 +30,7 @@ struct InquiryDetailView: View {
                         if inquiryInfo.answerStatus == .answered {
                             HStack(spacing: 0) {
                                 Text(inquiryInfo.answeredDate?.toStringCustomFormat(format: "yyyy.MM.dd") ?? "")
-                                
+
                                 Text("에 답변됨")
                             }
                             .foregroundColor(.bitgouel(.greyscale(.g7)))
