@@ -203,7 +203,7 @@ struct LectureListView: View {
                             }
                         )
                     )
-                    
+
                     Text(lectureType.rawValue)
                 }
             } else {

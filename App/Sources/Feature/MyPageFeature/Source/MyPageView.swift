@@ -34,28 +34,28 @@ struct MyPageView: View {
                                             text: myInfo.name,
                                             font: .title2
                                         )
-                                        
+
                                         BitgouelText(
                                             text: myInfo.authority.display(),
                                             font: .text1
                                         )
                                         .foregroundColor(.bitgouel(.greyscale(.g7)))
                                     }
-                                    
+
                                     if viewModel.authority != .admin {
                                         HStack(spacing: 4) {
                                             BitgouelText(
                                                 text: viewModel.userOrganization,
                                                 font: .text1
                                             )
-                                            
+
                                             BitgouelText(
                                                 text: "소속",
                                                 font: .text1
                                             )
                                             .foregroundColor(.bitgouel(.greyscale(.g7)))
                                         }
-                                        
+
                                         LazyVStack(alignment: .leading, spacing: 4) {
                                             ForEach(viewModel.userInfo, id: \.self) { info in
                                                 BitgouelText(
@@ -67,45 +67,45 @@ struct MyPageView: View {
                                         }
                                     }
                                 }
-                                
+
                                 Spacer()
                             }
                             .padding(.top, 32)
-                            
+
                             HStack {
                                 VStack(alignment: .leading, spacing: 4) {
                                     BitgouelText(
                                         text: "계정 정보",
                                         font: .text1
                                     )
-                                    
+
                                     BitgouelText(
                                         text: myInfo.email,
                                         font: .text3
                                     )
                                     .foregroundColor(.bitgouel(.greyscale(.g7)))
-                                    
+
                                     BitgouelText(
                                         text: myInfo.phoneNumber,
                                         font: .text3
                                     )
                                     .foregroundColor(.bitgouel(.greyscale(.g7)))
                                 }
-                                
+
                                 Spacer()
                             }
-                            
+
                             if viewModel.authority == .admin {
                                 adminUserListButton()
                             }
-                            
+
                             HStack {
                                 VStack(alignment: .leading, spacing: 21) {
                                     BitgouelText(
                                         text: "계정 설정",
                                         font: .text1
                                     )
-                                    
+
                                     Button {
                                         viewModel.updateIsPresentedChangePasswordView(isPresented: true)
                                     } label: {
@@ -115,9 +115,9 @@ struct MyPageView: View {
                                         )
                                     }
                                     .padding(.top, 19)
-                                    
+
                                     Divider()
-                                    
+
                                     Button {
                                         viewModel.updateIsShowingLogoutAlert(isShowing: true)
                                     } label: {
@@ -126,9 +126,9 @@ struct MyPageView: View {
                                             font: .text3
                                         )
                                     }
-                                    
+
                                     Divider()
-                                    
+
                                     Button {
                                         viewModel.updateIsShowingWithdrawAlert(isShowing: true)
                                     } label: {
@@ -139,11 +139,11 @@ struct MyPageView: View {
                                         .foregroundColor(.bitgouel(.error(.e5)))
                                     }
                                 }
-                                
+
                                 Spacer()
                             }
                             .padding(.top, 60)
-                            
+
                             Spacer()
                         }
                     }

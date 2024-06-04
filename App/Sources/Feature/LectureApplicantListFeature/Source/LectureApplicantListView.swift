@@ -6,7 +6,7 @@ struct LectureApplicantListView: View {
     init(viewModel: LectureApplicantListViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("강의 이수 여부")
@@ -18,7 +18,7 @@ struct LectureApplicantListView: View {
                     ForEach(viewModel.applicantList, id: \.studentID) { student in
                         LectureApplicantListRow(
                             studentID: student.studentID,
-                            isComplete: student.isComplete, 
+                            isComplete: student.isComplete,
                             email: student.email,
                             name: student.name,
                             grade: student.grade,
@@ -27,10 +27,11 @@ struct LectureApplicantListView: View {
                             cohort: student.cohort,
                             phoneNumber: student.phoneNumber,
                             schoolName: student.school.display(),
-                            clubName: student.clubName) { isSelected, studentID in
-                                viewModel.updateApplicantInfo(isSelected: isSelected, studentID: studentID)
-                                viewModel.modifyApplicantWhether()
-                            }
+                            clubName: student.clubName
+                        ) { isSelected, studentID in
+                            viewModel.updateApplicantInfo(isSelected: isSelected, studentID: studentID)
+                            viewModel.modifyApplicantWhether()
+                        }
 
                         Divider()
                     }

@@ -28,45 +28,45 @@ struct StudentInfoView: View {
                             text: studentInfo.name,
                             font: .title2
                         )
-                        
+
                         HStack {
                             BitgouelText(
                                 text: "총 학점",
                                 font: .text3
                             )
-                            
+
                             Spacer()
-                            
+
                             BitgouelText(
                                 text: "\(studentInfo.credit)",
                                 font: .text3
                             )
                         }
                         .foregroundColor(.bitgouel(.primary(.p5)))
-                        
+
                         HStack {
                             BitgouelText(
                                 text: "이메일",
                                 font: .caption
                             )
-                            
+
                             Spacer()
-                            
+
                             BitgouelText(
                                 text: studentInfo.email,
                                 font: .text2
                             )
                         }
                         .foregroundColor(.bitgouel(.greyscale(.g4)))
-                        
+
                         HStack {
                             BitgouelText(
                                 text: "전화번호",
                                 font: .caption
                             )
-                            
+
                             Spacer()
-                            
+
                             BitgouelText(
                                 text: studentInfo.phoneNumber.withHypen,
                                 font: .caption
@@ -75,24 +75,24 @@ struct StudentInfoView: View {
                     }
                     .padding(.top, 24)
                 }
-                
+
                 Divider()
-                
+
                 HStack {
                     BitgouelText(
                         text: "자격증",
                         font: .title3
                     )
-                    
+
                     Spacer()
-                    
+
                     Button {
                         viewModel.updateIsPresentedInputCertificationView(isPresented: true)
                     } label: {
                         BitgouelAsset.Icons.add.swiftUIImage
                     }
                 }
-                
+
                 ScrollView(showsIndicators: false) {
                     LazyVStack(spacing: 0) {
                         ForEach(viewModel.certificationList, id: \.certificationID) { certification in
@@ -109,18 +109,18 @@ struct StudentInfoView: View {
                                 )
                                 viewModel.updateIsPresentedInputCertificationView(isPresented: true)
                             }
-                            
+
                             Divider()
                         }
                     }
-                    
+
                     switch viewModel.authority {
                     case .admin,
-                            .teacher,
-                            .student:
+                         .teacher,
+                         .student:
                         appliedLectureList()
                             .padding(.top, 24)
-                        
+
                     default:
                         EmptyView()
                     }

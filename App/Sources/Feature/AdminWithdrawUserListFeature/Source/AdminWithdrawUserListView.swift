@@ -83,13 +83,13 @@ struct AdminWithdrawUserListView: View {
                                             }
                                         )
                                     )
-                                    
+
                                     BitgouelText(
                                         text: userInfo.name,
                                         font: .text1
                                     )
                                 }
-                                
+
                                 Divider()
                                     .frame(height: 1)
                                     .padding(.vertical, 14)
