@@ -31,7 +31,7 @@ struct FAQView: View {
         question: String,
         answer: String
     ) -> some View {
-        VStack(spacing: 12) {
+        VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 4) {
                 Text("Q.")
                     .bitgouelFont(.text3, color: .primary(.p5))
