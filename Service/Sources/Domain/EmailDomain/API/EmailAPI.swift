@@ -7,7 +7,7 @@ public enum EmailAPI {
 }
 
 extension EmailAPI: BitgouelAPI {
-    public typealias ErrorType = AdminDomainError
+    public typealias ErrorType = EmailDomainError
 
     public var domain: BitgouelDomain {
         .email
@@ -49,11 +49,11 @@ extension EmailAPI: BitgouelAPI {
         }
     }
 
-    public var errorMap: [Int: AdminDomainError] {
+    public var errorMap: [Int: EmailDomainError] {
         switch self {
         default:
             return [
-                500: .internalServerError
+                404: .notFound
             ]
         }
     }

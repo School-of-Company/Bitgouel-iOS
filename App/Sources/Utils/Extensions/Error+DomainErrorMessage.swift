@@ -36,6 +36,12 @@ extension Error {
         } else { return unknownErrorMessage }
     }
 
+    func emailDomainErrorMessage() -> String {
+        if let emailDomainError = self as? EmailDomainError {
+            return emailDomainError.errorDescription ?? unknownErrorMessage
+        } else { return unknownErrorMessage }
+    }
+
     func faqDomainErrorMessage() -> String {
         if let faqDomainError = self as? FAQDomainError {
             return faqDomainError.errorDescription ?? unknownErrorMessage
