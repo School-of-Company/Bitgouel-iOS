@@ -79,10 +79,12 @@ final class MyPageViewModel: BaseViewModel {
         }
     }
 
-    func logout(_ success: () -> Void) {
+    @MainActor
+    func logout(_ success: @escaping () -> Void) {
         Task {
             do {
                 try await logoutUseCase()
+                success()
             } catch {
                 errorMessage = error.authDomainErrorMessage()
                 isErrorOccurred = true
@@ -90,10 +92,12 @@ final class MyPageViewModel: BaseViewModel {
         }
     }
 
-    func withdraw(_ success: () -> Void) {
+    @MainActor
+    func withdraw(_ success: @escaping () -> Void) {
         Task {
             do {
                 try await withdrawalUseCase()
+                success()
             } catch {
                 errorMessage = error.authDomainErrorMessage()
                 isErrorOccurred = true
