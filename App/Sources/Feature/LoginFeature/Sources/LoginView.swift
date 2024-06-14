@@ -131,10 +131,10 @@ struct LoginView: View {
                 isShowing: $viewModel.isErrorOccurred
             )
             .onChange(of: viewModel.email) { _ in
-                viewModel.isEmailErrorOccured = false
+                viewModel.updateIsEmailErrorOccured(isErrorOccured: false)
             }
             .onChange(of: viewModel.password) { _ in
-                viewModel.isPasswordErrorOcuured = false
+                viewModel.updateIsPasswordErrorOccured(isErrorOccured: false)
             }
         }
         .onTapGesture {

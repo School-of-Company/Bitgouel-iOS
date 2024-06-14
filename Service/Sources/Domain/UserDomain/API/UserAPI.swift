@@ -51,7 +51,8 @@ extension UserAPI: BitgouelAPI {
         switch self {
         default:
             return [
-                401: .unauthorized
+                401: .unauthorized,
+                409: .conflict
             ]
         }
     }

@@ -85,7 +85,7 @@ struct FindPasswordView: View {
                 isShowing: $viewModel.isErrorOccurred
             )
             .onChange(of: viewModel.email) { _ in
-                viewModel.isEmailErrorOccurred = false
+                viewModel.updateIsEmailErrorOccurred(isErrorOccurred: false)
             }
         }
         .onTapGesture {
