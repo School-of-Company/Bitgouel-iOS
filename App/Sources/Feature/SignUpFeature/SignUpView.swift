@@ -110,7 +110,7 @@ struct SignUpView: View {
                 .padding(.top, 32)
             }
             .overlay(alignment: .bottom) {
-                if viewModel.checkedPassword {
+                if !viewModel.checkPassword.isEmpty {
                     signupApplyButton()
                 }
             }
@@ -160,6 +160,18 @@ struct SignUpView: View {
             )
         )
         .bitgouelBackButton(dismiss: dismiss)
+        .onChange(of: viewModel.email) { _ in
+            viewModel.updateIsEmailErrorOccurred(isErrorOccurred: false)
+        }
+        .onChange(of: viewModel.password) { _ in
+            viewModel.updateIsPasswordErrorOccurred(isErrorOccurred: false)
+        }
+        .onChange(of: viewModel.phoneNumber) { _ in
+            viewModel.updateIsPhoneNumberErrorOccurred(isErrorOccurred: false)
+        }
+        .onChange(of: viewModel.checkPassword) { _ in
+            viewModel.updateIsCheckPasswordErrorOccurred(isErrorOccurred: false)
+        }
     }
 
     @ViewBuilder
@@ -183,41 +195,42 @@ struct SignUpView: View {
     @ViewBuilder
     func inputAuthorizationInfoSection() -> some View {
         VStack(spacing: 4) {
-            if viewModel.passwordIsValid {
+            if !viewModel.password.isEmpty {
                 SecureBitgouelTextField(
                     "비밀번호",
                     text: $viewModel.checkPassword,
                     helpMessage: viewModel.checkPasswordHelpMessage,
-                    isError: !viewModel.checkedPassword
+                    isError: viewModel.isCheckPasswordErrorOccurred
                 )
                 .textContentType(.password)
             }
 
-            if viewModel.emailIsValid {
+            if !viewModel.email.isEmpty {
                 SecureBitgouelTextField(
                     "비밀번호",
                     text: $viewModel.password,
                     helpMessage: viewModel.passwordHelpMessage,
-                    isError: !viewModel.passwordIsValid
+                    isError: viewModel.isPasswordErrorOccurred
                 )
                 .textContentType(.password)
             }
 
-            if viewModel.phoneNumberIsValid {
+            if !viewModel.phoneNumber.isEmpty {
                 BitgouelTextField(
                     "이메일",
                     text: $viewModel.email,
                     helpMessage: viewModel.emailHelpMessage,
-                    isError: !viewModel.emailIsValid
+                    isError: viewModel.isEmailErrorOccurred
                 )
                 .textContentType(.emailAddress)
             }
 
             BitgouelTextField(
                 "전화번호",
-                text: $viewModel.phoneNumber
+                text: $viewModel.phoneNumber,
+                helpMessage: viewModel.phoneNumberHelpMessage,
+                isError: viewModel.isPhoneNumberErrorOccurred
             )
-            .padding(.bottom, -20)
         }
     }
 

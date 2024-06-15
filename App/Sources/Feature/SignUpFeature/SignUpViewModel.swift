@@ -33,6 +33,10 @@ final class SignUpViewModel: BaseViewModel {
     @Published var selectedUserRole: UserAuthorityType?
     @Published var position: String = ""
     @Published var sectors: String = ""
+    @Published var isEmailErrorOccurred: Bool = false
+    @Published var isPasswordErrorOccurred: Bool = false
+    @Published var isCheckPasswordErrorOccurred: Bool = false
+    @Published var isPhoneNumberErrorOccurred: Bool = false
 
     // MARK: computed property
     var clubsForSelectedHighSchool: [String] {
@@ -52,16 +56,17 @@ final class SignUpViewModel: BaseViewModel {
         studentID.count == 4 && grade != nil && classRoom != nil && number != nil
     }
 
-    var phoneNumberIsValid: Bool {
-        phoneNumber.count == 11
+    func checkphoneNumber(phoneNumber: String) -> Bool {
+        let phoneNumberRegex = "^010\\d{8}$"
+        return NSPredicate(format: "SELF MATCHES %@", phoneNumberRegex).evaluate(with: phoneNumber)
     }
 
-    var emailIsValid: Bool {
+    func checkEmail(email: String) -> Bool {
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
         return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: email)
     }
 
-    var passwordIsValid: Bool {
+    func checkPassword(password: String) -> Bool {
         let passwordRegex = "[A-Z0-9a-z@!#$%%^~&*()_+-=.]{8,24}"
         return NSPredicate(format: "SELF MATCHES %@", passwordRegex).evaluate(with: password)
     }
@@ -169,11 +174,11 @@ final class SignUpViewModel: BaseViewModel {
             return ""
         }
 
-        if !phoneNumberIsValid {
+        if phoneNumber.isEmpty {
             return "전화번호 입력"
-        } else if !emailIsValid {
+        } else if email.isEmpty {
             return "이메일 입력"
-        } else if !passwordIsValid {
+        } else if password.isEmpty {
             return "비밀번호 입력"
         } else {
             return "비밀번호 재입력"
@@ -243,11 +248,11 @@ final class SignUpViewModel: BaseViewModel {
             return ""
         }
 
-        if !phoneNumberIsValid {
+        if phoneNumber.isEmpty {
             return "전화번호를 입력해주세요!"
-        } else if !emailIsValid {
+        } else if email.isEmpty {
             return "이메일을 입력해주세요!"
-        } else if !passwordIsValid {
+        } else if password.isEmpty {
             return "8~24자 이내의 영문 / 숫자, 특수문자 1개 이상"
         } else {
             return "비밀번호를 다시 입력해주세요!"
@@ -275,7 +280,9 @@ final class SignUpViewModel: BaseViewModel {
     }
 
     var emailHelpMessage: String {
-        if !emailIsValid {
+        guard !email.isEmpty else { return "" }
+
+        if isEmailErrorOccurred {
             return "이메일 형식이 유효하지 않습니다"
         } else {
             return ""
@@ -283,7 +290,9 @@ final class SignUpViewModel: BaseViewModel {
     }
 
     var passwordHelpMessage: String {
-        if !passwordIsValid {
+        guard !password.isEmpty else { return "" }
+
+        if isPasswordErrorOccurred {
             return "비밀번호는 (정규식)으로 해주세요"
         } else {
             return ""
@@ -291,15 +300,26 @@ final class SignUpViewModel: BaseViewModel {
     }
 
     var checkPasswordHelpMessage: String {
-        if !checkedPassword {
+        guard !checkPassword.isEmpty else { return "" }
+
+        if isCheckPasswordErrorOccurred {
             return "비밀번호가 일치하지 않습니다"
         } else {
             return ""
         }
     }
 
-    var checkedPassword: Bool {
-        guard !password.isEmpty && !checkPassword.isEmpty else { return false }
+    var phoneNumberHelpMessage: String {
+        guard !phoneNumber.isEmpty else { return "" }
+
+        if isPhoneNumberErrorOccurred {
+            return "전화번호는 010으로 시작하고 11자 이상이어야 합니다."
+        } else {
+            return ""
+        }
+    }
+
+    func checkedPassword() -> Bool {
         return password == checkPassword
     }
 
@@ -312,11 +332,32 @@ final class SignUpViewModel: BaseViewModel {
         isShowingSuccessView = isShowing
     }
 
+    func updateIsEmailErrorOccurred(isErrorOccurred: Bool) {
+        isEmailErrorOccurred = isErrorOccurred
+    }
+
+    func updateIsPasswordErrorOccurred(isErrorOccurred: Bool) {
+        isPasswordErrorOccurred = isErrorOccurred
+    }
+
+    func updateIsCheckPasswordErrorOccurred(isErrorOccurred: Bool) {
+        isCheckPasswordErrorOccurred = isErrorOccurred
+    }
+
+    func updateIsPhoneNumberErrorOccurred(isErrorOccurred: Bool) {
+        isPhoneNumberErrorOccurred = isErrorOccurred
+    }
+
     // swiftlint: disable cyclomatic_complexity
     @MainActor
     func signup(_ success: @escaping () -> Void) {
         guard let selectedSchool else { return }
         guard let selectedClub else { return }
+        guard checkphoneNumber(phoneNumber: phoneNumber)
+        else { return updateIsPhoneNumberErrorOccurred(isErrorOccurred: true) }
+        guard checkEmail(email: email) else { return updateIsEmailErrorOccurred(isErrorOccurred: true) }
+        guard checkPassword(password: password) else { return updateIsPasswordErrorOccurred(isErrorOccurred: true) }
+        guard checkedPassword() else { return updateIsCheckPasswordErrorOccurred(isErrorOccurred: true) }
 
         Task {
             do {
