@@ -30,26 +30,23 @@ struct ChangePasswordView: View {
             VStack(spacing: 0) {
                 BitgouelTextField(
                     "현재 비밀번호 입력",
-                    text: Binding(
-                        get: { viewModel.currentPassword },
-                        set: { newValue in viewModel.currentPassword = newValue }
-                    )
+                    text: $viewModel.currentPassword,
+                    helpMessage: viewModel.currentPasswordHelpMessage,
+                    isError: viewModel.isCurrentPasswordErrorOccurred
                 )
 
                 BitgouelTextField(
                     "새 비밀번호 입력",
-                    text: Binding(
-                        get: { viewModel.newPassword },
-                        set: { newValue in viewModel.newPassword = newValue }
-                    )
+                    text: $viewModel.newPassword,
+                    helpMessage: viewModel.newPasswordHelpMessage,
+                    isError: viewModel.isNewPasswordErrorOccurred
                 )
 
                 BitgouelTextField(
                     "새 비밀번호 확인",
-                    text: Binding(
-                        get: { viewModel.checkNewPassword },
-                        set: { newValue in viewModel.checkNewPassword = newValue }
-                    )
+                    text: $viewModel.checkNewPassword,
+                    helpMessage: viewModel.newPasswordHelpMessage,
+                    isError: viewModel.isNewPasswordErrorOccurred
                 )
 
                 Spacer()
@@ -78,6 +75,15 @@ struct ChangePasswordView: View {
         )
         .onTapGesture {
             hideKeyboard()
+        }
+        .onChange(of: viewModel.currentPassword) { _ in
+            viewModel.updateIsCurrentPasswordErrorOccurred(isErrorOccurred: false)
+        }
+        .onChange(of: viewModel.newPassword) { _ in
+            viewModel.updateIsNewPasswordErrorOccurred(isErrorOccurred: false)
+        }
+        .onChange(of: viewModel.checkNewPassword) { _ in
+            viewModel.updateIsNewPasswordErrorOccurred(isErrorOccurred: false)
         }
     }
 }

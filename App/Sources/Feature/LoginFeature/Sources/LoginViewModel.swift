@@ -6,7 +6,9 @@ final class LoginViewModel: BaseViewModel {
     @Published var password = ""
     @Published var isPresentedSignupPage: Bool = false
     @Published var isPresentedFindPasswordPage: Bool = false
-    @Published var isSuccessSignin = false
+    @Published var isSuccessSignin: Bool = false
+    @Published var isEmailErrorOccured: Bool = false
+    @Published var isPasswordErrorOcuured: Bool = false
     private let loginUseCase: any LoginUseCase
     private let saveUserAuthority: any SaveUserAuthorityUseCase
 
@@ -20,30 +22,6 @@ final class LoginViewModel: BaseViewModel {
 
     var isFormEmpty: Bool {
         email.isEmpty || password.isEmpty
-    }
-
-    var isEmailErrorOccured: Bool {
-        if email.isEmpty {
-            return false
-        }
-
-        if checkEmail(email) {
-            return false
-        } else {
-            return true
-        }
-    }
-
-    var isPasswordErrorOcuured: Bool {
-        if password.isEmpty {
-            return false
-        }
-
-        if checkPassword(password) {
-            return false
-        } else {
-            return true
-        }
     }
 
     var emailHelpMessage: String {
@@ -75,19 +53,25 @@ final class LoginViewModel: BaseViewModel {
     }
 
     func updateIsPresentedSignupPage(isPresented: Bool) {
-        self.isPresentedSignupPage = isPresented
+        isPresentedSignupPage = isPresented
     }
 
     func updateIsPresentedFindPasswordPage(isPresented: Bool) {
-        self.isPresentedFindPasswordPage = isPresented
+        isPresentedFindPasswordPage = isPresented
+    }
+
+    func updateIsEmailErrorOccured(isErrorOccured: Bool) {
+        isEmailErrorOccured = isErrorOccured
+    }
+
+    func updateIsPasswordErrorOccured(isErrorOccured: Bool) {
+        isPasswordErrorOcuured = isErrorOccured
     }
 
     @MainActor
     func login() {
-        guard checkEmail(email) && checkPassword(password) else {
-            errorMessage = "이메일, 비밀번호를 제대로 작성했는지 확인해주세요."
-            return isErrorOccurred = true
-        }
+        guard checkEmail(email) else { return updateIsEmailErrorOccured(isErrorOccured: true) }
+        guard checkPassword(password) else { return updateIsPasswordErrorOccured(isErrorOccured: true) }
 
         Task {
             do {

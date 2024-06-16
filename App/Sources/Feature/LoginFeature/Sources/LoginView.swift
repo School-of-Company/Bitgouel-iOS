@@ -130,6 +130,12 @@ struct LoginView: View {
                 text: viewModel.errorMessage,
                 isShowing: $viewModel.isErrorOccurred
             )
+            .onChange(of: viewModel.email) { _ in
+                viewModel.updateIsEmailErrorOccured(isErrorOccured: false)
+            }
+            .onChange(of: viewModel.password) { _ in
+                viewModel.updateIsPasswordErrorOccured(isErrorOccured: false)
+            }
         }
         .onTapGesture {
             hideKeyboard()

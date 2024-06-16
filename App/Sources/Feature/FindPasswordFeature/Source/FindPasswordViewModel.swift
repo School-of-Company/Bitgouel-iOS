@@ -5,9 +5,7 @@ final class FindPasswordViewModel: BaseViewModel {
     @Published var email: String = ""
     @Published var isPresentedSendEmailPage: Bool = false
     @Published var isPresentedNewPasswordPage: Bool = false
-    var isEmailEmpty: Bool {
-        email.isEmpty
-    }
+    @Published var isEmailErrorOccurred: Bool = false
 
     private let sendEmailCertificationLinkUseCase: any SendEmailCertificationLinkUseCase
     private let fetchEmailVertificationStatusUseCase: any FetchEmailVertificationStatusUseCase
@@ -20,6 +18,20 @@ final class FindPasswordViewModel: BaseViewModel {
         self.fetchEmailVertificationStatusUseCase = fetchEmailVertificationStatusUseCase
     }
 
+    var isEmailEmpty: Bool {
+        email.isEmpty
+    }
+
+    var emailHelpMessage: String {
+        if isEmailErrorOccurred {
+            guard checkEmail(email) else { return "잘못된 이메일입니다." }
+
+            return "이메일로 가입된 유저를 찾을 수 없습니다."
+        } else {
+            return ""
+        }
+    }
+
     func updateIsPresentedSendEmailPage(isPresented: Bool) {
         isPresentedSendEmailPage = isPresented
     }
@@ -28,21 +40,34 @@ final class FindPasswordViewModel: BaseViewModel {
         isPresentedNewPasswordPage = isPresented
     }
 
+    func updateIsEmailErrorOccurred(isErrorOccurred: Bool) {
+        isEmailErrorOccurred = isErrorOccurred
+    }
+
+    func checkEmail(_ email: String) -> Bool {
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
+        return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: email)
+    }
+
+    @MainActor
     func nextToButtonDidTap(_ success: @escaping () -> Void) {
+        guard checkEmail(email) else {
+            return updateIsEmailErrorOccurred(isErrorOccurred: true)
+        }
+
         Task {
             do {
                 try await sendEmailCertificationLinkUseCase(req: EmailRequestDTO(email: email))
 
                 success()
             } catch {
-                errorMessage = error.userDomainErrorMessage()
-                isErrorOccurred = true
+                updateIsEmailErrorOccurred(isErrorOccurred: true)
             }
         }
     }
 
     @MainActor
-    func nextToButtonAction() {
+    func checkEmailVertificationStatus() {
         Task {
             do {
                 let isAuthentication = try await fetchEmailVertificationStatusUseCase(email: email)

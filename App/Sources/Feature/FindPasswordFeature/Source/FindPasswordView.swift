@@ -34,7 +34,9 @@ struct FindPasswordView: View {
 
                 BitgouelTextField(
                     "이메일",
-                    text: $viewModel.email
+                    text: $viewModel.email,
+                    helpMessage: viewModel.emailHelpMessage,
+                    isError: viewModel.isEmailErrorOccurred
                 )
                 .padding(.top, 32)
 
@@ -59,7 +61,7 @@ struct FindPasswordView: View {
                 to: SendEmailView(
                     email: viewModel.email,
                     nextToButtonAction: {
-                        viewModel.nextToButtonAction()
+                        viewModel.checkEmailVertificationStatus()
                     }
                 ),
                 when: Binding(
@@ -82,6 +84,9 @@ struct FindPasswordView: View {
                 text: viewModel.errorMessage,
                 isShowing: $viewModel.isErrorOccurred
             )
+            .onChange(of: viewModel.email) { _ in
+                viewModel.updateIsEmailErrorOccurred(isErrorOccurred: false)
+            }
         }
         .onTapGesture {
             hideKeyboard()
