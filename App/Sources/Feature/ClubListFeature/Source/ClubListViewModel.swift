@@ -3,22 +3,26 @@ import Service
 
 final class ClubListViewModel: BaseViewModel {
     @Published var selectedSchool: HighSchoolType?
-    @Published var isPresentedSelectedSchoolPopup: Bool = false
-    @Published var isPresentedClubDetailView: Bool = false
     @Published var isShowingLoginAlert: Bool = false
+    @Published var schoolClubList: [SchoolListEntity] = []
     @Published var clubList: [ClubEntity] = []
     @Published var clubID: Int = 0
+    @Published var isPresentedSelectedSchoolPopup: Bool = false
+    @Published var isPresentedClubDetailView: Bool = false
     var schoolList: [HighSchoolType] = HighSchoolType.allCases
     var authority: UserAuthorityType = .user
 
-    private let queryClubListUseCase: any QueryClubListUseCase
+    private let fetchClubListUseCase: any FetchClubListUseCase
+    private let fetchSchoolListUseCase: any FetchSchoolListUseCase
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
 
     init(
-        queryClubListUseCase: any QueryClubListUseCase,
+        fetchClubListUseCase: any FetchClubListUseCase,
+        fetchSchoolListUseCase: any FetchSchoolListUseCase,
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
     ) {
-        self.queryClubListUseCase = queryClubListUseCase
+        self.fetchClubListUseCase = fetchClubListUseCase
+        self.fetchSchoolListUseCase = fetchSchoolListUseCase
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
     }
 
@@ -30,12 +34,17 @@ final class ClubListViewModel: BaseViewModel {
         isShowingLoginAlert = isShowing
     }
 
+    func updateIsPresentedClubDetailView(isPresented: Bool) {
+        isPresentedClubDetailView = isPresented
+    }
+
+    @MainActor
     func onAppear() {
         authority = loadUserAuthorityUseCase()
 
         switch authority {
         case .admin:
-            isPresentedSelectedSchoolPopup = true
+            fetchSchoolList()
 
         case .user:
             updateIsShowingLoginAlert(isShowing: true)
@@ -46,12 +55,23 @@ final class ClubListViewModel: BaseViewModel {
     }
 
     @MainActor
+    func fetchSchoolList() {
+        Task {
+            do {
+                schoolClubList = try await fetchSchoolListUseCase()
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+
+    @MainActor
     func fetchClubList() {
         Task {
             do {
                 guard let selectedSchool else { return }
 
-                clubList = try await queryClubListUseCase(highSchool: selectedSchool.rawValue)
+                clubList = try await fetchClubListUseCase(highSchool: selectedSchool.rawValue)
             } catch {
                 errorMessage = error.clubDomainErrorMessage()
                 isErrorOccurred = true

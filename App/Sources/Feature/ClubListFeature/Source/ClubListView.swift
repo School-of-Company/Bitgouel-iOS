@@ -3,9 +3,9 @@ import SwiftUI
 struct ClubListView: View {
     @StateObject var viewModel: ClubListViewModel
     @Binding var selection: TabFlow
-
+    
     private let clubDetailFactory: any ClubDetailFactory
-
+    
     init(
         viewModel: ClubListViewModel,
         clubDetailFactory: any ClubDetailFactory,
@@ -15,45 +15,22 @@ struct ClubListView: View {
         self.clubDetailFactory = clubDetailFactory
         _selection = selection
     }
-
+    
     var body: some View {
         NavigationView {
             ZStack {
-                if viewModel.selectedSchool == nil {
-                    ClubListEmptyContentView()
-                }
-
-                if viewModel.selectedSchool != nil {
-                    ScrollView {
-                        VStack(spacing: 0) {
-                            HStack {
-                                BitgouelText(
-                                    text: viewModel.selectedSchool?.display() ?? "",
-                                    font: .title3
-                                )
-
-                                Spacer()
-                            }
-                            .padding(.top, 40)
-
-                            Divider()
-                                .padding(.top, 12)
-
-                            LazyVStack(spacing: 0) {
-                                ForEach(viewModel.clubList, id: \.id) { club in
-                                    ClubListRow(clubName: club.name)
-                                        .onTapGesture {
-                                            viewModel.updateClubID(clubID: club.id)
-                                            viewModel.isPresentedClubDetailView = true
-                                        }
+                ScrollView {
+                    LazyVStack(spacing: 40) {
+                        ForEach(viewModel.schoolClubList, id: \.id) { school in
+                            SchoolListView(
+                                schoolName: school.schoolName,
+                                clubList: school.clubs) { clubID in
+                                    viewModel.updateClubID(clubID: clubID)
+                                    viewModel.updateIsPresentedClubDetailView(isPresented: true)
                                 }
-                            }
-                            .padding(.top, 8)
-
-                            Spacer()
                         }
-                        .padding(.horizontal, 28)
                     }
+                    .padding(.horizontal, 28)
                 }
 
                 ZStack(alignment: .center) {
@@ -63,7 +40,7 @@ struct ClubListView: View {
                             .onTapGesture {
                                 viewModel.isPresentedSelectedSchoolPopup = false
                             }
-
+                        
                         SchoolListPopup(
                             schoolList: viewModel.schoolList,
                             selectedSchool: viewModel.selectedSchool
