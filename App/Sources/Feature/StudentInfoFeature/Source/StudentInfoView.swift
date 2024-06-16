@@ -86,10 +86,12 @@ struct StudentInfoView: View {
 
                     Spacer()
 
-                    Button {
-                        viewModel.updateIsPresentedInputCertificationView(isPresented: true)
-                    } label: {
-                        BitgouelAsset.Icons.add.swiftUIImage
+                    if viewModel.authority == .student {
+                        Button {
+                            viewModel.updateIsPresentedInputCertificationView(isPresented: true)
+                        } label: {
+                            BitgouelAsset.Icons.add.swiftUIImage
+                        }
                     }
                 }
 
@@ -99,7 +101,8 @@ struct StudentInfoView: View {
                             CertificationListRow(
                                 id: certification.certificationID,
                                 title: certification.name,
-                                acquisitionDate: certification.acquisitionDate
+                                acquisitionDate: certification.acquisitionDate,
+                                userAuthority: viewModel.authority
                             ) {
                                 viewModel.updateEpic(epic: "수정")
                                 viewModel.selectedCertification(
