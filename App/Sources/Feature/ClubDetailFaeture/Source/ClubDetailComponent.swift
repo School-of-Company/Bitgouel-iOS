@@ -5,8 +5,8 @@ import SwiftUI
 public protocol ClubdetailDependency: Dependency {
     var studentInfoFactory: any StudentInfoFactory { get }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase { get }
-    var queryClubDetailUseCase: any QueryClubDetailUseCase { get }
-    var queryStudentListByClubUseCase: any QueryStudentListByClubUseCase { get }
+    var fetchClubDetailUseCase: any FetchClubDetailUseCase { get }
+    var fetchStudentListByClubUseCase: any FetchStudentListByClubUseCase { get }
     var fetchMyInfoUseCase: any FetchMyInfoUseCase { get }
 }
 
@@ -16,8 +16,8 @@ public final class ClubDetailComponent: Component<ClubdetailDependency>, ClubDet
             viewModel: .init(
                 clubID: clubID,
                 loadUserAuthorityUseCase: dependency.loadUserAuthorityUseCase,
-                queryClubDetailUseCase: dependency.queryClubDetailUseCase,
-                queryStudentListByClubUseCase: dependency.queryStudentListByClubUseCase,
+                fetchClubDetailUseCase: dependency.fetchClubDetailUseCase,
+                fetchStudentListByClubUseCase: dependency.fetchStudentListByClubUseCase,
                 fetchMyInfoUseCase: dependency.fetchMyInfoUseCase
             ),
             studentInfoFactory: dependency.studentInfoFactory

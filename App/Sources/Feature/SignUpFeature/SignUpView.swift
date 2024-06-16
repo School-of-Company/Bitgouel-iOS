@@ -121,7 +121,7 @@ struct SignUpView: View {
             isShowing: $viewModel.isErrorOccurred
         )
         .bitgouelBottomSheet(isShowing: $viewModel.isPresentedSchoolSheet) {
-            SchoolListView(
+            SchoolListBottomSheet(
                 searchKeyword: $viewModel.schoolSearch,
                 schoolList: viewModel.searchedSchoolList,
                 selectedSchool: viewModel.selectedSchool
@@ -132,7 +132,7 @@ struct SignUpView: View {
             .frame(height: 415)
         }
         .bitgouelBottomSheet(isShowing: $viewModel.isPresentedClubSheet) {
-            SearchClubListView(
+            SearchClubListBottomSheet(
                 searchText: $viewModel.clubSearch,
                 searchedClubList: viewModel.searchedClubList,
                 selectedClub: viewModel.selectedClub ?? "동아리",

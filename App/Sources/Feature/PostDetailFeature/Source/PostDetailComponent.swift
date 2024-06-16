@@ -4,7 +4,7 @@ import SwiftUI
 
 public protocol PostDetailDependency: Dependency {
     var inputPostFactory: any InputPostFactory { get }
-    var queryPostDetailUseCase: any QueryPostDetailUseCase { get }
+    var fetchPostDetailUseCase: any FetchPostDetailUseCase { get }
     var deletePostUseCase: any DeletePostUseCase { get }
 }
 
@@ -15,7 +15,7 @@ public final class PostDetailComponent: Component<PostDetailDependency>, PostDet
         PostDetailView(
             viewModel: .init(
                 postID: postID,
-                queryPostDetailUseCase: dependency.queryPostDetailUseCase,
+                fetchPostDetailUseCase: dependency.fetchPostDetailUseCase,
                 deletePostUseCase: dependency.deletePostUseCase
             ),
             inputPostFactory: dependency.inputPostFactory

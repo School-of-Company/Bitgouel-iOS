@@ -9,20 +9,20 @@ final class InputNoticeViewModel: BaseViewModel {
     var state: String = ""
     var noticeID: String = ""
 
-    private let queryPostDetailUseCase: any QueryPostDetailUseCase
+    private let fetchPostDetailUseCase: any FetchPostDetailUseCase
     private let writePostUseCase: any WritePostUseCase
     private let updatePostUseCase: any UpdatePostUseCase
 
     init(
         state: String,
         noticeID: String,
-        queryPostDetailUseCase: any QueryPostDetailUseCase,
+        fetchPostDetailUseCase: any FetchPostDetailUseCase,
         writePostUseCase: any WritePostUseCase,
         updatePostUseCase: any UpdatePostUseCase
     ) {
         self.state = state
         self.noticeID = noticeID
-        self.queryPostDetailUseCase = queryPostDetailUseCase
+        self.fetchPostDetailUseCase = fetchPostDetailUseCase
         self.writePostUseCase = writePostUseCase
         self.updatePostUseCase = updatePostUseCase
     }
@@ -55,7 +55,7 @@ final class InputNoticeViewModel: BaseViewModel {
 
         Task {
             do {
-                let noticeDetail = try await queryPostDetailUseCase(postID: noticeID)
+                let noticeDetail = try await fetchPostDetailUseCase(postID: noticeID)
 
                 updateNoticeDetail(noticeDetail: noticeDetail)
                 isLoading = false

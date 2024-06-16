@@ -11,12 +11,12 @@ public struct PostRepositoryImpl: PostRepository {
         try await remotePostDataSource.writePost(req: req)
     }
 
-    public func queryPostList(postType: FeedType) async throws -> PostContentEntity {
-        try await remotePostDataSource.queryPostList(postType: postType)
+    public func fetchPostList(postType: FeedType) async throws -> PostContentEntity {
+        try await remotePostDataSource.fetchPostList(postType: postType)
     }
 
-    public func queryPostDetail(postID: String) async throws -> PostDetailEntity {
-        try await remotePostDataSource.queryPostDetail(postID: postID)
+    public func fetchPostDetail(postID: String) async throws -> PostDetailEntity {
+        try await remotePostDataSource.fetchPostDetail(postID: postID)
     }
 
     public func updatePost(postID: String, req: UpdatePostRequestDTO) async throws {

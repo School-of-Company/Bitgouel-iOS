@@ -1,9 +1,11 @@
 import SwiftUI
+import Service
 
 struct CertificationListRow: View {
     let id: String
     let title: String
     let acquisitionDate: String
+    let userAuthority: UserAuthorityType
     let editAction: () -> Void
 
     var body: some View {
@@ -18,19 +20,26 @@ struct CertificationListRow: View {
 
                 Spacer()
 
-                Button {
-                    editAction()
-                } label: {
-                    BitgouelText(
-                        text: "수정",
-                        font: .text3
-                    )
-                    .overlay(
-                        Rectangle()
-                            .frame(height: 1),
-                        alignment: .bottom
-                    )
-                    .foregroundColor(.bitgouel(.greyscale(.g7)))
+                switch userAuthority {
+                case .student,
+                     .teacher:
+                    Button {
+                        editAction()
+                    } label: {
+                        BitgouelText(
+                            text: "수정",
+                            font: .text3
+                        )
+                        .overlay(
+                            Rectangle()
+                                .frame(height: 1),
+                            alignment: .bottom
+                        )
+                        .foregroundColor(.bitgouel(.greyscale(.g7)))
+                    }
+
+                default:
+                    EmptyView()
                 }
             }
 

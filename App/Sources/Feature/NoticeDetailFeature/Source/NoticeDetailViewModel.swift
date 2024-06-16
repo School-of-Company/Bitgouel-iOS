@@ -7,16 +7,16 @@ final class NoticeDetailViewModel: BaseViewModel {
     @Published var noticeDetail: PostDetailEntity?
     @Published var isPresentedInputNoticeView: Bool = false
 
-    private let queryPostDetailUseCase: any QueryPostDetailUseCase
+    private let fetchPostDetailUseCase: any FetchPostDetailUseCase
     private let deletePostUseCase: any DeletePostUseCase
 
     init(
         noticeID: String,
-        queryPostDetailUseCase: any QueryPostDetailUseCase,
+        fetchPostDetailUseCase: any FetchPostDetailUseCase,
         deletePostUseCase: any DeletePostUseCase
     ) {
         self.noticeID = noticeID
-        self.queryPostDetailUseCase = queryPostDetailUseCase
+        self.fetchPostDetailUseCase = fetchPostDetailUseCase
         self.deletePostUseCase = deletePostUseCase
     }
 
@@ -34,7 +34,7 @@ final class NoticeDetailViewModel: BaseViewModel {
 
         Task {
             do {
-                noticeDetail = try await queryPostDetailUseCase(postID: noticeID)
+                noticeDetail = try await fetchPostDetailUseCase(postID: noticeID)
 
                 isLoading = false
             } catch {

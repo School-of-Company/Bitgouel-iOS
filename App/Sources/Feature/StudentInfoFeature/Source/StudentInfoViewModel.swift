@@ -17,26 +17,26 @@ final class StudentInfoViewModel: BaseViewModel {
     var clubID: Int = 0
 
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
-    private let queryStudentDetailByClubUseCase: any QueryStudentDetailByClubUseCase
-    private let queryCertificationListByStudent: any QueryCertificationListByStudentUseCase
-    private let queryCertificationListByTeacher: any QueryCertificationListByTeacherUseCase
+    private let fetchStudentDetailByClubUseCase: any FetchStudentDetailByClubUseCase
+    private let fetchCertificationListByStudent: any FetchCertificationListByStudentUseCase
+    private let fetchCertificationListByTeacher: any FetchCertificationListByTeacherUseCase
     private let fetchAppliedLectureListUseCase: any FetchAppliedLectureListUseCase
 
     init(
         clubID: Int,
         studentID: String,
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
-        queryStudentDetailByClubUseCase: any QueryStudentDetailByClubUseCase,
-        queryCertificationListByStudent: any QueryCertificationListByStudentUseCase,
-        queryCertificationListByTeacher: any QueryCertificationListByTeacherUseCase,
+        fetchStudentDetailByClubUseCase: any FetchStudentDetailByClubUseCase,
+        fetchCertificationListByStudent: any FetchCertificationListByStudentUseCase,
+        fetchCertificationListByTeacher: any FetchCertificationListByTeacherUseCase,
         fetchAppliedLectureListUseCase: any FetchAppliedLectureListUseCase
     ) {
         self.clubID = clubID
         self.studentID = studentID
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
-        self.queryStudentDetailByClubUseCase = queryStudentDetailByClubUseCase
-        self.queryCertificationListByStudent = queryCertificationListByStudent
-        self.queryCertificationListByTeacher = queryCertificationListByTeacher
+        self.fetchStudentDetailByClubUseCase = fetchStudentDetailByClubUseCase
+        self.fetchCertificationListByStudent = fetchCertificationListByStudent
+        self.fetchCertificationListByTeacher = fetchCertificationListByTeacher
         self.fetchAppliedLectureListUseCase = fetchAppliedLectureListUseCase
     }
 
@@ -91,17 +91,17 @@ final class StudentInfoViewModel: BaseViewModel {
 
     @MainActor
     func updateStudentInfo() async throws {
-        studentInfo = try await queryStudentDetailByClubUseCase(clubID: clubID, studentID: studentID)
+        studentInfo = try await fetchStudentDetailByClubUseCase(clubID: clubID, studentID: studentID)
     }
 
     @MainActor
     func updateCertificationListByStudent() async throws {
-        certificationList = try await queryCertificationListByStudent()
+        certificationList = try await fetchCertificationListByStudent()
     }
 
     @MainActor
     func updateCertificationListByTeacher() async throws {
-        certificationList = try await queryCertificationListByTeacher(studentID: studentID)
+        certificationList = try await fetchCertificationListByTeacher(studentID: studentID)
     }
 
     @MainActor

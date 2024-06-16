@@ -7,12 +7,12 @@ public struct CertificationRepositoryImpl: CertificationRepository {
         self.remoteCertificationDataSource = remoteCertificationDataSource
     }
 
-    public func queryCertificationListByTeacher(studentID: String) async throws -> [CertificationInfoEntity] {
-        try await remoteCertificationDataSource.queryCertificationListByTeacher(studentID: studentID)
+    public func fetchCertificationListByTeacher(studentID: String) async throws -> [CertificationInfoEntity] {
+        try await remoteCertificationDataSource.fetchCertificationListByTeacher(studentID: studentID)
     }
 
-    public func queryCertificationListByStudent() async throws -> [CertificationInfoEntity] {
-        try await remoteCertificationDataSource.queryCertificationListByStudent()
+    public func fetchCertificationListByStudent() async throws -> [CertificationInfoEntity] {
+        try await remoteCertificationDataSource.fetchCertificationListByStudent()
     }
 
     public func inputCertification(req: InputCertificationRequestDTO) async throws {

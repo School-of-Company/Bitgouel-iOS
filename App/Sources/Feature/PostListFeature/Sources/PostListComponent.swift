@@ -8,7 +8,7 @@ public protocol PostListDependency: Dependency {
     var inputPostFactory: any InputPostFactory { get }
     var postDetailFactory: any PostDetailFactory { get }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase { get }
-    var queryPostListUseCase: any QueryPostListUseCase { get }
+    var fetchPostListUseCase: any FetchPostListUseCase { get }
 }
 
 public final class PostListComponent: Component<PostListDependency>, PostListFactory {
@@ -16,7 +16,7 @@ public final class PostListComponent: Component<PostListDependency>, PostListFac
         PostListView(
             viewModel: .init(
                 loadUserAuthorityUseCase: dependency.loadUserAuthorityUseCase,
-                queryPostListUseCase: dependency.queryPostListUseCase
+                fetchPostListUseCase: dependency.fetchPostListUseCase
             ),
             noticeListFactory: dependency.noticeListFactory,
             inquiryListFactory: dependency.inquiryListFactory,

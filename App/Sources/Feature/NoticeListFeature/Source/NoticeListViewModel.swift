@@ -19,14 +19,14 @@ final class NoticeListViewModel: BaseViewModel {
     var authority: UserAuthorityType = .user
     // swiftlint: enable identifier_name
 
-    private let queryPostListUseCase: any QueryPostListUseCase
+    private let fetchPostListUseCase: any FetchPostListUseCase
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
 
     init(
-        queryPostListUseCase: any QueryPostListUseCase,
+        fetchPostListUseCase: any FetchPostListUseCase,
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
     ) {
-        self.queryPostListUseCase = queryPostListUseCase
+        self.fetchPostListUseCase = fetchPostListUseCase
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
     }
 
@@ -49,7 +49,7 @@ final class NoticeListViewModel: BaseViewModel {
 
         Task {
             do {
-                noticeContent = try await queryPostListUseCase(postType: .notice)
+                noticeContent = try await fetchPostListUseCase(postType: .notice)
 
                 isLoading = false
             } catch {

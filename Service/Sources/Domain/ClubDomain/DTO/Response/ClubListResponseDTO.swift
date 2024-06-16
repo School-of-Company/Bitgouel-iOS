@@ -1,27 +1,7 @@
 import Foundation
 
 public struct ClubListResponseDTO: Decodable {
-    public let clubs: [Club]
-
-    public init(clubs: [Club]) {
-        self.clubs = clubs
-    }
-}
-
-public extension ClubListResponseDTO {
-    struct Club: Decodable {
-        public let id: Int
-        public let name: String
-    }
-}
-
-extension ClubListResponseDTO.Club {
-    func toDomain() -> ClubEntity {
-        ClubEntity(
-            id: id,
-            name: name
-        )
-    }
+    public let clubs: [ClubResponseDTO]
 }
 
 extension ClubListResponseDTO {

@@ -11,7 +11,7 @@ final class InputPostViewModel: BaseViewModel {
     var postID: String = ""
 
     private let writePostUseCase: any WritePostUseCase
-    private let queryPostDetailUseCase: any QueryPostDetailUseCase
+    private let fetchPostDetailUseCase: any FetchPostDetailUseCase
     private let updatePostUseCase: any UpdatePostUseCase
 
     init(
@@ -19,12 +19,12 @@ final class InputPostViewModel: BaseViewModel {
         postID: String,
         writePostUseCase: any WritePostUseCase,
         updatePostUseCase: any UpdatePostUseCase,
-        queryPostDetailUseCase: any QueryPostDetailUseCase
+        fetchPostDetailUseCase: any FetchPostDetailUseCase
     ) {
         self.state = state
         self.postID = postID
         self.writePostUseCase = writePostUseCase
-        self.queryPostDetailUseCase = queryPostDetailUseCase
+        self.fetchPostDetailUseCase = fetchPostDetailUseCase
         self.updatePostUseCase = updatePostUseCase
     }
 
@@ -56,7 +56,7 @@ final class InputPostViewModel: BaseViewModel {
 
         Task {
             do {
-                postDetail = try await queryPostDetailUseCase(postID: postID)
+                postDetail = try await fetchPostDetailUseCase(postID: postID)
 
                 guard let postDetail else { return }
                 updatePostDetail(postDetail: postDetail)
