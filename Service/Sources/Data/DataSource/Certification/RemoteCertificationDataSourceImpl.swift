@@ -2,15 +2,15 @@ import Foundation
 
 public final class RemoteCertificationDataSourceImpl: BaseRemoteDataSource<CertificationAPI>,
     RemoteCertificationDataSource {
-    public func queryCertificationListByTeacher(studentID: String) async throws -> [CertificationInfoEntity] {
+    public func fetchCertificationListByTeacher(studentID: String) async throws -> [CertificationInfoEntity] {
         try await request(
-            .queryCertificationListByTeacher(studentID: studentID),
+            .fetchCertificationListByTeacher(studentID: studentID),
             dto: CertificationListResponseDTO.self
         ).toDomain()
     }
 
-    public func queryCertificationListByStudent() async throws -> [CertificationInfoEntity] {
-        try await request(.queryCertificationListByStudent, dto: CertificationListResponseDTO.self).toDomain()
+    public func fetchCertificationListByStudent() async throws -> [CertificationInfoEntity] {
+        try await request(.fetchCertificationListByStudent, dto: CertificationListResponseDTO.self).toDomain()
     }
 
     public func inputCertification(req: InputCertificationRequestDTO) async throws {

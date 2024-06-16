@@ -2,8 +2,8 @@ import Foundation
 import Moya
 
 public enum CertificationAPI {
-    case queryCertificationListByTeacher(studentID: String)
-    case queryCertificationListByStudent
+    case fetchCertificationListByTeacher(studentID: String)
+    case fetchCertificationListByStudent
     case inputCertification(req: InputCertificationRequestDTO)
     case updateCertification(certificationID: String, req: InputCertificationRequestDTO)
 }
@@ -17,10 +17,10 @@ extension CertificationAPI: BitgouelAPI {
 
     public var urlPath: String {
         switch self {
-        case .queryCertificationListByStudent,
+        case .fetchCertificationListByStudent,
              .inputCertification:
             return ""
-        case let .queryCertificationListByTeacher(studentID):
+        case let .fetchCertificationListByTeacher(studentID):
             return "/\(studentID)"
         case let .updateCertification(certificationID, _):
             return "/\(certificationID)"
@@ -31,8 +31,8 @@ extension CertificationAPI: BitgouelAPI {
         switch self {
         case .inputCertification:
             return .post
-        case .queryCertificationListByTeacher,
-             .queryCertificationListByStudent:
+        case .fetchCertificationListByTeacher,
+             .fetchCertificationListByStudent:
             return .get
         case .updateCertification:
             return .patch
@@ -41,9 +41,10 @@ extension CertificationAPI: BitgouelAPI {
 
     public var task: Moya.Task {
         switch self {
-        case .queryCertificationListByTeacher,
-             .queryCertificationListByStudent:
+        case .fetchCertificationListByTeacher,
+             .fetchCertificationListByStudent:
             return .requestPlain
+
         case let .inputCertification(req),
              let .updateCertification(_, req):
             return .requestJSONEncodable(req)

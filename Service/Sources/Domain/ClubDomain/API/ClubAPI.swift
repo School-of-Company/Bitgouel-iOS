@@ -2,10 +2,10 @@ import Foundation
 import Moya
 
 public enum ClubAPI {
-    case queryClubList(highSchool: String)
-    case queryClubDetail(clubID: Int)
-    case queryStudentListByClub
-    case queryStudentDetailByClub(clubID: Int, studentID: String)
+    case fetchClubList(highSchool: String)
+    case fetchClubDetail(clubID: Int)
+    case fetchStudentListByClub
+    case fetchStudentDetailByClub(clubID: Int, studentID: String)
 }
 
 extension ClubAPI: BitgouelAPI {
@@ -17,46 +17,43 @@ extension ClubAPI: BitgouelAPI {
 
     public var urlPath: String {
         switch self {
-        case .queryClubList:
+        case .fetchClubList:
             return ""
-        case let .queryClubDetail(clubID):
+        case let .fetchClubDetail(clubID):
             return "/\(clubID)"
-        case .queryStudentListByClub:
+        case .fetchStudentListByClub:
             return "/my"
-        case let .queryStudentDetailByClub(clubID, studentID):
+        case let .fetchStudentDetailByClub(clubID, studentID):
             return "/\(clubID)/\(studentID)"
         }
     }
 
     public var method: Moya.Method {
         switch self {
-        case .queryClubList,
-             .queryClubDetail,
-             .queryStudentListByClub,
-             .queryStudentDetailByClub:
+        case .fetchClubList,
+             .fetchClubDetail,
+             .fetchStudentListByClub,
+             .fetchStudentDetailByClub:
             return .get
         }
     }
 
     public var task: Moya.Task {
         switch self {
-        case let .queryClubList(highSchool):
+        case let .fetchClubList(highSchool):
             return .requestParameters(parameters: [
                 "highSchool": highSchool
             ], encoding: URLEncoding.queryString)
-        case .queryClubDetail,
-             .queryStudentListByClub,
-             .queryStudentDetailByClub:
+        case .fetchClubDetail,
+             .fetchStudentListByClub,
+             .fetchStudentDetailByClub:
             return .requestPlain
         }
     }
 
     public var jwtTokenType: JwtTokenType {
         switch self {
-        case .queryClubList,
-             .queryClubDetail,
-             .queryStudentListByClub,
-             .queryStudentDetailByClub:
+        default:
             return .accessToken
         }
     }

@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol QueryCertificationListByStudentUseCase {
+public protocol FetchCertificationListByStudentUseCase {
     func callAsFunction() async throws -> [CertificationInfoEntity]
 }

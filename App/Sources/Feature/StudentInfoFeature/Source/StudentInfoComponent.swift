@@ -6,9 +6,9 @@ public protocol StudentInfoDependency: Dependency {
     var activityListFactory: any ActivityListFactory { get }
     var inputCertificationFactory: any InputCertificationFactory { get }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase { get }
-    var queryStudentDetailByClubUseCase: any QueryStudentDetailByClubUseCase { get }
-    var queryCertificationListByStudentUseCase: any QueryCertificationListByStudentUseCase { get }
-    var queryCertificationListByTeacherUseCase: any QueryCertificationListByTeacherUseCase { get }
+    var fetchStudentDetailByClubUseCase: any FetchStudentDetailByClubUseCase { get }
+    var fetchCertificationListByStudentUseCase: any FetchCertificationListByStudentUseCase { get }
+    var fetchCertificationListByTeacherUseCase: any FetchCertificationListByTeacherUseCase { get }
     var fetchAppliedLectureListUseCase: any FetchAppliedLectureListUseCase { get }
 }
 
@@ -23,9 +23,9 @@ public final class StudentInfoComponent: Component<StudentInfoDependency>, Stude
                 clubID: clubID,
                 studentID: studentID,
                 loadUserAuthorityUseCase: dependency.loadUserAuthorityUseCase,
-                queryStudentDetailByClubUseCase: dependency.queryStudentDetailByClubUseCase,
-                queryCertificationListByStudent: dependency.queryCertificationListByStudentUseCase,
-                queryCertificationListByTeacher: dependency.queryCertificationListByTeacherUseCase,
+                fetchStudentDetailByClubUseCase: dependency.fetchStudentDetailByClubUseCase,
+                fetchCertificationListByStudent: dependency.fetchCertificationListByStudentUseCase,
+                fetchCertificationListByTeacher: dependency.fetchCertificationListByTeacherUseCase,
                 fetchAppliedLectureListUseCase: dependency.fetchAppliedLectureListUseCase
             ),
             activityListFactory: dependency.activityListFactory,

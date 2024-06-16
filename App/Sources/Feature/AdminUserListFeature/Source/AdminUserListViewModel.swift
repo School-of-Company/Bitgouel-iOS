@@ -29,13 +29,12 @@ final class AdminUserListViewModel: BaseViewModel {
         Task {
             do {
                 userList = try await fetchUserListUseCase(
-                    keyword: keyword,
+                    keyword: keyword.trimmingCharacters(in: .whitespaces),
                     authority: selectedAuthority?.rawValue ?? "",
                     approveStatus: ""
                 )
             } catch {
-                errorMessage = error.adminDomainErrorMessage()
-                isErrorOccurred = true
+                print(error.localizedDescription)
             }
         }
     }

@@ -1,6 +1,6 @@
 import Foundation
 
-public struct QueryPostDetailUseCaseImpl: QueryPostDetailUseCase {
+public struct FetchPostDetailUseCaseImpl: FetchPostDetailUseCase {
     private let postRepository: any PostRepository
 
     public init(postRepository: any PostRepository) {
@@ -8,6 +8,6 @@ public struct QueryPostDetailUseCaseImpl: QueryPostDetailUseCase {
     }
 
     public func callAsFunction(postID: String) async throws -> PostDetailEntity {
-        try await postRepository.queryPostDetail(postID: postID)
+        try await postRepository.fetchPostDetail(postID: postID)
     }
 }

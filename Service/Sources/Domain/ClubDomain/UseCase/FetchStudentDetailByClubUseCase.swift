@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol QueryStudentDetailByClubUseCase {
+public protocol FetchStudentDetailByClubUseCase {
     func callAsFunction(clubID: Int, studentID: String) async throws -> StudentDetailByClubEntity
 }

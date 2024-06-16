@@ -4,7 +4,7 @@ import SwiftUI
 
 public protocol InputNoticeDependency: Dependency {
     var noticeDetailSettingFactory: any NoticeDetailSettingFactory { get }
-    var queryPostDetailUseCase: any QueryPostDetailUseCase { get }
+    var fetchPostDetailUseCase: any FetchPostDetailUseCase { get }
     var writePostUseCase: any WritePostUseCase { get }
     var updatePostUseCase: any UpdatePostUseCase { get }
 }
@@ -18,7 +18,7 @@ public final class InputNoticeComponent: Component<InputNoticeDependency>, Input
             viewModel: .init(
                 state: state,
                 noticeID: noticeID,
-                queryPostDetailUseCase: dependency.queryPostDetailUseCase,
+                fetchPostDetailUseCase: dependency.fetchPostDetailUseCase,
                 writePostUseCase: dependency.writePostUseCase,
                 updatePostUseCase: dependency.updatePostUseCase
             ),

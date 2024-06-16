@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol QueryClubListUseCase {
+public protocol FetchClubListUseCase {
     func callAsFunction(highSchool: String) async throws -> [ClubEntity]
 }

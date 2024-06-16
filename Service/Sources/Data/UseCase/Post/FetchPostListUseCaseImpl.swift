@@ -1,6 +1,6 @@
 import Foundation
 
-public struct QueryPostListUseCaseImpl: QueryPostListUseCase {
+public struct FetchPostListUseCaseImpl: FetchPostListUseCase {
     private let postRepository: any PostRepository
 
     public init(postRepository: any PostRepository) {
@@ -8,6 +8,6 @@ public struct QueryPostListUseCaseImpl: QueryPostListUseCase {
     }
 
     public func callAsFunction(postType: FeedType) async throws -> PostContentEntity {
-        try await postRepository.queryPostList(postType: postType)
+        try await postRepository.fetchPostList(postType: postType)
     }
 }

@@ -7,16 +7,16 @@ final class PostDetailViewModel: BaseViewModel {
     @Published var postID: String = ""
     @Published var isPresentedInputPostView: Bool = false
 
-    private let queryPostDetailUseCase: any QueryPostDetailUseCase
+    private let fetchPostDetailUseCase: any FetchPostDetailUseCase
     private let deletePostUseCase: any DeletePostUseCase
 
     init(
         postID: String,
-        queryPostDetailUseCase: any QueryPostDetailUseCase,
+        fetchPostDetailUseCase: any FetchPostDetailUseCase,
         deletePostUseCase: any DeletePostUseCase
     ) {
         self.postID = postID
-        self.queryPostDetailUseCase = queryPostDetailUseCase
+        self.fetchPostDetailUseCase = fetchPostDetailUseCase
         self.deletePostUseCase = deletePostUseCase
     }
 
@@ -30,7 +30,7 @@ final class PostDetailViewModel: BaseViewModel {
 
         Task {
             do {
-                postDetail = try await queryPostDetailUseCase(postID: postID)
+                postDetail = try await fetchPostDetailUseCase(postID: postID)
 
                 isLoading = false
             } catch {

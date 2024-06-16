@@ -16,21 +16,21 @@ final class ClubDetailViewModel: BaseViewModel {
 
     // MARK: UseCase
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
-    private let queryClubDetailUseCase: any QueryClubDetailUseCase
-    private let queryStudentListByClubUseCase: any QueryStudentListByClubUseCase
+    private let fetchClubDetailUseCase: any FetchClubDetailUseCase
+    private let fetchStudentListByClubUseCase: any FetchStudentListByClubUseCase
     private let fetchMyInfoUseCase: any FetchMyInfoUseCase
 
     init(
         clubID: Int,
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
-        queryClubDetailUseCase: any QueryClubDetailUseCase,
-        queryStudentListByClubUseCase: any QueryStudentListByClubUseCase,
+        fetchClubDetailUseCase: any FetchClubDetailUseCase,
+        fetchStudentListByClubUseCase: any FetchStudentListByClubUseCase,
         fetchMyInfoUseCase: any FetchMyInfoUseCase
     ) {
         self.clubID = clubID
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
-        self.queryClubDetailUseCase = queryClubDetailUseCase
-        self.queryStudentListByClubUseCase = queryStudentListByClubUseCase
+        self.fetchClubDetailUseCase = fetchClubDetailUseCase
+        self.fetchStudentListByClubUseCase = fetchStudentListByClubUseCase
         self.fetchMyInfoUseCase = fetchMyInfoUseCase
     }
 
@@ -59,10 +59,10 @@ final class ClubDetailViewModel: BaseViewModel {
     func fetchClubDetail(authority: UserAuthorityType) async throws -> ClubDetailEntity {
         switch authority {
         case .admin:
-            return try await queryClubDetailUseCase(clubID: clubID)
+            return try await fetchClubDetailUseCase(clubID: clubID)
 
         default:
-            return try await queryStudentListByClubUseCase()
+            return try await fetchStudentListByClubUseCase()
         }
     }
 

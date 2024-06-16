@@ -15,15 +15,15 @@ final class PostListViewModel: BaseViewModel {
     @Published var seletedPostID: String = ""
 
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
-    private let queryPostListUseCase: any QueryPostListUseCase
+    private let fetchPostListUseCase: any FetchPostListUseCase
     // swiftlint: enable identifier_name
 
     init(
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
-        queryPostListUseCase: any QueryPostListUseCase
+        fetchPostListUseCase: any FetchPostListUseCase
     ) {
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
-        self.queryPostListUseCase = queryPostListUseCase
+        self.fetchPostListUseCase = fetchPostListUseCase
     }
 
     @MainActor
@@ -42,7 +42,7 @@ final class PostListViewModel: BaseViewModel {
         default:
             Task {
                 do {
-                    postContent = try await queryPostListUseCase(postType: .employment)
+                    postContent = try await fetchPostListUseCase(postType: .employment)
                 } catch {
                     errorMessage = error.postDomainErrorMessage()
                     isErrorOccurred = true

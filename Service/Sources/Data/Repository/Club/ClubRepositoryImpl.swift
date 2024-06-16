@@ -7,19 +7,19 @@ public struct ClubRepositoryImpl: ClubRepository {
         self.remoteClubDataSource = remoteClubDataSource
     }
 
-    public func queryClubList(highSchool: String) async throws -> [ClubEntity] {
-        try await remoteClubDataSource.queryClubList(highSchool: highSchool)
+    public func fetchClubList(highSchool: String) async throws -> [ClubEntity] {
+        try await remoteClubDataSource.fetchClubList(highSchool: highSchool)
     }
 
-    public func queryClubDetail(clubID: Int) async throws -> ClubDetailEntity {
-        try await remoteClubDataSource.queryClubDetail(clubID: clubID)
+    public func fetchClubDetail(clubID: Int) async throws -> ClubDetailEntity {
+        try await remoteClubDataSource.fetchClubDetail(clubID: clubID)
     }
 
-    public func queryStudentListByClub() async throws -> ClubDetailEntity {
-        try await remoteClubDataSource.queryStudentListByClub()
+    public func fetchStudentListByClub() async throws -> ClubDetailEntity {
+        try await remoteClubDataSource.fetchStudentListByClub()
     }
 
-    public func queryStudentDetailByClub(clubID: Int, studentID: String) async throws -> StudentDetailByClubEntity {
-        try await remoteClubDataSource.queryStudentDetailByClub(clubID: clubID, studentID: studentID)
+    public func fetchStudentDetailByClub(clubID: Int, studentID: String) async throws -> StudentDetailByClubEntity {
+        try await remoteClubDataSource.fetchStudentDetailByClub(clubID: clubID, studentID: studentID)
     }
 }

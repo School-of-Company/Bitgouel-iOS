@@ -1,6 +1,6 @@
 import Foundation
 
-public struct QueryClubListUseCaseImpl: QueryClubListUseCase {
+public struct FetchClubListUseCaseImpl: FetchClubListUseCase {
     private let clubRepository: any ClubRepository
 
     public init(clubRepository: any ClubRepository) {
@@ -8,6 +8,6 @@ public struct QueryClubListUseCaseImpl: QueryClubListUseCase {
     }
 
     public func callAsFunction(highSchool: String) async throws -> [ClubEntity] {
-        try await clubRepository.queryClubList(highSchool: highSchool)
+        try await clubRepository.fetchClubList(highSchool: highSchool)
     }
 }

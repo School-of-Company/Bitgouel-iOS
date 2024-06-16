@@ -20,15 +20,15 @@ public extension AppComponent {
         }
     }
 
-    var queryPostListUseCase: any QueryPostListUseCase {
+    var fetchPostListUseCase: any FetchPostListUseCase {
         shared {
-            QueryPostListUseCaseImpl(postRepository: postRepository)
+            FetchPostListUseCaseImpl(postRepository: postRepository)
         }
     }
 
-    var queryPostDetailUseCase: any QueryPostDetailUseCase {
+    var fetchPostDetailUseCase: any FetchPostDetailUseCase {
         shared {
-            QueryPostDetailUseCaseImpl(postRepository: postRepository)
+            FetchPostDetailUseCaseImpl(postRepository: postRepository)
         }
     }
 

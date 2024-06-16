@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct SearchClubListView: View {
+struct SearchClubListBottomSheet: View {
     @Binding var searchText: String
     let searchedClubList: [String]
     let selectedClub: String
@@ -29,7 +29,7 @@ struct SearchClubListView: View {
             ScrollView {
                 LazyVStack {
                     ForEach(searchedClubList, id: \.self) { club in
-                        SearchClubListRowView(
+                        SearchClubListRow(
                             club: club,
                             isSelected: Binding(
                                 get: { club == selectedClub },

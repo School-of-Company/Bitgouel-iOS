@@ -14,27 +14,27 @@ public extension AppComponent {
         }
     }
 
-    var queryClubListUseCase: any QueryClubListUseCase {
+    var fetchClubListUseCase: any FetchClubListUseCase {
         shared {
-            QueryClubListUseCaseImpl(clubRepository: clubRepository)
+            FetchClubListUseCaseImpl(clubRepository: clubRepository)
         }
     }
 
-    var queryClubDetailUseCase: any QueryClubDetailUseCase {
+    var fetchClubDetailUseCase: any FetchClubDetailUseCase {
         shared {
-            QueryClubDatailUseCaseImpl(clubRepository: clubRepository)
+            FetchClubDatailUseCaseImpl(clubRepository: clubRepository)
         }
     }
 
-    var queryStudentListByClubUseCase: any QueryStudentListByClubUseCase {
+    var fetchStudentListByClubUseCase: any FetchStudentListByClubUseCase {
         shared {
-            QueryStudentListByClubUseCaseImpl(clubRepository: clubRepository)
+            FetchStudentListByClubUseCaseImpl(clubRepository: clubRepository)
         }
     }
 
-    var queryStudentDetailByClubUseCase: any QueryStudentDetailByClubUseCase {
+    var fetchStudentDetailByClubUseCase: any FetchStudentDetailByClubUseCase {
         shared {
-            QueryStudentDetailByClubUseCaseImpl(clubRepository: clubRepository)
+            FetchStudentDetailByClubUseCaseImpl(clubRepository: clubRepository)
         }
     }
 }

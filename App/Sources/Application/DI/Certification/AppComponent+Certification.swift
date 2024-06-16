@@ -14,15 +14,15 @@ public extension AppComponent {
         }
     }
 
-    var queryCertificationListByTeacherUseCase: any QueryCertificationListByTeacherUseCase {
+    var fetchCertificationListByTeacherUseCase: any FetchCertificationListByTeacherUseCase {
         shared {
-            QueryCertificationListByTeacherUseCaseImpl(certificationRepository: certificationRepository)
+            FetchCertificationListByTeacherUseCaseImpl(certificationRepository: certificationRepository)
         }
     }
 
-    var queryCertificationListByStudentUseCase: any QueryCertificationListByStudentUseCase {
+    var fetchCertificationListByStudentUseCase: any FetchCertificationListByStudentUseCase {
         shared {
-            QueryCertificationListByStudentUseCaseImpl(certificationRepository: certificationRepository)
+            FetchCertificationListByStudentUseCaseImpl(certificationRepository: certificationRepository)
         }
     }
 

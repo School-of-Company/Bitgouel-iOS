@@ -1,7 +1,7 @@
 import Foundation
 
 // swiftlint: disable type_name
-public struct QueryCertificationListByTeacherUseCaseImpl: QueryCertificationListByTeacherUseCase {
+public struct FetchCertificationListByTeacherUseCaseImpl: FetchCertificationListByTeacherUseCase {
     private let certificationRepository: any CertificationRepository
 
     public init(certificationRepository: any CertificationRepository) {
@@ -9,7 +9,7 @@ public struct QueryCertificationListByTeacherUseCaseImpl: QueryCertificationList
     }
 
     public func callAsFunction(studentID: String) async throws -> [CertificationInfoEntity] {
-        try await certificationRepository.queryCertificationListByTeacher(studentID: studentID)
+        try await certificationRepository.fetchCertificationListByTeacher(studentID: studentID)
     }
 }
 

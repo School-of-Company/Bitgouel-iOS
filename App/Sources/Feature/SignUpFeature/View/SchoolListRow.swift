@@ -1,7 +1,7 @@
 import Service
 import SwiftUI
 
-struct SchoolListRowView: View {
+struct SchoolListRow: View {
     let school: HighSchoolType
     let selectedSchool: HighSchoolType?
     let onHighSchoolSelect: (HighSchoolType) -> Void

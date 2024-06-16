@@ -1,6 +1,6 @@
 import Foundation
 
-public final class QueryClubDetailUseCaseStub: QueryClubDetailUseCase {
+public final class FetchClubDetailUseCaseStub: FetchClubDetailUseCase {
     public init() {}
     public func callAsFunction(clubID: Int) async throws -> ClubDetailEntity {
         ClubDetailEntity(

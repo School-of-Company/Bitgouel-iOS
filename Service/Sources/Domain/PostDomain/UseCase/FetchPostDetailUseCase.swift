@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol QueryPostDetailUseCase {
+public protocol FetchPostDetailUseCase {
     func callAsFunction(postID: String) async throws -> PostDetailEntity
 }

@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol QueryPostListUseCase {
+public protocol FetchPostListUseCase {
     func callAsFunction(postType: FeedType) async throws -> PostContentEntity
 }

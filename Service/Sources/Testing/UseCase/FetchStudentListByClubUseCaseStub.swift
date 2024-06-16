@@ -1,6 +1,6 @@
 import Foundation
 
-public final class QueryStudentListByClubUseCaseStub: QueryStudentListByClubUseCase {
+public final class FetchStudentListByClubUseCaseStub: FetchStudentListByClubUseCase {
     public init() {}
     public func callAsFunction() async throws -> ClubDetailEntity {
         ClubDetailEntity(
