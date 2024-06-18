@@ -23,6 +23,8 @@ struct NoticeDetailView: View {
                 DetailView(
                     title: viewModel.noticeDetail?.title ?? "",
                     content: viewModel.noticeDetail?.content ?? "",
+                    writer: viewModel.noticeDetail?.writer ?? "",
+                    modifiedAt: viewModel.noticeDetail?.modifiedAt.toStringCustomFormat(format: "yyyy.MM.dd") ?? "",
                     links: viewModel.noticeDetail?.links ?? [""],
                     writtenBy: viewModel.noticeDetail?.writtenBy ?? false,
                     deleteAction: {
