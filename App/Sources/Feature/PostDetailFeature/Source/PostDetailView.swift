@@ -23,6 +23,8 @@ struct PostDetailView: View {
                 DetailView(
                     title: viewModel.postDetail?.title ?? "",
                     content: viewModel.postDetail?.content ?? "",
+                    writer: viewModel.postDetail?.writer ?? "",
+                    modifiedAt: viewModel.postDetail?.modifiedAt.toStringCustomFormat(format: "yyyy.MM.dd") ?? "",
                     links: viewModel.postDetail?.links ?? [""],
                     writtenBy: viewModel.postDetail?.writtenBy ?? false,
                     deleteAction: {

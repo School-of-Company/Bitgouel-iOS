@@ -5,8 +5,8 @@ public struct ClubResponseDTO: Decodable {
     public let name: String
 }
 
-extension ClubResponseDTO {
-    public func toDomain() -> ClubEntity {
+public extension ClubResponseDTO {
+    func toDomain() -> ClubEntity {
         ClubEntity(
             id: id,
             name: name

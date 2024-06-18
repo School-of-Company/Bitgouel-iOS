@@ -2,7 +2,6 @@ import Foundation
 
 final class PostDetailSettingViewModel: BaseViewModel {
     @Published var inputLinks: [String] = [""]
-    @Published var link: String = ""
 
     private var completion: ([String]) -> Void
 
@@ -14,8 +13,8 @@ final class PostDetailSettingViewModel: BaseViewModel {
         self.completion = completion
     }
 
-    func applyButtonDidTap(link: [String]) {
-        inputLinks = link
+    func applyButtonDidTap(links: [String]) {
+        inputLinks = links
         completion(inputLinks)
     }
 }

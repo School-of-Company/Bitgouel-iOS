@@ -3,9 +3,9 @@ import SwiftUI
 struct ClubListView: View {
     @StateObject var viewModel: ClubListViewModel
     @Binding var selection: TabFlow
-    
+
     private let clubDetailFactory: any ClubDetailFactory
-    
+
     init(
         viewModel: ClubListViewModel,
         clubDetailFactory: any ClubDetailFactory,
@@ -15,7 +15,7 @@ struct ClubListView: View {
         self.clubDetailFactory = clubDetailFactory
         _selection = selection
     }
-    
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -24,10 +24,11 @@ struct ClubListView: View {
                         ForEach(viewModel.schoolClubList, id: \.id) { school in
                             SchoolListView(
                                 schoolName: school.schoolName,
-                                clubList: school.clubs) { clubID in
-                                    viewModel.updateClubID(clubID: clubID)
-                                    viewModel.updateIsPresentedClubDetailView(isPresented: true)
-                                }
+                                clubList: school.clubs
+                            ) { clubID in
+                                viewModel.updateClubID(clubID: clubID)
+                                viewModel.updateIsPresentedClubDetailView(isPresented: true)
+                            }
                         }
                     }
                     .padding(.horizontal, 28)
@@ -40,7 +41,7 @@ struct ClubListView: View {
                             .onTapGesture {
                                 viewModel.isPresentedSelectedSchoolPopup = false
                             }
-                        
+
                         SchoolListPopup(
                             schoolList: viewModel.schoolList,
                             selectedSchool: viewModel.selectedSchool

@@ -44,8 +44,7 @@ final class PostListViewModel: BaseViewModel {
                 do {
                     postContent = try await fetchPostListUseCase(postType: .employment)
                 } catch {
-                    errorMessage = error.postDomainErrorMessage()
-                    isErrorOccurred = true
+                    print(error.localizedDescription)
                 }
             }
         }

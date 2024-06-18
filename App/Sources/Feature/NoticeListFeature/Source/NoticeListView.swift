@@ -118,9 +118,5 @@ struct NoticeListView: View {
         .refreshable {
             viewModel.onAppear()
         }
-        .bitgouelToast(
-            text: viewModel.errorMessage,
-            isShowing: $viewModel.isErrorOccurred
-        )
     }
 }

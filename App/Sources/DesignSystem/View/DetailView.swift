@@ -3,6 +3,8 @@ import SwiftUI
 struct DetailView: View {
     let title: String
     let content: String
+    let writer: String
+    let modifiedAt: String
     let links: [String]
     let writtenBy: Bool
     let deleteAction: () -> Void
@@ -11,12 +13,21 @@ struct DetailView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 4) {
                 BitgouelText(
                     text: title,
                     font: .text1
                 )
                 .padding(.top, 4)
+
+                HStack {
+                    Text("\(modifiedAt)에 게시")
+
+                    Spacer()
+
+                    Text(writer)
+                }
+                .bitgouelFont(.caption, color: .greyscale(.g7))
             }
 
             Divider()
@@ -74,6 +85,7 @@ struct DetailView: View {
                                     text: "\(url)",
                                     font: .caption
                                 )
+                                .multilineTextAlignment(.leading)
                             }
                         )
                     }

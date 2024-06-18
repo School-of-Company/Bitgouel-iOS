@@ -1,5 +1,5 @@
-import SwiftUI
 import Service
+import SwiftUI
 
 struct CertificationListRow: View {
     let id: String

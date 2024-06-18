@@ -53,8 +53,7 @@ final class NoticeListViewModel: BaseViewModel {
 
                 isLoading = false
             } catch {
-                errorMessage = error.postDomainErrorMessage()
-                isErrorOccurred = true
+                print(error.localizedDescription)
             }
         }
     }

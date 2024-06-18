@@ -15,8 +15,8 @@ final class NoticeDetailSettingViewModel: BaseViewModel {
         self.completion = completion
     }
 
-    func applyButtonDidTap(link: [String]) {
-        noticeLinks = link
+    func applyButtonDidTap(links: [String]) {
+        noticeLinks = links
         completion(noticeLinks)
     }
 }

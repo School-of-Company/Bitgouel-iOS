@@ -1,5 +1,5 @@
-import Moya
 import Foundation
+import Moya
 
 public enum SchoolAPI {
     case fetchSchoolList

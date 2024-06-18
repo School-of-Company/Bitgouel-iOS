@@ -76,8 +76,7 @@ final class InquiryListViewModel: BaseViewModel {
                 updateContent(entity: inquiryInfo)
                 isLoading = false
             } catch {
-                errorMessage = error.inquiryDomainErrorMessage()
-                isErrorOccurred = true
+                print(error.localizedDescription)
             }
         }
     }

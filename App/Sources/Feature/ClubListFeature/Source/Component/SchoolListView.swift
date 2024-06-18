@@ -1,5 +1,5 @@
-import SwiftUI
 import Service
+import SwiftUI
 
 public struct SchoolListView: View {
     let schoolName: String
@@ -13,14 +13,14 @@ public struct SchoolListView: View {
                     text: schoolName,
                     font: .title3
                 )
-                
+
                 Spacer()
             }
             .padding(.top, 40)
-            
+
             Divider()
                 .padding(.top, 12)
-            
+
             LazyVStack(spacing: 0) {
                 ForEach(clubList, id: \.id) { club in
                     ClubListRow(clubName: club.name)
@@ -30,9 +30,8 @@ public struct SchoolListView: View {
                 }
             }
             .padding(.top, 8)
-            
+
             Spacer()
         }
-
     }
 }
