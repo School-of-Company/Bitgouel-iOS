@@ -3,12 +3,8 @@ import SwiftUI
 
 struct SearchClubListRow: View {
     let club: String
-    @Binding var isSelected: Bool
-
-    init(club: String, isSelected: Binding<Bool>) {
-        self.club = club
-        self._isSelected = isSelected
-    }
+    let selectedClub: String?
+    let onClubSelect: (String) -> Void
 
     var body: some View {
         HStack {
@@ -16,7 +12,19 @@ struct SearchClubListRow: View {
 
             Spacer()
 
-            BitgouelRadioButton(isSelected: $isSelected)
+            BitgouelRadioButton(
+                isSelected: Binding(
+                    get: { selectedClub == club },
+                    set: { isSelected in
+                        if isSelected {
+                            onClubSelect(club)
+                        }
+                    }
+                )
+            )
+        }
+        .onTapGesture {
+            onClubSelect(club)
         }
         .id(String(club))
         .frame(height: 73)

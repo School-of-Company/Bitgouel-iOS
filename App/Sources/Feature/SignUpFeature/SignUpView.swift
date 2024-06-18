@@ -136,7 +136,7 @@ struct SignUpView: View {
                 searchText: $viewModel.clubSearch,
                 searchedClubList: viewModel.searchedClubList,
                 selectedClub: viewModel.selectedClub ?? "동아리",
-                clubDidSelect: { selectedClub in
+                onClubSelect: { selectedClub in
                     viewModel.selectedClub = selectedClub
                     viewModel.isPresentedClubSheet = false
                 }
@@ -387,6 +387,10 @@ struct SignUpView: View {
                         )
                     )
                 }
+                .onTapGesture {
+                    viewModel.isPresentedUserRoleSheet = false
+                    viewModel.selectedUserRole = userRole
+                }
                 .padding(.horizontal, 28)
                 .padding(.vertical, 24)
             }
@@ -413,6 +417,10 @@ struct SignUpView: View {
                             }
                         )
                     )
+                }
+                .onTapGesture {
+                    viewModel.isPresentedAssociationSheet = false
+                    viewModel.selectedAssociation = association
                 }
                 .padding(.horizontal, 28)
                 .padding(.vertical, 24)

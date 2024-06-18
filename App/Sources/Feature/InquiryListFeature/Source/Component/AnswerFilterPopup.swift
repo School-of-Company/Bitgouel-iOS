@@ -81,6 +81,9 @@ struct AnswerFilterPopup: View {
 
             Spacer()
         }
+        .onTapGesture {
+            onAnswerSelect(answer)
+        }
         .id(answer)
         .frame(height: 54)
     }

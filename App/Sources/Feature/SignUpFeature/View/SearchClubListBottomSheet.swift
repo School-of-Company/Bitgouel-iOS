@@ -4,18 +4,18 @@ struct SearchClubListBottomSheet: View {
     @Binding var searchText: String
     let searchedClubList: [String]
     let selectedClub: String
-    let clubDidSelect: (String) -> Void
+    let onClubSelect: (String) -> Void
 
     init(
         searchText: Binding<String>,
         searchedClubList: [String],
         selectedClub: String,
-        clubDidSelect: @escaping (String) -> Void
+        onClubSelect: @escaping (String) -> Void
     ) {
         self._searchText = searchText
         self.searchedClubList = searchedClubList
         self.selectedClub = selectedClub
-        self.clubDidSelect = clubDidSelect
+        self.onClubSelect = onClubSelect
     }
 
     var body: some View {
@@ -31,10 +31,8 @@ struct SearchClubListBottomSheet: View {
                     ForEach(searchedClubList, id: \.self) { club in
                         SearchClubListRow(
                             club: club,
-                            isSelected: Binding(
-                                get: { club == selectedClub },
-                                set: { _ in clubDidSelect(club) }
-                            )
+                            selectedClub: selectedClub,
+                            onClubSelect: onClubSelect
                         )
                     }
                 }
