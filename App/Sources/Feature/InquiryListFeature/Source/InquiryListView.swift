@@ -19,44 +19,43 @@ struct InquiryListView: View {
 
     var body: some View {
         ZStack {
-            if viewModel.inquiryList.isEmpty {
-                NoInfoView(text: "문의사항이 없어요")
-            } else {
-                VStack(spacing: 4) {
-                    if viewModel.authority == .admin {
-                        KeywordSearchBar(
-                            text: Binding(
-                                get: { viewModel.keyword },
-                                set: { text in viewModel.updateKeyword(text: text) }
-                            ),
-                            prompt: "키워드로 검색..."
-                        ) {
-                            viewModel.updateIsPresentedFilter(isPresented: true)
-                        }
+            ScrollView(showsIndicators: true) {
+                if viewModel.authority == .admin {
+                    KeywordSearchBar(
+                        text: Binding(
+                            get: { viewModel.keyword },
+                            set: { text in viewModel.updateKeyword(text: text) }
+                        ),
+                        prompt: "키워드로 검색..."
+                    ) {
+                        viewModel.updateIsPresentedFilter(isPresented: true)
                     }
-                    
-                    ScrollView {
-                        VStack(spacing: 12) {
-                            ForEach(viewModel.inquiryList, id: \.inquiryID) { inquiry in
-                                InquiryListRow(
-                                    id: inquiry.inquiryID,
-                                    title: inquiry.question,
-                                    date: inquiry.createdAt,
-                                    userID: inquiry.userID,
-                                    name: inquiry.username,
-                                    state: inquiry.answerStatus,
-                                    authority: viewModel.authority
-                                )
-                                .onTapGesture {
-                                    viewModel.updateInquiryID(inquiryID: inquiry.inquiryID)
-                                    viewModel.updateIsPresentedInquiryDetailView(isPresented: true)
-                                }
+                }
+
+                if viewModel.inquiryList.isEmpty {
+                    NoInfoView(text: "문의사항이 없어요")
+                        .padding(.top, 100)
+                } else {
+                    LazyVStack(spacing: 12) {
+                        ForEach(viewModel.inquiryList, id: \.inquiryID) { inquiry in
+                            InquiryListRow(
+                                id: inquiry.inquiryID,
+                                title: inquiry.question,
+                                date: inquiry.createdAt,
+                                userID: inquiry.userID,
+                                name: inquiry.username,
+                                state: inquiry.answerStatus,
+                                authority: viewModel.authority
+                            )
+                            .onTapGesture {
+                                viewModel.updateInquiryID(inquiryID: inquiry.inquiryID)
+                                viewModel.updateIsPresentedInquiryDetailView(isPresented: true)
                             }
                         }
                     }
                 }
-                .padding(.horizontal, 28)
             }
+            .padding(.horizontal, 28)
 
             ZStack(alignment: .center) {
                 if viewModel.isPresentedFilter {

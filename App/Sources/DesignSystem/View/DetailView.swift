@@ -78,7 +78,8 @@ struct DetailView: View {
             VStack(alignment: .leading, spacing: 4) {
                 ForEach(links, id: \.self) { link in
                     if let url = URL(string: link) {
-                        Link(destination: url,
+                        Link(
+                            destination: url,
                             label: {
                                 BitgouelText(
                                     text: "\(url)",
