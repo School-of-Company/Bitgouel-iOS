@@ -73,5 +73,8 @@ struct UserTypeFilterPopup: View {
 
             Spacer()
         }
+        .onTapGesture {
+            onAuthoritySelect(authority)
+        }
     }
 }

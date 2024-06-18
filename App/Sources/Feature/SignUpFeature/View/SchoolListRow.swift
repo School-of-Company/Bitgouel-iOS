@@ -23,6 +23,9 @@ struct SchoolListRow: View {
                 )
             )
         }
+        .onTapGesture {
+            onHighSchoolSelect(school)
+        }
         .id(String(school.rawValue))
         .frame(height: 73)
         .padding(.horizontal, 28)

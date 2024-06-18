@@ -75,5 +75,8 @@ struct UserCohortFilterPopup: View {
 
             Spacer()
         }
+        .onTapGesture {
+            onCohortSelect(cohort)
+        }
     }
 }
