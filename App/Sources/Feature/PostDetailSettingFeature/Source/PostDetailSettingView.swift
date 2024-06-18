@@ -9,10 +9,9 @@ struct PostDetailSettingView: View {
             VStack(spacing: 0) {
                 LinkDetailSettingView(
                     links: viewModel.inputLinks,
-                    link: viewModel.link,
                     dismiss: dismiss
                 ) { links in
-                    viewModel.applyButtonDidTap(link: links)
+                    viewModel.applyButtonDidTap(links: links)
                 }
             }
             .padding(.horizontal, 28)

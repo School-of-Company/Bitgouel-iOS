@@ -2,7 +2,7 @@ import SwiftUI
 
 struct LinkDetailSettingView: View {
     @State var links: [String]
-    let link: String
+    @State var isErrorOccurred: Bool = false
     let dismiss: DismissAction
     var applyButtonTapAction: ([String]) -> Void
 
@@ -49,11 +49,19 @@ struct LinkDetailSettingView: View {
                 text: "적용하기",
                 style: .primary
             ) {
-                applyButtonTapAction(links)
-                dismiss()
+                if validateLinks() {
+                    applyButtonTapAction(links)
+                    dismiss()
+                } else {
+                    isErrorOccurred = true
+                }
             }
             .padding(.bottom, 12)
         }
+        .bitgouelToast(
+            text: "유효하지 않은 URL입니다.",
+            isShowing: $isErrorOccurred
+        )
     }
 
     @ViewBuilder
@@ -61,11 +69,18 @@ struct LinkDetailSettingView: View {
         ForEach(links.indices, id: \.self) { index in
             BitgouelTextField(
                 "링크 입력 (선택)",
-                text: Binding(
-                    get: { links[index] },
-                    set: { newvalue in links[index] = newvalue }
-                )
+                text: $links[index]
             )
         }
+    }
+
+    func validateLinks() -> Bool {
+        let isLinkErrorOccurred = links.map { !checkLink($0) }
+        return !isLinkErrorOccurred.contains(true)
+    }
+
+    func checkLink(_ link: String) -> Bool {
+        let linkRegex = "^https://[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}(/[a-zA-Z0-9.-]*)?$"
+        return NSPredicate(format: "SELF MATCHES %@", linkRegex).evaluate(with: link)
     }
 }
