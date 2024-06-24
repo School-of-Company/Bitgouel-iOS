@@ -1,53 +1,45 @@
 import Foundation
 import ProjectDescription
+import EnvironmentPlugin
 
 let isCI = (ProcessInfo.processInfo.environment["TUIST_CI"] ?? "0") == "1" ? true : false
 
 public extension Project {
     static func dynamicFramwork(
         name: String,
-        platform: Platform = .iOS,
+        platform: Platform = env.platform,
         packages: [Package] = [],
         infoPlist: InfoPlist = .default,
         deploymentTarget: DeploymentTarget,
+        configurations: [Configuration] = [],
         dependencies: [TargetDependency] = [
             .project(target: "ThirdPartyLib", path: Path("../ThirdPartyLib"))
         ],
         scripts: [TargetScript] = []
     ) -> Project {
+        var configurations = configurations
+                if configurations.isEmpty {
+                    configurations = .default
+                }
+
         return Project(
             name: name,
             packages: packages,
             settings: .settings(
-                base: .codeSign,
-                configurations: isCI ?
-                    [
-                        .debug(name: .debug),
-                        .release(name: .release)
-                    ] :
-                    [
-                        .debug(
-                            name: .debug,
-                            xcconfig:
-                            .relativeToXCConfig(type: .debug, name: name)
-                        ),
-                        .release(
-                            name: .release,
-                            xcconfig:
-                            .relativeToXCConfig(type: .release, name: name)
-                        )
-                    ]
+                base: env.baseSetting,
+                configurations: configurations,
+                defaultSettings: .recommended
             ),
             targets: [
                 Target(
                     name: name,
                     platform: platform,
                     product: .framework,
-                    bundleId: "\(publicOrganizationName).\(name)",
-                    deploymentTarget: deploymentTarget,
+                    bundleId: "\(env.organizationName).\(name)",
+                    deploymentTarget: env.deploymentTarget,
                     infoPlist: infoPlist,
                     sources: ["Sources/**"],
-                    scripts: [.SwiftLintShell],
+                    scripts: [.swiftLint],
                     dependencies: dependencies
                 )
             ]
