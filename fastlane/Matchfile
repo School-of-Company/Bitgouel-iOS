@@ -1,11 +1,11 @@
-git_url("https://github.com/uuuunseo/match")
+git_url("git@github.com:School-of-Company/Bitgouel-Match-iOS.git")
 
 storage_mode("git")
 
 type("appstore") # The default type, can be: appstore, adhoc, enterprise or development
 
-# app_identifier(ENV["APP_IDENTIFIER"])
-# username(ENV["APPLE_Is"]) # Your Apple Developer Portal username
+app_identifier(ENV["APP_IDENTIFIER"])
+username(ENV["APPLE_ID"]) # Your Apple Developer Portal username
 
 # For all available options run `fastlane match --help`
 # Remove the # in the beginning of the line to enable the other options

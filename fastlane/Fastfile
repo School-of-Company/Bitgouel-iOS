@@ -24,7 +24,18 @@ platform :ios do
     set_info_plist_value(path: "./App/Support/Info.plist", key: "CFBundleVersion", value: "#{build_number.to_i + 1}")
     set_info_plist_value(path: "./App/Support/Info.plist", key: "CFBundleShortVersionString", value: version)
 
-    match(type: "appstore")
+    match(
+      git_url: ENV["FASTLANE_GIT_URL"],
+      storage_mode: "git",
+      type: "appstore",
+      readonly: true
+    )
+
+    sync_code_signing(
+      type: "appstore",
+      app_identifier: ENV["APP_IDENTIFIER"],
+      readonly: true
+    )
 	
     build_app(
       scheme: "Bitgouel-PROD",
