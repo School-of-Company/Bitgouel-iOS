@@ -17,7 +17,6 @@ let configurations: [Configuration] = generateEnvironment == .ci ?
 
 let scripts: [TargetScript] = generateEnvironment == .dev ? [.needle, .swiftLint] : []
 
-
 let project = Project.executable(
     name: env.name,
     product: .app,

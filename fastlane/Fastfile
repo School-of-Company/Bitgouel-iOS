@@ -1,0 +1,45 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Push a new release build to the App Store"
+  lane :release do |options|
+    version = options[:version]
+
+    build_number = get_info_plist_value(path: "./App/Support/Info.plist", key: "CFBundleVersion")
+    set_info_plist_value(path: "./App/Support/Info.plist", key: "CFBundleVersion", value: "#{build_number.to_i + 1}")
+    set_info_plist_value(path: "./App/Support/Info.plist", key: "CFBundleShortVersionString", value: version)
+
+    match(type: "appstore")
+	
+    build_app(
+      scheme: "Bitgouel-PROD",
+      export_method: "app-store",
+      export_team_id: ENV["TEAM_ID"]
+    )
+
+    upload_to_app_store(
+      app_version: version,
+      submit_for_review: true,
+      force: true,
+      automatic_release: true,
+      skip_metadata: true,
+      api_key_path: "fastlane/AppStoreAPIKey.json",
+      precheck_include_in_app_purchases: false
+    )
+  end
+end

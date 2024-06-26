@@ -7,6 +7,16 @@
 # Thumbnails
 ._*
 
+### fastlane ###
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/screenshots/screenshots.html
+fastlane/test_output
+fastlane/FastlaneRunner
+.env.default
+AppStoreAPIKey.json
+
 # Files that might appear in the root of a volume
 .DocumentRevisions-V100
 .fseventsd
@@ -71,3 +81,5 @@ Derived/
 
 ### Tuist managed dependencies ###
 Tuist/Dependencies
+
+
