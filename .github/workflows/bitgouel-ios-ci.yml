@@ -63,7 +63,7 @@ jobs:
       run: tuist fetch
 
     - name: Test with tuist
-      run: TUIST_CI=1 tuist test
+      run: TUIST_ENV=CI tuist test
 
     - name: Bitgouel iOS CI Discord Notification
       uses: sarisia/actions-status-discord@v1

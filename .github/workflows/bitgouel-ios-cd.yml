@@ -1,0 +1,64 @@
+name: BITGOUEL-IOS-CD
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release'
+        required: true
+      changed:
+        description: 'Changes in this version'
+        required: true
+
+
+env:
+  KEYCHAIN: ${{ 'bitgouel-ios.keychain' }}
+
+  MATCH_SSH_KEY: ${{ secrets.SSH_KEY }}
+  MATCH_KNOWN_HOSTS: ${{ secrets.KNOWN_HOSTS }}
+  
+  XCCONFIG_SECRET: ${{ secrets.XCCONFIG_SECRET }}
+  ENCRYPTED_XCCONFIG_PATH: ${{ 'XCConfig.zip.gpg' }}
+  DECRYPTED_XCCONFIG_PATH: ${{ 'XCConfig' }}
+  
+  FASTLANE_SECRET: ${{ secrets.FASTLANE_SECRET }}
+  ENCRYPTED_FASTLANE_ENV_PATH: ${{ 'fastlane/.env.default.gpg' }}
+  DECRYPTED_FASTLANE_ENV_PATH: ${{ 'fastlane/.env.default' }}
+  
+  APPSTORE_CONNECT_SECRET: ${{ secrets.APPSTORE_CONNECT_SECRET }}
+  ENCRYPTED_APPSTORE_CONNECT_PATH: ${{ 'fastlane/AppStoreAPIKey.json.gpg' }}
+  DECRYPTED_APPSTORE_CONNECT_PATH: ${{ 'fastlane/AppStoreAPIKey.json' }}
+
+jobs:
+  build:
+    name: deploy
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+      - uses: actions/checkout@v2
+
+      - name: Install tuist
+        run: curl -Ls https://install.tuist.io | bash
+        
+      - name: Use match
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: MATCH_SSH_KEY
+          known_hosts: KNOWN_HOSTS
+    
+      - name: Install fastlane
+        run: brew install fastlane
+        
+      - name: Install Dependencies
+        run: tuist fetch
+        
+      - name: Project generate
+        run: make cd_generate
+        
+      - name: Distribute
+        run: fastlane release version:$VERSION
+        shell: bash
+        env:
+          VERSION: ${{github.event.inputs.version}}
+          GITHUB_TOKEN: ${{ github.token }}
