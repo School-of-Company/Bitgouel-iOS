@@ -13,9 +13,6 @@ on: [push]
 
 env:
   KEYCHAIN: ${{ 'bitgouel-ios.keychain' }}
-
-  SSH_KEY: ${{ secrets.SSH_KEY }}
-  KNOWN_HOSTS: ${{ secrets.KNOWN_HOSTS }}
   
   XCCONFIG_SECRET: ${{ secrets.XCCONFIG_SECRET }}
   ENCRYPTED_XCCONFIG_PATH: ${{ 'XCConfig.zip.gpg' }}
@@ -44,8 +41,8 @@ jobs:
       - name: Use match
         uses: shimataro/ssh-key-action@v2
         with:
-          key: SSH_KEY
-          known_hosts: KNOWN_HOSTS
+          key: ${{ secrets.SSH_KEY }}
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
     
       - name: Install fastlane
         run: brew install fastlane
