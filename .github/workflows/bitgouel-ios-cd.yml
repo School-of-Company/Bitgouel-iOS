@@ -1,14 +1,14 @@
 name: BITGOUEL-IOS-CD
 
-on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'Version to release'
-        required: true
-      changed:
-        description: 'Changes in this version'
-        required: true
+on: [push]
+#  workflow_dispatch:
+#    inputs:
+#      version:
+#        description: 'Version to release'
+#        required: true
+#      changed:
+#        description: 'Changes in this version'
+#        required: true
 
 
 env:
@@ -19,7 +19,7 @@ env:
   
   XCCONFIG_SECRET: ${{ secrets.XCCONFIG_SECRET }}
   ENCRYPTED_XCCONFIG_PATH: ${{ 'XCConfig.zip.gpg' }}
-  DECRYPTED_XCCONFIG_PATH: ${{ 'XCConfig' }}
+  DECRYPTED_XCCONFIG_PATH: ${{ 'XCConfig.zip' }}
   
   FASTLANE_SECRET: ${{ secrets.FASTLANE_SECRET }}
   ENCRYPTED_FASTLANE_ENV_PATH: ${{ 'fastlane/.env.default.gpg' }}
@@ -49,6 +49,10 @@ jobs:
     
       - name: Install fastlane
         run: brew install fastlane
+    
+      - name: decrypt
+        run: sh .github/workflows/CD/Decrypt.sh
+        shell: bash
         
       - name: Install Dependencies
         run: tuist fetch
