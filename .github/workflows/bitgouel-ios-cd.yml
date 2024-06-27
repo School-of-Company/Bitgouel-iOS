@@ -36,7 +36,7 @@ jobs:
 
     steps:
       - name: Checkout
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
 
       - name: Install tuist
         run: curl -Ls https://install.tuist.io | bash
@@ -45,7 +45,7 @@ jobs:
         uses: shimataro/ssh-key-action@v2
         with:
           key: MATCH_SSH_KEY
-          known_hosts: KNOWN_HOSTS
+          known_hosts: MATCH_KNOWN_HOSTS
     
       - name: Install fastlane
         run: brew install fastlane
