@@ -47,9 +47,14 @@ jobs:
       - name: Install fastlane
         run: brew install fastlane
     
-      - name: decrypt
+      - name: Decrypt
         run: sh .github/workflows/CD/Decrypt.sh
         shell: bash
+        
+      - name: Configure keychain
+        run:: sh .github/workflows/CD/Keychain.sh
+        shell: bash
+          
         
       - name: Install Dependencies
         run: tuist fetch
