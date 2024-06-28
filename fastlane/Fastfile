@@ -25,7 +25,7 @@ platform :ios do
     set_info_plist_value(path: "./App/Support/Info.plist", key: "CFBundleShortVersionString", value: version)
 
     match(
-      git_url: "git@github.com:/uuuunseo/match",
+      git_url: "https://github.com/uuuunseo/match.git",
       type: "appstore"
     )
 	
