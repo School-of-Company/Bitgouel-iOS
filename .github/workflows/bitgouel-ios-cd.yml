@@ -52,9 +52,8 @@ jobs:
         shell: bash
         
       - name: Configure keychain
-        run:: sh .github/workflows/CD/Keychain.sh
+        run: sh .github/workflows/CD/Keychain.sh
         shell: bash
-          
         
       - name: Install Dependencies
         run: tuist fetch
