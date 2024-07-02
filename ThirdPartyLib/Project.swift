@@ -1,13 +1,14 @@
 import ProjectDescription
 import ProjectDescriptionHelpers
+import DependencyPlugin
+import EnvironmentPlugin
 
 let project = Project.dynamicFramwork(
     name: "ThirdPartyLib",
     packages: [],
-    deploymentTarget: .iOS(targetVersion: "15.0", devices: [.iphone]),
+    deploymentTarget: env.deploymentTarget,
     dependencies: [
         .SPM.Moya,
         .SPM.NeedleFoundation
-    ],
-    scripts: [.SwiftLintShell]
+    ]
 )

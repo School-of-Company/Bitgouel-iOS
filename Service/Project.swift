@@ -1,5 +1,6 @@
 import ProjectDescription
 import ProjectDescriptionHelpers
+import EnvironmentPlugin
 
 let project = Project.dynamicFramwork(
     name: "Service",
@@ -9,6 +10,6 @@ let project = Project.dynamicFramwork(
             "BASE_URL": "$(BASE_URL)"
         ]
     ),
-    deploymentTarget: .iOS(targetVersion: "15.0", devices: [.iphone]),
-    scripts: [.SwiftLintShell, .NeedleShell]
+    deploymentTarget: env.deploymentTarget,
+    scripts: [.needle]
 )
