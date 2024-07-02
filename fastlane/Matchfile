@@ -1,4 +1,4 @@
-git_url("https://github.com/School-of-Company/Bitgouel-Match-iOS")
+git_url("git@github.com:School-of-Company/Bitgouel-iOS.git")
 
 storage_mode("git")
 
