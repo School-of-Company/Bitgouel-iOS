@@ -40,7 +40,7 @@ extension SchoolAPI: BitgouelAPI {
         }
     }
 
-    public var errorMap: [Int : SchoolDomainError] {
+    public var errorMap: [Int: SchoolDomainError] {
         switch self {
         case .fetchSchoolList:
             return [
