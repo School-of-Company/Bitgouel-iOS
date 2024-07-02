@@ -37,7 +37,7 @@ jobs:
       - name: Install tuist
         run: curl -Ls https://install.tuist.io | bash
         
-      - name: Use match
+      - name: Install SSH Key
         uses: shimataro/ssh-key-action@v2
         with:
           key: ${{ secrets.SSH_KEY }}
