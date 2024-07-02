@@ -10,7 +10,6 @@ on: [push]
 #        description: 'Changes in this version'
 #        required: true
 
-
 env:
   KEYCHAIN: ${{ 'bitgouel-ios.keychain' }}
   

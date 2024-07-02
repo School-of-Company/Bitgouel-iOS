@@ -25,10 +25,16 @@ platform :ios do
     set_info_plist_value(path: "./App/Support/Info.plist", key: "CFBundleShortVersionString", value: version)
 
     match(
-      git_url: "https://github.com/uuuunseo/match.git",
+      git_url: ENV["FASTLANE_GIT_URL"],
       storage_mode: "git",
       type: "appstore",
-      readonly: true,
+      readonly: true
+    )
+
+    sync_code_signing(
+      type: "appstore",
+      app_identifier: ENV["APP_IDENTIFIER"],
+      readonly: true
     )
 	
     build_app(
