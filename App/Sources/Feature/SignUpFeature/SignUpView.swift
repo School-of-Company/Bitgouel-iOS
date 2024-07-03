@@ -97,8 +97,12 @@ struct SignUpView: View {
                             inputGovernmentInfoSection()
                         }
 
-                        ConditionView(viewModel.selectedSchool != nil) {
+                        ConditionView(viewModel.selectedClub != nil) {
                             inputNameSection()
+                        }
+
+                        ConditionView(viewModel.selectedSchool != nil) {
+                            inputClubSection()
                         }
 
                     default:

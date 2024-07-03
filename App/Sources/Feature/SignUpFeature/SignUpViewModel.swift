@@ -122,47 +122,33 @@ final class SignUpViewModel: BaseViewModel {
         if selectedSchool == nil {
             return "학교 선택"
         }
+        if selectedClub == nil {
+            return "동아리 선택"
+        }
+        if !nameIsValid {
+            return "이름 입력"
+        }
 
         switch selectedUserRole {
         case .student:
-            if selectedClub == nil {
-                return "동아리 선택"
-            } else if !nameIsValid {
-                return "이름 입력"
-            } else if !yearOfAdmissionIsValid {
+            if !yearOfAdmissionIsValid {
                 return "입학년도 입력"
             } else if !studentIDIsValid {
                 return "학번 입력"
             }
-        case .teacher, .bbozzack:
-            if selectedClub == nil {
-                return "동아리 선택"
-            } else if !nameIsValid {
-                return "이름 입력"
-            }
 
         case .companyInstructor:
-            if selectedClub == nil {
-                return "동아리 선택"
-            } else if !nameIsValid {
-                return "이름 입력"
-            } else if selectedCompany.isEmpty {
+            if selectedCompany.isEmpty {
                 return "기업 입력"
             }
 
         case .professor:
-            if selectedClub == nil {
-                return "동아리 선택"
-            } else if !nameIsValid {
-                return "이름 입력"
-            } else if selectedUniversity.isEmpty {
+            if selectedUniversity.isEmpty {
                 return "대학 입력"
             }
 
         case .government:
-            if !nameIsValid {
-                return "이름 입력"
-            } else if selectedGovernment.isEmpty {
+            if selectedGovernment.isEmpty {
                 return "기관 입력"
             } else if sectors.isEmpty {
                 return "업종 입력"
@@ -353,8 +339,7 @@ final class SignUpViewModel: BaseViewModel {
     func signup(_ success: @escaping () -> Void) {
         guard let selectedSchool else { return }
         guard let selectedClub else { return }
-        guard checkphoneNumber(phoneNumber: phoneNumber)
-        else { return updateIsPhoneNumberErrorOccurred(isErrorOccurred: true) }
+        guard checkphoneNumber(phoneNumber: phoneNumber) else { return updateIsPhoneNumberErrorOccurred(isErrorOccurred: true) }
         guard checkEmail(email: email) else { return updateIsEmailErrorOccurred(isErrorOccurred: true) }
         guard checkPassword(password: password) else { return updateIsPasswordErrorOccurred(isErrorOccurred: true) }
         guard checkedPassword() else { return updateIsCheckPasswordErrorOccurred(isErrorOccurred: true) }

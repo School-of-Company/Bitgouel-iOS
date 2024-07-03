@@ -21,11 +21,6 @@ struct ClubDetailView: View {
                     .progressViewStyle(.circular)
             } else {
                 VStack(alignment: .leading, spacing: 4) {
-                    BitgouelText(
-                        text: viewModel.clubName,
-                        font: .title2
-                    )
-
                     HStack {
                         BitgouelText(
                             text: "소속 학교",
@@ -35,7 +30,7 @@ struct ClubDetailView: View {
                         Spacer()
 
                         BitgouelText(
-                            text: viewModel.highSchoolName,
+                            text: viewModel.schoolName,
                             font: .text3
                         )
                     }
@@ -92,6 +87,7 @@ struct ClubDetailView: View {
                 }
             }
         }
+        .navigationTitle(viewModel.clubName)
         .if(viewModel.authority != .admin) {
             $0.navigationBarBackButtonHidden()
         }

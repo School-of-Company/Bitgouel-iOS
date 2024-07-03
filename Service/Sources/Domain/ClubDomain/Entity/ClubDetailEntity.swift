@@ -3,20 +3,20 @@ import Foundation
 public struct ClubDetailEntity: Equatable {
     public let clubID: Int
     public let clubName: String
-    public let highSchoolName: String
+    public let schoolName: String
     public let students: [MemberInfoEntity]
     public let teacher: TeacherInfoEntity
 
     public init(
         clubID: Int,
         clubName: String,
-        highSchoolName: String,
+        schoolName: String,
         students: [MemberInfoEntity],
         teacher: TeacherInfoEntity
     ) {
         self.clubID = clubID
         self.clubName = clubName
-        self.highSchoolName = highSchoolName
+        self.schoolName = schoolName
         self.students = students
         self.teacher = teacher
     }

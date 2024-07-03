@@ -8,29 +8,37 @@ final class LectureListDetailViewModel: BaseViewModel {
     @Published var isCancel: Bool = false
     @Published var isPresentedLectureApplicantListView: Bool = false
     @Published var userAuthority: UserAuthorityType = .user
+    @Published var isPresentedLectureActionSheet: Bool = false
 
     let lectureID: String
     private let fetchLectureDetailUseCase: any FetchLectureDetailUseCase
     private let applyLectureUseCase: any ApplyLectureUseCase
     private let cancelLectureUseCase: any CancelLectureUseCase
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
+    private let deleteLectureUseCase: any DeleteLectureUseCase
 
     init(
         lectureID: String,
         fetchLectureDetailUseCase: any FetchLectureDetailUseCase,
         applyLectureUseCase: any ApplyLectureUseCase,
         cancelLectureUseCase: any CancelLectureUseCase,
-        loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
+        loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
+        deleteLectureUseCase: any DeleteLectureUseCase
     ) {
         self.lectureID = lectureID
         self.fetchLectureDetailUseCase = fetchLectureDetailUseCase
         self.applyLectureUseCase = applyLectureUseCase
         self.cancelLectureUseCase = cancelLectureUseCase
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
+        self.deleteLectureUseCase = deleteLectureUseCase
     }
 
     func updateIsPresentedLectureApplicantView(isPresented: Bool) {
         isPresentedLectureApplicantListView = isPresented
+    }
+
+    func updateIsPresentedLectureActionSheet(isPresented: Bool) {
+        isPresentedLectureActionSheet = isPresented
     }
 
     @MainActor
@@ -70,6 +78,20 @@ final class LectureListDetailViewModel: BaseViewModel {
         Task {
             do {
                 try await cancelLectureUseCase(lectureID: lectureID)
+            } catch {
+                errorMessage = error.lectureDomainErrorMessage()
+
+                isErrorOccurred = true
+            }
+        }
+    }
+
+    func deleteLecture(_ success: @escaping () -> Void) {
+        Task {
+            do {
+                try await deleteLectureUseCase(lectureID: lectureID)
+
+                success()
             } catch {
                 errorMessage = error.lectureDomainErrorMessage()
 

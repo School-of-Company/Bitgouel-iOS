@@ -10,7 +10,7 @@ final class ClubDetailViewModel: BaseViewModel {
     // MARK: ClubInfo
     var clubID: Int = 0
     @Published var clubName: String = ""
-    @Published var highSchoolName: String = ""
+    @Published var schoolName: String = ""
     @Published var students: [ClubDetailEntity.MemberInfoEntity] = []
     @Published var teacher: ClubDetailEntity.TeacherInfoEntity?
 
@@ -41,17 +41,15 @@ final class ClubDetailViewModel: BaseViewModel {
 
         Task {
             do {
-                let clubDetail = try await fetchClubDetail(authority: authority)
-                updateClubDetail(clubInfo: clubDetail)
-
                 let response = try await fetchMyInfoUseCase()
+                let clubDetail = try await fetchClubDetail(authority: authority)
+                
+                updateClubDetail(clubInfo: clubDetail)
                 userID = response.userID
 
                 isLoading = false
             } catch {
-                errorMessage = error.clubDomainErrorMessage()
-
-                isErrorOccurred = true
+                print(String(describing: error))
             }
         }
     }
@@ -69,7 +67,7 @@ final class ClubDetailViewModel: BaseViewModel {
     func updateClubDetail(clubInfo: ClubDetailEntity) {
         self.clubID = clubInfo.clubID
         self.clubName = clubInfo.clubName
-        self.highSchoolName = clubInfo.highSchoolName
+        self.schoolName = clubInfo.schoolName
         self.students = clubInfo.students
         self.teacher = clubInfo.teacher
     }

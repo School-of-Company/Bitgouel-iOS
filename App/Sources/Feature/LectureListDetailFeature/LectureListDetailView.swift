@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct LectureListDetailView: View {
+    @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: LectureListDetailViewModel
 
     private let lectureApplicantListFactory: any LectureApplicantListFactory
@@ -173,6 +174,20 @@ struct LectureListDetailView: View {
         .onAppear {
             viewModel.onAppear()
         }
+        .toolbar {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                switch viewModel.userAuthority {
+                case .admin,
+                     .professor,
+                     .government,
+                     .companyInstructor:
+                    changeLectureStatusButton()
+                    
+                default:
+                    EmptyView()
+                }
+            }
+        }
         .navigate(
             to: lectureApplicantListFactory.makeView(lectureID: viewModel.lectureID).eraseToAnyView(),
             when: Binding(
@@ -182,6 +197,26 @@ struct LectureListDetailView: View {
                 }
             )
         )
+        .confirmationDialog("", isPresented: $viewModel.isPresentedLectureActionSheet) {
+            Button("강의 수정") { 
+                #warning("강의 수정 기능 추가")
+            }
+            Button("강의 삭제", role: .destructive) {
+                viewModel.deleteLecture {
+                    dismiss()
+                }
+            }
+            Button("취소", role: .cancel) {}
+        }
+    }
+
+    @ViewBuilder
+    func changeLectureStatusButton() -> some View {
+        Button {
+            viewModel.updateIsPresentedLectureActionSheet(isPresented: true)
+        } label: {
+            BitgouelAsset.Icons.verticalEllipsisFill.swiftUIImage
+        }
     }
 
     @ViewBuilder
