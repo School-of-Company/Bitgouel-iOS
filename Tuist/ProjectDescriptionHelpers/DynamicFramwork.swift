@@ -18,9 +18,9 @@ public extension Project {
         scripts: [TargetScript] = []
     ) -> Project {
         var configurations = configurations
-                if configurations.isEmpty {
-                    configurations = .default
-                }
+        if configurations.isEmpty {
+            configurations = .default
+        }
 
         return Project(
             name: name,
