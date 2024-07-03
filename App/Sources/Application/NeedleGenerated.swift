@@ -78,6 +78,9 @@ private func factory050817f1b6d356b83467f47b58f8f304c97af4d5(_ component: Needle
     return ClubListDependency90c6e61626f7c53ad50fProvider(appComponent: parent1(component) as! AppComponent)
 }
 private class LectureListDetailDependency2a815f1240973966e6a6Provider: LectureListDetailDependency {
+    var deleteLectureUseCase: any DeleteLectureUseCase {
+        return appComponent.deleteLectureUseCase
+    }
     var fetchLectureDetailUseCase: any FetchLectureDetailUseCase {
         return appComponent.fetchLectureDetailUseCase
     }
