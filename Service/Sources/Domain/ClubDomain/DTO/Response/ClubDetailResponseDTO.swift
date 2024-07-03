@@ -3,20 +3,20 @@ import Foundation
 public struct ClubDetailResponseDTO: Decodable {
     public let clubID: Int
     public let clubName: String
-    public let highSchoolName: String
+    public let schoolName: String
     public let students: [MemberInfoResponseDTO]
     public let teacher: TeacherInfoResponseDTO
 
     public init(
         clubID: Int,
         clubName: String,
-        highSchoolName: String,
+        schoolName: String,
         students: [MemberInfoResponseDTO],
         teacher: TeacherInfoResponseDTO
     ) {
         self.clubID = clubID
         self.clubName = clubName
-        self.highSchoolName = highSchoolName
+        self.schoolName = schoolName
         self.students = students
         self.teacher = teacher
     }
@@ -24,7 +24,7 @@ public struct ClubDetailResponseDTO: Decodable {
     enum CodingKeys: String, CodingKey {
         case clubID = "clubId"
         case clubName
-        case highSchoolName
+        case schoolName
         case students
         case teacher
     }
@@ -35,7 +35,7 @@ extension ClubDetailResponseDTO {
         ClubDetailEntity(
             clubID: clubID,
             clubName: clubName,
-            highSchoolName: highSchoolName,
+            schoolName: schoolName,
             students: students.map { $0.toDomain() },
             teacher: teacher.toDomain()
         )

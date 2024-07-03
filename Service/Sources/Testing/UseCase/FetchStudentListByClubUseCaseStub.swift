@@ -6,7 +6,7 @@ public final class FetchStudentListByClubUseCaseStub: FetchStudentListByClubUseC
         ClubDetailEntity(
             clubID: 0,
             clubName: "devGSM",
-            highSchoolName: "광주소프트웨어마이스터고등학교",
+            schoolName: "광주소프트웨어마이스터고등학교",
             students: [
                 .init(userID: "", studentID: "1", name: "김학생"),
                 .init(userID: "", studentID: "2", name: "정학생"),

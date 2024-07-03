@@ -50,4 +50,8 @@ public final class RemoteLectureDataSourceImpl: BaseRemoteDataSource<LectureAPI>
     public func modifyApplicantWhether(lectureID: String, studentID: String, isComplete: Bool) async throws {
         try await request(.modifyApplicantWhether(lectureID: lectureID, studentID: studentID, isComplete: isComplete))
     }
+
+    public func deleteLecture(lectureID: String) async throws {
+        try await request(.deleteLecture(lectureID: lectureID))
+    }
 }

@@ -2,6 +2,18 @@ import ProjectDescription
 import ProjectDescriptionHelpers
 import EnvironmentPlugin
 
+let configurations: [Configuration] = generateEnvironment == .ci ?
+[
+  .debug(name: .dev),
+  .debug(name: .stage),
+  .release(name: .prod)
+] :
+[
+  .debug(name: .dev, xcconfig: .relativeToXCConfig(type: .dev, name: "Service")),
+  .debug(name: .stage, xcconfig: .relativeToXCConfig(type: .stage, name: "Service")),
+  .release(name: .prod, xcconfig: .relativeToXCConfig(type: .prod, name: "Service"))
+]
+
 let project = Project.dynamicFramwork(
     name: "Service",
     platform: .iOS,
@@ -11,5 +23,6 @@ let project = Project.dynamicFramwork(
         ]
     ),
     deploymentTarget: env.deploymentTarget,
-    scripts: [.needle]
+    configurations: configurations,
+    scripts: [.needle, .swiftLint]
 )

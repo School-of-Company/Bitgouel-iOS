@@ -13,4 +13,5 @@ public protocol RemoteLectureDataSource: BaseRemoteDataSource<LectureAPI> {
     func fetchAppliedLectureList(studentID: String) async throws -> [AppliedLectureEntity]
     func fetchApplicantList(lectureID: String) async throws -> [ApplicantInfoEntity]
     func modifyApplicantWhether(lectureID: String, studentID: String, isComplete: Bool) async throws
+    func deleteLecture(lectureID: String) async throws
 }

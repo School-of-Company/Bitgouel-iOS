@@ -58,4 +58,8 @@ public struct LectureRepositoryImpl: LectureRepository {
             isComplete: isComplete
         )
     }
+
+    public func deleteLecture(lectureID: String) async throws {
+        try await remoteLectureDataSource.deleteLecture(lectureID: lectureID)
+    }
 }
