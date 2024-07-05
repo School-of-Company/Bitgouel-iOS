@@ -1,7 +1,7 @@
 import Foundation
 
 public protocol LectureRepository {
-    func openLecture(req: OpenLectureRequestDTO) async throws
+    func openLecture(req: InputLectureRequestDTO) async throws
     func fetchLectureList(type: String) async throws -> LectureContentEntity
     func fetchLectureDetail(lectureID: String) async throws -> LectureDetailEntity
     func applyLecture(lectureID: String) async throws
@@ -14,4 +14,5 @@ public protocol LectureRepository {
     func fetchApplicantList(lectureID: String) async throws -> [ApplicantInfoEntity]
     func modifyApplicantWhether(lectureID: String, studentID: String, isComplete: Bool) async throws
     func deleteLecture(lectureID: String) async throws
+    func modifyLecture(lectureID: String, req: InputLectureRequestDTO) async throws
 }

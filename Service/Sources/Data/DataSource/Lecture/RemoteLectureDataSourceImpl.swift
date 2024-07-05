@@ -1,7 +1,7 @@
 import Foundation
 
 public final class RemoteLectureDataSourceImpl: BaseRemoteDataSource<LectureAPI>, RemoteLectureDataSource {
-    public func openLecture(req: OpenLectureRequestDTO) async throws {
+    public func openLecture(req: InputLectureRequestDTO) async throws {
         try await request(.openLecture(req: req))
     }
 
@@ -53,5 +53,9 @@ public final class RemoteLectureDataSourceImpl: BaseRemoteDataSource<LectureAPI>
 
     public func deleteLecture(lectureID: String) async throws {
         try await request(.deleteLecture(lectureID: lectureID))
+    }
+
+    public func modifyLecture(lectureID: String, req: InputLectureRequestDTO) async throws {
+        try await request(.modifyLecture(lectureID: lectureID, req: req))
     }
 }

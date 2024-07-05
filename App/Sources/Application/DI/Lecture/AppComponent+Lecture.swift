@@ -91,4 +91,10 @@ public extension AppComponent {
             DeleteLectureUseCaseImpl(lectureRepository: lectureRepository)
         }
     }
+
+    var modifyLectureUseCase: any ModifyLectureUseCase {
+        shared {
+            ModifyLectureUseCaseImpl(lectureRepository: lectureRepository)
+        }
+    }
 }

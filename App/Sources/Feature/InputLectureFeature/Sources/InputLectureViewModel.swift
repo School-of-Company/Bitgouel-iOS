@@ -109,7 +109,7 @@ final class InputLectureViewModel: BaseViewModel {
         Task {
             do {
                 try await openLectureUseCase(
-                    req: OpenLectureRequestDTO(
+                    req: InputLectureRequestDTO(
                         name: lectureTitle,
                         content: lectureText,
                         semester: lectureInfo.semester,
@@ -120,7 +120,7 @@ final class InputLectureViewModel: BaseViewModel {
                         startDate: lectureInfo.startDate.toStringCustomFormat(format: "yyyy-MM-dd'T'hh:mm:ss"),
                         endDate: lectureInfo.endDate.toStringCustomFormat(format: "yyyy-MM-dd'T'hh:mm:ss"),
                         lectureDates: lectureInfo.lectureDates.map {
-                            OpenLectureRequestDTO.LectureDateInfo(
+                            InputLectureRequestDTO.LectureDateInfo(
                                 completeDate: $0.completeDate.toStringCustomFormat(format: "yyyy-MM-dd"),
                                 startTime: $0.startTime.toStringCustomFormat(format: "hh:mm:ss"),
                                 endTime: $0.endTime.toStringCustomFormat(format: "hh:mm:ss")

@@ -2,7 +2,7 @@ import Foundation
 import Moya
 
 public enum LectureAPI {
-    case openLecture(req: OpenLectureRequestDTO)
+    case openLecture(req: InputLectureRequestDTO)
     case fetchLectureList(type: String)
     case fetchLectureDetail(lectureID: String)
     case applyLecture(lectureID: String)
@@ -15,6 +15,7 @@ public enum LectureAPI {
     case fetchApplicantList(lectureID: String)
     case modifyApplicantWhether(lectureID: String, studentID: String, isComplete: Bool)
     case deleteLecture(lectureID: String)
+    case modifyLecture(lectureID: String, req: InputLectureRequestDTO)
 }
 
 extension LectureAPI: BitgouelAPI {
@@ -32,7 +33,8 @@ extension LectureAPI: BitgouelAPI {
 
         case let .fetchLectureDetail(lectureID),
              let .applyLecture(lectureID),
-             let .cancelLecture(lectureID):
+             let .cancelLecture(lectureID),
+             let .modifyLecture(lectureID, _):
             return "/\(lectureID)"
 
         case .fetchInstructorList:
@@ -81,14 +83,16 @@ extension LectureAPI: BitgouelAPI {
              .deleteLecture:
             return .delete
 
-        case .modifyApplicantWhether:
+        case .modifyApplicantWhether,
+             .modifyLecture:
             return .patch
         }
     }
 
     public var task: Moya.Task {
         switch self {
-        case let .openLecture(req):
+        case let .openLecture(req),
+             let .modifyLecture(_, req):
             return .requestJSONEncodable(req)
 
         case let .fetchLectureList(type):
