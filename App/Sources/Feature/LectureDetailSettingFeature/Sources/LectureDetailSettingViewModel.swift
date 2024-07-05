@@ -5,13 +5,11 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     // MARK: LectureType
     @Published var isShowingLectureTypeBottomSheet: Bool = false
     @Published var selectedLectureType: LectureType = .mutualCreditRecognitionProgram
-    @Published var selectedLectureTypeString: String = "상호학점인정교육과정"
-    let lectureTypeList: [LectureType] = LectureType.allCases
+    @Published var lectureTypeString: String = ""
 
     // MARK: Semester
     @Published var isShowingSemesterBottomSheet: Bool = false
     @Published var selectedSemester: SemesterType = .firstYearFallSemester
-    let semesterList: [SemesterType] = SemesterType.allCases
 
     // MARK: Division
     @Published var isShowingDivisionBottomSheet: Bool = false
@@ -45,15 +43,13 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     ]
 
     // MARK: MaxRegisteredUser
-    @Published var selectedMaxRegisteredUser: Int = 5
+    @Published var selectedMaxRegisteredUser: Int = 0
     @Published var isShowingMaxRegisteredUserBottomSheet: Bool = false
 
-    // MARK: isComplete
-    @Published var isComplete: Bool = true
-
+    @Published var isEssential: Bool = true
     @Published var keyword: String = ""
-    var detailInfo: OpenedLectureModel
-    let completion: (OpenedLectureModel) -> Void
+    @Published var detailInfo: LectureDataModel
+    let completion: (LectureDataModel) -> Void
 
     private let fetchInstructorListUseCase: any FetchInstructorListUseCase
     private let fetchLineListUseCase: any FetchLineListUseCase
@@ -61,8 +57,8 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     private let fetchDivisionListUseCase: any FetchDivisionListUseCase
 
     init(
-        detailInfo: OpenedLectureModel,
-        completion: @escaping (OpenedLectureModel) -> Void,
+        detailInfo: LectureDataModel,
+        completion: @escaping (LectureDataModel) -> Void,
         fetchInstructorListUseCase: any FetchInstructorListUseCase,
         fetchLineListUseCase: any FetchLineListUseCase,
         fetchDepartmentListUseCase: any FetchDepartmentListUseCase,
@@ -76,8 +72,8 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         self.fetchDivisionListUseCase = fetchDivisionListUseCase
     }
 
-    func updateIsComplete(isComplete: Bool) {
-        self.isComplete = isComplete
+    func updateIsEssential(isEssential: Bool) {
+        self.isEssential = isEssential
     }
 
     func resetKeyword() {
@@ -89,13 +85,38 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         isShowingMaxRegisteredUserBottomSheet = isShowing
     }
 
+    func updateMaxRegisterUser(maxRegisterUser: Int) {
+        selectedMaxRegisteredUser = maxRegisterUser
+    }
+
     // MARK: LectureType Func
-    func updateLectrureType(lectureType: LectureType) {
+    func updateSelectedLectureType(lectureType: LectureType) {
         selectedLectureType = lectureType
     }
 
     func updateLectureTypeString(lectureType: String) {
-        selectedLectureTypeString = lectureType
+        lectureTypeString = lectureType
+    }
+    
+    func updateLectureType(lectureType: String) {
+        switch lectureType {
+        case "상호학점인정교육과정":
+            updateSelectedLectureType(lectureType: .mutualCreditRecognitionProgram)
+
+        case "대학탐방프로그램":
+            updateSelectedLectureType(lectureType: .universityExplorationProgram)
+
+        case "유관기관프로그램":
+            updateSelectedLectureType(lectureType: .governmentProgram)
+
+        case "기업산학연계직업체험프로그램":
+            updateSelectedLectureType(lectureType: .companyIndustryLinkingJobExperienceProgram)
+
+        default:
+            updateSelectedLectureType(lectureType: .etc)
+        }
+
+        updateLectureTypeString(lectureType: lectureType)
     }
 
     func updateIsShowingLectureTypeBottomSheet(isShowing: Bool) {
@@ -135,7 +156,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     }
 
     // MARK: Department Func
-    func updateSelectedDepartment(department: String) {
+    func updateDepartment(department: String) {
         selectedDepartment = department
     }
 
@@ -154,6 +175,18 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     }
 
     // MARK: Date
+    func updateStartDate(startDate: Date) {
+        selectedStartDate = startDate
+    }
+
+    func updateEndDate(endDate: Date) {
+        selectedEndDate = endDate
+    }
+    
+    func updateLectureDates(lectureDates: [LectureDatesModel]) {
+        lectureDatesList = lectureDates
+    }
+
     func updateCompleteDate(completedate: Date, at index: Int) {
         let indexedDate = self.lectureDatesList[index]
         let newLectureDatesModel = LectureDatesModel(
@@ -201,15 +234,30 @@ final class LectureDetailSettingViewModel: BaseViewModel {
             department: selectedDepartment,
             line: selectedLine,
             instructorID: instructorID,
+            instructorName: instructorName,
             startDate: selectedStartDate,
             endDate: selectedEndDate,
             lectureDates: lectureDatesList,
-            lectureType: selectedLectureTypeString,
+            lectureType: lectureTypeString,
             credit: selectedCredit,
             maxRegisteredUser: selectedMaxRegisteredUser
         )
 
         completion(detailInfo)
+    }
+
+    func onAppear() {
+        updateSemester(semester: detailInfo.semester)
+        updateDivision(division: detailInfo.division)
+        updateDepartment(department: detailInfo.department)
+        updateLine(line: detailInfo.line)
+        updateInstructorInfo(name: detailInfo.instructorName, id: detailInfo.instructorID)
+        updateStartDate(startDate: detailInfo.startDate)
+        updateEndDate(endDate: detailInfo.endDate)
+        updateLectureDates(lectureDates: detailInfo.lectureDates)
+        updateLectureType(lectureType: detailInfo.lectureType)
+        updateCredit(credit: detailInfo.credit)
+        updateMaxRegisterUser(maxRegisterUser: detailInfo.maxRegisteredUser)
     }
 
     @MainActor

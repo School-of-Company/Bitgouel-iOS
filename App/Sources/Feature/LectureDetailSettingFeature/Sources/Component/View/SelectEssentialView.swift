@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct EssentialCompleteView: View {
-    @Binding var isComplete: Bool
+struct SelectEssentialView: View {
+    @Binding var isEssential: Bool
     let onSelectButton: (Bool) -> Void
 
     var body: some View {
@@ -15,12 +15,12 @@ struct EssentialCompleteView: View {
                 TypeSelectedButton(
                     text: "필수",
                     isSelected: Binding(
-                        get: { isComplete == true },
+                        get: { isEssential == true },
                         set: { isSelected in
                             if isSelected {
                                 onSelectButton(isSelected)
                             } else {
-                                isComplete = isSelected
+                                isEssential = isSelected
                             }
                         }
                     )
@@ -29,15 +29,15 @@ struct EssentialCompleteView: View {
                 TypeSelectedButton(
                     text: "선택",
                     isSelected: Binding(
-                        get: { isComplete == false },
+                        get: { isEssential == false },
                         set: { isSelected in
                             if isSelected {
-                                isComplete = false
+                                isEssential = false
                                 onSelectButton(
                                     false
                                 )
                             } else {
-                                isComplete = true
+                                isEssential = true
                             }
                         }
                     )

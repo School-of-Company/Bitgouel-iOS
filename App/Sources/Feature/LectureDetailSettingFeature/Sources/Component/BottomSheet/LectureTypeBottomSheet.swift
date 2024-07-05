@@ -3,7 +3,7 @@ import SwiftUI
 
 struct LectureTypeBottomSheet: View {
     var selectedLectureType: LectureType
-    let lectureTypeList: LectureType.AllCases
+    let lectureTypeList: [LectureType] = LectureType.allCases
     let lectureTypeDidSelect: (LectureType) -> Void
 
     var body: some View {

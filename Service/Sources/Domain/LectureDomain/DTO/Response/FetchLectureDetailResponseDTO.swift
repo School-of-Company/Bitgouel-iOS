@@ -13,11 +13,15 @@ public struct FetchLectureDetailResponseDTO: Decodable {
     public let lectureDates: [LectureDate]
     public let lectureType: String
     public let lectureStatus: LectureStatusType
-    public let headCount: Int
     public let maxRegisteredUser: Int
     public let isRegistered: Bool
     public let instructor: String
+    public let userID: String
     public let credit: Int
+    public let locationX: String
+    public let locationY: String
+    public let address: String
+    public let essentialComplete: Bool
 
     public init(
         name: String,
@@ -32,11 +36,15 @@ public struct FetchLectureDetailResponseDTO: Decodable {
         lectureDates: [LectureDate],
         lectureType: String,
         lectureStatus: LectureStatusType,
-        headCount: Int,
         maxRegisteredUser: Int,
         isRegistered: Bool,
         instructor: String,
-        credit: Int
+        userID: String,
+        credit: Int,
+        locationX: String,
+        locationY: String,
+        address: String,
+        essentialComplete: Bool
     ) {
         self.name = name
         self.content = content
@@ -50,11 +58,15 @@ public struct FetchLectureDetailResponseDTO: Decodable {
         self.lectureDates = lectureDates
         self.lectureType = lectureType
         self.lectureStatus = lectureStatus
-        self.headCount = headCount
         self.maxRegisteredUser = maxRegisteredUser
         self.isRegistered = isRegistered
         self.instructor = instructor
+        self.userID = userID
         self.credit = credit
+        self.locationX = locationX
+        self.locationY = locationY
+        self.address = address
+        self.essentialComplete = essentialComplete
     }
 
     public struct LectureDate: Decodable {
@@ -86,11 +98,15 @@ public struct FetchLectureDetailResponseDTO: Decodable {
         case lectureDates
         case lectureType
         case lectureStatus
-        case headCount
         case maxRegisteredUser
         case isRegistered
         case instructor = "lecturer"
+        case userID = "userId"
         case credit
+        case locationX
+        case locationY
+        case address
+        case essentialComplete
     }
 }
 
@@ -109,11 +125,15 @@ extension FetchLectureDetailResponseDTO {
             lectureDates: lectureDates.map { $0.toDomain() },
             lectureType: lectureType,
             lectureStatus: lectureStatus,
-            headCount: headCount,
             maxRegisteredUser: maxRegisteredUser,
             isRegistered: isRegistered,
             instructor: instructor,
-            credit: credit
+            userID: userID,
+            credit: credit,
+            locationX: locationX,
+            locationY: locationY,
+            address: address,
+            essentialComplete: essentialComplete
         )
     }
 }
