@@ -5,13 +5,16 @@ struct LectureListDetailView: View {
     @StateObject var viewModel: LectureListDetailViewModel
 
     private let lectureApplicantListFactory: any LectureApplicantListFactory
+    private let inputLectureFactory: any InputLectureFactory
 
     init(
         viewModel: LectureListDetailViewModel,
-        lectureApplicantListFactory: any LectureApplicantListFactory
+        lectureApplicantListFactory: any LectureApplicantListFactory,
+        inputLectureFactory: any InputLectureFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.lectureApplicantListFactory = lectureApplicantListFactory
+        self.inputLectureFactory = inputLectureFactory
     }
 
     var body: some View {
@@ -182,7 +185,7 @@ struct LectureListDetailView: View {
                      .government,
                      .companyInstructor:
                     changeLectureStatusButton()
-                    
+
                 default:
                     EmptyView()
                 }
@@ -197,15 +200,26 @@ struct LectureListDetailView: View {
                 }
             )
         )
+        .navigate(
+            to: inputLectureFactory.makeView(state: "수정", lectureID: viewModel.lectureID).eraseToAnyView(),
+            when: Binding(
+                get: { viewModel.isPresentedInputLectureView },
+                set: { isPresented in
+                    viewModel.updateIsPresentedInputLectureView(isPresented: isPresented)
+                }
+            )
+        )
         .confirmationDialog("", isPresented: $viewModel.isPresentedLectureActionSheet) {
-            Button("강의 수정") { 
-                #warning("강의 수정 기능 추가")
+            Button("강의 수정") {
+                viewModel.updateIsPresentedInputLectureView(isPresented: true)
             }
+
             Button("강의 삭제", role: .destructive) {
                 viewModel.deleteLecture {
                     dismiss()
                 }
             }
+
             Button("취소", role: .cancel) {}
         }
     }

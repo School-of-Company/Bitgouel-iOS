@@ -9,6 +9,7 @@ final class LectureListDetailViewModel: BaseViewModel {
     @Published var isPresentedLectureApplicantListView: Bool = false
     @Published var userAuthority: UserAuthorityType = .user
     @Published var isPresentedLectureActionSheet: Bool = false
+    @Published var isPresentedInputLectureView: Bool = false
 
     let lectureID: String
     private let fetchLectureDetailUseCase: any FetchLectureDetailUseCase
@@ -39,6 +40,10 @@ final class LectureListDetailViewModel: BaseViewModel {
 
     func updateIsPresentedLectureActionSheet(isPresented: Bool) {
         isPresentedLectureActionSheet = isPresented
+    }
+
+    func updateIsPresentedInputLectureView(isPresented: Bool) {
+        isPresentedInputLectureView = isPresented
     }
 
     @MainActor

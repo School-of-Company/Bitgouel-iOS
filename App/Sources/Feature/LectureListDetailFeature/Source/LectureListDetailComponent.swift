@@ -9,6 +9,7 @@ public protocol LectureListDetailDependency: Dependency {
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase { get }
     var lectureApplicantListFactory: any LectureApplicantListFactory { get }
     var deleteLectureUseCase: any DeleteLectureUseCase { get }
+    var inputLectureFactory: any InputLectureFactory { get }
 }
 
 public final class LectureListDetailComponent: Component<LectureListDetailDependency>, LectureListDetailFactory {
@@ -23,7 +24,8 @@ public final class LectureListDetailComponent: Component<LectureListDetailDepend
                 loadUserAuthorityUseCase: dependency.loadUserAuthorityUseCase,
                 deleteLectureUseCase: dependency.deleteLectureUseCase
             ),
-            lectureApplicantListFactory: dependency.lectureApplicantListFactory
+            lectureApplicantListFactory: dependency.lectureApplicantListFactory,
+            inputLectureFactory: dependency.inputLectureFactory
         )
     }
 }
