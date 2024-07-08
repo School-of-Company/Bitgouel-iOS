@@ -25,17 +25,20 @@ final class InputLectureViewModel: BaseViewModel {
 
     private let openLectureUseCase: any OpenLectureUseCase
     private let fetchLectureDetailUseCase: any FetchLectureDetailUseCase
+    private let modifyLectureUseCase: any ModifyLectureUseCase
 
     init(
         openLectureUseCase: any OpenLectureUseCase,
         lectureID: String,
         state: String,
-        fetchLectureDetailUseCase: any FetchLectureDetailUseCase
+        fetchLectureDetailUseCase: any FetchLectureDetailUseCase,
+        modifyLectureUseCase: any ModifyLectureUseCase
     ) {
         self.openLectureUseCase = openLectureUseCase
         self.lectureID = lectureID
         self.state = state
         self.fetchLectureDetailUseCase = fetchLectureDetailUseCase
+        self.modifyLectureUseCase = modifyLectureUseCase
     }
 
     func updateIsPresentedLectureDetailSettingAppend(state: Bool) {
@@ -56,7 +59,7 @@ final class InputLectureViewModel: BaseViewModel {
             division: detailInfo.division,
             department: detailInfo.department,
             line: detailInfo.line,
-            instructorID: detailInfo.instructorID, 
+            instructorID: detailInfo.instructorID,
             instructorName: detailInfo.instructorName,
             startDate: detailInfo.startDate,
             endDate: detailInfo.endDate,
@@ -80,11 +83,14 @@ final class InputLectureViewModel: BaseViewModel {
         default:
             return
         }
-
     }
 
+    @MainActor
     func fetchLectureDetail() async throws {
         let response = try await fetchLectureDetailUseCase(lectureID: lectureID)
+
+        updateLectureTitle(title: response.name)
+        updateLectureText(text: response.content)
 
         lectureInfo = .init(
             semester: response.semester,
@@ -108,29 +114,16 @@ final class InputLectureViewModel: BaseViewModel {
     func openLectureButtonDidTap(_ success: @escaping () -> Void) {
         Task {
             do {
-                try await openLectureUseCase(
-                    req: InputLectureRequestDTO(
-                        name: lectureTitle,
-                        content: lectureText,
-                        semester: lectureInfo.semester,
-                        division: lectureInfo.division,
-                        department: lectureInfo.department,
-                        line: lectureInfo.line,
-                        userID: lectureInfo.instructorID,
-                        startDate: lectureInfo.startDate.toStringCustomFormat(format: "yyyy-MM-dd'T'hh:mm:ss"),
-                        endDate: lectureInfo.endDate.toStringCustomFormat(format: "yyyy-MM-dd'T'hh:mm:ss"),
-                        lectureDates: lectureInfo.lectureDates.map {
-                            InputLectureRequestDTO.LectureDateInfo(
-                                completeDate: $0.completeDate.toStringCustomFormat(format: "yyyy-MM-dd"),
-                                startTime: $0.startTime.toStringCustomFormat(format: "hh:mm:ss"),
-                                endTime: $0.endTime.toStringCustomFormat(format: "hh:mm:ss")
-                            )
-                        },
-                        lectureType: lectureInfo.lectureType,
-                        credit: lectureInfo.credit,
-                        maxRegisteredUser: lectureInfo.maxRegisteredUser
-                    )
-                )
+                switch state {
+                case "강의 개설":
+                    try await openLecture()
+
+                case "수정":
+                    try await modifyLecture()
+
+                default:
+                    return
+                }
 
                 success()
             } catch {
@@ -138,5 +131,58 @@ final class InputLectureViewModel: BaseViewModel {
                 isErrorOccurred = true
             }
         }
+    }
+
+    func openLecture() async throws {
+        try await openLectureUseCase(
+            req: InputLectureRequestDTO(
+                name: lectureTitle,
+                content: lectureText,
+                semester: lectureInfo.semester,
+                division: lectureInfo.division,
+                department: lectureInfo.department,
+                line: lectureInfo.line,
+                userID: lectureInfo.instructorID,
+                startDate: lectureInfo.startDate.toStringCustomFormat(format: "yyyy-MM-dd'T'hh:mm:ss"),
+                endDate: lectureInfo.endDate.toStringCustomFormat(format: "yyyy-MM-dd'T'hh:mm:ss"),
+                lectureDates: lectureInfo.lectureDates.map {
+                    InputLectureRequestDTO.LectureDateInfo(
+                        completeDate: $0.completeDate.toStringCustomFormat(format: "yyyy-MM-dd"),
+                        startTime: $0.startTime.toStringCustomFormat(format: "hh:mm:ss"),
+                        endTime: $0.endTime.toStringCustomFormat(format: "hh:mm:ss")
+                    )
+                },
+                lectureType: lectureInfo.lectureType,
+                credit: lectureInfo.credit,
+                maxRegisteredUser: lectureInfo.maxRegisteredUser
+            )
+        )
+    }
+
+    func modifyLecture() async throws {
+        try await modifyLectureUseCase(
+            lectureID: lectureID,
+            req: InputLectureRequestDTO(
+                name: lectureTitle,
+                content: lectureText,
+                semester: lectureInfo.semester,
+                division: lectureInfo.division,
+                department: lectureInfo.department,
+                line: lectureInfo.line,
+                userID: lectureInfo.instructorID,
+                startDate: lectureInfo.startDate.toStringCustomFormat(format: "yyyy-MM-dd'T'hh:mm:ss"),
+                endDate: lectureInfo.endDate.toStringCustomFormat(format: "yyyy-MM-dd'T'hh:mm:ss"),
+                lectureDates: lectureInfo.lectureDates.map {
+                    InputLectureRequestDTO.LectureDateInfo(
+                        completeDate: $0.completeDate.toStringCustomFormat(format: "yyyy-MM-dd"),
+                        startTime: $0.startTime.toStringCustomFormat(format: "hh:mm:ss"),
+                        endTime: $0.endTime.toStringCustomFormat(format: "hh:mm:ss")
+                    )
+                },
+                lectureType: lectureInfo.lectureType,
+                credit: lectureInfo.credit,
+                maxRegisteredUser: lectureInfo.maxRegisteredUser
+            )
+        )
     }
 }

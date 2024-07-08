@@ -97,7 +97,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     func updateLectureTypeString(lectureType: String) {
         lectureTypeString = lectureType
     }
-    
+
     func updateLectureType(lectureType: String) {
         switch lectureType {
         case "상호학점인정교육과정":
@@ -182,7 +182,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     func updateEndDate(endDate: Date) {
         selectedEndDate = endDate
     }
-    
+
     func updateLectureDates(lectureDates: [LectureDatesModel]) {
         lectureDatesList = lectureDates
     }

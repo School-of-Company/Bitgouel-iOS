@@ -339,7 +339,8 @@ final class SignUpViewModel: BaseViewModel {
     func signup(_ success: @escaping () -> Void) {
         guard let selectedSchool else { return }
         guard let selectedClub else { return }
-        guard checkphoneNumber(phoneNumber: phoneNumber) else { return updateIsPhoneNumberErrorOccurred(isErrorOccurred: true) }
+        guard checkphoneNumber(phoneNumber: phoneNumber)
+        else { return updateIsPhoneNumberErrorOccurred(isErrorOccurred: true) }
         guard checkEmail(email: email) else { return updateIsEmailErrorOccurred(isErrorOccurred: true) }
         guard checkPassword(password: password) else { return updateIsPasswordErrorOccurred(isErrorOccurred: true) }
         guard checkedPassword() else { return updateIsCheckPasswordErrorOccurred(isErrorOccurred: true) }

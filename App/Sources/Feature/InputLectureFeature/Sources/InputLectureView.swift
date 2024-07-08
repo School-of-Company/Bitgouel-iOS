@@ -37,6 +37,9 @@ struct InputLectureView: View {
                 )
             )
         }
+        .onAppear {
+            viewModel.onAppear()
+        }
         .onTapGesture {
             hideKeyboard()
         }

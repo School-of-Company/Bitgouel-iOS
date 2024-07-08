@@ -43,7 +43,7 @@ final class ClubDetailViewModel: BaseViewModel {
             do {
                 let response = try await fetchMyInfoUseCase()
                 let clubDetail = try await fetchClubDetail(authority: authority)
-                
+
                 updateClubDetail(clubInfo: clubDetail)
                 userID = response.userID
 
