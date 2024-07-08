@@ -5,14 +5,14 @@ struct LectureDetailSettingView: View {
     @StateObject var viewModel: LectureDetailSettingViewModel
     @Environment(\.dismiss) var dismiss
 
-    private let openedLectureFactory: any OpenedLectureFactory
+    private let inputLectureFactory: any InputLectureFactory
 
     init(
         viewModel: LectureDetailSettingViewModel,
-        openedLectureFactory: any OpenedLectureFactory
+        inputLectureFactory: any InputLectureFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
-        self.openedLectureFactory = openedLectureFactory
+        self.inputLectureFactory = inputLectureFactory
     }
 
     var body: some View {
@@ -34,8 +34,8 @@ struct LectureDetailSettingView: View {
 
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 28) {
-                    EssentialCompleteView(isComplete: $viewModel.isComplete) { isComplete in
-                        viewModel.updateIsComplete(isComplete: isComplete)
+                    SelectEssentialView(isEssential: $viewModel.isEssential) { isEssential in
+                        viewModel.updateIsEssential(isEssential: isEssential)
                     }
 
                     SemesterView(
@@ -46,7 +46,7 @@ struct LectureDetailSettingView: View {
 
                     LectureTypeView(
                         selectedLectureType: viewModel.selectedLectureType,
-                        selectedLectureTypeString: viewModel.selectedLectureTypeString
+                        selectedLectureTypeString: viewModel.lectureTypeString
                     ) { isShowing in
                         viewModel.updateIsShowingLectureTypeBottomSheet(isShowing: isShowing)
                     } onChangeSelectedLectureType: { lectureType in
@@ -72,8 +72,18 @@ struct LectureDetailSettingView: View {
                     }
 
                     ApplicationPeriodView(
-                        selectedStartDate: $viewModel.selectedStartDate,
-                        selectedEndDate: $viewModel.selectedEndDate
+                        selectedStartDate: Binding(
+                            get: { viewModel.selectedStartDate },
+                            set: { startDate in
+                                viewModel.updateStartDate(startDate: startDate)
+                            }
+                        ),
+                        selectedEndDate: Binding(
+                            get: { viewModel.selectedEndDate },
+                            set: { endDate in
+                                viewModel.updateEndDate(endDate: endDate)
+                            }
+                        )
                     )
 
                     LectureDatesView(
@@ -103,8 +113,8 @@ struct LectureDetailSettingView: View {
                         viewModel.updateCredit(credit: credit)
                     }
 
-                    MaxRegisteredUserView(maxRegisteredUser: $viewModel.selectedMaxRegisteredUser) { isShowing in
-                        viewModel.updateIsShowingMaxRegisteredUserBottomSheet(isShowing: isShowing)
+                    MaxRegisteredUserView(maxRegisteredUser: $viewModel.selectedMaxRegisteredUser) { maxRegisterUser in
+                        viewModel.updateMaxRegisterUser(maxRegisterUser: maxRegisterUser)
                     }
                 }
                 .padding(.bottom, 24)
@@ -117,6 +127,9 @@ struct LectureDetailSettingView: View {
                 viewModel.applyButtonDidTap()
                 dismiss()
             }
+        }
+        .onAppear {
+            viewModel.onAppear()
         }
         .padding(.horizontal, 28)
         .onChange(of: viewModel.isShowingLineBottomSheet) { newValue in
@@ -152,7 +165,6 @@ struct LectureDetailSettingView: View {
         }
         .bitgouelBottomSheet(isShowing: $viewModel.isShowingSemesterBottomSheet) {
             SemesterBottomSheet(
-                semesterList: viewModel.semesterList,
                 selectedSemester: viewModel.selectedSemester
             ) { semester in
                 viewModel.updateSemester(semester: semester)
@@ -160,10 +172,9 @@ struct LectureDetailSettingView: View {
         }
         .bitgouelBottomSheet(isShowing: $viewModel.isShowingLectureTypeBottomSheet) {
             LectureTypeBottomSheet(
-                selectedLectureType: viewModel.selectedLectureType,
-                lectureTypeList: viewModel.lectureTypeList
+                selectedLectureType: viewModel.selectedLectureType
             ) { lectureType in
-                viewModel.updateLectrureType(lectureType: lectureType)
+                viewModel.updateSelectedLectureType(lectureType: lectureType)
                 viewModel.updateLectureTypeString(lectureType: lectureType.rawValue)
             }
         }
@@ -193,7 +204,7 @@ struct LectureDetailSettingView: View {
                 keyword: $viewModel.keyword,
                 departmentList: viewModel.departmentList
             ) { department in
-                viewModel.updateSelectedDepartment(department: department)
+                viewModel.updateDepartment(department: department)
                 viewModel.resetKeyword()
             }
         }
@@ -206,9 +217,6 @@ struct LectureDetailSettingView: View {
                 viewModel.updateInstructorInfo(name: name, id: id)
                 viewModel.resetKeyword()
             }
-        }
-        .bitgouelBottomSheet(isShowing: $viewModel.isShowingMaxRegisteredUserBottomSheet) {
-            MaxRegisteredUserBottomSheet(selectedMaxRegisteredUser: $viewModel.selectedMaxRegisteredUser)
         }
         .onTapGesture {
             hideKeyboard()

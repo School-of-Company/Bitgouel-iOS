@@ -1,13 +1,13 @@
 import SwiftUI
 
-struct OpenedLectureView: View {
+struct InputLectureView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var viewModel: OpenedLectureViewModel
+    @StateObject var viewModel: InputLectureViewModel
 
     private let lectureDetailSettingFactory: any LectureDetailSettingFactory
 
     init(
-        viewModel: OpenedLectureViewModel,
+        viewModel: InputLectureViewModel,
         lectureDetailSettingFactory: any LectureDetailSettingFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -18,7 +18,7 @@ struct OpenedLectureView: View {
         VStack(spacing: 0) {
             InputFormView(
                 epic: "강의",
-                state: "개설",
+                state: viewModel.state,
                 settingButtonAction: {
                     viewModel.updateIsPresentedLectureDetailSettingAppend(state: true)
                 },
@@ -37,6 +37,9 @@ struct OpenedLectureView: View {
                 )
             )
         }
+        .onAppear {
+            viewModel.onAppear()
+        }
         .onTapGesture {
             hideKeyboard()
         }
@@ -51,8 +54,8 @@ struct OpenedLectureView: View {
             )
         ) {
             DeferView {
-                lectureDetailSettingFactory.makeView(detailInfo: viewModel.openLectureInfo) { detailInfo in
-                    viewModel.updateOpenLectureInfo(detailInfo: detailInfo)
+                lectureDetailSettingFactory.makeView(detailInfo: viewModel.lectureInfo) { detailInfo in
+                    viewModel.updateLectureInfo(detailInfo: detailInfo)
                 }
                 .eraseToAnyView()
             }

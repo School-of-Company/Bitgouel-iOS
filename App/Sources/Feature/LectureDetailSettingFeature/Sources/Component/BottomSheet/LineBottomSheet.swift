@@ -12,7 +12,7 @@ struct LineBottomSheet: View {
         VStack(spacing: 8) {
             SearchTextField(
                 text: $keyword,
-                "계열 검색 또는 임의로 추가..."
+                "강의 계열 검색"
             )
 
             ScrollView(showsIndicators: false) {

@@ -7,7 +7,7 @@ public struct LectureRepositoryImpl: LectureRepository {
         self.remoteLectureDataSource = remoteLectureDataSource
     }
 
-    public func openLecture(req: OpenLectureRequestDTO) async throws {
+    public func openLecture(req: InputLectureRequestDTO) async throws {
         try await remoteLectureDataSource.openLecture(req: req)
     }
 
@@ -61,5 +61,9 @@ public struct LectureRepositoryImpl: LectureRepository {
 
     public func deleteLecture(lectureID: String) async throws {
         try await remoteLectureDataSource.deleteLecture(lectureID: lectureID)
+    }
+
+    public func modifyLecture(lectureID: String, req: InputLectureRequestDTO) async throws {
+        try await remoteLectureDataSource.modifyLecture(lectureID: lectureID, req: req)
     }
 }

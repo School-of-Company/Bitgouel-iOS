@@ -2,7 +2,7 @@ import Service
 import SwiftUI
 
 struct SemesterBottomSheet: View {
-    let semesterList: SemesterType.AllCases
+    let semesterList: [SemesterType] = SemesterType.allCases
     let selectedSemester: SemesterType
     let semesterDidSelect: (SemesterType) -> Void
 

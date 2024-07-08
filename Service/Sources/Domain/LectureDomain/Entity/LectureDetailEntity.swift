@@ -13,11 +13,15 @@ public struct LectureDetailEntity: Equatable {
     public let lectureDates: [LectureDateEntity]
     public let lectureType: String
     public let lectureStatus: LectureStatusType
-    public let headCount: Int
     public let maxRegisteredUser: Int
     public let isRegistered: Bool
     public let instructor: String
+    public let userID: String
     public let credit: Int
+    public let locationX: String
+    public let locationY: String
+    public let address: String
+    public let essentialComplete: Bool
 
     public init(
         name: String,
@@ -32,11 +36,15 @@ public struct LectureDetailEntity: Equatable {
         lectureDates: [LectureDateEntity],
         lectureType: String,
         lectureStatus: LectureStatusType,
-        headCount: Int,
         maxRegisteredUser: Int,
         isRegistered: Bool,
         instructor: String,
-        credit: Int
+        userID: String,
+        credit: Int,
+        locationX: String,
+        locationY: String,
+        address: String,
+        essentialComplete: Bool
     ) {
         self.name = name
         self.content = content
@@ -50,11 +58,15 @@ public struct LectureDetailEntity: Equatable {
         self.lectureDates = lectureDates
         self.lectureType = lectureType
         self.lectureStatus = lectureStatus
-        self.headCount = headCount
         self.maxRegisteredUser = maxRegisteredUser
         self.isRegistered = isRegistered
         self.instructor = instructor
+        self.userID = userID
         self.credit = credit
+        self.locationX = locationX
+        self.locationY = locationY
+        self.address = address
+        self.essentialComplete = essentialComplete
     }
 }
 

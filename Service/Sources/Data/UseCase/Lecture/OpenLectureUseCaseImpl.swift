@@ -7,7 +7,7 @@ public struct OpenLectureUseCaseImpl: OpenLectureUseCase {
         self.lectureRepository = lectureRepository
     }
 
-    public func callAsFunction(req: OpenLectureRequestDTO) async throws {
+    public func callAsFunction(req: InputLectureRequestDTO) async throws {
         try await lectureRepository.openLecture(req: req)
     }
 }

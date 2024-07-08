@@ -40,12 +40,12 @@ struct PickerView: View {
 
             VStack(alignment: .leading, spacing: 8) {
                 BitgouelText(
-                    text: "담당 교수",
+                    text: "담당 강사",
                     font: .text1
                 )
 
                 PickerTextField(
-                    "담당 교수 선택",
+                    "담당 강사 선택",
                     text: selectedInstructorName
                 ) {
                     onSelectInstructor()

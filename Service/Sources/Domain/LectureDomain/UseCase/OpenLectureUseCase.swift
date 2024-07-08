@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol OpenLectureUseCase {
-    func callAsFunction(req: OpenLectureRequestDTO) async throws
+    func callAsFunction(req: InputLectureRequestDTO) async throws
 }

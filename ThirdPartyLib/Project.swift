@@ -9,6 +9,6 @@ let project = Project.dynamicFramwork(
     deploymentTarget: env.deploymentTarget,
     dependencies: [
         .SPM.Moya,
-        .SPM.NeedleFoundation
+        .SPM.Needle
     ]
 )

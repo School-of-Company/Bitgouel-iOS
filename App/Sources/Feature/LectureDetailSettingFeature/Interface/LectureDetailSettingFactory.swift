@@ -3,7 +3,7 @@ import SwiftUI
 public protocol LectureDetailSettingFactory {
     associatedtype SomeView: View
     func makeView(
-        detailInfo: OpenedLectureModel,
-        completion: @escaping (OpenedLectureModel) -> Void
+        detailInfo: LectureDataModel,
+        completion: @escaping (LectureDataModel) -> Void
     ) -> SomeView
 }

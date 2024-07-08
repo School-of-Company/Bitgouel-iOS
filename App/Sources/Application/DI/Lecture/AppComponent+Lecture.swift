@@ -85,10 +85,16 @@ public extension AppComponent {
             ModifyApplicantWhetherUseCaseImpl(lectureRepository: lectureRepository)
         }
     }
-    
+
     var deleteLectureUseCase: any DeleteLectureUseCase {
         shared {
             DeleteLectureUseCaseImpl(lectureRepository: lectureRepository)
+        }
+    }
+
+    var modifyLectureUseCase: any ModifyLectureUseCase {
+        shared {
+            ModifyLectureUseCaseImpl(lectureRepository: lectureRepository)
         }
     }
 }
