@@ -3,15 +3,18 @@ import SwiftUI
 struct PickerTextField: View {
     var placeholder: String
     var text: String
+    var backgroundColor: Color
     var action: () -> Void
 
     init(
         _ placeholder: String,
         text: String,
+        backgroundColor: Color = .clear,
         action: @escaping () -> Void
     ) {
         self.placeholder = placeholder
         self.text = text
+        self.backgroundColor = backgroundColor
         self.action = action
     }
 
@@ -40,6 +43,7 @@ struct PickerTextField: View {
                 .padding(.vertical, 16)
             }
         }
+        .background(backgroundColor)
         .buttonWrapper(action)
     }
 }

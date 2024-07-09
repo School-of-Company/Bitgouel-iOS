@@ -17,7 +17,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     @Published var selectedDivision: String = ""
 
     // MARK: credit
-    @Published var selectedCredit: Int = 1
+    @Published var selectedCredit: Int = 0
 
     // MARK: Line
     @Published var isShowingLineBottomSheet: Bool = false
@@ -94,29 +94,29 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         selectedLectureType = lectureType
     }
 
-    func updateLectureTypeString(lectureType: String) {
-        lectureTypeString = lectureType
-    }
-
     func updateLectureType(lectureType: String) {
+        lectureTypeString = lectureType
+
         switch lectureType {
         case "상호학점인정교육과정":
+            if selectedSemester == .notApplicable { updateSemester(semester: .firstYearFallSemester) }
             updateSelectedLectureType(lectureType: .mutualCreditRecognitionProgram)
 
         case "대학탐방프로그램":
             updateSelectedLectureType(lectureType: .universityExplorationProgram)
+            updateSemester(semester: .notApplicable)
 
         case "유관기관프로그램":
+            if selectedSemester == .notApplicable { updateSemester(semester: .firstYearFallSemester) }
             updateSelectedLectureType(lectureType: .governmentProgram)
 
         case "기업산학연계직업체험프로그램":
+            if selectedSemester == .notApplicable { updateSemester(semester: .firstYearFallSemester) }
             updateSelectedLectureType(lectureType: .companyIndustryLinkingJobExperienceProgram)
 
         default:
             updateSelectedLectureType(lectureType: .etc)
         }
-
-        updateLectureTypeString(lectureType: lectureType)
     }
 
     func updateIsShowingLectureTypeBottomSheet(isShowing: Bool) {

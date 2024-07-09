@@ -21,7 +21,7 @@ struct TypeSelectedButton: View {
                 font: .text1
             )
             .foregroundColor(isSelected ? Color.bitgouel(.greyscale(.g10)) : Color.bitgouel(.greyscale(.g4)))
-            .padding(.horizontal, 16)
+            .padding(.horizontal, 24)
             .padding(.vertical, 8)
             .overlay {
                 RoundedRectangle(cornerRadius: 99)

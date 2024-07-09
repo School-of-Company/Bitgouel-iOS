@@ -16,7 +16,7 @@ final class InputLectureViewModel: BaseViewModel {
         endDate: Date(),
         lectureDates: [],
         lectureType: "상호학점인정교육과정",
-        credit: 1,
+        credit: 0,
         maxRegisteredUser: 0
     )
 

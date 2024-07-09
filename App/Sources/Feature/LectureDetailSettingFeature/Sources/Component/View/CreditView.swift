@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct CreditView: View {
-    let creditValue: [Int] = [1, 2]
     @Binding var selectedCredit: Int
     let onSelectedCrdit: (Int) -> Void
 
@@ -12,16 +11,16 @@ struct CreditView: View {
                 font: .text1
             )
 
-            HStack(spacing: 16) {
-                ForEach(creditValue, id: \.self) { credit in
-                    TypeSelectedButton(
-                        text: "\(credit)점",
-                        isSelected: Binding(
-                            get: { credit == selectedCredit },
-                            set: { _ in onSelectedCrdit(credit) }
-                        )
-                    )
-                }
+            TextField(
+                "학점 입력",
+                value: $selectedCredit,
+                formatter: NumberFormatter()
+            )
+            .padding(.horizontal, 20)
+            .padding(.vertical, 16)
+            .overlay {
+                RoundedRectangle(cornerRadius: 8)
+                    .strokeBorder(Color.bitgouel(.greyscale(.g7)))
             }
         }
     }
