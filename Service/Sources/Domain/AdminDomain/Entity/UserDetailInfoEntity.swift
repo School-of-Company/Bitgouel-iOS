@@ -1,6 +1,6 @@
 import Foundation
 
-public struct UserDetailInfoResponseDTO: Decodable {
+public struct UserDetailInfoEntity: Equatable {
     public let userID: String
     public let name: String
     public let authority: UserAuthorityType
@@ -16,23 +16,5 @@ public struct UserDetailInfoResponseDTO: Decodable {
         self.name = name
         self.authority = authority
         self.approveStatus = approveStatus
-    }
-
-    enum CodingKeys: String, CodingKey {
-        case userID = "id"
-        case name
-        case authority
-        case approveStatus
-    }
-}
-
-extension UserDetailInfoResponseDTO {
-    func toDomain() -> UserDetailInfoEntity {
-        UserDetailInfoEntity(
-            userID: userID,
-            name: name,
-            authority: authority,
-            approveStatus: approveStatus
-        )
     }
 }

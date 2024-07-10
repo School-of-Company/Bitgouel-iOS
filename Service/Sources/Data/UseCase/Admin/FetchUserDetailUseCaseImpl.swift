@@ -7,7 +7,7 @@ public struct FetchUserDetailUseCaseImpl: FetchUserDetailUseCase {
         self.adminRepository = adminRepository
     }
 
-    public func callAsFunction(userID: String) async throws -> UserInfoEntity {
+    public func callAsFunction(userID: String) async throws -> UserDetailInfoEntity {
         try await adminRepository.fetchUserDetail(userID: userID)
     }
 }

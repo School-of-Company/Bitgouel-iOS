@@ -13,17 +13,29 @@ public struct UserInfoResponseDTO: Decodable {
     public let name: String
     public let authority: UserAuthorityType
     public let approveStatus: ApproveStatusType
+    public let phoneNumber: String
+    public let subscriptionYear: Int
+    public let subscriptionGrade: Int?
+    public let email: String
 
     public init(
         userID: String,
         name: String,
         authority: UserAuthorityType,
-        approveStatus: ApproveStatusType
+        approveStatus: ApproveStatusType,
+        phoneNumber: String,
+        subscriptionYear: Int,
+        subscriptionGrade: Int?,
+        email: String
     ) {
         self.userID = userID
         self.name = name
         self.authority = authority
         self.approveStatus = approveStatus
+        self.phoneNumber = phoneNumber
+        self.subscriptionYear = subscriptionYear
+        self.subscriptionGrade = subscriptionGrade
+        self.email = email
     }
 
     enum CodingKeys: String, CodingKey {
@@ -31,6 +43,10 @@ public struct UserInfoResponseDTO: Decodable {
         case name
         case authority
         case approveStatus
+        case phoneNumber
+        case subscriptionYear
+        case subscriptionGrade
+        case email
     }
 }
 
@@ -46,7 +62,11 @@ extension UserInfoResponseDTO {
             userID: userID,
             name: name,
             authority: authority,
-            approveStatus: approveStatus
+            approveStatus: approveStatus,
+            phoneNumber: phoneNumber,
+            subscriptionYear: subscriptionYear,
+            subscriptionGrade: subscriptionGrade,
+            email: email
         )
     }
 }
