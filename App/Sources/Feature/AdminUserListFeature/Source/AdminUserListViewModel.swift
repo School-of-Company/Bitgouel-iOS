@@ -4,15 +4,13 @@ import Service
 final class AdminUserListViewModel: BaseViewModel {
     @Published var keyword = ""
     @Published var isSelectedUserList = false
-    @Published var isPresentedUserTypeFilter: Bool = false
-    @Published var isNavigateRequestSignUpDidTap = false
-    @Published var isNavigateWithdrawListDidTap = false
+    @Published var isPresentedUserTypeBottomSheet: Bool = false
+    @Published var isPresentedOtherListBottomSheet: Bool = false
     @Published var selectedAuthority: AdminUserListAuthorityType?
+    @Published var selectedPage: OtherPage?
     @Published var userList: [UserInfoEntity] = []
 
     private let fetchUserListUseCase: any FetchUserListUseCase
-
-    var userAuthorityType: [AdminUserListAuthorityType] = AdminUserListAuthorityType.allCases
 
     init(
         fetchUserListUseCase: any FetchUserListUseCase
@@ -20,8 +18,22 @@ final class AdminUserListViewModel: BaseViewModel {
         self.fetchUserListUseCase = fetchUserListUseCase
     }
 
-    func updateIsPresentedUserTypeFilter(isPresented: Bool) {
-        isPresentedUserTypeFilter = isPresented
+    func updateIsPresentedUserTypeBottomSheet(isPresented: Bool) {
+        isPresentedUserTypeBottomSheet = isPresented
+    }
+
+    func updateIsPresentedOtherListBottomSheet(isPresented: Bool) {
+        isPresentedOtherListBottomSheet = isPresented
+    }
+
+    func updateSelectedAuthority(authority: AdminUserListAuthorityType) {
+        guard selectedAuthority != authority else { return selectedAuthority = nil }
+        selectedAuthority = authority
+    }
+
+    func updateSelectedPage(page: OtherPage) {
+        guard selectedPage != page else { return selectedPage = nil }
+        selectedPage = page
     }
 
     @MainActor
@@ -37,15 +49,5 @@ final class AdminUserListViewModel: BaseViewModel {
                 print(error.localizedDescription)
             }
         }
-    }
-
-    @MainActor
-    func requestSignUpPageDismissed() {
-        isNavigateRequestSignUpDidTap = false
-    }
-
-    @MainActor
-    func withdrawListPageDismissed() {
-        isNavigateWithdrawListDidTap = false
     }
 }

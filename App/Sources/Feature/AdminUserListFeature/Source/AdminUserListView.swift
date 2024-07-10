@@ -36,7 +36,7 @@ struct AdminUserListView: View {
                                 .strokeBorder(Color.bitgouel(.greyscale(.g7)))
                         }
                         .onTapGesture {
-                            viewModel.isPresentedUserTypeFilter = true
+                            viewModel.updateIsPresentedUserTypeBottomSheet(isPresented: true)
                         }
                 }
                 .padding(.top, 24)
@@ -50,7 +50,7 @@ struct AdminUserListView: View {
                                 phoneNumber: userInfo.phoneNumber.withHypen,
                                 email: userInfo.email
                             )
-                            
+
                             Divider()
                                 .frame(height: 1)
                                 .padding(.vertical, 12)
@@ -60,28 +60,6 @@ struct AdminUserListView: View {
                 .padding(.top, 24)
             }
             .padding(.horizontal, 28)
-
-            ZStack(alignment: .center) {
-                if viewModel.isPresentedUserTypeFilter {
-                    Color.black.opacity(0.4)
-                        .edgesIgnoringSafeArea(.all)
-                        .onTapGesture {
-                            viewModel.isPresentedUserTypeFilter = false
-                        }
-
-                    UserTypeFilterPopup(
-                        userAuthorityType: viewModel.userAuthorityType,
-                        selectedAuthority: viewModel.selectedAuthority
-                    ) { authority in
-                        viewModel.selectedAuthority = authority
-                        viewModel.onAppear()
-                    } cancel: { cancel in
-                        viewModel.updateIsPresentedUserTypeFilter(isPresented: cancel)
-                    }
-                    .padding(.horizontal, 28)
-                }
-            }
-            .zIndex(1)
         }
         .navigationTitle("사용자 명단")
         .onAppear {
@@ -93,36 +71,34 @@ struct AdminUserListView: View {
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button {
-                    viewModel.isNavigateRequestSignUpDidTap = true
+                    viewModel.updateIsPresentedOtherListBottomSheet(isPresented: true)
                 } label: {
-                    BitgouelAsset.Icons.addFill.swiftUIImage
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 24, height: 24)
-                }
-
-                Button {
-                    viewModel.isNavigateWithdrawListDidTap = true
-                } label: {
-                    BitgouelAsset.Icons.minusFill.swiftUIImage
+                    BitgouelAsset.Icons.sandwich.swiftUIImage
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 24, height: 24)
                 }
             }
         }
-        .navigate(
-            to: adminRequestUserSignupFactory.makeView().eraseToAnyView(),
-            when: Binding(
-                get: { viewModel.isNavigateRequestSignUpDidTap }, set: { _ in viewModel.requestSignUpPageDismissed() }
-            )
-        )
-        .navigate(
-            to: adminWithdrawUserListFactory.makeView().eraseToAnyView(),
-            when: Binding(
-                get: { viewModel.isNavigateWithdrawListDidTap },
-                set: { _ in viewModel.withdrawListPageDismissed() }
-            )
-        )
+        .bitgouelBottomSheet(isShowing: $viewModel.isPresentedUserTypeBottomSheet) {
+            UserTypeFilterBottomSheet(
+                selectedAuthority: viewModel.selectedAuthority
+            ) { authority in
+                viewModel.updateSelectedAuthority(authority: authority)
+                viewModel.onAppear()
+            } cancel: { cancel in
+                viewModel.updateIsPresentedUserTypeBottomSheet(isPresented: cancel)
+            }
+        }
+        .bitgouelBottomSheet(isShowing: $viewModel.isPresentedOtherListBottomSheet) {
+            OtherPageListBottomSheet(
+                selectedPage: viewModel.selectedPage
+            ) { page in
+                viewModel.updateSelectedPage(page: page)
+                viewModel.onAppear()
+            } cancel: { cancel in
+                viewModel.updateIsPresentedOtherListBottomSheet(isPresented: cancel)
+            }
+        }
     }
 }

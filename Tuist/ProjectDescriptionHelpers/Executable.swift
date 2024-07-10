@@ -1,5 +1,5 @@
-import ProjectDescription
 import EnvironmentPlugin
+import ProjectDescription
 
 public extension Project {
     static func executable(
@@ -18,7 +18,7 @@ public extension Project {
         if configurations.isEmpty {
             configurations = .default
         }
-    
+
         var settings: Settings = .settings(
             base: env.baseSetting,
             configurations: configurations,
@@ -55,7 +55,6 @@ public extension Project {
             )
         ]
 
-        
         return Project(
             name: name,
             organizationName: env.organizationName,
