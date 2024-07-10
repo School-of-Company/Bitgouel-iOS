@@ -1,6 +1,6 @@
 import SwiftUI
 
-public protocol AdminUserListFactory {
+public protocol UserListFactory {
     associatedtype SomeView: View
     func makeView() -> SomeView
 }

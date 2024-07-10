@@ -1,6 +1,6 @@
 import SwiftUI
 
-public protocol AdminRequestUserSignupFactory {
+public protocol WithdrawUserListFactory {
     associatedtype SomeView: View
     func makeView() -> SomeView
 }

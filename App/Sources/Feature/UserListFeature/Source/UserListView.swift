@@ -1,20 +1,20 @@
 import SwiftUI
 
-struct AdminUserListView: View {
+struct UserListView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var viewModel: AdminUserListViewModel
+    @StateObject var viewModel: UserListViewModel
 
-    private let adminWithdrawUserListFactory: any AdminWithdrawUserListFactory
-    private let adminRequestUserSignupFactory: any AdminRequestUserSignupFactory
+    private let withdrawUserListFactory: any WithdrawUserListFactory
+    private let requestUserSignupFactory: any RequestUserSignupFactory
 
     init(
-        viewModel: AdminUserListViewModel,
-        adminWithdrawUserListFactory: any AdminWithdrawUserListFactory,
-        adminRequestUserSignupFactory: any AdminRequestUserSignupFactory
+        viewModel: UserListViewModel,
+        withdrawUserListFactory: any WithdrawUserListFactory,
+        requestUserSignupFactory: any RequestUserSignupFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
-        self.adminWithdrawUserListFactory = adminWithdrawUserListFactory
-        self.adminRequestUserSignupFactory = adminRequestUserSignupFactory
+        self.withdrawUserListFactory = withdrawUserListFactory
+        self.requestUserSignupFactory = requestUserSignupFactory
     }
 
     var body: some View {

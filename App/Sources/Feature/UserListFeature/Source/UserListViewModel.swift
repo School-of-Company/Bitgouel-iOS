@@ -1,13 +1,13 @@
 import Foundation
 import Service
 
-final class AdminUserListViewModel: BaseViewModel {
+final class UserListViewModel: BaseViewModel {
     @Published var keyword = ""
     @Published var isSelectedUserList = false
     @Published var isPresentedUserTypeBottomSheet: Bool = false
     @Published var isPresentedOtherListBottomSheet: Bool = false
     @Published var selectedAuthority: AdminUserListAuthorityType?
-    @Published var selectedPage: OtherPage?
+    @Published var selectedPage: AdminPage?
     @Published var userList: [UserInfoEntity] = []
 
     private let fetchUserListUseCase: any FetchUserListUseCase
@@ -31,7 +31,7 @@ final class AdminUserListViewModel: BaseViewModel {
         selectedAuthority = authority
     }
 
-    func updateSelectedPage(page: OtherPage) {
+    func updateSelectedPage(page: AdminPage) {
         guard selectedPage != page else { return selectedPage = nil }
         selectedPage = page
     }
