@@ -44,22 +44,16 @@ struct AdminUserListView: View {
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 0) {
                         ForEach(viewModel.userList, id: \.userID) { userInfo in
-                            HStack(spacing: 8) {
-                                BitgouelText(
-                                    text: userInfo.name,
-                                    font: .text1
-                                )
-
-                                BitgouelText(
-                                    text: userInfo.authority.display(),
-                                    font: .text1
-                                )
-                                .foregroundColor(.bitgouel(.greyscale(.g6)))
-                            }
-
+                            UserListRow(
+                                name: userInfo.name,
+                                authoruty: userInfo.authority.display(),
+                                phoneNumber: userInfo.phoneNumber.withHypen,
+                                email: userInfo.email
+                            )
+                            
                             Divider()
                                 .frame(height: 1)
-                                .padding(.vertical, 14)
+                                .padding(.vertical, 12)
                         }
                     }
                 }

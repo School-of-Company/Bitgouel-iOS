@@ -34,7 +34,7 @@ final class AdminUserListViewModel: BaseViewModel {
                     approveStatus: ""
                 )
             } catch {
-                print()
+                print(error.localizedDescription)
             }
         }
     }
