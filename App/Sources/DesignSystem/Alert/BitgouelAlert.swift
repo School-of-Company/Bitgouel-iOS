@@ -64,6 +64,7 @@ struct BitgouelAlertModifier: ViewModifier {
             VStack(alignment: .center, spacing: 16) {
                 Text(title)
                     .bitgouelFont(.text1)
+                    .multilineTextAlignment(.center)
 
                 Text(description)
                     .bitgouelFont(.caption, color: .greyscale(.g4))
