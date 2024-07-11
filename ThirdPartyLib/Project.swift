@@ -1,7 +1,7 @@
-import ProjectDescription
-import ProjectDescriptionHelpers
 import DependencyPlugin
 import EnvironmentPlugin
+import ProjectDescription
+import ProjectDescriptionHelpers
 
 let project = Project.dynamicFramwork(
     name: "ThirdPartyLib",

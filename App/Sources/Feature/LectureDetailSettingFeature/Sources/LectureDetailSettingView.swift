@@ -34,23 +34,19 @@ struct LectureDetailSettingView: View {
 
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 28) {
-                    SelectEssentialView(isEssential: $viewModel.isEssential) { isEssential in
-                        viewModel.updateIsEssential(isEssential: isEssential)
-                    }
-
-                    SemesterView(
-                        selectedSemester: viewModel.selectedSemester
-                    ) { isShowing in
-                        viewModel.updateIsShowingSemesterBottomSheet(isShowing: isShowing)
-                    }
-
                     LectureTypeView(
                         selectedLectureType: viewModel.selectedLectureType,
                         selectedLectureTypeString: viewModel.lectureTypeString
                     ) { isShowing in
                         viewModel.updateIsShowingLectureTypeBottomSheet(isShowing: isShowing)
                     } onChangeSelectedLectureType: { lectureType in
-                        viewModel.updateLectureTypeString(lectureType: lectureType)
+                        viewModel.updateLectureType(lectureType: lectureType)
+                    }
+
+                    SemesterView(
+                        selectedSemester: viewModel.selectedSemester
+                    ) { isShowing in
+                        viewModel.updateIsShowingSemesterBottomSheet(isShowing: isShowing)
                     }
 
                     DivisionView(
@@ -109,12 +105,16 @@ struct LectureDetailSettingView: View {
                         viewModel.deleteLectureDate(at: index)
                     }
 
-                    CreditView(selectedCredit: $viewModel.selectedCredit) { credit in
-                        viewModel.updateCredit(credit: credit)
+                    if viewModel.selectedLectureType == .mutualCreditRecognitionProgram {
+                        creditView()
                     }
 
                     MaxRegisteredUserView(maxRegisteredUser: $viewModel.selectedMaxRegisteredUser) { maxRegisterUser in
                         viewModel.updateMaxRegisterUser(maxRegisterUser: maxRegisterUser)
+                    }
+
+                    SelectEssentialView(isEssential: $viewModel.isEssential) { isEssential in
+                        viewModel.updateIsEssential(isEssential: isEssential)
                     }
                 }
                 .padding(.bottom, 24)
@@ -174,8 +174,7 @@ struct LectureDetailSettingView: View {
             LectureTypeBottomSheet(
                 selectedLectureType: viewModel.selectedLectureType
             ) { lectureType in
-                viewModel.updateSelectedLectureType(lectureType: lectureType)
-                viewModel.updateLectureTypeString(lectureType: lectureType.rawValue)
+                viewModel.updateLectureType(lectureType: lectureType.rawValue)
             }
         }
         .bitgouelBottomSheet(isShowing: $viewModel.isShowingDivisionBottomSheet) {
@@ -220,6 +219,13 @@ struct LectureDetailSettingView: View {
         }
         .onTapGesture {
             hideKeyboard()
+        }
+    }
+
+    @ViewBuilder
+    func creditView() -> some View {
+        CreditView(selectedCredit: $viewModel.selectedCredit) { credit in
+            viewModel.updateCredit(credit: credit)
         }
     }
 }

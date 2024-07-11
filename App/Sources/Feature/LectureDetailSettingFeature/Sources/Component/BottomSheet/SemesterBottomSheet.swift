@@ -10,15 +10,19 @@ struct SemesterBottomSheet: View {
         ScrollView {
             LazyVStack {
                 ForEach(semesterList, id: \.self) { semester in
-                    semesterListRow(
-                        semester: semester.display(),
-                        isSelected: Binding(
-                            get: { semester.rawValue == selectedSemester.rawValue },
-                            set: { _ in semesterDidSelect(semester) }
+                    if semester == .notApplicable {
+                        EmptyView()
+                    } else {
+                        semesterListRow(
+                            semester: semester.display(),
+                            isSelected: Binding(
+                                get: { semester.rawValue == selectedSemester.rawValue },
+                                set: { _ in semesterDidSelect(semester) }
+                            )
                         )
-                    )
-                    .onTapGesture {
-                        semesterDidSelect(semester)
+                        .onTapGesture {
+                            semesterDidSelect(semester)
+                        }
                     }
                 }
             }

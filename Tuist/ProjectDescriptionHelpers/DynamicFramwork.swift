@@ -1,6 +1,6 @@
+import EnvironmentPlugin
 import Foundation
 import ProjectDescription
-import EnvironmentPlugin
 
 let isCI = (ProcessInfo.processInfo.environment["TUIST_CI"] ?? "0") == "1" ? true : false
 

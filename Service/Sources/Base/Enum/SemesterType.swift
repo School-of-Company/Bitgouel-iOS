@@ -5,6 +5,7 @@ public enum SemesterType: String, CaseIterable, Decodable, Encodable {
     case secondYearSpringSemester = "SECOND_YEAR_SPRING_SEMESTER"
     case secondYearFallSemester = "SECOND_YEAR_FALL_SEMESTER"
     case thirdYearSpringSemester = "THIRD_YEAR_SPRING_SEMESTER"
+    case notApplicable = "NOT_APPLICABLE"
 }
 
 public extension SemesterType {
@@ -14,6 +15,7 @@ public extension SemesterType {
         case .secondYearSpringSemester: return "2학년 1학기"
         case .secondYearFallSemester: return "2학년 2학기"
         case .thirdYearSpringSemester: return "3학년 1학기"
+        case .notApplicable: return "해당사항 없음"
         }
     }
 }
