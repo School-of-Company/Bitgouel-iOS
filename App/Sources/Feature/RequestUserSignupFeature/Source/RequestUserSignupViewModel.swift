@@ -42,6 +42,18 @@ final class RequestUserSignupViewModel: BaseViewModel {
         selectedUserList.remove(userID)
     }
 
+    func updateIsSelectedUserList(isSelected: Bool) {
+        isSelectedUserList = isSelected
+    }
+
+    func updateIsShowingApproveAlert(isShowing: Bool) {
+        isShowingApproveAlert = isShowing
+    }
+
+    func updateIsShowingRejectAlert(isShowing: Bool) {
+        isShowingRejectAlert = isShowing
+    }
+
     @MainActor
     func onAppear() {
         Task {
@@ -58,10 +70,13 @@ final class RequestUserSignupViewModel: BaseViewModel {
         }
     }
 
-    func approveUserSignupButtonDidTap() {
+    @MainActor
+    func approveUserSignupButtonDidTap(_ success: @escaping () -> Void) {
         Task {
             do {
                 try await approveUserSignupUseCase(userID: Array(selectedUserList).joined(separator: ","))
+
+                success()
             } catch {
                 errorMessage = error.adminDomainErrorMessage()
                 isErrorOccurred = true
@@ -69,24 +84,17 @@ final class RequestUserSignupViewModel: BaseViewModel {
         }
     }
 
-    func rejectUserSignupButtonDidTap() {
+    @MainActor
+    func rejectUserSignupButtonDidTap(_ success: @escaping () -> Void) {
         Task {
             do {
                 try await rejectUserSignupUseCase(userID: Array(selectedUserList).joined(separator: ","))
+
+                success()
             } catch {
                 errorMessage = error.adminDomainErrorMessage()
                 isErrorOccurred = true
             }
         }
-    }
-
-    @MainActor
-    func userListPageDismissed() {
-        isNavigateUserListDidTap = false
-    }
-
-    @MainActor
-    func withdrawListPageDismissed() {
-        isNavigateWithdrawListDidTap = false
     }
 }

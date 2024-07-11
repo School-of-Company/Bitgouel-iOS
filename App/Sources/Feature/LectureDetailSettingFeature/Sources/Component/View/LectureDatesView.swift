@@ -37,7 +37,9 @@ struct LectureDatesView: View {
                         .background(Color.bitgouel(.greyscale(.g9)))
                         .cornerRadius(8)
 
-                        BitgouelAsset.Icons.redcancelFill.swiftUIImage
+                        BitgouelAsset.Icons.cancelFill.swiftUIImage
+                            .renderingMode(.template)
+                            .foregroundColor(.bitgouel(.error(.e5)))
                             .buttonWrapper {
                                 deleteLectureDates(index)
                             }

@@ -44,7 +44,7 @@ struct UserListView: View {
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 0) {
                         ForEach(viewModel.userList, id: \.userID) { userInfo in
-                            UserListRow(
+                            UserInfoListRow(
                                 name: userInfo.name,
                                 authoruty: userInfo.authority.display(),
                                 phoneNumber: userInfo.phoneNumber.withHypen,
@@ -71,15 +71,38 @@ struct UserListView: View {
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button {
-                    viewModel.updateIsPresentedOtherListBottomSheet(isPresented: true)
+                    viewModel.isNavigateRequestSignUpDidTap = true
                 } label: {
-                    BitgouelAsset.Icons.sandwich.swiftUIImage
+                    BitgouelAsset.Icons.addFill.swiftUIImage
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 24, height: 24)
+                }
+
+                Button {
+                    viewModel.isNavigateWithdrawListDidTap = true
+                } label: {
+                    BitgouelAsset.Icons.minusFill.swiftUIImage
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 24, height: 24)
                 }
             }
         }
+        .navigate(
+            to: requestUserSignupFactory.makeView().eraseToAnyView(),
+            when: Binding(
+                get: { viewModel.isNavigateRequestSignUpDidTap },
+                set: { _ in viewModel.requestSignUpPageDismissed() }
+            )
+        )
+        .navigate(
+            to: withdrawUserListFactory.makeView().eraseToAnyView(),
+            when: Binding(
+                get: { viewModel.isNavigateWithdrawListDidTap },
+                set: { _ in viewModel.withdrawListPageDismissed() }
+            )
+        )
         .bitgouelBottomSheet(isShowing: $viewModel.isPresentedUserTypeBottomSheet) {
             UserTypeFilterBottomSheet(
                 selectedAuthority: viewModel.selectedAuthority

@@ -11,7 +11,7 @@ public struct AcceptButton: View {
         HStack(spacing: 8) {
             BitgouelAsset.Icons.checkFill.swiftUIImage
                 .renderingMode(.template)
-            
+
             BitgouelText(
                 text: "수락",
                 font: .text2
