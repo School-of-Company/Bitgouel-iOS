@@ -35,43 +35,16 @@ struct WithdrawUserListView: View {
                                 set: { isSelected in
                                     if isSelected {
                                         viewModel.insertAllUserList()
-                                        viewModel.updateIsShowingWithdrawAlert(isShowing: isSelected)
                                     } else {
                                         viewModel.removeAllUserList()
-                                        viewModel.updateIsShowingWithdrawAlert(isShowing: isSelected)
                                     }
+                                    viewModel.updateIsSelectedUserList(isSelected: isSelected)
                                 }
                             )
                         )
                     }
 
                     Spacer()
-                }
-
-                Divider()
-
-                HStack(spacing: 10) {
-                    optionButton(
-                        buttonText: "선택 탈퇴",
-                        textColor: .bitgouel(.error(.e5)),
-                        strokeColor: .bitgouel(.error(.e5)),
-                        backgroundColor: .bitgouel(.greyscale(.g10))
-                    ) {
-                        viewModel.isShowingWithdrawAlert = true
-                    }
-
-                    optionButton(
-                        buttonText: "전체 탈퇴",
-                        textColor: .bitgouel(.greyscale(.g10)),
-                        strokeColor: .bitgouel(.error(.e5)),
-                        backgroundColor: .bitgouel(.error(.e5))
-                    ) {
-                        if viewModel.isShowingWithdrawAlert {
-                            viewModel.isShowingWithdrawAlert = false
-                        } else {
-                            viewModel.isShowingWithdrawAlert = true
-                        }
-                    }
 
                     HStack {
                         BitgouelAsset.Icons.filter.swiftUIImage
@@ -82,17 +55,12 @@ struct WithdrawUserListView: View {
                         )
                     }
                     .foregroundColor(.bitgouel(.greyscale(.g4)))
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 9)
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 8)
-                            .strokeBorder(Color.bitgouel(.greyscale(.g4)))
-                    }
                     .onTapGesture {
                         viewModel.updateIsPresentedCohortBottomSheet(isPresented: true)
                     }
                 }
-                .padding(.top, 24)
+
+                Divider()
 
                 ScrollView {
                     if viewModel.userList.isEmpty {
@@ -100,24 +68,23 @@ struct WithdrawUserListView: View {
                     } else {
                         LazyVStack(alignment: .leading, spacing: 0) {
                             ForEach(viewModel.userList, id: \.userID) { userInfo in
-                                HStack(spacing: 8) {
-                                    CheckButton(
-                                        isSelected: Binding(
-                                            get: { viewModel.selectedWithdrawUserList.contains(userInfo.userID) },
-                                            set: { isSelected in
+                                UserInfoListRow(
+                                    name: userInfo.name,
+                                    authority: "",
+                                    phoneNumber: userInfo.phoneNumber,
+                                    email: userInfo.email,
+                                    hasCheckButton: true,
+                                    isSelected: Binding(
+                                        get: { viewModel.selectedWithdrawUserList.contains(userInfo.userID) },
+                                        set: { isSelected in
+                                            if isSelected {
                                                 viewModel.insertUserList(userID: userInfo.userID)
-                                                if !isSelected {
-                                                    viewModel.removeUserList(userID: userInfo.userID)
-                                                }
+                                            } else {
+                                                viewModel.removeUserList(userID: userInfo.userID)
                                             }
-                                        )
+                                        }
                                     )
-
-                                    BitgouelText(
-                                        text: userInfo.name,
-                                        font: .text1
-                                    )
-                                }
+                                )
 
                                 Divider()
                                     .frame(height: 1)
@@ -126,13 +93,15 @@ struct WithdrawUserListView: View {
                         }
                     }
                 }
-                .padding(.top, 24)
 
                 Spacer()
             }
             .padding(.horizontal, 28)
         }
         .onAppear {
+            viewModel.onAppear()
+        }
+        .refreshable {
             viewModel.onAppear()
         }
         .navigationTitle("탈퇴 예정자 명단")
@@ -157,18 +126,25 @@ struct WithdrawUserListView: View {
                 }
             }
         }
+        .overlay(alignment: .bottom) {
+            DeactivateButton(
+                text: "선택한 사용자 계정 탈퇴") {
+                    viewModel.updateIsShowingWithdrawAlert(isShowing: true)
+                }
+        }
         .bitgouelAlert(
             title: "선택한 사용자의 탈퇴를 \n승인 하시겠습니까?",
             description: "",
             isShowing: $viewModel.isShowingWithdrawAlert,
             alertActions: [
                 .init(text: "취소", style: .cancel) {
-                    viewModel.isShowingWithdrawAlert = false
-                    viewModel.removeAllUserList()
+                    viewModel.updateIsShowingWithdrawAlert(isShowing: false)
                 },
                 .init(text: "승인", style: .error) {
-                    viewModel.withdrawUser()
-                    viewModel.isShowingWithdrawAlert = false
+                    viewModel.withdrawUser {
+                        viewModel.updateIsShowingWithdrawAlert(isShowing: false)
+                        viewModel.onAppear()
+                    }
                 }
             ]
         )
@@ -203,29 +179,5 @@ struct WithdrawUserListView: View {
                 }
             )
         }
-    }
-
-    @ViewBuilder
-    func optionButton(
-        buttonText: String,
-        textColor: Color,
-        strokeColor: Color,
-        backgroundColor: Color,
-        action: @escaping () -> Void = {}
-    ) -> some View {
-        BitgouelText(
-            text: buttonText,
-            font: .text3
-        )
-        .foregroundColor(textColor)
-        .padding(.horizontal, 20)
-        .padding(.vertical, 9)
-        .overlay {
-            RoundedRectangle(cornerRadius: 8)
-                .strokeBorder(strokeColor)
-        }
-        .buttonWrapper(action)
-        .background(backgroundColor)
-        .cornerRadius(8)
     }
 }

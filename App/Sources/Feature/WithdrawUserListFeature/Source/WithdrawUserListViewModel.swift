@@ -4,7 +4,7 @@ import Service
 final class WithdrawUserListViewModel: BaseViewModel {
     @Published var isShowingWithdrawAlert: Bool = false
     @Published var isSelectedUserList = false
-    @Published var isPresentedUserCohortBottomSheet: Bool = false
+    @Published var isPresentedUserCohortBottomSheet: Bool = true
     @Published var isNavigateUserListDidTap = false
     @Published var isNavigateRequestSignUpDidTap = false
     @Published var userList: [WithdrawUserInfoEntity] = []
@@ -53,10 +53,16 @@ final class WithdrawUserListViewModel: BaseViewModel {
         isShowingWithdrawAlert = isShowing
     }
 
-    func withdrawUser() {
+    func updateIsSelectedUserList(isSelected: Bool) {
+        isSelectedUserList = isSelected
+    }
+
+    func withdrawUser(_ success: @escaping () -> Void) {
         Task {
             do {
                 try await withdrawUserUseCase(userID: selectedWithdrawUserList.joined(separator: ","))
+
+                success()
             } catch {
                 errorMessage = error.adminDomainErrorMessage()
                 isErrorOccurred = true

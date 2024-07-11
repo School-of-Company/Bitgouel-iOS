@@ -34,11 +34,10 @@ struct RequestUserSignupView: View {
                                 set: { isSelected in
                                     if isSelected {
                                         viewModel.insertAllUserList()
-                                        viewModel.updateIsSelectedUserList(isSelected: isSelected)
                                     } else {
                                         viewModel.removeAllUserList()
-                                        viewModel.updateIsSelectedUserList(isSelected: isSelected)
                                     }
+                                    viewModel.updateIsSelectedUserList(isSelected: isSelected)
                                 }
                             )
                         )
@@ -57,7 +56,7 @@ struct RequestUserSignupView: View {
                             ForEach(viewModel.userList, id: \.userID) { userInfo in
                                 UserInfoListRow(
                                     name: userInfo.name,
-                                    authoruty: userInfo.authority.display(),
+                                    authority: userInfo.authority.display(),
                                     phoneNumber: userInfo.phoneNumber,
                                     email: userInfo.email,
                                     hasCheckButton: true,
