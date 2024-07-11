@@ -170,4 +170,8 @@ public extension AppComponent {
     var lectureApplicantListFactory: any LectureApplicantListFactory {
         LectureApplicantListComponent(parent: self)
     }
+
+    var adminRootFactory: any AdminRootFactory {
+        AdminRootComponent(parent: self)
+    }
 }
