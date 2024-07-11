@@ -4,7 +4,7 @@ import Service
 final class WithdrawUserListViewModel: BaseViewModel {
     @Published var isShowingWithdrawAlert: Bool = false
     @Published var isSelectedUserList = false
-    @Published var isPresentedUserCohortFilter: Bool = true
+    @Published var isPresentedUserCohortBottomSheet: Bool = false
     @Published var isNavigateUserListDidTap = false
     @Published var isNavigateRequestSignUpDidTap = false
     @Published var userList: [WithdrawUserInfoEntity] = []
@@ -45,8 +45,12 @@ final class WithdrawUserListViewModel: BaseViewModel {
         selectedWithdrawUserList.remove(userID)
     }
 
-    func updateIsPresentedCohortFilter(isPresented: Bool) {
-        isPresentedUserCohortFilter = isPresented
+    func updateIsPresentedCohortBottomSheet(isPresented: Bool) {
+        isPresentedUserCohortBottomSheet = isPresented
+    }
+
+    func updateIsShowingWithdrawAlert(isShowing: Bool) {
+        isShowingWithdrawAlert = isShowing
     }
 
     func withdrawUser() {
@@ -66,7 +70,7 @@ final class WithdrawUserListViewModel: BaseViewModel {
             do {
                 userList = try await fetchWithdrawUserListUseCase(cohort: selectedCohort.description)
             } catch {
-                print(String(describing: error))
+                print(error.localizedDescription)
             }
         }
     }

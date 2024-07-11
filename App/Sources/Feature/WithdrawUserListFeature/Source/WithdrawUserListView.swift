@@ -19,7 +19,37 @@ struct WithdrawUserListView: View {
 
     var body: some View {
         ZStack {
-            VStack(spacing: 0) {
+            VStack(spacing: 12) {
+                HStack {
+                    VStack(spacing: 4) {
+                        BitgouelText(
+                            text: "전체",
+                            font: .caption
+                        )
+                        .foregroundColor(.bitgouel(.greyscale(.g4)))
+                        .padding(.top, 12)
+
+                        CheckButton(
+                            isSelected: Binding(
+                                get: { viewModel.isSelectedUserList },
+                                set: { isSelected in
+                                    if isSelected {
+                                        viewModel.insertAllUserList()
+                                        viewModel.updateIsShowingWithdrawAlert(isShowing: isSelected)
+                                    } else {
+                                        viewModel.removeAllUserList()
+                                        viewModel.updateIsShowingWithdrawAlert(isShowing: isSelected)
+                                    }
+                                }
+                            )
+                        )
+                    }
+
+                    Spacer()
+                }
+
+                Divider()
+
                 HStack(spacing: 10) {
                     optionButton(
                         buttonText: "선택 탈퇴",
@@ -40,7 +70,6 @@ struct WithdrawUserListView: View {
                             viewModel.isShowingWithdrawAlert = false
                         } else {
                             viewModel.isShowingWithdrawAlert = true
-                            viewModel.insertAllUserList()
                         }
                     }
 
@@ -60,7 +89,7 @@ struct WithdrawUserListView: View {
                             .strokeBorder(Color.bitgouel(.greyscale(.g4)))
                     }
                     .onTapGesture {
-                        viewModel.isPresentedUserCohortFilter = true
+                        viewModel.updateIsPresentedCohortBottomSheet(isPresented: true)
                     }
                 }
                 .padding(.top, 24)
@@ -102,30 +131,6 @@ struct WithdrawUserListView: View {
                 Spacer()
             }
             .padding(.horizontal, 28)
-
-            ZStack(alignment: .center) {
-                if viewModel.isPresentedUserCohortFilter {
-                    Color.black.opacity(0.4)
-                        .edgesIgnoringSafeArea(.all)
-                        .onTapGesture {
-                            viewModel.updateIsPresentedCohortFilter(isPresented: false)
-                        }
-
-                    UserCohortFilterPopup(
-                        currentYear: viewModel.currentYear,
-                        selectedCohort: viewModel.selectedCohort,
-                        onCohortSelect: { cohort in
-                            viewModel.selectedCohort = cohort
-                            viewModel.onAppear()
-                        },
-                        cancel: { cancel in
-                            viewModel.updateIsPresentedCohortFilter(isPresented: cancel)
-                        }
-                    )
-                    .padding(.horizontal, 28)
-                }
-            }
-            .zIndex(1)
         }
         .onAppear {
             viewModel.onAppear()
@@ -153,7 +158,7 @@ struct WithdrawUserListView: View {
             }
         }
         .bitgouelAlert(
-            title: "탈퇴를 승인 하시겠습니까?",
+            title: "선택한 사용자의 탈퇴를 \n승인 하시겠습니까?",
             description: "",
             isShowing: $viewModel.isShowingWithdrawAlert,
             alertActions: [
@@ -185,6 +190,19 @@ struct WithdrawUserListView: View {
             text: viewModel.errorMessage,
             isShowing: $viewModel.isErrorOccurred
         )
+        .bitgouelBottomSheet(isShowing: $viewModel.isPresentedUserCohortBottomSheet) {
+            UserCohortBottomSheet(
+                currentYear: viewModel.currentYear,
+                selectedCohort: viewModel.selectedCohort,
+                onCohortSelect: { cohort in
+                    viewModel.selectedCohort = cohort
+                    viewModel.onAppear()
+                },
+                cancel: { cancel in
+                    viewModel.updateIsPresentedCohortBottomSheet(isPresented: cancel)
+                }
+            )
+        }
     }
 
     @ViewBuilder
