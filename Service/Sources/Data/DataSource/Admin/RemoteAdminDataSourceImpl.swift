@@ -12,7 +12,7 @@ public final class RemoteAdminDataSourceImpl: BaseRemoteDataSource<AdminAPI>, Re
         ).toDomain()
     }
 
-    public func fetchUserDetail(userID: String) async throws -> UserInfoEntity {
+    public func fetchUserDetail(userID: String) async throws -> UserDetailInfoEntity {
         try await request(
             .fetchUserDetail(userID: userID),
             dto: UserDetailInfoResponseDTO.self

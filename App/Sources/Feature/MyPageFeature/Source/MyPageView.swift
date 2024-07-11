@@ -7,17 +7,17 @@ struct MyPageView: View {
     @Binding var selection: TabFlow
 
     private let changePasswordFactory: any ChangePasswordFactory
-    private let adminUserListFactory: any AdminUserListFactory
+    private let userListFactory: any UserListFactory
 
     init(
         viewModel: MyPageViewModel,
         changePasswordFactory: any ChangePasswordFactory,
-        adminUserListFactory: any AdminUserListFactory,
+        userListFactory: any UserListFactory,
         selection: Binding<TabFlow>
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.changePasswordFactory = changePasswordFactory
-        self.adminUserListFactory = adminUserListFactory
+        self.userListFactory = userListFactory
         _selection = selection
     }
 
@@ -96,7 +96,7 @@ struct MyPageView: View {
                             }
 
                             if viewModel.authority == .admin {
-                                adminUserListButton()
+                                userListButton()
                             }
 
                             HStack {
@@ -167,15 +167,15 @@ struct MyPageView: View {
                 tabbarHidden.wrappedValue = newValue
             }
             .navigate(
-                to: adminUserListFactory.makeView().eraseToAnyView(),
+                to: userListFactory.makeView().eraseToAnyView(),
                 when: Binding(
-                    get: { viewModel.isPresentedAdminUserListView },
+                    get: { viewModel.isPresentedUserListView },
                     set: { isPresented in
-                        viewModel.updateIsPresentedAdminUserListView(isPresented: isPresented)
+                        viewModel.updateIsPresentedUserListView(isPresented: isPresented)
                     }
                 )
             )
-            .onChange(of: viewModel.isPresentedAdminUserListView) { newValue in
+            .onChange(of: viewModel.isPresentedUserListView) { newValue in
                 tabbarHidden.wrappedValue = newValue
             }
             .bitgouelAlert(
@@ -248,9 +248,9 @@ struct MyPageView: View {
     }
 
     @ViewBuilder
-    func adminUserListButton() -> some View {
+    func userListButton() -> some View {
         Button {
-            viewModel.updateIsPresentedAdminUserListView(isPresented: true)
+            viewModel.updateIsPresentedUserListView(isPresented: true)
         } label: {
             BitgouelText(
                 text: "사용자 명단 관리하기",

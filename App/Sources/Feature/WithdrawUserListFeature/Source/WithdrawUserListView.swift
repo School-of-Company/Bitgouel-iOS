@@ -1,20 +1,20 @@
 import SwiftUI
 
-struct AdminWithdrawUserListView: View {
+struct WithdrawUserListView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var viewModel: AdminWithdrawUserListViewModel
+    @StateObject var viewModel: WithdrawUserListViewModel
 
-    private let adminUserListFactory: any AdminUserListFactory
-    private let adminRequestUserSignupFactory: any AdminRequestUserSignupFactory
+    private let userListFactory: any UserListFactory
+    private let requestUserSignupFactory: any RequestUserSignupFactory
 
     init(
-        viewModel: AdminWithdrawUserListViewModel,
-        adminUserListFactory: any AdminUserListFactory,
-        adminRequestUserSignupFactory: any AdminRequestUserSignupFactory
+        viewModel: WithdrawUserListViewModel,
+        userListFactory: any UserListFactory,
+        requestUserSignupFactory: any RequestUserSignupFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
-        self.adminUserListFactory = adminUserListFactory
-        self.adminRequestUserSignupFactory = adminRequestUserSignupFactory
+        self.userListFactory = userListFactory
+        self.requestUserSignupFactory = requestUserSignupFactory
     }
 
     var body: some View {
@@ -168,14 +168,14 @@ struct AdminWithdrawUserListView: View {
             ]
         )
         .navigate(
-            to: adminUserListFactory.makeView().eraseToAnyView(),
+            to: userListFactory.makeView().eraseToAnyView(),
             when: Binding(
                 get: { viewModel.isNavigateUserListDidTap },
                 set: { _ in viewModel.userListPageDismissed() }
             )
         )
         .navigate(
-            to: adminRequestUserSignupFactory.makeView().eraseToAnyView(),
+            to: requestUserSignupFactory.makeView().eraseToAnyView(),
             when: Binding(
                 get: { viewModel.isNavigateRequestSignUpDidTap },
                 set: { _ in viewModel.requestSignUpPageDismissed() }

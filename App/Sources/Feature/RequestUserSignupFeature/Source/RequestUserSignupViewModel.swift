@@ -1,7 +1,7 @@
 import Foundation
 import Service
 
-final class AdminRequestUserSignupViewModel: BaseViewModel {
+final class RequestUserSignupViewModel: BaseViewModel {
     @Published var isShowingApproveAlert: Bool = false
     @Published var isShowingRejectAlert: Bool = false
     @Published var isSelectedUserList: Bool = false

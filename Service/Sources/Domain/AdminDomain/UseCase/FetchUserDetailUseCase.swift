@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol FetchUserDetailUseCase {
-    func callAsFunction(userID: String) async throws -> UserInfoEntity
+    func callAsFunction(userID: String) async throws -> UserDetailInfoEntity
 }

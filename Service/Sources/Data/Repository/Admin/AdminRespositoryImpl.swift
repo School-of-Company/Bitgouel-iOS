@@ -19,7 +19,7 @@ public struct AdminRespositoryImpl: AdminRepository {
         )
     }
 
-    public func fetchUserDetail(userID: String) async throws -> UserInfoEntity {
+    public func fetchUserDetail(userID: String) async throws -> UserDetailInfoEntity {
         try await remoteAdminDataSource.fetchUserDetail(userID: userID)
     }
 

@@ -1,7 +1,7 @@
 import Foundation
 import Service
 
-final class AdminWithdrawUserListViewModel: BaseViewModel {
+final class WithdrawUserListViewModel: BaseViewModel {
     @Published var isShowingWithdrawAlert: Bool = false
     @Published var isSelectedUserList = false
     @Published var isPresentedUserCohortFilter: Bool = true
