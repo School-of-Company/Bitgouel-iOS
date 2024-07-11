@@ -1,15 +1,40 @@
 import SwiftUI
 
-public struct UserListRow: View {
+public struct UserInfoListRow: View {
     let name: String
     let authoruty: String
     let phoneNumber: String
     let email: String
+    let hasCheckButton: Bool
     @State var isToggle: Bool = false
+    @Binding var isSelected: Bool
+
+    public init(
+        name: String,
+        authoruty: String,
+        phoneNumber: String,
+        email: String,
+        hasCheckButton: Bool = false,
+        isToggle: Bool = false,
+        isSelected: Binding<Bool> = .constant(true)
+    ) {
+        self.name = name
+        self.authoruty = authoruty
+        self.phoneNumber = phoneNumber
+        self.email = email
+        self.hasCheckButton = hasCheckButton
+        self.isToggle = isToggle
+        _isSelected = isSelected
+    }
 
     public var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            HStack {
+            HStack(spacing: 4) {
+                if hasCheckButton {
+                    CheckButton(isSelected: $isSelected)
+                        .padding(.trailing, 4)
+                }
+
                 BitgouelText(
                     text: name,
                     font: .text1
