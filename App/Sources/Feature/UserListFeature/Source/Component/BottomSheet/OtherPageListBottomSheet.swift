@@ -1,9 +1,9 @@
 import SwiftUI
 
 public struct OtherPageListBottomSheet: View {
-    let pageList: [AdminPage] = AdminPage.allCases
-    let selectedPage: AdminPage?
-    let onSelectedPage: (AdminPage) -> Void
+    let pageList: [AdminPageFlow] = AdminPageFlow.allCases
+    let selectedPage: AdminPageFlow?
+    let onSelectedPage: (AdminPageFlow) -> Void
     let cancel: (Bool) -> Void
 
     public var body: some View {
@@ -44,9 +44,9 @@ public struct OtherPageListBottomSheet: View {
 
     @ViewBuilder
     func userAuthorityTypeRow(
-        page: AdminPage,
-        selectedPage: AdminPage?,
-        onSelectedPage: @escaping (AdminPage) -> Void
+        page: AdminPageFlow,
+        selectedPage: AdminPageFlow?,
+        onSelectedPage: @escaping (AdminPageFlow) -> Void
     ) -> some View {
         HStack {
             Text(page.rawValue)

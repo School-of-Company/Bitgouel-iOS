@@ -9,7 +9,7 @@ final class UserListViewModel: BaseViewModel {
     @Published var isNavigateRequestSignUpDidTap = false
     @Published var isNavigateWithdrawListDidTap = false
     @Published var selectedAuthority: AdminUserListAuthorityType?
-    @Published var selectedPage: AdminPage?
+    @Published var selectedPage: AdminPageFlow?
     @Published var userList: [UserInfoEntity] = []
 
     private let fetchUserListUseCase: any FetchUserListUseCase
@@ -33,7 +33,7 @@ final class UserListViewModel: BaseViewModel {
         selectedAuthority = authority
     }
 
-    func updateSelectedPage(page: AdminPage) {
+    func updateSelectedPage(page: AdminPageFlow) {
         guard selectedPage != page else { return selectedPage = nil }
         selectedPage = page
     }

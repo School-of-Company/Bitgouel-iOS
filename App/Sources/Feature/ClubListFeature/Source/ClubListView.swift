@@ -22,7 +22,7 @@ struct ClubListView: View {
                 ScrollView {
                     LazyVStack(spacing: 40) {
                         ForEach(viewModel.schoolClubList, id: \.id) { school in
-                            SchoolListView(
+                            SchoolClubsView(
                                 schoolName: school.schoolName,
                                 clubList: school.clubs
                             ) { clubID in
