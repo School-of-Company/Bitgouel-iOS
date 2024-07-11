@@ -1,7 +1,13 @@
 import SwiftUI
 
-struct CancelButton: View {
-    var body: some View {
+public struct RejectionButton: View {
+    var action: () -> Void
+
+    public init(action: @escaping () -> Void = {}) {
+        self.action = action
+    }
+    
+    public var body: some View {
         HStack(spacing: 8) {
             BitgouelAsset.Icons.cancelFill.swiftUIImage
                 .renderingMode(.template)
@@ -16,5 +22,8 @@ struct CancelButton: View {
         .padding(.horizontal, 48)
         .background(Color.bitgouel(.error(.e5)))
         .cornerRadius(8, corners: .allCorners)
+        .buttonWrapper {
+            action()
+        }
     }
 }
