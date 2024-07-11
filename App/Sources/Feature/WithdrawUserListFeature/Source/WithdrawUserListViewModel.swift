@@ -66,8 +66,7 @@ final class WithdrawUserListViewModel: BaseViewModel {
             do {
                 userList = try await fetchWithdrawUserListUseCase(cohort: selectedCohort.description)
             } catch {
-                errorMessage = error.adminDomainErrorMessage()
-                isErrorOccurred = true
+                print(String(describing: error))
             }
         }
     }
