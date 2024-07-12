@@ -5,6 +5,6 @@ public protocol SchoolListDependency: Dependency {}
 
 public final class SchoolListComponent: Component<SchoolListDependency>, SchoolListFactory {
     public func makeView() -> some View {
-        SchoolListView()
+        SchoolListView(viewModel: .init())
     }
 }

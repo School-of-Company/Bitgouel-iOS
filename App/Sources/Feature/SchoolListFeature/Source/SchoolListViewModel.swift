@@ -1,9 +1,15 @@
-//
-//  SchoolListViewModel.swift
-//  Bitgouel
-//
-//  Created by 정윤서 on 7/12/24.
-//  Copyright © 2024 team.msg. All rights reserved.
-//
-
 import Foundation
+
+final class SchoolListViewModel: BaseViewModel {
+    @Published var isShowingAdminPageBottomSheet: Bool = false
+    @Published var selectedPage: AdminPageFlow = .school
+
+    func updateIsShowingAdminPageBottomSheet(isShowing: Bool) {
+        isShowingAdminPageBottomSheet = isShowing
+    }
+
+    func updateSelectedPage(page: AdminPageFlow) {
+        guard selectedPage != page else { return }
+        selectedPage = page
+    }
+}
