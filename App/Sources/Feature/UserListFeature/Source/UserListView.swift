@@ -46,7 +46,7 @@ struct UserListView: View {
                         ForEach(viewModel.userList, id: \.userID) { userInfo in
                             UserInfoListRow(
                                 name: userInfo.name,
-                                authoruty: userInfo.authority.display(),
+                                authority: userInfo.authority.display(),
                                 phoneNumber: userInfo.phoneNumber.withHypen,
                                 email: userInfo.email
                             )

@@ -2,7 +2,7 @@ import SwiftUI
 
 public struct UserInfoListRow: View {
     let name: String
-    let authoruty: String
+    let authority: String
     let phoneNumber: String
     let email: String
     let hasCheckButton: Bool
@@ -11,7 +11,7 @@ public struct UserInfoListRow: View {
 
     public init(
         name: String,
-        authoruty: String,
+        authority: String,
         phoneNumber: String,
         email: String,
         hasCheckButton: Bool = false,
@@ -19,7 +19,7 @@ public struct UserInfoListRow: View {
         isSelected: Binding<Bool> = .constant(true)
     ) {
         self.name = name
-        self.authoruty = authoruty
+        self.authority = authority
         self.phoneNumber = phoneNumber
         self.email = email
         self.hasCheckButton = hasCheckButton
@@ -41,7 +41,7 @@ public struct UserInfoListRow: View {
                 )
 
                 BitgouelText(
-                    text: authoruty,
+                    text: authority,
                     font: .text3
                 )
                 .foregroundColor(.bitgouel(.greyscale(.g4)))
