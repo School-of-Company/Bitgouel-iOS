@@ -215,8 +215,8 @@ private class MyPageDependency48d84b530313b3ee40feProvider: MyPageDependency {
     var changePasswordFactory: any ChangePasswordFactory {
         return appComponent.changePasswordFactory
     }
-    var userListFactory: any UserListFactory {
-        return appComponent.userListFactory
+    var adminRootFactory: any AdminRootFactory {
+        return appComponent.adminRootFactory
     }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
         return appComponent.loadUserAuthorityUseCase
@@ -358,6 +358,17 @@ private class RequestUserSignupDependency18cb29ced79dfe8a20f3Provider: RequestUs
 private func factoryebe37a0d5ca0bab085f9f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return RequestUserSignupDependency18cb29ced79dfe8a20f3Provider(appComponent: parent1(component) as! AppComponent)
 }
+private class GovernmentListDependencyf4812d1ffdfb68a1daa0Provider: GovernmentListDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->GovernmentListComponent
+private func factory76b78e1e248880d50ed2e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return GovernmentListDependencyf4812d1ffdfb68a1daa0Provider()
+}
 private class RootDependency3944cc797a4a88956fb5Provider: RootDependency {
     var loginFactory: any LoginFactory {
         return appComponent.loginFactory
@@ -482,6 +493,17 @@ private class WithdrawUserListDependencyc576fefb2eff9e703c66Provider: WithdrawUs
 private func factory4d07a7e30330c03d5d63f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return WithdrawUserListDependencyc576fefb2eff9e703c66Provider(appComponent: parent1(component) as! AppComponent)
 }
+private class CompanyListDependencyc27b560afc0e29f1887dProvider: CompanyListDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->CompanyListComponent
+private func factory100d5b08b2e154b1e9e9e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return CompanyListDependencyc27b560afc0e29f1887dProvider()
+}
 private class FindPasswordDependency542eacce769b9dc25904Provider: FindPasswordDependency {
     var sendEmailCertificationLinkUseCase: any SendEmailCertificationLinkUseCase {
         return appComponent.sendEmailCertificationLinkUseCase
@@ -567,6 +589,17 @@ private class StudentInfoDependency5d1163a5288c79c06dffProvider: StudentInfoDepe
 private func factory5ce0f173abbf535f654ff47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return StudentInfoDependency5d1163a5288c79c06dffProvider(appComponent: parent1(component) as! AppComponent)
 }
+private class UniversityListDependency114351175c975dac12b7Provider: UniversityListDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->UniversityListComponent
+private func factory138cdcda950ee50e6d46e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return UniversityListDependency114351175c975dac12b7Provider()
+}
 private class WriteInquiryAnswerDependencyeba82c0423abdd3e1acfProvider: WriteInquiryAnswerDependency {
     var replyInquiryUseCase: any ReplyInquiryUseCase {
         return appComponent.replyInquiryUseCase
@@ -649,6 +682,17 @@ private class InquiryListDependencyec75a7335a50ded93b28Provider: InquiryListDepe
 /// ^->AppComponent->InquiryListComponent
 private func factorydd7e28250a180554c7a0f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return InquiryListDependencyec75a7335a50ded93b28Provider(appComponent: parent1(component) as! AppComponent)
+}
+private class SchoolListDependency96b276c3342c1aca3550Provider: SchoolListDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->SchoolListComponent
+private func factoryd55f8188de756273ca44e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return SchoolListDependency96b276c3342c1aca3550Provider()
 }
 private class ActivityListDependencyb8e659960978b8384f80Provider: ActivityListDependency {
     var activityDetailFactory: any ActivityDetailFactory {
@@ -794,15 +838,35 @@ private func factory0798e0f01e95aeaff56ff47b58f8f304c97af4d5(_ component: Needle
     return NoticeDetailDependency3e09bbd26d7f6105e665Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class AdminRootDependencyce6cd0efed469d5d1848Provider: AdminRootDependency {
-
-
-    init() {
-
+    var userListFactory: any UserListFactory {
+        return appComponent.userListFactory
+    }
+    var requestUserSignupFactory: any RequestUserSignupFactory {
+        return appComponent.requestUserSignupFactory
+    }
+    var withdrawUserListFactory: any WithdrawUserListFactory {
+        return appComponent.withdrawUserListFactory
+    }
+    var schoolListFactory: any SchoolListFactory {
+        return appComponent.schoolListFactory
+    }
+    var companyListFactory: any CompanyListFactory {
+        return appComponent.companyListFactory
+    }
+    var universityListFactory: any UniversityListFactory {
+        return appComponent.universityListFactory
+    }
+    var governmentListFactory: any GovernmentListFactory {
+        return appComponent.governmentListFactory
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->AdminRootComponent
-private func factoryc93d1d06706bf3dab12fe3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return AdminRootDependencyce6cd0efed469d5d1848Provider()
+private func factoryc93d1d06706bf3dab12ff47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return AdminRootDependencyce6cd0efed469d5d1848Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class InputInquiryDependency0f59954f6ae75e794799Provider: InputInquiryDependency {
     var inputInquiryUseCase: any InputInquiryUseCase {
@@ -922,7 +986,7 @@ extension NoticeDetailSettingComponent: Registration {
 extension MyPageComponent: Registration {
     public func registerItems() {
         keyPathToName[\MyPageDependency.changePasswordFactory] = "changePasswordFactory-any ChangePasswordFactory"
-        keyPathToName[\MyPageDependency.userListFactory] = "userListFactory-any UserListFactory"
+        keyPathToName[\MyPageDependency.adminRootFactory] = "adminRootFactory-any AdminRootFactory"
         keyPathToName[\MyPageDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
         keyPathToName[\MyPageDependency.fetchMyInfoUseCase] = "fetchMyInfoUseCase-any FetchMyInfoUseCase"
         keyPathToName[\MyPageDependency.logoutUseCase] = "logoutUseCase-any LogoutUseCase"
@@ -972,6 +1036,11 @@ extension RequestUserSignupComponent: Registration {
         keyPathToName[\RequestUserSignupDependency.rejectUserSignupUseCase] = "rejectUserSignupUseCase-any RejectUserSignupUseCase"
     }
 }
+extension GovernmentListComponent: Registration {
+    public func registerItems() {
+
+    }
+}
 extension RootComponent: Registration {
     public func registerItems() {
         keyPathToName[\RootDependency.loginFactory] = "loginFactory-any LoginFactory"
@@ -1018,6 +1087,11 @@ extension WithdrawUserListComponent: Registration {
         keyPathToName[\WithdrawUserListDependency.withdrawUserUseCase] = "withdrawUserUseCase-any WithdrawUserUseCase"
     }
 }
+extension CompanyListComponent: Registration {
+    public func registerItems() {
+
+    }
+}
 extension FindPasswordComponent: Registration {
     public func registerItems() {
         keyPathToName[\FindPasswordDependency.sendEmailCertificationLinkUseCase] = "sendEmailCertificationLinkUseCase-any SendEmailCertificationLinkUseCase"
@@ -1049,6 +1123,11 @@ extension StudentInfoComponent: Registration {
         keyPathToName[\StudentInfoDependency.fetchAppliedLectureListUseCase] = "fetchAppliedLectureListUseCase-any FetchAppliedLectureListUseCase"
     }
 }
+extension UniversityListComponent: Registration {
+    public func registerItems() {
+
+    }
+}
 extension WriteInquiryAnswerComponent: Registration {
     public func registerItems() {
         keyPathToName[\WriteInquiryAnswerDependency.replyInquiryUseCase] = "replyInquiryUseCase-any ReplyInquiryUseCase"
@@ -1078,6 +1157,11 @@ extension InquiryListComponent: Registration {
         keyPathToName[\InquiryListDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
         keyPathToName[\InquiryListDependency.fetchMyInquiryListUseCase] = "fetchMyInquiryListUseCase-any FetchMyInquiryListUseCase"
         keyPathToName[\InquiryListDependency.fetchInquiryByAdminUseCase] = "fetchInquiryByAdminUseCase-any FetchInquiryByAdminUseCase"
+    }
+}
+extension SchoolListComponent: Registration {
+    public func registerItems() {
+
     }
 }
 extension ActivityListComponent: Registration {
@@ -1135,7 +1219,13 @@ extension NoticeDetailViewComponent: Registration {
 }
 extension AdminRootComponent: Registration {
     public func registerItems() {
-
+        keyPathToName[\AdminRootDependency.userListFactory] = "userListFactory-any UserListFactory"
+        keyPathToName[\AdminRootDependency.requestUserSignupFactory] = "requestUserSignupFactory-any RequestUserSignupFactory"
+        keyPathToName[\AdminRootDependency.withdrawUserListFactory] = "withdrawUserListFactory-any WithdrawUserListFactory"
+        keyPathToName[\AdminRootDependency.schoolListFactory] = "schoolListFactory-any SchoolListFactory"
+        keyPathToName[\AdminRootDependency.companyListFactory] = "companyListFactory-any CompanyListFactory"
+        keyPathToName[\AdminRootDependency.universityListFactory] = "universityListFactory-any UniversityListFactory"
+        keyPathToName[\AdminRootDependency.governmentListFactory] = "governmentListFactory-any GovernmentListFactory"
     }
 }
 extension InputInquiryComponent: Registration {
@@ -1271,6 +1361,10 @@ extension AppComponent: Registration {
         localTable["newPasswordFactory-any NewPasswordFactory"] = { [unowned self] in self.newPasswordFactory as Any }
         localTable["lectureApplicantListFactory-any LectureApplicantListFactory"] = { [unowned self] in self.lectureApplicantListFactory as Any }
         localTable["adminRootFactory-any AdminRootFactory"] = { [unowned self] in self.adminRootFactory as Any }
+        localTable["schoolListFactory-any SchoolListFactory"] = { [unowned self] in self.schoolListFactory as Any }
+        localTable["companyListFactory-any CompanyListFactory"] = { [unowned self] in self.companyListFactory as Any }
+        localTable["universityListFactory-any UniversityListFactory"] = { [unowned self] in self.universityListFactory as Any }
+        localTable["governmentListFactory-any GovernmentListFactory"] = { [unowned self] in self.governmentListFactory as Any }
         localTable["remoteWithdrawDataSource-any RemoteWithdrawDataSource"] = { [unowned self] in self.remoteWithdrawDataSource as Any }
         localTable["withdrawRepository-any WithdrawRepository"] = { [unowned self] in self.withdrawRepository as Any }
         localTable["fetchWithdrawUserListUseCase-any FetchWithdrawUserListUseCase"] = { [unowned self] in self.fetchWithdrawUserListUseCase as Any }
@@ -1320,21 +1414,25 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->LectureDetailSettingComponent", factoryd0ffb7dfc6fd9633e0e6f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->MainComponent", factoryc9274e46e78e70f29c54f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->RequestUserSignupComponent", factoryebe37a0d5ca0bab085f9f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->GovernmentListComponent", factory76b78e1e248880d50ed2e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->RootComponent", factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->PostListComponent", factory0c89e2bbcc02dbcac018f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ChangePasswordComponent", factoryab7c4d87dab53e0a51b9f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ClubDetailComponent", factory1559652f8e80cfa88d06f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->SuccessSignUpComponent", factorybf219b153b668170161de3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->WithdrawUserListComponent", factory4d07a7e30330c03d5d63f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->CompanyListComponent", factory100d5b08b2e154b1e9e9e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->FindPasswordComponent", factory15775d8436b06b9741d1f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->LectureApplicantListComponent", factory78a87c10d14f7bbaaa9df47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->UserListComponent", factorycf08383b935d2e18f4c7f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->StudentInfoComponent", factory5ce0f173abbf535f654ff47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->UniversityListComponent", factory138cdcda950ee50e6d46e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->WriteInquiryAnswerComponent", factory3d4cadf14cd9a3336981f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->PostDetailComponent", factorybc555a73df3767a26999f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->SuccessChangePasswordComponent", factoryde3552d9e0f793ec8b8df47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->NewPasswordComponent", factory52985a6d5ec65d75bd97f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InquiryListComponent", factorydd7e28250a180554c7a0f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->SchoolListComponent", factoryd55f8188de756273ca44e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->ActivityListComponent", factory7177e6769ee69064a61bf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputLectureComponent", factory622e14688d9803ec3c64f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->LoginComponent", factoryd6018e98563de75a2ba4f47b58f8f304c97af4d5)
@@ -1342,7 +1440,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->PostDetailSettingComponent", factoryaacb19523586bb790cade3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->ActivityDetailComponent", factory7c395808ac9dfb8fb229f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->NoticeDetailViewComponent", factory0798e0f01e95aeaff56ff47b58f8f304c97af4d5)
-    registerProviderFactory("^->AppComponent->AdminRootComponent", factoryc93d1d06706bf3dab12fe3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->AdminRootComponent", factoryc93d1d06706bf3dab12ff47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputInquiryComponent", factory818540ce7b5cc0ed9d3bf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputActivityComponent", factory3fc1a279eeb8c906e603f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)

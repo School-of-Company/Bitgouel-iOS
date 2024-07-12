@@ -3,7 +3,8 @@ import SwiftUI
 
 @main
 struct BitgouelApp: App {
-    @StateObject private var sceneState = SceneState(sceneFlow: .main)
+    @StateObject private var sceneState = SceneState(sceneFlow: .login)
+    @StateObject private var adminPageState = AdminPageState(adminPageFlow: .user)
 
     init() {
         registerProviderFactories()
@@ -13,6 +14,7 @@ struct BitgouelApp: App {
         WindowGroup {
             AppComponent().makeRootView()
                 .environmentObject(sceneState)
+                .environmentObject(adminPageState)
         }
     }
 }
