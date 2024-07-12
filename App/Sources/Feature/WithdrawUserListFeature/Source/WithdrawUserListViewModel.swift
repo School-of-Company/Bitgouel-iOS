@@ -5,8 +5,8 @@ final class WithdrawUserListViewModel: BaseViewModel {
     @Published var isShowingWithdrawAlert: Bool = false
     @Published var isSelectedUserList = false
     @Published var isPresentedUserCohortBottomSheet: Bool = true
-    @Published var isNavigateUserListDidTap = false
-    @Published var isNavigateRequestSignUpDidTap = false
+    @Published var isShowingAdminPageBottomSheet: Bool = false
+    @Published var selectedPage: AdminPageFlow = .withdrawUser
     @Published var userList: [WithdrawUserInfoEntity] = []
     @Published var selectedWithdrawUserList: Set<String> = []
     @Published var selectedCohort: Int = 0
@@ -57,6 +57,15 @@ final class WithdrawUserListViewModel: BaseViewModel {
         isSelectedUserList = isSelected
     }
 
+    func updateIsShowingAdminPageBottomSheet(isShowing: Bool) {
+        isShowingAdminPageBottomSheet = isShowing
+    }
+
+    func updateSelectedPage(page: AdminPageFlow) {
+        guard selectedPage != page else { return }
+        selectedPage = page
+    }
+
     func withdrawUser(_ success: @escaping () -> Void) {
         Task {
             do {
@@ -79,15 +88,5 @@ final class WithdrawUserListViewModel: BaseViewModel {
                 print(error.localizedDescription)
             }
         }
-    }
-
-    @MainActor
-    func userListPageDismissed() {
-        isNavigateUserListDidTap = false
-    }
-
-    @MainActor
-    func requestSignUpPageDismissed() {
-        isNavigateRequestSignUpDidTap = false
     }
 }

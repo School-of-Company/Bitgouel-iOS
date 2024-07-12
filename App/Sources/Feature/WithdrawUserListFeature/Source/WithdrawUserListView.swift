@@ -3,6 +3,7 @@ import SwiftUI
 struct WithdrawUserListView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: WithdrawUserListViewModel
+    @EnvironmentObject var adminPageState: AdminPageState
 
     private let userListFactory: any UserListFactory
     private let requestUserSignupFactory: any RequestUserSignupFactory
@@ -108,18 +109,9 @@ struct WithdrawUserListView: View {
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button {
-                    viewModel.isNavigateUserListDidTap = true
+                    viewModel.updateIsShowingAdminPageBottomSheet(isShowing: true)
                 } label: {
-                    BitgouelAsset.Icons.people.swiftUIImage
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 24, height: 24)
-                }
-
-                Button {
-                    viewModel.isNavigateRequestSignUpDidTap = true
-                } label: {
-                    BitgouelAsset.Icons.addFill.swiftUIImage
+                    BitgouelAsset.Icons.sandwich.swiftUIImage
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 24, height: 24)
@@ -148,20 +140,6 @@ struct WithdrawUserListView: View {
                 }
             ]
         )
-        .navigate(
-            to: userListFactory.makeView().eraseToAnyView(),
-            when: Binding(
-                get: { viewModel.isNavigateUserListDidTap },
-                set: { _ in viewModel.userListPageDismissed() }
-            )
-        )
-        .navigate(
-            to: requestUserSignupFactory.makeView().eraseToAnyView(),
-            when: Binding(
-                get: { viewModel.isNavigateRequestSignUpDidTap },
-                set: { _ in viewModel.requestSignUpPageDismissed() }
-            )
-        )
         .bitgouelToast(
             text: viewModel.errorMessage,
             isShowing: $viewModel.isErrorOccurred
@@ -178,6 +156,16 @@ struct WithdrawUserListView: View {
                     viewModel.updateIsPresentedCohortBottomSheet(isPresented: cancel)
                 }
             )
+        }
+        .bitgouelBottomSheet(isShowing: $viewModel.isShowingAdminPageBottomSheet) {
+            AdminPageListBottomSheet(
+                selectedPage: viewModel.selectedPage) { page in
+                    viewModel.updateSelectedPage(page: page)
+                    adminPageState.adminPageFlow = page
+                } cancel: { cancel in
+                    viewModel.updateIsShowingAdminPageBottomSheet(isShowing: cancel)
+                }
+
         }
     }
 }
