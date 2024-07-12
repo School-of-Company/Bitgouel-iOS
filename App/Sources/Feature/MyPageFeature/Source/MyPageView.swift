@@ -3,21 +3,22 @@ import SwiftUI
 struct MyPageView: View {
     @StateObject var viewModel: MyPageViewModel
     @EnvironmentObject var sceneState: SceneState
+    @EnvironmentObject var adminPageState: AdminPageState
     @Environment(\.tabbarHidden) var tabbarHidden
     @Binding var selection: TabFlow
 
     private let changePasswordFactory: any ChangePasswordFactory
-    private let userListFactory: any UserListFactory
+    private let adminRootFactory: any AdminRootFactory
 
     init(
         viewModel: MyPageViewModel,
         changePasswordFactory: any ChangePasswordFactory,
-        userListFactory: any UserListFactory,
+        adminRootFactory: any AdminRootFactory,
         selection: Binding<TabFlow>
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.changePasswordFactory = changePasswordFactory
-        self.userListFactory = userListFactory
+        self.adminRootFactory = adminRootFactory
         _selection = selection
     }
 
@@ -167,15 +168,15 @@ struct MyPageView: View {
                 tabbarHidden.wrappedValue = newValue
             }
             .navigate(
-                to: userListFactory.makeView().eraseToAnyView(),
+                to: adminRootFactory.makeView().eraseToAnyView(),
                 when: Binding(
-                    get: { viewModel.isPresentedUserListView },
+                    get: { viewModel.isPresentedAdminRootView },
                     set: { isPresented in
-                        viewModel.updateIsPresentedUserListView(isPresented: isPresented)
+                        viewModel.updateIsPresentedAdminRootView(isPresented: isPresented)
                     }
                 )
             )
-            .onChange(of: viewModel.isPresentedUserListView) { newValue in
+            .onChange(of: viewModel.isPresentedAdminRootView) { newValue in
                 tabbarHidden.wrappedValue = newValue
             }
             .bitgouelAlert(
@@ -250,7 +251,8 @@ struct MyPageView: View {
     @ViewBuilder
     func userListButton() -> some View {
         Button {
-            viewModel.updateIsPresentedUserListView(isPresented: true)
+            viewModel.updateIsPresentedAdminRootView(isPresented: true)
+            adminPageState.adminPageFlow = .user
         } label: {
             BitgouelText(
                 text: "사용자 명단 관리하기",
