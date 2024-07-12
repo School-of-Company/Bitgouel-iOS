@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct OtherPageListBottomSheet: View {
+public struct AdminPageListBottomSheet: View {
     let pageList: [AdminPageFlow] = AdminPageFlow.allCases
     let selectedPage: AdminPageFlow?
     let onSelectedPage: (AdminPageFlow) -> Void
@@ -29,7 +29,7 @@ public struct OtherPageListBottomSheet: View {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 16) {
                     ForEach(pageList, id: \.self) { authority in
-                        userAuthorityTypeRow(
+                        adminPageTypeRow(
                             page: authority,
                             selectedPage: selectedPage,
                             onSelectedPage: onSelectedPage
@@ -43,7 +43,7 @@ public struct OtherPageListBottomSheet: View {
     }
 
     @ViewBuilder
-    func userAuthorityTypeRow(
+    func adminPageTypeRow(
         page: AdminPageFlow,
         selectedPage: AdminPageFlow?,
         onSelectedPage: @escaping (AdminPageFlow) -> Void

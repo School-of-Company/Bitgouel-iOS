@@ -4,12 +4,10 @@ import Service
 final class UserListViewModel: BaseViewModel {
     @Published var keyword = ""
     @Published var isSelectedUserList = false
-    @Published var isPresentedUserTypeBottomSheet: Bool = false
-    @Published var isPresentedOtherListBottomSheet: Bool = false
-    @Published var isNavigateRequestSignUpDidTap = false
-    @Published var isNavigateWithdrawListDidTap = false
+    @Published var isShowingUserTypeBottomSheet: Bool = false
+    @Published var isShowingAdminPageBottomSheet: Bool = false
     @Published var selectedAuthority: AdminUserListAuthorityType?
-    @Published var selectedPage: AdminPageFlow?
+    @Published var selectedPage: AdminPageFlow = .user
     @Published var userList: [UserInfoEntity] = []
 
     private let fetchUserListUseCase: any FetchUserListUseCase
@@ -20,12 +18,12 @@ final class UserListViewModel: BaseViewModel {
         self.fetchUserListUseCase = fetchUserListUseCase
     }
 
-    func updateIsPresentedUserTypeBottomSheet(isPresented: Bool) {
-        isPresentedUserTypeBottomSheet = isPresented
+    func updateIsShowingAdminPageBottomSheet(isShowing: Bool) {
+        isShowingAdminPageBottomSheet = isShowing
     }
 
-    func updateIsPresentedOtherListBottomSheet(isPresented: Bool) {
-        isPresentedOtherListBottomSheet = isPresented
+    func updateIsShowingUserTypeBottomSheet(isShowing: Bool) {
+        isShowingUserTypeBottomSheet = isShowing
     }
 
     func updateSelectedAuthority(authority: AdminUserListAuthorityType) {
@@ -34,7 +32,7 @@ final class UserListViewModel: BaseViewModel {
     }
 
     func updateSelectedPage(page: AdminPageFlow) {
-        guard selectedPage != page else { return selectedPage = nil }
+        guard selectedPage != page else { return }
         selectedPage = page
     }
 
@@ -51,15 +49,5 @@ final class UserListViewModel: BaseViewModel {
                 print(error.localizedDescription)
             }
         }
-    }
-
-    @MainActor
-    func requestSignUpPageDismissed() {
-        isNavigateRequestSignUpDidTap = false
-    }
-
-    @MainActor
-    func withdrawListPageDismissed() {
-        isNavigateWithdrawListDidTap = false
     }
 }
