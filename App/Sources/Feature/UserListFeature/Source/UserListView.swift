@@ -3,6 +3,7 @@ import SwiftUI
 struct UserListView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: UserListViewModel
+    @EnvironmentObject var adminPageState: AdminPageState
 
     private let withdrawUserListFactory: any WithdrawUserListFactory
     private let requestUserSignupFactory: any RequestUserSignupFactory
@@ -36,7 +37,7 @@ struct UserListView: View {
                                 .strokeBorder(Color.bitgouel(.greyscale(.g7)))
                         }
                         .onTapGesture {
-                            viewModel.updateIsPresentedUserTypeBottomSheet(isPresented: true)
+                            viewModel.updateIsShowingUserTypeBottomSheet(isShowing: true)
                         }
                 }
                 .padding(.top, 24)
@@ -71,56 +72,33 @@ struct UserListView: View {
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button {
-                    viewModel.isNavigateRequestSignUpDidTap = true
+                    viewModel.updateIsShowingAdminPageBottomSheet(isShowing: true)
                 } label: {
-                    BitgouelAsset.Icons.addFill.swiftUIImage
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 24, height: 24)
-                }
-
-                Button {
-                    viewModel.isNavigateWithdrawListDidTap = true
-                } label: {
-                    BitgouelAsset.Icons.minusFill.swiftUIImage
+                    BitgouelAsset.Icons.sandwich.swiftUIImage
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 24, height: 24)
                 }
             }
         }
-        .navigate(
-            to: requestUserSignupFactory.makeView().eraseToAnyView(),
-            when: Binding(
-                get: { viewModel.isNavigateRequestSignUpDidTap },
-                set: { _ in viewModel.requestSignUpPageDismissed() }
-            )
-        )
-        .navigate(
-            to: withdrawUserListFactory.makeView().eraseToAnyView(),
-            when: Binding(
-                get: { viewModel.isNavigateWithdrawListDidTap },
-                set: { _ in viewModel.withdrawListPageDismissed() }
-            )
-        )
-        .bitgouelBottomSheet(isShowing: $viewModel.isPresentedUserTypeBottomSheet) {
+        .bitgouelBottomSheet(isShowing: $viewModel.isShowingUserTypeBottomSheet) {
             UserTypeFilterBottomSheet(
                 selectedAuthority: viewModel.selectedAuthority
             ) { authority in
                 viewModel.updateSelectedAuthority(authority: authority)
                 viewModel.onAppear()
             } cancel: { cancel in
-                viewModel.updateIsPresentedUserTypeBottomSheet(isPresented: cancel)
+                viewModel.updateIsShowingUserTypeBottomSheet(isShowing: cancel)
             }
         }
-        .bitgouelBottomSheet(isShowing: $viewModel.isPresentedOtherListBottomSheet) {
-            OtherPageListBottomSheet(
+        .bitgouelBottomSheet(isShowing: $viewModel.isShowingAdminPageBottomSheet) {
+            AdminPageListBottomSheet(
                 selectedPage: viewModel.selectedPage
             ) { page in
                 viewModel.updateSelectedPage(page: page)
-                viewModel.onAppear()
+                adminPageState.adminPageFlow = page
             } cancel: { cancel in
-                viewModel.updateIsPresentedOtherListBottomSheet(isPresented: cancel)
+                viewModel.updateIsShowingAdminPageBottomSheet(isShowing: cancel)
             }
         }
     }

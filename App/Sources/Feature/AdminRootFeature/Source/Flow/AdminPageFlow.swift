@@ -1,6 +1,6 @@
 import Foundation
 
-public enum AdminPage: String, CaseIterable {
+public enum AdminPageFlow: String, RawRepresentable, CaseIterable {
     case user = "사용자 명단"
     case requestUser = "신규 가입자 명단"
     case withdrawUser = "탈퇴 예정자 명단"

@@ -5,8 +5,8 @@ final class RequestUserSignupViewModel: BaseViewModel {
     @Published var isShowingApproveAlert: Bool = false
     @Published var isShowingRejectAlert: Bool = false
     @Published var isSelectedUserList: Bool = false
-    @Published var isNavigateUserListDidTap: Bool = false
-    @Published var isNavigateWithdrawListDidTap: Bool = false
+    @Published var isShowingAdminPageBottomSheet = false
+    @Published var selectedPage: AdminPageFlow = .requestUser
     @Published var userList: [UserInfoEntity] = []
     @Published var selectedUserList: Set<String> = []
 
@@ -52,6 +52,15 @@ final class RequestUserSignupViewModel: BaseViewModel {
 
     func updateIsShowingRejectAlert(isShowing: Bool) {
         isShowingRejectAlert = isShowing
+    }
+
+    func updateIsShowingAdminPageBottomSheet(isShowing: Bool) {
+        isShowingAdminPageBottomSheet = isShowing
+    }
+
+    func updateSelectedPage(page: AdminPageFlow) {
+        guard selectedPage != page else { return }
+        selectedPage = page
     }
 
     @MainActor

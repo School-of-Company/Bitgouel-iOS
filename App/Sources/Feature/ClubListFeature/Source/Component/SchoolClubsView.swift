@@ -1,7 +1,7 @@
 import Service
 import SwiftUI
 
-public struct SchoolListView: View {
+public struct SchoolClubsView: View {
     let schoolName: String
     let clubList: [ClubEntity]
     let selectedClub: (_ clubID: Int) -> Void
