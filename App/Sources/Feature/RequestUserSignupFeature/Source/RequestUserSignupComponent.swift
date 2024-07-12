@@ -11,9 +11,7 @@ public protocol RequestUserSignupDependency: Dependency {
 }
 
 // swiftLint: disable line_length
-public final class RequestUserSignupComponent:
-    Component<RequestUserSignupDependency>, RequestUserSignupFactory {
-    @MainActor
+public final class RequestUserSignupComponent: Component<RequestUserSignupDependency>, RequestUserSignupFactory {
     public func makeView() -> some View {
         RequestUserSignupView(
             viewModel: .init(

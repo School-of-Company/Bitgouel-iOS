@@ -9,7 +9,6 @@ public struct BitgouelButton: View {
         text: String,
         style: ButtonStyleType = .primary,
         action: @escaping () -> Void = {}
-
     ) {
         self.text = text
         self.style = style

@@ -6,6 +6,8 @@ final class UserListViewModel: BaseViewModel {
     @Published var isSelectedUserList = false
     @Published var isPresentedUserTypeBottomSheet: Bool = false
     @Published var isPresentedOtherListBottomSheet: Bool = false
+    @Published var isNavigateRequestSignUpDidTap = false
+    @Published var isNavigateWithdrawListDidTap = false
     @Published var selectedAuthority: AdminUserListAuthorityType?
     @Published var selectedPage: AdminPage?
     @Published var userList: [UserInfoEntity] = []
@@ -49,5 +51,15 @@ final class UserListViewModel: BaseViewModel {
                 print(error.localizedDescription)
             }
         }
+    }
+
+    @MainActor
+    func requestSignUpPageDismissed() {
+        isNavigateRequestSignUpDidTap = false
+    }
+
+    @MainActor
+    func withdrawListPageDismissed() {
+        isNavigateWithdrawListDidTap = false
     }
 }

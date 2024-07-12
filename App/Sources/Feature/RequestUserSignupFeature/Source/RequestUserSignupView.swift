@@ -18,36 +18,36 @@ struct RequestUserSignupView: View {
 
     var body: some View {
         ZStack {
-            VStack(spacing: 0) {
-                HStack(spacing: 10) {
-                    optionButton(
-                        buttonText: "전체 선택",
-                        foregroundColor: .bitgouel(.greyscale(.g4))
-                    ) {
-                        if viewModel.isSelectedUserList {
-                            viewModel.removeAllUserList()
-                            viewModel.isSelectedUserList = false
-                        } else {
-                            viewModel.insertAllUserList()
-                            viewModel.isSelectedUserList = true
-                        }
+            VStack(spacing: 12) {
+                HStack {
+                    VStack(spacing: 4) {
+                        BitgouelText(
+                            text: "전체",
+                            font: .caption
+                        )
+                        .foregroundColor(.bitgouel(.greyscale(.g4)))
+                        .padding(.top, 12)
+
+                        CheckButton(
+                            isSelected: Binding(
+                                get: { viewModel.isSelectedUserList },
+                                set: { isSelected in
+                                    if isSelected {
+                                        viewModel.insertAllUserList()
+                                        viewModel.updateIsSelectedUserList(isSelected: isSelected)
+                                    } else {
+                                        viewModel.removeAllUserList()
+                                        viewModel.updateIsSelectedUserList(isSelected: isSelected)
+                                    }
+                                }
+                            )
+                        )
                     }
 
-                    optionButton(
-                        buttonText: "선택 수락",
-                        foregroundColor: .bitgouel(.primary(.p5))
-                    ) {
-                        viewModel.isShowingApproveAlert = true
-                    }
-
-                    optionButton(
-                        buttonText: "선택 거절",
-                        foregroundColor: .bitgouel(.error(.e5))
-                    ) {
-                        viewModel.isShowingRejectAlert = true
-                    }
+                    Spacer()
                 }
-                .padding(.top, 24)
+
+                Divider()
 
                 ScrollView {
                     if viewModel.userList.isEmpty {
@@ -55,10 +55,21 @@ struct RequestUserSignupView: View {
                     } else {
                         LazyVStack(alignment: .leading, spacing: 0) {
                             ForEach(viewModel.userList, id: \.userID) { userInfo in
-                                requestUserListRow(
-                                    userID: userInfo.userID,
-                                    userName: userInfo.name,
-                                    userAuthority: userInfo.authority.display()
+                                UserInfoListRow(
+                                    name: userInfo.name,
+                                    authoruty: userInfo.authority.display(),
+                                    phoneNumber: userInfo.phoneNumber,
+                                    email: userInfo.email,
+                                    hasCheckButton: true,
+                                    isSelected: Binding(
+                                        get: { viewModel.selectedUserList.contains(userInfo.userID) },
+                                        set: { isSelected in
+                                            viewModel.insertUserList(userID: userInfo.userID)
+                                            if !isSelected {
+                                                viewModel.removeUserList(userID: userInfo.userID)
+                                            }
+                                        }
+                                    )
                                 )
 
                                 Divider()
@@ -68,138 +79,90 @@ struct RequestUserSignupView: View {
                         }
                     }
                 }
-                .padding(.top, 24)
 
                 Spacer()
             }
-            .onAppear {
-                viewModel.onAppear()
-            }
-            .refreshable {
-                viewModel.onAppear()
-            }
-            .padding(.horizontal, 28)
-            .navigationTitle("가입 요청자 명단")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        viewModel.isNavigateUserListDidTap = true
-                    } label: {
-                        BitgouelAsset.Icons.people.swiftUIImage
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 24, height: 24)
-                    }
-
-                    Button {
-                        viewModel.isNavigateWithdrawListDidTap = true
-                    } label: {
-                        BitgouelAsset.Icons.minusFill.swiftUIImage
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 24, height: 24)
-                    }
-                }
-            }
-            .bitgouelAlert(
-                title: "가입을 수락 하시겠습니까?",
-                description: "",
-                isShowing: $viewModel.isShowingApproveAlert,
-                alertActions: [
-                    .init(text: "취소", style: .cancel) {
-                        viewModel.isShowingApproveAlert = false
-                    },
-                    .init(text: "수락", style: .default) {
-                        viewModel.approveUserSignupButtonDidTap()
-                        viewModel.isShowingApproveAlert = false
-                    }
-                ]
-            )
-            .bitgouelAlert(
-                title: "가입을 거절 하시겠습니까?",
-                description: "",
-                isShowing: $viewModel.isShowingRejectAlert,
-                alertActions: [
-                    .init(text: "취소", style: .cancel) {
-                        viewModel.isShowingRejectAlert = false
-                    },
-                    .init(text: "거절", style: .error) {
-                        viewModel.rejectUserSignupButtonDidTap()
-                        viewModel.isShowingRejectAlert = false
-                    }
-                ]
-            )
         }
-        .navigate(
-            to: userListFactory.makeView().eraseToAnyView(),
-            when: Binding(
-                get: { viewModel.isNavigateUserListDidTap },
-                set: { _ in viewModel.userListPageDismissed() }
-            )
-        )
-        .navigate(
-            to: withdrawUserListFactory.makeView().eraseToAnyView(),
-            when: Binding(
-                get: { viewModel.isNavigateWithdrawListDidTap },
-                set: { _ in viewModel.withdrawListPageDismissed() }
-            )
-        )
+        .overlay(alignment: .bottom) {
+            handleRequest()
+        }
         .bitgouelToast(
             text: viewModel.errorMessage,
             isShowing: $viewModel.isErrorOccurred
         )
-    }
+        .onAppear {
+            viewModel.onAppear()
+        }
+        .refreshable {
+            viewModel.onAppear()
+        }
+        .padding(.horizontal, 28)
+        .navigationTitle("가입 요청자 명단")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    viewModel.isNavigateUserListDidTap = true
+                } label: {
+                    BitgouelAsset.Icons.people.swiftUIImage
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 24, height: 24)
+                }
 
-    @ViewBuilder
-    func requestUserListRow(
-        userID: String,
-        userName: String,
-        userAuthority: String
-    ) -> some View {
-        HStack(spacing: 8) {
-            CheckButton(
-                isSelected: Binding(
-                    get: { viewModel.selectedUserList.contains(userID) },
-                    set: { isSelected in
-                        viewModel.insertUserList(userID: userID)
-                        if !isSelected {
-                            viewModel.removeUserList(userID: userID)
-                        }
+                Button {
+                    viewModel.isNavigateWithdrawListDidTap = true
+                } label: {
+                    BitgouelAsset.Icons.minusFill.swiftUIImage
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 24, height: 24)
+                }
+            }
+        }
+        .bitgouelAlert(
+            title: "선택한 사용자의 가입을 수락 하시겠습니까?",
+            description: "",
+            isShowing: $viewModel.isShowingApproveAlert,
+            alertActions: [
+                .init(text: "취소", style: .cancel) {
+                    viewModel.updateIsShowingApproveAlert(isShowing: false)
+                },
+                .init(text: "수락", style: .default) {
+                    viewModel.approveUserSignupButtonDidTap {
+                        viewModel.updateIsShowingApproveAlert(isShowing: false)
+                        viewModel.onAppear()
                     }
-                )
-            )
-
-            BitgouelText(
-                text: userName,
-                font: .text1
-            )
-
-            BitgouelText(
-                text: userAuthority,
-                font: .text1
-            )
-            .foregroundColor(.bitgouel(.greyscale(.g6)))
-        }
+                }
+            ]
+        )
+        .bitgouelAlert(
+            title: "선택한 사용자의 가입을 \n거절 하시겠습니까?",
+            description: "",
+            isShowing: $viewModel.isShowingRejectAlert,
+            alertActions: [
+                .init(text: "취소", style: .cancel) {
+                    viewModel.updateIsShowingRejectAlert(isShowing: false)
+                },
+                .init(text: "거절", style: .error) {
+                    viewModel.rejectUserSignupButtonDidTap {
+                        viewModel.updateIsShowingRejectAlert(isShowing: false)
+                        viewModel.onAppear()
+                    }
+                }
+            ]
+        )
     }
 
     @ViewBuilder
-    func optionButton(
-        buttonText: String,
-        foregroundColor: Color,
-        action: @escaping () -> Void = {}
-    ) -> some View {
-        BitgouelText(
-            text: buttonText,
-            font: .text3
-        )
-        .foregroundColor(foregroundColor)
-        .padding(.horizontal, 20)
-        .padding(.vertical, 9)
-        .overlay {
-            RoundedRectangle(cornerRadius: 8)
-                .strokeBorder(foregroundColor)
+    func handleRequest() -> some View {
+        HStack(spacing: 8) {
+            RejectionButton {
+                viewModel.updateIsShowingRejectAlert(isShowing: true)
+            }
+
+            AcceptButton {
+                viewModel.updateIsShowingApproveAlert(isShowing: true)
+            }
         }
-        .buttonWrapper(action)
-        .cornerRadius(8)
     }
 }
