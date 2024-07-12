@@ -2,6 +2,7 @@ import SwiftUI
 
 struct RequestUserSignupView: View {
     @StateObject var viewModel: RequestUserSignupViewModel
+    @EnvironmentObject var adminPageState: AdminPageState
 
     private let userListFactory: any UserListFactory
     private let withdrawUserListFactory: any WithdrawUserListFactory
@@ -85,6 +86,7 @@ struct RequestUserSignupView: View {
         .overlay(alignment: .bottom) {
             handleRequest()
         }
+        .padding(.horizontal, 28)
         .bitgouelToast(
             text: viewModel.errorMessage,
             isShowing: $viewModel.isErrorOccurred
@@ -95,23 +97,13 @@ struct RequestUserSignupView: View {
         .refreshable {
             viewModel.onAppear()
         }
-        .padding(.horizontal, 28)
         .navigationTitle("가입 요청자 명단")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    viewModel.isNavigateUserListDidTap = true
+                    viewModel.updateIsShowingAdminPageBottomSheet(isShowing: true)
                 } label: {
-                    BitgouelAsset.Icons.people.swiftUIImage
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 24, height: 24)
-                }
-
-                Button {
-                    viewModel.isNavigateWithdrawListDidTap = true
-                } label: {
-                    BitgouelAsset.Icons.minusFill.swiftUIImage
+                    BitgouelAsset.Icons.sandwich.swiftUIImage
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 24, height: 24)
@@ -150,6 +142,16 @@ struct RequestUserSignupView: View {
                 }
             ]
         )
+        .bitgouelBottomSheet(isShowing: $viewModel.isShowingAdminPageBottomSheet) {
+            AdminPageListBottomSheet(
+                selectedPage: viewModel.selectedPage) { page in
+                    viewModel.updateSelectedPage(page: page)
+                    adminPageState.adminPageFlow = page
+                } cancel: { cancel in
+                    viewModel.updateIsShowingAdminPageBottomSheet(isShowing: cancel)
+                }
+
+        }
     }
 
     @ViewBuilder
