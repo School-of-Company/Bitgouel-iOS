@@ -4,12 +4,11 @@ import Service
 final class ClubListViewModel: BaseViewModel {
     @Published var selectedSchool: HighSchoolType?
     @Published var isShowingLoginAlert: Bool = false
-    @Published var schoolClubList: [SchoolListEntity] = []
-    @Published var clubList: [ClubEntity] = []
+    @Published var schoolList: [SchoolListEntity] = []
+    @Published var clubList: [ClubListModel] = []
     @Published var clubID: Int = 0
     @Published var isPresentedSelectedSchoolPopup: Bool = false
     @Published var isPresentedClubDetailView: Bool = false
-    var schoolList: [HighSchoolType] = HighSchoolType.allCases
     var authority: UserAuthorityType = .user
 
     private let fetchClubListUseCase: any FetchClubListUseCase
@@ -38,6 +37,10 @@ final class ClubListViewModel: BaseViewModel {
         isPresentedClubDetailView = isPresented
     }
 
+    func updateClubList(clubList: [ClubListModel]) {
+        self.clubList = clubList
+    }
+
     @MainActor
     func onAppear() {
         authority = loadUserAuthorityUseCase()
@@ -58,9 +61,9 @@ final class ClubListViewModel: BaseViewModel {
     func fetchSchoolList() {
         Task {
             do {
-                schoolClubList = try await fetchSchoolListUseCase()
+                schoolList = try await fetchSchoolListUseCase()
             } catch {
-                print(error.localizedDescription)
+                print(String(describing: error))
             }
         }
     }
@@ -71,7 +74,14 @@ final class ClubListViewModel: BaseViewModel {
             do {
                 guard let selectedSchool else { return }
 
-                clubList = try await fetchClubListUseCase(highSchool: selectedSchool.rawValue)
+                let response = try await fetchClubListUseCase(highSchool: selectedSchool.rawValue)
+
+                updateClubList(clubList: response.map {
+                    .init(
+                        clubID: $0.id,
+                        clubName: $0.name
+                    )
+                })
             } catch {
                 errorMessage = error.clubDomainErrorMessage()
                 isErrorOccurred = true

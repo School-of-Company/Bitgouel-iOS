@@ -8,6 +8,7 @@ final class ClubDetailViewModel: BaseViewModel {
     @Published var studentID: String = ""
 
     // MARK: ClubInfo
+
     var clubID: Int = 0
     @Published var clubName: String = ""
     @Published var schoolName: String = ""
@@ -15,6 +16,7 @@ final class ClubDetailViewModel: BaseViewModel {
     @Published var teacher: ClubDetailEntity.TeacherInfoEntity?
 
     // MARK: UseCase
+
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
     private let fetchClubDetailUseCase: any FetchClubDetailUseCase
     private let fetchStudentListByClubUseCase: any FetchStudentListByClubUseCase
@@ -65,11 +67,11 @@ final class ClubDetailViewModel: BaseViewModel {
     }
 
     func updateClubDetail(clubInfo: ClubDetailEntity) {
-        self.clubID = clubInfo.clubID
-        self.clubName = clubInfo.clubName
-        self.schoolName = clubInfo.schoolName
-        self.students = clubInfo.students
-        self.teacher = clubInfo.teacher
+        clubID = clubInfo.clubID
+        clubName = clubInfo.clubName
+        schoolName = clubInfo.schoolName
+        students = clubInfo.students
+        teacher = clubInfo.teacher
     }
 
     func updateIsPresentedStudentInfoView(isPresented: Bool) {
