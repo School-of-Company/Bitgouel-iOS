@@ -42,6 +42,7 @@ public enum BitgouelDomain: String {
     case club
     case email
     case school
+    case company
 }
 
 extension BitgouelDomain {
