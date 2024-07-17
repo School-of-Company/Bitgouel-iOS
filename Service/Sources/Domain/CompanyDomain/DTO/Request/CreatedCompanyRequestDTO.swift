@@ -1,8 +1,6 @@
-//
-//  CreatedCompanyRequestDTO.swift
-//  Service
-//
-//  Created by 정윤서 on 7/17/24.
-//
-
 import Foundation
+
+public struct CreatedCompanyRequestDTO: Encodable {
+    public let companyName: String
+    public let field: FieldType
+}
