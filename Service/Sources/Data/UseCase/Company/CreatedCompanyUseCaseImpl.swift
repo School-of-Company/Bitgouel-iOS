@@ -1,8 +1,13 @@
-//
-//  CreatedCompanyUseCaseImpl.swift
-//  Service
-//
-//  Created by 정윤서 on 7/17/24.
-//
-
 import Foundation
+
+public struct CreatedCompanyUseCaseImpl: CreatedCompanyUseCase {
+    private let companyRepository: any CompanyRepository
+
+    public init(companyRepository: any CompanyRepository) {
+        self.companyRepository = companyRepository
+    }
+
+    public func callAsFunction(req: CreatedCompanyRequestDTO) async throws {
+        try await companyRepository.createdCompany(req: req)
+    }
+}

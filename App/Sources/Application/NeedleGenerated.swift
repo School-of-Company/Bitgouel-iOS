@@ -1371,6 +1371,10 @@ extension AppComponent: Registration {
         localTable["remoteSchoolDataSource-any RemoteSchoolDataSource"] = { [unowned self] in self.remoteSchoolDataSource as Any }
         localTable["schoolRepository-any SchoolRepository"] = { [unowned self] in self.schoolRepository as Any }
         localTable["fetchSchoolListUseCase-any FetchSchoolListUseCase"] = { [unowned self] in self.fetchSchoolListUseCase as Any }
+        localTable["fetchAllSchoolNameUseCase-any FetchAllSchoolNameUseCase"] = { [unowned self] in self.fetchAllSchoolNameUseCase as Any }
+        localTable["createdSchoolUseCase-any CreatedSchoolUseCase"] = { [unowned self] in self.createdSchoolUseCase as Any }
+        localTable["modifySchoolUseCase-any ModifySchoolUseCase"] = { [unowned self] in self.modifySchoolUseCase as Any }
+        localTable["deleteSchoolUseCase-any DeleteSchoolUseCase"] = { [unowned self] in self.deleteSchoolUseCase as Any }
         localTable["remoteEmailDataSource-any RemoteEmailDataSource"] = { [unowned self] in self.remoteEmailDataSource as Any }
         localTable["emailRepository-any EmailRepository"] = { [unowned self] in self.emailRepository as Any }
         localTable["sendEmailCertificationLinkUseCase-any SendEmailCertificationLinkUseCase"] = { [unowned self] in self.sendEmailCertificationLinkUseCase as Any }
@@ -1381,6 +1385,11 @@ extension AppComponent: Registration {
         localTable["fetchCertificationListByStudentUseCase-any FetchCertificationListByStudentUseCase"] = { [unowned self] in self.fetchCertificationListByStudentUseCase as Any }
         localTable["inputCertificationUseCase-any InputCertificationUseCase"] = { [unowned self] in self.inputCertificationUseCase as Any }
         localTable["updateCertificationUseCase-any UpdateCertificationUseCase"] = { [unowned self] in self.updateCertificationUseCase as Any }
+        localTable["remoteCompanyDataSource-any RemoteCompanyDataSource"] = { [unowned self] in self.remoteCompanyDataSource as Any }
+        localTable["companyRepository-any CompanyRepository"] = { [unowned self] in self.companyRepository as Any }
+        localTable["fetchCompanyListUseCase-any FetchCompanyListUseCase"] = { [unowned self] in self.fetchCompanyListUseCase as Any }
+        localTable["createdCompanyUseCase-any CreatedCompanyUseCase"] = { [unowned self] in self.createdCompanyUseCase as Any }
+        localTable["deleteCompanyUseCase-any DeleteCompanyUseCase"] = { [unowned self] in self.deleteCompanyUseCase as Any }
     }
 }
 

@@ -1,9 +1,28 @@
-//
-//  AppComponent+Company.swift
-//  Bitgouel
-//
-//  Created by 정윤서 on 7/17/24.
-//  Copyright © 2024 team.msg. All rights reserved.
-//
+import NeedleFoundation
+import Service
 
-import Foundation
+public extension AppComponent {
+    var remoteCompanyDataSource: any RemoteCompanyDataSource {
+        shared {
+            RemoteCompanyDataSourceImpl(keychain: keychain)
+        }
+    }
+
+    var companyRepository: any CompanyRepository {
+        shared {
+            CompanyRepositoryImpl(remoteCompanyDataSource: remoteCompanyDataSource)
+        }
+    }
+
+    var fetchCompanyListUseCase: any FetchCompanyListUseCase {
+        FetchCompanyListUseCaseImpl(companyRepository: companyRepository)
+    }
+
+    var createdCompanyUseCase: any CreatedCompanyUseCase {
+        CreatedCompanyUseCaseImpl(companyRepository: companyRepository)
+    }
+
+    var deleteCompanyUseCase: any DeleteCompanyUseCase {
+        DeleteCompanyUseCaseImpl(companyRepository: companyRepository)
+    }
+}

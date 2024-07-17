@@ -60,7 +60,7 @@ extension CompanyAPI: BitgouelAPI {
         }
     }
 
-    public var errorMap: [Int : CompanyDomainError] {
+    public var errorMap: [Int: CompanyDomainError] {
         switch self {
         case .fetchCompanyList,
              .createdCompany,
