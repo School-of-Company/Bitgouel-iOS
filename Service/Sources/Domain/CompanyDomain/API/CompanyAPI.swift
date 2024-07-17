@@ -8,13 +8,12 @@ public enum CompanyAPI {
 }
 
 extension CompanyAPI: BitgouelAPI {
-    
     public typealias ErrorType = CompanyDomainError
 
     public var domain: BitgouelDomain {
         .company
     }
-    
+
     public var urlPath: String {
         switch self {
         case .fetchCompanyList,
@@ -30,15 +29,15 @@ extension CompanyAPI: BitgouelAPI {
         switch self {
         case .fetchCompanyList:
             return .get
-            
+
         case .createdCompany:
             return .post
-            
+
         case .deleteCompany:
             return .delete
         }
     }
-    
+
     public var task: Moya.Task {
         switch self {
         case .fetchCompanyList,
@@ -60,12 +59,12 @@ extension CompanyAPI: BitgouelAPI {
             return .accessToken
         }
     }
-    
+
     public var errorMap: [Int : CompanyDomainError] {
         switch self {
         case .fetchCompanyList,
-                .createdCompany,
-                .deleteCompany:
+             .createdCompany,
+             .deleteCompany:
             return [
                 404: .notFound,
                 409: .conflict
