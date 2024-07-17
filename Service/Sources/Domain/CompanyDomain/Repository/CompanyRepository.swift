@@ -1,8 +1,7 @@
-//
-//  CompanyRepository.swift
-//  Service
-//
-//  Created by 정윤서 on 7/17/24.
-//
-
 import Foundation
+
+public protocol CompanyRepository {
+    func fetchCompanyList() async throws -> [CompanyInfoEntity]
+    func createdCompany(req: CreatedCompanyRequestDTO) async throws
+    func deleteCompany(companyID: String) async throws
+}
