@@ -46,7 +46,7 @@ public enum BitgouelDomain: String {
 
 extension BitgouelDomain {
     var asURLString: String {
-        "/\(self.rawValue)"
+        "/\(rawValue)"
     }
 }
 

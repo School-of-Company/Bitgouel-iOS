@@ -10,4 +10,20 @@ public struct SchoolRepositoryImpl: SchoolRepository {
     public func fetchSchoolList() async throws -> [SchoolListEntity] {
         try await remoteSchoolDataSource.fetchSchoolList()
     }
+
+    public func fetchAllSchoolName() async throws -> [String] {
+        try await remoteSchoolDataSource.fetchAllSchoolName()
+    }
+
+    public func createdSchool(req: CreatedSchoolRequestDTO) async throws {
+        try await remoteSchoolDataSource.createdSchool(req: req)
+    }
+
+    public func modifySchool(schoolID: String, req: ModifySchoolRequestDTO) async throws {
+        try await remoteSchoolDataSource.modifySchool(schoolID: schoolID, req: req)
+    }
+
+    public func deleteSchool(schoolID: String) async throws {
+        try await remoteSchoolDataSource.deleteSchool(schoolID: schoolID)
+    }
 }

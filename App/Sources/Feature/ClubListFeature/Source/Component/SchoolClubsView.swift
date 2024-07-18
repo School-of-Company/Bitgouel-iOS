@@ -3,7 +3,7 @@ import SwiftUI
 
 public struct SchoolClubsView: View {
     let schoolName: String
-    let clubList: [ClubEntity]
+    let clubList: [ClubListModel]
     let selectedClub: (_ clubID: Int) -> Void
 
     public var body: some View {
@@ -22,10 +22,10 @@ public struct SchoolClubsView: View {
                 .padding(.top, 12)
 
             LazyVStack(spacing: 0) {
-                ForEach(clubList, id: \.id) { club in
-                    ClubListRow(clubName: club.name)
+                ForEach(clubList, id: \.clubID) { club in
+                    ClubListRow(clubName: club.clubName)
                         .onTapGesture {
-                            selectedClub(club.id)
+                            selectedClub(club.clubID)
                         }
                 }
             }

@@ -21,10 +21,10 @@ struct ClubListView: View {
             ZStack {
                 ScrollView {
                     LazyVStack(spacing: 40) {
-                        ForEach(viewModel.schoolClubList, id: \.id) { school in
+                        ForEach(viewModel.schoolList, id: \.schoolID) { school in
                             SchoolClubsView(
                                 schoolName: school.schoolName,
-                                clubList: school.clubs
+                                clubList: school.clubs.map { .init(clubID: $0.clubID, clubName: $0.clubName) }
                             ) { clubID in
                                 viewModel.updateClubID(clubID: clubID)
                                 viewModel.updateIsPresentedClubDetailView(isPresented: true)
@@ -43,7 +43,6 @@ struct ClubListView: View {
                             }
 
                         SchoolListPopup(
-                            schoolList: viewModel.schoolList,
                             selectedSchool: viewModel.selectedSchool
                         ) { school in
                             viewModel.selectedSchool = school

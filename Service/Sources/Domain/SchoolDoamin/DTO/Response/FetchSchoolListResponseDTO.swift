@@ -1,7 +1,7 @@
 import Foundation
 
 public struct FetchSchoolListResponseDTO: Decodable {
-    public let schools: [SchoolResponseDTO]
+    public let schools: [SchoolListResponseDTO]
 }
 
 extension FetchSchoolListResponseDTO {

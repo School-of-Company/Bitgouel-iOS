@@ -15,4 +15,20 @@ public extension AppComponent {
     var fetchSchoolListUseCase: any FetchSchoolListUseCase {
         FetchSchoolListUseCaseImpl(schoolRepository: schoolRepository)
     }
+
+    var fetchAllSchoolNameUseCase: any FetchAllSchoolNameUseCase {
+        FetchAllSchoolNameUseCaseImpl(schoolRepository: schoolRepository)
+    }
+
+    var createdSchoolUseCase: any CreatedSchoolUseCase {
+        CreatedSchoolUseCaseImpl(schoolRepository: schoolRepository)
+    }
+
+    var modifySchoolUseCase: any ModifySchoolUseCase {
+        ModifySchoolUseCaseImpl(schoolRepository: schoolRepository)
+    }
+
+    var deleteSchoolUseCase: any DeleteSchoolUseCase {
+        DeleteSchoolUseCaseImpl(schoolRepository: schoolRepository)
+    }
 }
