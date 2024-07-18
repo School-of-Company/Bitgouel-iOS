@@ -1,8 +1,7 @@
-//
-//  GovernmentRepository.swift
-//  Service
-//
-//  Created by 정윤서 on 7/18/24.
-//
-
 import Foundation
+
+public protocol GovernmentRepository {
+    func fetchGovernmentList() async throws -> [GovernmentInfoEntity]
+    func createdGovernment(req: CreatedGovernmentRequestDTO) async throws
+    func deleteGovernment(governmentID: Int) async throws
+}
