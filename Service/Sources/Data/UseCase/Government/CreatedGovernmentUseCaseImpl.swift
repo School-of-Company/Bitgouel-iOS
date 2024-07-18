@@ -1,8 +1,13 @@
-//
-//  CreatedGovernmentUseCaseImpl.swift
-//  Service
-//
-//  Created by 정윤서 on 7/18/24.
-//
-
 import Foundation
+
+public struct CreatedGovernmentUseCaseImpl: CreatedGovernmentUseCase {
+    private let governmentRepository: any GovernmentRepository
+
+    public init(governmentRepository: any GovernmentRepository) {
+        self.governmentRepository = governmentRepository
+    }
+
+    public func callAsFunction(req: CreatedGovernmentRequestDTO) async throws {
+        try await governmentRepository.createdGovernment(req: req)
+    }
+}
