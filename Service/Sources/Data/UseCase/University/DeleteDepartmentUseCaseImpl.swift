@@ -6,7 +6,7 @@ public struct DeleteDepartmentUseCaseImpl: DeleteDepartmentUseCase {
     public init(universityRepository: any UniversityRepository) {
         self.universityRepository = universityRepository
     }
-    
+
     public func callAsFunction(universityID: String, department: String) async throws {
         try await universityRepository.deleteDepartment(universityID: universityID, department: department)
     }

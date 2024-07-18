@@ -1,4 +1,5 @@
 import Foundation
+
 final class UniversityListViewModel: BaseViewModel {
     @Published var isShowingAdminPageBottomSheet: Bool = false
     @Published var selectedPage: AdminPageFlow = .company
@@ -12,4 +13,3 @@ final class UniversityListViewModel: BaseViewModel {
         selectedPage = page
     }
 }
-

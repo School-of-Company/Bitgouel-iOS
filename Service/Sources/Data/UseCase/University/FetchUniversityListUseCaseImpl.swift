@@ -6,7 +6,7 @@ public struct FetchUniversityListUseCaseImpl: FetchUniversityListUseCase {
     public init(universityRepository: any UniversityRepository) {
         self.universityRepository = universityRepository
     }
-    
+
     public func callAsFunction() async throws -> [UniversityInfoEntity] {
         try await universityRepository.fetchUniversityList()
     }

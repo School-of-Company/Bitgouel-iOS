@@ -2,7 +2,7 @@ import Service
 import SwiftUI
 
 struct SchoolListPopup: View {
-    let schoolList: [HighSchoolType]
+    let schoolList: [HighSchoolType] = HighSchoolType.allCases
     let selectedSchool: HighSchoolType?
     let onSchoolSelect: (HighSchoolType) -> Void
     let cancel: (Bool) -> Void

@@ -4,12 +4,10 @@ import Service
 final class ClubListViewModel: BaseViewModel {
     @Published var selectedSchool: HighSchoolType?
     @Published var isShowingLoginAlert: Bool = false
-    @Published var schoolClubList: [SchoolListEntity] = []
-    @Published var clubList: [ClubEntity] = []
+    @Published var schoolList: [SchoolInfoModel] = []
     @Published var clubID: Int = 0
     @Published var isPresentedSelectedSchoolPopup: Bool = false
     @Published var isPresentedClubDetailView: Bool = false
-    var schoolList: [HighSchoolType] = HighSchoolType.allCases
     var authority: UserAuthorityType = .user
 
     private let fetchClubListUseCase: any FetchClubListUseCase
@@ -38,6 +36,10 @@ final class ClubListViewModel: BaseViewModel {
         isPresentedClubDetailView = isPresented
     }
 
+    func updateSchoolList(model: [SchoolInfoModel]) {
+        schoolList = model
+    }
+
     @MainActor
     func onAppear() {
         authority = loadUserAuthorityUseCase()
@@ -58,9 +60,21 @@ final class ClubListViewModel: BaseViewModel {
     func fetchSchoolList() {
         Task {
             do {
-                schoolClubList = try await fetchSchoolListUseCase()
+                let response = try await fetchSchoolListUseCase()
+
+                updateSchoolList(model: response.map {
+                    SchoolInfoModel(
+                        schoolName: $0.schoolName,
+                        clubs: $0.clubs.map {
+                            ClubInfoModel(
+                                clubID: $0.clubID,
+                                clubName: $0.clubName
+                            )
+                        }
+                    )
+                })
             } catch {
-                print(error.localizedDescription)
+                print(String(describing: error))
             }
         }
     }
@@ -71,7 +85,17 @@ final class ClubListViewModel: BaseViewModel {
             do {
                 guard let selectedSchool else { return }
 
-                clubList = try await fetchClubListUseCase(highSchool: selectedSchool.rawValue)
+                let response = try await fetchClubListUseCase(highSchool: selectedSchool.rawValue)
+
+                updateSchoolList(model: response.map {
+                    SchoolInfoModel(
+                        schoolName: $0.schoolName,
+                        clubs: [ClubInfoModel(
+                            clubID: $0.clubID,
+                            clubName: $0.name
+                        )]
+                    )
+                })
             } catch {
                 errorMessage = error.clubDomainErrorMessage()
                 isErrorOccurred = true
