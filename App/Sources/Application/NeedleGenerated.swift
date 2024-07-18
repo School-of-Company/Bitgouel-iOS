@@ -1269,6 +1269,11 @@ extension AppComponent: Registration {
         localTable["fetchClubDetailUseCase-any FetchClubDetailUseCase"] = { [unowned self] in self.fetchClubDetailUseCase as Any }
         localTable["fetchStudentListByClubUseCase-any FetchStudentListByClubUseCase"] = { [unowned self] in self.fetchStudentListByClubUseCase as Any }
         localTable["fetchStudentDetailByClubUseCase-any FetchStudentDetailByClubUseCase"] = { [unowned self] in self.fetchStudentDetailByClubUseCase as Any }
+        localTable["remoteGovernmentDataSource-any RemoteGovernmentDataSource"] = { [unowned self] in self.remoteGovernmentDataSource as Any }
+        localTable["governmentRepository-any GovernmentRepository"] = { [unowned self] in self.governmentRepository as Any }
+        localTable["fetchGovernmentListUseCase-any FetchGovernmentListUseCase"] = { [unowned self] in self.fetchGovernmentListUseCase as Any }
+        localTable["createdGovernmentUseCase-any CreatedGovernmentUseCase"] = { [unowned self] in self.createdGovernmentUseCase as Any }
+        localTable["deleteGovernmentUseCase-any DeleteGovernmentUseCase"] = { [unowned self] in self.deleteGovernmentUseCase as Any }
         localTable["remotePostDataSource-any RemotePostDataSource"] = { [unowned self] in self.remotePostDataSource as Any }
         localTable["postRepository-any PostRepository"] = { [unowned self] in self.postRepository as Any }
         localTable["writePostUseCase-any WritePostUseCase"] = { [unowned self] in self.writePostUseCase as Any }
@@ -1322,6 +1327,14 @@ extension AppComponent: Registration {
         localTable["userRepository-any UserRepository"] = { [unowned self] in self.userRepository as Any }
         localTable["changePasswordUseCase-any ChangePasswordUseCase"] = { [unowned self] in self.changePasswordUseCase as Any }
         localTable["fetchMyInfoUseCase-any FetchMyInfoUseCase"] = { [unowned self] in self.fetchMyInfoUseCase as Any }
+        localTable["remoteUniversityDataSource-any RemoteUniversityDataSource"] = { [unowned self] in self.remoteUniversityDataSource as Any }
+        localTable["universityRepository-any UniversityRepository"] = { [unowned self] in self.universityRepository as Any }
+        localTable["fetchUniversityListUseCase-any FetchUniversityListUseCase"] = { [unowned self] in self.fetchUniversityListUseCase as Any }
+        localTable["createdUniversityUseCase-any CreatedUniversityUseCase"] = { [unowned self] in self.createdUniversityUseCase as Any }
+        localTable["modifyUniversityUseCase-any ModifyUniversityUseCase"] = { [unowned self] in self.modifyUniversityUseCase as Any }
+        localTable["deleteUniversityUseCase-any DeleteUniversityUseCase"] = { [unowned self] in self.deleteUniversityUseCase as Any }
+        localTable["createdDepartmentUseCase-any CreatedDepartmentUseCase"] = { [unowned self] in self.createdDepartmentUseCase as Any }
+        localTable["deleteDepartmentUseCase-any DeleteDepartmentUseCase"] = { [unowned self] in self.deleteDepartmentUseCase as Any }
         localTable["loginFactory-any LoginFactory"] = { [unowned self] in self.loginFactory as Any }
         localTable["activityListFactory-any ActivityListFactory"] = { [unowned self] in self.activityListFactory as Any }
         localTable["signupFactory-any SignUpFactory"] = { [unowned self] in self.signupFactory as Any }

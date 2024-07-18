@@ -1,9 +1,28 @@
-//
-//  AppComponent+Government.swift
-//  Bitgouel
-//
-//  Created by 정윤서 on 7/18/24.
-//  Copyright © 2024 team.msg. All rights reserved.
-//
+import NeedleFoundation
+import Service
 
-import Foundation
+public extension AppComponent {
+    var remoteGovernmentDataSource: any RemoteGovernmentDataSource {
+        shared {
+            RemoteGovernmentDataSourceImpl(keychain: keychain)
+        }
+    }
+
+    var governmentRepository: any GovernmentRepository {
+        shared {
+            GovernmentRepositoryImpl(remoteGovernmentDataSource: remoteGovernmentDataSource)
+        }
+    }
+
+    var fetchGovernmentListUseCase: any FetchGovernmentListUseCase {
+        FetchGovernmentUseCaseImpl(governmentRepository: governmentRepository)
+    }
+
+    var createdGovernmentUseCase: any CreatedGovernmentUseCase {
+        CreatedGovernmentUseCaseImpl(governmentRepository: governmentRepository)
+    }
+
+    var deleteGovernmentUseCase: any DeleteGovernmentUseCase {
+        DeleteGovernmentUseCaseImpl(governmentRepository: governmentRepository)
+    }
+}
