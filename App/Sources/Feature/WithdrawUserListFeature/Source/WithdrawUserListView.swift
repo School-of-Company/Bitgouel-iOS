@@ -120,9 +120,10 @@ struct WithdrawUserListView: View {
         }
         .overlay(alignment: .bottom) {
             DeactivateButton(
-                text: "선택한 사용자 계정 탈퇴") {
-                    viewModel.updateIsShowingWithdrawAlert(isShowing: true)
-                }
+                text: "선택한 사용자 계정 탈퇴"
+            ) {
+                viewModel.updateIsShowingWithdrawAlert(isShowing: true)
+            }
         }
         .bitgouelAlert(
             title: "선택한 사용자의 탈퇴를 \n승인 하시겠습니까?",
@@ -159,13 +160,13 @@ struct WithdrawUserListView: View {
         }
         .bitgouelBottomSheet(isShowing: $viewModel.isShowingAdminPageBottomSheet) {
             AdminPageListBottomSheet(
-                selectedPage: viewModel.selectedPage) { page in
-                    viewModel.updateSelectedPage(page: page)
-                    adminPageState.adminPageFlow = page
-                } cancel: { cancel in
-                    viewModel.updateIsShowingAdminPageBottomSheet(isShowing: cancel)
-                }
-
+                selectedPage: viewModel.selectedPage
+            ) { page in
+                viewModel.updateSelectedPage(page: page)
+                adminPageState.adminPageFlow = page
+            } cancel: { cancel in
+                viewModel.updateIsShowingAdminPageBottomSheet(isShowing: cancel)
+            }
         }
     }
 }

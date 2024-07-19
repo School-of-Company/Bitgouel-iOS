@@ -13,4 +13,3 @@ final class GovernmentListViewModel: BaseViewModel {
         selectedPage = page
     }
 }
-

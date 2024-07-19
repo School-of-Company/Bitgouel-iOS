@@ -7,7 +7,7 @@ public struct SchoolWithClubsResponseDTO: Decodable {
 
     enum CodingKeys: String, CodingKey {
         case clubID = "id"
-        case clubName
+        case clubName = "name"
         case field
     }
 }

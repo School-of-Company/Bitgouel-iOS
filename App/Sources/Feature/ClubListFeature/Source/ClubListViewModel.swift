@@ -4,8 +4,7 @@ import Service
 final class ClubListViewModel: BaseViewModel {
     @Published var selectedSchool: HighSchoolType?
     @Published var isShowingLoginAlert: Bool = false
-    @Published var schoolList: [SchoolListEntity] = []
-    @Published var clubList: [ClubListModel] = []
+    @Published var schoolList: [SchoolInfoModel] = []
     @Published var clubID: Int = 0
     @Published var isPresentedSelectedSchoolPopup: Bool = false
     @Published var isPresentedClubDetailView: Bool = false
@@ -37,8 +36,8 @@ final class ClubListViewModel: BaseViewModel {
         isPresentedClubDetailView = isPresented
     }
 
-    func updateClubList(clubList: [ClubListModel]) {
-        self.clubList = clubList
+    func updateSchoolList(model: [SchoolInfoModel]) {
+        schoolList = model
     }
 
     @MainActor
@@ -61,7 +60,19 @@ final class ClubListViewModel: BaseViewModel {
     func fetchSchoolList() {
         Task {
             do {
-                schoolList = try await fetchSchoolListUseCase()
+                let response = try await fetchSchoolListUseCase()
+
+                updateSchoolList(model: response.map {
+                    SchoolInfoModel(
+                        schoolName: $0.schoolName,
+                        clubs: $0.clubs.map {
+                            ClubInfoModel(
+                                clubID: $0.clubID,
+                                clubName: $0.clubName
+                            )
+                        }
+                    )
+                })
             } catch {
                 print(String(describing: error))
             }
@@ -76,10 +87,13 @@ final class ClubListViewModel: BaseViewModel {
 
                 let response = try await fetchClubListUseCase(highSchool: selectedSchool.rawValue)
 
-                updateClubList(clubList: response.map {
-                    .init(
-                        clubID: $0.id,
-                        clubName: $0.name
+                updateSchoolList(model: response.map {
+                    SchoolInfoModel(
+                        schoolName: $0.schoolName,
+                        clubs: [ClubInfoModel(
+                            clubID: $0.clubID,
+                            clubName: $0.name
+                        )]
                     )
                 })
             } catch {

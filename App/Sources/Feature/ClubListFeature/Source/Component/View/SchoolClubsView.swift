@@ -3,7 +3,7 @@ import SwiftUI
 
 public struct SchoolClubsView: View {
     let schoolName: String
-    let clubList: [ClubListModel]
+    let clubList: [ClubInfoModel]
     let selectedClub: (_ clubID: Int) -> Void
 
     public var body: some View {

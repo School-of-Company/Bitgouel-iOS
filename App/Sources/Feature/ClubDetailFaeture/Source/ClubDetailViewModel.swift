@@ -8,7 +8,6 @@ final class ClubDetailViewModel: BaseViewModel {
     @Published var studentID: String = ""
 
     // MARK: ClubInfo
-
     var clubID: Int = 0
     @Published var clubName: String = ""
     @Published var schoolName: String = ""
@@ -16,7 +15,6 @@ final class ClubDetailViewModel: BaseViewModel {
     @Published var teacher: ClubDetailEntity.TeacherInfoEntity?
 
     // MARK: UseCase
-
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
     private let fetchClubDetailUseCase: any FetchClubDetailUseCase
     private let fetchStudentListByClubUseCase: any FetchStudentListByClubUseCase

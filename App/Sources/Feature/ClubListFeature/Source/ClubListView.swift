@@ -21,7 +21,7 @@ struct ClubListView: View {
             ZStack {
                 ScrollView {
                     LazyVStack(spacing: 40) {
-                        ForEach(viewModel.schoolList, id: \.schoolID) { school in
+                        ForEach(viewModel.schoolList, id: \.schoolName) { school in
                             SchoolClubsView(
                                 schoolName: school.schoolName,
                                 clubList: school.clubs.map { .init(clubID: $0.clubID, clubName: $0.clubName) }
