@@ -24,7 +24,7 @@ struct ClubListView: View {
                         ForEach(viewModel.schoolList, id: \.schoolName) { school in
                             SchoolClubsView(
                                 schoolName: school.schoolName,
-                                clubList: school.clubs
+                                clubList: school.clubs.map { .init(clubID: $0.clubID, clubName: $0.clubName) }
                             ) { clubID in
                                 viewModel.updateClubID(clubID: clubID)
                                 viewModel.updateIsPresentedClubDetailView(isPresented: true)

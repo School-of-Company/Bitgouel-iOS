@@ -54,7 +54,7 @@ struct SchoolListPopup: View {
     @ViewBuilder
     func schoolListRow(
         school: HighSchoolType,
-        selectedSchool: HighSchoolType?,
+        selectedSchool _: HighSchoolType?,
         onSchoolSelect: @escaping (HighSchoolType) -> Void
     ) -> some View {
         VStack(alignment: .leading) {
