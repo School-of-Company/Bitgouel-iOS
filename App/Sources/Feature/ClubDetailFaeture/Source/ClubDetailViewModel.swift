@@ -65,11 +65,11 @@ final class ClubDetailViewModel: BaseViewModel {
     }
 
     func updateClubDetail(clubInfo: ClubDetailEntity) {
-        self.clubID = clubInfo.clubID
-        self.clubName = clubInfo.clubName
-        self.schoolName = clubInfo.schoolName
-        self.students = clubInfo.students
-        self.teacher = clubInfo.teacher
+        clubID = clubInfo.clubID
+        clubName = clubInfo.clubName
+        schoolName = clubInfo.schoolName
+        students = clubInfo.students
+        teacher = clubInfo.teacher
     }
 
     func updateIsPresentedStudentInfoView(isPresented: Bool) {
