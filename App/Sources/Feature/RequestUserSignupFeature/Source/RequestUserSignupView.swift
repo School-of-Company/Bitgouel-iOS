@@ -144,13 +144,13 @@ struct RequestUserSignupView: View {
         )
         .bitgouelBottomSheet(isShowing: $viewModel.isShowingAdminPageBottomSheet) {
             AdminPageListBottomSheet(
-                selectedPage: viewModel.selectedPage) { page in
-                    viewModel.updateSelectedPage(page: page)
-                    adminPageState.adminPageFlow = page
-                } cancel: { cancel in
-                    viewModel.updateIsShowingAdminPageBottomSheet(isShowing: cancel)
-                }
-
+                selectedPage: viewModel.selectedPage
+            ) { page in
+                viewModel.updateSelectedPage(page: page)
+                adminPageState.adminPageFlow = page
+            } cancel: { cancel in
+                viewModel.updateIsShowingAdminPageBottomSheet(isShowing: cancel)
+            }
         }
     }
 

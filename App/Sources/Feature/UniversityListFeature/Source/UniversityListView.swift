@@ -7,7 +7,7 @@ struct UniversityListView: View {
     init(viewModel: UniversityListViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
-    
+
     var body: some View {
         VStack {
             Text("UniversityListView")
@@ -26,13 +26,13 @@ struct UniversityListView: View {
         }
         .bitgouelBottomSheet(isShowing: $viewModel.isShowingAdminPageBottomSheet) {
             AdminPageListBottomSheet(
-                selectedPage: viewModel.selectedPage) { page in
-                    viewModel.updateSelectedPage(page: page)
-                    adminPageState.adminPageFlow = page
-                } cancel: { cancel in
-                    viewModel.updateIsShowingAdminPageBottomSheet(isShowing: cancel)
-                }
-
+                selectedPage: viewModel.selectedPage
+            ) { page in
+                viewModel.updateSelectedPage(page: page)
+                adminPageState.adminPageFlow = page
+            } cancel: { cancel in
+                viewModel.updateIsShowingAdminPageBottomSheet(isShowing: cancel)
+            }
         }
     }
 }
