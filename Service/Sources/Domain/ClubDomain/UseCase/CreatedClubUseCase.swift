@@ -1,8 +1,5 @@
-//
-//  CreatedClub.swift
-//  Service
-//
-//  Created by 정윤서 on 7/20/24.
-//
-
 import Foundation
+
+public protocol CreatedClubUseCase {
+    func callAsFunction(schoolID: String, req: CreatedClubRequestDTO) async throws
+}
