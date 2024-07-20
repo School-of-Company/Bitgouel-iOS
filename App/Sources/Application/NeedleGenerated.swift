@@ -1269,6 +1269,9 @@ extension AppComponent: Registration {
         localTable["fetchClubDetailUseCase-any FetchClubDetailUseCase"] = { [unowned self] in self.fetchClubDetailUseCase as Any }
         localTable["fetchStudentListByClubUseCase-any FetchStudentListByClubUseCase"] = { [unowned self] in self.fetchStudentListByClubUseCase as Any }
         localTable["fetchStudentDetailByClubUseCase-any FetchStudentDetailByClubUseCase"] = { [unowned self] in self.fetchStudentDetailByClubUseCase as Any }
+        localTable["createdClubUseCase-any CreatedClubUseCase"] = { [unowned self] in self.createdClubUseCase as Any }
+        localTable["modifyClubUseCase-any ModifyClubUseCase"] = { [unowned self] in self.modifyClubUseCase as Any }
+        localTable["deleteClubUseCase-any DeleteClubUseCase"] = { [unowned self] in self.deleteClubUseCase as Any }
         localTable["remoteGovernmentDataSource-any RemoteGovernmentDataSource"] = { [unowned self] in self.remoteGovernmentDataSource as Any }
         localTable["governmentRepository-any GovernmentRepository"] = { [unowned self] in self.governmentRepository as Any }
         localTable["fetchGovernmentListUseCase-any FetchGovernmentListUseCase"] = { [unowned self] in self.fetchGovernmentListUseCase as Any }
