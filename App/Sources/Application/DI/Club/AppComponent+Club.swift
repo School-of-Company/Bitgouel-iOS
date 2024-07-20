@@ -37,4 +37,22 @@ public extension AppComponent {
             FetchStudentDetailByClubUseCaseImpl(clubRepository: clubRepository)
         }
     }
+
+    var createdClubUseCase: any CreatedClubUseCase {
+        shared {
+            CreatedClubUseCaseImpl(clubRepository: clubRepository)
+        }
+    }
+
+    var modifyClubUseCase: any ModifyClubUseCase {
+        shared {
+            ModifyClubUseCaseImpl(clubRepository: clubRepository)
+        }
+    }
+
+    var deleteClubUseCase: any DeleteClubUseCase {
+        shared {
+            DeleteClubUseCaseImpl(clubRepository: clubRepository)
+        }
+    }
 }
