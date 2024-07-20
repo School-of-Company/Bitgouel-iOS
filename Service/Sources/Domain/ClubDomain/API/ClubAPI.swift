@@ -6,6 +6,9 @@ public enum ClubAPI {
     case fetchClubDetail(clubID: Int)
     case fetchStudentListByClub
     case fetchStudentDetailByClub(clubID: Int, studentID: String)
+    case createdClub(schoolID: String, req: CreatedClubRequestDTO)
+    case modifyClub(clubID: Int, req: ModifyClubRequestDTO)
+    case deleteClub(clubID: Int)
 }
 
 extension ClubAPI: BitgouelAPI {
@@ -19,12 +22,20 @@ extension ClubAPI: BitgouelAPI {
         switch self {
         case .fetchClubList:
             return ""
-        case let .fetchClubDetail(clubID):
+
+        case let .fetchClubDetail(clubID),
+             let .modifyClub(clubID, _),
+             let .deleteClub(clubID):
             return "/\(clubID)"
+
         case .fetchStudentListByClub:
             return "/my"
+
         case let .fetchStudentDetailByClub(clubID, studentID):
             return "/\(clubID)/\(studentID)"
+
+        case let .createdClub(schoolID, _):
+            return "/\(schoolID)"
         }
     }
 
@@ -35,6 +46,15 @@ extension ClubAPI: BitgouelAPI {
              .fetchStudentListByClub,
              .fetchStudentDetailByClub:
             return .get
+
+        case .createdClub:
+            return .post
+
+        case .modifyClub:
+            return .patch
+
+        case .deleteClub:
+            return .delete
         }
     }
 
@@ -44,10 +64,18 @@ extension ClubAPI: BitgouelAPI {
             return .requestParameters(parameters: [
                 "highSchool": highSchool
             ], encoding: URLEncoding.queryString)
+
         case .fetchClubDetail,
              .fetchStudentListByClub,
-             .fetchStudentDetailByClub:
+             .fetchStudentDetailByClub,
+             .deleteClub:
             return .requestPlain
+
+        case let .createdClub(_, req):
+            return .requestJSONEncodable(req)
+
+        case let .modifyClub(_, req):
+            return .requestJSONEncodable(req)
         }
     }
 
