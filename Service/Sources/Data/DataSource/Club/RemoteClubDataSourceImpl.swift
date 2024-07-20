@@ -22,4 +22,16 @@ public final class RemoteClubDataSourceImpl: BaseRemoteDataSource<ClubAPI>, Remo
             dto: StudentDetailByClubResponseDTO.self
         ).toDomain()
     }
+
+    public func createdClub(schoolID: String, req: CreatedClubRequestDTO) async throws {
+        try await request(.createdClub(schoolID: schoolID, req: req))
+    }
+
+    public func modifyClub(clubID: Int, req: ModifyClubRequestDTO) async throws {
+        try await request(.modifyClub(clubID: clubID, req: req))
+    }
+
+    public func deleteClub(clubID: Int) async throws {
+        try await request(.deleteClub(clubID: clubID))
+    }
 }
