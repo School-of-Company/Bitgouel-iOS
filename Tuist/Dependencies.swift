@@ -12,6 +12,10 @@ let dependencies = Dependencies(
             .remote(
                 url: "https://github.com/uber/needle.git",
                 requirement: .upToNextMajor(from: "0.24.0")
+            ),
+            .remote(
+                url: "https://github.com/kean/NukeUI.git",
+                requirement: .upToNextMajor(from: "0.8.3")
             )
         ],
         baseSettings: .settings(
