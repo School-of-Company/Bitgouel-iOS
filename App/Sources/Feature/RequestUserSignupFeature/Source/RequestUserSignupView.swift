@@ -157,11 +157,17 @@ struct RequestUserSignupView: View {
     @ViewBuilder
     func handleRequest() -> some View {
         HStack(spacing: 8) {
-            RejectionButton {
+            DeactivateButton(
+                text: "거절",
+                buttonType: .cancel
+            ) {
                 viewModel.updateIsShowingRejectAlert(isShowing: true)
             }
 
-            AcceptButton {
+            ActivateButton(
+                text: "수락",
+                buttonType: .check
+            ) {
                 viewModel.updateIsShowingApproveAlert(isShowing: true)
             }
         }
