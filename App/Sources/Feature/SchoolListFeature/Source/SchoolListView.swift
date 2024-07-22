@@ -57,6 +57,9 @@ struct SchoolListView: View {
                 viewModel.updateIsPresentedInputSchoolInfoView(isPresented: true, state: "등록")
             }
         }
+        .onAppear {
+            viewModel.onApper()
+        }
         .padding(.horizontal, 28)
         .navigationTitle("학교 목록")
         .toolbar {

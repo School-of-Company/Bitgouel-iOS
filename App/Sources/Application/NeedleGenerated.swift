@@ -715,15 +715,17 @@ private func factorydd7e28250a180554c7a0f47b58f8f304c97af4d5(_ component: Needle
     return InquiryListDependencyec75a7335a50ded93b28Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class SchoolListDependency96b276c3342c1aca3550Provider: SchoolListDependency {
-
-
-    init() {
-
+    var fetchSchoolListUseCase: any FetchSchoolListUseCase {
+        return appComponent.fetchSchoolListUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->SchoolListComponent
-private func factoryd55f8188de756273ca44e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return SchoolListDependency96b276c3342c1aca3550Provider()
+private func factoryd55f8188de756273ca44f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return SchoolListDependency96b276c3342c1aca3550Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class ActivityListDependencyb8e659960978b8384f80Provider: ActivityListDependency {
     var activityDetailFactory: any ActivityDetailFactory {
@@ -1172,7 +1174,7 @@ extension InquiryListComponent: Registration {
 }
 extension SchoolListComponent: Registration {
     public func registerItems() {
-
+        keyPathToName[\SchoolListDependency.fetchSchoolListUseCase] = "fetchSchoolListUseCase-any FetchSchoolListUseCase"
     }
 }
 extension ActivityListComponent: Registration {
@@ -1458,7 +1460,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->SuccessChangePasswordComponent", factoryde3552d9e0f793ec8b8df47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->NewPasswordComponent", factory52985a6d5ec65d75bd97f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InquiryListComponent", factorydd7e28250a180554c7a0f47b58f8f304c97af4d5)
-    registerProviderFactory("^->AppComponent->SchoolListComponent", factoryd55f8188de756273ca44e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->SchoolListComponent", factoryd55f8188de756273ca44f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ActivityListComponent", factory7177e6769ee69064a61bf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputLectureComponent", factory622e14688d9803ec3c64f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->LoginComponent", factoryd6018e98563de75a2ba4f47b58f8f304c97af4d5)
