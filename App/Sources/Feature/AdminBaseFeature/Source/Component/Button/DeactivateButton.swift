@@ -11,18 +11,23 @@ public struct DeactivateButton: View {
     let action: () -> Void
 
     public var body: some View {
-        HStack(spacing: 10) {
-            ButtonIcon()
-                .renderingMode(.template)
+        HStack {
+            Spacer()
 
-            BitgouelText(
-                text: text,
-                font: .text2
-            )
+            HStack(spacing: 8) {
+                ButtonIcon()
+                    .renderingMode(.template)
+
+                BitgouelText(
+                    text: text,
+                    font: .text2
+                )
+            }
+            .padding(.vertical, 12)
+
+            Spacer()
         }
         .foregroundColor(.white)
-        .padding(.vertical, 12)
-        .padding(.horizontal, 48)
         .background(Color.bitgouel(.error(.e5)))
         .cornerRadius(8, corners: .allCorners)
         .buttonWrapper(action)

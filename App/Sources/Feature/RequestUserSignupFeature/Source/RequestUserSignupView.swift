@@ -168,7 +168,7 @@ struct RequestUserSignupView: View {
                 text: "수락",
                 buttonType: .check
             ) {
-                    viewModel.updateIsShowingApproveAlert(isShowing: true)
+                viewModel.updateIsShowingApproveAlert(isShowing: true)
             }
         }
     }

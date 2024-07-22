@@ -9,9 +9,56 @@ struct SchoolListView: View {
     }
 
     var body: some View {
-        VStack {
-            Text("SchoolListView")
+        VStack(alignment: .leading, spacing: 12) {
+            Text("총 \(viewModel.schoolList.count)개 학교")
+                .bitgouelFont(.caption, color: .greyscale(.g4))
+                .padding(.top, 24)
+
+            Divider()
+
+            ScrollView {
+                LazyVStack(alignment: .leading, spacing: 12) {
+                    ForEach(viewModel.schoolList, id: \.schoolID) { school in
+                        schoolListRow(
+                            schoolName: school.schoolName,
+                            line: school.line.display(),
+                            departmentsCount: school.departments.count,
+                            clubsCount: school.clubs.count
+                        )
+                        .onTapGesture {
+                            viewModel.updateSchoolDetailInfo(
+                                info: .init(
+                                    logoImageURL: school.logoImageURL,
+                                    name: school.schoolName,
+                                    line: school.line.display(),
+                                    clubList: school.clubs.map {
+                                        .init(
+                                            clubID: $0.clubID,
+                                            name: $0.clubName,
+                                            field: $0.field
+                                        )
+                                    }
+                                )
+                            )
+
+                            viewModel.updateIsShowingSchoolDetailBottomSheet(isShowing: true)
+                        }
+
+                        Divider()
+                    }
+                }
+            }
         }
+        .overlay(alignment: .bottom) {
+            ActivateButton(
+                text: "새로운 학교 등록",
+                buttonType: .add
+            ) {
+                viewModel.updateIsPresentedInputSchoolInfoView(isPresented: true, state: "등록")
+            }
+        }
+        .padding(.horizontal, 28)
+        .navigationTitle("학교 목록")
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button {
@@ -24,6 +71,15 @@ struct SchoolListView: View {
                 }
             }
         }
+        .bitgouelBottomSheet(isShowing: $viewModel.isShowingSchoolDetailBottomSheet) {
+            SchoolDetailBottomSheet(
+                schoolInfo: viewModel.schoolInfo
+            ) {
+                viewModel.updateIsPresentedInputSchoolInfoView(isPresented: true, state: "수정")
+            } cancel: { cancel in
+                viewModel.updateIsShowingSchoolDetailBottomSheet(isShowing: cancel)
+            }
+        }
         .bitgouelBottomSheet(isShowing: $viewModel.isShowingAdminPageBottomSheet) {
             AdminPageListBottomSheet(
                 selectedPage: viewModel.selectedPage
@@ -32,6 +88,29 @@ struct SchoolListView: View {
                 adminPageState.adminPageFlow = page
             } cancel: { cancel in
                 viewModel.updateIsShowingAdminPageBottomSheet(isShowing: cancel)
+            }
+        }
+    }
+
+    @ViewBuilder
+    func schoolListRow(
+        schoolName: String,
+        line: String,
+        departmentsCount: Int,
+        clubsCount: Int
+    ) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            BitgouelText(
+                text: schoolName,
+                font: .text1
+            )
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(line)
+                    .bitgouelFont(.caption, color: .greyscale(.g4))
+
+                Text("\(departmentsCount)개 학과, \(clubsCount)개 동아리")
+                    .bitgouelFont(.caption, color: .greyscale(.g7))
             }
         }
     }

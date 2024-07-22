@@ -18,17 +18,17 @@ public struct ActivateButton: View {
             HStack(spacing: 8) {
                 buttonIcon()
                     .renderingMode(.template)
-                
+
                 BitgouelText(
                     text: text,
                     font: .text2
                 )
             }
+            .padding(.vertical, 12)
 
             Spacer()
         }
         .foregroundColor(.white)
-        .padding(.vertical, 12)
         .background(Color.bitgouel(.primary(.p5)))
         .cornerRadius(8, corners: .allCorners)
         .buttonWrapper {

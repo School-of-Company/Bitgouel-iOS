@@ -125,6 +125,7 @@ struct WithdrawUserListView: View {
             ) {
                 viewModel.updateIsShowingWithdrawAlert(isShowing: true)
             }
+            .padding(.horizontal, 28)
         }
         .bitgouelAlert(
             title: "선택한 사용자의 탈퇴를 \n승인 하시겠습니까?",
