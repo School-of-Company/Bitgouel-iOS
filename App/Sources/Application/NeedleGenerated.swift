@@ -239,6 +239,37 @@ private class MyPageDependency48d84b530313b3ee40feProvider: MyPageDependency {
 private func factory0f6f456ebf157d02dfb3f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return MyPageDependency48d84b530313b3ee40feProvider(appComponent: parent1(component) as! AppComponent)
 }
+private class AdminRootDependencyce6cd0efed469d5d1848Provider: AdminRootDependency {
+    var userListFactory: any UserListFactory {
+        return appComponent.userListFactory
+    }
+    var requestUserSignupFactory: any RequestUserSignupFactory {
+        return appComponent.requestUserSignupFactory
+    }
+    var withdrawUserListFactory: any WithdrawUserListFactory {
+        return appComponent.withdrawUserListFactory
+    }
+    var schoolListFactory: any SchoolListFactory {
+        return appComponent.schoolListFactory
+    }
+    var companyListFactory: any CompanyListFactory {
+        return appComponent.companyListFactory
+    }
+    var universityListFactory: any UniversityListFactory {
+        return appComponent.universityListFactory
+    }
+    var governmentListFactory: any GovernmentListFactory {
+        return appComponent.governmentListFactory
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->AdminRootComponent
+private func factoryc93d1d06706bf3dab12ff47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return AdminRootDependencyce6cd0efed469d5d1848Provider(appComponent: parent1(component) as! AppComponent)
+}
 private class InquiryDetailDependencyf68d260d1f6dc07aaedbProvider: InquiryDetailDependency {
     var inputInquiryFactory: any InputInquiryFactory {
         return appComponent.inputInquiryFactory
@@ -837,37 +868,6 @@ private class NoticeDetailDependency3e09bbd26d7f6105e665Provider: NoticeDetailDe
 private func factory0798e0f01e95aeaff56ff47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return NoticeDetailDependency3e09bbd26d7f6105e665Provider(appComponent: parent1(component) as! AppComponent)
 }
-private class AdminRootDependencyce6cd0efed469d5d1848Provider: AdminRootDependency {
-    var userListFactory: any UserListFactory {
-        return appComponent.userListFactory
-    }
-    var requestUserSignupFactory: any RequestUserSignupFactory {
-        return appComponent.requestUserSignupFactory
-    }
-    var withdrawUserListFactory: any WithdrawUserListFactory {
-        return appComponent.withdrawUserListFactory
-    }
-    var schoolListFactory: any SchoolListFactory {
-        return appComponent.schoolListFactory
-    }
-    var companyListFactory: any CompanyListFactory {
-        return appComponent.companyListFactory
-    }
-    var universityListFactory: any UniversityListFactory {
-        return appComponent.universityListFactory
-    }
-    var governmentListFactory: any GovernmentListFactory {
-        return appComponent.governmentListFactory
-    }
-    private let appComponent: AppComponent
-    init(appComponent: AppComponent) {
-        self.appComponent = appComponent
-    }
-}
-/// ^->AppComponent->AdminRootComponent
-private func factoryc93d1d06706bf3dab12ff47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return AdminRootDependencyce6cd0efed469d5d1848Provider(appComponent: parent1(component) as! AppComponent)
-}
 private class InputInquiryDependency0f59954f6ae75e794799Provider: InputInquiryDependency {
     var inputInquiryUseCase: any InputInquiryUseCase {
         return appComponent.inputInquiryUseCase
@@ -991,6 +991,17 @@ extension MyPageComponent: Registration {
         keyPathToName[\MyPageDependency.fetchMyInfoUseCase] = "fetchMyInfoUseCase-any FetchMyInfoUseCase"
         keyPathToName[\MyPageDependency.logoutUseCase] = "logoutUseCase-any LogoutUseCase"
         keyPathToName[\MyPageDependency.withdrawalUseCase] = "withdrawalUseCase-any WithdrawalUseCase"
+    }
+}
+extension AdminRootComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\AdminRootDependency.userListFactory] = "userListFactory-any UserListFactory"
+        keyPathToName[\AdminRootDependency.requestUserSignupFactory] = "requestUserSignupFactory-any RequestUserSignupFactory"
+        keyPathToName[\AdminRootDependency.withdrawUserListFactory] = "withdrawUserListFactory-any WithdrawUserListFactory"
+        keyPathToName[\AdminRootDependency.schoolListFactory] = "schoolListFactory-any SchoolListFactory"
+        keyPathToName[\AdminRootDependency.companyListFactory] = "companyListFactory-any CompanyListFactory"
+        keyPathToName[\AdminRootDependency.universityListFactory] = "universityListFactory-any UniversityListFactory"
+        keyPathToName[\AdminRootDependency.governmentListFactory] = "governmentListFactory-any GovernmentListFactory"
     }
 }
 extension InquiryDetailComponent: Registration {
@@ -1217,17 +1228,6 @@ extension NoticeDetailViewComponent: Registration {
         keyPathToName[\NoticeDetailDependency.deletePostUseCase] = "deletePostUseCase-any DeletePostUseCase"
     }
 }
-extension AdminRootComponent: Registration {
-    public func registerItems() {
-        keyPathToName[\AdminRootDependency.userListFactory] = "userListFactory-any UserListFactory"
-        keyPathToName[\AdminRootDependency.requestUserSignupFactory] = "requestUserSignupFactory-any RequestUserSignupFactory"
-        keyPathToName[\AdminRootDependency.withdrawUserListFactory] = "withdrawUserListFactory-any WithdrawUserListFactory"
-        keyPathToName[\AdminRootDependency.schoolListFactory] = "schoolListFactory-any SchoolListFactory"
-        keyPathToName[\AdminRootDependency.companyListFactory] = "companyListFactory-any CompanyListFactory"
-        keyPathToName[\AdminRootDependency.universityListFactory] = "universityListFactory-any UniversityListFactory"
-        keyPathToName[\AdminRootDependency.governmentListFactory] = "governmentListFactory-any GovernmentListFactory"
-    }
-}
 extension InputInquiryComponent: Registration {
     public func registerItems() {
         keyPathToName[\InputInquiryDependency.inputInquiryUseCase] = "inputInquiryUseCase-any InputInquiryUseCase"
@@ -1434,6 +1434,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->MainTabComponent", factory1ab5a747ddf21e1393f9f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->NoticeDetailSettingComponent", factory24d19202afbef2333be9e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->MyPageComponent", factory0f6f456ebf157d02dfb3f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->AdminRootComponent", factoryc93d1d06706bf3dab12ff47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InquiryDetailComponent", factory2d6736bd037393a86ae3f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputNoticeComponent", factory4545df5fcd42aaf8ed60f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->LectureDetailSettingComponent", factoryd0ffb7dfc6fd9633e0e6f47b58f8f304c97af4d5)
@@ -1465,7 +1466,6 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->PostDetailSettingComponent", factoryaacb19523586bb790cade3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->ActivityDetailComponent", factory7c395808ac9dfb8fb229f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->NoticeDetailViewComponent", factory0798e0f01e95aeaff56ff47b58f8f304c97af4d5)
-    registerProviderFactory("^->AppComponent->AdminRootComponent", factoryc93d1d06706bf3dab12ff47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputInquiryComponent", factory818540ce7b5cc0ed9d3bf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputActivityComponent", factory3fc1a279eeb8c906e603f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)

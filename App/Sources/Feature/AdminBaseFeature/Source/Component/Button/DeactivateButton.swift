@@ -1,20 +1,18 @@
 import SwiftUI
 
+public enum deactivateType {
+    case minus
+    case cancel
+}
+
 public struct DeactivateButton: View {
     let text: String
+    let buttonType: deactivateType
     let action: () -> Void
-
-    public init(
-        text: String,
-        action: @escaping () -> Void = {}
-    ) {
-        self.text = text
-        self.action = action
-    }
 
     public var body: some View {
         HStack(spacing: 10) {
-            BitgouelAsset.Icons.minusFill.swiftUIImage
+            ButtonIcon()
                 .renderingMode(.template)
 
             BitgouelText(
@@ -24,9 +22,19 @@ public struct DeactivateButton: View {
         }
         .foregroundColor(.white)
         .padding(.vertical, 12)
-        .padding(.horizontal, 68)
+        .padding(.horizontal, 48)
         .background(Color.bitgouel(.error(.e5)))
         .cornerRadius(8, corners: .allCorners)
         .buttonWrapper(action)
+    }
+
+    func ButtonIcon() -> Image {
+        switch buttonType {
+        case .minus:
+            BitgouelAsset.Icons.minusFill.swiftUIImage
+
+        case .cancel:
+            BitgouelAsset.Icons.cancelFill.swiftUIImage
+        }
     }
 }
