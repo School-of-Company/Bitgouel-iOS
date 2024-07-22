@@ -15,6 +15,12 @@ final class SchoolListViewModel: BaseViewModel {
     @Published var schoolList: [SchoolListEntity] = []
     @Published var state: String = ""
 
+    private let fetchSchoolListUseCase: any FetchSchoolListUseCase
+
+    init(fetchSchoolListUseCase: any FetchSchoolListUseCase) {
+        self.fetchSchoolListUseCase = fetchSchoolListUseCase
+    }
+    
     func updateIsShowingAdminPageBottomSheet(isShowing: Bool) {
         isShowingAdminPageBottomSheet = isShowing
     }
@@ -34,5 +40,16 @@ final class SchoolListViewModel: BaseViewModel {
     func updateSelectedPage(page: AdminPageFlow) {
         guard selectedPage != page else { return }
         selectedPage = page
+    }
+
+    @MainActor
+    func onApper() {
+        Task {
+            do {
+                schoolList = try await fetchSchoolListUseCase()
+            } catch {
+                print(String(describing: error))
+            }
+        }
     }
 }
