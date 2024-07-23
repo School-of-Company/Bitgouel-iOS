@@ -5,17 +5,23 @@ import Service
 public protocol OrganizationListDependency: Dependency {
     var fetchCompanyListUseCase: any FetchCompanyListUseCase { get }
     var deleteCompanyUseCase: any DeleteCompanyUseCase { get }
-    var inputCompanyFactory: any InputCompanyFactory { get }
+    var inputOrganizationFactory: any InputOrganizationFactory { get }
+    var fetchGovernmentListUseCase: any FetchGovernmentListUseCase { get }
+    var deleteGovernmentUseCase: any DeleteGovernmentUseCase { get }
 }
 
-public final class OrganizationListComponent: Component<CompanyListDependency>, OrganizationListFactory {
-    public func makeView() -> some View {
+public final class OrganizationListComponent: Component<OrganizationListDependency>, OrganizationListFactory {
+    public func makeView(type: OrganizationType, selectedPage: AdminPageFlow) -> some View {
         OrganizationListView(
             viewModel: .init(
+                organization: type,
+                selectedPage: selectedPage,
                 fetchCompanyListUseCase: dependency.fetchCompanyListUseCase,
-                deleteCompanyUseCase: dependency.deleteCompanyUseCase
+                deleteCompanyUseCase: dependency.deleteCompanyUseCase,
+                fetchGovernmentListUseCase: dependency.fetchGovernmentListUseCase,
+                deleteGovernmentUseCase: dependency.deleteGovernmentUseCase
             ),
-            inputCompanyFactory: dependency.inputCompanyFactory
+            inputOrganizationFactory: dependency.inputOrganizationFactory
         )
     }
 }
