@@ -4,8 +4,14 @@ struct CompanyListView: View {
     @EnvironmentObject var adminPageState: AdminPageState
     @StateObject var viewModel: CompanyListViewModel
 
-    init(viewModel: CompanyListViewModel) {
+    private let inputCompanyFactory: any InputCompanyFactory
+
+    init(
+        viewModel: CompanyListViewModel,
+        inputCompanyFactory: any InputCompanyFactory
+    ) {
         _viewModel = StateObject(wrappedValue: viewModel)
+        self.inputCompanyFactory = inputCompanyFactory
     }
 
     var body: some View {
@@ -88,6 +94,15 @@ struct CompanyListView: View {
         .bitgouelToast(
             text: viewModel.errorMessage,
             isShowing: $viewModel.isErrorOccurred
+        )
+        .navigate(
+            to: inputCompanyFactory.makeView().eraseToAnyView(),
+            when: Binding(
+                get: { viewModel.isPresentedInputCompanyPage },
+                set: { isPresented in
+                    viewModel.updateIsPresentedInputCompanyPage(isPresented: isPresented)
+                }
+            )
         )
     }
 }

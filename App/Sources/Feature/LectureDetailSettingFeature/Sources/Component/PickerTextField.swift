@@ -40,7 +40,6 @@ struct PickerTextField: View {
 
                     Spacer()
                 }
-                .padding(.vertical, 16)
             }
         }
         .background(backgroundColor)

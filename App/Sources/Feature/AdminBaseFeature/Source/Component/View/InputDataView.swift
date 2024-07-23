@@ -4,15 +4,15 @@ import Service
 public struct InputDataView: View {
     let epic: String
     let state: String
-    @Binding var selectedField: FieldType
+    @Binding var selectedField: FieldType?
     @Binding var name: String
     @State var isShowingFieldBottomSheet: Bool = false
     let finalButtonAction: () -> Void
-
+    
     public init(
         epic: String,
         state: String,
-        selectedField: Binding<FieldType>,
+        selectedField: Binding<FieldType?>,
         name: Binding<String>,
         isShowingFieldBottomSheet: Bool = false,
         finalButtonAction: @escaping () -> Void
@@ -24,41 +24,41 @@ public struct InputDataView: View {
         self.isShowingFieldBottomSheet = isShowingFieldBottomSheet
         self.finalButtonAction = finalButtonAction
     }
-
+    
     public var body: some View {
-        NavigationView {
-            VStack(alignment: .leading) {
-                VStack(spacing: 16) {
-                    BitgouelTextField(
-                        "\(epic) 이름 입력",
-                        text: $name
-                    )
-
-                    PickerTextField(
-                        "분야 선택",
-                        text: selectedField.display()
-                    ) {
-                        isShowingFieldBottomSheet = true
-                    }
+        VStack(alignment: .leading) {
+            VStack(spacing: 0) {
+                BitgouelTextField(
+                    "\(epic) 이름 입력",
+                    text: $name
+                )
+                
+                PickerTextField(
+                    "분야 선택",
+                    text: selectedField?.display() ?? ""
+                ) {
+                    isShowingFieldBottomSheet = true
                 }
-
-                Spacer()
             }
-            .overlay(alignment: .bottom) {
-                finalButton()
-            }
-            .padding(.horizontal, 28)
-            .navigationTitle("\(epic) \(state)")
-            .bitgouelBottomSheet(isShowing: $isShowingFieldBottomSheet) {
-                FieldBottomSheet(
-                    selectedField: selectedField
-                ) { field in
-                    selectedField = field
-                }
+            .padding(.top, 32)
+            
+            Spacer()
+        }
+        .navigationTitle("\(epic) \(state)")
+        .overlay(alignment: .bottom) {
+            finalButton()
+        }
+        .padding(.horizontal, 28)
+        .bitgouelBottomSheet(isShowing: $isShowingFieldBottomSheet) {
+            FieldBottomSheet(
+                selectedField: selectedField
+            ) { field in
+                selectedField = field
+                isShowingFieldBottomSheet = false
             }
         }
     }
-
+    
     @ViewBuilder
     func finalButton() -> some View {
         if state == "수정" {

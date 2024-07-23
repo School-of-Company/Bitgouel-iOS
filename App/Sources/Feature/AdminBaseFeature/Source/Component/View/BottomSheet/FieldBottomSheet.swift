@@ -3,25 +3,22 @@ import Service
 
 public struct FieldBottomSheet: View {
     let fieldList: [FieldType] = FieldType.allCases
-    let selectedField: FieldType
+    let selectedField: FieldType?
     @State var keyword: String = ""
     let selecteField: (FieldType) -> Void
 
     public var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            SearchTextField(text: $keyword)
-
-            ScrollView {
-                LazyVStack(alignment: .leading) {
-                    ForEach(fieldList, id: \.self) { field in
-                        fieldRow(
-                            field: field.display(),
-                            isSelected: Binding(
-                                get: { selectedField == field },
-                                set: { _ in selecteField(field) }
-                            )
+        ScrollView {
+            LazyVStack(alignment: .leading) {
+                ForEach(fieldList, id: \.self) { field in
+                    fieldRow(
+                        field: field.display(),
+                        isSelected: Binding(
+                            get: { selectedField == field },
+                            set: { _ in selecteField(field) }
                         )
-                    }
+                    )
+                    .onTapGesture { selecteField(field) }
                 }
             }
         }

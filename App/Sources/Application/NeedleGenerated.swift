@@ -164,6 +164,19 @@ private class SignUpDependencyf83ac0c64026320e6dc2Provider: SignUpDependency {
 private func factory306e8ce5cfdf41304709f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return SignUpDependencyf83ac0c64026320e6dc2Provider(appComponent: parent1(component) as! AppComponent)
 }
+private class InputCompanyDependencyc9d68514782dbceb6f25Provider: InputCompanyDependency {
+    var createdCompanyUseCase: any CreatedCompanyUseCase {
+        return appComponent.createdCompanyUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->InputCompanyComponent
+private func factoryb7c98d723f97530cea08f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return InputCompanyDependencyc9d68514782dbceb6f25Provider(appComponent: parent1(component) as! AppComponent)
+}
 private class ActivityDetailSettingDependency0b98c5f90168b920a8b8Provider: ActivityDetailSettingDependency {
 
 
@@ -530,6 +543,9 @@ private class CompanyListDependencyc27b560afc0e29f1887dProvider: CompanyListDepe
     }
     var deleteCompanyUseCase: any DeleteCompanyUseCase {
         return appComponent.deleteCompanyUseCase
+    }
+    var inputCompanyFactory: any InputCompanyFactory {
+        return appComponent.inputCompanyFactory
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -971,6 +987,11 @@ extension SignUpComponent: Registration {
         keyPathToName[\SignUpDependency.successSignUpFactory] = "successSignUpFactory-any SuccessSignUpFactory"
     }
 }
+extension InputCompanyComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\InputCompanyDependency.createdCompanyUseCase] = "createdCompanyUseCase-any CreatedCompanyUseCase"
+    }
+}
 extension ActivityDetailSettingComponent: Registration {
     public func registerItems() {
 
@@ -1109,6 +1130,7 @@ extension CompanyListComponent: Registration {
     public func registerItems() {
         keyPathToName[\CompanyListDependency.fetchCompanyListUseCase] = "fetchCompanyListUseCase-any FetchCompanyListUseCase"
         keyPathToName[\CompanyListDependency.deleteCompanyUseCase] = "deleteCompanyUseCase-any DeleteCompanyUseCase"
+        keyPathToName[\CompanyListDependency.inputCompanyFactory] = "inputCompanyFactory-any InputCompanyFactory"
     }
 }
 extension FindPasswordComponent: Registration {
@@ -1389,6 +1411,7 @@ extension AppComponent: Registration {
         localTable["companyListFactory-any CompanyListFactory"] = { [unowned self] in self.companyListFactory as Any }
         localTable["universityListFactory-any UniversityListFactory"] = { [unowned self] in self.universityListFactory as Any }
         localTable["governmentListFactory-any GovernmentListFactory"] = { [unowned self] in self.governmentListFactory as Any }
+        localTable["inputCompanyFactory-any InputCompanyFactory"] = { [unowned self] in self.inputCompanyFactory as Any }
         localTable["remoteWithdrawDataSource-any RemoteWithdrawDataSource"] = { [unowned self] in self.remoteWithdrawDataSource as Any }
         localTable["withdrawRepository-any WithdrawRepository"] = { [unowned self] in self.withdrawRepository as Any }
         localTable["fetchWithdrawUserListUseCase-any FetchWithdrawUserListUseCase"] = { [unowned self] in self.fetchWithdrawUserListUseCase as Any }
@@ -1438,6 +1461,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->LectureListDetailComponent", factory22af859a70aa8ba0b346f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->NoticeListComponent", factorye14e687c08985bdffcd0f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->SignUpComponent", factory306e8ce5cfdf41304709f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->InputCompanyComponent", factoryb7c98d723f97530cea08f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ActivityDetailSettingComponent", factoryfd595280dea209e217b9e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->MainTabComponent", factory1ab5a747ddf21e1393f9f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->NoticeDetailSettingComponent", factory24d19202afbef2333be9e3b0c44298fc1c149afb)
