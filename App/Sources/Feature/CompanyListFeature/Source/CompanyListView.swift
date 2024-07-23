@@ -26,8 +26,10 @@ struct CompanyListView: View {
                         .buttonWrapper {
                             viewModel.updateSelectedCompanyInfo(
                                 name: company.companyName,
-                                detailInfo: company.field.display()
+                                detailInfo: company.field.display(),
+                                id: company.companyID
                             )
+
                             viewModel.updateIsShowingCompanyDetailBottomSheet(isShowing: true)
                         }
 
@@ -36,6 +38,8 @@ struct CompanyListView: View {
                 }
             }
         }
+        .onAppear { viewModel.onAppear() }
+        .refreshable { viewModel.onAppear() }
         .overlay(alignment: .bottom) {
             ActivateButton(
                 text: "새로운 기업 등록",
@@ -75,8 +79,15 @@ struct CompanyListView: View {
             ) { cancel in
                 viewModel.updateIsShowingCompanyDetailBottomSheet(isShowing: cancel)
             } deleteAction: {
-                #warning("기업 삭제 Action 추가")
+                viewModel.deleteCompany {
+                    viewModel.updateIsShowingCompanyDetailBottomSheet(isShowing: false)
+                    viewModel.onAppear()
+                }
             }
         }
+        .bitgouelToast(
+            text: viewModel.errorMessage,
+            isShowing: $viewModel.isErrorOccurred
+        )
     }
 }

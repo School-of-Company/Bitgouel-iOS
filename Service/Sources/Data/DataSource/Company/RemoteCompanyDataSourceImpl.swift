@@ -9,7 +9,7 @@ public final class RemoteCompanyDataSourceImpl: BaseRemoteDataSource<CompanyAPI>
         try await request(.createdCompany(req: req))
     }
 
-    public func deleteCompany(companyID: String) async throws {
+    public func deleteCompany(companyID: Int) async throws {
         try await request(.deleteCompany(companyID: companyID))
     }
 }

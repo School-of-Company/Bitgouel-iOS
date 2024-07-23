@@ -1,12 +1,12 @@
 import Foundation
 
 public struct CompanyInfoEntity: Equatable {
-    public let companyID: String
+    public let companyID: Int
     public let companyName: String
     public let field: FieldType
 
     public init(
-        companyID: String,
+        companyID: Int,
         companyName: String,
         field: FieldType
     ) {

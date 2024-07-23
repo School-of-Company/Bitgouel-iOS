@@ -525,15 +525,20 @@ private func factory4d07a7e30330c03d5d63f47b58f8f304c97af4d5(_ component: Needle
     return WithdrawUserListDependencyc576fefb2eff9e703c66Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class CompanyListDependencyc27b560afc0e29f1887dProvider: CompanyListDependency {
-
-
-    init() {
-
+    var fetchCompanyListUseCase: any FetchCompanyListUseCase {
+        return appComponent.fetchCompanyListUseCase
+    }
+    var deleteCompanyUseCase: any DeleteCompanyUseCase {
+        return appComponent.deleteCompanyUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->CompanyListComponent
-private func factory100d5b08b2e154b1e9e9e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return CompanyListDependencyc27b560afc0e29f1887dProvider()
+private func factory100d5b08b2e154b1e9e9f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return CompanyListDependencyc27b560afc0e29f1887dProvider(appComponent: parent1(component) as! AppComponent)
 }
 private class FindPasswordDependency542eacce769b9dc25904Provider: FindPasswordDependency {
     var sendEmailCertificationLinkUseCase: any SendEmailCertificationLinkUseCase {
@@ -1102,7 +1107,8 @@ extension WithdrawUserListComponent: Registration {
 }
 extension CompanyListComponent: Registration {
     public func registerItems() {
-
+        keyPathToName[\CompanyListDependency.fetchCompanyListUseCase] = "fetchCompanyListUseCase-any FetchCompanyListUseCase"
+        keyPathToName[\CompanyListDependency.deleteCompanyUseCase] = "deleteCompanyUseCase-any DeleteCompanyUseCase"
     }
 }
 extension FindPasswordComponent: Registration {
@@ -1449,7 +1455,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->ClubDetailComponent", factory1559652f8e80cfa88d06f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->SuccessSignUpComponent", factorybf219b153b668170161de3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->WithdrawUserListComponent", factory4d07a7e30330c03d5d63f47b58f8f304c97af4d5)
-    registerProviderFactory("^->AppComponent->CompanyListComponent", factory100d5b08b2e154b1e9e9e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->CompanyListComponent", factory100d5b08b2e154b1e9e9f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->FindPasswordComponent", factory15775d8436b06b9741d1f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->LectureApplicantListComponent", factory78a87c10d14f7bbaaa9df47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->UserListComponent", factorycf08383b935d2e18f4c7f47b58f8f304c97af4d5)
