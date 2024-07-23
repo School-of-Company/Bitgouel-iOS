@@ -10,7 +10,7 @@ public struct SchoolListResponseDTO: Decodable {
 
     enum CodingKeys: String, CodingKey {
         case schoolID = "id"
-        case schoolName = "name"
+        case schoolName
         case line
         case departments
         case logoImageURL = "logoImageUrl"

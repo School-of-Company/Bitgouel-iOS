@@ -1,6 +1,6 @@
 import Foundation
 
-public enum FieldType: String, Codable {
+public enum FieldType: String, Codable, CaseIterable {
     case futuristicTransportationEquipment = "FUTURISTIC_TRANSPORTATION_EQUIPMENT"
     case energy = "ENERGY"
     case medicalHealthcare = "MEDICAL_HEALTHCARE"
