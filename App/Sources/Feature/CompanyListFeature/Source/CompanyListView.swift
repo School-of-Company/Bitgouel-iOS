@@ -9,9 +9,42 @@ struct CompanyListView: View {
     }
 
     var body: some View {
-        VStack {
-            Text("CompanyListView")
+        VStack(alignment: .leading, spacing: 12) {
+            Text("총 \(viewModel.companyList.count)개 기업")
+                .bitgouelFont(.caption, color: .greyscale(.g4))
+                .padding(.top, 24)
+
+            Divider()
+
+            ScrollView(showsIndicators: false) {
+                LazyVStack(alignment: .leading, spacing: 12) {
+                    ForEach(viewModel.companyList, id: \.companyID) { company in
+                        AdminListPageRow(
+                            name: company.companyName,
+                            detailInfo: company.field.display()
+                        )
+                        .buttonWrapper {
+                            viewModel.updateSelectedCompanyInfo(
+                                name: company.companyName,
+                                detailInfo: company.field.display()
+                            )
+                            viewModel.updateIsShowingCompanyDetailBottomSheet(isShowing: true)
+                        }
+
+                        Divider()
+                    }
+                }
+            }
         }
+        .overlay(alignment: .bottom) {
+            ActivateButton(
+                text: "새로운 기업 등록",
+                buttonType: .add) {
+                    viewModel.updateIsPresentedInputCompanyPage(isPresented: true)
+                }
+        }
+        .padding(.horizontal, 28)
+        .navigationTitle("기업목록")
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button {
@@ -32,6 +65,17 @@ struct CompanyListView: View {
                 adminPageState.adminPageFlow = page
             } cancel: { cancel in
                 viewModel.updateIsShowingAdminPageBottomSheet(isShowing: cancel)
+            }
+        }
+        .bitgouelBottomSheet(isShowing: $viewModel.isShowingCompanyDetailBottomSheet) {
+            OrganizationDetailBottomSheet(
+                epic: "기업",
+                name: viewModel.selectedCompanyName,
+                detailInfo: viewModel.selectedCompanyDetailInfo
+            ) { cancel in
+                viewModel.updateIsShowingCompanyDetailBottomSheet(isShowing: cancel)
+            } deleteAction: {
+                #warning("기업 삭제 Action 추가")
             }
         }
     }
