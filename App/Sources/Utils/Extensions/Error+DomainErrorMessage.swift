@@ -77,4 +77,10 @@ extension Error {
             return withdrawDomainError.errorDescription ?? unknownErrorMessage
         } else { return unknownErrorMessage }
     }
+
+    func companyDomainErrorMessage() -> String {
+        if let companyDomainError = self as? CompanyDomainError {
+            return companyDomainError.errorDescription ?? unknownErrorMessage
+        } else { return unknownErrorMessage }
+    }
 }
