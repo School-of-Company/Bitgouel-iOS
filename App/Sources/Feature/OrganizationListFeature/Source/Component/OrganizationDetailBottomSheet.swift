@@ -43,9 +43,10 @@ public struct OrganizationDetailBottomSheet: View {
         .overlay(alignment: .bottom) {
             DeactivateButton(
                 text: "기관 삭제",
-                buttonType: .minus) {
-                    deleteAction()
-                }
+                buttonType: .minus
+            ) {
+                deleteAction()
+            }
         }
         .padding(.horizontal, 28)
         .frame(height: 500)

@@ -1,6 +1,6 @@
 import SwiftUI
 
-public protocol InputCompanyFactory {
+public protocol InputOrganizationFactory {
     associatedtype SomeView: View
-    func makeView() -> SomeView
+    func makeView(type: OrganizationType) -> SomeView
 }

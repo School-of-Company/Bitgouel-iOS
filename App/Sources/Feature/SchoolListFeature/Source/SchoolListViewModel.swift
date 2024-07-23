@@ -20,7 +20,7 @@ final class SchoolListViewModel: BaseViewModel {
     init(fetchSchoolListUseCase: any FetchSchoolListUseCase) {
         self.fetchSchoolListUseCase = fetchSchoolListUseCase
     }
-    
+
     func updateIsShowingAdminPageBottomSheet(isShowing: Bool) {
         isShowingAdminPageBottomSheet = isShowing
     }
