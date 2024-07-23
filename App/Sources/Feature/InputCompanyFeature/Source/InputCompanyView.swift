@@ -2,6 +2,7 @@ import SwiftUI
 
 struct InputCompanyView: View {
     @StateObject var viewModel: InputCompanyViewModel
+    @Environment(\.dismiss) var dismiss
 
     init(viewModel: InputCompanyViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -15,8 +16,14 @@ struct InputCompanyView: View {
                 selectedField: $viewModel.selectedFieldType,
                 name: $viewModel.companyName
             ) {
-                
+                viewModel.createCompany {
+                    dismiss()
+                }
             }
         }
+        .bitgouelToast(
+            text: viewModel.errorMessage,
+            isShowing: $viewModel.isErrorOccurred
+        )
     }
 }

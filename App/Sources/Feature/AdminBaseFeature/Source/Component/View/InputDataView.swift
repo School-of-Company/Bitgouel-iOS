@@ -54,6 +54,7 @@ public struct InputDataView: View {
                 selectedField: selectedField
             ) { field in
                 selectedField = field
+                isShowingFieldBottomSheet = false
             }
         }
     }
