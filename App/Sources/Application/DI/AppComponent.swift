@@ -190,4 +190,8 @@ public extension AppComponent {
     var governmentListFactory: any GovernmentListFactory {
         GovernmentListComponent(parent: self)
     }
+
+    var inputCompanyFactory: any InputCompanyFactory {
+        InputCompanyComponent(parent: self)
+    }
 }
