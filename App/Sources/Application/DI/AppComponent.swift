@@ -179,19 +179,15 @@ public extension AppComponent {
         SchoolListComponent(parent: self)
     }
 
-    var companyListFactory: any CompanyListFactory {
-        CompanyListComponent(parent: self)
+    var organizationListFactory: any OrganizationListFactory {
+        OrganizationListComponent(parent: self)
     }
 
     var universityListFactory: any UniversityListFactory {
         UniversityListComponent(parent: self)
     }
 
-    var governmentListFactory: any GovernmentListFactory {
-        GovernmentListComponent(parent: self)
-    }
-
-    var inputCompanyFactory: any InputCompanyFactory {
-        InputCompanyComponent(parent: self)
+    var inputOrganizationFactory: any InputOrganizationFactory {
+        InputOrganizationComponent(parent: self)
     }
 }

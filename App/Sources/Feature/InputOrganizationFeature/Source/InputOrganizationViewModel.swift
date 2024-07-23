@@ -1,28 +1,37 @@
 import Foundation
 import Service
 
-final class InputCompanyViewModel: BaseViewModel {
+final class InputOrganizationViewModel: BaseViewModel {
     @Published var selectedFieldType: FieldType?
-    @Published var companyName: String = ""
+    @Published var organizationName: String = ""
+    let organization: OrganizationType
 
     private let createdCompanyUseCase: any CreatedCompanyUseCase
+    private let createdGovernmentUseCase: any CreatedGovernmentUseCase
 
-    init(createdCompanyUseCase: any CreatedCompanyUseCase) {
+    init(
+        organization: OrganizationType,
+        createdCompanyUseCase: any CreatedCompanyUseCase,
+        createdGovernmentUseCase: any CreatedGovernmentUseCase
+    ) {
+        self.organization = organization
         self.createdCompanyUseCase = createdCompanyUseCase
+        self.createdGovernmentUseCase = createdGovernmentUseCase
     }
 
     @MainActor
-    func createCompany(_ success: @escaping () -> Void) {
+    func createOrganization(_ success: @escaping () -> Void) {
         guard let field = selectedFieldType else { return }
 
         Task {
             do {
-                try await createdCompanyUseCase(
-                    req: CreatedCompanyRequestDTO(
-                        companyName: companyName,
-                        field: field
-                    )
-                )
+                switch organization {
+                case .company:
+                    try await createCompany(field: field)
+
+                case .government:
+                    try await createGovernment(field: field)
+                }
 
                 success()
             } catch {
@@ -30,5 +39,23 @@ final class InputCompanyViewModel: BaseViewModel {
                 isErrorOccurred = true
             }
         }
+    }
+
+    func createCompany(field: FieldType) async throws {
+        try await createdCompanyUseCase(
+            req: CreatedCompanyRequestDTO(
+                companyName: organizationName,
+                field: field
+            )
+        )
+    }
+
+    func createGovernment(field: FieldType) async throws {
+        try await createdGovernmentUseCase(
+            req: CreatedGovernmentRequestDTO(
+                field: field,
+                governmentName: organizationName
+            )
+        )
     }
 }
