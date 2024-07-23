@@ -1,5 +1,5 @@
-import SwiftUI
 import Service
+import SwiftUI
 
 public struct InputDataView: View {
     let epic: String
@@ -8,7 +8,7 @@ public struct InputDataView: View {
     @Binding var name: String
     @State var isShowingFieldBottomSheet: Bool = false
     let finalButtonAction: () -> Void
-    
+
     public init(
         epic: String,
         state: String,
@@ -24,7 +24,7 @@ public struct InputDataView: View {
         self.isShowingFieldBottomSheet = isShowingFieldBottomSheet
         self.finalButtonAction = finalButtonAction
     }
-    
+
     public var body: some View {
         VStack(alignment: .leading) {
             VStack(spacing: 0) {
@@ -32,7 +32,7 @@ public struct InputDataView: View {
                     "\(epic) 이름 입력",
                     text: $name
                 )
-                
+
                 PickerTextField(
                     "분야 선택",
                     text: selectedField?.display() ?? ""
@@ -41,7 +41,7 @@ public struct InputDataView: View {
                 }
             }
             .padding(.top, 32)
-            
+
             Spacer()
         }
         .navigationTitle("\(epic) \(state)")
@@ -58,7 +58,7 @@ public struct InputDataView: View {
             }
         }
     }
-    
+
     @ViewBuilder
     func finalButton() -> some View {
         if state == "수정" {

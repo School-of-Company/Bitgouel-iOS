@@ -2,13 +2,13 @@ import NeedleFoundation
 import SwiftUI
 import Service
 
-public protocol InputCompanyDependency: Dependency {
+public protocol InputOrganizationDependency: Dependency {
     var createdCompanyUseCase: any CreatedCompanyUseCase { get }
 }
 
-public final class InputCompanyComponent: Component<InputCompanyDependency>, InputCompanyFactory {
+public final class InputOrganizationComponent: Component<InputOrganizationDependency>, InputOrganizationFactory {
     public func makeView() -> some View {
-        InputCompanyView(
+        InputOrganizationView(
             viewModel: .init(
                 createdCompanyUseCase: dependency.createdCompanyUseCase
             )

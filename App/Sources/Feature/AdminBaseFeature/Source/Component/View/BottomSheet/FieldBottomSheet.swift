@@ -1,5 +1,5 @@
-import SwiftUI
 import Service
+import SwiftUI
 
 public struct FieldBottomSheet: View {
     let fieldList: [FieldType] = FieldType.allCases
@@ -34,7 +34,7 @@ public struct FieldBottomSheet: View {
             )
 
             Spacer()
-        
+
             BitgouelRadioButton(isSelected: isSelected)
         }
         .padding(.vertical, 24)

@@ -1,7 +1,7 @@
 import Foundation
 import Service
 
-final class CompanyListViewModel: BaseViewModel {
+final class OrganizationListViewModel: BaseViewModel {
     @Published var isShowingAdminPageBottomSheet: Bool = false
     @Published var isShowingCompanyDetailBottomSheet: Bool = false
     @Published var isPresentedInputCompanyPage: Bool = false
@@ -10,14 +10,17 @@ final class CompanyListViewModel: BaseViewModel {
     @Published var selectedCompanyName: String = ""
     @Published var selectedCompanyDetailInfo: String = ""
     @Published var companyID: Int = 0
+    let organization: OrganizationType
 
     private let fetchCompanyListUseCase: any FetchCompanyListUseCase
     private let deleteCompanyUseCase: any DeleteCompanyUseCase
 
     init(
+        organization: OrganizationType,
         fetchCompanyListUseCase: any FetchCompanyListUseCase,
         deleteCompanyUseCase: any DeleteCompanyUseCase
     ) {
+        self.organization = organization
         self.fetchCompanyListUseCase = fetchCompanyListUseCase
         self.deleteCompanyUseCase = deleteCompanyUseCase
     }

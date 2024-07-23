@@ -8,6 +8,12 @@ public struct GovernmentInfoResponseDTO: Decodable {
     public let governmentID: Int
     public let field: FieldType
     public let governmentName: String
+
+    enum CodingKeys: String, CodingKey {
+        case governmentID = "id"
+        case field
+        case governmentName
+    }
 }
 
 extension GovernmentListResponseDTO {

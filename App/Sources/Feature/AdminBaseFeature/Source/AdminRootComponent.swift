@@ -6,9 +6,8 @@ public protocol AdminRootDependency: Dependency {
     var requestUserSignupFactory: any RequestUserSignupFactory { get }
     var withdrawUserListFactory: any WithdrawUserListFactory { get }
     var schoolListFactory: any SchoolListFactory { get }
-    var companyListFactory: any CompanyListFactory { get }
+    var organizationListFactory: any OrganizationListFactory { get }
     var universityListFactory: any UniversityListFactory { get }
-    var governmentListFactory: any GovernmentListFactory { get }
 }
 
 public final class AdminRootComponent: Component<AdminRootDependency>, AdminRootFactory {
@@ -18,9 +17,8 @@ public final class AdminRootComponent: Component<AdminRootDependency>, AdminRoot
             requestUserSignupFactory: dependency.requestUserSignupFactory,
             withdrawUserListFactory: dependency.withdrawUserListFactory,
             schoolListFactory: dependency.schoolListFactory,
-            companyListFactory: dependency.companyListFactory,
-            universityListFactory: dependency.universityListFactory,
-            governmentListFactory: dependency.governmentListFactory
+            organizationListFactory: dependency.organizationListFactory,
+            universityListFactory: dependency.universityListFactory
         )
     }
 }

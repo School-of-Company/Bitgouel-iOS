@@ -1,17 +1,17 @@
 import SwiftUI
 
-struct CompanyListView: View {
+struct OrganizationListView: View {
     @EnvironmentObject var adminPageState: AdminPageState
-    @StateObject var viewModel: CompanyListViewModel
+    @StateObject var viewModel: OrganizationListViewModel
 
-    private let inputCompanyFactory: any InputCompanyFactory
+    private let inputOrganizationFactory: any InputOrganizationFactory
 
     init(
-        viewModel: CompanyListViewModel,
-        inputCompanyFactory: any InputCompanyFactory
+        viewModel: OrganizationListViewModel,
+        inputOrganizationFactory: any InputOrganizationFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
-        self.inputCompanyFactory = inputCompanyFactory
+        self.inputOrganizationFactory = inputOrganizationFactory
     }
 
     var body: some View {

@@ -2,15 +2,15 @@ import NeedleFoundation
 import SwiftUI
 import Service
 
-public protocol CompanyListDependency: Dependency {
+public protocol OrganizationListDependency: Dependency {
     var fetchCompanyListUseCase: any FetchCompanyListUseCase { get }
     var deleteCompanyUseCase: any DeleteCompanyUseCase { get }
     var inputCompanyFactory: any InputCompanyFactory { get }
 }
 
-public final class CompanyListComponent: Component<CompanyListDependency>, CompanyListFactory {
+public final class OrganizationListComponent: Component<CompanyListDependency>, OrganizationListFactory {
     public func makeView() -> some View {
-        CompanyListView(
+        OrganizationListView(
             viewModel: .init(
                 fetchCompanyListUseCase: dependency.fetchCompanyListUseCase,
                 deleteCompanyUseCase: dependency.deleteCompanyUseCase
