@@ -4,7 +4,7 @@ import Moya
 public enum CompanyAPI {
     case fetchCompanyList
     case createdCompany(req: CreatedCompanyRequestDTO)
-    case deleteCompany(companyID: String)
+    case deleteCompany(companyID: Int)
 }
 
 extension CompanyAPI: BitgouelAPI {

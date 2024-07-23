@@ -15,7 +15,7 @@ public struct CompanyRepositoryImpl: CompanyRepository {
         try await remoteCompanyDataSource.createdCompany(req: req)
     }
 
-    public func deleteCompany(companyID: String) async throws {
+    public func deleteCompany(companyID: Int) async throws {
         try await remoteCompanyDataSource.deleteCompany(companyID: companyID)
     }
 }

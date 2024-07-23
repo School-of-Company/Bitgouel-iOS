@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol DeleteCompanyUseCase {
-    func callAsFunction(companyID: String) async throws
+    func callAsFunction(companyID: Int) async throws
 }

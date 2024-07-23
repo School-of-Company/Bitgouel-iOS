@@ -5,7 +5,7 @@ public struct CompanyListResponseDTO: Decodable {
 }
 
 public struct CompanyInfoResponseDTO: Decodable {
-    public let companyID: String
+    public let companyID: Int
     public let companyName: String
     public let field: FieldType
 
