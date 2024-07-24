@@ -6,9 +6,15 @@ final class UniversityListViewModel: BaseViewModel {
     @Published var isShowingUniversityDetailBottomSheet: Bool = false
     @Published var isPresentedInputUniversityPage: Bool = false
     @Published var selectedPage: AdminPageFlow = .company
-    var universityList: [UniversityInfoEntity] = []
+    @Published var universityList: [UniversityInfoEntity] = []
     var selectedUniversityName: String = ""
     var selectedDepartmentList: [String] = []
+
+    private let fetchUniversityListUseCase: any FetchUniversityListUseCase
+
+    init(fetchUniversityListUseCase: any FetchUniversityListUseCase) {
+        self.fetchUniversityListUseCase = fetchUniversityListUseCase
+    }
 
     func updateIsShowingAdminPageBottomSheet(isShowing: Bool) {
         isShowingAdminPageBottomSheet = isShowing
@@ -30,5 +36,16 @@ final class UniversityListViewModel: BaseViewModel {
     func updateSelectedUniversityInfo(name: String, departments: [String]) {
         selectedUniversityName = name
         selectedDepartmentList = departments
+    }
+
+    @MainActor
+    func onAppear() {
+        Task {
+            do {
+                universityList = try await fetchUniversityListUseCase()
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
 }
