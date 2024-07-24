@@ -16,11 +16,7 @@ struct OrganizationListView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("총 \(viewModel.organizationList.count)개 \(viewModel.organization.display())")
-                .bitgouelFont(.caption, color: .greyscale(.g4))
-                .padding(.top, 24)
-
-            Divider()
+            CountHeader(count: viewModel.organizationList.count, epic: viewModel.organization.display())
 
             ScrollView(showsIndicators: false) {
                 LazyVStack(alignment: .leading, spacing: 12) {
