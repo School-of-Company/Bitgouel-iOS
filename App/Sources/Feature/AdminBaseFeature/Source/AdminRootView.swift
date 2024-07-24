@@ -7,26 +7,23 @@ struct AdminRootView: View {
     private let requestUserSignupFactory: any RequestUserSignupFactory
     private let withdrawUserListFactory: any WithdrawUserListFactory
     private let schoolListFactory: any SchoolListFactory
-    private let companyListFactory: any CompanyListFactory
+    private let organizationListFactory: any OrganizationListFactory
     private let universityListFactory: any UniversityListFactory
-    private let governmentListFactory: any GovernmentListFactory
 
     public init(
         userListFactory: any UserListFactory,
         requestUserSignupFactory: any RequestUserSignupFactory,
         withdrawUserListFactory: any WithdrawUserListFactory,
         schoolListFactory: any SchoolListFactory,
-        companyListFactory: any CompanyListFactory,
-        universityListFactory: any UniversityListFactory,
-        governmentListFactory: any GovernmentListFactory
+        organizationListFactory: any OrganizationListFactory,
+        universityListFactory: any UniversityListFactory
     ) {
         self.userListFactory = userListFactory
         self.requestUserSignupFactory = requestUserSignupFactory
         self.withdrawUserListFactory = withdrawUserListFactory
         self.schoolListFactory = schoolListFactory
-        self.companyListFactory = companyListFactory
+        self.organizationListFactory = organizationListFactory
         self.universityListFactory = universityListFactory
-        self.governmentListFactory = governmentListFactory
     }
 
     var body: some View {
@@ -53,7 +50,7 @@ struct AdminRootView: View {
                     .environmentObject(adminPageState)
 
             case .company:
-                companyListFactory.makeView()
+                organizationListFactory.makeView(type: .company, selectedPage: .company)
                     .eraseToAnyView()
                     .environmentObject(adminPageState)
 
@@ -63,7 +60,7 @@ struct AdminRootView: View {
                     .environmentObject(adminPageState)
 
             case .government:
-                governmentListFactory.makeView()
+                organizationListFactory.makeView(type: .government, selectedPage: .government)
                     .eraseToAnyView()
                     .environmentObject(adminPageState)
             }

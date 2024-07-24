@@ -1,22 +1,22 @@
 import SwiftUI
 
-struct CompanyListView: View {
+struct OrganizationListView: View {
     @EnvironmentObject var adminPageState: AdminPageState
-    @StateObject var viewModel: CompanyListViewModel
+    @StateObject var viewModel: OrganizationListViewModel
 
-    private let inputCompanyFactory: any InputCompanyFactory
+    private let inputOrganizationFactory: any InputOrganizationFactory
 
     init(
-        viewModel: CompanyListViewModel,
-        inputCompanyFactory: any InputCompanyFactory
+        viewModel: OrganizationListViewModel,
+        inputOrganizationFactory: any InputOrganizationFactory
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
-        self.inputCompanyFactory = inputCompanyFactory
+        self.inputOrganizationFactory = inputOrganizationFactory
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("총 \(viewModel.companyList.count)개 기업")
+            Text("총 \(viewModel.organizationList.count)개 \(viewModel.organization.display())")
                 .bitgouelFont(.caption, color: .greyscale(.g4))
                 .padding(.top, 24)
 
@@ -24,19 +24,19 @@ struct CompanyListView: View {
 
             ScrollView(showsIndicators: false) {
                 LazyVStack(alignment: .leading, spacing: 12) {
-                    ForEach(viewModel.companyList, id: \.companyID) { company in
+                    ForEach(viewModel.organizationList, id: \.organizationID) { organization in
                         AdminListPageRow(
-                            name: company.companyName,
-                            detailInfo: company.field.display()
+                            name: organization.name,
+                            detailInfo: organization.field.display()
                         )
                         .buttonWrapper {
-                            viewModel.updateSelectedCompanyInfo(
-                                name: company.companyName,
-                                detailInfo: company.field.display(),
-                                id: company.companyID
+                            viewModel.updateSelectedOrganizationInfo(
+                                name: organization.name,
+                                field: organization.field.display(),
+                                id: organization.organizationID
                             )
 
-                            viewModel.updateIsShowingCompanyDetailBottomSheet(isShowing: true)
+                            viewModel.updateIsShowingOrganizationDetailBottomSheet(isShowing: true)
                         }
 
                         Divider()
@@ -48,13 +48,14 @@ struct CompanyListView: View {
         .refreshable { viewModel.onAppear() }
         .overlay(alignment: .bottom) {
             ActivateButton(
-                text: "새로운 기업 등록",
-                buttonType: .add) {
-                    viewModel.updateIsPresentedInputCompanyPage(isPresented: true)
-                }
+                text: "새로운 \(viewModel.organization.display()) 등록",
+                buttonType: .add
+            ) {
+                viewModel.updateIsPresentedInputOrganizationPage(isPresented: true)
+            }
         }
         .padding(.horizontal, 28)
-        .navigationTitle("기업목록")
+        .navigationTitle("\(viewModel.organization.rawValue) 목록")
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button {
@@ -77,16 +78,16 @@ struct CompanyListView: View {
                 viewModel.updateIsShowingAdminPageBottomSheet(isShowing: cancel)
             }
         }
-        .bitgouelBottomSheet(isShowing: $viewModel.isShowingCompanyDetailBottomSheet) {
+        .bitgouelBottomSheet(isShowing: $viewModel.isShowingOrganizationDetailBottomSheet) {
             OrganizationDetailBottomSheet(
-                epic: "기업",
-                name: viewModel.selectedCompanyName,
-                detailInfo: viewModel.selectedCompanyDetailInfo
+                epic: viewModel.organization.display(),
+                name: viewModel.selectedOrganizationName,
+                detailInfo: viewModel.selectedOrganizationField
             ) { cancel in
-                viewModel.updateIsShowingCompanyDetailBottomSheet(isShowing: cancel)
+                viewModel.updateIsShowingOrganizationDetailBottomSheet(isShowing: cancel)
             } deleteAction: {
-                viewModel.deleteCompany {
-                    viewModel.updateIsShowingCompanyDetailBottomSheet(isShowing: false)
+                viewModel.deleteOrganization {
+                    viewModel.updateIsShowingOrganizationDetailBottomSheet(isShowing: false)
                     viewModel.onAppear()
                 }
             }
@@ -96,11 +97,11 @@ struct CompanyListView: View {
             isShowing: $viewModel.isErrorOccurred
         )
         .navigate(
-            to: inputCompanyFactory.makeView().eraseToAnyView(),
+            to: inputOrganizationFactory.makeView(type: viewModel.organization).eraseToAnyView(),
             when: Binding(
-                get: { viewModel.isPresentedInputCompanyPage },
+                get: { viewModel.isPresentedInputOrganizationPage },
                 set: { isPresented in
-                    viewModel.updateIsPresentedInputCompanyPage(isPresented: isPresented)
+                    viewModel.updateIsPresentedInputOrganizationPage(isPresented: isPresented)
                 }
             )
         )

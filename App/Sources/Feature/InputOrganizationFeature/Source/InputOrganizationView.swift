@@ -1,22 +1,22 @@
 import SwiftUI
 
-struct InputCompanyView: View {
-    @StateObject var viewModel: InputCompanyViewModel
+struct InputOrganizationView: View {
+    @StateObject var viewModel: InputOrganizationViewModel
     @Environment(\.dismiss) var dismiss
 
-    init(viewModel: InputCompanyViewModel) {
+    init(viewModel: InputOrganizationViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
 
     var body: some View {
         VStack(spacing: 0) {
             InputDataView(
-                epic: "기업",
+                epic: viewModel.organization.rawValue,
                 state: "등록",
                 selectedField: $viewModel.selectedFieldType,
-                name: $viewModel.companyName
+                name: $viewModel.organizationName
             ) {
-                viewModel.createCompany {
+                viewModel.createOrganization {
                     dismiss()
                 }
             }
