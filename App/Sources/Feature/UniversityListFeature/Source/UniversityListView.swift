@@ -4,8 +4,14 @@ struct UniversityListView: View {
     @EnvironmentObject var adminPageState: AdminPageState
     @StateObject var viewModel: UniversityListViewModel
 
-    init(viewModel: UniversityListViewModel) {
+    private let inputUniversityFactory: any InputUniversityFactory
+
+    init(
+        viewModel: UniversityListViewModel,
+        inputUniversityFactory: any InputUniversityFactory
+    ) {
         _viewModel = StateObject(wrappedValue: viewModel)
+        self.inputUniversityFactory = inputUniversityFactory
     }
 
     var body: some View {
@@ -40,6 +46,7 @@ struct UniversityListView: View {
                 text: "새로운 대학 등록",
                 buttonType: .add
             ) {
+                viewModel.updateState(state: "등록")
                 viewModel.updateIsPresentedInputUniversityPage(isPresented: true)
             }
         }
@@ -74,8 +81,18 @@ struct UniversityListView: View {
             ) { cancel in
                 viewModel.updateIsShowingUniversityDetailBottomSheet(isShowing: cancel)
             } editAction: {
+                viewModel.updateState(state: "수정")
                 viewModel.updateIsPresentedInputUniversityPage(isPresented: true)
             }
         }
+        .navigate(
+            to: inputUniversityFactory.makeView(state: viewModel.state).eraseToAnyView(),
+            when: Binding(
+                get: { viewModel.isPresentedInputUniversityPage },
+                set: { isPresented in
+                    viewModel.updateIsPresentedInputUniversityPage(isPresented: isPresented)
+                }
+            )
+        )
     }
 }

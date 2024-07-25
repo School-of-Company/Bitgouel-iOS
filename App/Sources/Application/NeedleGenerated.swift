@@ -624,6 +624,9 @@ private class UniversityListDependency114351175c975dac12b7Provider: UniversityLi
     var fetchUniversityListUseCase: any FetchUniversityListUseCase {
         return appComponent.fetchUniversityListUseCase
     }
+    var inputUniversityFactory: any InputUniversityFactory {
+        return appComponent.inputUniversityFactory
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -797,6 +800,17 @@ private class LoginDependencyf4e78d0ad57be469bfd9Provider: LoginDependency {
 /// ^->AppComponent->LoginComponent
 private func factoryd6018e98563de75a2ba4f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return LoginDependencyf4e78d0ad57be469bfd9Provider(appComponent: parent1(component) as! AppComponent)
+}
+private class InputUniversityDependencyd59283d5aa3af708a885Provider: InputUniversityDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->InputUniversityComponent
+private func factoryb6aa118932d97d72500ae3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return InputUniversityDependencyd59283d5aa3af708a885Provider()
 }
 private class LectureListDependencyf05b805b4d41a7643bcdProvider: LectureListDependency {
     var lectureListDetailFactory: any LectureListDetailFactory {
@@ -1155,6 +1169,7 @@ extension StudentInfoComponent: Registration {
 extension UniversityListComponent: Registration {
     public func registerItems() {
         keyPathToName[\UniversityListDependency.fetchUniversityListUseCase] = "fetchUniversityListUseCase-any FetchUniversityListUseCase"
+        keyPathToName[\UniversityListDependency.inputUniversityFactory] = "inputUniversityFactory-any InputUniversityFactory"
     }
 }
 extension WriteInquiryAnswerComponent: Registration {
@@ -1216,6 +1231,11 @@ extension LoginComponent: Registration {
         keyPathToName[\LoginDependency.signupFactory] = "signupFactory-any SignUpFactory"
         keyPathToName[\LoginDependency.saveUserAuthorityUseCase] = "saveUserAuthorityUseCase-any SaveUserAuthorityUseCase"
         keyPathToName[\LoginDependency.findPasswordFactory] = "findPasswordFactory-any FindPasswordFactory"
+    }
+}
+extension InputUniversityComponent: Registration {
+    public func registerItems() {
+
     }
 }
 extension LectureListComponent: Registration {
@@ -1405,6 +1425,7 @@ extension AppComponent: Registration {
         localTable["organizationListFactory-any OrganizationListFactory"] = { [unowned self] in self.organizationListFactory as Any }
         localTable["universityListFactory-any UniversityListFactory"] = { [unowned self] in self.universityListFactory as Any }
         localTable["inputOrganizationFactory-any InputOrganizationFactory"] = { [unowned self] in self.inputOrganizationFactory as Any }
+        localTable["inputUniversityFactory-any InputUniversityFactory"] = { [unowned self] in self.inputUniversityFactory as Any }
         localTable["remoteWithdrawDataSource-any RemoteWithdrawDataSource"] = { [unowned self] in self.remoteWithdrawDataSource as Any }
         localTable["withdrawRepository-any WithdrawRepository"] = { [unowned self] in self.withdrawRepository as Any }
         localTable["fetchWithdrawUserListUseCase-any FetchWithdrawUserListUseCase"] = { [unowned self] in self.fetchWithdrawUserListUseCase as Any }
@@ -1485,6 +1506,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->ActivityListComponent", factory7177e6769ee69064a61bf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputLectureComponent", factory622e14688d9803ec3c64f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->LoginComponent", factoryd6018e98563de75a2ba4f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->InputUniversityComponent", factoryb6aa118932d97d72500ae3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->LectureListComponent", factorya2eac906a839dcacda45f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->PostDetailSettingComponent", factoryaacb19523586bb790cade3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->ActivityDetailComponent", factory7c395808ac9dfb8fb229f47b58f8f304c97af4d5)
