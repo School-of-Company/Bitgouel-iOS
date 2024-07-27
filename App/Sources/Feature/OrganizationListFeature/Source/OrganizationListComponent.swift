@@ -1,6 +1,6 @@
 import NeedleFoundation
-import SwiftUI
 import Service
+import SwiftUI
 
 public protocol OrganizationListDependency: Dependency {
     var fetchCompanyListUseCase: any FetchCompanyListUseCase { get }
