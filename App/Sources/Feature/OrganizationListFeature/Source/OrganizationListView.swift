@@ -82,12 +82,34 @@ struct OrganizationListView: View {
             ) { cancel in
                 viewModel.updateIsShowingOrganizationDetailBottomSheet(isShowing: cancel)
             } deleteAction: {
-                viewModel.deleteOrganization {
-                    viewModel.updateIsShowingOrganizationDetailBottomSheet(isShowing: false)
-                    viewModel.onAppear()
-                }
+                viewModel.updateIsShowingDeleteAlert(isShowing: true)
             }
         }
+        .bitgouelAlert(
+            title: "\(viewModel.organization.rawValue)을 삭제하시겠습니까?",
+            description: "",
+            isShowing: $viewModel.isShowingDeleteAlert,
+            alertActions: [
+                .init(
+                    text: "취소",
+                    style: .cancel,
+                    action: {
+                        viewModel.updateIsShowingDeleteAlert(isShowing: false)
+                    }
+                ),
+                .init(
+                    text: "삭제",
+                    style: .error,
+                    action: {
+                        viewModel.deleteOrganization {
+                            viewModel.updateIsShowingDeleteAlert(isShowing: false)
+                            viewModel.updateIsShowingOrganizationDetailBottomSheet(isShowing: false)
+                            viewModel.onAppear()
+                        }
+                    }
+                )
+            ]
+        )
         .bitgouelToast(
             text: viewModel.errorMessage,
             isShowing: $viewModel.isErrorOccurred

@@ -5,6 +5,7 @@ final class OrganizationListViewModel: BaseViewModel {
     @Published var isShowingAdminPageBottomSheet: Bool = false
     @Published var isShowingOrganizationDetailBottomSheet: Bool = false
     @Published var isPresentedInputOrganizationPage: Bool = false
+    @Published var isShowingDeleteAlert: Bool = false
     @Published var selectedPage: AdminPageFlow
     @Published var organizationList: [OrganizationListModel] = []
     @Published var selectedOrganizationName: String = ""
@@ -43,6 +44,10 @@ final class OrganizationListViewModel: BaseViewModel {
 
     func updateIsPresentedInputOrganizationPage(isPresented: Bool) {
         isPresentedInputOrganizationPage = isPresented
+    }
+
+    func updateIsShowingDeleteAlert(isShowing: Bool) {
+        isShowingDeleteAlert = isShowing
     }
 
     func updateSelectedPage(page: AdminPageFlow) {

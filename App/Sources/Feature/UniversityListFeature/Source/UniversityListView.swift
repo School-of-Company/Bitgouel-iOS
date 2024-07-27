@@ -27,6 +27,7 @@ struct UniversityListView: View {
                         )
                         .onTapGesture {
                             viewModel.updateSelectedUniversityInfo(
+                                id: university.universityID, 
                                 name: university.universityName,
                                 departments: university.departments
                             )
@@ -86,7 +87,12 @@ struct UniversityListView: View {
             }
         }
         .navigate(
-            to: inputUniversityFactory.makeView(state: viewModel.state).eraseToAnyView(),
+            to: inputUniversityFactory.makeView(
+                state: viewModel.state,
+                universityName: viewModel.selectedUniversityName,
+                departmentList: viewModel.selectedDepartmentList,
+                universityID: viewModel.selectedUniversityID
+            ).eraseToAnyView(),
             when: Binding(
                 get: { viewModel.isPresentedInputUniversityPage },
                 set: { isPresented in
