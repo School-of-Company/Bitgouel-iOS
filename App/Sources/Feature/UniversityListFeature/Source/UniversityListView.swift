@@ -33,6 +33,8 @@ struct UniversityListView: View {
                 }
             }
         }
+        .onAppear { viewModel.onAppear() }
+        .refreshable { viewModel.onAppear() }
         .overlay(alignment: .bottom) {
             ActivateButton(
                 text: "새로운 대학 등록",

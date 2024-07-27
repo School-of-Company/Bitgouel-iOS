@@ -621,15 +621,17 @@ private func factory5ce0f173abbf535f654ff47b58f8f304c97af4d5(_ component: Needle
     return StudentInfoDependency5d1163a5288c79c06dffProvider(appComponent: parent1(component) as! AppComponent)
 }
 private class UniversityListDependency114351175c975dac12b7Provider: UniversityListDependency {
-
-
-    init() {
-
+    var fetchUniversityListUseCase: any FetchUniversityListUseCase {
+        return appComponent.fetchUniversityListUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->UniversityListComponent
-private func factory138cdcda950ee50e6d46e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return UniversityListDependency114351175c975dac12b7Provider()
+private func factory138cdcda950ee50e6d46f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return UniversityListDependency114351175c975dac12b7Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class WriteInquiryAnswerDependencyeba82c0423abdd3e1acfProvider: WriteInquiryAnswerDependency {
     var replyInquiryUseCase: any ReplyInquiryUseCase {
@@ -1152,7 +1154,7 @@ extension StudentInfoComponent: Registration {
 }
 extension UniversityListComponent: Registration {
     public func registerItems() {
-
+        keyPathToName[\UniversityListDependency.fetchUniversityListUseCase] = "fetchUniversityListUseCase-any FetchUniversityListUseCase"
     }
 }
 extension WriteInquiryAnswerComponent: Registration {
@@ -1473,7 +1475,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->LectureApplicantListComponent", factory78a87c10d14f7bbaaa9df47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->UserListComponent", factorycf08383b935d2e18f4c7f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->StudentInfoComponent", factory5ce0f173abbf535f654ff47b58f8f304c97af4d5)
-    registerProviderFactory("^->AppComponent->UniversityListComponent", factory138cdcda950ee50e6d46e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->UniversityListComponent", factory138cdcda950ee50e6d46f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->WriteInquiryAnswerComponent", factory3d4cadf14cd9a3336981f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->PostDetailComponent", factorybc555a73df3767a26999f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->SuccessChangePasswordComponent", factoryde3552d9e0f793ec8b8df47b58f8f304c97af4d5)
