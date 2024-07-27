@@ -4,10 +4,10 @@ import Moya
 public enum UniversityAPI {
     case fetchUniversityList
     case createdUniversity(req: UniversityNameRequestDTO)
-    case modifyUniversity(universityID: String, req: UniversityNameRequestDTO)
-    case deleteUniversity(universityID: String)
-    case createdDepartment(universityID: String, req: DepartmentRequestDTO)
-    case deleteDepartment(universityID: String, department: String)
+    case modifyUniversity(universityID: Int, req: UniversityNameRequestDTO)
+    case deleteUniversity(universityID: Int)
+    case createdDepartment(universityID: Int, req: DepartmentRequestDTO)
+    case deleteDepartment(universityID: Int, department: String)
 }
 
 extension UniversityAPI: BitgouelAPI {
