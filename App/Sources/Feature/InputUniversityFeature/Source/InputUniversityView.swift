@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct InputUniversityView: View {
+    @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: InputUniversityViewModel
 
     init(viewModel: InputUniversityViewModel) {
@@ -26,6 +27,12 @@ struct InputUniversityView: View {
         }
         .padding(.horizontal, 28)
         .navigationTitle("대학 \(viewModel.state)")
+        .navigate(
+            to: InputDepartmentView.init(registeredDepartment: { department in
+                viewModel.createdDepartment(department: department)
+            }),
+            when: $viewModel.isPresentedInputDepartment
+        )
         .bitgouelAlert(
             title: "대학을 삭제하시겠습니까?",
             description: "",
@@ -42,7 +49,10 @@ struct InputUniversityView: View {
                     text: "삭제",
                     style: .error,
                     action: {
-                        viewModel.deleteUniversity()
+                        viewModel.deleteUniversity {
+                            viewModel.updateIsShowingDeleteAlert(isShowing: false)
+                            dismiss()
+                        }
                     }
                 )
             ]
@@ -78,7 +88,7 @@ struct InputUniversityView: View {
                             Spacer()
 
                             Button {
-                                viewModel.deleteDepartment(department: department ?? "")
+                                viewModel.deleteDepartment(index: index)
                             } label: {
                                 BitgouelAsset.Icons.minusFill.swiftUIImage
                                     .resizable()
@@ -128,7 +138,9 @@ struct InputUniversityView: View {
                     text: "수정 완료",
                     buttonType: .check
                 ) {
-                    viewModel.editUniversity()
+                    viewModel.modifyUniversity {
+                        dismiss()
+                    }
                 }
             }
         } else {
@@ -136,7 +148,9 @@ struct InputUniversityView: View {
                 text: "대학 등록",
                 buttonType: .add
             ) {
-                viewModel.createdUniversity()
+                viewModel.createdUniversity {
+                    dismiss()
+                }
             }
         }
     }
