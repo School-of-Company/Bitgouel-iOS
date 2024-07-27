@@ -190,4 +190,8 @@ public extension AppComponent {
     var inputOrganizationFactory: any InputOrganizationFactory {
         InputOrganizationComponent(parent: self)
     }
+
+    var inputUniversityFactory: any InputUniversityFactory {
+        InputUniversityComponent(parent: self)
+    }
 }

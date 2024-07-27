@@ -7,6 +7,8 @@ final class UniversityListViewModel: BaseViewModel {
     @Published var isPresentedInputUniversityPage: Bool = false
     @Published var selectedPage: AdminPageFlow = .company
     @Published var universityList: [UniversityInfoEntity] = []
+    var selectedUniversityID: Int = 0
+    var state: String = ""
     var selectedUniversityName: String = ""
     var selectedDepartmentList: [String] = []
 
@@ -33,9 +35,14 @@ final class UniversityListViewModel: BaseViewModel {
         selectedPage = page
     }
 
-    func updateSelectedUniversityInfo(name: String, departments: [String]) {
+    func updateSelectedUniversityInfo(id: Int, name: String, departments: [String]) {
+        selectedUniversityID = id
         selectedUniversityName = name
         selectedDepartmentList = departments
+    }
+
+    func updateState(state: String) {
+        self.state = state
     }
 
     @MainActor
