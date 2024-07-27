@@ -10,11 +10,7 @@ struct SchoolListView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("총 \(viewModel.schoolList.count)개 학교")
-                .bitgouelFont(.caption, color: .greyscale(.g4))
-                .padding(.top, 24)
-
-            Divider()
+            CountHeader(count: viewModel.schoolList.count, epic: "학교")
 
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 12) {

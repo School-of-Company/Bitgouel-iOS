@@ -5,7 +5,7 @@ public struct UniversityListResponseDTO: Decodable {
 }
 
 public struct UniversityInfoResponseDTO: Decodable {
-    public let universityID: String
+    public let universityID: Int
     public let universityName: String
     public let departments: [String]
 
