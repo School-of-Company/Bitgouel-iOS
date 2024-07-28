@@ -7,7 +7,7 @@ public struct DeleteSchoolUseCaseImpl: DeleteSchoolUseCase {
         self.schoolRepository = schoolRepository
     }
 
-    public func callAsFunction(schoolID: String) async throws {
+    public func callAsFunction(schoolID: Int) async throws {
         try await schoolRepository.deleteSchool(schoolID: schoolID)
     }
 }

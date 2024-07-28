@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol CreatedClubUseCase {
-    func callAsFunction(schoolID: String, req: CreatedClubRequestDTO) async throws
+    func callAsFunction(schoolID: Int, req: CreatedClubRequestDTO) async throws
 }

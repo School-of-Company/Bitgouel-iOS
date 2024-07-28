@@ -7,7 +7,7 @@ public struct ModifySchoolUseCaseImpl: ModifySchoolUseCase {
         self.schoolRepository = schoolRepository
     }
 
-    public func callAsFunction(schoolID: String, req: ModifySchoolRequestDTO) async throws {
+    public func callAsFunction(schoolID: Int, req: ModifySchoolRequestDTO) async throws {
         try await schoolRepository.modifySchool(schoolID: schoolID, req: req)
     }
 }
