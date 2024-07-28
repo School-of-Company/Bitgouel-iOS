@@ -40,11 +40,23 @@ public struct SchoolDetailBottomSheet: View {
                     }
 
                     BitgouelText(
+                        text: "학과 목록",
+                        font: .text1
+                    )
+
+                    LazyVStack(alignment: .leading, spacing: 16) {
+                        ForEach(schoolInfo.departmentList, id: \.self) { department in
+                            Text(department)
+                                .bitgouelFont(.text3, color: .greyscale(.g4))
+                        }
+                    }
+
+                    BitgouelText(
                         text: "동아리 목록",
                         font: .text1
                     )
 
-                    LazyVStack(alignment: .leading, spacing: 8) {
+                    LazyVStack(alignment: .leading, spacing: 18) {
                         ForEach(schoolInfo.clubList, id: \.clubID) { club in
                             clubListRow(
                                 clubName: club.name,
@@ -82,6 +94,6 @@ public struct SchoolDetailBottomSheet: View {
                 font: .caption
             )
         }
-        .foregroundColor(Color.bitgouel(.greyscale(.g7)))
+        .foregroundColor(Color.bitgouel(.greyscale(.g4)))
     }
 }

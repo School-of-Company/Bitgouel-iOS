@@ -194,4 +194,8 @@ public extension AppComponent {
     var inputUniversityFactory: any InputUniversityFactory {
         InputUniversityComponent(parent: self)
     }
+
+    var inputSchoolFactory: any InputSchoolFactory {
+        InputSchoolComponent(parent: self)
+    }
 }

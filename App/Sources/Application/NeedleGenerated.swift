@@ -535,6 +535,17 @@ private class WithdrawUserListDependencyc576fefb2eff9e703c66Provider: WithdrawUs
 private func factory4d07a7e30330c03d5d63f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return WithdrawUserListDependencyc576fefb2eff9e703c66Provider(appComponent: parent1(component) as! AppComponent)
 }
+private class InputSchoolDependencye8d4bffe76e2533005e2Provider: InputSchoolDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->InputSchoolComponent
+private func factorya02470c933733e398aeee3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return InputSchoolDependencye8d4bffe76e2533005e2Provider()
+}
 private class FindPasswordDependency542eacce769b9dc25904Provider: FindPasswordDependency {
     var sendEmailCertificationLinkUseCase: any SendEmailCertificationLinkUseCase {
         return appComponent.sendEmailCertificationLinkUseCase
@@ -722,6 +733,9 @@ private func factorydd7e28250a180554c7a0f47b58f8f304c97af4d5(_ component: Needle
 private class SchoolListDependency96b276c3342c1aca3550Provider: SchoolListDependency {
     var fetchSchoolListUseCase: any FetchSchoolListUseCase {
         return appComponent.fetchSchoolListUseCase
+    }
+    var inputSchoolFactory: any InputSchoolFactory {
+        return appComponent.inputSchoolFactory
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -1135,6 +1149,11 @@ extension WithdrawUserListComponent: Registration {
         keyPathToName[\WithdrawUserListDependency.withdrawUserUseCase] = "withdrawUserUseCase-any WithdrawUserUseCase"
     }
 }
+extension InputSchoolComponent: Registration {
+    public func registerItems() {
+
+    }
+}
 extension FindPasswordComponent: Registration {
     public func registerItems() {
         keyPathToName[\FindPasswordDependency.sendEmailCertificationLinkUseCase] = "sendEmailCertificationLinkUseCase-any SendEmailCertificationLinkUseCase"
@@ -1206,6 +1225,7 @@ extension InquiryListComponent: Registration {
 extension SchoolListComponent: Registration {
     public func registerItems() {
         keyPathToName[\SchoolListDependency.fetchSchoolListUseCase] = "fetchSchoolListUseCase-any FetchSchoolListUseCase"
+        keyPathToName[\SchoolListDependency.inputSchoolFactory] = "inputSchoolFactory-any InputSchoolFactory"
     }
 }
 extension ActivityListComponent: Registration {
@@ -1426,6 +1446,7 @@ extension AppComponent: Registration {
         localTable["universityListFactory-any UniversityListFactory"] = { [unowned self] in self.universityListFactory as Any }
         localTable["inputOrganizationFactory-any InputOrganizationFactory"] = { [unowned self] in self.inputOrganizationFactory as Any }
         localTable["inputUniversityFactory-any InputUniversityFactory"] = { [unowned self] in self.inputUniversityFactory as Any }
+        localTable["inputSchoolFactory-any InputSchoolFactory"] = { [unowned self] in self.inputSchoolFactory as Any }
         localTable["remoteWithdrawDataSource-any RemoteWithdrawDataSource"] = { [unowned self] in self.remoteWithdrawDataSource as Any }
         localTable["withdrawRepository-any WithdrawRepository"] = { [unowned self] in self.withdrawRepository as Any }
         localTable["fetchWithdrawUserListUseCase-any FetchWithdrawUserListUseCase"] = { [unowned self] in self.fetchWithdrawUserListUseCase as Any }
@@ -1492,6 +1513,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->ClubDetailComponent", factory1559652f8e80cfa88d06f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->SuccessSignUpComponent", factorybf219b153b668170161de3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->WithdrawUserListComponent", factory4d07a7e30330c03d5d63f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->InputSchoolComponent", factorya02470c933733e398aeee3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->FindPasswordComponent", factory15775d8436b06b9741d1f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->LectureApplicantListComponent", factory78a87c10d14f7bbaaa9df47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->UserListComponent", factorycf08383b935d2e18f4c7f47b58f8f304c97af4d5)

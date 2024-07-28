@@ -3,7 +3,7 @@ import SwiftUI
 public protocol InputSchoolFactory {
     associatedtype SomeView: View
     func makeView(
-        schoolID: Int,
+        state: String,
         schoolInfo: SchoolDetailInfoModel
     ) -> SomeView
 }

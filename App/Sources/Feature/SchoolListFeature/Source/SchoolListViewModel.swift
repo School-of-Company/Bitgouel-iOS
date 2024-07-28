@@ -7,9 +7,11 @@ final class SchoolListViewModel: BaseViewModel {
     @Published var isPresentedInputSchoolInfoView: Bool = false
     @Published var selectedPage: AdminPageFlow = .school
     @Published var schoolInfo: SchoolDetailInfoModel = .init(
+        schoolID: 0,
         logoImageURL: "",
         name: "",
         line: "",
+        departmentList: [],
         clubList: [.init(clubID: 0, name: "", field: .culture)]
     )
     @Published var schoolList: [SchoolListEntity] = []
