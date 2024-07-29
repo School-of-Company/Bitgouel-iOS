@@ -27,7 +27,7 @@ struct UniversityListView: View {
                         )
                         .onTapGesture {
                             viewModel.updateSelectedUniversityInfo(
-                                id: university.universityID, 
+                                id: university.universityID,
                                 name: university.universityName,
                                 departments: university.departments
                             )
@@ -49,6 +49,7 @@ struct UniversityListView: View {
             ) {
                 viewModel.updateState(state: "등록")
                 viewModel.updateIsPresentedInputUniversityPage(isPresented: true)
+                viewModel.updateIsShowingUniversityDetailBottomSheet(isShowing: false)
             }
         }
         .padding(.horizontal, 28)
@@ -84,6 +85,7 @@ struct UniversityListView: View {
             } editAction: {
                 viewModel.updateState(state: "수정")
                 viewModel.updateIsPresentedInputUniversityPage(isPresented: true)
+                viewModel.updateIsShowingUniversityDetailBottomSheet(isShowing: false)
             }
         }
         .navigate(

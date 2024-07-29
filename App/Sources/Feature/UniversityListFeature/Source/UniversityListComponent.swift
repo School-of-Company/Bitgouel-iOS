@@ -1,6 +1,6 @@
 import NeedleFoundation
-import SwiftUI
 import Service
+import SwiftUI
 
 public protocol UniversityListDependency: Dependency {
     var fetchUniversityListUseCase: any FetchUniversityListUseCase { get }

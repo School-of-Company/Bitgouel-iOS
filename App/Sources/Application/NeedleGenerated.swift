@@ -802,15 +802,29 @@ private func factoryd6018e98563de75a2ba4f47b58f8f304c97af4d5(_ component: Needle
     return LoginDependencyf4e78d0ad57be469bfd9Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class InputUniversityDependencyd59283d5aa3af708a885Provider: InputUniversityDependency {
-
-
-    init() {
-
+    var createdUniversityUseCase: any CreatedUniversityUseCase {
+        return appComponent.createdUniversityUseCase
+    }
+    var modifyUniversityUseCase: any ModifyUniversityUseCase {
+        return appComponent.modifyUniversityUseCase
+    }
+    var deleteUniversityUseCase: any DeleteUniversityUseCase {
+        return appComponent.deleteUniversityUseCase
+    }
+    var createdDepartmentUseCase: any CreatedDepartmentUseCase {
+        return appComponent.createdDepartmentUseCase
+    }
+    var deleteDepartmentUseCase: any DeleteDepartmentUseCase {
+        return appComponent.deleteDepartmentUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->InputUniversityComponent
-private func factoryb6aa118932d97d72500ae3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return InputUniversityDependencyd59283d5aa3af708a885Provider()
+private func factoryb6aa118932d97d72500af47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return InputUniversityDependencyd59283d5aa3af708a885Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class LectureListDependencyf05b805b4d41a7643bcdProvider: LectureListDependency {
     var lectureListDetailFactory: any LectureListDetailFactory {
@@ -1235,7 +1249,11 @@ extension LoginComponent: Registration {
 }
 extension InputUniversityComponent: Registration {
     public func registerItems() {
-
+        keyPathToName[\InputUniversityDependency.createdUniversityUseCase] = "createdUniversityUseCase-any CreatedUniversityUseCase"
+        keyPathToName[\InputUniversityDependency.modifyUniversityUseCase] = "modifyUniversityUseCase-any ModifyUniversityUseCase"
+        keyPathToName[\InputUniversityDependency.deleteUniversityUseCase] = "deleteUniversityUseCase-any DeleteUniversityUseCase"
+        keyPathToName[\InputUniversityDependency.createdDepartmentUseCase] = "createdDepartmentUseCase-any CreatedDepartmentUseCase"
+        keyPathToName[\InputUniversityDependency.deleteDepartmentUseCase] = "deleteDepartmentUseCase-any DeleteDepartmentUseCase"
     }
 }
 extension LectureListComponent: Registration {
@@ -1506,7 +1524,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->ActivityListComponent", factory7177e6769ee69064a61bf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputLectureComponent", factory622e14688d9803ec3c64f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->LoginComponent", factoryd6018e98563de75a2ba4f47b58f8f304c97af4d5)
-    registerProviderFactory("^->AppComponent->InputUniversityComponent", factoryb6aa118932d97d72500ae3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->InputUniversityComponent", factoryb6aa118932d97d72500af47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->LectureListComponent", factorya2eac906a839dcacda45f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->PostDetailSettingComponent", factoryaacb19523586bb790cade3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->ActivityDetailComponent", factory7c395808ac9dfb8fb229f47b58f8f304c97af4d5)

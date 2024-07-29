@@ -15,19 +15,19 @@ public struct UniversityRepositoryImpl: UniversityRepository {
         try await remoteUniversityDataSource.createdUniversity(req: req)
     }
 
-    public func modifyUniversity(universityID: String, req: UniversityNameRequestDTO) async throws {
+    public func modifyUniversity(universityID: Int, req: UniversityNameRequestDTO) async throws {
         try await remoteUniversityDataSource.modifyUniversity(universityID: universityID, req: req)
     }
 
-    public func deleteUniversity(universityID: String) async throws {
+    public func deleteUniversity(universityID: Int) async throws {
         try await remoteUniversityDataSource.deleteUniversity(universityID: universityID)
     }
 
-    public func createdDepartment(universityID: String, req: DepartmentRequestDTO) async throws {
+    public func createdDepartment(universityID: Int, req: DepartmentRequestDTO) async throws {
         try await remoteUniversityDataSource.createdDepartment(universityID: universityID, req: req)
     }
 
-    public func deleteDepartment(universityID: String, department: String) async throws {
+    public func deleteDepartment(universityID: Int, department: String) async throws {
         try await remoteUniversityDataSource.deleteDepartment(universityID: universityID, department: department)
     }
 }
