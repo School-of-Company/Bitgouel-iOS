@@ -5,7 +5,7 @@ public struct SchoolDetailInfoModel: Equatable {
     public let schoolID: Int
     public let logoImageURL: String
     public let name: String
-    public let line: String
+    public let line: LineType
     public let departmentList: [String]
     public let clubList: [ClubDetailModel]
 
@@ -13,7 +13,7 @@ public struct SchoolDetailInfoModel: Equatable {
         schoolID: Int,
         logoImageURL: String,
         name: String,
-        line: String,
+        line: LineType,
         departmentList: [String],
         clubList: [ClubDetailModel]
     ) {

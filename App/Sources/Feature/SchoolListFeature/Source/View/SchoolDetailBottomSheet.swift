@@ -35,7 +35,7 @@ public struct SchoolDetailBottomSheet: View {
                             font: .text1
                         )
 
-                        Text(schoolInfo.line)
+                        Text(schoolInfo.line.display())
                             .bitgouelFont(.text3, color: .greyscale(.g4))
                     }
 

@@ -10,7 +10,7 @@ final class SchoolListViewModel: BaseViewModel {
         schoolID: 0,
         logoImageURL: "",
         name: "",
-        line: "",
+        line: .agriculturalLifeHealthCare,
         departmentList: [],
         clubList: [.init(clubID: 0, name: "", field: .culture)]
     )
@@ -33,6 +33,7 @@ final class SchoolListViewModel: BaseViewModel {
 
     func updateIsPresentedInputSchoolInfoView(isPresented: Bool, state: String) {
         isPresentedInputSchoolInfoView = isPresented
+        self.state = state
     }
 
     func updateSchoolDetailInfo(info: SchoolDetailInfoModel) {

@@ -33,7 +33,7 @@ struct SchoolListView: View {
                                     schoolID: school.schoolID,
                                     logoImageURL: school.logoImageURL,
                                     name: school.schoolName,
-                                    line: school.line.display(), 
+                                    line: school.line,
                                     departmentList: school.departments,
                                     clubList: school.clubs.map {
                                         .init(
