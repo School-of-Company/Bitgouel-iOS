@@ -1,6 +1,6 @@
 import NeedleFoundation
-import SwiftUI
 import Service
+import SwiftUI
 
 public protocol InputOrganizationDependency: Dependency {
     var createdCompanyUseCase: any CreatedCompanyUseCase { get }

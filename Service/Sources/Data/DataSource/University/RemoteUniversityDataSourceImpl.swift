@@ -9,19 +9,19 @@ public final class RemoteUniversityDataSourceImpl: BaseRemoteDataSource<Universi
         try await request(.createdUniversity(req: req))
     }
 
-    public func modifyUniversity(universityID: String, req: UniversityNameRequestDTO) async throws {
+    public func modifyUniversity(universityID: Int, req: UniversityNameRequestDTO) async throws {
         try await request(.modifyUniversity(universityID: universityID, req: req))
     }
 
-    public func deleteUniversity(universityID: String) async throws {
+    public func deleteUniversity(universityID: Int) async throws {
         try await request(.deleteUniversity(universityID: universityID))
     }
 
-    public func createdDepartment(universityID: String, req: DepartmentRequestDTO) async throws {
+    public func createdDepartment(universityID: Int, req: DepartmentRequestDTO) async throws {
         try await request(.createdDepartment(universityID: universityID, req: req))
     }
 
-    public func deleteDepartment(universityID: String, department: String) async throws {
+    public func deleteDepartment(universityID: Int, department: String) async throws {
         try await request(.deleteDepartment(universityID: universityID, department: department))
     }
 }

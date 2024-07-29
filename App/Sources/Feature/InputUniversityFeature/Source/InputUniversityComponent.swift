@@ -1,7 +1,14 @@
 import NeedleFoundation
+import Service
 import SwiftUI
 
-public protocol InputUniversityDependency: Dependency {}
+public protocol InputUniversityDependency: Dependency {
+    var createdUniversityUseCase: any CreatedUniversityUseCase { get }
+    var modifyUniversityUseCase: any ModifyUniversityUseCase { get }
+    var deleteUniversityUseCase: any DeleteUniversityUseCase { get }
+    var createdDepartmentUseCase: any CreatedDepartmentUseCase { get }
+    var deleteDepartmentUseCase: any DeleteDepartmentUseCase { get }
+}
 
 public final class InputUniversityComponent: Component<InputUniversityDependency>, InputUniversityFactory {
     public func makeView(
@@ -15,7 +22,12 @@ public final class InputUniversityComponent: Component<InputUniversityDependency
                 state: state,
                 universityName: universityName,
                 departmentList: departmentList,
-                universityID: universityID
+                universityID: universityID,
+                createdUniversityUseCase: dependency.createdUniversityUseCase,
+                modifyUniversityUseCase: dependency.modifyUniversityUseCase,
+                deleteUniversityUseCase: dependency.deleteUniversityUseCase,
+                createdDepartmentUseCase: dependency.createdDepartmentUseCase,
+                deleteDepartmentUseCase: dependency.deleteDepartmentUseCase
             )
         )
     }
