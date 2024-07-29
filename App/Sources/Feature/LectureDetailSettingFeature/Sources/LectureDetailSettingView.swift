@@ -188,7 +188,7 @@ struct LectureDetailSettingView: View {
             }
         }
         .bitgouelBottomSheet(isShowing: $viewModel.isShowingLineBottomSheet) {
-            LineBottomSheet(
+            LectureLineBottomSheet(
                 selectedLine: viewModel.selectedLine,
                 keyword: $viewModel.keyword,
                 lineList: viewModel.lineList
