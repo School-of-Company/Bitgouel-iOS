@@ -15,11 +15,11 @@ public struct SchoolRepositoryImpl: SchoolRepository {
         try await remoteSchoolDataSource.fetchAllSchoolName()
     }
 
-    public func createdSchool(req: CreatedSchoolRequestDTO) async throws {
+    public func createdSchool(req: InputSchoolInfoRequestDTO) async throws {
         try await remoteSchoolDataSource.createdSchool(req: req)
     }
 
-    public func modifySchool(schoolID: Int, req: ModifySchoolRequestDTO) async throws {
+    public func modifySchool(schoolID: Int, req: InputSchoolInfoRequestDTO) async throws {
         try await remoteSchoolDataSource.modifySchool(schoolID: schoolID, req: req)
     }
 

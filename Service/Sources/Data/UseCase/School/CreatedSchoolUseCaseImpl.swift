@@ -7,7 +7,7 @@ public struct CreatedSchoolUseCaseImpl: CreatedSchoolUseCase {
         self.schoolRepository = schoolRepository
     }
 
-    public func callAsFunction(req: CreatedSchoolRequestDTO) async throws {
+    public func callAsFunction(req: InputSchoolInfoRequestDTO) async throws {
         try await schoolRepository.createdSchool(req: req)
     }
 }
