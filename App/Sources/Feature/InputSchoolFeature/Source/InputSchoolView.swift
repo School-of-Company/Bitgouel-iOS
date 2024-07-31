@@ -85,6 +85,8 @@ struct InputSchoolView: View {
                     }
                 }
             }
+
+            Spacer(minLength: 50)
         }
         .overlay(alignment: .bottom) {
             renderFormButton()
@@ -131,6 +133,10 @@ struct InputSchoolView: View {
                     }
                 )
             ]
+        )
+        .bitgouelToast(
+            text: viewModel.errorMessage,
+            isShowing: $viewModel.isErrorOccurred
         )
     }
     
