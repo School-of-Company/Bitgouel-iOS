@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct CreatedClubSuccessView: View {
+struct CreatedSchoolSuccessView: View {
     let dismiss: () -> Void
 
     var body: some View {

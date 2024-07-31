@@ -13,16 +13,27 @@ final class InputSchoolViewModel: BaseViewModel {
     @Published var image: Image?
     @Published var schoolName: String = ""
     @Published var selectedLine: LineType?
+    @Published var logoImageURL: String?
     @Published var departmentList: [String] = []
     let state: String
     let schoolInfo: SchoolDetailInfoModel
 
+    private let createdSchoolUseCase: any CreatedSchoolUseCase
+    private let modifySchoolUseCase: any ModifySchoolUseCase
+    private let deleteSchoolUseCase: any DeleteSchoolUseCase
+
     init(
         state: String,
-        schoolInfo: SchoolDetailInfoModel
+        schoolInfo: SchoolDetailInfoModel,
+        createdSchoolUseCase: any CreatedSchoolUseCase,
+        modifySchoolUseCase: any ModifySchoolUseCase,
+        deleteSchoolUseCase: any DeleteSchoolUseCase
     ) {
         self.state = state
         self.schoolInfo = schoolInfo
+        self.createdSchoolUseCase = createdSchoolUseCase
+        self.modifySchoolUseCase = modifySchoolUseCase
+        self.deleteSchoolUseCase = deleteSchoolUseCase
     }
 
     func loadImage() {
@@ -66,12 +77,30 @@ final class InputSchoolViewModel: BaseViewModel {
         schoolName = schoolInfo.name
         selectedLine = schoolInfo.line
         departmentList = schoolInfo.departmentList
+        logoImageURL = schoolInfo.logoImageURL
     }
 
     @MainActor
     func createdSchool(_ success: @escaping () -> Void) {
-        #warning("학교 생성 기능 추가")
-        success()
+        guard let line = selectedLine else { return }
+
+        Task {
+            do {
+                try await createdSchoolUseCase(
+                    logoImage: selectedUIImage?.jpegData(compressionQuality: 0.2) ?? .init(),
+                    req: InputSchoolInfoRequestDTO(
+                        schoolName: schoolName,
+                        line: line.rawValue,
+                        departments: departmentList
+                    )
+                )
+
+                success()
+            } catch {
+                errorMessage = error.schoolDomainErrorMessage()
+                isErrorOccurred = true
+            }
+        }
     }
 
     @MainActor
