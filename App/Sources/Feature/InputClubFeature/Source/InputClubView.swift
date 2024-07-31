@@ -2,10 +2,12 @@ import SwiftUI
 
 struct InputClubView: View {
     @StateObject var viewModel: InputClubViewModel
+    @Environment(\.dismiss) var dismiss
 
     init(viewModel: InputClubViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
+
     var body: some View {
         InputDataView(
             epic: "동아리",
@@ -13,7 +15,9 @@ struct InputClubView: View {
             selectedField: $viewModel.selectedField,
             name: $viewModel.clubName
         ) {
-            print("등록")
+            viewModel.createdClub {
+                dismiss()
+            }
         } deleteButtonAction: {
             print("삭제")
         } editButtonAction: {
@@ -24,5 +28,9 @@ struct InputClubView: View {
                 viewModel.onAppear()
             }
         }
+        .bitgouelToast(
+            text: viewModel.errorMessage,
+            isShowing: $viewModel.isErrorOccurred
+        )
     }
 }

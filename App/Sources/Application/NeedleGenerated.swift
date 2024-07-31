@@ -18,15 +18,17 @@ private func parent1(_ component: NeedleFoundation.Scope) -> NeedleFoundation.Sc
 #if !NEEDLE_DYNAMIC
 
 private class InputClubDependency37025687d81052f20c76Provider: InputClubDependency {
-
-
-    init() {
-
+    var createdClubUseCase: any CreatedClubUseCase {
+        return appComponent.createdClubUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->InputClubComponent
-private func factory867dc6ccc256578f76bbe3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return InputClubDependency37025687d81052f20c76Provider()
+private func factory867dc6ccc256578f76bbf47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return InputClubDependency37025687d81052f20c76Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class InputPostDependency2bb888f6c56a6060d23fProvider: InputPostDependency {
     var postDetailSettingFactory: any PostDetailSettingFactory {
@@ -997,7 +999,7 @@ private func factory3fc1a279eeb8c906e603f47b58f8f304c97af4d5(_ component: Needle
 #else
 extension InputClubComponent: Registration {
     public func registerItems() {
-
+        keyPathToName[\InputClubDependency.createdClubUseCase] = "createdClubUseCase-any CreatedClubUseCase"
     }
 }
 extension InputPostComponent: Registration {
@@ -1539,7 +1541,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
 #if !NEEDLE_DYNAMIC
 
 @inline(never) private func register1() {
-    registerProviderFactory("^->AppComponent->InputClubComponent", factory867dc6ccc256578f76bbe3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->InputClubComponent", factory867dc6ccc256578f76bbf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputPostComponent", factoryfd208488fdd5cb4acc65f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputCertificationComponent", factory2810b45b31199a5f0c2af47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ClubListComponent", factory050817f1b6d356b83467f47b58f8f304c97af4d5)
