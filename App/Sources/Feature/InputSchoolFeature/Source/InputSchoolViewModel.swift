@@ -62,6 +62,7 @@ final class InputSchoolViewModel: BaseViewModel {
     func updateIsPresentedInputClubView(isPresented: Bool, state: String, clubInfo: ClubDetailModel) {
         isPresentedInputClubView = isPresented
         clubViewState = state
+        selectedClubInfo = clubInfo
     }
 
     func updateSelectedLine(line: LineType) {

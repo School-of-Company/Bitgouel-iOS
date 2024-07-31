@@ -95,7 +95,7 @@ struct InputSchoolView: View {
                 if viewModel.state == "수정" {
                     ClubFormView(clubList: viewModel.schoolInfo.clubList
                     ) { clubInfo in
-                        viewModel.updateIsPresentedInputClubView(isPresented: true, state: "수정", clubInfo: clubInfo)
+                        viewModel.updateIsPresentedInputClubView(isPresented: true, state: "정보 수정", clubInfo: clubInfo)
                     } addClubAction: {
                         viewModel.updateIsPresentedInputClubView(isPresented: true, state: "등록", clubInfo: .init(clubID: 0, name: "", field: nil))
                     }
