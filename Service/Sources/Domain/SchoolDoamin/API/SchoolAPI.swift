@@ -57,7 +57,12 @@ extension SchoolAPI: BitgouelAPI {
 
         case let .createdSchool(logoImage, req),
              let .modifySchool(_, logoImage, req):
-            let imageData = MultipartFormData(provider: .data(logoImage), name: "logoImage")
+            let imageData = MultipartFormData(
+                provider: .data(logoImage),
+                name: "logoImage",
+                fileName: "\(req.schoolName).jpg",
+                mimeType: "image/jpg"
+            )
             let params: [String: Any] = [
                 "name": req.schoolName,
                 "line": req.line,
