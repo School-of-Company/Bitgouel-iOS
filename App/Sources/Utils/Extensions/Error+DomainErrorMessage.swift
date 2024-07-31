@@ -89,4 +89,10 @@ extension Error {
             return universityDomainError.errorDescription ?? unknownErrorMessage
         } else { return unknownErrorMessage }
     }
+
+    func schoolDomainErrorMessage() -> String {
+        if let schoolDomainError = self as? SchoolDomainError {
+            return schoolDomainError.errorDescription ?? unknownErrorMessage
+        } else { return unknownErrorMessage }
+    }
 }
