@@ -4,8 +4,8 @@ import Moya
 public enum SchoolAPI {
     case fetchSchoolList
     case fetchAllSchoolName
-    case createdSchool(req: CreatedSchoolRequestDTO)
-    case modifySchool(schoolID: Int, req: ModifySchoolRequestDTO)
+    case createdSchool(logoImage: Data, req: InputSchoolInfoRequestDTO)
+    case modifySchool(schoolID: Int, logoImage: Data, req: InputSchoolInfoRequestDTO)
     case deleteSchool(schoolID: Int)
 }
 
@@ -25,7 +25,7 @@ extension SchoolAPI: BitgouelAPI {
         case .fetchAllSchoolName:
             return "/name"
 
-        case let .modifySchool(schoolID, _),
+        case let .modifySchool(schoolID, _, _),
              let .deleteSchool(schoolID):
             return "/\(schoolID)"
         }
@@ -55,11 +55,24 @@ extension SchoolAPI: BitgouelAPI {
              .deleteSchool:
             return .requestPlain
 
-        case let .createdSchool(req):
-            return .requestJSONEncodable(req)
+        case let .createdSchool(logoImage, req),
+             let .modifySchool(_, logoImage, req):
+            let imageData = MultipartFormData(provider: .data(logoImage), name: "logoImage")
+            let params: [String: Any] = [
+                "name": req.schoolName,
+                "line": req.line,
+                "departments": req.departments
+            ]
+            guard let jsonData = try? JSONSerialization.data(withJSONObject: params, options: []) else {
+                return .requestPlain
+            }
+            let jsonPart = MultipartFormData(
+                provider: .data(jsonData),
+                name: "webRequest",
+                mimeType: "application/json"
+            )
 
-        case let .modifySchool(_, req):
-            return .requestJSONEncodable(req)
+            return .uploadMultipart([jsonPart, imageData])
         }
     }
 

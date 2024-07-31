@@ -9,12 +9,12 @@ public final class RemoteSchoolDataSourceImpl: BaseRemoteDataSource<SchoolAPI>, 
         try await request(.fetchAllSchoolName, dto: FetchSchoolNameResponseDTO.self).toDomain()
     }
 
-    public func createdSchool(req: InputSchoolInfoRequestDTO) async throws {
-        try await request(.createdSchool(req: req))
+    public func createdSchool(logoImage: Data, req: InputSchoolInfoRequestDTO) async throws {
+        try await request(.createdSchool(logoImage: logoImage, req: req))
     }
 
-    public func modifySchool(schoolID: Int, req: InputSchoolInfoRequestDTO) async throws {
-        try await request(.modifySchool(schoolID: schoolID, req: req))
+    public func modifySchool(schoolID: Int, logoImage: Data, req: InputSchoolInfoRequestDTO) async throws {
+        try await request(.modifySchool(schoolID: schoolID, logoImage: logoImage, req: req))
     }
 
     public func deleteSchool(schoolID: Int) async throws {
