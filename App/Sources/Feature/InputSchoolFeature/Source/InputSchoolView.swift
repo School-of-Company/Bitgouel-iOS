@@ -95,7 +95,7 @@ struct InputSchoolView: View {
                 if viewModel.state == "수정" {
                     ClubFormView(clubList: viewModel.schoolInfo.clubList
                     ) { clubInfo in
-                        viewModel.updateIsPresentedInputClubView(isPresented: true, state: "정보 수정", clubInfo: clubInfo)
+                        viewModel.updateIsPresentedInputClubView(isPresented: true, state: "수정", clubInfo: clubInfo)
                     } addClubAction: {
                         viewModel.updateIsPresentedInputClubView(isPresented: true, state: "등록", clubInfo: .init(clubID: 0, name: "", field: nil))
                     }
@@ -154,10 +154,11 @@ struct InputSchoolView: View {
             text: viewModel.errorMessage,
             isShowing: $viewModel.isErrorOccurred
         )
-        .navigate(
-            to: CreatedSchoolSuccessView(),
-            when: $viewModel.isPresentedSuccessView
-        )
+        .fullScreenCover(isPresented: $viewModel.isPresentedSuccessView) {
+            CreatedSchoolSuccessView {
+                dismiss()
+            }
+        }
         .onChange(of: viewModel.image) { _ in
             viewModel.logoImageURL = nil
         }

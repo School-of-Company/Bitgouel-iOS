@@ -21,7 +21,8 @@ public final class InputSchoolComponent: Component<InputSchoolDependency>, Input
                 createdSchoolUseCase: dependency.createdSchoolUseCase,
                 modifySchoolUseCase: dependency.modifySchoolUseCase,
                 deleteSchoolUseCase: dependency.deleteSchoolUseCase
-            ), inputClubFactory: dependency.inputClubFactory
+            ), 
+            inputClubFactory: dependency.inputClubFactory
         )
     }
 }

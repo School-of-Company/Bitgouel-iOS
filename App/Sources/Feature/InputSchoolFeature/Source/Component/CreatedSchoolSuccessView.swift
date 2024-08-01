@@ -1,6 +1,9 @@
 import SwiftUI
 
 struct CreatedSchoolSuccessView: View {
+    @Environment(\.dismiss) var dismiss
+    let dismissAction: () -> Void
+
     var body: some View {
         VStack {
             BitgouelAsset.Icons.check.swiftUIImage
@@ -18,7 +21,8 @@ struct CreatedSchoolSuccessView: View {
             BitgouelButton(
                 text: "돌아가기"
             ) {
-                
+                dismiss()
+                dismissAction()
             }
             .cornerRadius(8)
             .padding(.horizontal, 28)
