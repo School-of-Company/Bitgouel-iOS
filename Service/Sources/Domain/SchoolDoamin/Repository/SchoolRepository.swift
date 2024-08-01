@@ -6,4 +6,5 @@ public protocol SchoolRepository {
     func createdSchool(logoImage: Data, req: InputSchoolInfoRequestDTO) async throws
     func modifySchool(schoolID: Int, logoImage: Data, req: InputSchoolInfoRequestDTO) async throws
     func deleteSchool(schoolID: Int) async throws
+    func fetchSchoolDetail(schoolID: Int) async throws -> SchoolListEntity
 }
