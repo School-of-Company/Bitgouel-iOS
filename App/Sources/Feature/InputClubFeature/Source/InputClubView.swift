@@ -23,7 +23,9 @@ struct InputClubView: View {
         } deleteButtonAction: {
             viewModel.updateIsShowingDeleteAlert(isShowing: true)
         } editButtonAction: {
-            print("수정")
+            viewModel.modifyClub {
+                dismiss()
+            }
         }
         .onAppear {
             if viewModel.state == "수정" {

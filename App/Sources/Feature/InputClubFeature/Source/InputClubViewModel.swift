@@ -46,7 +46,7 @@ final class InputClubViewModel: BaseViewModel {
             do {
                 try await createdClubUseCase(
                     schoolID: schoolID,
-                    req: CreatedClubRequestDTO(
+                    req: InputClubRequestDTO(
                         name: clubName,
                         field: field
                     )
@@ -66,6 +66,28 @@ final class InputClubViewModel: BaseViewModel {
         Task {
             do {
                 try await deleteClubUseCase(clubID: clubInfo.clubID)
+
+                success()
+            } catch {
+                errorMessage = error.clubDomainErrorMessage()
+                isErrorOccurred = true
+            }
+        }
+    }
+
+    @MainActor
+    func modifyClub(_ success: @escaping () -> Void) {
+        guard let field = selectedField else { return }
+
+        Task {
+            do {
+                try await modifyClubUseCase(
+                    clubID: clubInfo.clubID,
+                    req: InputClubRequestDTO(
+                        name: clubName,
+                        field: field
+                    )
+                )
 
                 success()
             } catch {
