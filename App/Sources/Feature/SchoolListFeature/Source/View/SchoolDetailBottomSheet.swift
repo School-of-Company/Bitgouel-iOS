@@ -60,7 +60,7 @@ public struct SchoolDetailBottomSheet: View {
                         ForEach(schoolInfo.clubList, id: \.clubID) { club in
                             clubListRow(
                                 clubName: club.name,
-                                field: club.field.display()
+                                field: club.field?.display() ?? ""
                             )
                         }
                     }
