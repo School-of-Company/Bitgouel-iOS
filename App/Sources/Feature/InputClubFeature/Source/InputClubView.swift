@@ -4,7 +4,9 @@ struct InputClubView: View {
     @StateObject var viewModel: InputClubViewModel
     @Environment(\.dismiss) var dismiss
 
-    init(viewModel: InputClubViewModel) {
+    init(
+        viewModel: InputClubViewModel
+    ) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
 
@@ -19,18 +21,41 @@ struct InputClubView: View {
                 dismiss()
             }
         } deleteButtonAction: {
-            print("삭제")
+            viewModel.updateIsShowingDeleteAlert(isShowing: true)
         } editButtonAction: {
             print("수정")
         }
         .onAppear {
-            if viewModel.state == "정보 수정" {
+            if viewModel.state == "수정" {
                 viewModel.onAppear()
             }
         }
         .bitgouelToast(
             text: viewModel.errorMessage,
             isShowing: $viewModel.isErrorOccurred
+        )
+        .bitgouelAlert(
+            title: "동아리를 삭제하시겠습니까?",
+            description: "",
+            isShowing: $viewModel.isShowingDeleteAlert,
+            alertActions: [
+                .init(
+                    text: "취소",
+                    style: .cancel,
+                    action: {
+                        viewModel.updateIsShowingDeleteAlert(isShowing: false)
+                    }
+                ),
+                .init(
+                    text: "삭제",
+                    style: .error,
+                    action: {
+                        viewModel.deleteClub {
+                            dismiss()
+                        }
+                    }
+                )
+            ]
         )
     }
 }

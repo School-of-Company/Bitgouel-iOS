@@ -21,6 +21,12 @@ private class InputClubDependency37025687d81052f20c76Provider: InputClubDependen
     var createdClubUseCase: any CreatedClubUseCase {
         return appComponent.createdClubUseCase
     }
+    var deleteClubUseCase: any DeleteClubUseCase {
+        return appComponent.deleteClubUseCase
+    }
+    var modifyClubUseCase: any ModifyClubUseCase {
+        return appComponent.modifyClubUseCase
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -1000,6 +1006,8 @@ private func factory3fc1a279eeb8c906e603f47b58f8f304c97af4d5(_ component: Needle
 extension InputClubComponent: Registration {
     public func registerItems() {
         keyPathToName[\InputClubDependency.createdClubUseCase] = "createdClubUseCase-any CreatedClubUseCase"
+        keyPathToName[\InputClubDependency.deleteClubUseCase] = "deleteClubUseCase-any DeleteClubUseCase"
+        keyPathToName[\InputClubDependency.modifyClubUseCase] = "modifyClubUseCase-any ModifyClubUseCase"
     }
 }
 extension InputPostComponent: Registration {
