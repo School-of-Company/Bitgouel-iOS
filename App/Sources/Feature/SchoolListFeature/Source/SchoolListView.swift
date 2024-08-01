@@ -58,6 +58,7 @@ struct SchoolListView: View {
                 text: "새로운 학교 등록",
                 buttonType: .add
             ) {
+                viewModel.updateIsShowingSchoolDetailBottomSheet(isShowing: false)
                 viewModel.updateIsPresentedInputSchoolInfoView(isPresented: true, state: "등록")
             }
         }
@@ -82,6 +83,7 @@ struct SchoolListView: View {
             SchoolDetailBottomSheet(
                 schoolInfo: viewModel.schoolInfo
             ) {
+                viewModel.updateIsShowingSchoolDetailBottomSheet(isShowing: false)
                 viewModel.updateIsPresentedInputSchoolInfoView(isPresented: true, state: "수정")
             } cancel: { cancel in
                 viewModel.updateIsShowingSchoolDetailBottomSheet(isShowing: cancel)
@@ -98,7 +100,10 @@ struct SchoolListView: View {
             }
         }
         .navigate(
-            to: inputSchoolFactory.makeView(state: viewModel.state, schoolInfo: viewModel.schoolInfo).eraseToAnyView(),
+            to: inputSchoolFactory.makeView(
+                state: viewModel.state,
+                schoolInfo: viewModel.schoolInfo
+            ).eraseToAnyView(),
             when: $viewModel.isPresentedInputSchoolInfoView
         )
     }

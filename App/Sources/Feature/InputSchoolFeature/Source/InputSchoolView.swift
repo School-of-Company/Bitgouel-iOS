@@ -138,7 +138,6 @@ struct InputSchoolView: View {
                     action: {
                         viewModel.deleteSchool {
                             viewModel.updateIsShowingDeleteAlert(isShowing: false)
-                            viewModel.updateIsShowingLineBottomSheet(isShowing: false)
                             dismiss()
                         }
                     }
@@ -150,7 +149,7 @@ struct InputSchoolView: View {
             isShowing: $viewModel.isErrorOccurred
         )
         .navigate(
-            to: CreatedSchoolSuccessView { dismiss() },
+            to: CreatedSchoolSuccessView(),
             when: $viewModel.isPresentedSuccessView
         )
         .onChange(of: viewModel.image) { _ in
@@ -183,7 +182,6 @@ struct InputSchoolView: View {
             BitgouelButton(text: "다음으로", style: .primary) {
                 viewModel.createdSchool {
                     viewModel.updateIsPresentedSuccessView(isPresented: true)
-                    viewModel.updateIsShowingLineBottomSheet(isShowing: false)
                 }
             }
         }

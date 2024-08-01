@@ -105,8 +105,16 @@ final class InputSchoolViewModel: BaseViewModel {
 
     @MainActor
     func deleteSchool(_ success: @escaping () -> Void) {
-        #warning("학교 삭제 기능 추가")
-        success()
+        Task {
+            do {
+                try await deleteSchoolUseCase(schoolID: schoolInfo.schoolID)
+                
+                success()
+            } catch {
+                errorMessage = error.schoolDomainErrorMessage()
+                isErrorOccurred = true
+            }
+        }
     }
 
     @MainActor

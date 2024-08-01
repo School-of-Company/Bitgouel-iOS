@@ -1,8 +1,6 @@
 import SwiftUI
 
 struct CreatedSchoolSuccessView: View {
-    let dismiss: () -> Void
-
     var body: some View {
         VStack {
             BitgouelAsset.Icons.check.swiftUIImage
@@ -15,14 +13,15 @@ struct CreatedSchoolSuccessView: View {
             Text("새 학교를 등록했습니다.")
                 .bitgouelFont(.text3, color: .greyscale(.g4))
 
+            Spacer()
+
             BitgouelButton(
                 text: "돌아가기"
             ) {
-                dismiss()
+                
             }
             .cornerRadius(8)
             .padding(.horizontal, 28)
-            .padding(.bottom, 46)
         }
         .navigationBarBackButtonHidden(true)
     }
