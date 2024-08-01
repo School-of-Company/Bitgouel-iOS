@@ -118,8 +118,26 @@ final class InputSchoolViewModel: BaseViewModel {
     }
 
     @MainActor
-    func modifySchool(_ success: @escaping () -> Void) {
-        #warning("학교 수정 기능 추가")
-        success()
-    }
+        func modifySchool(_ success: @escaping () -> Void) {
+            guard let line = selectedLine else { return }
+
+            Task {
+                do {
+                    try await modifySchoolUseCase(
+                        schoolID: schoolInfo.schoolID,
+                        logoImage: selectedUIImage?.jpegData(compressionQuality: 0.2) ?? .init(),
+                        req: InputSchoolInfoRequestDTO(
+                            schoolName: schoolName,
+                            line: line.rawValue,
+                            departments: departmentList
+                        )
+                    )
+
+                    success()
+                } catch {
+                    errorMessage = error.schoolDomainErrorMessage()
+                    isErrorOccurred = true
+                }
+            }
+        }
 }
