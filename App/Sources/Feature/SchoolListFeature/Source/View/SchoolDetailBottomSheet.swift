@@ -3,7 +3,7 @@ import Service
 import SwiftUI
 
 public struct SchoolDetailBottomSheet: View {
-    let schoolInfo: SchoolDetailInfoModel
+    let schoolInfo: SchoolListEntity
     let editAction: () -> Void
     let cancel: (Bool) -> Void
 
@@ -31,7 +31,7 @@ public struct SchoolDetailBottomSheet: View {
 
                     VStack(alignment: .leading, spacing: 4) {
                         BitgouelText(
-                            text: schoolInfo.name,
+                            text: schoolInfo.schoolName,
                             font: .text1
                         )
 
@@ -45,7 +45,7 @@ public struct SchoolDetailBottomSheet: View {
                     )
 
                     LazyVStack(alignment: .leading, spacing: 16) {
-                        ForEach(schoolInfo.departmentList, id: \.self) { department in
+                        ForEach(schoolInfo.departments, id: \.self) { department in
                             Text(department)
                                 .bitgouelFont(.text3, color: .greyscale(.g4))
                         }
@@ -57,9 +57,9 @@ public struct SchoolDetailBottomSheet: View {
                     )
 
                     LazyVStack(alignment: .leading, spacing: 18) {
-                        ForEach(schoolInfo.clubList, id: \.clubID) { club in
+                        ForEach(schoolInfo.clubs, id: \.clubID) { club in
                             clubListRow(
-                                clubName: club.name,
+                                clubName: club.clubName,
                                 field: club.field?.display() ?? ""
                             )
                         }
