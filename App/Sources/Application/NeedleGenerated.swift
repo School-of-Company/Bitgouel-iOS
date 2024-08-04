@@ -564,6 +564,9 @@ private class InputSchoolDependencye8d4bffe76e2533005e2Provider: InputSchoolDepe
     var deleteSchoolUseCase: any DeleteSchoolUseCase {
         return appComponent.deleteSchoolUseCase
     }
+    var fetchSchoolDetailUseCase: any FetchSchoolDetailUseCase {
+        return appComponent.fetchSchoolDetailUseCase
+    }
     var inputClubFactory: any InputClubFactory {
         return appComponent.inputClubFactory
     }
@@ -763,6 +766,9 @@ private func factorydd7e28250a180554c7a0f47b58f8f304c97af4d5(_ component: Needle
 private class SchoolListDependency96b276c3342c1aca3550Provider: SchoolListDependency {
     var fetchSchoolListUseCase: any FetchSchoolListUseCase {
         return appComponent.fetchSchoolListUseCase
+    }
+    var fetchSchoolDetailUseCase: any FetchSchoolDetailUseCase {
+        return appComponent.fetchSchoolDetailUseCase
     }
     var inputSchoolFactory: any InputSchoolFactory {
         return appComponent.inputSchoolFactory
@@ -1205,6 +1211,7 @@ extension InputSchoolComponent: Registration {
         keyPathToName[\InputSchoolDependency.createdSchoolUseCase] = "createdSchoolUseCase-any CreatedSchoolUseCase"
         keyPathToName[\InputSchoolDependency.modifySchoolUseCase] = "modifySchoolUseCase-any ModifySchoolUseCase"
         keyPathToName[\InputSchoolDependency.deleteSchoolUseCase] = "deleteSchoolUseCase-any DeleteSchoolUseCase"
+        keyPathToName[\InputSchoolDependency.fetchSchoolDetailUseCase] = "fetchSchoolDetailUseCase-any FetchSchoolDetailUseCase"
         keyPathToName[\InputSchoolDependency.inputClubFactory] = "inputClubFactory-any InputClubFactory"
     }
 }
@@ -1279,6 +1286,7 @@ extension InquiryListComponent: Registration {
 extension SchoolListComponent: Registration {
     public func registerItems() {
         keyPathToName[\SchoolListDependency.fetchSchoolListUseCase] = "fetchSchoolListUseCase-any FetchSchoolListUseCase"
+        keyPathToName[\SchoolListDependency.fetchSchoolDetailUseCase] = "fetchSchoolDetailUseCase-any FetchSchoolDetailUseCase"
         keyPathToName[\SchoolListDependency.inputSchoolFactory] = "inputSchoolFactory-any InputSchoolFactory"
     }
 }
@@ -1516,6 +1524,7 @@ extension AppComponent: Registration {
         localTable["createdSchoolUseCase-any CreatedSchoolUseCase"] = { [unowned self] in self.createdSchoolUseCase as Any }
         localTable["modifySchoolUseCase-any ModifySchoolUseCase"] = { [unowned self] in self.modifySchoolUseCase as Any }
         localTable["deleteSchoolUseCase-any DeleteSchoolUseCase"] = { [unowned self] in self.deleteSchoolUseCase as Any }
+        localTable["fetchSchoolDetailUseCase-any FetchSchoolDetailUseCase"] = { [unowned self] in self.fetchSchoolDetailUseCase as Any }
         localTable["remoteEmailDataSource-any RemoteEmailDataSource"] = { [unowned self] in self.remoteEmailDataSource as Any }
         localTable["emailRepository-any EmailRepository"] = { [unowned self] in self.emailRepository as Any }
         localTable["sendEmailCertificationLinkUseCase-any SendEmailCertificationLinkUseCase"] = { [unowned self] in self.sendEmailCertificationLinkUseCase as Any }

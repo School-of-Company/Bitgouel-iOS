@@ -15,24 +15,28 @@ final class InputSchoolViewModel: BaseViewModel {
     @Published var selectedLine: LineType?
     @Published var logoImageURL: String?
     @Published var departmentList: [String] = []
+    @Published var clubList: [SchoolWithClubsEntity] = []
     var clubViewState: String = ""
-    var selectedClubInfo: ClubDetailModel?
+    var selectedClubInfo: SchoolWithClubsEntity?
     let state: String
-    let schoolInfo: SchoolDetailInfoModel
+    let schoolID: Int
 
+    private let fetchSchoolDetailUseCase: any FetchSchoolDetailUseCase
     private let createdSchoolUseCase: any CreatedSchoolUseCase
     private let modifySchoolUseCase: any ModifySchoolUseCase
     private let deleteSchoolUseCase: any DeleteSchoolUseCase
 
     init(
         state: String,
-        schoolInfo: SchoolDetailInfoModel,
+        schoolID: Int,
+        fetchSchoolDetailUseCase: any FetchSchoolDetailUseCase,
         createdSchoolUseCase: any CreatedSchoolUseCase,
         modifySchoolUseCase: any ModifySchoolUseCase,
         deleteSchoolUseCase: any DeleteSchoolUseCase
     ) {
         self.state = state
-        self.schoolInfo = schoolInfo
+        self.schoolID = schoolID
+        self.fetchSchoolDetailUseCase = fetchSchoolDetailUseCase
         self.createdSchoolUseCase = createdSchoolUseCase
         self.modifySchoolUseCase = modifySchoolUseCase
         self.deleteSchoolUseCase = deleteSchoolUseCase
@@ -59,7 +63,7 @@ final class InputSchoolViewModel: BaseViewModel {
         isPresentedSuccessView = isPresented
     }
 
-    func updateIsPresentedInputClubView(isPresented: Bool, state: String, clubInfo: ClubDetailModel) {
+    func updateIsPresentedInputClubView(isPresented: Bool, state: String, clubInfo: SchoolWithClubsEntity) {
         isPresentedInputClubView = isPresented
         clubViewState = state
         selectedClubInfo = clubInfo
@@ -77,11 +81,24 @@ final class InputSchoolViewModel: BaseViewModel {
         departmentList.append("")
     }
 
-    func onApper() {
-        schoolName = schoolInfo.name
-        selectedLine = schoolInfo.line
-        departmentList = schoolInfo.departmentList
+    func updateSchoolInfo(schoolInfo: SchoolListEntity) {
         logoImageURL = schoolInfo.logoImageURL
+        schoolName = schoolName
+        selectedLine = schoolInfo.line
+        departmentList = schoolInfo.departments
+        clubList = schoolInfo.clubs
+    }
+
+    func onApper() {
+        Task {
+            do {
+                let response = try await fetchSchoolDetailUseCase(schoolID: schoolID)
+
+                updateSchoolInfo(schoolInfo: response)
+            } catch {
+                print(error)
+            }
+        }
     }
 
     @MainActor
@@ -111,7 +128,7 @@ final class InputSchoolViewModel: BaseViewModel {
     func deleteSchool(_ success: @escaping () -> Void) {
         Task {
             do {
-                try await deleteSchoolUseCase(schoolID: schoolInfo.schoolID)
+                try await deleteSchoolUseCase(schoolID: schoolID)
                 
                 success()
             } catch {
@@ -128,7 +145,7 @@ final class InputSchoolViewModel: BaseViewModel {
         Task {
             do {
                 try await modifySchoolUseCase(
-                    schoolID: schoolInfo.schoolID,
+                    schoolID: schoolID,
                     logoImage: selectedUIImage?.jpegData(compressionQuality: 0.2) ?? .init(),
                     req: InputSchoolInfoRequestDTO(
                         schoolName: schoolName,

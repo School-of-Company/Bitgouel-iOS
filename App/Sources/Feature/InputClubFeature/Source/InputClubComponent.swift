@@ -12,7 +12,7 @@ public final class InputClubComponent: Component<InputClubDependency>, InputClub
     public func makeView(
         schoolID: Int,
         state: String,
-        clubInfo: ClubDetailModel
+        clubInfo: SchoolWithClubsEntity
     ) -> some View {
         InputClubView(
             viewModel: .init(

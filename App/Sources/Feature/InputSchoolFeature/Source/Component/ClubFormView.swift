@@ -1,8 +1,9 @@
 import SwiftUI
+import Service
 
 struct ClubFormView: View {
-    let clubList: [ClubDetailModel]
-    let editAction: (ClubDetailModel) -> Void
+    let clubList: [SchoolWithClubsEntity]
+    let editAction: (SchoolWithClubsEntity) -> Void
     let addClubAction: () -> Void
 
     var body: some View {
@@ -42,12 +43,12 @@ struct ClubFormView: View {
 
     @ViewBuilder
     func clubListRow(
-        clubInfo: ClubDetailModel
+        clubInfo: SchoolWithClubsEntity
     ) -> some View {
         HStack {
             HStack {
                 BitgouelText(
-                    text: clubInfo.name,
+                    text: clubInfo.clubName,
                     font: .text3
                 )
                 .padding(.horizontal, 20)
