@@ -16,7 +16,14 @@ let dependencies = Dependencies(
             .remote(
                 url: "https://github.com/kean/NukeUI.git",
                 requirement: .upToNextMajor(from: "0.8.3")
+            ),
+            .remote(
+                url: "https://github.com/kakao-mapsSDK/KakaoMapsSDK-SPM.git",
+                requirement: .upToNextMinor(from: "2.10.5")
             )
+        ],
+        productTypes: [
+            "KakaoMapsSDK-SPM": .staticLibrary
         ],
         baseSettings: .settings(
             configurations: [
