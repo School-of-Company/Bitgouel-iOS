@@ -51,25 +51,25 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     @Published var detailInfo: LectureDataModel
     let completion: (LectureDataModel) -> Void
 
-    private let fetchInstructorListUseCase: any FetchInstructorListUseCase
-    private let fetchLineListUseCase: any FetchLineListUseCase
-    private let fetchDepartmentListUseCase: any FetchDepartmentListUseCase
-    private let fetchDivisionListUseCase: any FetchDivisionListUseCase
+    private let searchInstructorUseCase: any SearchInstructorUseCase
+    private let searchLineUseCase: any SearchLineUseCase
+    private let searchDepartmentUseCase: any SearchDepartmentUseCase
+    private let searchDivisionUseCase: any SearchDivisionUseCase
 
     init(
         detailInfo: LectureDataModel,
         completion: @escaping (LectureDataModel) -> Void,
-        fetchInstructorListUseCase: any FetchInstructorListUseCase,
-        fetchLineListUseCase: any FetchLineListUseCase,
-        fetchDepartmentListUseCase: any FetchDepartmentListUseCase,
-        fetchDivisionListUseCase: any FetchDivisionListUseCase
+        searchInstructorUseCase: any SearchInstructorUseCase,
+        searchLineUseCase: any SearchLineUseCase,
+        searchDepartmentUseCase: any SearchDepartmentUseCase,
+        searchDivisionUseCase: any SearchDivisionUseCase
     ) {
         self.detailInfo = detailInfo
         self.completion = completion
-        self.fetchInstructorListUseCase = fetchInstructorListUseCase
-        self.fetchLineListUseCase = fetchLineListUseCase
-        self.fetchDepartmentListUseCase = fetchDepartmentListUseCase
-        self.fetchDivisionListUseCase = fetchDivisionListUseCase
+        self.searchInstructorUseCase = searchInstructorUseCase
+        self.searchLineUseCase = searchLineUseCase
+        self.searchDepartmentUseCase = searchDepartmentUseCase
+        self.searchDivisionUseCase = searchDivisionUseCase
     }
 
     func updateIsEssential(isEssential: Bool) {
@@ -261,10 +261,10 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     }
 
     @MainActor
-    func fetchLineList() {
+    func searchLine() {
         Task {
             do {
-                lineList = try await fetchLineListUseCase(keyword: keyword, division: selectedDivision)
+                lineList = try await searchLineUseCase(keyword: keyword, division: selectedDivision)
             } catch {
                 print(error.localizedDescription)
             }
@@ -272,10 +272,10 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     }
 
     @MainActor
-    func fetchDepartmentList() {
+    func searchDepartment() {
         Task {
             do {
-                departmentList = try await fetchDepartmentListUseCase(keyword: keyword)
+                departmentList = try await searchDepartmentUseCase(keyword: keyword)
             } catch {
                 print(error.localizedDescription)
             }
@@ -283,10 +283,10 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     }
 
     @MainActor
-    func fetchInstructorList() {
+    func searchInstructor() {
         Task {
             do {
-                instructorList = try await fetchInstructorListUseCase(keyword: keyword)
+                instructorList = try await searchInstructorUseCase(keyword: keyword)
             } catch {
                 print(error.localizedDescription)
             }
@@ -294,10 +294,10 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     }
 
     @MainActor
-    func fetchDivisionList() {
+    func searchDivision() {
         Task {
             do {
-                divisionList = try await fetchDivisionListUseCase(keyword: keyword)
+                divisionList = try await searchDivisionUseCase(keyword: keyword)
             } catch {
                 print(error.localizedDescription)
             }

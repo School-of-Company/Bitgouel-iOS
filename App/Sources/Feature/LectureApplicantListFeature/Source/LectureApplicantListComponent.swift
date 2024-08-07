@@ -4,7 +4,7 @@ import SwiftUI
 
 public protocol LectureApplicantListDependency: Dependency {
     var fetchApplicantListUseCase: any FetchApplicantListUseCase { get }
-    var modifyApplicantWhetherUseCase: any ModifyApplicantWhetherUseCase { get }
+    var setLectureCompletionUseCase: any SetLectureCompletionUseCase { get }
 }
 
 public final class LectureApplicantListComponent: Component<LectureApplicantListDependency>,
@@ -14,7 +14,7 @@ public final class LectureApplicantListComponent: Component<LectureApplicantList
             viewModel: LectureApplicantListViewModel(
                 lectureID: lectureID,
                 fetchApplicantListUseCase: dependency.fetchApplicantListUseCase,
-                modifyApplicantWhetherUseCase: dependency.modifyApplicantWhetherUseCase
+                setLectureCompletionUseCase: dependency.setLectureCompletionUseCase
             )
         )
     }

@@ -1,46 +1,60 @@
 import SwiftUI
+import Service
 
 struct LectureApplicantListRow: View {
-    let studentID: String
-    let name: String
-    let grade: Int
-    let classNumber: Int
-    let number: Int
-    let schoolName: String
-    let clubName: String
-    @State var isComplete: Bool
-    let onSelectedStudent: (Bool, String) -> Void
+    let studentInfo: ApplicantInfoEntity
+    @Binding var state: LectureApplicantListPageState
+    @Binding var isSelected: Bool
 
     var body: some View {
-        HStack(alignment: .top, spacing: 24) {
-            CheckButton(
-                isSelected: Binding(
-                    get: { isComplete },
-                    set: { isSelected in
-                        if isSelected {
-                            isComplete = isSelected
-                            onSelectedStudent(isSelected, studentID)
-                        } else {
-                            isComplete = isSelected
-                            onSelectedStudent(isSelected, studentID)
-                        }
-                    }
-                )
-            )
+        HStack(alignment: .center, spacing: 16) {
+            completionStatusCheckButton()
 
-            VStack(alignment: .leading, spacing: 8) {
-                BitgouelText(
-                    text: "\(grade)학년 \(classNumber)반 \(number)번 \(name)",
-                    font: .text1
-                )
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(spacing: 4) {
+                    BitgouelText(
+                        text: studentInfo.name,
+                        font: .text1
+                    )
 
-                Group {
-                    Text(schoolName)
-
-                    Text(clubName)
+                    completionStatusText()
                 }
-                .bitgouelFont(.caption, color: .greyscale(.g7))
+
+                HStack(spacing: 4) {
+                    Text(studentInfo.school)
+
+                    Text("\(studentInfo.grade)학년 \(studentInfo.classNumber)반 \(studentInfo.number)번")
+                }
+                .bitgouelFont(.caption, color: .greyscale(.g4))
+
+                Text(studentInfo.clubName)
+                    .bitgouelFont(.caption, color: .greyscale(.g7))
             }
+        }
+    }
+
+    @ViewBuilder
+    func completionStatusCheckButton() -> some View {
+        switch state {
+        case .general:
+            EmptyView()
+
+        case .check:
+            CheckButton(isSelected: $isSelected)
+        }
+    }
+
+    @ViewBuilder
+    func completionStatusText() -> some View {
+        switch state {
+        case .general:
+            if studentInfo.isComplete {
+                Text("이수완료")
+                    .bitgouelFont(.caption, color: .primary(.p5))
+            }
+
+        case .check:
+            EmptyView()
         }
     }
 }

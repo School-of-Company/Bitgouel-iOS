@@ -5,7 +5,7 @@ import SwiftUI
 public protocol LectureListDetailDependency: Dependency {
     var fetchLectureDetailUseCase: any FetchLectureDetailUseCase { get }
     var applyLectureUseCase: any ApplyLectureUseCase { get }
-    var cancelLectureUseCase: any CancelLectureUseCase { get }
+    var cancelLectureApplicationUseCase: any CancelLectureApplicationUseCase { get }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase { get }
     var lectureApplicantListFactory: any LectureApplicantListFactory { get }
     var deleteLectureUseCase: any DeleteLectureUseCase { get }
@@ -20,7 +20,7 @@ public final class LectureListDetailComponent: Component<LectureListDetailDepend
                 lectureID: lectureID,
                 fetchLectureDetailUseCase: dependency.fetchLectureDetailUseCase,
                 applyLectureUseCase: dependency.applyLectureUseCase,
-                cancelLectureUseCase: dependency.cancelLectureUseCase,
+                cancelLectureApplicationUseCase: dependency.cancelLectureApplicationUseCase,
                 loadUserAuthorityUseCase: dependency.loadUserAuthorityUseCase,
                 deleteLectureUseCase: dependency.deleteLectureUseCase
             ),

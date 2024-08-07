@@ -1,6 +1,6 @@
 import Foundation
 
-public struct FetchDepartmentListUseCaseImpl: FetchDepartmentListUseCase {
+public struct SearchDepartmentUseCaseImpl: SearchDepartmentUseCase {
     private let lectureRepository: any LectureRepository
 
     public init(lectureRepository: any LectureRepository) {
@@ -8,6 +8,6 @@ public struct FetchDepartmentListUseCaseImpl: FetchDepartmentListUseCase {
     }
 
     public func callAsFunction(keyword: String) async throws -> [String] {
-        try await lectureRepository.fetchDepartmentList(keyword: keyword)
+        try await lectureRepository.searchDepartment(keyword: keyword)
     }
 }

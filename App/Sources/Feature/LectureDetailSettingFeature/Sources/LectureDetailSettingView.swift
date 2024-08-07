@@ -134,33 +134,33 @@ struct LectureDetailSettingView: View {
         .padding(.horizontal, 28)
         .onChange(of: viewModel.isShowingLineBottomSheet) { newValue in
             if newValue {
-                viewModel.fetchLineList()
+                viewModel.searchLine()
             }
         }
         .onChange(of: viewModel.isShowingDepartmentBottomSheet) { newValue in
             if newValue {
-                viewModel.fetchDepartmentList()
+                viewModel.searchDepartment()
             }
         }
         .onChange(of: viewModel.isShowingInstructorBottomSheet) { newValue in
             if newValue {
-                viewModel.fetchInstructorList()
+                viewModel.searchInstructor()
             }
         }
         .onChange(of: viewModel.isShowingDivisionBottomSheet) { newValue in
             if newValue {
-                viewModel.fetchDivisionList()
+                viewModel.searchDivision()
             }
         }
         .onChange(of: viewModel.keyword) { newValue in
             if viewModel.isShowingLineBottomSheet {
-                viewModel.fetchLineList()
+                viewModel.searchLine()
             } else if viewModel.isShowingDepartmentBottomSheet {
-                viewModel.fetchDepartmentList()
+                viewModel.searchDepartment()
             } else if viewModel.isShowingInstructorBottomSheet {
-                viewModel.fetchInstructorList()
+                viewModel.searchInstructor()
             } else if viewModel.isShowingDivisionBottomSheet {
-                viewModel.fetchDivisionList()
+                viewModel.searchDivision()
             }
         }
         .bitgouelBottomSheet(isShowing: $viewModel.isShowingSemesterBottomSheet) {

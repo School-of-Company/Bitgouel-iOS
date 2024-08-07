@@ -9,26 +9,17 @@ struct LectureApplicantListView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text("강의 이수 여부")
-                .bitgouelFont(.text3, color: .greyscale(.g4))
-                .padding(.top, 8)
-
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 12) {
                     ForEach(viewModel.applicantList, id: \.studentID) { student in
                         LectureApplicantListRow(
-                            studentID: student.studentID,
-                            name: student.name,
-                            grade: student.grade,
-                            classNumber: student.classNumber,
-                            number: student.number,
-                            schoolName: student.school,
-                            clubName: student.clubName,
-                            isComplete: student.isComplete
-                        ) { isSelected, studentID in
-                            viewModel.updateApplicantInfo(isSelected: isSelected, studentID: studentID)
-                            viewModel.modifyApplicantWhether()
-                        }
+                            studentInfo: student,
+                            state: $viewModel.state,
+                            isSelected: Binding(
+                                get: { student.isComplete },
+                                set: { isComplete in } 
+                            )
+                        )
 
                         Divider()
                     }

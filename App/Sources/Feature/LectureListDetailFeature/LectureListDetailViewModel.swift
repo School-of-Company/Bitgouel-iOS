@@ -14,7 +14,7 @@ final class LectureListDetailViewModel: BaseViewModel {
     let lectureID: String
     private let fetchLectureDetailUseCase: any FetchLectureDetailUseCase
     private let applyLectureUseCase: any ApplyLectureUseCase
-    private let cancelLectureUseCase: any CancelLectureUseCase
+    private let cancelLectureApplicationUseCase: any CancelLectureApplicationUseCase
     private let loadUserAuthorityUseCase: any LoadUserAuthorityUseCase
     private let deleteLectureUseCase: any DeleteLectureUseCase
 
@@ -22,14 +22,14 @@ final class LectureListDetailViewModel: BaseViewModel {
         lectureID: String,
         fetchLectureDetailUseCase: any FetchLectureDetailUseCase,
         applyLectureUseCase: any ApplyLectureUseCase,
-        cancelLectureUseCase: any CancelLectureUseCase,
+        cancelLectureApplicationUseCase: any CancelLectureApplicationUseCase,
         loadUserAuthorityUseCase: any LoadUserAuthorityUseCase,
         deleteLectureUseCase: any DeleteLectureUseCase
     ) {
         self.lectureID = lectureID
         self.fetchLectureDetailUseCase = fetchLectureDetailUseCase
         self.applyLectureUseCase = applyLectureUseCase
-        self.cancelLectureUseCase = cancelLectureUseCase
+        self.cancelLectureApplicationUseCase = cancelLectureApplicationUseCase
         self.loadUserAuthorityUseCase = loadUserAuthorityUseCase
         self.deleteLectureUseCase = deleteLectureUseCase
     }
@@ -82,7 +82,7 @@ final class LectureListDetailViewModel: BaseViewModel {
     func cancelLecture() {
         Task {
             do {
-                try await cancelLectureUseCase(lectureID: lectureID)
+                try await cancelLectureApplicationUseCase(lectureID: lectureID)
             } catch {
                 errorMessage = error.lectureDomainErrorMessage()
 

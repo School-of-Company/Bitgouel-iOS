@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol FetchLineListUseCase {
+public protocol SearchLineUseCase {
     func callAsFunction(keyword: String, division: String) async throws -> [String]
 }

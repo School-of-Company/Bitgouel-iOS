@@ -6,14 +6,14 @@ public enum LectureAPI {
     case fetchLectureList(type: String)
     case fetchLectureDetail(lectureID: String)
     case applyLecture(lectureID: String)
-    case cancelLecture(lectureID: String)
-    case fetchInstructorList(keyword: String)
-    case fetchLineList(keyword: String, division: String)
-    case fetchDepartmentList(keyword: String)
-    case fetchDivisionList(keyword: String)
+    case cancelLectureApplication(lectureID: String)
+    case searchInstructor(keyword: String)
+    case searchLine(keyword: String, division: String)
+    case searchDepartment(keyword: String)
+    case searchDivision(keyword: String)
     case fetchAppliedLectureList(studentID: String)
     case fetchApplicantList(lectureID: String)
-    case modifyApplicantWhether(lectureID: String, studentID: String, isComplete: Bool)
+    case setLectureCompletion(lectureID: String, students: [String])
     case deleteLecture(lectureID: String)
     case modifyLecture(lectureID: String, req: InputLectureRequestDTO)
 }
@@ -33,20 +33,20 @@ extension LectureAPI: BitgouelAPI {
 
         case let .fetchLectureDetail(lectureID),
              let .applyLecture(lectureID),
-             let .cancelLecture(lectureID),
+             let .cancelLectureApplication(lectureID),
              let .modifyLecture(lectureID, _):
             return "/\(lectureID)"
 
-        case .fetchInstructorList:
+        case .searchInstructor:
             return "/instructor"
 
-        case .fetchLineList:
+        case .searchLine:
             return "/line"
 
-        case .fetchDepartmentList:
+        case .searchDepartment:
             return "/department"
 
-        case .fetchDivisionList:
+        case .searchDivision:
             return "/division"
 
         case let .fetchAppliedLectureList(studentID):
@@ -55,8 +55,8 @@ extension LectureAPI: BitgouelAPI {
         case let .fetchApplicantList(lectureID):
             return "/student/\(lectureID)"
 
-        case let .modifyApplicantWhether(lectureID, studentID, _):
-            return "/\(lectureID)/\(studentID)"
+        case let .setLectureCompletion(lectureID, _):
+            return "/\(lectureID)/complete"
 
         case let .deleteLecture(lectureID):
             return "/\(lectureID)/soft"
@@ -71,19 +71,19 @@ extension LectureAPI: BitgouelAPI {
 
         case .fetchLectureList,
              .fetchLectureDetail,
-             .fetchInstructorList,
-             .fetchLineList,
-             .fetchDepartmentList,
-             .fetchDivisionList,
+             .searchInstructor,
+             .searchLine,
+             .searchDepartment,
+             .searchDivision,
              .fetchAppliedLectureList,
              .fetchApplicantList:
             return .get
 
-        case .cancelLecture,
+        case .cancelLectureApplication,
              .deleteLecture:
             return .delete
 
-        case .modifyApplicantWhether,
+        case .setLectureCompletion,
              .modifyLecture:
             return .patch
         }
@@ -100,22 +100,22 @@ extension LectureAPI: BitgouelAPI {
                 "type": type
             ], encoding: URLEncoding.queryString)
 
-        case let .fetchInstructorList(keyword),
-             let .fetchDepartmentList(keyword),
-             let .fetchDivisionList(keyword):
+        case let .searchInstructor(keyword),
+             let .searchDepartment(keyword),
+             let .searchDivision(keyword):
             return .requestParameters(parameters: [
                 "keyword": keyword
             ], encoding: URLEncoding.queryString)
 
-        case let .fetchLineList(keyword, division):
+        case let .searchLine(keyword, division):
             return .requestParameters(parameters: [
                 "keyword": keyword,
                 "division": division
             ], encoding: URLEncoding.queryString)
 
-        case let .modifyApplicantWhether(_, _, isComplete):
+        case let .setLectureCompletion(_, students):
             return .requestParameters(parameters: [
-                "isComplete": isComplete
+                "studentIds": students
             ], encoding: URLEncoding.queryString)
 
         default:
