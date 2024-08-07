@@ -15,4 +15,5 @@ public protocol RemoteLectureDataSource: BaseRemoteDataSource<LectureAPI> {
     func setLectureCompletion(lectureID: String, students: [String]) async throws
     func deleteLecture(lectureID: String) async throws
     func modifyLecture(lectureID: String, req: InputLectureRequestDTO) async throws
+    func fetchAppliedLectureStudentDetail(lectureID: String, studentID: String) async throws -> AppliedLectureStudentDetailEntity
 }

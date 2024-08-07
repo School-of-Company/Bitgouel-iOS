@@ -97,4 +97,10 @@ public extension AppComponent {
             ModifyLectureUseCaseImpl(lectureRepository: lectureRepository)
         }
     }
+
+    var fetchAppliedLectureStudentDetailUseCase: any FetchAppliedLectureStudentDetailUseCase {
+        shared {
+            FetchAppliedLectureStudentDetailUseCaseImpl(lectureRepository: lectureRepository)
+        }
+    }
 }

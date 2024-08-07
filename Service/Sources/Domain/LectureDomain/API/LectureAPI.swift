@@ -16,6 +16,7 @@ public enum LectureAPI {
     case setLectureCompletion(lectureID: String, students: [String])
     case deleteLecture(lectureID: String)
     case modifyLecture(lectureID: String, req: InputLectureRequestDTO)
+    case fetchAppliedLectureStudentDetail(lectureID: String, studentID: String)
 }
 
 extension LectureAPI: BitgouelAPI {
@@ -60,6 +61,9 @@ extension LectureAPI: BitgouelAPI {
 
         case let .deleteLecture(lectureID):
             return "/\(lectureID)/soft"
+
+        case let .fetchAppliedLectureStudentDetail(lectureID, studentID):
+            return "/student/\(lectureID)/\(studentID)"
         }
     }
 
@@ -76,7 +80,8 @@ extension LectureAPI: BitgouelAPI {
              .searchDepartment,
              .searchDivision,
              .fetchAppliedLectureList,
-             .fetchApplicantList:
+             .fetchApplicantList,
+             .fetchAppliedLectureStudentDetail:
             return .get
 
         case .cancelLectureApplication,
