@@ -2,16 +2,13 @@ import SwiftUI
 
 struct LectureApplicantListRow: View {
     let studentID: String
-    @State var isComplete: Bool
-    let email: String
     let name: String
     let grade: Int
     let classNumber: Int
     let number: Int
-    let cohort: Int
-    let phoneNumber: String
     let schoolName: String
     let clubName: String
+    @State var isComplete: Bool
     let onSelectedStudent: (Bool, String) -> Void
 
     var body: some View {
@@ -33,13 +30,11 @@ struct LectureApplicantListRow: View {
 
             VStack(alignment: .leading, spacing: 8) {
                 BitgouelText(
-                    text: "\(grade)학년 \(classNumber)반 \(number)번 \(cohort)기 \(name)",
+                    text: "\(grade)학년 \(classNumber)반 \(number)번 \(name)",
                     font: .text1
                 )
 
                 Group {
-                    Text("\(phoneNumber.withHypen) | \(email)")
-
                     Text(schoolName)
 
                     Text(clubName)

@@ -18,16 +18,13 @@ struct LectureApplicantListView: View {
                     ForEach(viewModel.applicantList, id: \.studentID) { student in
                         LectureApplicantListRow(
                             studentID: student.studentID,
-                            isComplete: student.isComplete,
-                            email: student.email,
                             name: student.name,
                             grade: student.grade,
                             classNumber: student.classNumber,
                             number: student.number,
-                            cohort: student.cohort,
-                            phoneNumber: student.phoneNumber,
-                            schoolName: student.school.display(),
-                            clubName: student.clubName
+                            schoolName: student.school,
+                            clubName: student.clubName,
+                            isComplete: student.isComplete
                         ) { isSelected, studentID in
                             viewModel.updateApplicantInfo(isSelected: isSelected, studentID: studentID)
                             viewModel.modifyApplicantWhether()
