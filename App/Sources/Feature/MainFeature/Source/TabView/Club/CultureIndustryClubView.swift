@@ -24,15 +24,15 @@ struct CultureIndustryClubView: View {
 
                         HStack(spacing: 16) {
                             ClubsAndCompanysNameView(
-                                name: "DCT"
+                                name: "취사모"
                             )
 
                             ClubsAndCompanysNameView(
-                                name: "뉴 쿡"
+                                name: "소개팅"
                             )
 
                             ClubsAndCompanysNameView(
-                                name: "우아행"
+                                name: "금융실무"
                             )
                         }
 
@@ -42,20 +42,20 @@ struct CultureIndustryClubView: View {
 
                         HStack(spacing: 16) {
                             ClubsAndCompanysNameView(
-                                name: "금융실무"
+                                name: "DCT"
                             )
 
                             ClubsAndCompanysNameView(
-                                name: "소개팅"
+                                name: "베이커리카페 CEO"
                             )
 
                             ClubsAndCompanysNameView(
-                                name: "취사모"
+                                name: "우아행"
                             )
                         }
 
                         ClubsAndCompanysNameView(
-                            name: "베이커리 카페 CEO"
+                            name: "뉴 쿡"
                         )
 
                         Text("광주전자공업고등학교")
@@ -66,14 +66,6 @@ struct CultureIndustryClubView: View {
                             name: "“M lab” = 메이커 연구소"
                         )
                     }
-
-                    Text("금파공업고등학교")
-                        .bitgouelFont(.text1, color: .primary(.p9))
-                        .padding(.top, 24)
-
-                    ClubsAndCompanysNameView(
-                        name: "금호로80 베이커리"
-                    )
 
                     Text("송원여자상업고등학교")
                         .bitgouelFont(.text1, color: .primary(.p9))
@@ -89,6 +81,10 @@ struct CultureIndustryClubView: View {
 
                     HStack(spacing: 16) {
                         ClubsAndCompanysNameView(
+                            name: "아키로드"
+                        )
+
+                        ClubsAndCompanysNameView(
                             name: "내빵네빵"
                         )
 
@@ -97,10 +93,6 @@ struct CultureIndustryClubView: View {
                         )
                     }
 
-                    ClubsAndCompanysNameView(
-                        name: "쿠킹마스터즈"
-                    )
-
                     Text("전남공업고등학교")
                         .bitgouelFont(.text1, color: .primary(.p9))
                         .padding(.top, 24)
@@ -108,6 +100,20 @@ struct CultureIndustryClubView: View {
                     ClubsAndCompanysNameView(
                         name: "그린라이트"
                     )
+
+                    Text("전남여자상업고등학교")
+                        .bitgouelFont(.text1, color: .primary(.p9))
+                        .padding(.top, 24)
+
+                    HStack(spacing: 16) {
+                        ClubsAndCompanysNameView(
+                            name: "취업준비 AtoZ"
+                        )
+
+                        ClubsAndCompanysNameView(
+                            name: "브레인z"
+                        )
+                    }
                 }
                 Spacer()
             }
