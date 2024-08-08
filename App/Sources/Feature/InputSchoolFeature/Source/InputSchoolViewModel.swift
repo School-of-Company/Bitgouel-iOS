@@ -83,12 +83,13 @@ final class InputSchoolViewModel: BaseViewModel {
 
     func updateSchoolInfo(schoolInfo: SchoolListEntity) {
         logoImageURL = schoolInfo.logoImageURL
-        schoolName = schoolName
+        schoolName = schoolInfo.schoolName
         selectedLine = schoolInfo.line
         departmentList = schoolInfo.departments
         clubList = schoolInfo.clubs
     }
 
+    @MainActor
     func onApper() {
         Task {
             do {
