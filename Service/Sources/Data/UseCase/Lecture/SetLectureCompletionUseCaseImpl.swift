@@ -7,7 +7,7 @@ public struct SetLectureCompletionUseCaseImpl: SetLectureCompletionUseCase {
         self.lectureRepository = lectureRepository
     }
 
-    public func callAsFunction(lectureID: String, students: [String]) async throws {
+    public func callAsFunction(lectureID: String, students: String) async throws {
         try await lectureRepository.setLectureCompletion(lectureID: lectureID, students: students)
     }
 }

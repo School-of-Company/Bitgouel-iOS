@@ -8,7 +8,7 @@ public struct ApplicantInfoEntity: Equatable {
     public let number: Int
     public let school: String
     public let clubName: String
-    public let isComplete: Bool
+    public var isComplete: Bool
 
     public init(
         studentID: String,
