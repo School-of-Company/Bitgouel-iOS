@@ -47,7 +47,7 @@ public final class RemoteLectureDataSourceImpl: BaseRemoteDataSource<LectureAPI>
         try await request(.fetchApplicantList(lectureID: lectureID), dto: FetchApplicantListResponseDTO.self).toDomain()
     }
 
-    public func setLectureCompletion(lectureID: String, students: [String]) async throws {
+    public func setLectureCompletion(lectureID: String, students: String) async throws {
         try await request(.setLectureCompletion(lectureID: lectureID, students: students))
     }
 
@@ -59,7 +59,10 @@ public final class RemoteLectureDataSourceImpl: BaseRemoteDataSource<LectureAPI>
         try await request(.modifyLecture(lectureID: lectureID, req: req))
     }
 
-    public func fetchAppliedLectureStudentDetail(lectureID: String, studentID: String) async throws -> AppliedLectureStudentDetailEntity {
+    public func fetchAppliedLectureStudentDetail(
+        lectureID: String,
+        studentID: String
+    ) async throws -> AppliedLectureStudentDetailEntity {
         try await request(.fetchAppliedLectureStudentDetail(lectureID: lectureID, studentID: studentID), dto: AppliedLectureStudentDetailResponseDTO.self).toDomain()
     }
 }

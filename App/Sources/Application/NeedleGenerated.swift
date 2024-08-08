@@ -605,6 +605,9 @@ private class LectureApplicantListDependency5bfdb7310dde792c0738Provider: Lectur
     var setLectureCompletionUseCase: any SetLectureCompletionUseCase {
         return appComponent.setLectureCompletionUseCase
     }
+    var fetchAppliedLectureStudentDetailUseCase: any FetchAppliedLectureStudentDetailUseCase {
+        return appComponent.fetchAppliedLectureStudentDetailUseCase
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -1226,6 +1229,7 @@ extension LectureApplicantListComponent: Registration {
     public func registerItems() {
         keyPathToName[\LectureApplicantListDependency.fetchApplicantListUseCase] = "fetchApplicantListUseCase-any FetchApplicantListUseCase"
         keyPathToName[\LectureApplicantListDependency.setLectureCompletionUseCase] = "setLectureCompletionUseCase-any SetLectureCompletionUseCase"
+        keyPathToName[\LectureApplicantListDependency.fetchAppliedLectureStudentDetailUseCase] = "fetchAppliedLectureStudentDetailUseCase-any FetchAppliedLectureStudentDetailUseCase"
     }
 }
 extension UserListComponent: Registration {

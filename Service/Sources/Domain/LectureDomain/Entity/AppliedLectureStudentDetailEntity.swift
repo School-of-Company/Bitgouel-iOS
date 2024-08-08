@@ -10,7 +10,7 @@ public struct AppliedLectureStudentDetailEntity: Equatable {
     public let school: String
     public let clubName: String
     public let cohort: Int
-    public let currentCompletedDate: Date
+    public let currentCompletedDate: Date?
     public let completeStatus: CompleteStatusType
 
     public init(
@@ -23,7 +23,7 @@ public struct AppliedLectureStudentDetailEntity: Equatable {
         school: String,
         clubName: String,
         cohort: Int,
-        currentCompletedDate: Date,
+        currentCompletedDate: Date?,
         completeStatus: CompleteStatusType
     ) {
         self.email = email

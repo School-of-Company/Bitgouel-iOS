@@ -51,7 +51,7 @@ public struct LectureRepositoryImpl: LectureRepository {
         try await remoteLectureDataSource.fetchApplicantList(lectureID: lectureID)
     }
 
-    public func setLectureCompletion(lectureID: String, students: [String]) async throws {
+    public func setLectureCompletion(lectureID: String, students: String) async throws {
         try await remoteLectureDataSource.setLectureCompletion(lectureID: lectureID, students: students)
     }
 
@@ -63,7 +63,10 @@ public struct LectureRepositoryImpl: LectureRepository {
         try await remoteLectureDataSource.modifyLecture(lectureID: lectureID, req: req)
     }
 
-    public func fetchAppliedLectureStudentDetail(lectureID: String, studentID: String) async throws -> AppliedLectureStudentDetailEntity {
+    public func fetchAppliedLectureStudentDetail(
+        lectureID: String,
+        studentID: String
+    ) async throws -> AppliedLectureStudentDetailEntity {
         try await remoteLectureDataSource.fetchAppliedLectureStudentDetail(lectureID: lectureID, studentID: studentID)
     }
 }

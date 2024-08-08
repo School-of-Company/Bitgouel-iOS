@@ -13,7 +13,7 @@ public enum LectureAPI {
     case searchDivision(keyword: String)
     case fetchAppliedLectureList(studentID: String)
     case fetchApplicantList(lectureID: String)
-    case setLectureCompletion(lectureID: String, students: [String])
+    case setLectureCompletion(lectureID: String, students: String)
     case deleteLecture(lectureID: String)
     case modifyLecture(lectureID: String, req: InputLectureRequestDTO)
     case fetchAppliedLectureStudentDetail(lectureID: String, studentID: String)
