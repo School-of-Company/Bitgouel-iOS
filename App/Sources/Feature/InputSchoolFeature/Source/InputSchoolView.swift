@@ -117,6 +117,9 @@ struct InputSchoolView: View {
                 viewModel.onApper()
             }
         }
+        .refreshable {
+            viewModel.onApper()
+        }
         .bitgouelBottomSheet(isShowing: $viewModel.isShowingLineBottomSheet) {
             SchoolLineBottomSheet(
                 selectedLine: viewModel.selectedLine

@@ -53,7 +53,6 @@ final class InputClubViewModel: BaseViewModel {
                 )
 
                 success()
-                
             } catch {
                 errorMessage = error.clubDomainErrorMessage()
                 isErrorOccurred = true
