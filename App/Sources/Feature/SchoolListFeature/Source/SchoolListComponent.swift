@@ -4,6 +4,7 @@ import SwiftUI
 
 public protocol SchoolListDependency: Dependency {
     var fetchSchoolListUseCase: any FetchSchoolListUseCase { get }
+    var inputSchoolFactory: any InputSchoolFactory { get }
 }
 
 public final class SchoolListComponent: Component<SchoolListDependency>, SchoolListFactory {
@@ -11,7 +12,8 @@ public final class SchoolListComponent: Component<SchoolListDependency>, SchoolL
         SchoolListView(
             viewModel: .init(
                 fetchSchoolListUseCase: dependency.fetchSchoolListUseCase
-            )
+            ),
+            inputSchoolFactory: dependency.inputSchoolFactory
         )
     }
 }

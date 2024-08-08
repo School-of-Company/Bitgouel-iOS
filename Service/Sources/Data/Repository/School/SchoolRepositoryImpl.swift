@@ -19,11 +19,11 @@ public struct SchoolRepositoryImpl: SchoolRepository {
         try await remoteSchoolDataSource.createdSchool(req: req)
     }
 
-    public func modifySchool(schoolID: String, req: ModifySchoolRequestDTO) async throws {
+    public func modifySchool(schoolID: Int, req: ModifySchoolRequestDTO) async throws {
         try await remoteSchoolDataSource.modifySchool(schoolID: schoolID, req: req)
     }
 
-    public func deleteSchool(schoolID: String) async throws {
+    public func deleteSchool(schoolID: Int) async throws {
         try await remoteSchoolDataSource.deleteSchool(schoolID: schoolID)
     }
 }

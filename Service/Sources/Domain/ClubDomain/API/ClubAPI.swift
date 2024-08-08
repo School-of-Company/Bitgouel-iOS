@@ -6,7 +6,7 @@ public enum ClubAPI {
     case fetchClubDetail(clubID: Int)
     case fetchStudentListByClub
     case fetchStudentDetailByClub(clubID: Int, studentID: String)
-    case createdClub(schoolID: String, req: CreatedClubRequestDTO)
+    case createdClub(schoolID: Int, req: CreatedClubRequestDTO)
     case modifyClub(clubID: Int, req: ModifyClubRequestDTO)
     case deleteClub(clubID: Int)
 }

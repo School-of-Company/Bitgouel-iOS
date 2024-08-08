@@ -1,7 +1,7 @@
 import Service
 import SwiftUI
 
-struct LineBottomSheet: View {
+struct LectureLineBottomSheet: View {
     var selectedLine: String
     @Binding var keyword: String
     @State var isSelected: Bool = false

@@ -3,12 +3,12 @@ import Foundation
 public struct ModifyClubRequestDTO: Encodable {
     public let name: String
     public let field: FieldType
-    public let schoolID: String
+    public let schoolID: Int
 
     public init(
         name: String,
         field: FieldType,
-        schoolID: String
+        schoolID: Int
     ) {
         self.name = name
         self.field = field

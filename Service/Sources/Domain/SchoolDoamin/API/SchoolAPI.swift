@@ -5,8 +5,8 @@ public enum SchoolAPI {
     case fetchSchoolList
     case fetchAllSchoolName
     case createdSchool(req: CreatedSchoolRequestDTO)
-    case modifySchool(schoolID: String, req: ModifySchoolRequestDTO)
-    case deleteSchool(schoolID: String)
+    case modifySchool(schoolID: Int, req: ModifySchoolRequestDTO)
+    case deleteSchool(schoolID: Int)
 }
 
 extension SchoolAPI: BitgouelAPI {

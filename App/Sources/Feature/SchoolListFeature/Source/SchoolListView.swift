@@ -4,8 +4,14 @@ struct SchoolListView: View {
     @EnvironmentObject var adminPageState: AdminPageState
     @StateObject var viewModel: SchoolListViewModel
 
-    init(viewModel: SchoolListViewModel) {
+    private let inputSchoolFactory: any InputSchoolFactory
+
+    init(
+        viewModel: SchoolListViewModel,
+        inputSchoolFactory: any InputSchoolFactory
+    ) {
         _viewModel = StateObject(wrappedValue: viewModel)
+        self.inputSchoolFactory = inputSchoolFactory
     }
 
     var body: some View {
@@ -24,9 +30,11 @@ struct SchoolListView: View {
                         .onTapGesture {
                             viewModel.updateSchoolDetailInfo(
                                 info: .init(
+                                    schoolID: school.schoolID,
                                     logoImageURL: school.logoImageURL,
                                     name: school.schoolName,
-                                    line: school.line.display(),
+                                    line: school.line,
+                                    departmentList: school.departments,
                                     clubList: school.clubs.map {
                                         .init(
                                             clubID: $0.clubID,
@@ -89,6 +97,10 @@ struct SchoolListView: View {
                 viewModel.updateIsShowingAdminPageBottomSheet(isShowing: cancel)
             }
         }
+        .navigate(
+            to: inputSchoolFactory.makeView(state: viewModel.state, schoolInfo: viewModel.schoolInfo).eraseToAnyView(),
+            when: $viewModel.isPresentedInputSchoolInfoView
+        )
     }
 
     @ViewBuilder

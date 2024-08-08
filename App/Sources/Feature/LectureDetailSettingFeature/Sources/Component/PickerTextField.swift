@@ -24,13 +24,14 @@ struct PickerTextField: View {
                 .bitgouelFont(.text3)
                 .foregroundColor(Color.bitgouel(.greyscale(.g0)))
                 .padding(.horizontal, 20)
-
+                .padding(.vertical, 16)
+            
             Spacer()
         }
-        .padding(.vertical, 16)
         .overlay {
             RoundedRectangle(cornerRadius: 8)
                 .stroke(Color.bitgouel(.greyscale(.g7)))
+
             if text.isEmpty {
                 HStack {
                     Text(placeholder)
