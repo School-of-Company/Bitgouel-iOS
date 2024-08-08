@@ -38,33 +38,33 @@ public extension AppComponent {
         }
     }
 
-    var cancelLectureUseCase: any CancelLectureUseCase {
+    var cancelLectureApplicationUseCase: any CancelLectureApplicationUseCase {
         shared {
-            CancelLectureUseCaseImpl(lectureRepository: lectureRepository)
+            CancelLectureApplicationUseCaseImpl(lectureRepository: lectureRepository)
         }
     }
 
-    var fetchInstructorListUseCase: any FetchInstructorListUseCase {
+    var searchInstructorUseCase: any SearchInstructorUseCase {
         shared {
-            FetchInstructorListUseCaseImpl(lectureRepository: lectureRepository)
+            SearchInstructorUseCaseImpl(lectureRepository: lectureRepository)
         }
     }
 
-    var fetchLineListUseCase: any FetchLineListUseCase {
+    var searchLineUseCase: any SearchLineUseCase {
         shared {
-            FetchLineListUseCaseImpl(lectureRepository: lectureRepository)
+            SearchLineUseCaseImpl(lectureRepository: lectureRepository)
         }
     }
 
-    var fetchDepartmentListUseCase: any FetchDepartmentListUseCase {
+    var searchDepartmentUseCase: any SearchDepartmentUseCase {
         shared {
-            FetchDepartmentListUseCaseImpl(lectureRepository: lectureRepository)
+            SearchDepartmentUseCaseImpl(lectureRepository: lectureRepository)
         }
     }
 
-    var fetchDivisionListUseCase: any FetchDivisionListUseCase {
+    var searchDivisionUseCase: any SearchDivisionUseCase {
         shared {
-            FetchDivisionListUseCaseImpl(lectureRepository: lectureRepository)
+            SearchDivisionUseCaseImpl(lectureRepository: lectureRepository)
         }
     }
 
@@ -80,9 +80,9 @@ public extension AppComponent {
         }
     }
 
-    var modifyApplicantWhetherUseCase: any ModifyApplicantWhetherUseCase {
+    var setLectureCompletionUseCase: any SetLectureCompletionUseCase {
         shared {
-            ModifyApplicantWhetherUseCaseImpl(lectureRepository: lectureRepository)
+            SetLectureCompletionUseCaseImpl(lectureRepository: lectureRepository)
         }
     }
 
@@ -95,6 +95,12 @@ public extension AppComponent {
     var modifyLectureUseCase: any ModifyLectureUseCase {
         shared {
             ModifyLectureUseCaseImpl(lectureRepository: lectureRepository)
+        }
+    }
+
+    var fetchAppliedLectureStudentDetailUseCase: any FetchAppliedLectureStudentDetailUseCase {
+        shared {
+            FetchAppliedLectureStudentDetailUseCaseImpl(lectureRepository: lectureRepository)
         }
     }
 }

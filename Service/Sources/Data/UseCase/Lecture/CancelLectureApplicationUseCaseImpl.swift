@@ -1,6 +1,6 @@
 import Foundation
 
-public struct CancelLectureUseCaseImpl: CancelLectureUseCase {
+public struct CancelLectureApplicationUseCaseImpl: CancelLectureApplicationUseCase {
     private let lectureRepository: any LectureRepository
 
     public init(lectureRepository: any LectureRepository) {
@@ -8,6 +8,6 @@ public struct CancelLectureUseCaseImpl: CancelLectureUseCase {
     }
 
     public func callAsFunction(lectureID: String) async throws {
-        try await lectureRepository.cancelLecture(lectureID: lectureID)
+        try await lectureRepository.cancelLectureApplication(lectureID: lectureID)
     }
 }

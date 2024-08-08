@@ -4,10 +4,10 @@ import SwiftUI
 
 public protocol LectureDetailSettingDependency: Dependency {
     var inputLectureFactory: any InputLectureFactory { get }
-    var fetchInstructorListUseCase: any FetchInstructorListUseCase { get }
-    var fetchLineListUseCase: any FetchLineListUseCase { get }
-    var fetchDepartmentListUseCase: any FetchDepartmentListUseCase { get }
-    var fetchDivisionListUseCase: any FetchDivisionListUseCase { get }
+    var searchInstructorUseCase: any SearchInstructorUseCase { get }
+    var searchLineUseCase: any SearchLineUseCase { get }
+    var searchDepartmentUseCase: any SearchDepartmentUseCase { get }
+    var searchDivisionUseCase: any SearchDivisionUseCase { get }
 }
 
 public final class LectureDetailSettingComponent: Component<LectureDetailSettingDependency>,
@@ -20,10 +20,10 @@ public final class LectureDetailSettingComponent: Component<LectureDetailSetting
             viewModel: .init(
                 detailInfo: detailInfo,
                 completion: completion,
-                fetchInstructorListUseCase: dependency.fetchInstructorListUseCase,
-                fetchLineListUseCase: dependency.fetchLineListUseCase,
-                fetchDepartmentListUseCase: dependency.fetchDepartmentListUseCase,
-                fetchDivisionListUseCase: dependency.fetchDivisionListUseCase
+                searchInstructorUseCase: dependency.searchInstructorUseCase,
+                searchLineUseCase: dependency.searchLineUseCase,
+                searchDepartmentUseCase: dependency.searchDepartmentUseCase,
+                searchDivisionUseCase: dependency.searchDivisionUseCase
             ),
             inputLectureFactory: dependency.inputLectureFactory
         )

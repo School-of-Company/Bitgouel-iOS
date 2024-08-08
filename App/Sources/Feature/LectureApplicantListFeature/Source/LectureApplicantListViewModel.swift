@@ -1,28 +1,39 @@
 import Foundation
 import Service
 
+enum LectureApplicantListPageState {
+    case general
+    case check
+}
+
 final class LectureApplicantListViewModel: BaseViewModel {
     @Published var applicantList: [ApplicantInfoEntity] = []
     @Published var selectedStudentID: String = ""
     @Published var isComplete: Bool = false
+    @Published var state: LectureApplicantListPageState = .general
     var lectureID: String = ""
+    var students: [String] = []
 
     private let fetchApplicantListUseCase: any FetchApplicantListUseCase
-    private let modifyApplicantWhetherUseCase: any ModifyApplicantWhetherUseCase
+    private let setLectureCompletionUseCase: any SetLectureCompletionUseCase
 
     init(
         lectureID: String,
         fetchApplicantListUseCase: any FetchApplicantListUseCase,
-        modifyApplicantWhetherUseCase: any ModifyApplicantWhetherUseCase
+        setLectureCompletionUseCase: any SetLectureCompletionUseCase
     ) {
         self.lectureID = lectureID
         self.fetchApplicantListUseCase = fetchApplicantListUseCase
-        self.modifyApplicantWhetherUseCase = modifyApplicantWhetherUseCase
+        self.setLectureCompletionUseCase = setLectureCompletionUseCase
     }
 
     func updateApplicantInfo(isSelected: Bool, studentID: String) {
         isComplete = isSelected
         selectedStudentID = studentID
+    }
+
+    func updateState(state: LectureApplicantListPageState) {
+        self.state = state
     }
 
     @MainActor
@@ -40,10 +51,9 @@ final class LectureApplicantListViewModel: BaseViewModel {
     func modifyApplicantWhether() {
         Task {
             do {
-                try await modifyApplicantWhetherUseCase(
+                try await setLectureCompletionUseCase(
                     lectureID: lectureID,
-                    studentID: selectedStudentID,
-                    isComplete: isComplete
+                    students: students
                 )
             } catch {
                 errorMessage = error.lectureDomainErrorMessage()

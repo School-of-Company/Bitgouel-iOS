@@ -21,6 +21,7 @@ public struct FetchLectureDetailResponseDTO: Decodable {
     public let locationX: String
     public let locationY: String
     public let address: String
+    public let locationDetails: String
     public let essentialComplete: Bool
 
     public init(
@@ -44,6 +45,7 @@ public struct FetchLectureDetailResponseDTO: Decodable {
         locationX: String,
         locationY: String,
         address: String,
+        locationDetails: String,
         essentialComplete: Bool
     ) {
         self.name = name
@@ -66,6 +68,7 @@ public struct FetchLectureDetailResponseDTO: Decodable {
         self.locationX = locationX
         self.locationY = locationY
         self.address = address
+        self.locationDetails = locationDetails
         self.essentialComplete = essentialComplete
     }
 
@@ -106,6 +109,7 @@ public struct FetchLectureDetailResponseDTO: Decodable {
         case locationX
         case locationY
         case address
+        case locationDetails
         case essentialComplete
     }
 }
@@ -133,6 +137,7 @@ extension FetchLectureDetailResponseDTO {
             locationX: locationX,
             locationY: locationY,
             address: address,
+            locationDetails: locationDetails,
             essentialComplete: essentialComplete
         )
     }

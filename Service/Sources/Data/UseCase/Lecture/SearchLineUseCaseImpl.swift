@@ -1,6 +1,6 @@
 import Foundation
 
-public struct FetchLineListUseCaseImpl: FetchLineListUseCase {
+public struct SearchLineUseCaseImpl: SearchLineUseCase {
     private let lectureRepository: any LectureRepository
 
     public init(lectureRepository: any LectureRepository) {
@@ -8,6 +8,6 @@ public struct FetchLineListUseCaseImpl: FetchLineListUseCase {
     }
 
     public func callAsFunction(keyword: String, division: String) async throws -> [String] {
-        try await lectureRepository.fetchLineList(keyword: keyword, division: division)
+        try await lectureRepository.searchLine(keyword: keyword, division: division)
     }
 }

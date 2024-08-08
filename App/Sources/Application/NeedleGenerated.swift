@@ -103,8 +103,8 @@ private class LectureListDetailDependency2a815f1240973966e6a6Provider: LectureLi
     var applyLectureUseCase: any ApplyLectureUseCase {
         return appComponent.applyLectureUseCase
     }
-    var cancelLectureUseCase: any CancelLectureUseCase {
-        return appComponent.cancelLectureUseCase
+    var cancelLectureApplicationUseCase: any CancelLectureApplicationUseCase {
+        return appComponent.cancelLectureApplicationUseCase
     }
     var loadUserAuthorityUseCase: any LoadUserAuthorityUseCase {
         return appComponent.loadUserAuthorityUseCase
@@ -365,17 +365,17 @@ private class LectureDetailSettingDependencyd72c0b79ce6406870a95Provider: Lectur
     var inputLectureFactory: any InputLectureFactory {
         return appComponent.inputLectureFactory
     }
-    var fetchInstructorListUseCase: any FetchInstructorListUseCase {
-        return appComponent.fetchInstructorListUseCase
+    var searchInstructorUseCase: any SearchInstructorUseCase {
+        return appComponent.searchInstructorUseCase
     }
-    var fetchLineListUseCase: any FetchLineListUseCase {
-        return appComponent.fetchLineListUseCase
+    var searchLineUseCase: any SearchLineUseCase {
+        return appComponent.searchLineUseCase
     }
-    var fetchDepartmentListUseCase: any FetchDepartmentListUseCase {
-        return appComponent.fetchDepartmentListUseCase
+    var searchDepartmentUseCase: any SearchDepartmentUseCase {
+        return appComponent.searchDepartmentUseCase
     }
-    var fetchDivisionListUseCase: any FetchDivisionListUseCase {
-        return appComponent.fetchDivisionListUseCase
+    var searchDivisionUseCase: any SearchDivisionUseCase {
+        return appComponent.searchDivisionUseCase
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -602,8 +602,8 @@ private class LectureApplicantListDependency5bfdb7310dde792c0738Provider: Lectur
     var fetchApplicantListUseCase: any FetchApplicantListUseCase {
         return appComponent.fetchApplicantListUseCase
     }
-    var modifyApplicantWhetherUseCase: any ModifyApplicantWhetherUseCase {
-        return appComponent.modifyApplicantWhetherUseCase
+    var setLectureCompletionUseCase: any SetLectureCompletionUseCase {
+        return appComponent.setLectureCompletionUseCase
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -1042,7 +1042,7 @@ extension LectureListDetailComponent: Registration {
     public func registerItems() {
         keyPathToName[\LectureListDetailDependency.fetchLectureDetailUseCase] = "fetchLectureDetailUseCase-any FetchLectureDetailUseCase"
         keyPathToName[\LectureListDetailDependency.applyLectureUseCase] = "applyLectureUseCase-any ApplyLectureUseCase"
-        keyPathToName[\LectureListDetailDependency.cancelLectureUseCase] = "cancelLectureUseCase-any CancelLectureUseCase"
+        keyPathToName[\LectureListDetailDependency.cancelLectureApplicationUseCase] = "cancelLectureApplicationUseCase-any CancelLectureApplicationUseCase"
         keyPathToName[\LectureListDetailDependency.loadUserAuthorityUseCase] = "loadUserAuthorityUseCase-any LoadUserAuthorityUseCase"
         keyPathToName[\LectureListDetailDependency.lectureApplicantListFactory] = "lectureApplicantListFactory-any LectureApplicantListFactory"
         keyPathToName[\LectureListDetailDependency.deleteLectureUseCase] = "deleteLectureUseCase-any DeleteLectureUseCase"
@@ -1138,10 +1138,10 @@ extension InputNoticeComponent: Registration {
 extension LectureDetailSettingComponent: Registration {
     public func registerItems() {
         keyPathToName[\LectureDetailSettingDependency.inputLectureFactory] = "inputLectureFactory-any InputLectureFactory"
-        keyPathToName[\LectureDetailSettingDependency.fetchInstructorListUseCase] = "fetchInstructorListUseCase-any FetchInstructorListUseCase"
-        keyPathToName[\LectureDetailSettingDependency.fetchLineListUseCase] = "fetchLineListUseCase-any FetchLineListUseCase"
-        keyPathToName[\LectureDetailSettingDependency.fetchDepartmentListUseCase] = "fetchDepartmentListUseCase-any FetchDepartmentListUseCase"
-        keyPathToName[\LectureDetailSettingDependency.fetchDivisionListUseCase] = "fetchDivisionListUseCase-any FetchDivisionListUseCase"
+        keyPathToName[\LectureDetailSettingDependency.searchInstructorUseCase] = "searchInstructorUseCase-any SearchInstructorUseCase"
+        keyPathToName[\LectureDetailSettingDependency.searchLineUseCase] = "searchLineUseCase-any SearchLineUseCase"
+        keyPathToName[\LectureDetailSettingDependency.searchDepartmentUseCase] = "searchDepartmentUseCase-any SearchDepartmentUseCase"
+        keyPathToName[\LectureDetailSettingDependency.searchDivisionUseCase] = "searchDivisionUseCase-any SearchDivisionUseCase"
     }
 }
 extension MainComponent: Registration {
@@ -1225,7 +1225,7 @@ extension FindPasswordComponent: Registration {
 extension LectureApplicantListComponent: Registration {
     public func registerItems() {
         keyPathToName[\LectureApplicantListDependency.fetchApplicantListUseCase] = "fetchApplicantListUseCase-any FetchApplicantListUseCase"
-        keyPathToName[\LectureApplicantListDependency.modifyApplicantWhetherUseCase] = "modifyApplicantWhetherUseCase-any ModifyApplicantWhetherUseCase"
+        keyPathToName[\LectureApplicantListDependency.setLectureCompletionUseCase] = "setLectureCompletionUseCase-any SetLectureCompletionUseCase"
     }
 }
 extension UserListComponent: Registration {
@@ -1383,16 +1383,17 @@ extension AppComponent: Registration {
         localTable["fetchLectureListUseCase-any FetchLectureListUseCase"] = { [unowned self] in self.fetchLectureListUseCase as Any }
         localTable["fetchLectureDetailUseCase-any FetchLectureDetailUseCase"] = { [unowned self] in self.fetchLectureDetailUseCase as Any }
         localTable["applyLectureUseCase-any ApplyLectureUseCase"] = { [unowned self] in self.applyLectureUseCase as Any }
-        localTable["cancelLectureUseCase-any CancelLectureUseCase"] = { [unowned self] in self.cancelLectureUseCase as Any }
-        localTable["fetchInstructorListUseCase-any FetchInstructorListUseCase"] = { [unowned self] in self.fetchInstructorListUseCase as Any }
-        localTable["fetchLineListUseCase-any FetchLineListUseCase"] = { [unowned self] in self.fetchLineListUseCase as Any }
-        localTable["fetchDepartmentListUseCase-any FetchDepartmentListUseCase"] = { [unowned self] in self.fetchDepartmentListUseCase as Any }
-        localTable["fetchDivisionListUseCase-any FetchDivisionListUseCase"] = { [unowned self] in self.fetchDivisionListUseCase as Any }
+        localTable["cancelLectureApplicationUseCase-any CancelLectureApplicationUseCase"] = { [unowned self] in self.cancelLectureApplicationUseCase as Any }
+        localTable["searchInstructorUseCase-any SearchInstructorUseCase"] = { [unowned self] in self.searchInstructorUseCase as Any }
+        localTable["searchLineUseCase-any SearchLineUseCase"] = { [unowned self] in self.searchLineUseCase as Any }
+        localTable["searchDepartmentUseCase-any SearchDepartmentUseCase"] = { [unowned self] in self.searchDepartmentUseCase as Any }
+        localTable["searchDivisionUseCase-any SearchDivisionUseCase"] = { [unowned self] in self.searchDivisionUseCase as Any }
         localTable["fetchAppliedLectureListUseCase-any FetchAppliedLectureListUseCase"] = { [unowned self] in self.fetchAppliedLectureListUseCase as Any }
         localTable["fetchApplicantListUseCase-any FetchApplicantListUseCase"] = { [unowned self] in self.fetchApplicantListUseCase as Any }
-        localTable["modifyApplicantWhetherUseCase-any ModifyApplicantWhetherUseCase"] = { [unowned self] in self.modifyApplicantWhetherUseCase as Any }
+        localTable["setLectureCompletionUseCase-any SetLectureCompletionUseCase"] = { [unowned self] in self.setLectureCompletionUseCase as Any }
         localTable["deleteLectureUseCase-any DeleteLectureUseCase"] = { [unowned self] in self.deleteLectureUseCase as Any }
         localTable["modifyLectureUseCase-any ModifyLectureUseCase"] = { [unowned self] in self.modifyLectureUseCase as Any }
+        localTable["fetchAppliedLectureStudentDetailUseCase-any FetchAppliedLectureStudentDetailUseCase"] = { [unowned self] in self.fetchAppliedLectureStudentDetailUseCase as Any }
         localTable["remoteClubDataSource-any RemoteClubDataSource"] = { [unowned self] in self.remoteClubDataSource as Any }
         localTable["clubRepository-any ClubRepository"] = { [unowned self] in self.clubRepository as Any }
         localTable["fetchClubListUseCase-any FetchClubListUseCase"] = { [unowned self] in self.fetchClubListUseCase as Any }

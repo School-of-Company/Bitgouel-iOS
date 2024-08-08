@@ -17,25 +17,25 @@ public final class RemoteLectureDataSourceImpl: BaseRemoteDataSource<LectureAPI>
         try await request(.applyLecture(lectureID: lectureID))
     }
 
-    public func cancelLecture(lectureID: String) async throws {
-        try await request(.cancelLecture(lectureID: lectureID))
+    public func cancelLectureApplication(lectureID: String) async throws {
+        try await request(.cancelLectureApplication(lectureID: lectureID))
     }
 
-    public func fetchInstructorList(keyword: String) async throws -> [InstructorInfoEntity] {
-        try await request(.fetchInstructorList(keyword: keyword), dto: FetchInstructorListResponseDTO.self).toDomain()
+    public func searchInstructor(keyword: String) async throws -> [InstructorInfoEntity] {
+        try await request(.searchInstructor(keyword: keyword), dto: FetchInstructorListResponseDTO.self).toDomain()
     }
 
-    public func fetchLineList(keyword: String, division: String) async throws -> [String] {
-        try await request(.fetchLineList(keyword: keyword, division: division), dto: FetchLineListResponseDTO.self)
+    public func searchLine(keyword: String, division: String) async throws -> [String] {
+        try await request(.searchLine(keyword: keyword, division: division), dto: FetchLineListResponseDTO.self)
             .lines
     }
 
-    public func fetchDepartmentList(keyword: String) async throws -> [String] {
-        try await request(.fetchDepartmentList(keyword: keyword), dto: FetchDepartmentResponseDTO.self).departments
+    public func searchDepartment(keyword: String) async throws -> [String] {
+        try await request(.searchDepartment(keyword: keyword), dto: FetchDepartmentResponseDTO.self).departments
     }
 
-    public func fetchDivisionList(keyword: String) async throws -> [String] {
-        try await request(.fetchDivisionList(keyword: keyword), dto: FetchDivisionListResponseDTO.self).divisions
+    public func searchDivision(keyword: String) async throws -> [String] {
+        try await request(.searchDivision(keyword: keyword), dto: FetchDivisionListResponseDTO.self).divisions
     }
 
     public func fetchAppliedLectureList(studentID: String) async throws -> [AppliedLectureEntity] {
@@ -47,8 +47,8 @@ public final class RemoteLectureDataSourceImpl: BaseRemoteDataSource<LectureAPI>
         try await request(.fetchApplicantList(lectureID: lectureID), dto: FetchApplicantListResponseDTO.self).toDomain()
     }
 
-    public func modifyApplicantWhether(lectureID: String, studentID: String, isComplete: Bool) async throws {
-        try await request(.modifyApplicantWhether(lectureID: lectureID, studentID: studentID, isComplete: isComplete))
+    public func setLectureCompletion(lectureID: String, students: [String]) async throws {
+        try await request(.setLectureCompletion(lectureID: lectureID, students: students))
     }
 
     public func deleteLecture(lectureID: String) async throws {
@@ -57,5 +57,9 @@ public final class RemoteLectureDataSourceImpl: BaseRemoteDataSource<LectureAPI>
 
     public func modifyLecture(lectureID: String, req: InputLectureRequestDTO) async throws {
         try await request(.modifyLecture(lectureID: lectureID, req: req))
+    }
+
+    public func fetchAppliedLectureStudentDetail(lectureID: String, studentID: String) async throws -> AppliedLectureStudentDetailEntity {
+        try await request(.fetchAppliedLectureStudentDetail(lectureID: lectureID, studentID: studentID), dto: AppliedLectureStudentDetailResponseDTO.self).toDomain()
     }
 }

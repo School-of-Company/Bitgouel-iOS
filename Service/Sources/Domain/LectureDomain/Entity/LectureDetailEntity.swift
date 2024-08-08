@@ -21,6 +21,7 @@ public struct LectureDetailEntity: Equatable {
     public let locationX: String
     public let locationY: String
     public let address: String
+    public let locationDetails: String
     public let essentialComplete: Bool
 
     public init(
@@ -44,6 +45,7 @@ public struct LectureDetailEntity: Equatable {
         locationX: String,
         locationY: String,
         address: String,
+        locationDetails: String,
         essentialComplete: Bool
     ) {
         self.name = name
@@ -66,6 +68,7 @@ public struct LectureDetailEntity: Equatable {
         self.locationX = locationX
         self.locationY = locationY
         self.address = address
+        self.locationDetails = locationDetails
         self.essentialComplete = essentialComplete
     }
 }

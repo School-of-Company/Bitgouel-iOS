@@ -23,24 +23,24 @@ public struct LectureRepositoryImpl: LectureRepository {
         try await remoteLectureDataSource.applyLecture(lectureID: lectureID)
     }
 
-    public func cancelLecture(lectureID: String) async throws {
-        try await remoteLectureDataSource.cancelLecture(lectureID: lectureID)
+    public func cancelLectureApplication(lectureID: String) async throws {
+        try await remoteLectureDataSource.cancelLectureApplication(lectureID: lectureID)
     }
 
-    public func fetchInstructorList(keyword: String) async throws -> [InstructorInfoEntity] {
-        try await remoteLectureDataSource.fetchInstructorList(keyword: keyword)
+    public func searchInstructor(keyword: String) async throws -> [InstructorInfoEntity] {
+        try await remoteLectureDataSource.searchInstructor(keyword: keyword)
     }
 
-    public func fetchLineList(keyword: String, division: String) async throws -> [String] {
-        try await remoteLectureDataSource.fetchLineList(keyword: keyword, division: division)
+    public func searchLine(keyword: String, division: String) async throws -> [String] {
+        try await remoteLectureDataSource.searchLine(keyword: keyword, division: division)
     }
 
-    public func fetchDepartmentList(keyword: String) async throws -> [String] {
-        try await remoteLectureDataSource.fetchDepartmentList(keyword: keyword)
+    public func searchDepartment(keyword: String) async throws -> [String] {
+        try await remoteLectureDataSource.searchDepartment(keyword: keyword)
     }
 
-    public func fetchDivisionList(keyword: String) async throws -> [String] {
-        try await remoteLectureDataSource.fetchDivisionList(keyword: keyword)
+    public func searchDivision(keyword: String) async throws -> [String] {
+        try await remoteLectureDataSource.searchDivision(keyword: keyword)
     }
 
     public func fetchAppliedLectureList(studentID: String) async throws -> [AppliedLectureEntity] {
@@ -51,12 +51,8 @@ public struct LectureRepositoryImpl: LectureRepository {
         try await remoteLectureDataSource.fetchApplicantList(lectureID: lectureID)
     }
 
-    public func modifyApplicantWhether(lectureID: String, studentID: String, isComplete: Bool) async throws {
-        try await remoteLectureDataSource.modifyApplicantWhether(
-            lectureID: lectureID,
-            studentID: studentID,
-            isComplete: isComplete
-        )
+    public func setLectureCompletion(lectureID: String, students: [String]) async throws {
+        try await remoteLectureDataSource.setLectureCompletion(lectureID: lectureID, students: students)
     }
 
     public func deleteLecture(lectureID: String) async throws {
@@ -65,5 +61,9 @@ public struct LectureRepositoryImpl: LectureRepository {
 
     public func modifyLecture(lectureID: String, req: InputLectureRequestDTO) async throws {
         try await remoteLectureDataSource.modifyLecture(lectureID: lectureID, req: req)
+    }
+
+    public func fetchAppliedLectureStudentDetail(lectureID: String, studentID: String) async throws -> AppliedLectureStudentDetailEntity {
+        try await remoteLectureDataSource.fetchAppliedLectureStudentDetail(lectureID: lectureID, studentID: studentID)
     }
 }

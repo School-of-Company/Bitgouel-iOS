@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol FetchDepartmentListUseCase {
+public protocol SearchDivisionUseCase {
     func callAsFunction(keyword: String) async throws -> [String]
 }
