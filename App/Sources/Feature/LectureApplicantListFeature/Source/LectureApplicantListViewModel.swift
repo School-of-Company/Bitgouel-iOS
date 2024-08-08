@@ -13,6 +13,8 @@ final class LectureApplicantListViewModel: BaseViewModel {
     @Published var state: LectureApplicantListPageState = .general
     @Published var isSelectedCheckAllButton: Bool = false
     @Published var students: Set<String> = []
+    @Published var studentDetailInfo: AppliedLectureStudentDetailEntity?
+    @Published var isShowingApplicantStudentDetailBottomSheet: Bool = false
     var lectureID: String = ""
 
     private let fetchApplicantListUseCase: any FetchApplicantListUseCase
@@ -34,6 +36,10 @@ final class LectureApplicantListViewModel: BaseViewModel {
 
     func updateIsShowingConfirmCompletionAlert(isShowing: Bool) {
         isShowingConfirmCompletionAlert = isShowing
+    }
+
+    func updateIsShowingApplicantStudentDetailBottomSheet(isShowing: Bool) {
+        isShowingApplicantStudentDetailBottomSheet = isShowing
     }
 
     func updateState(state: LectureApplicantListPageState) {

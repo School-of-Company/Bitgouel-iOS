@@ -28,6 +28,9 @@ struct LectureApplicantListView: View {
                                 }
                             )
                         )
+                        .onTapGesture {
+                            viewModel.updateIsShowingApplicantStudentDetailBottomSheet(isShowing: true)
+                        }
 
                         Divider()
                     }
@@ -76,6 +79,12 @@ struct LectureApplicantListView: View {
                 )
             ]
         )
+        .bitgouelBottomSheet(isShowing: $viewModel.isShowingApplicantStudentDetailBottomSheet) {
+            ApplicantStudentDetailBottomSheet(
+                studentInfo: viewModel.studentDetailInfo) { cancel in
+                    viewModel.updateIsShowingApplicantStudentDetailBottomSheet(isShowing: cancel)
+                }
+        }
     }
 
     @ViewBuilder
