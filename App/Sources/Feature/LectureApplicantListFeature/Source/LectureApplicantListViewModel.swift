@@ -19,15 +19,18 @@ final class LectureApplicantListViewModel: BaseViewModel {
 
     private let fetchApplicantListUseCase: any FetchApplicantListUseCase
     private let setLectureCompletionUseCase: any SetLectureCompletionUseCase
+    private let fetchAppliedLectureStudentDetailUseCase: any FetchAppliedLectureStudentDetailUseCase
 
     init(
         lectureID: String,
         fetchApplicantListUseCase: any FetchApplicantListUseCase,
-        setLectureCompletionUseCase: any SetLectureCompletionUseCase
+        setLectureCompletionUseCase: any SetLectureCompletionUseCase,
+        fetchAppliedLectureStudentDetailUseCase: any FetchAppliedLectureStudentDetailUseCase
     ) {
         self.lectureID = lectureID
         self.fetchApplicantListUseCase = fetchApplicantListUseCase
         self.setLectureCompletionUseCase = setLectureCompletionUseCase
+        self.fetchAppliedLectureStudentDetailUseCase = fetchAppliedLectureStudentDetailUseCase
     }
 
     func updateIsSelectedCheckAllButton(isSelected: Bool) {
@@ -104,6 +107,21 @@ final class LectureApplicantListViewModel: BaseViewModel {
                 )
 
                 success()
+            } catch {
+                errorMessage = error.lectureDomainErrorMessage()
+                isErrorOccurred = true
+            }
+        }
+    }
+
+    @MainActor
+    func fetchSelectedStudentDetail(studentID: String) {
+        Task {
+            do {
+                studentDetailInfo = try await fetchAppliedLectureStudentDetailUseCase(
+                    lectureID: lectureID,
+                    studentID: studentID
+                )
             } catch {
                 errorMessage = error.lectureDomainErrorMessage()
                 isErrorOccurred = true

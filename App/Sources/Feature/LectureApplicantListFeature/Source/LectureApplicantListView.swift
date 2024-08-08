@@ -29,6 +29,7 @@ struct LectureApplicantListView: View {
                             )
                         )
                         .onTapGesture {
+                            viewModel.fetchSelectedStudentDetail(studentID: student.studentID)
                             viewModel.updateIsShowingApplicantStudentDetailBottomSheet(isShowing: true)
                         }
 
