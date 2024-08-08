@@ -6,21 +6,19 @@ final class SchoolListViewModel: BaseViewModel {
     @Published var isShowingSchoolDetailBottomSheet: Bool = false
     @Published var isPresentedInputSchoolInfoView: Bool = false
     @Published var selectedPage: AdminPageFlow = .school
-    @Published var schoolInfo: SchoolDetailInfoModel = .init(
-        schoolID: 0,
-        logoImageURL: "",
-        name: "",
-        line: .agriculturalLifeHealthCare,
-        departmentList: [],
-        clubList: [.init(clubID: 0, name: "", field: .culture)]
-    )
     @Published var schoolList: [SchoolListEntity] = []
+    @Published var selectedSchoolInfo: SchoolListEntity?
     @Published var state: String = ""
 
     private let fetchSchoolListUseCase: any FetchSchoolListUseCase
+    private let fetchSchoolDetailUseCase: any FetchSchoolDetailUseCase
 
-    init(fetchSchoolListUseCase: any FetchSchoolListUseCase) {
+    init(
+        fetchSchoolListUseCase: any FetchSchoolListUseCase,
+        fetchSchoolDetailUseCase: any FetchSchoolDetailUseCase
+    ) {
         self.fetchSchoolListUseCase = fetchSchoolListUseCase
+        self.fetchSchoolDetailUseCase = fetchSchoolDetailUseCase
     }
 
     func updateIsShowingAdminPageBottomSheet(isShowing: Bool) {
@@ -36,8 +34,8 @@ final class SchoolListViewModel: BaseViewModel {
         self.state = state
     }
 
-    func updateSchoolDetailInfo(info: SchoolDetailInfoModel) {
-        schoolInfo = info
+    func updateSelectedSchoolInfo(schoolInfo: SchoolListEntity) {
+        selectedSchoolInfo = schoolInfo
     }
 
     func updateSelectedPage(page: AdminPageFlow) {
@@ -51,7 +49,18 @@ final class SchoolListViewModel: BaseViewModel {
             do {
                 schoolList = try await fetchSchoolListUseCase()
             } catch {
-                print(String(describing: error))
+                print(error.localizedDescription)
+            }
+        }
+    }
+
+    @MainActor
+    func fetchSchoolDetail(schoolID: Int) {
+        Task {
+            do {
+                selectedSchoolInfo = try await fetchSchoolDetailUseCase(schoolID: schoolID)
+            } catch {
+                print(error.localizedDescription)
             }
         }
     }

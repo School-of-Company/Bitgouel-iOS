@@ -31,4 +31,8 @@ public extension AppComponent {
     var deleteSchoolUseCase: any DeleteSchoolUseCase {
         DeleteSchoolUseCaseImpl(schoolRepository: schoolRepository)
     }
+
+    var fetchSchoolDetailUseCase: any FetchSchoolDetailUseCase {
+        FetchSchoolDetailUseCaseImpl(schoolRepository: schoolRepository)
+    }
 }

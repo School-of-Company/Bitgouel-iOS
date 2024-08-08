@@ -26,4 +26,8 @@ public struct SchoolRepositoryImpl: SchoolRepository {
     public func deleteSchool(schoolID: Int) async throws {
         try await remoteSchoolDataSource.deleteSchool(schoolID: schoolID)
     }
+
+    public func fetchSchoolDetail(schoolID: Int) async throws -> SchoolListEntity {
+        try await remoteSchoolDataSource.fetchSchoolDetail(schoolID: schoolID)
+    }
 }

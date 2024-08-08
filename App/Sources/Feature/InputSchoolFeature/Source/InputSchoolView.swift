@@ -93,11 +93,11 @@ struct InputSchoolView: View {
                 }
 
                 if viewModel.state == "수정" {
-                    ClubFormView(clubList: viewModel.schoolInfo.clubList
+                    ClubFormView(clubList: viewModel.clubList
                     ) { clubInfo in
                         viewModel.updateIsPresentedInputClubView(isPresented: true, state: "수정", clubInfo: clubInfo)
                     } addClubAction: {
-                        viewModel.updateIsPresentedInputClubView(isPresented: true, state: "등록", clubInfo: .init(clubID: 0, name: "", field: nil))
+                        viewModel.updateIsPresentedInputClubView(isPresented: true, state: "등록", clubInfo: .init(clubID: 0, clubName: "", field: nil))
                     }
                 }
             }
@@ -116,6 +116,9 @@ struct InputSchoolView: View {
             if viewModel.state == "수정" {
                 viewModel.onApper()
             }
+        }
+        .refreshable {
+            viewModel.onApper()
         }
         .bitgouelBottomSheet(isShowing: $viewModel.isShowingLineBottomSheet) {
             SchoolLineBottomSheet(
@@ -164,9 +167,9 @@ struct InputSchoolView: View {
         }
         .navigate(
             to: inputClubFactory.makeView(
-                schoolID: viewModel.schoolInfo.schoolID,
+                schoolID: viewModel.schoolID,
                 state: viewModel.clubViewState,
-                clubInfo: viewModel.selectedClubInfo ?? .init(clubID: 0, name: "", field: nil)
+                clubInfo: viewModel.selectedClubInfo ?? .init(clubID: 0, clubName: "", field: nil)
             ).eraseToAnyView(),
             when: $viewModel.isPresentedInputClubView
         )

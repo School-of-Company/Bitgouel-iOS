@@ -28,23 +28,7 @@ struct SchoolListView: View {
                             clubsCount: school.clubs.count
                         )
                         .onTapGesture {
-                            viewModel.updateSchoolDetailInfo(
-                                info: .init(
-                                    schoolID: school.schoolID,
-                                    logoImageURL: school.logoImageURL,
-                                    name: school.schoolName,
-                                    line: school.line,
-                                    departmentList: school.departments,
-                                    clubList: school.clubs.map {
-                                        .init(
-                                            clubID: $0.clubID,
-                                            name: $0.clubName,
-                                            field: $0.field
-                                        )
-                                    }
-                                )
-                            )
-
+                            viewModel.fetchSchoolDetail(schoolID: school.schoolID)
                             viewModel.updateIsShowingSchoolDetailBottomSheet(isShowing: true)
                         }
 
@@ -81,7 +65,18 @@ struct SchoolListView: View {
         }
         .bitgouelBottomSheet(isShowing: $viewModel.isShowingSchoolDetailBottomSheet) {
             SchoolDetailBottomSheet(
-                schoolInfo: viewModel.schoolInfo
+                schoolInfo: viewModel.selectedSchoolInfo ?? .init(
+                    schoolID: 0,
+                    schoolName: "",
+                    line: .agriculturalLifeHealthCare,
+                    departments: [],
+                    logoImageURL: "",
+                    clubs: [.init(
+                        clubID: 0,
+                        clubName: "",
+                        field: nil
+                    )]
+                )
             ) {
                 viewModel.updateIsShowingSchoolDetailBottomSheet(isShowing: false)
                 viewModel.updateIsPresentedInputSchoolInfoView(isPresented: true, state: "수정")
@@ -102,7 +97,7 @@ struct SchoolListView: View {
         .navigate(
             to: inputSchoolFactory.makeView(
                 state: viewModel.state,
-                schoolInfo: viewModel.schoolInfo
+                schoolID: viewModel.selectedSchoolInfo?.schoolID ?? 0
             ).eraseToAnyView(),
             when: $viewModel.isPresentedInputSchoolInfoView
         )

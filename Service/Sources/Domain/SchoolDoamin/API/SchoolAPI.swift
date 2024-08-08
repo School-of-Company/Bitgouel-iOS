@@ -7,6 +7,7 @@ public enum SchoolAPI {
     case createdSchool(logoImage: Data, req: InputSchoolInfoRequestDTO)
     case modifySchool(schoolID: Int, logoImage: Data, req: InputSchoolInfoRequestDTO)
     case deleteSchool(schoolID: Int)
+    case fetchSchoolDetail(schoolID: Int)
 }
 
 extension SchoolAPI: BitgouelAPI {
@@ -26,7 +27,8 @@ extension SchoolAPI: BitgouelAPI {
             return "/name"
 
         case let .modifySchool(schoolID, _, _),
-             let .deleteSchool(schoolID):
+             let .deleteSchool(schoolID),
+             let .fetchSchoolDetail(schoolID):
             return "/\(schoolID)"
         }
     }
@@ -34,7 +36,8 @@ extension SchoolAPI: BitgouelAPI {
     public var method: Moya.Method {
         switch self {
         case .fetchSchoolList,
-             .fetchAllSchoolName:
+             .fetchAllSchoolName,
+             .fetchSchoolDetail:
             return .get
 
         case .createdSchool:
@@ -52,7 +55,8 @@ extension SchoolAPI: BitgouelAPI {
         switch self {
         case .fetchSchoolList,
              .fetchAllSchoolName,
-             .deleteSchool:
+             .deleteSchool,
+             .fetchSchoolDetail:
             return .requestPlain
 
         case let .createdSchool(logoImage, req),
@@ -86,7 +90,8 @@ extension SchoolAPI: BitgouelAPI {
         case .fetchSchoolList,
              .createdSchool,
              .modifySchool,
-             .deleteSchool:
+             .deleteSchool,
+             .fetchSchoolDetail:
             return .accessToken
 
         case .fetchAllSchoolName:

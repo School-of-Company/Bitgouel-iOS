@@ -7,7 +7,7 @@ final class InputClubViewModel: BaseViewModel {
     @Published var isShowingDeleteAlert: Bool = false
     let schoolID: Int
     let state: String
-    let clubInfo: ClubDetailModel
+    let clubInfo: SchoolWithClubsEntity
 
     private let createdClubUseCase: any CreatedClubUseCase
     private let deleteClubUseCase: any DeleteClubUseCase
@@ -16,7 +16,7 @@ final class InputClubViewModel: BaseViewModel {
     init(
         schoolID: Int,
         state: String,
-        clubInfo: ClubDetailModel,
+        clubInfo: SchoolWithClubsEntity,
         createdClubUseCase: any CreatedClubUseCase,
         deleteClubUseCase: any DeleteClubUseCase,
         modifyClubUseCase: any ModifyClubUseCase
@@ -34,7 +34,7 @@ final class InputClubViewModel: BaseViewModel {
     }
 
     func onAppear() {
-        clubName = clubInfo.name
+        clubName = clubInfo.clubName
         selectedField = clubInfo.field
     }
 
@@ -53,7 +53,6 @@ final class InputClubViewModel: BaseViewModel {
                 )
 
                 success()
-                
             } catch {
                 errorMessage = error.clubDomainErrorMessage()
                 isErrorOccurred = true
