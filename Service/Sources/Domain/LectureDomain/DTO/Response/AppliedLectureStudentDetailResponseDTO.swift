@@ -10,7 +10,7 @@ struct AppliedLectureStudentDetailResponseDTO: Decodable {
     public let school: String
     public let clubName: String
     public let cohort: Int
-    public let currentCompletedDate: Date
+    public let currentCompletedDate: Date?
     public let completeStatus: CompleteStatusType
 }
 
