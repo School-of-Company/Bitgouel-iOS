@@ -8,6 +8,8 @@ public struct InputDataView: View {
     @Binding var name: String
     @State var isShowingFieldBottomSheet: Bool = false
     let finalButtonAction: () -> Void
+    let deleteButtonAction: () -> Void
+    let editButtonAction: () -> Void
 
     public init(
         epic: String,
@@ -15,7 +17,9 @@ public struct InputDataView: View {
         selectedField: Binding<FieldType?>,
         name: Binding<String>,
         isShowingFieldBottomSheet: Bool = false,
-        finalButtonAction: @escaping () -> Void
+        finalButtonAction: @escaping () -> Void,
+        deleteButtonAction: @escaping () -> Void = {},
+        editButtonAction: @escaping () -> Void = {}
     ) {
         self.epic = epic
         self.state = state
@@ -23,6 +27,8 @@ public struct InputDataView: View {
         _name = name
         self.isShowingFieldBottomSheet = isShowingFieldBottomSheet
         self.finalButtonAction = finalButtonAction
+        self.deleteButtonAction = deleteButtonAction
+        self.editButtonAction = editButtonAction
     }
 
     public var body: some View {
@@ -62,11 +68,20 @@ public struct InputDataView: View {
     @ViewBuilder
     func finalButton() -> some View {
         if state == "수정" {
-            ActivateButton(
-                text: "수정 완료",
-                buttonType: .check
-            ) {
-                finalButtonAction()
+            HStack(spacing: 8) {
+                DeactivateButton(
+                    text: "\(epic) 삭제",
+                    buttonType: .minus
+                ) {
+                    deleteButtonAction()
+                }
+
+                ActivateButton(
+                    text: "수정 완료",
+                    buttonType: .check
+                ) {
+                    editButtonAction()
+                }
             }
         } else {
             ActivateButton(

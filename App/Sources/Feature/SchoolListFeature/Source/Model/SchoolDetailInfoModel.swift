@@ -29,12 +29,12 @@ public struct SchoolDetailInfoModel: Equatable {
 public struct ClubDetailModel: Equatable {
     public let clubID: Int
     public let name: String
-    public let field: FieldType
+    public let field: FieldType?
 
     public init(
         clubID: Int,
         name: String,
-        field: FieldType
+        field: FieldType?
     ) {
         self.clubID = clubID
         self.name = name

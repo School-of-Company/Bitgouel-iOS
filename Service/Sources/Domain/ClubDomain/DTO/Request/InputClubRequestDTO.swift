@@ -1,6 +1,6 @@
 import Foundation
 
-public struct CreatedClubRequestDTO: Encodable {
+public struct InputClubRequestDTO: Encodable {
     public let name: String
     public let field: FieldType
 

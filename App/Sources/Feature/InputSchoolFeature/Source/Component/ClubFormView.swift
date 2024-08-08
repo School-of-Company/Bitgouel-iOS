@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ClubFormView: View {
     let clubList: [ClubDetailModel]
-    let editAction: (Int) -> Void
+    let editAction: (ClubDetailModel) -> Void
     let addClubAction: () -> Void
 
     var body: some View {
@@ -15,10 +15,7 @@ struct ClubFormView: View {
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 16) {
                     ForEach(clubList, id: \.clubID) { club in
-                        clubListRow(
-                            clubID: club.clubID,
-                            club: club.name
-                        )
+                        clubListRow(clubInfo: club)
                     }
 
                     Button {
@@ -45,13 +42,12 @@ struct ClubFormView: View {
 
     @ViewBuilder
     func clubListRow(
-        clubID: Int,
-        club: String
+        clubInfo: ClubDetailModel
     ) -> some View {
         HStack {
             HStack {
                 BitgouelText(
-                    text: club,
+                    text: clubInfo.name,
                     font: .text3
                 )
                 .padding(.horizontal, 20)
@@ -67,7 +63,7 @@ struct ClubFormView: View {
             Spacer()
 
             Button {
-                editAction(clubID)
+                editAction(clubInfo)
             } label: {
                 BitgouelAsset.Icons.penFill.swiftUIImage
                     .resizable()

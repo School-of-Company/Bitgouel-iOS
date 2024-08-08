@@ -15,6 +15,8 @@ final class InputSchoolViewModel: BaseViewModel {
     @Published var selectedLine: LineType?
     @Published var logoImageURL: String?
     @Published var departmentList: [String] = []
+    var clubViewState: String = ""
+    var selectedClubInfo: ClubDetailModel?
     let state: String
     let schoolInfo: SchoolDetailInfoModel
 
@@ -57,8 +59,10 @@ final class InputSchoolViewModel: BaseViewModel {
         isPresentedSuccessView = isPresented
     }
 
-    func updateIsPresentedInputClubView(isPresented: Bool) {
+    func updateIsPresentedInputClubView(isPresented: Bool, state: String, clubInfo: ClubDetailModel) {
         isPresentedInputClubView = isPresented
+        clubViewState = state
+        selectedClubInfo = clubInfo
     }
 
     func updateSelectedLine(line: LineType) {
@@ -118,26 +122,26 @@ final class InputSchoolViewModel: BaseViewModel {
     }
 
     @MainActor
-        func modifySchool(_ success: @escaping () -> Void) {
-            guard let line = selectedLine else { return }
-
-            Task {
-                do {
-                    try await modifySchoolUseCase(
-                        schoolID: schoolInfo.schoolID,
-                        logoImage: selectedUIImage?.jpegData(compressionQuality: 0.2) ?? .init(),
-                        req: InputSchoolInfoRequestDTO(
-                            schoolName: schoolName,
-                            line: line.rawValue,
-                            departments: departmentList
-                        )
+    func modifySchool(_ success: @escaping () -> Void) {
+        guard let line = selectedLine else { return }
+        
+        Task {
+            do {
+                try await modifySchoolUseCase(
+                    schoolID: schoolInfo.schoolID,
+                    logoImage: selectedUIImage?.jpegData(compressionQuality: 0.2) ?? .init(),
+                    req: InputSchoolInfoRequestDTO(
+                        schoolName: schoolName,
+                        line: line.rawValue,
+                        departments: departmentList
                     )
-
-                    success()
-                } catch {
-                    errorMessage = error.schoolDomainErrorMessage()
-                    isErrorOccurred = true
-                }
+                )
+                
+                success()
+            } catch {
+                errorMessage = error.schoolDomainErrorMessage()
+                isErrorOccurred = true
             }
         }
+    }
 }

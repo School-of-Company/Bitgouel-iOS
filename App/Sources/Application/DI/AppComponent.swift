@@ -198,4 +198,8 @@ public extension AppComponent {
     var inputSchoolFactory: any InputSchoolFactory {
         InputSchoolComponent(parent: self)
     }
+
+    var inputClubFactory: any InputClubFactory {
+        InputClubComponent(parent: self)
+    }
 }

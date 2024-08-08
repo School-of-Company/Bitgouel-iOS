@@ -6,6 +6,7 @@ public protocol InputSchoolDependency: Dependency {
     var createdSchoolUseCase: any CreatedSchoolUseCase { get }
     var modifySchoolUseCase: any ModifySchoolUseCase { get }
     var deleteSchoolUseCase: any DeleteSchoolUseCase { get }
+    var inputClubFactory: any InputClubFactory { get }
 }
 
 public final class InputSchoolComponent: Component<InputSchoolDependency>, InputSchoolFactory {
@@ -20,7 +21,8 @@ public final class InputSchoolComponent: Component<InputSchoolDependency>, Input
                 createdSchoolUseCase: dependency.createdSchoolUseCase,
                 modifySchoolUseCase: dependency.modifySchoolUseCase,
                 deleteSchoolUseCase: dependency.deleteSchoolUseCase
-            )
+            ), 
+            inputClubFactory: dependency.inputClubFactory
         )
     }
 }

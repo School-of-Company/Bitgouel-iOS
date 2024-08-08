@@ -4,9 +4,15 @@ import NukeUI
 struct InputSchoolView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: InputSchoolViewModel
+
+    private let inputClubFactory: any InputClubFactory
     
-    init(viewModel: InputSchoolViewModel) {
+    init(
+        viewModel: InputSchoolViewModel,
+        inputClubFactory: any InputClubFactory
+    ) {
         _viewModel = StateObject(wrappedValue: viewModel)
+        self.inputClubFactory = inputClubFactory
     }
     
     var body: some View {
@@ -88,10 +94,10 @@ struct InputSchoolView: View {
 
                 if viewModel.state == "수정" {
                     ClubFormView(clubList: viewModel.schoolInfo.clubList
-                    ) { clubID in
-                        viewModel.updateIsPresentedInputClubView(isPresented: true)
+                    ) { clubInfo in
+                        viewModel.updateIsPresentedInputClubView(isPresented: true, state: "수정", clubInfo: clubInfo)
                     } addClubAction: {
-                        viewModel.updateIsPresentedInputClubView(isPresented: true)
+                        viewModel.updateIsPresentedInputClubView(isPresented: true, state: "등록", clubInfo: .init(clubID: 0, name: "", field: nil))
                     }
                 }
             }
@@ -148,13 +154,22 @@ struct InputSchoolView: View {
             text: viewModel.errorMessage,
             isShowing: $viewModel.isErrorOccurred
         )
-        .navigate(
-            to: CreatedSchoolSuccessView(),
-            when: $viewModel.isPresentedSuccessView
-        )
+        .fullScreenCover(isPresented: $viewModel.isPresentedSuccessView) {
+            CreatedSchoolSuccessView {
+                dismiss()
+            }
+        }
         .onChange(of: viewModel.image) { _ in
             viewModel.logoImageURL = nil
         }
+        .navigate(
+            to: inputClubFactory.makeView(
+                schoolID: viewModel.schoolInfo.schoolID,
+                state: viewModel.clubViewState,
+                clubInfo: viewModel.selectedClubInfo ?? .init(clubID: 0, name: "", field: nil)
+            ).eraseToAnyView(),
+            when: $viewModel.isPresentedInputClubView
+        )
     }
     
     @ViewBuilder

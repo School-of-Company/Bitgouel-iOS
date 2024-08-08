@@ -17,6 +17,25 @@ private func parent1(_ component: NeedleFoundation.Scope) -> NeedleFoundation.Sc
 
 #if !NEEDLE_DYNAMIC
 
+private class InputClubDependency37025687d81052f20c76Provider: InputClubDependency {
+    var createdClubUseCase: any CreatedClubUseCase {
+        return appComponent.createdClubUseCase
+    }
+    var deleteClubUseCase: any DeleteClubUseCase {
+        return appComponent.deleteClubUseCase
+    }
+    var modifyClubUseCase: any ModifyClubUseCase {
+        return appComponent.modifyClubUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->InputClubComponent
+private func factory867dc6ccc256578f76bbf47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return InputClubDependency37025687d81052f20c76Provider(appComponent: parent1(component) as! AppComponent)
+}
 private class InputPostDependency2bb888f6c56a6060d23fProvider: InputPostDependency {
     var postDetailSettingFactory: any PostDetailSettingFactory {
         return appComponent.postDetailSettingFactory
@@ -545,6 +564,9 @@ private class InputSchoolDependencye8d4bffe76e2533005e2Provider: InputSchoolDepe
     var deleteSchoolUseCase: any DeleteSchoolUseCase {
         return appComponent.deleteSchoolUseCase
     }
+    var inputClubFactory: any InputClubFactory {
+        return appComponent.inputClubFactory
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -981,6 +1003,13 @@ private func factory3fc1a279eeb8c906e603f47b58f8f304c97af4d5(_ component: Needle
 }
 
 #else
+extension InputClubComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\InputClubDependency.createdClubUseCase] = "createdClubUseCase-any CreatedClubUseCase"
+        keyPathToName[\InputClubDependency.deleteClubUseCase] = "deleteClubUseCase-any DeleteClubUseCase"
+        keyPathToName[\InputClubDependency.modifyClubUseCase] = "modifyClubUseCase-any ModifyClubUseCase"
+    }
+}
 extension InputPostComponent: Registration {
     public func registerItems() {
         keyPathToName[\InputPostDependency.postDetailSettingFactory] = "postDetailSettingFactory-any PostDetailSettingFactory"
@@ -1176,6 +1205,7 @@ extension InputSchoolComponent: Registration {
         keyPathToName[\InputSchoolDependency.createdSchoolUseCase] = "createdSchoolUseCase-any CreatedSchoolUseCase"
         keyPathToName[\InputSchoolDependency.modifySchoolUseCase] = "modifySchoolUseCase-any ModifySchoolUseCase"
         keyPathToName[\InputSchoolDependency.deleteSchoolUseCase] = "deleteSchoolUseCase-any DeleteSchoolUseCase"
+        keyPathToName[\InputSchoolDependency.inputClubFactory] = "inputClubFactory-any InputClubFactory"
     }
 }
 extension FindPasswordComponent: Registration {
@@ -1475,6 +1505,7 @@ extension AppComponent: Registration {
         localTable["inputOrganizationFactory-any InputOrganizationFactory"] = { [unowned self] in self.inputOrganizationFactory as Any }
         localTable["inputUniversityFactory-any InputUniversityFactory"] = { [unowned self] in self.inputUniversityFactory as Any }
         localTable["inputSchoolFactory-any InputSchoolFactory"] = { [unowned self] in self.inputSchoolFactory as Any }
+        localTable["inputClubFactory-any InputClubFactory"] = { [unowned self] in self.inputClubFactory as Any }
         localTable["remoteWithdrawDataSource-any RemoteWithdrawDataSource"] = { [unowned self] in self.remoteWithdrawDataSource as Any }
         localTable["withdrawRepository-any WithdrawRepository"] = { [unowned self] in self.withdrawRepository as Any }
         localTable["fetchWithdrawUserListUseCase-any FetchWithdrawUserListUseCase"] = { [unowned self] in self.fetchWithdrawUserListUseCase as Any }
@@ -1518,6 +1549,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
 #if !NEEDLE_DYNAMIC
 
 @inline(never) private func register1() {
+    registerProviderFactory("^->AppComponent->InputClubComponent", factory867dc6ccc256578f76bbf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputPostComponent", factoryfd208488fdd5cb4acc65f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputCertificationComponent", factory2810b45b31199a5f0c2af47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->ClubListComponent", factory050817f1b6d356b83467f47b58f8f304c97af4d5)

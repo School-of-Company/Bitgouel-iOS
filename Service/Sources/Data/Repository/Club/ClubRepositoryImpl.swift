@@ -23,11 +23,11 @@ public struct ClubRepositoryImpl: ClubRepository {
         try await remoteClubDataSource.fetchStudentDetailByClub(clubID: clubID, studentID: studentID)
     }
 
-    public func createdClub(schoolID: Int, req: CreatedClubRequestDTO) async throws {
+    public func createdClub(schoolID: Int, req: InputClubRequestDTO) async throws {
         try await remoteClubDataSource.createdClub(schoolID: schoolID, req: req)
     }
 
-    public func modifyClub(clubID: Int, req: ModifyClubRequestDTO) async throws {
+    public func modifyClub(clubID: Int, req: InputClubRequestDTO) async throws {
         try await remoteClubDataSource.modifyClub(clubID: clubID, req: req)
     }
 

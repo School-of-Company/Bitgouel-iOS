@@ -7,7 +7,7 @@ public struct CreatedClubUseCaseImpl: CreatedClubUseCase {
         self.clubRepository = clubRepository
     }
 
-    public func callAsFunction(schoolID: Int, req: CreatedClubRequestDTO) async throws {
+    public func callAsFunction(schoolID: Int, req: InputClubRequestDTO) async throws {
         try await clubRepository.createdClub(schoolID: schoolID, req: req)
     }
 }
