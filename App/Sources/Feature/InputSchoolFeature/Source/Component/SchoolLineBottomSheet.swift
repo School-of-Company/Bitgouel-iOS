@@ -36,15 +36,19 @@ public struct SchoolLineBottomSheet: View {
                                 text: line.display(),
                                 font: .text2
                             )
-
+                            .foregroundColor(.black)
+                            
                             Spacer()
-
+                            
                             BitgouelRadioButton(
                                 isSelected: Binding(
                                     get: { line == selectedLine },
                                     set: { _ in selectLine(line) }
                                 )
                             )
+                        }
+                        .buttonWrapper {
+                            selectLine(line)
                         }
                         .padding(.vertical, 24)
                     }

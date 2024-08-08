@@ -16,10 +16,20 @@ struct InputSchoolView: View {
                     Button {
                         viewModel.updateIsShowingImagePicker(isShowing: true)
                     } label: {
-                        LazyImage(source: viewModel.schoolInfo.logoImageURL) { state in
+                        LazyImage(source: viewModel.logoImageURL) { state in
                             if let image = state.image {
-                                image
-                                    .resizingMode(.aspectFit)
+                                ZStack {
+                                    image
+                                        .resizingMode(.aspectFit)
+                                        .cornerRadius(8, corners: .allCorners)
+                                        .blur(radius: 1)
+
+                                    BitgouelAsset.Icons.add.swiftUIImage
+                                        .resizable()
+                                        .renderingMode(.template)
+                                        .foregroundColor(.white)
+                                        .frame(width: 24, height: 24)
+                                }
                             } else {
                                 schoolLogoImage()
                             }
@@ -85,6 +95,8 @@ struct InputSchoolView: View {
                     }
                 }
             }
+
+            Spacer(minLength: 50)
         }
         .overlay(alignment: .bottom) {
             renderFormButton()
@@ -132,6 +144,17 @@ struct InputSchoolView: View {
                 )
             ]
         )
+        .bitgouelToast(
+            text: viewModel.errorMessage,
+            isShowing: $viewModel.isErrorOccurred
+        )
+        .navigate(
+            to: CreatedSchoolSuccessView(),
+            when: $viewModel.isPresentedSuccessView
+        )
+        .onChange(of: viewModel.image) { _ in
+            viewModel.logoImageURL = nil
+        }
     }
     
     @ViewBuilder
@@ -151,6 +174,7 @@ struct InputSchoolView: View {
                 ) {
                     viewModel.modifySchool {
                         dismiss()
+                        viewModel.updateIsShowingLineBottomSheet(isShowing: false)
                     }
                 }
             }
@@ -169,7 +193,6 @@ struct InputSchoolView: View {
             ZStack {
                 image
                     .resizable()
-                    .frame(width: 80, height: 80)
                     .cornerRadius(8, corners: .allCorners)
                     .blur(radius: 1)
                 

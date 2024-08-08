@@ -4,7 +4,7 @@ public struct SchoolListResponseDTO: Decodable {
     public let schoolID: Int
     public let schoolName: String
     public let line: LineType
-    public let departments: [DepartmentResponseDTO]
+    public let departments: [String]
     public let logoImageURL: String
     public let clubs: [SchoolWithClubsResponseDTO]
 
@@ -24,7 +24,7 @@ extension SchoolListResponseDTO {
             schoolID: schoolID,
             schoolName: schoolName,
             line: line,
-            departments: departments.map { $0.toDomain() },
+            departments: departments,
             logoImageURL: logoImageURL,
             clubs: clubs.map { $0.toDomain() }
         )
