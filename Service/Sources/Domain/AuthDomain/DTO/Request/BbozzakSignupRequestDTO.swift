@@ -5,7 +5,7 @@ public struct BbozzakSignupRequestDTO: Encodable {
     public let name: String
     public let phoneNumber: String
     public let password: String
-    public let highSchool: HighSchoolType
+    public let highSchool: String
     public let clubName: String
 
     public init(
@@ -13,7 +13,7 @@ public struct BbozzakSignupRequestDTO: Encodable {
         name: String,
         phoneNumber: String,
         password: String,
-        highSchool: HighSchoolType,
+        highSchool: String,
         clubName: String
     ) {
         self.email = email

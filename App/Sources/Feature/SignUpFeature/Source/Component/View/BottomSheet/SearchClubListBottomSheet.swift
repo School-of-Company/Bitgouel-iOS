@@ -29,11 +29,12 @@ struct SearchClubListBottomSheet: View {
             ScrollView {
                 LazyVStack {
                     ForEach(searchedClubList, id: \.self) { club in
-                        SearchClubListRow(
-                            club: club,
-                            selectedClub: selectedClub,
-                            onClubSelect: onClubSelect
-                        )
+                        RadioButtonListRow(
+                            element: club,
+                            selectedElement: selectedClub
+                        ) { club in
+                            onClubSelect(club)
+                        }
                     }
                 }
             }
