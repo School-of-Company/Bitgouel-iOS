@@ -1,9 +1,21 @@
-//
-//  AffiliationBottomSheet.swift
-//  Bitgouel
-//
-//  Created by 정윤서 on 8/11/24.
-//  Copyright © 2024 team.msg. All rights reserved.
-//
+import SwiftUI
 
-import Foundation
+struct AffiliationBottomSheet: View {
+    let affiliationList: [AffiliationType] = AffiliationType.allCases
+    let selectedAffiliation: AffiliationType?
+    let onAffiliationSelect: (AffiliationType) -> Void
+    
+    var body: some View {
+        ScrollView {
+            ForEach(affiliationList, id: \.self) { affiliation in
+                RadioButtonListRow(
+                    element: affiliation.rawValue,
+                    selectedElement: selectedAffiliation?.rawValue
+                ) { _ in
+                    onAffiliationSelect(affiliation)
+                }
+            }
+        }
+        .padding(.horizontal, 28)
+    }
+}

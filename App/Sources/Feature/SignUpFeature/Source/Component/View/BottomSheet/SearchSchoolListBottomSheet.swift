@@ -1,8 +1,8 @@
 import Service
 import SwiftUI
 
-struct SchoolListBottomSheet: View {
-    @State var searchKeyword: String
+struct SearchSchoolListBottomSheet: View {
+    @State var searchKeyword: String = ""
     let schoolList: [String]
     let selectedSchool: String?
     let onHighSchoolSelect: (String) -> Void
@@ -21,11 +21,10 @@ struct SchoolListBottomSheet: View {
                 "학교 이름으로 검색",
                 text: $searchKeyword
             )
-            .padding(.horizontal, 28)
 
             ScrollView {
                 LazyVStack {
-                    ForEach(schoolList, id: \.self) { school in
+                    ForEach(searchedSchoolList, id: \.self) { school in
                         RadioButtonListRow(
                             element: school,
                             selectedElement: selectedSchool
@@ -36,6 +35,7 @@ struct SchoolListBottomSheet: View {
                 }
             }
         }
+        .padding(.horizontal, 28)
         .frame(height: 415)
     }
 }

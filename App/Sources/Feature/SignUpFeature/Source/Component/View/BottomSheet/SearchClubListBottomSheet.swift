@@ -1,30 +1,25 @@
 import SwiftUI
 
 struct SearchClubListBottomSheet: View {
-    @Binding var searchText: String
-    let searchedClubList: [String]
+    @State var searchKeyword: String = ""
+    let clubList: [String]
     let selectedClub: String
     let onClubSelect: (String) -> Void
 
-    init(
-        searchText: Binding<String>,
-        searchedClubList: [String],
-        selectedClub: String,
-        onClubSelect: @escaping (String) -> Void
-    ) {
-        self._searchText = searchText
-        self.searchedClubList = searchedClubList
-        self.selectedClub = selectedClub
-        self.onClubSelect = onClubSelect
+    var searchedClubList: [String] {
+        if searchKeyword.isEmpty {
+            return clubList
+        } else {
+            return clubList.filter { $0.lowercased().contains(searchKeyword.lowercased()) }
+        }
     }
 
     var body: some View {
         VStack(spacing: 8) {
             BitgouelTextField(
                 "동아리 이름으로 검색",
-                text: $searchText
+                text: $searchKeyword
             )
-            .padding(.horizontal, 28)
 
             ScrollView {
                 LazyVStack {
@@ -39,5 +34,7 @@ struct SearchClubListBottomSheet: View {
                 }
             }
         }
+        .padding(.horizontal, 28)
+        .frame(height: 415)
     }
 }

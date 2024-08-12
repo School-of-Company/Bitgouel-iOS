@@ -1,9 +1,25 @@
-//
-//  UserRoleTypeBottomSheet.swift
-//  Bitgouel
-//
-//  Created by 정윤서 on 8/11/24.
-//  Copyright © 2024 team.msg. All rights reserved.
-//
+import SwiftUI
+import Service
 
-import Foundation
+struct UserRoleTypeBottomSheet: View {
+    let selectedAffiliation: AffiliationType
+    let selectedUserRole: UserAuthorityType?
+    let onUserRoleSelect: (UserAuthorityType) -> Void
+
+    var body: some View {
+        ScrollView {
+            let data: [UserAuthorityType] = selectedAffiliation == .school
+                            ? [.student, .teacher]
+                            : [.companyInstructor, .professor, .bbozzack, .government]
+
+            ForEach(data, id: \.self) { userRole in
+                RadioButtonListRow(
+                    element: userRole.display(),
+                    selectedElement: selectedUserRole?.display()) { _ in
+                        onUserRoleSelect(userRole)
+                    }
+            }
+        }
+        .padding(.horizontal, 28)
+    }
+}
