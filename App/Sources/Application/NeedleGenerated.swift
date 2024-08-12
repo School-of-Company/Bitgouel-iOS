@@ -199,6 +199,21 @@ private class SignUpDependencyf83ac0c64026320e6dc2Provider: SignUpDependency {
     var successSignUpFactory: any SuccessSignUpFactory {
         return appComponent.successSignUpFactory
     }
+    var fetchAllSchoolNameUseCase: any FetchAllSchoolNameUseCase {
+        return appComponent.fetchAllSchoolNameUseCase
+    }
+    var fetchAllClubNameUseCase: any FetchAllClubNameUseCase {
+        return appComponent.fetchAllClubNameUseCase
+    }
+    var fetchCompanyListUseCase: any FetchCompanyListUseCase {
+        return appComponent.fetchCompanyListUseCase
+    }
+    var fetchUniversityListUseCase: any FetchUniversityListUseCase {
+        return appComponent.fetchUniversityListUseCase
+    }
+    var fetchGovernmentListUseCase: any FetchGovernmentListUseCase {
+        return appComponent.fetchGovernmentListUseCase
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -1079,6 +1094,11 @@ extension SignUpComponent: Registration {
         keyPathToName[\SignUpDependency.governmentSignupUseCase] = "governmentSignupUseCase-any GovernmentSignupUseCase"
         keyPathToName[\SignUpDependency.companyInstructorSignupUseCase] = "companyInstructorSignupUseCase-any CompanyInstructorSignupUseCase"
         keyPathToName[\SignUpDependency.successSignUpFactory] = "successSignUpFactory-any SuccessSignUpFactory"
+        keyPathToName[\SignUpDependency.fetchAllSchoolNameUseCase] = "fetchAllSchoolNameUseCase-any FetchAllSchoolNameUseCase"
+        keyPathToName[\SignUpDependency.fetchAllClubNameUseCase] = "fetchAllClubNameUseCase-any FetchAllClubNameUseCase"
+        keyPathToName[\SignUpDependency.fetchCompanyListUseCase] = "fetchCompanyListUseCase-any FetchCompanyListUseCase"
+        keyPathToName[\SignUpDependency.fetchUniversityListUseCase] = "fetchUniversityListUseCase-any FetchUniversityListUseCase"
+        keyPathToName[\SignUpDependency.fetchGovernmentListUseCase] = "fetchGovernmentListUseCase-any FetchGovernmentListUseCase"
     }
 }
 extension ActivityDetailSettingComponent: Registration {
@@ -1407,6 +1427,7 @@ extension AppComponent: Registration {
         localTable["createdClubUseCase-any CreatedClubUseCase"] = { [unowned self] in self.createdClubUseCase as Any }
         localTable["modifyClubUseCase-any ModifyClubUseCase"] = { [unowned self] in self.modifyClubUseCase as Any }
         localTable["deleteClubUseCase-any DeleteClubUseCase"] = { [unowned self] in self.deleteClubUseCase as Any }
+        localTable["fetchAllClubNameUseCase-any FetchAllClubNameUseCase"] = { [unowned self] in self.fetchAllClubNameUseCase as Any }
         localTable["remoteGovernmentDataSource-any RemoteGovernmentDataSource"] = { [unowned self] in self.remoteGovernmentDataSource as Any }
         localTable["governmentRepository-any GovernmentRepository"] = { [unowned self] in self.governmentRepository as Any }
         localTable["fetchGovernmentListUseCase-any FetchGovernmentListUseCase"] = { [unowned self] in self.fetchGovernmentListUseCase as Any }

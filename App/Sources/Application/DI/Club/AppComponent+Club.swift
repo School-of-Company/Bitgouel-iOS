@@ -55,4 +55,10 @@ public extension AppComponent {
             DeleteClubUseCaseImpl(clubRepository: clubRepository)
         }
     }
+
+    var fetchAllClubNameUseCase: any FetchAllClubNameUseCase {
+        shared {
+            FetchAllClubNameUseCaseImpl(clubRepository: clubRepository)
+        }
+    }
 }
