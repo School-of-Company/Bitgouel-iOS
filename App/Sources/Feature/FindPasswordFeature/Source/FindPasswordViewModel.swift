@@ -24,7 +24,7 @@ final class FindPasswordViewModel: BaseViewModel {
 
     var emailHelpMessage: String {
         if isEmailErrorOccurred {
-            guard checkEmail(email) else { return "잘못된 이메일입니다." }
+            guard email.checkEmail() else { return "잘못된 이메일입니다." }
 
             return "이메일로 가입된 유저를 찾을 수 없습니다."
         } else {
@@ -44,14 +44,9 @@ final class FindPasswordViewModel: BaseViewModel {
         isEmailErrorOccurred = isErrorOccurred
     }
 
-    func checkEmail(_ email: String) -> Bool {
-        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
-        return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: email)
-    }
-
     @MainActor
     func nextToButtonDidTap(_ success: @escaping () -> Void) {
-        guard checkEmail(email) else {
+        guard email.checkEmail() else {
             return updateIsEmailErrorOccurred(isErrorOccurred: true)
         }
 

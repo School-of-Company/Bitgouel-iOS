@@ -8,12 +8,12 @@ public struct FetchSchoolNameResponseDTO: Decodable {
     }
 
     public struct SchoolNameResponseDTO: Decodable {
-        public let schoolName: String
+        public let name: String
     }
 }
 
 extension FetchSchoolNameResponseDTO {
     func toDomain() -> [String] {
-        schools.map(\.schoolName)
+        schools.map(\.name)
     }
 }

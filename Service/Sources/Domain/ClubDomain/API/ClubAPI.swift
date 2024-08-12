@@ -9,6 +9,7 @@ public enum ClubAPI {
     case createdClub(schoolID: Int, req: InputClubRequestDTO)
     case modifyClub(clubID: Int, req: InputClubRequestDTO)
     case deleteClub(clubID: Int)
+    case fetchAllClubName(schoolName: String)
 }
 
 extension ClubAPI: BitgouelAPI {
@@ -36,6 +37,9 @@ extension ClubAPI: BitgouelAPI {
 
         case let .createdClub(schoolID, _):
             return "/\(schoolID)"
+
+        case .fetchAllClubName:
+            return "/name"
         }
     }
 
@@ -44,7 +48,8 @@ extension ClubAPI: BitgouelAPI {
         case .fetchClubList,
              .fetchClubDetail,
              .fetchStudentListByClub,
-             .fetchStudentDetailByClub:
+             .fetchStudentDetailByClub,
+             .fetchAllClubName:
             return .get
 
         case .createdClub:
@@ -65,6 +70,11 @@ extension ClubAPI: BitgouelAPI {
                 "highSchool": highSchool
             ], encoding: URLEncoding.queryString)
 
+        case let .fetchAllClubName(schoolName):
+            return .requestParameters(parameters: [
+                "schoolName": schoolName
+            ], encoding: URLEncoding.queryString)
+
         case .fetchClubDetail,
              .fetchStudentListByClub,
              .fetchStudentDetailByClub,
@@ -81,6 +91,9 @@ extension ClubAPI: BitgouelAPI {
 
     public var jwtTokenType: JwtTokenType {
         switch self {
+        case .fetchAllClubName:
+            return .none
+
         default:
             return .accessToken
         }

@@ -8,4 +8,5 @@ public protocol RemoteClubDataSource: BaseRemoteDataSource<ClubAPI> {
     func createdClub(schoolID: Int, req: InputClubRequestDTO) async throws
     func modifyClub(clubID: Int, req: InputClubRequestDTO) async throws
     func deleteClub(clubID: Int) async throws
+    func fetchAllClubName(schoolName: String) async throws -> [String]
 }

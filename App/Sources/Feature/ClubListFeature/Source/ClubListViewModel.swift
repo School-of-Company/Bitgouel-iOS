@@ -2,7 +2,7 @@ import Foundation
 import Service
 
 final class ClubListViewModel: BaseViewModel {
-    @Published var selectedSchool: HighSchoolType?
+    @Published var selectedSchool: String?
     @Published var isShowingLoginAlert: Bool = false
     @Published var schoolList: [SchoolInfoModel] = []
     @Published var clubID: Int = 0
@@ -85,7 +85,7 @@ final class ClubListViewModel: BaseViewModel {
             do {
                 guard let selectedSchool else { return }
 
-                let response = try await fetchClubListUseCase(highSchool: selectedSchool.rawValue)
+                let response = try await fetchClubListUseCase(highSchool: selectedSchool)
 
                 updateSchoolList(model: response.map {
                     SchoolInfoModel(

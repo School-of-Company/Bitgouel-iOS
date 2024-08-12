@@ -34,4 +34,8 @@ public final class RemoteClubDataSourceImpl: BaseRemoteDataSource<ClubAPI>, Remo
     public func deleteClub(clubID: Int) async throws {
         try await request(.deleteClub(clubID: clubID))
     }
+
+    public func fetchAllClubName(schoolName: String) async throws -> [String] {
+        try await request(.fetchAllClubName(schoolName: schoolName), dto: FetchAllClubNameResponseDTO.self).toDomain()
+    }
 }
