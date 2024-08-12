@@ -1,9 +1,33 @@
-//
-//  RadioButtonListRow.swift
-//  Bitgouel
-//
-//  Created by 정윤서 on 8/10/24.
-//  Copyright © 2024 team.msg. All rights reserved.
-//
+import SwiftUI
 
-import Foundation
+public struct RadioButtonListRow: View {
+    let element: String
+    let selectedElement: String?
+    let onElementSelect: (String) -> Void
+
+    public var body: some View {
+        HStack {
+            BitgouelText(
+                text: element,
+                font: .text2
+            )
+
+            Spacer()
+
+            BitgouelRadioButton(
+                isSelected: Binding(
+                    get: { selectedElement == element },
+                    set: { isSelected in
+                        if isSelected {
+                            onElementSelect(element)
+                        }
+                    }
+                )
+            )
+        }
+        .onTapGesture {
+            onElementSelect(element)
+        }
+        .padding(.vertical, 24)
+    }
+}

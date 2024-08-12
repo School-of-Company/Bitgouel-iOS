@@ -4,6 +4,7 @@ struct InputCheckPasswordSection: View {
     let password: String
     let checkPassword: String
     @State var isCheckPasswordErrorOccurred: Bool = false
+    let enteredCheckPassword: (String) -> Void
 
     var checkPasswordHelpMessage: String {
         guard !checkPassword.isEmpty else { return "" }
@@ -21,6 +22,8 @@ struct InputCheckPasswordSection: View {
             text: Binding(
                 get: { checkPassword },
                 set: { newValue in
+                    enteredCheckPassword(newValue)
+
                     if checkedPassword() {
                         isCheckPasswordErrorOccurred = false
                     } else {

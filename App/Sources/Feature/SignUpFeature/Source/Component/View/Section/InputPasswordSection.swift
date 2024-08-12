@@ -13,6 +13,7 @@ struct InputPasswordSection: View {
     }
     @State var isPasswordErrorOccurred: Bool = false
     let updateState: (SignupFlowState) -> Void
+    let enteredPassword: (String) -> Void
 
     var body: some View {
         SecureBitgouelTextField(
@@ -20,6 +21,8 @@ struct InputPasswordSection: View {
             text: Binding(
                 get: { password },
                 set: { newValue in
+                    enteredPassword(newValue)
+
                     if newValue.checkPassword() {
                         isPasswordErrorOccurred = false
                         updateState(.checkPassword)

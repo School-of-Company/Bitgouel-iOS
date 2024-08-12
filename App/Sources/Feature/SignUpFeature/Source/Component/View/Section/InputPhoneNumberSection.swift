@@ -13,6 +13,7 @@ struct InputPhoneNumberSection: View {
     }
     @State var isPhoneNumberErrorOccurred: Bool = false
     let updateState: (SignupFlowState) -> Void
+    let enteredPhoneNumber: (String) -> Void
 
     var body: some View {
         BitgouelTextField(
@@ -20,6 +21,8 @@ struct InputPhoneNumberSection: View {
             text: Binding(
                 get: { phoneNumber },
                 set: { newValue in
+                    enteredPhoneNumber(newValue)
+
                     if newValue.checkphoneNumber() {
                         isPhoneNumberErrorOccurred = false
                         updateState(.email)
