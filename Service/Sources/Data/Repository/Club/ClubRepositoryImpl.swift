@@ -34,4 +34,8 @@ public struct ClubRepositoryImpl: ClubRepository {
     public func deleteClub(clubID: Int) async throws {
         try await remoteClubDataSource.deleteClub(clubID: clubID)
     }
+
+    public func fetchAllClubName(schoolName: String) async throws -> [String] {
+        try await remoteClubDataSource.fetchAllClubName(schoolName: schoolName)
+    }
 }
