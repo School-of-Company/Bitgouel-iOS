@@ -35,11 +35,6 @@ final class ChangePasswordViewModel: BaseViewModel {
         isPresentedSuccessView = isPresented
     }
 
-    func checkPassword(_ password: String) -> Bool {
-        let passwordRegex = "^(?=.*[a-zA-Z0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,24}$"
-        return NSPredicate(format: "SELF MATCHES %@", passwordRegex).evaluate(with: password)
-    }
-
     func updateIsCurrentPasswordErrorOccurred(isErrorOccurred: Bool) {
         isCurrentPasswordErrorOccurred = isErrorOccurred
     }
@@ -54,10 +49,10 @@ final class ChangePasswordViewModel: BaseViewModel {
             errorMessage = "비밀번호가 일치하지 않습니다."
             return isErrorOccurred = true
         }
-        guard checkPassword(currentPassword) else {
+        guard currentPassword.checkPassword() else {
             return updateIsCurrentPasswordErrorOccurred(isErrorOccurred: true)
         }
-        guard checkPassword(newPassword) && checkPassword(checkNewPassword) else {
+        guard newPassword.checkPassword() && checkNewPassword.checkPassword() else {
             return updateIsNewPasswordErrorOccurred(isErrorOccurred: true)
         }
 

@@ -2,9 +2,9 @@ import Service
 import SwiftUI
 
 struct SchoolListPopup: View {
-    let schoolList: [HighSchoolType] = HighSchoolType.allCases
-    let selectedSchool: HighSchoolType?
-    let onSchoolSelect: (HighSchoolType) -> Void
+    let schoolList: [SchoolInfoModel]
+    let selectedSchool: String?
+    let onSchoolSelect: (String) -> Void
     let cancel: (Bool) -> Void
 
     var body: some View {
@@ -33,9 +33,9 @@ struct SchoolListPopup: View {
 
                     ScrollView(showsIndicators: false) {
                         LazyVStack(spacing: 16) {
-                            ForEach(schoolList, id: \.self) { school in
+                            ForEach(schoolList, id: \.schoolName) { school in
                                 schoolListRow(
-                                    school: school,
+                                    school: school.schoolName,
                                     selectedSchool: selectedSchool,
                                     onSchoolSelect: onSchoolSelect
                                 )
@@ -53,12 +53,12 @@ struct SchoolListPopup: View {
 
     @ViewBuilder
     func schoolListRow(
-        school: HighSchoolType,
-        selectedSchool _: HighSchoolType?,
-        onSchoolSelect: @escaping (HighSchoolType) -> Void
+        school: String,
+        selectedSchool: String?,
+        onSchoolSelect: @escaping (String) -> Void
     ) -> some View {
         VStack(alignment: .leading) {
-            Text(school.display())
+            Text(school)
                 .onTapGesture {
                     onSchoolSelect(school)
                 }
@@ -67,7 +67,7 @@ struct SchoolListPopup: View {
             Divider()
                 .padding(.top, 16)
         }
-        .id(String(school.rawValue))
+        .id(String(school))
         .frame(height: 54)
     }
 }

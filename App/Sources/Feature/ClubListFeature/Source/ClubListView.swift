@@ -43,6 +43,7 @@ struct ClubListView: View {
                             }
 
                         SchoolListPopup(
+                            schoolList: viewModel.schoolList,
                             selectedSchool: viewModel.selectedSchool
                         ) { school in
                             viewModel.selectedSchool = school
