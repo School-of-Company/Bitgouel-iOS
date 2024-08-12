@@ -5,7 +5,7 @@ struct SearchUniversityListBottomSheet: View {
     let universityList: [String]
     let selectedUniversity: String?
     let onUniversitySelect: (String) -> Void
-    
+
     var searchedUniversityList: [String] {
         if searchKeyword.isEmpty {
             return universityList

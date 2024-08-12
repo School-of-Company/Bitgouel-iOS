@@ -11,6 +11,7 @@ struct InputPhoneNumberSection: View {
             return ""
         }
     }
+
     @State var isPhoneNumberErrorOccurred: Bool = false
     let updateState: (SignupFlowState) -> Void
     let enteredPhoneNumber: (String) -> Void

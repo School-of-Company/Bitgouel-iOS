@@ -15,6 +15,7 @@ struct SearchGovernmentBottomSheet: View {
             }
         }
     }
+
     var body: some View {
         VStack(spacing: 8) {
             BitgouelTextField(

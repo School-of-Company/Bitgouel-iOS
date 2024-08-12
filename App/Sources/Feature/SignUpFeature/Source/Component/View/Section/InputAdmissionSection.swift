@@ -14,14 +14,13 @@ struct InputAdmissionSection: View {
                 set: { newValue in
                     if let number = Int(newValue), number > 0 {
                         enteredAdmissionYear(number)
-                        
+
                         if checkAdmissionNumber(number: number) {
                             updateState(.studentNumber)
                         }
                     } else {
                         enteredAdmissionYear(nil)
                     }
-
                 }
             )
         )

@@ -22,160 +22,166 @@ struct SignUpView: View {
             ScrollView {
                 signupTitleSection()
 
-                VStack(spacing: 16) {
+                VStack {
                     switch viewModel.selectedUserRole {
                     case .student:
-                        ConditionView(viewModel.studentIDIsValid) {
+                        if viewModel.studentInfo?.number != nil {
                             inputAuthorizationInfoSection()
                         }
 
-                        ConditionView(viewModel.nameIsValid) {
+                        if !viewModel.userInfo.name.isEmpty {
                             inputStudentInfoSection()
                         }
 
-                        ConditionView(viewModel.selectedClub != nil) {
-                            inputNameSection()
-                        }
-
-                        ConditionView(viewModel.selectedSchool != nil) {
-                            inputClubSection()
-                        }
-
                     case .teacher, .bbozzack:
-                        ConditionView(viewModel.nameIsValid) {
+                        if !viewModel.userInfo.name.isEmpty {
                             inputAuthorizationInfoSection()
-                        }
-
-                        ConditionView(viewModel.selectedClub != nil) {
-                            inputNameSection()
-                        }
-
-                        ConditionView(viewModel.selectedSchool != nil) {
-                            inputClubSection()
                         }
 
                     case .companyInstructor:
-                        ConditionView(!viewModel.selectedCompany.isEmpty) {
+                        if !viewModel.selectedCompany.isEmpty {
                             inputAuthorizationInfoSection()
                         }
 
-                        ConditionView(viewModel.nameIsValid) {
-                            inputCompanyInstructorInfoSection()
-                        }
-
-                        ConditionView(viewModel.selectedClub != nil) {
-                            inputNameSection()
-                        }
-
-                        ConditionView(viewModel.selectedSchool != nil) {
-                            inputClubSection()
+                        if !viewModel.userInfo.name.isEmpty {
+                            PickerTextField(
+                                "소속 기업명",
+                                text: viewModel.selectedCompany
+                            ) {
+                                viewModel.updateIsShowingCompanyBottomSheet(isShowing: true)
+                            }
                         }
 
                     case .professor:
-                        ConditionView(!viewModel.selectedUniversity.isEmpty) {
+                        if !viewModel.selectedUniversity.isEmpty {
                             inputAuthorizationInfoSection()
                         }
 
-                        ConditionView(viewModel.nameIsValid) {
-                            inputProfessorInfoSection()
-                        }
-
-                        ConditionView(viewModel.selectedClub != nil) {
-                            inputNameSection()
-                        }
-
-                        ConditionView(viewModel.selectedSchool != nil) {
-                            inputClubSection()
+                        if !viewModel.userInfo.name.isEmpty {
+                            PickerTextField(
+                                "소속 대학명",
+                                text: viewModel.selectedUniversity
+                            ) {
+                                viewModel.updateIsShowingUniversityBottomSheet(isShowing: true)
+                            }
                         }
 
                     case .government:
-                        ConditionView(!viewModel.position.isEmpty) {
+                        if !viewModel.governmentInfo.position.isEmpty {
                             inputAuthorizationInfoSection()
                         }
 
-                        ConditionView(viewModel.nameIsValid) {
+                        if !viewModel.userInfo.name.isEmpty {
                             inputGovernmentInfoSection()
-                        }
-
-                        ConditionView(viewModel.selectedClub != nil) {
-                            inputNameSection()
-                        }
-
-                        ConditionView(viewModel.selectedSchool != nil) {
-                            inputClubSection()
                         }
 
                     default:
                         EmptyView()
                     }
 
-                    inputSchoolInfoSection()
+                    inputGeneralInfoSection()
                 }
                 .padding(.top, 32)
+                .padding(.horizontal, 28)
             }
             .overlay(alignment: .bottom) {
                 if !viewModel.checkPassword.isEmpty {
                     signupApplyButton()
+                        .padding(.horizontal, 28)
                 }
             }
-            .padding(.horizontal, 28)
-        }
-        .bitgouelToast(
-            text: viewModel.errorMessage,
-            isShowing: $viewModel.isErrorOccurred
-        )
-        .bitgouelBottomSheet(isShowing: $viewModel.isPresentedSchoolSheet) {
-            SchoolListBottomSheet(
-                searchKeyword: $viewModel.schoolSearch,
-                schoolList: viewModel.searchedSchoolList,
-                selectedSchool: viewModel.selectedSchool
-            ) { highschool in
-                viewModel.selectedSchool = highschool
-                viewModel.isPresentedSchoolSheet = false
+            .onAppear {
+                viewModel.fetchSchoolList()
+                viewModel.fetchClubList()
+                viewModel.fetchCompanyList()
+                viewModel.fetchUniversityList()
+                viewModel.fetchGovernmentList()
             }
-            .frame(height: 415)
-        }
-        .bitgouelBottomSheet(isShowing: $viewModel.isPresentedClubSheet) {
-            SearchClubListBottomSheet(
-                searchText: $viewModel.clubSearch,
-                searchedClubList: viewModel.searchedClubList,
-                selectedClub: viewModel.selectedClub ?? "동아리",
-                onClubSelect: { selectedClub in
-                    viewModel.selectedClub = selectedClub
-                    viewModel.isPresentedClubSheet = false
-                }
+            .bitgouelToast(
+                text: viewModel.errorMessage,
+                isShowing: $viewModel.isErrorOccurred
             )
-            .frame(height: 415)
-        }
-        .bitgouelBottomSheet(isShowing: $viewModel.isPresentedAssociationSheet) {
-            associationTypeView()
-        }
-        .bitgouelBottomSheet(isShowing: $viewModel.isPresentedUserRoleSheet) {
-            userRoleTypeView()
-        }
-        .animation(.default, value: viewModel.selectedAssociation)
-        .navigate(
-            to: successSignUpFactory.makeView().eraseToAnyView(),
-            when: Binding(
-                get: { viewModel.isShowingSuccessView },
-                set: { isShowing in
-                    viewModel.updateIsShowingSuccessView(isShowing: isShowing)
+            .bitgouelBottomSheet(isShowing: $viewModel.isShowingSchoolBottomSheet) {
+                SearchSchoolListBottomSheet(
+                    schoolList: viewModel.schoolList,
+                    selectedSchool: viewModel.userInfo.highschool
+                ) { highschool in
+                    viewModel.userInfo.highschool = highschool
+                    viewModel.updateState(state: .club)
+                    viewModel.updateIsShowingSchoolBottomSheet(isShowing: false)
                 }
+            }
+            .bitgouelBottomSheet(isShowing: $viewModel.isShowingClubBottomSheet) {
+                SearchClubListBottomSheet(
+                    clubList: viewModel.clubList,
+                    selectedClub: viewModel.userInfo.clubName,
+                    onClubSelect: { clubName in
+                        viewModel.userInfo.clubName = clubName
+                        viewModel.updateState(state: .name)
+                        viewModel.updateIsShowingClubBottomSheet(isShowing: false)
+                    }
+                )
+            }
+            .bitgouelBottomSheet(isShowing: $viewModel.isShowingAffiliationBottomSheet) {
+                AffiliationBottomSheet(
+                    selectedAffiliation: viewModel.selectedAffiliation
+                ) { affiliation in
+                    viewModel.selectedAffiliation = affiliation
+                    viewModel.updateState(state: .career)
+                    viewModel.updateIsShowingAffiliationBottomSheet(isShowing: false)
+                }
+            }
+            .bitgouelBottomSheet(isShowing: $viewModel.isShowingUserRoleBottomSheet) {
+                UserRoleTypeBottomSheet(
+                    selectedAffiliation: viewModel.selectedAffiliation ?? .school,
+                    selectedUserRole: viewModel.selectedUserRole
+                ) { userRole in
+                    viewModel.selectedUserRole = userRole
+                    viewModel.updateState(state: .school)
+                    viewModel.updateIsShowingUserRoleBottomSheet(isShowing: false)
+                }
+            }
+            .bitgouelBottomSheet(isShowing: $viewModel.isShowingUniversityBottomSheet) {
+                SearchUniversityListBottomSheet(
+                    universityList: viewModel.universityList,
+                    selectedUniversity: viewModel.selectedUniversity
+                ) { university in
+                    viewModel.selectedUniversity = university
+                    viewModel.updateState(state: .phoneNumber)
+                    viewModel.updateIsShowingUniversityBottomSheet(isShowing: false)
+                }
+            }
+            .bitgouelBottomSheet(isShowing: $viewModel.isShowingCompanyBottomSheet) {
+                SearchCompanyBottomSheet(
+                    companyList: viewModel.companyList,
+                    selectedCompany: viewModel.selectedCompany
+                ) { company in
+                    viewModel.selectedCompany = company
+                    viewModel.updateState(state: .phoneNumber)
+                    viewModel.updateIsShowingCompanyBottomSheet(isShowing: false)
+                }
+            }
+            .bitgouelBottomSheet(isShowing: $viewModel.isShowingGovernmentBottomSheet) {
+                SearchGovernmentBottomSheet(
+                    governmentList: viewModel.governmentList,
+                    selectedGovernment: viewModel.governmentInfo.name
+                ) { government in
+                    viewModel.governmentInfo.name = government
+                    viewModel.updateState(state: .sectors)
+                }
+            }
+            .animation(.default, value: viewModel.selectedUserRole)
+            .navigate(
+                to: successSignUpFactory.makeView().eraseToAnyView(),
+                when: $viewModel.isPresentedSuccessView
             )
-        )
+        }
+        .onChange(of: viewModel.userInfo.highschool) { _ in
+            viewModel.userInfo.clubName = ""
+            viewModel.fetchClubList()
+        }
         .bitgouelBackButton(dismiss: dismiss)
-        .onChange(of: viewModel.email) { _ in
-            viewModel.updateIsEmailErrorOccurred(isErrorOccurred: false)
-        }
-        .onChange(of: viewModel.password) { _ in
-            viewModel.updateIsPasswordErrorOccurred(isErrorOccurred: false)
-        }
-        .onChange(of: viewModel.phoneNumber) { _ in
-            viewModel.updateIsPhoneNumberErrorOccurred(isErrorOccurred: false)
-        }
-        .onChange(of: viewModel.checkPassword) { _ in
-            viewModel.updateIsCheckPasswordErrorOccurred(isErrorOccurred: false)
-        }
+        .navigationBarBackButtonHidden()
     }
 
     @ViewBuilder
@@ -183,10 +189,10 @@ struct SignUpView: View {
         VStack {
             HStack {
                 VStack(alignment: .leading) {
-                    Text(viewModel.titleMessage)
+                    Text(viewModel.state.toTitle())
                         .bitgouelFont(.title2)
 
-                    Text(viewModel.subTitleMessage)
+                    Text(viewModel.state.toSubTitle())
                         .bitgouelFont(.text3, color: .greyscale(.g4))
                 }
 
@@ -194,240 +200,147 @@ struct SignUpView: View {
             }
             .padding(.top, 24)
         }
+        .padding(.horizontal, 28)
     }
 
     @ViewBuilder
     func inputAuthorizationInfoSection() -> some View {
-        VStack(spacing: 4) {
-            if !viewModel.password.isEmpty {
-                SecureBitgouelTextField(
-                    "비밀번호",
-                    text: $viewModel.checkPassword,
-                    helpMessage: viewModel.checkPasswordHelpMessage,
-                    isError: viewModel.isCheckPasswordErrorOccurred
-                )
-                .textContentType(.password)
+        if !viewModel.userInfo.password.isEmpty {
+            InputCheckPasswordSection(
+                password: viewModel.userInfo.password,
+                checkPassword: viewModel.checkPassword
+            ) { checkPassword in
+                viewModel.checkPassword = checkPassword
             }
+        }
 
-            if !viewModel.email.isEmpty {
-                SecureBitgouelTextField(
-                    "비밀번호",
-                    text: $viewModel.password,
-                    helpMessage: viewModel.passwordHelpMessage,
-                    isError: viewModel.isPasswordErrorOccurred
-                )
-                .textContentType(.password)
+        if !viewModel.userInfo.email.isEmpty {
+            InputPasswordSection(password: viewModel.userInfo.password) { state in
+                viewModel.updateState(state: state)
+            } enteredPassword: { password in
+                viewModel.userInfo.password = password
             }
+        }
 
-            if !viewModel.phoneNumber.isEmpty {
-                BitgouelTextField(
-                    "이메일",
-                    text: $viewModel.email,
-                    helpMessage: viewModel.emailHelpMessage,
-                    isError: viewModel.isEmailErrorOccurred
-                )
-                .textContentType(.emailAddress)
+        if !viewModel.userInfo.phoneNumber.isEmpty {
+            InputEmailSection(email: viewModel.userInfo.email) { state in
+                viewModel.updateState(state: state)
+            } enteredEmail: { email in
+                viewModel.userInfo.email = email
             }
+        }
 
-            BitgouelTextField(
-                "전화번호",
-                text: $viewModel.phoneNumber,
-                helpMessage: viewModel.phoneNumberHelpMessage,
-                isError: viewModel.isPhoneNumberErrorOccurred
-            )
+        InputPhoneNumberSection(phoneNumber: viewModel.userInfo.phoneNumber) { state in
+            viewModel.updateState(state: state)
+        } enteredPhoneNumber: { phoneNumber in
+            viewModel.userInfo.phoneNumber = phoneNumber
         }
     }
 
     @ViewBuilder
-    func inputSchoolInfoSection() -> some View {
+    func inputGeneralInfoSection() -> some View {
         VStack(spacing: 16) {
-            ConditionView(viewModel.selectedUserRole != nil) {
-                AssociationSelectButton(
-                    text: viewModel.selectedSchool?.display() ?? "학교"
+            if !viewModel.userInfo.clubName.isEmpty {
+                InputNameSection(name: viewModel.userInfo.name) { name in
+                    viewModel.userInfo.name = name
+                } updateState: {
+                    viewModel.userRoleState()
+                }
+            }
+
+            if !viewModel.userInfo.highschool.isEmpty {
+                PickerTextField(
+                    "동아리",
+                    text: viewModel.userInfo.clubName
                 ) {
-                    viewModel.isPresentedSchoolSheet.toggle()
+                    viewModel.updateIsShowingClubBottomSheet(isShowing: true)
                 }
             }
 
-            ConditionView(viewModel.selectedAssociation != nil) {
+            if viewModel.selectedUserRole != nil {
+                PickerTextField(
+                    "학교",
+                    text: viewModel.userInfo.highschool
+                ) {
+                    viewModel.updateIsShowingSchoolBottomSheet(isShowing: true)
+                }
+            }
+
+            if viewModel.selectedAffiliation != nil {
                 AssociationSelectButton(text: viewModel.selectedUserRole?.display() ?? "직업") {
-                    viewModel.isPresentedUserRoleSheet = true
+                    viewModel.updateIsShowingUserRoleBottomSheet(isShowing: true)
                 }
             }
 
-            AssociationSelectButton(text: viewModel.selectedAssociation?.associationValue() ?? "소속") {
-                viewModel.isPresentedAssociationSheet = true
+            AssociationSelectButton(text: viewModel.selectedAffiliation?.rawValue ?? "소속") {
+                viewModel.updateIsShowingAffiliationBottomSheet(isShowing: true)
             }
-        }
-    }
-
-    @ViewBuilder
-    func inputClubSection() -> some View {
-        VStack(spacing: 0) {
-            AssociationSelectButton(
-                text: viewModel.selectedClub ?? "동아리"
-            ) {
-                viewModel.isPresentedClubSheet.toggle()
-            }
-        }
-    }
-
-    @ViewBuilder
-    func inputNameSection() -> some View {
-        VStack(spacing: 0) {
-            BitgouelTextField(
-                "이름",
-                text: $viewModel.name
-            )
-            .padding(.bottom, -20)
         }
     }
 
     // MARK: Student
     @ViewBuilder
     func inputStudentInfoSection() -> some View {
-        VStack(spacing: 16) {
-            if viewModel.yearOfAdmissionIsValid {
-                BitgouelTextField(
-                    "학번",
-                    text: Binding(
-                        get: { viewModel.studentID },
-                        set: { newValue in
-                            viewModel.updateStudentID(id: newValue)
-                        }
-                    )
-                )
-                .padding(.bottom, -20)
+        VStack(spacing: 8) {
+            if viewModel.admissionNumber != nil {
+                InputStudentIDNumberSection { grade, classRoom, number in
+                    viewModel.updateStudentIDNumber(grade: grade, classRoom: classRoom, number: number)
+                } updateState: { state in
+                    viewModel.updateState(state: state)
+                }
+                .padding(.bottom, 20)
             }
 
-            BitgouelTextField(
-                "입학년도",
-                text: Binding(
-                    get: {
-                        guard let yearOfAdmission = viewModel.yearOfAdmission else { return "" }
-                        return String(yearOfAdmission)
-                    },
-                    set: { newValue in
-                        guard let yearOfAdmission = Int(newValue) else { return }
-                        viewModel.yearOfAdmission = yearOfAdmission
-                    }
-                )
-            )
-            .padding(.bottom, -20)
-        }
-    }
-
-    // MARK: Professor
-    @ViewBuilder
-    func inputProfessorInfoSection() -> some View {
-        VStack(spacing: 0) {
-            BitgouelTextField(
-                "소속 대학명",
-                text: $viewModel.selectedUniversity
-            )
-            .padding(.bottom, -20)
+            InputAdmissionSection(admissionNumber: viewModel.admissionNumber ?? 0) { admissionNumber in
+                if let admissionNumber {
+                    viewModel.admissionNumber = admissionNumber
+                } else {
+                    print("Invalid admission number")
+                    return
+                }
+            } updateState: { state in
+                viewModel.updateState(state: state)
+                viewModel.studentInfo = .init(grade: 0, classRoom: 0, number: 0)
+            }
         }
     }
 
     // MARK: Government
     @ViewBuilder
     func inputGovernmentInfoSection() -> some View {
-        VStack(spacing: 0) {
-            if !viewModel.sectors.isEmpty {
+        VStack(spacing: 8) {
+            if !viewModel.governmentInfo.sectors.isEmpty {
                 BitgouelTextField(
                     "본인의 직책",
-                    text: $viewModel.position
+                    text: Binding(
+                        get: { viewModel.governmentInfo.position },
+                        set: { newValue in
+                            viewModel.governmentInfo.position = newValue
+                            viewModel.updateState(state: .phoneNumber)
+                        }
+                    )
                 )
             }
 
-            if !viewModel.selectedGovernment.isEmpty {
+            if !viewModel.governmentInfo.name.isEmpty {
                 BitgouelTextField(
                     "소속 기관의 업종",
-                    text: $viewModel.sectors
+                    text: Binding(
+                        get: { viewModel.governmentInfo.sectors },
+                        set: { newValue in
+                            viewModel.governmentInfo.sectors = newValue
+                            viewModel.updateState(state: .position)
+                        }
+                    )
                 )
             }
 
-            BitgouelTextField(
+            PickerTextField(
                 "소속 기관명",
-                text: $viewModel.selectedGovernment
-            )
-            .padding(.bottom, -20)
-        }
-    }
-
-    // MARK: CompanyInstructor
-    @ViewBuilder
-    func inputCompanyInstructorInfoSection() -> some View {
-        VStack(spacing: 0) {
-            BitgouelTextField(
-                "소속 기업명",
-                text: $viewModel.selectedCompany
-            )
-            .padding(.bottom, -20)
-        }
-    }
-
-    @ViewBuilder
-    func userRoleTypeView() -> some View {
-        ScrollView {
-            let data: [UserAuthorityType] = viewModel.selectedAssociation == .school
-                ? [.student, .teacher]
-                : [.companyInstructor, .professor, .bbozzack, .government]
-            ForEach(data, id: \.self) { userRole in
-                HStack {
-                    Text(userRole.display())
-
-                    Spacer()
-
-                    BitgouelRadioButton(
-                        isSelected: Binding(
-                            get: { viewModel.selectedUserRole == userRole },
-                            set: { isSelected in
-                                if isSelected {
-                                    viewModel.isPresentedUserRoleSheet = false
-                                    viewModel.selectedUserRole = userRole
-                                }
-                            }
-                        )
-                    )
-                }
-                .onTapGesture {
-                    viewModel.isPresentedUserRoleSheet = false
-                    viewModel.selectedUserRole = userRole
-                }
-                .padding(.horizontal, 28)
-                .padding(.vertical, 24)
-            }
-        }
-    }
-
-    @ViewBuilder
-    func associationTypeView() -> some View {
-        ScrollView {
-            ForEach(AssociationType.allCases, id: \.self) { association in
-                HStack {
-                    Text(association.associationValue())
-
-                    Spacer()
-
-                    BitgouelRadioButton(
-                        isSelected: Binding(
-                            get: { viewModel.selectedAssociation == association },
-                            set: { isSelected in
-                                if isSelected {
-                                    viewModel.isPresentedAssociationSheet = false
-                                    viewModel.selectedAssociation = association
-                                }
-                            }
-                        )
-                    )
-                }
-                .onTapGesture {
-                    viewModel.isPresentedAssociationSheet = false
-                    viewModel.selectedAssociation = association
-                }
-                .padding(.horizontal, 28)
-                .padding(.vertical, 24)
+                text: viewModel.governmentInfo.name
+            ) {
+                viewModel.updateIsShowingGovernmentBottomSheet(isShowing: true)
+                viewModel.updateState(state: .sectors)
             }
         }
     }
@@ -440,7 +353,7 @@ struct SignUpView: View {
         ) {
             viewModel.signup {
                 scenceState.sceneFlow = .signup
-                viewModel.updateIsShowingSuccessView(isShowing: true)
+                viewModel.updateIsPresentedSuccessView(isPresented: true)
             }
         }
     }

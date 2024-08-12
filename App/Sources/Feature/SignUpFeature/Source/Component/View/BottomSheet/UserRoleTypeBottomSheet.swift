@@ -1,5 +1,5 @@
-import SwiftUI
 import Service
+import SwiftUI
 
 struct UserRoleTypeBottomSheet: View {
     let selectedAffiliation: AffiliationType
@@ -9,15 +9,16 @@ struct UserRoleTypeBottomSheet: View {
     var body: some View {
         ScrollView {
             let data: [UserAuthorityType] = selectedAffiliation == .school
-                            ? [.student, .teacher]
-                            : [.companyInstructor, .professor, .bbozzack, .government]
+                ? [.student, .teacher]
+                : [.companyInstructor, .professor, .bbozzack, .government]
 
             ForEach(data, id: \.self) { userRole in
                 RadioButtonListRow(
                     element: userRole.display(),
-                    selectedElement: selectedUserRole?.display()) { _ in
-                        onUserRoleSelect(userRole)
-                    }
+                    selectedElement: selectedUserRole?.display()
+                ) { _ in
+                    onUserRoleSelect(userRole)
+                }
             }
         }
         .padding(.horizontal, 28)

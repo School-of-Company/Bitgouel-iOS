@@ -11,6 +11,7 @@ struct InputEmailSection: View {
             return ""
         }
     }
+
     @State var isEmailErrorOccurred: Bool = false
     let updateState: (SignupFlowState) -> Void
     let enteredEmail: (String) -> Void

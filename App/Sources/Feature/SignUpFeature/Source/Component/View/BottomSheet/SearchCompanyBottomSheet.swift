@@ -22,7 +22,7 @@ struct SearchCompanyBottomSheet: View {
                 "기업 이름으로 검색",
                 text: $searchKeyword
             )
-            
+
             ScrollView {
                 LazyVStack {
                     ForEach(searchCompanyList, id: \.self) { company in
@@ -32,7 +32,6 @@ struct SearchCompanyBottomSheet: View {
                         ) { company in
                             onCompanySelect(company)
                         }
-                        
                     }
                 }
             }

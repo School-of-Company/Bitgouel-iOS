@@ -14,6 +14,7 @@ struct InputStudentIDNumberSection: View {
             return ""
         }
     }
+
     @State var isStudentIDNumberErrorOccurred: Bool = false
 
     let enteredStudentIDNumber: (_ grade: Int, _ classRoom: Int, _ number: Int) -> Void
@@ -45,9 +46,9 @@ struct InputStudentIDNumberSection: View {
 
     func checkStudentIDNumber() -> Bool {
         return studentIDNumber.count == 5 &&
-        (grade != nil) &&
-        (classRoom != nil) &&
-        (number != nil)
+            (grade != nil) &&
+            (classRoom != nil) &&
+            (number != nil)
     }
 
     func parseStudentID() {

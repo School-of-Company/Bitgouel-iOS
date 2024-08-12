@@ -11,6 +11,7 @@ struct InputPasswordSection: View {
             return ""
         }
     }
+
     @State var isPasswordErrorOccurred: Bool = false
     let updateState: (SignupFlowState) -> Void
     let enteredPassword: (String) -> Void
