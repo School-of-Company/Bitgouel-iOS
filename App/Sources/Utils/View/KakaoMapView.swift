@@ -132,8 +132,15 @@ struct KakaoMapView: UIViewRepresentable {
             }
             let manager = view.getLabelManager()
 
-            let iconStyle1 = PoiIconStyle(symbol: UIImage(systemName: "mappin"), anchorPoint: CGPoint(x: 0.0, y: 0.5))
-            let iconStyle2 = PoiIconStyle(symbol: UIImage(systemName: "mappin"), anchorPoint: CGPoint(x: 0.0, y: 0.5))
+            let poiImage = BitgouelAsset.Images.ping.image
+            let newPoiImageRect = CGRect(x: 0, y: 0, width: 96, height: 96)
+            UIGraphicsBeginImageContext(CGSize(width: 96, height: 96))
+            poiImage.draw(in: newPoiImageRect)
+            let newPoiImage = UIGraphicsGetImageFromCurrentImageContext()?.withRenderingMode(.alwaysOriginal)
+            UIGraphicsEndImageContext()
+
+            let iconStyle1 = PoiIconStyle(symbol: newPoiImage, anchorPoint: CGPoint(x: 0.0, y: 0.5))
+            let iconStyle2 = PoiIconStyle(symbol: newPoiImage, anchorPoint: CGPoint(x: 0.0, y: 0.5))
 
             let poiStyle = PoiStyle(styleID: "PerLevelStyle", styles: [
                 PerLevelPoiStyle(iconStyle: iconStyle1, level: 5),
