@@ -7,10 +7,10 @@ let isCI = (ProcessInfo.processInfo.environment["TUIST_CI"] ?? "0") == "1" ? tru
 public extension Project {
     static func dynamicFramwork(
         name: String,
-        platform: Platform = env.platform,
+        destination: Set<Destination> = env.destination,
         packages: [Package] = [],
         infoPlist: InfoPlist = .default,
-        deploymentTarget: DeploymentTarget,
+        deploymentTarget: DeploymentTargets,
         configurations: [Configuration] = [],
         dependencies: [TargetDependency] = [
             .project(target: "ThirdPartyLib", path: Path("../ThirdPartyLib"))
@@ -31,12 +31,12 @@ public extension Project {
                 defaultSettings: .recommended
             ),
             targets: [
-                Target(
+                .target(
                     name: name,
-                    platform: platform,
+                    destinations: destination,
                     product: .framework,
                     bundleId: "\(env.organizationName).\(name)",
-                    deploymentTarget: env.deploymentTarget,
+                    deploymentTargets: env.deploymentTarget,
                     infoPlist: infoPlist,
                     sources: ["Sources/**"],
                     scripts: [.swiftLint],

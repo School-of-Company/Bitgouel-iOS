@@ -13,13 +13,16 @@ env:
 jobs:
   prepare-dependency:
     name: ⚙️ Prepare-Dependency
-    runs-on: macos-latest
+    runs-on: macos-14
 
     steps:
       - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v2
+        with:
+          xcode-version: 15.2
 
       - name: Install tuist
-        run: curl -Ls https://install.tuist.io | bash
+        run: mise install tuist
 
       - name: Compute dependency cache key
         id: compute_hash
@@ -34,7 +37,7 @@ jobs:
 
       - name: Install dependencies
         if: steps.cache_dependencies.outputs.cache-hit == ''
-        run: tuist fetch
+        run: tuist install
     outputs:
       dependency_cache_key: ${{ steps.compute_hash.outputs.hash }}
 
@@ -45,11 +48,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - uses: jdx/mise-action@v2
       with:
-        xcode-version: latest
+        xcode-version: 15.2
 
     - name: Install tuist
-      run: curl -Ls https://install.tuist.io | bash
+      run: mise install tuist
 
     - name: Check dependency cache
       uses: actions/cache@v3
@@ -60,10 +64,10 @@ jobs:
 
     - name: Install dependencies
       if: steps.cache_dependencies.outputs.cache-hit != 'true'
-      run: tuist fetch
+      run: tuist install
 
     - name: Test with tuist
-      run: TUIST_ENV=CI tuist test
+      run: TUIST_ENV=CI tuist test --no-selective-testing
 
     - name: Bitgouel iOS CI Discord Notification
       uses: sarisia/actions-status-discord@v1
