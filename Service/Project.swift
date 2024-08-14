@@ -16,7 +16,7 @@ let configurations: [Configuration] = generateEnvironment == .ci ?
 
 let project = Project.dynamicFramwork(
     name: "Service",
-    platform: .iOS,
+    destination: .iOS,
     infoPlist: .extendingDefault(
         with: [
             "BASE_URL": "$(BASE_URL)"

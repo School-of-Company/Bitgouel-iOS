@@ -1,0 +1,77 @@
+{
+  "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "f455c2975872ccd2d9c81594c658af65716e9b9a",
+        "version" : "5.9.1"
+      }
+    },
+    {
+      "identity" : "gifu",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kaishin/Gifu",
+      "state" : {
+        "revision" : "82da0086dea14ca9afc9801234ad8dc4cd9e2738",
+        "version" : "3.4.1"
+      }
+    },
+    {
+      "identity" : "moya",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Moya/Moya.git",
+      "state" : {
+        "revision" : "c263811c1f3dbf002be9bd83107f7cdc38992b26",
+        "version" : "15.0.3"
+      }
+    },
+    {
+      "identity" : "needle",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/uber/needle.git",
+      "state" : {
+        "revision" : "6db73ae873952794b94fd6bb5111554e23c160af",
+        "version" : "0.24.0"
+      }
+    },
+    {
+      "identity" : "nuke",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kean/Nuke.git",
+      "state" : {
+        "revision" : "a002b7fd786f2df2ed4333fe73a9727499fd9d97",
+        "version" : "10.11.2"
+      }
+    },
+    {
+      "identity" : "nukeui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kean/NukeUI.git",
+      "state" : {
+        "revision" : "db55022a8e483774ebbf3568727071477546d9ea",
+        "version" : "0.8.3"
+      }
+    },
+    {
+      "identity" : "reactiveswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ReactiveCocoa/ReactiveSwift.git",
+      "state" : {
+        "revision" : "c43bae3dac73fdd3cb906bd5a1914686ca71ed3c",
+        "version" : "6.7.0"
+      }
+    },
+    {
+      "identity" : "rxswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ReactiveX/RxSwift.git",
+      "state" : {
+        "revision" : "b06a8c8596e4c3e8e7788e08e720e3248563ce6a",
+        "version" : "6.7.1"
+      }
+    }
+  ],
+  "version" : 2
+}

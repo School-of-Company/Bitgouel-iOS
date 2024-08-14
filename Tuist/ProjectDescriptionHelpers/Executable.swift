@@ -4,7 +4,7 @@ import ProjectDescription
 public extension Project {
     static func executable(
         name: String,
-        platform: Platform = env.platform,
+        destination: Set<Destination> = env.destination,
         product: Product,
         packages: [Package] = [],
         settings: Settings? = nil,
@@ -26,7 +26,7 @@ public extension Project {
         )
 
         let schemes: [Scheme] = [
-            .init(
+            .scheme(
                 name: "\(env.name)-DEV",
                 shared: true,
                 buildAction: .buildAction(targets: ["\(env.name)"]),
@@ -35,7 +35,7 @@ public extension Project {
                 profileAction: .profileAction(configuration: .dev),
                 analyzeAction: .analyzeAction(configuration: .dev)
             ),
-            .init(
+            .scheme(
                 name: "\(env.name)-STAGE",
                 shared: true,
                 buildAction: .buildAction(targets: ["\(env.name)"]),
@@ -44,7 +44,7 @@ public extension Project {
                 profileAction: .profileAction(configuration: .stage),
                 analyzeAction: .analyzeAction(configuration: .stage)
             ),
-            .init(
+            .scheme(
                 name: "\(env.name)-PROD",
                 shared: true,
                 buildAction: .buildAction(targets: ["\(env.name)"]),
@@ -61,12 +61,12 @@ public extension Project {
             packages: packages,
             settings: settings,
             targets: [
-                .init(
+                .target(
                     name: name,
-                    platform: platform,
+                    destinations: destination,
                     product: product,
                     bundleId: "\(env.organizationName).\(name)",
-                    deploymentTarget: env.deploymentTarget,
+                    deploymentTargets: env.deploymentTarget,
                     infoPlist: .file(path: Path("Support/Info.plist")),
                     sources: ["Sources/**"],
                     resources: ["Resources/**"],
@@ -74,21 +74,22 @@ public extension Project {
                     dependencies: [
                         .project(
                             target: "ThirdPartyLib",
-                            path: Path("../ThirdPartyLib")
+                            path: Path("../ThirdPartyLib"),
+                            condition: .when(.all)
                         ),
                     ] + dependencies,
                     settings: settings
                 ),
-                .init(
+                .target(
                     name: "\(name)Test",
-                    platform: platform,
+                    destinations: destination,
                     product: .unitTests,
                     bundleId: "\(env.organizationName).\(name)Test",
-                    deploymentTarget: env.deploymentTarget,
+                    deploymentTargets: env.deploymentTarget,
                     infoPlist: .default,
                     sources: ["Tests/**"],
                     dependencies: [
-                        .target(name: name)
+                        .target(name: name, condition: .when(.all))
                     ]
                 )
             ],
@@ -99,7 +100,7 @@ public extension Project {
 
 extension Scheme {
     static func makeScheme(target: ConfigurationName, name: String) -> Scheme {
-        return .init(
+        return .scheme(
             name: name,
             shared: true,
             buildAction: .buildAction(targets: ["\(name)"]),

@@ -1,20 +1,20 @@
 generate:
-	tuist fetch
-	tuist generate
+	mise exec -- tuist install
+	mise exec -- tuist generate
 
 ci_generate:
-	tuist fetch
-	TUIST_ENV=CI tuist generate
+	mise exec -- tuist install
+	TUIST_ENV=CI mise exec -- tuist generate
 
 cd_generate:
-	tuist fetch
-	TUIST_ENV=CD tuist generate
+	mise exec -- tuist install
+	TUIST_ENV=CD mise exec -- tuist generate
 
 clean:
 	rm -rf **/*.xcodeproj
 	rm -rf *.xcworkspace
 
 reset:
-	tuist clean
+	mise exec -- tuist clean
 	rm -rf **/*.xcodeproj
 	rm -rf *.xcworkspace

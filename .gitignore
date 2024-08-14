@@ -38,6 +38,12 @@ Temporary Items
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
+## Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+.build/
+
 ## User settings
 xcuserdata/
 
@@ -81,5 +87,4 @@ Derived/
 
 ### Tuist managed dependencies ###
 Tuist/Dependencies
-
 
