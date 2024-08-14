@@ -10,6 +10,7 @@ let project = Project.dynamicFramwork(
     dependencies: [
         .SPM.Moya,
         .SPM.Needle,
-        .SPM.NukeUI
+        .SPM.NukeUI,
+        .SPM.KakaoMapsSDK
     ]
 )
