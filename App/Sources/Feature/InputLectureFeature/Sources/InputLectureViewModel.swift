@@ -17,7 +17,10 @@ final class InputLectureViewModel: BaseViewModel {
         lectureDates: [],
         lectureType: "상호학점인정교육과정",
         credit: 0,
-        maxRegisteredUser: 0
+        maxRegisteredUser: 0,
+        address: "",
+        locationDetails: "",
+        essentialComplete: true
     )
 
     let lectureID: String
@@ -66,7 +69,10 @@ final class InputLectureViewModel: BaseViewModel {
             lectureDates: detailInfo.lectureDates,
             lectureType: detailInfo.lectureType,
             credit: detailInfo.credit,
-            maxRegisteredUser: detailInfo.maxRegisteredUser
+            maxRegisteredUser: detailInfo.maxRegisteredUser,
+            address: detailInfo.address,
+            locationDetails: detailInfo.locationDetails,
+            essentialComplete: detailInfo.essentialComplete
         )
     }
 
@@ -106,7 +112,10 @@ final class InputLectureViewModel: BaseViewModel {
             },
             lectureType: response.lectureType,
             credit: response.credit,
-            maxRegisteredUser: response.credit
+            maxRegisteredUser: response.credit,
+            address: response.address,
+            locationDetails: response.locationDetails,
+            essentialComplete: response.essentialComplete
         )
     }
 
@@ -154,7 +163,10 @@ final class InputLectureViewModel: BaseViewModel {
                 },
                 lectureType: lectureInfo.lectureType,
                 credit: lectureInfo.credit,
-                maxRegisteredUser: lectureInfo.maxRegisteredUser
+                maxRegisteredUser: lectureInfo.maxRegisteredUser,
+                address: lectureInfo.address,
+                locationDetails: lectureInfo.locationDetails,
+                essentialComplete: lectureInfo.essentialComplete
             )
         )
     }
@@ -181,7 +193,10 @@ final class InputLectureViewModel: BaseViewModel {
                 },
                 lectureType: lectureInfo.lectureType,
                 credit: lectureInfo.credit,
-                maxRegisteredUser: lectureInfo.maxRegisteredUser
+                maxRegisteredUser: lectureInfo.maxRegisteredUser,
+                address: lectureInfo.address,
+                locationDetails: lectureInfo.locationDetails,
+                essentialComplete: lectureInfo.essentialComplete
             )
         )
     }

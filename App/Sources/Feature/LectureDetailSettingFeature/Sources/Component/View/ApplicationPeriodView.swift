@@ -24,7 +24,7 @@ struct ApplicationPeriodView: View {
 
             VStack(alignment: .leading, spacing: 8) {
                 BitgouelText(
-                    text: "마감일",
+                    text: "신청 마감일",
                     font: .text1
                 )
 
