@@ -1,3 +1,4 @@
+import KakaoMapsSDK
 import Service
 import SwiftUI
 
@@ -15,6 +16,10 @@ struct BitgouelApp: App {
             AppComponent().makeRootView()
                 .environmentObject(sceneState)
                 .environmentObject(adminPageState)
+                .onAppear {
+                    SDKInitializer
+                        .InitSDK(appKey: Bundle.main.object(forInfoDictionaryKey: "KAKAO_APP_KEY") as? String ?? "")
+                }
         }
     }
 }

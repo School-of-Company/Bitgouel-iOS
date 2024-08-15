@@ -6,7 +6,9 @@ import PackageDescription
     import ProjectDescriptionHelpers
 
     let packageSettings = PackageSettings(
-        productTypes: [:],
+        productTypes: [
+            "KakaoMapsSDK-SPM": .staticLibrary
+        ],
         baseSettings: .settings(
             configurations: [
                 .debug(name: .dev),
@@ -22,6 +24,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/Moya/Moya.git", .upToNextMajor(from: "15.0.3")),
         .package(url: "https://github.com/uber/needle.git", .upToNextMajor(from: "0.24.0")),
-        .package(url: "https://github.com/kean/NukeUI.git", .upToNextMajor(from: "0.8.3"))
+        .package(url: "https://github.com/kean/NukeUI.git", .upToNextMajor(from: "0.8.3")),
+        .package(url: "https://github.com/kakao-mapsSDK/KakaoMapsSDK-SPM.git", .upToNextMajor(from: "2.10.5"))
     ]
 )

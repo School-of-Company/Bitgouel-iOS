@@ -4,12 +4,19 @@ import SwiftUI
 final class LectureListDetailViewModel: BaseViewModel {
     @Published var lectureDetail: LectureDetailEntity?
     @Published var isSuccessEnrolment: Bool = false
-    @Published var isApply: Bool = false
     @Published var isCancel: Bool = false
+    @Published var isApply: Bool = false
+    @Published var isDraw: Bool = false
     @Published var isPresentedLectureApplicantListView: Bool = false
     @Published var userAuthority: UserAuthorityType = .user
     @Published var isPresentedLectureActionSheet: Bool = false
     @Published var isPresentedInputLectureView: Bool = false
+    @Published var lectureLocation: Location = .init(
+        locationX: 0.0,
+        locationY: 0.0,
+        address: "",
+        locationDetails: ""
+    )
 
     let lectureID: String
     private let fetchLectureDetailUseCase: any FetchLectureDetailUseCase
@@ -46,18 +53,38 @@ final class LectureListDetailViewModel: BaseViewModel {
         isPresentedInputLectureView = isPresented
     }
 
+    func updateLectureLocation(location: Location) {
+        lectureLocation = location
+    }
+
+    func updateLectureDetail(detail: LectureDetailEntity) {
+        lectureDetail = detail
+    }
+
     @MainActor
     func onAppear() {
         isLoading = true
+        isDraw = true
         userAuthority = loadUserAuthorityUseCase()
 
         Task {
             do {
-                lectureDetail = try await fetchLectureDetailUseCase(lectureID: lectureID)
+                let response = try await fetchLectureDetailUseCase(lectureID: lectureID)
+
+                updateLectureDetail(detail: response)
+                updateLectureLocation(
+                    location: .init(
+                        locationX: Double(response.locationX) ?? 0,
+                        locationY: Double(response.locationY) ?? 0,
+                        address: response.address,
+                        locationDetails: response.locationDetails
+                    )
+                )
 
                 isLoading = false
             } catch {
                 errorMessage = error.lectureDomainErrorMessage()
+                print(String(describing: error))
 
                 isErrorOccurred = true
                 isLoading = false

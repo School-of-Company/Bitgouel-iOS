@@ -23,7 +23,7 @@ struct LectureListDetailView: View {
                 ProgressView()
                     .progressViewStyle(.circular)
             } else {
-                ScrollView {
+                ScrollView(showsIndicators: false) {
                     if let lectureDetail = viewModel.lectureDetail {
                         VStack(alignment: .leading, spacing: 24) {
                             VStack(alignment: .leading, spacing: 4) {
@@ -96,6 +96,23 @@ struct LectureListDetailView: View {
                             }
 
                             VStack(alignment: .leading, spacing: 16) {
+                                BitgouelText(text: "강의 장소", font: .text1)
+
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text(viewModel.lectureLocation.address)
+
+                                    Text(viewModel.lectureLocation.locationDetails)
+
+                                    KakaoMapView(
+                                        draw: $viewModel.isDraw,
+                                        location: $viewModel.lectureLocation
+                                    )
+                                    .frame(width: 296, height: 252)
+                                }
+                                .bitgouelFont(.text3, color: .greyscale(.g4))
+                            }
+
+                            VStack(alignment: .leading, spacing: 16) {
                                 BitgouelText(text: "강의 수강 날짜", font: .text1)
 
                                 LazyVStack(alignment: .leading, spacing: 16) {
@@ -118,6 +135,7 @@ struct LectureListDetailView: View {
                                 .foregroundColor(.bitgouel(.greyscale(.g4)))
                             }
                         }
+                        .padding(.bottom, 60)
                     }
                 }
                 .overlay(alignment: .bottom) {
@@ -176,6 +194,9 @@ struct LectureListDetailView: View {
         .padding(.horizontal, 28)
         .onAppear {
             viewModel.onAppear()
+        }
+        .onDisappear {
+            viewModel.isDraw = false
         }
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
