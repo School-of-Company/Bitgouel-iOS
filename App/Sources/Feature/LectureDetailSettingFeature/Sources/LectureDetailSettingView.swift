@@ -82,6 +82,12 @@ struct LectureDetailSettingView: View {
                         )
                     )
 
+                    LectureLocationView(
+                        isShowingPostCodeSheet: $viewModel.isShowingPostCodeSheet,
+                        address: $viewModel.selectedAddress,
+                        locationDetail: $viewModel.enteredLocationDetail
+                    )
+
                     LectureDatesView(
                         lectureDatesList: viewModel.lectureDatesList
                     ) { completeDate, index in
@@ -215,6 +221,15 @@ struct LectureDetailSettingView: View {
             ) { name, id in
                 viewModel.updateInstructorInfo(name: name, id: id)
                 viewModel.resetKeyword()
+            }
+        }
+        .sheet(isPresented: $viewModel.isShowingPostCodeSheet) {
+            if let url = viewModel.postCodeWebURL {
+                KakaoPostCodeView(
+                    request: URLRequest(url: url),
+                    isShowingKakaoWebSheet: $viewModel.isShowingPostCodeSheet,
+                    address: $viewModel.selectedAddress
+                )
             }
         }
         .onTapGesture {

@@ -46,10 +46,16 @@ final class LectureDetailSettingViewModel: BaseViewModel {
     @Published var selectedMaxRegisteredUser: Int = 0
     @Published var isShowingMaxRegisteredUserBottomSheet: Bool = false
 
+    // MARK: Location
+    @Published var isShowingPostCodeSheet: Bool = false
+    @Published var selectedAddress: String = ""
+    @Published var enteredLocationDetail: String = ""
+
     @Published var isEssential: Bool = true
     @Published var keyword: String = ""
     @Published var detailInfo: LectureDataModel
     let completion: (LectureDataModel) -> Void
+    let postCodeWebURL: URL? = URL(string: "https://uuuunseo.github.io/DaumWeb/")
 
     private let searchInstructorUseCase: any SearchInstructorUseCase
     private let searchLineUseCase: any SearchLineUseCase
@@ -240,7 +246,10 @@ final class LectureDetailSettingViewModel: BaseViewModel {
             lectureDates: lectureDatesList,
             lectureType: lectureTypeString,
             credit: selectedCredit,
-            maxRegisteredUser: selectedMaxRegisteredUser
+            maxRegisteredUser: selectedMaxRegisteredUser,
+            address: selectedAddress,
+            locationDetails: enteredLocationDetail,
+            essentialComplete: isEssential
         )
 
         completion(detailInfo)
@@ -258,6 +267,7 @@ final class LectureDetailSettingViewModel: BaseViewModel {
         updateLectureType(lectureType: detailInfo.lectureType)
         updateCredit(credit: detailInfo.credit)
         updateMaxRegisterUser(maxRegisterUser: detailInfo.maxRegisteredUser)
+        updateIsEssential(isEssential: detailInfo.essentialComplete)
     }
 
     @MainActor

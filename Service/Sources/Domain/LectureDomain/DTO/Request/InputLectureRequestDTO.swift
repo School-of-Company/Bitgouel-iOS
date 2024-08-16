@@ -14,6 +14,9 @@ public struct InputLectureRequestDTO: Encodable {
     public let lectureType: String
     public let credit: Int
     public let maxRegisteredUser: Int
+    public let address: String
+    public let locationDetails: String
+    public let essentialComplete: Bool
 
     public init(
         name: String,
@@ -28,7 +31,10 @@ public struct InputLectureRequestDTO: Encodable {
         lectureDates: [LectureDateInfo],
         lectureType: String,
         credit: Int,
-        maxRegisteredUser: Int
+        maxRegisteredUser: Int,
+        address: String,
+        locationDetails: String,
+        essentialComplete: Bool
     ) {
         self.name = name
         self.content = content
@@ -43,6 +49,9 @@ public struct InputLectureRequestDTO: Encodable {
         self.lectureType = lectureType
         self.credit = credit
         self.maxRegisteredUser = maxRegisteredUser
+        self.address = address
+        self.locationDetails = locationDetails
+        self.essentialComplete = essentialComplete
     }
 
     enum CodingKeys: String, CodingKey {
@@ -59,6 +68,9 @@ public struct InputLectureRequestDTO: Encodable {
         case lectureType
         case credit
         case maxRegisteredUser
+        case address
+        case locationDetails
+        case essentialComplete
     }
 
     public struct LectureDateInfo: Encodable {

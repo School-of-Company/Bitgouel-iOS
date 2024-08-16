@@ -14,4 +14,7 @@ public struct LectureDataModel: Equatable {
     let lectureType: String
     let credit: Int
     let maxRegisteredUser: Int
+    let address: String
+    let locationDetails: String
+    let essentialComplete: Bool
 }
