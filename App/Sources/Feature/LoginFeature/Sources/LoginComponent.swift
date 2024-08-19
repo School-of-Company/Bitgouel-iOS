@@ -7,6 +7,7 @@ public protocol LoginDependency: Dependency {
     var signupFactory: any SignUpFactory { get }
     var saveUserAuthorityUseCase: any SaveUserAuthorityUseCase { get }
     var findPasswordFactory: any FindPasswordFactory { get }
+    var reissueTokenUseCase: any ReissueTokenUseCase { get }
 }
 
 public final class LoginComponent: Component<LoginDependency>, LoginFactory {
@@ -14,7 +15,8 @@ public final class LoginComponent: Component<LoginDependency>, LoginFactory {
         LoginView(
             viewModel: .init(
                 loginUseCase: dependency.loginUseCase,
-                saveUserAuthority: dependency.saveUserAuthorityUseCase
+                saveUserAuthority: dependency.saveUserAuthorityUseCase,
+                reissueTokenUseCase: dependency.reissueTokenUseCase
             ),
             signupFactory: dependency.signupFactory,
             findPasswordFactory: dependency.findPasswordFactory

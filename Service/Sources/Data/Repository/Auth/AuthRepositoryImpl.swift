@@ -29,7 +29,7 @@ public struct AuthRepositoryImpl: AuthRepository {
     }
 
     public func logout() async throws {
-        try await remoteAuthDataSource.logout(accessToken: "", refreshToken: "")
+        try await remoteAuthDataSource.logout()
         try await localAuthDataSource.logout()
     }
 
