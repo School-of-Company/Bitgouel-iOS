@@ -16,7 +16,7 @@ public final class RemoteAuthDataSourceImpl: BaseRemoteDataSource<AuthAPI>, Remo
         try await request(.reissueToken)
     }
 
-    public func logout(accessToken: String, refreshToken: String) async throws {
+    public func logout() async throws {
         try await request(
             .logout(
                 accessToken: keychain.load(type: .accessToken),

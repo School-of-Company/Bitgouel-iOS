@@ -9,15 +9,19 @@ final class LoginViewModel: BaseViewModel {
     @Published var isSuccessSignin: Bool = false
     @Published var isEmailErrorOccured: Bool = false
     @Published var isPasswordErrorOcuured: Bool = false
+
     private let loginUseCase: any LoginUseCase
     private let saveUserAuthority: any SaveUserAuthorityUseCase
+    private let reissueTokenUseCase: any ReissueTokenUseCase
 
     init(
         loginUseCase: any LoginUseCase,
-        saveUserAuthority: any SaveUserAuthorityUseCase
+        saveUserAuthority: any SaveUserAuthorityUseCase,
+        reissueTokenUseCase: any ReissueTokenUseCase
     ) {
         self.loginUseCase = loginUseCase
         self.saveUserAuthority = saveUserAuthority
+        self.reissueTokenUseCase = reissueTokenUseCase
     }
 
     var isFormEmpty: Bool {
@@ -72,6 +76,19 @@ final class LoginViewModel: BaseViewModel {
             } catch {
                 errorMessage = error.authDomainErrorMessage()
                 isErrorOccurred = true
+            }
+        }
+    }
+
+    @MainActor
+    func onAppear() {
+        Task {
+            do {
+                try await reissueTokenUseCase()
+
+                isSuccessSignin = true
+            } catch {
+                print(String(describing: error))
             }
         }
     }

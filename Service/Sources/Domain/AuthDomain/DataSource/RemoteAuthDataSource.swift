@@ -4,7 +4,7 @@ public protocol RemoteAuthDataSource {
     var keychain: Keychain { get }
     func login(req: LoginRequestDTO) async throws -> UserLoginEntity
     func reissueToken() async throws
-    func logout(accessToken: String, refreshToken: String) async throws
+    func logout() async throws
     func withdraw() async throws
     func studentSignup(req: StudentSignupRequestDTO) async throws
     func teacherSignup(req: TeacherSignupRequestDTO) async throws

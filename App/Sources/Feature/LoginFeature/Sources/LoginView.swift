@@ -35,7 +35,6 @@ struct LoginView: View {
                 }
                 .frame(height: 108)
                 .padding(.top, 53)
-                .padding(.leading, 28)
 
                 VStack {
                     BitgouelTextField(
@@ -63,7 +62,6 @@ struct LoginView: View {
                     .focused($focusField, equals: .password)
                 }
                 .padding(.top, 80)
-                .padding(.horizontal, 28)
 
                 Spacer()
 
@@ -76,7 +74,6 @@ struct LoginView: View {
                     )
                     .cornerRadius(8)
                     .disabled(viewModel.isFormEmpty)
-                    .padding(.horizontal, 28)
 
                     Text("또는")
                         .bitgouelFont(.caption, color: .greyscale(.g7))
@@ -102,8 +99,12 @@ struct LoginView: View {
                 }
                 .padding(.bottom, 52)
             }
+            .padding(.horizontal, 28)
             .onChange(of: viewModel.isSuccessSignin) { _ in
                 sceneState.sceneFlow = .main
+            }
+            .onAppear {
+                viewModel.onAppear()
             }
             .navigate(
                 to: signupFactory.makeView().eraseToAnyView(),
