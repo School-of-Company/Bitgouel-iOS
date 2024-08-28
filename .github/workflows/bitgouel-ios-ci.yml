@@ -8,7 +8,7 @@ on:
 
 
 env:
-  CACHED_DEPENDENCY_PATHS: ${{ github.workspace }}/Tuist/Dependencies
+  CACHED_DEPENDENCY_PATHS: ${{ github.workspace }}/Tuist/.build
 
 jobs:
   prepare-dependency:
@@ -26,7 +26,7 @@ jobs:
 
       - name: Compute dependency cache key
         id: compute_hash
-        run: echo "hash=${{ hashFiles('Tuist/Dependencies.swift') }}" >> $GITHUB_OUTPUT
+        run: echo "hash=${{ hashFiles('Tuist/Package.swift') }}" >> $GITHUB_OUTPUT
 
       - name: Check dependency cache
         uses: actions/cache@v3
@@ -67,7 +67,7 @@ jobs:
       run: tuist install
 
     - name: Test with tuist
-      run: TUIST_ENV=CI tuist test --no-selective-testing
+      run: TUIST_ENV=CI tuist test
 
     - name: Bitgouel iOS CI Discord Notification
       uses: sarisia/actions-status-discord@v1
