@@ -8,7 +8,7 @@ on:
 
 
 env:
-  CACHED_DEPENDENCY_PATHS: ${{ github.workspace }}/Tuist/Dependencies
+  CACHED_DEPENDENCY_PATHS: ${{ github.workspace }}/Tuist/.build
 
 jobs:
   prepare-dependency:
@@ -67,7 +67,7 @@ jobs:
       run: tuist install
 
     - name: Test with tuist
-      run: TUIST_ENV=CI tuist build
+      run: TUIST_ENV=CI tuist test
 
     - name: Bitgouel iOS CI Discord Notification
       uses: sarisia/actions-status-discord@v1
